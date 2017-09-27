@@ -17,7 +17,8 @@ import createHistory from 'history/createBrowserHistory';
 import 'sanitize.css/sanitize.css';
 
 // Import root app
-import App from 'containers/App';
+import AppHub from 'containers/AppHub';
+import Examples from 'examples/Loadable';
 
 // Load the favicon, the manifest.json file and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -39,6 +40,10 @@ import configureStore from './configureStore';
 // Import CSS reset and Global Styles
 import './global-styles';
 
+// For running examples instead of actual code
+const isExamples = process.env.NODE_ENV === 'EXAMPLES';
+const App = isExamples ? <Examples /> : <AppHub />;
+
 // Create redux store with history
 const initialState = {};
 const history = createHistory();
@@ -49,7 +54,7 @@ const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <App />
+        {App}
       </ConnectedRouter>
     </Provider>,
     MOUNT_NODE
@@ -60,7 +65,7 @@ if (module.hot) {
   // Hot reloadable React components and translation json files
   // modules.hot.accept does not accept dynamic dependencies,
   // have to be constants at compile-time
-  module.hot.accept(['containers/App'], () => {
+  module.hot.accept([isExamples ? 'examples' : 'containers/App'], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE);
     render();
   });
