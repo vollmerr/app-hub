@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Helmet from 'react-helmet';
 
 const Wrapper = styled.div`
   display: flex;
@@ -23,6 +24,9 @@ const Example = ({
   children,
 }) => (
   <Wrapper>
+    <Helmet>
+      <title>{header}</title>
+    </Helmet>
     <Left>
       <h1>{header}</h1>
       {
