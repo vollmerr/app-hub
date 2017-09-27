@@ -18,7 +18,6 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectAppHub from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { routes } from './Router';
 
 export class AppHub extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {

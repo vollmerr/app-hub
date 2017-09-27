@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { IconButton } from 'office-ui-fabric-react/lib/Button';
 
 import theme from 'utils/theme';
-
+import PropTypes from 'prop-types';
 // import HeaderItem from 'components/Header/HeaderItem';
 import Item from './Item';
 
@@ -23,7 +23,7 @@ const IconStyled = styled(IconButton) `
     outline-offset: -1px;
     transition: background-color .467s cubic-bezier(.1,.9,.2,1) 34ms;
     pointer-events: all;
-    ${props => props.onClick &&
+    ${(props) => props.onClick &&
     `&:hover,
       &:active,
       &:focus {
@@ -44,5 +44,13 @@ const Icon = ({ name, title, icon, onClick, size = '25px' }) => (
     />
   </Item>
 );
+
+Icon.propTypes = {
+  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  size: PropTypes.string.isRequired,
+};
 
 export default Icon;

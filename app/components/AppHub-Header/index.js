@@ -5,6 +5,8 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 // import styled from 'styled-components';
 // import { Link } from 'react-router-dom';
 
@@ -17,7 +19,7 @@ import Line from './Line';
 import Text from './Text';
 
 // , routes = []
-function Header({ isMobile = false, onClick = () => alert('clicki..') }) {
+function Header({ isMobile = false, onClick }) {
   return (
     <Wrapper>
       <Section>
@@ -66,7 +68,8 @@ function Header({ isMobile = false, onClick = () => alert('clicki..') }) {
 }
 
 Header.propTypes = {
-
+  isMobile: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Header;

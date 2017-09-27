@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import theme from 'utils/theme';
 
@@ -12,7 +13,7 @@ const Span = styled.span`
   line-height: ${theme.hub.headerHeight};
   display: inline-block;
   font-family: "SegoeUI-SemiLight-final","Segoe UI SemiLight","Segoe UI WPC Semilight","Segoe UI",Segoe,Tahoma,Helvetica,Arial,sans-serif;
-  font-size: ${props => props.size}px;
+  font-size: ${(props) => props.size}px;
   -webkit-font-smoothing: antialiased;
 `;
 
@@ -21,5 +22,10 @@ const Text = ({ text, size = 28 }) => (
     <Span size={size}>{text}</Span>
   </Item>
 );
+
+Text.propTypes = {
+  text: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired,
+};
 
 export default Text;
