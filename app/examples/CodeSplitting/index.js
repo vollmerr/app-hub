@@ -10,6 +10,10 @@ import React from 'react';
 
 import Example from 'examples/common/Example';
 
+/**
+ * Load the component async through the 'Loadable.js' file that is created
+ * when you select 'y' for 'load resources async' in the generator
+ */
 import ComponentToLoad from './Loadable';
 import messages from './messages';
 

@@ -1,7 +1,7 @@
 // import { fromJS } from 'immutable';
-// import { selectAppHubDomain } from '../selectors';
+// import { selectAppHubHeaderDomain } from '../selectors';
 
-describe('selectAppHubDomain', () => {
+describe('selectAppHubHeaderDomain', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });
