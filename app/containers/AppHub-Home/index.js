@@ -22,7 +22,7 @@ export class AppHubHome extends React.Component { // eslint-disable-line react/p
     return (
       <div>
         <Helmet>
-          <title>AppHubHome</title>
+          <title>AppHub | Home</title>
           <meta name="description" content="Description of AppHubHome" />
         </Helmet>
         in the app hub home...

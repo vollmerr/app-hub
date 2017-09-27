@@ -1,9 +1,9 @@
 // import React from 'react';
 // import { shallow } from 'enzyme';
 
-// import { AppHubHeader } from '../index';
+// import Header from '../index';
 
-describe('<AppHubHeader />', () => {
+describe('<Header />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

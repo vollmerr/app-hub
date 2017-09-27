@@ -10,13 +10,15 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import AppHubHeader from 'containers/AppHub-Header';
+// import AppHubHeader from 'containers/AppHub-Header';
+import AppHubHeader from 'components/AppHub-Header';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectAppHub from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { routes } from './Router';
 
 export class AppHub extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {

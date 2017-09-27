@@ -1,4 +1,7 @@
 import React from 'react';
+
+import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
+
 import Router from './Router';
 import AppHub from './AppHub';
 
@@ -7,8 +10,8 @@ import AppHub from './AppHub';
  * so AppHub and Router are in differnt files pulled in here.
  */
 export default () => (
-  <div>
+  <Fabric>
     <AppHub />
     <Router />
-  </div>
+  </Fabric>
 );
