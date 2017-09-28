@@ -16,7 +16,7 @@ const initialState = fromJS({
   view: {
     isMobile: false,
     panel: {
-      isOpen: true,
+      isOpen: false,
       selected: APPS_PANEL, // cannot be null/undefined or get error
     },
   },

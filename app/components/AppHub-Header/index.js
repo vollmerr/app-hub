@@ -6,7 +6,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Link } from 'react-router-dom';
 
 import { HELP_PANEL, APPS_PANEL } from 'containers/AppHub/constants';
 
@@ -61,12 +60,6 @@ class Header extends React.PureComponent {
             onClick={onClick}
           />
         </Section>
-
-        {/* {
-        Object.values(routes).map((route) => (
-          <Link key={route.to} to={route.to}>{route.text}</Link>
-        ))
-      } */}
       </Wrapper>
     );
   }

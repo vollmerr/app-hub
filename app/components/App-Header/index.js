@@ -11,6 +11,7 @@ class AppHeader extends React.PureComponent { // eslint-disable-line react/prefe
   render() {
     return (
       <div>
+        AppHeader placeholder
       </div>
     );
   }

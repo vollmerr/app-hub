@@ -34,7 +34,7 @@ class AppHubPanel extends React.PureComponent {
 
     return (
       <Panel isOpen={isOpen} onClick={onClick}>
-        <Content />
+        <Content onClick={() => onClick()} />
       </Panel>
     );
   }
