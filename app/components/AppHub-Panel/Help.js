@@ -6,10 +6,9 @@
 
 import React from 'react';
 
-function Help({  }) {
+function Help() {
   return (
     <div>
-
       IN Help PANEL
     </div>
   );

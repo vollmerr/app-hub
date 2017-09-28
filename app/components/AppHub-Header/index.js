@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 
 // import styled from 'styled-components';
 // import { Link } from 'react-router-dom';
+import { HELP_PANEL, APPS_PANEL } from 'containers/AppHub/constants';
 
 import Wrapper from './Wrapper';
 import Section from './Section';
@@ -18,7 +19,6 @@ import Logo from './Logo';
 import Line from './Line';
 import Text from './Text';
 
-import { HELP_PANEL, APPS_PANEL } from 'containers/Apphub/constants';
 
 function Header({ isMobile = false, onClick }) {
   return (

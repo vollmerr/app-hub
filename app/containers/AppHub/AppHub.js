@@ -21,7 +21,6 @@ import { makeSelectIsMobile, makeSelectPanelIsOpen, makeSelectPanelSelected } fr
 import reducer from './reducer';
 import saga from './saga';
 import { changeMobile, changePanelOpen, changePanelSelected } from './actions';
-import { APPS_PANEL, HELP_PANEL } from './constants';
 
 export class AppHub extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -52,7 +51,6 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
   handlePanelClick = (panel) => {
     const { dispatch, panelSelected, panelIsOpen } = this.props;
     const selected = panel || panelSelected; // errors if null, so set a default
-    console.log('selected: ', selected)
     // click on same panel or overlay
     if (!panel || (panelSelected === panel && panelIsOpen)) {
       // close it
