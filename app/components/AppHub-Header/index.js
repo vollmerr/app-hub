@@ -18,7 +18,8 @@ import Logo from './Logo';
 import Line from './Line';
 import Text from './Text';
 
-// , routes = []
+import { HELP_PANEL, APPS_PANEL } from 'containers/Apphub/constants';
+
 function Header({ isMobile = false, onClick }) {
   return (
     <Wrapper>
@@ -29,7 +30,7 @@ function Header({ isMobile = false, onClick }) {
           icon={'Glimmer'}
           size={24}
           title={'App Hub'}
-          id={'AppHubLogo'}
+          onClick={onClick}
         />
         <Text text={'App Hub'} />
       </Section>
@@ -46,7 +47,7 @@ function Header({ isMobile = false, onClick }) {
         <Icon
           icon={'Help'}
           title={'Help'}
-          id={'HelpPanel'}
+          panel={HELP_PANEL}
           onClick={onClick}
         />
         <Line />
@@ -54,7 +55,7 @@ function Header({ isMobile = false, onClick }) {
           icon={'Waffle'}
           size={40}
           title={'Hub Navigation'}
-          id={'AppHubPanel'}
+          panel={APPS_PANEL}
           onClick={onClick}
         />
       </Section>

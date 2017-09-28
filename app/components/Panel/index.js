@@ -6,19 +6,21 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Overlay } from 'office-ui-fabric-react/lib/Overlay';
 
 import Wrapper from './Wrapper';
+import Overlay from './Overlay';
 import Content from './Content';
 
 function Panel({ onClick, children, isOpen = false }) {
   return (
-    <Wrapper isOpen={isOpen}>
-      <Overlay onClick={() => onClick(null)} />
-      <Content onClick={onClick}>
-        {children}
-      </Content>
-    </Wrapper>
+    isOpen ?
+      <Wrapper isOpen={isOpen}>
+        <Overlay onClick={() => onClick(null)} />
+        <Content>
+          {children}
+        </Content>
+      </Wrapper>
+      : null
   );
 }
 

@@ -4,4 +4,10 @@
  *
  */
 
+// VIEW
 export const CHANGE_MOBILE = 'app/AppHub/CHANGE_MOBILE';
+export const CHANGE_PANEL_OPEN = 'app/AppHub/CHANGE_PANEL_OPEN';
+export const CHANGE_PANEL_SELECTED = 'app/AppHub/CHANGE_PANEL_SELECTED';
+// panel names
+export const HELP_PANEL = 'app/AppHub/HELP_PANEL';
+export const APPS_PANEL = 'app/AppHub/APPS_PANEL';

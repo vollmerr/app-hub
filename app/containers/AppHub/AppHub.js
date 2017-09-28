@@ -12,15 +12,16 @@ import { compose } from 'redux';
 
 // import AppHubHeader from 'containers/AppHub-Header';
 import AppHubHeader from 'components/AppHub-Header';
-import Panel from 'components/Panel';
+import AppHubPanel from 'components/AppHub-Panel';
 import theme from 'utils/theme';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectIsMobile } from './selectors';
+import { makeSelectIsMobile, makeSelectPanelIsOpen, makeSelectPanelSelected } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { changeMobile } from './actions';
+import { changeMobile, changePanelOpen, changePanelSelected } from './actions';
+import { APPS_PANEL, HELP_PANEL } from './constants';
 
 export class AppHub extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -48,18 +49,30 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
     }
   }
 
+  handlePanelClick = (panel) => {
+    const { dispatch, panelSelected, panelIsOpen } = this.props;
+    const selected = panel || panelSelected; // errors if null, so set a default
+    console.log('selected: ', selected)
+    // click on same panel or overlay
+    if (!panel || (panelSelected === panel && panelIsOpen)) {
+      // close it
+      dispatch(changePanelOpen(false));
+    } else {
+      // open the panel (don't dispatch unessecary actions if already open)
+      if (!panelIsOpen) {
+        dispatch(changePanelOpen(true));
+      }
+      dispatch(changePanelSelected(selected));
+    }
+  }
+
   render() {
-    const { isMobile } = this.props;
+    const { isMobile, panelSelected, panelIsOpen } = this.props;
 
     return (
       <div>
-        <AppHubHeader isMobile={isMobile} onClick={() => alert('clicked header')} />
-        <Panel isOpen onClick={(e) => alert(e.target.id)}>
-          <div>
-            <div id={'1'}>ONE</div>
-            <div id={'2'}>TWO</div>
-          </div>
-        </Panel>
+        <AppHubHeader isMobile={isMobile} onClick={this.handlePanelClick} />
+        <AppHubPanel panel={panelSelected} isOpen={panelIsOpen} onClick={this.handlePanelClick} />
       </div>
     );
   }
@@ -68,10 +81,14 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
 AppHub.propTypes = {
   dispatch: PropTypes.func.isRequired,
   isMobile: PropTypes.bool.isRequired,
+  panelIsOpen: PropTypes.bool.isRequired,
+  panelSelected: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   isMobile: makeSelectIsMobile(),
+  panelIsOpen: makeSelectPanelIsOpen(),
+  panelSelected: makeSelectPanelSelected(),
 });
 
 function mapDispatchToProps(dispatch) {

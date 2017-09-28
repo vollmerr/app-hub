@@ -9,9 +9,29 @@ const selectAppHubDomain = (state) => state.get('appHub');
  * Other specific selectors
  */
 
+const makeSelectView = () => createSelector(
+  selectAppHubDomain,
+  (substate) => substate.get('view')
+);
+
 const makeSelectIsMobile = () => createSelector(
   selectAppHubDomain,
-  (substate) => substate.get('isMobile')
+  (substate) => substate.getIn(['view', 'isMobile'])
+);
+
+const makeSelectPanel = () => createSelector(
+  selectAppHubDomain,
+  (substate) => substate.getIn(['view', 'panel'])
+);
+
+const makeSelectPanelIsOpen = () => createSelector(
+  selectAppHubDomain,
+  (substate) => substate.getIn(['view', 'panel', 'isOpen'])
+);
+
+const makeSelectPanelSelected = () => createSelector(
+  selectAppHubDomain,
+  (substate) => substate.getIn(['view', 'panel', 'selected'])
 );
 
 /**
@@ -26,5 +46,9 @@ const makeSelectAppHub = () => createSelector(
 export default makeSelectAppHub;
 export {
   selectAppHubDomain,
+  makeSelectView,
   makeSelectIsMobile,
+  makeSelectPanel,
+  makeSelectPanelIsOpen,
+  makeSelectPanelSelected,
 };
