@@ -1,11 +1,8 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import request from 'utils/request';
 
-import {
-  EXAMPLE_DATA_REQUEST,
-  EXAMPLE_DATA_SUCCESS,
-  EXAMPLE_DATA_FAILURE,
-} from './constants';
+import { EXAMPLE_DATA_REQUEST } from './constants';
+import { exampleFailure, exampleSuccess } from './actions';
 
 // example of a url, just dummy data pulled in
 const exampleUrl = 'https://jsonplaceholder.typicode.com/posts/1';
@@ -20,9 +17,9 @@ const exampleUrl = 'https://jsonplaceholder.typicode.com/posts/1';
 function* exampleSagaWorker() {
   try {
     const data = yield call(request, exampleUrl);
-    yield put({ type: EXAMPLE_DATA_SUCCESS, data });
+    yield put(exampleSuccess(data));
   } catch (error) {
-    yield put({ type: EXAMPLE_DATA_FAILURE, message: error.message });
+    yield put(exampleFailure(error));
   }
 }
 

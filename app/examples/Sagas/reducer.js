@@ -9,7 +9,9 @@ import {
   EXAMPLE_DATA_SUCCESS,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  data: {},
+});
 
 function sagasReducer(state = initialState, action) {
   switch (action.type) {

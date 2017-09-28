@@ -16,7 +16,7 @@ const selectSagasDomain = (state) => state.get('sagas');
 
 const makeSelectSagasData = () => createSelector(
   selectSagasDomain,
-  (substate) => substate.toJS()
+  (substate) => substate.get('data')
 );
 
 export default makeSelectSagasData;
