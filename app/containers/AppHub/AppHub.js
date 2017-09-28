@@ -25,9 +25,7 @@ import { changeMobile, changePanelOpen, changePanelSelected } from './actions';
 export class AppHub extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
   }
 
   componentDidMount() {

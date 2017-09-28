@@ -27,14 +27,17 @@ const panels = {
   [APPS_PANEL]: AppsPanel,
 };
 
-function AppHubPanel({ panel, isOpen, onClick }) {
-  const Content = panels[panel];
+class AppHubPanel extends React.PureComponent {
+  render() {
+    const { panel, isOpen, onClick } = this.props;
+    const Content = panels[panel];
 
-  return (
-    <Panel isOpen={isOpen} onClick={onClick}>
-      <Content />
-    </Panel>
-  );
+    return (
+      <Panel isOpen={isOpen} onClick={onClick}>
+        <Content />
+      </Panel>
+    );
+  }
 }
 
 AppHubPanel.propTypes = {

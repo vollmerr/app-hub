@@ -6,12 +6,14 @@
 
 import React from 'react';
 
-function Help() {
-  return (
-    <div>
-      IN Help PANEL
-    </div>
-  );
+class Help extends React.PureComponent {
+  render() {
+    return (
+      <div>
+        IN Help PANEL
+      </div>
+    );
+  }
 }
 
 Help.propTypes = {

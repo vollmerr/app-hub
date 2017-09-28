@@ -11,17 +11,23 @@ import Wrapper from './Wrapper';
 import Overlay from './Overlay';
 import Content from './Content';
 
-function Panel({ onClick, children, isOpen = false }) {
-  return (
-    isOpen ?
-      <Wrapper isOpen={isOpen}>
-        <Overlay onClick={() => onClick(null)} />
-        <Content>
-          {children}
-        </Content>
-      </Wrapper>
-      : null
-  );
+class Panel extends React.PureComponent {
+  render() {
+    const { onClick, children, isOpen = false } = this.props;
+
+    if (isOpen) {
+      return (
+        <Wrapper isOpen={isOpen}>
+          <Overlay onClick={() => onClick(null)} />
+          <Content>
+            {children}
+          </Content>
+        </Wrapper>
+      );
+    }
+
+    return null;
+  }
 }
 
 Panel.propTypes = {

@@ -6,12 +6,14 @@
 
 import React from 'react';
 
-function Apps() {
-  return (
-    <div>
-      IN Apps PANEL
+class Apps extends React.PureComponent {
+  render() {
+    return (
+      <div>
+        IN Apps PANEL
     </div>
-  );
+    );
+  }
 }
 
 Apps.propTypes = {
