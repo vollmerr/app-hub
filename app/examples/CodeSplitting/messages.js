@@ -7,7 +7,7 @@
 export default {
   header: 'Code Splitting Example',
   desc: [
-    `This is the container that loads the component. After this is first loaded the component below is then loaded as a seperate 'chunk'.`,
+    `This is the container that loads the component. After this is first loaded the component to the right is then loaded as a seperate 'chunk'.`,
 
     `This allows us to not have to pull in the entire project on the first load, but instead only pull in components as needed.`,
 

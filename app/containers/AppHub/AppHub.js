@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose, bindActionCreators } from 'redux';
+import { compose } from 'redux';
 
 // import AppHubHeader from 'containers/AppHub-Header';
 import AppHubHeader from 'components/AppHub-Header';
@@ -54,10 +54,10 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
     return (
       <div>
         <AppHubHeader isMobile={isMobile} onClick={() => alert('clicked header')} />
-        <Panel isOpen={true} onClick={(e) => alert(e.target.id)}>
+        <Panel isOpen onClick={(e) => alert(e.target.id)}>
           <div>
-            <div id={"1"}>ONE</div>
-            <div id={"2"}>TWO</div>
+            <div id={'1'}>ONE</div>
+            <div id={'2'}>TWO</div>
           </div>
         </Panel>
       </div>
