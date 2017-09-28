@@ -17,9 +17,9 @@ const Span = styled.span`
   -webkit-font-smoothing: antialiased;
 `;
 
-const Text = ({ text, size = 28 }) => (
+const Text = ({ text, size = 28, ...props }) => (
   <Item>
-    <Span size={size}>{text}</Span>
+    <Span size={size} {...props}>{text}</Span>
   </Item>
 );
 

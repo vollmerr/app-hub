@@ -1,14 +1,17 @@
 import { createSelector } from 'reselect';
 
+
 /**
  * Direct selector to the appHub state domain
  */
 const selectAppHubDomain = (state) => state.get('appHub');
 
+
 /**
  * Other specific selectors
  */
 
+ // VIEW
 const makeSelectView = () => createSelector(
   selectAppHubDomain,
   (substate) => substate.get('view')
@@ -34,6 +37,18 @@ const makeSelectPanelSelected = () => createSelector(
   (substate) => substate.getIn(['view', 'panel', 'selected'])
 );
 
+// APP
+const makeSelectApp = () => createSelector(
+  selectAppHubDomain,
+  (substate) => substate.get('app')
+);
+
+const makeSelectAppName = () => createSelector(
+  selectAppHubDomain,
+  (substate) => substate.getIn(['app', 'name'])
+);
+
+
 /**
  * Default selector used by AppHub
  */
@@ -46,9 +61,13 @@ const makeSelectAppHub = () => createSelector(
 export default makeSelectAppHub;
 export {
   selectAppHubDomain,
+
   makeSelectView,
   makeSelectIsMobile,
   makeSelectPanel,
   makeSelectPanelIsOpen,
   makeSelectPanelSelected,
+
+  makeSelectApp,
+  makeSelectAppName,
 };

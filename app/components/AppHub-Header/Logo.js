@@ -7,8 +7,18 @@ import Item from './Item';
 import odiLogo from './odiLogo.png';
 
 const Img = styled.img`
-  height: calc(${theme.hub.headerHeight} - 10px);
-  padding: 0 15px 0 5px;
+  height: ${theme.hub.headerHeight};
+  padding: 5px 15px 7px 5px;
+  box-sizing: border-box;
+  border-bottom: 2px solid transparent;
+  transition: background-color .467s cubic-bezier(.1,.9,.2,1) 34ms;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background: ${theme.themeLighter};
+    border-color: ${theme.orangeLighter};
+  }
 `;
 
 const Logo = () => (

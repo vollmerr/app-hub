@@ -20,7 +20,6 @@ const IconStyled = styled(IconButton) `
     text-align: center;
     line-height: normal;
     overflow: visible;
-    outline-offset: -1px;
     transition: background-color .467s cubic-bezier(.1,.9,.2,1) 34ms;
     pointer-events: all;
     ${(props) => props.onClick &&
@@ -29,7 +28,7 @@ const IconStyled = styled(IconButton) `
       &:focus {
         color: ${theme.themeDark};
         background: ${theme.themeLighter};
-        border-bottom: 1px solid ${theme.orangeLighter};
+        border-bottom: 2px solid ${theme.orangeLighter};
       }`
   }
 `;
@@ -37,7 +36,7 @@ const IconStyled = styled(IconButton) `
 const Icon = ({ panel, title, icon, onClick, size = 25 }) => (
   <Item>
     <IconStyled
-      onClick={() => onClick(panel)}
+      onClick={onClick ? () => onClick(panel) : null}
       iconProps={{ iconName: icon, style: { fontSize: `${size}px` } }}
       title={title}
       ariaLabel={title}

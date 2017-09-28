@@ -11,3 +11,6 @@ export const CHANGE_PANEL_SELECTED = 'app/AppHub/CHANGE_PANEL_SELECTED';
 // panel names
 export const HELP_PANEL = 'app/AppHub/HELP_PANEL';
 export const APPS_PANEL = 'app/AppHub/APPS_PANEL';
+
+// APP
+export const CHANGE_APP_NAME = 'app/AppHub/CHANGE_APP_NAME';

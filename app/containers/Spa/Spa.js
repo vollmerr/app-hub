@@ -15,13 +15,22 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import AppPanel from 'components/App-Panel/Loadable';
+import { changeAppName } from 'containers/AppHub/actions';
 
 import makeSelectSpa from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-
+import { APP_NAME } from './constants';
 
 export class Spa extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  componentDidMount() {
+    this.props.dispatch(changeAppName(APP_NAME));
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(changeAppName(''));
+  }
+
   render() {
     return (
       <div>

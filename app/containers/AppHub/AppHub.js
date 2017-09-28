@@ -17,7 +17,12 @@ import theme from 'utils/theme';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { makeSelectIsMobile, makeSelectPanelIsOpen, makeSelectPanelSelected } from './selectors';
+import {
+  makeSelectIsMobile,
+  makeSelectPanelIsOpen,
+  makeSelectPanelSelected,
+  makeSelectAppName,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { changeMobile, changePanelOpen, changePanelSelected } from './actions';
@@ -39,7 +44,7 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
 
   handleResize = () => {
     const { dispatch, isMobile } = this.props;
-    const mobile = window.innerWidth <= theme.breakpoints.md;
+    const mobile = window.innerWidth <= theme.breakpoints.lg;
 
     if (mobile !== isMobile) {
       dispatch(changeMobile(mobile));
@@ -63,12 +68,24 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
   }
 
   render() {
-    const { isMobile, panelSelected, panelIsOpen } = this.props;
+    const { isMobile, panelSelected, panelIsOpen, appName } = this.props;
+
+    const headerProps = {
+      appName,
+      isMobile,
+      onClick: this.handlePanelClick,
+    };
+
+    const panelProps = {
+      panel: panelSelected,
+      isOpen: panelIsOpen,
+      onClick: this.handlePanelClick,
+    };
 
     return (
       <div>
-        <AppHubHeader isMobile={isMobile} onClick={this.handlePanelClick} />
-        <AppHubPanel panel={panelSelected} isOpen={panelIsOpen} onClick={this.handlePanelClick} />
+        <AppHubHeader {...headerProps} />
+        <AppHubPanel {...panelProps} />
       </div>
     );
   }
@@ -79,12 +96,14 @@ AppHub.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   panelIsOpen: PropTypes.bool.isRequired,
   panelSelected: PropTypes.string.isRequired,
+  appName: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   isMobile: makeSelectIsMobile(),
   panelIsOpen: makeSelectPanelIsOpen(),
   panelSelected: makeSelectPanelSelected(),
+  appName: makeSelectAppName(),
 });
 
 function mapDispatchToProps(dispatch) {

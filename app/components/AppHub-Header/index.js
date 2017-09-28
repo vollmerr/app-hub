@@ -6,6 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import { HELP_PANEL, APPS_PANEL } from 'containers/AppHub/constants';
 
@@ -17,23 +18,36 @@ import Logo from './Logo';
 import Line from './Line';
 import Text from './Text';
 
+const TextPaddedRight = styled(Text)`
+  padding-right: 15px;
+`;
+
+const TextPaddedLeft = styled(Text)`
+  padding-left: 15px;
+`;
 
 class Header extends React.PureComponent {
   render() {
-    const { isMobile, onClick } = this.props;
+    const { isMobile, onClick, appName } = this.props;
 
     return (
       <Wrapper>
         <Section>
-          {!isMobile && <Logo />}
-          {!isMobile && <Line partial />}
-          <Icon
-            icon={'Glimmer'}
-            size={24}
-            title={'App Hub'}
-            onClick={onClick}
-          />
-          <Text text={'App Hub'} />
+          {
+            !isMobile &&
+            <Section>
+              <Logo />
+              <Line partial />
+              <Icon
+                icon={'Glimmer'}
+                size={24}
+                title={'App Hub'}
+              />
+              <TextPaddedRight text={'App Hub'} />
+              {appName && <Line partial />}
+            </Section>
+          }
+          <TextPaddedLeft text={appName} />
         </Section>
 
         <Section>
@@ -68,6 +82,7 @@ class Header extends React.PureComponent {
 Header.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
+  appName: PropTypes.string,
 };
 
 export default Header;
