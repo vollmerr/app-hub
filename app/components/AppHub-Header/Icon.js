@@ -34,11 +34,11 @@ const IconStyled = styled(IconButton) `
   }
 `;
 
-const Icon = ({ name, title, icon, onClick, size = '25px' }) => (
+const Icon = ({ id, title, icon, onClick, size = 25 }) => (
   <Item>
     <IconStyled
-      onClick={onClick ? () => onClick(name) : null}
-      iconProps={{ iconName: icon, style: { fontSize: size } }}
+      onClick={onClick ? () => onClick(id) : null}
+      iconProps={{ iconName: icon, style: { fontSize: `${size}px` } }}
       title={title}
       ariaLabel={title}
     />
@@ -46,11 +46,11 @@ const Icon = ({ name, title, icon, onClick, size = '25px' }) => (
 );
 
 Icon.propTypes = {
-  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
-  size: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  size: PropTypes.number,
 };
 
 export default Icon;

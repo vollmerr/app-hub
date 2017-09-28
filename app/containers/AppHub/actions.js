@@ -5,11 +5,12 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  CHANGE_MOBILE,
 } from './constants';
 
-export function defaultAction() {
+export function changeMobile(isMobile) {
   return {
-    type: DEFAULT_ACTION,
+    isMobile,
+    type: CHANGE_MOBILE,
   };
 }

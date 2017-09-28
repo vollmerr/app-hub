@@ -25,7 +25,7 @@ const Text = ({ text, size = 28 }) => (
 
 Text.propTypes = {
   text: PropTypes.string.isRequired,
-  size: PropTypes.number.isRequired,
+  size: PropTypes.number,
 };
 
 export default Text;

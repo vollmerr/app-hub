@@ -6,15 +6,18 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  CHANGE_MOBILE,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  isMobile: false,
+});
 
 function appHubReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case CHANGE_MOBILE:
+      return state
+        .set('isMobile', action.isMobile);
     default:
       return state;
   }

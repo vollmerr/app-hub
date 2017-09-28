@@ -4,4 +4,4 @@
  *
  */
 
-export const DEFAULT_ACTION = 'app/AppHub/DEFAULT_ACTION';
+export const CHANGE_MOBILE = 'app/AppHub/CHANGE_MOBILE';

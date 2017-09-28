@@ -27,8 +27,9 @@ function Header({ isMobile = false, onClick }) {
         {!isMobile && <Line partial />}
         <Icon
           icon={'Glimmer'}
-          size={'24px'}
+          size={24}
           title={'App Hub'}
+          id={'AppHubLogo'}
         />
         <Text text={'App Hub'} />
       </Section>
@@ -43,17 +44,17 @@ function Header({ isMobile = false, onClick }) {
         }
         <Line />
         <Icon
-          name={'PaneHelp.name'}
           icon={'Help'}
           title={'Help'}
+          id={'HelpPanel'}
           onClick={onClick}
         />
         <Line />
         <Icon
-          name={'PaneNav.name'}
           icon={'Waffle'}
-          size={'40px'}
+          size={40}
           title={'Hub Navigation'}
+          id={'AppHubPanel'}
           onClick={onClick}
         />
       </Section>

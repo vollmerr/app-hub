@@ -9,6 +9,10 @@ const selectAppHubDomain = (state) => state.get('appHub');
  * Other specific selectors
  */
 
+const makeSelectIsMobile = () => createSelector(
+  selectAppHubDomain,
+  (substate) => substate.get('isMobile')
+);
 
 /**
  * Default selector used by AppHub
@@ -22,4 +26,5 @@ const makeSelectAppHub = () => createSelector(
 export default makeSelectAppHub;
 export {
   selectAppHubDomain,
+  makeSelectIsMobile,
 };
