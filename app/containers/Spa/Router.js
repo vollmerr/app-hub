@@ -5,17 +5,17 @@ import SpaHome from 'containers/Spa-Home/Loadable';
 
 const OtherPage = () => <div>OTHER PAGE TEST</div>;
 
-const app = '/spa';
+export const base = '/spa';
 
 export const routes = {
   home: {
-    path: `${app}/`,
+    path: `${base}/`,
     text: 'Home',
     exact: true,
     component: SpaHome,
   },
   OtherPage: {
-    path: `${app}/OtherPage`,
+    path: `${base}/OtherPage`,
     text: 'OtherPage',
     exact: true,
     component: OtherPage,

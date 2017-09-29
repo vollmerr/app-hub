@@ -3,33 +3,21 @@ import styled from 'styled-components';
 
 import theme from 'utils/theme';
 
-import Item from './Item';
+import Link from './Link';
 import odiLogo from './odiLogo.png';
 
 const Img = styled.img`
-  height: ${theme.hub.headerHeight};
-  padding: 5px 15px 7px 5px;
-  box-sizing: border-box;
-  border-bottom: 2px solid transparent;
-  transition: background-color .467s cubic-bezier(.1,.9,.2,1) 34ms;
-
-  &:hover,
-  &:active,
-  &:focus {
-    background: ${theme.themeLighter};
-    border-color: ${theme.orangeLighter};
-  }
+  height: calc(${theme.hub.headerHeight} - 10px);
+  margin:  0 0 0 -10px;
 `;
 
 const Logo = () => (
-  <Item>
-    <a href={'http://www.cdt.ca.gov'}>
-      <Img
-        src={odiLogo}
-        alt={'CDT ODI Logo'}
-      />
-    </a>
-  </Item>
+  <Link href={'http://www.cdt.ca.gov'}>
+    <Img
+      src={odiLogo}
+      alt={'CDT ODI Logo'}
+    />
+  </Link>
 );
 
 export default Logo;

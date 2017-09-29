@@ -7,8 +7,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import AppHeader from 'components/App-Header/Loadable';
-
 import { Link } from 'react-router-dom';
 import { routes } from 'containers/Spa/Router';
 
@@ -20,7 +18,7 @@ a {
 }
 `;
 
-const AppNav = () => (
+const AppLinks = () => (
   <div>
     {
       Object.values(routes).map((route) => (
@@ -32,19 +30,18 @@ const AppNav = () => (
   </div>
 );
 
-class AppPanel extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class AppNav extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <div>
-        <AppHeader />
-        <AppNav />
+        <AppLinks />
       </div>
     );
   }
 }
 
-AppPanel.propTypes = {
+AppNav.propTypes = {
 
 };
 
-export default AppPanel;
+export default AppNav;

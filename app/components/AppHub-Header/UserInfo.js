@@ -9,8 +9,15 @@ import {
 import theme from 'utils/theme';
 
 import Item from './Item';
-import Text from './Text';
 
+const Text = styled.span`
+  color: ${theme.themePrimary};
+  line-height: ${theme.hub.headerHeight};
+  display: inline-block;
+  font-family: "SegoeUI-SemiLight-final","Segoe UI SemiLight","Segoe UI WPC Semilight","Segoe UI",Segoe,Tahoma,Helvetica,Arial,sans-serif;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+`;
 
 const User = styled(Persona) `
   margin: 0 15px !important;
@@ -22,10 +29,7 @@ const User = styled(Persona) `
 
 const UserInfo = ({ text, initals }) => (
   <Item>
-    <Text
-      text={text}
-      size={18}
-    />
+    <Text>{text}</Text>
     <User
       hidePersonaDetails
       size={PersonaSize.small}

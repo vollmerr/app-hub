@@ -9,6 +9,7 @@ import {
   CHANGE_PANEL_OPEN,
   CHANGE_PANEL_SELECTED,
   CHANGE_APP_NAME,
+  CHANGE_APP,
 } from './constants';
 
 export function changeMobile(isMobile) {
@@ -36,5 +37,14 @@ export function changeAppName(name) {
   return {
     name,
     type: CHANGE_APP_NAME,
+  };
+}
+
+
+export function changeApp({ name, path }) {
+  return {
+    name,
+    path,
+    type: CHANGE_APP,
   };
 }

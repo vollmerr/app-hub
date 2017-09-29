@@ -48,6 +48,10 @@ const makeSelectAppName = () => createSelector(
   (substate) => substate.getIn(['app', 'name'])
 );
 
+const makeSelectAppPath = () => createSelector(
+  selectAppHubDomain,
+  (substate) => substate.getIn(['app', 'path'])
+);
 
 /**
  * Default selector used by AppHub
@@ -70,4 +74,5 @@ export {
 
   makeSelectApp,
   makeSelectAppName,
+  makeSelectAppPath,
 };

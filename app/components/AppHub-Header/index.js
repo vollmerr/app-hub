@@ -6,29 +6,20 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 import { HELP_PANEL, APPS_PANEL } from 'containers/AppHub/constants';
 
 import Wrapper from './Wrapper';
 import Section from './Section';
 import UserInfo from './UserInfo';
-import Icon from './Icon';
 import Logo from './Logo';
 import Line from './Line';
-import Text from './Text';
 
-const TextPaddedRight = styled(Text)`
-  padding-right: 15px;
-`;
-
-const TextPaddedLeft = styled(Text)`
-  padding-left: 15px;
-`;
+import Link from './Link';
 
 class Header extends React.PureComponent {
   render() {
-    const { isMobile, onClick, appName } = this.props;
+    const { isMobile, onClick, appName, appPath } = this.props;
 
     return (
       <Wrapper>
@@ -38,16 +29,26 @@ class Header extends React.PureComponent {
             <Section>
               <Logo />
               <Line partial />
-              <Icon
-                icon={'Glimmer'}
-                size={24}
-                title={'App Hub'}
-              />
-              <TextPaddedRight text={'App Hub'} />
-              {appName && <Line partial />}
             </Section>
           }
-          <TextPaddedLeft text={appName} />
+          {
+            (!isMobile || !appName) &&
+            <Link
+              iconProps={{
+                iconName: 'Glimmer',
+                style: { fontSize: '24px', marginRight: '10px' },
+              }}
+              title={'App Hub'}
+              text={'App Hub'}
+              to={'/'}
+            />
+          }
+          {appName && <Line partial />}
+          <Link
+            title={appName}
+            text={appName}
+            to={appPath}
+          />
         </Section>
 
         <Section>
@@ -59,16 +60,20 @@ class Header extends React.PureComponent {
             />
           }
           <Line />
-          <Icon
-            icon={'Help'}
-            title={'Help'}
+          <Link
+            iconProps={{
+              iconName: 'Help',
+              style: { fontSize: '28px' },
+            }}
             panel={HELP_PANEL}
             onClick={onClick}
           />
           <Line />
-          <Icon
-            icon={'Waffle'}
-            size={40}
+          <Link
+            iconProps={{
+              iconName: 'Waffle',
+              style: { fontSize: '40px' },
+            }}
             title={'Hub Navigation'}
             panel={APPS_PANEL}
             onClick={onClick}
@@ -83,6 +88,7 @@ Header.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   appName: PropTypes.string,
+  appPath: PropTypes.string,
 };
 
 export default Header;

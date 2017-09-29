@@ -14,3 +14,4 @@ export const APPS_PANEL = 'app/AppHub/APPS_PANEL';
 
 // APP
 export const CHANGE_APP_NAME = 'app/AppHub/CHANGE_APP_NAME';
+export const CHANGE_APP = 'app/AppHub/CHANGE_APP';

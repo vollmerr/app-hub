@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
 // import AppHubHeader from 'containers/AppHub-Header';
 import AppHubHeader from 'components/AppHub-Header';
 import AppHubPanel from 'components/AppHub-Panel';
@@ -22,6 +21,7 @@ import {
   makeSelectPanelIsOpen,
   makeSelectPanelSelected,
   makeSelectAppName,
+  makeSelectAppPath,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -68,10 +68,11 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
   }
 
   render() {
-    const { isMobile, panelSelected, panelIsOpen, appName } = this.props;
+    const { isMobile, panelSelected, panelIsOpen, appName, appPath } = this.props;
 
     const headerProps = {
       appName,
+      appPath,
       isMobile,
       onClick: this.handlePanelClick,
     };
@@ -96,7 +97,8 @@ AppHub.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   panelIsOpen: PropTypes.bool.isRequired,
   panelSelected: PropTypes.string.isRequired,
-  appName: PropTypes.string.isRequired,
+  appName: PropTypes.string,
+  appPath: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -104,6 +106,7 @@ const mapStateToProps = createStructuredSelector({
   panelIsOpen: makeSelectPanelIsOpen(),
   panelSelected: makeSelectPanelSelected(),
   appName: makeSelectAppName(),
+  appPath: makeSelectAppPath(),
 });
 
 function mapDispatchToProps(dispatch) {

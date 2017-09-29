@@ -11,6 +11,7 @@ import {
   CHANGE_PANEL_SELECTED,
   APPS_PANEL,
   CHANGE_APP_NAME,
+  CHANGE_APP,
 } from './constants';
 
 const initialState = fromJS({
@@ -23,6 +24,7 @@ const initialState = fromJS({
   },
   app: {
     name: '',
+    path: '/',
   },
 });
 
@@ -37,8 +39,9 @@ function appHubReducer(state = initialState, action) {
     case CHANGE_PANEL_SELECTED:
       return state
         .setIn(['view', 'panel', 'selected'], action.selected);
-    case CHANGE_APP_NAME:
+    case CHANGE_APP:
       return state
+        .setIn(['app', 'path'], action.path)
         .setIn(['app', 'name'], action.name);
     default:
       return state;
