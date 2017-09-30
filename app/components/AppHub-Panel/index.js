@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import Loadable from 'react-loadable';
 
 import Panel from 'components/Panel';
-import { HELP_PANEL, APPS_PANEL } from 'containers/AppHub/constants';
+import { HELP_PANEL, APPS_PANEL, APP_NAV_PANEL } from 'containers/AppHub/constants';
 
 
 const HelpPanel = Loadable({
@@ -22,18 +22,25 @@ const AppsPanel = Loadable({
   loading: () => null,
 });
 
+const AppNavPanel = Loadable({
+  loader: () => import('../App-Nav'),
+  loading: () => null,
+});
+
 const panels = {
   [HELP_PANEL]: HelpPanel,
   [APPS_PANEL]: AppsPanel,
+  [APP_NAV_PANEL]: AppNavPanel,
 };
 
 class AppHubPanel extends React.PureComponent {
   render() {
     const { panel, isOpen, onClick } = this.props;
     const Content = panels[panel];
+    const left = panel === APP_NAV_PANEL;
 
     return (
-      <Panel isOpen={isOpen} onClick={onClick}>
+      <Panel isOpen={isOpen} onClick={onClick} left={left}>
         <Content onClick={() => onClick()} />
       </Panel>
     );

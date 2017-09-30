@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { HELP_PANEL, APPS_PANEL } from 'containers/AppHub/constants';
+import { HELP_PANEL, APPS_PANEL, APP_NAV_PANEL } from 'containers/AppHub/constants';
 
 import Wrapper from './Wrapper';
 import Section from './Section';
@@ -24,13 +24,24 @@ class Header extends React.PureComponent {
     return (
       <Wrapper>
         <Section>
+
+          {/* MOBILE ? APP NAV HAMBUGER : CDT LOGO */}
           {
-            !isMobile &&
-            <Section>
+            isMobile ?
+              <Link
+                iconProps={{
+                  iconName: 'GlobalNavButton',
+                  style: { fontSize: '28px' },
+                }}
+                panel={APP_NAV_PANEL}
+                onClick={onClick}
+              />
+              :
               <Logo />
-              <Line partial />
-            </Section>
           }
+          {!isMobile && <Line partial />}
+
+          {/* APP HUB TITLE */}
           {
             (!isMobile || !appName) &&
             <Link
@@ -43,7 +54,9 @@ class Header extends React.PureComponent {
               to={'/'}
             />
           }
-          {appName && <Line partial />}
+          {appName && <Line partial={!isMobile} />}
+
+          {/* APP TITLE */}
           <Link
             title={appName}
             text={appName}
@@ -51,7 +64,10 @@ class Header extends React.PureComponent {
           />
         </Section>
 
+        {/* RIGHT SECTION */}
         <Section>
+
+          {/* USER INFO */}
           {
             !isMobile &&
             <UserInfo
@@ -60,6 +76,8 @@ class Header extends React.PureComponent {
             />
           }
           <Line />
+
+          {/* HELP PANEL */}
           <Link
             iconProps={{
               iconName: 'Help',
@@ -69,6 +87,8 @@ class Header extends React.PureComponent {
             onClick={onClick}
           />
           <Line />
+
+          {/* APP HUB NAV PANEL */}
           <Link
             iconProps={{
               iconName: 'Waffle',
