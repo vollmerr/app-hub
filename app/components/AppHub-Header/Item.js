@@ -11,10 +11,11 @@ const Item = styled.div`
   ${(props) => props.isLink &&
     `&:hover,
     &:active,
-    &:focus {
-      color: ${theme.themeDark};
-      background: ${theme.themeLighter};
-      border-bottom: 2px solid ${theme.orangeLighter};
+    &:focus,
+    .is-checked {
+      color: ${props.dark ? theme.white : theme.themeDark};
+      background: ${props.dark ? theme.themeDark : theme.themeLighter};
+      border-bottom: 2px solid ${props.dark ? theme.orange : theme.orangeLighter};
     }`
   }
 `;

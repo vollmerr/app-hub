@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import SpaHome from 'containers/Spa-Home/Loadable';
+import SpaHome from 'containers/Spa-Home';
 
 const OtherPage = () => <div>OTHER PAGE TEST</div>;
 

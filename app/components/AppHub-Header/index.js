@@ -19,7 +19,7 @@ import Link from './Link';
 
 class Header extends React.PureComponent {
   render() {
-    const { isMobile, onClick, appName, appPath } = this.props;
+    const { isMobile, onClick, appName, appPath, panel, isOpen } = this.props;
 
     return (
       <Wrapper>
@@ -35,6 +35,7 @@ class Header extends React.PureComponent {
               }}
               panel={APP_NAV_PANEL}
               onClick={onClick}
+              checked={panel === APP_NAV_PANEL && isOpen}
             />
           }
           {
@@ -90,11 +91,13 @@ class Header extends React.PureComponent {
             }}
             panel={HELP_PANEL}
             onClick={onClick}
+            checked={panel === HELP_PANEL && isOpen}
           />
           <Line />
 
           {/* APP HUB NAV PANEL */}
           <Link
+            dark
             iconProps={{
               iconName: 'Waffle',
               style: { fontSize: '40px' },
@@ -102,6 +105,7 @@ class Header extends React.PureComponent {
             title={'Hub Navigation'}
             panel={APPS_PANEL}
             onClick={onClick}
+            checked={panel === APPS_PANEL && isOpen}
           />
         </Section>
       </Wrapper>

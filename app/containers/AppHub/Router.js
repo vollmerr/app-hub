@@ -12,13 +12,15 @@ export const routes = [
     path: '/',
     exact: true,
     component: AppHubHome,
+    icon: 'HomeSolid',
   },
   {
     key: 'spa',
-    name: 'Spa',
+    name: 'SPA',
     path: '/spa',
     exact: false,
     component: Spa,
+    icon: 'BulletedList2Mirrored',
   },
 ];
 

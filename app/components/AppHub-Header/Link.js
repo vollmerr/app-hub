@@ -30,11 +30,27 @@ const ButtonStyled = styled(CommandButton) `
   transition: background-color .467s cubic-bezier(.1,.9,.2,1) 34ms;
   pointer-events: all;
   font-size: ${(props) => props.size || '28px'};
+
+  &:hover i.ms-Icon,
+  &.is-checked i.ms-Icon {
+    color: ${(props) => props.dark ? theme.white : theme.themeDark};
+  }
 `;
 
 class Link extends React.PureComponent {
   render() {
-    const { panel, title, iconProps, onClick, to, href, text, children } = this.props;
+    const {
+      panel,
+      title,
+      iconProps,
+      onClick,
+      to,
+      href,
+      text,
+      children,
+      dark,
+      checked,
+    } = this.props;
 
     const isLink = onClick || to || href;
 
@@ -43,7 +59,9 @@ class Link extends React.PureComponent {
         onClick={onClick ? () => onClick(panel) : null}
         iconProps={iconProps}
         title={title}
+        dark={dark}
         ariaLabel={title}
+        checked={checked}
       >
         {text}
         {children}
@@ -53,7 +71,7 @@ class Link extends React.PureComponent {
     // handle internal routing
     if (to) {
       return (
-        <Item isLink={isLink}>
+        <Item isLink={isLink} dark={dark}>
           <LinkStyled to={to} >
             <Button />
           </LinkStyled>
@@ -61,7 +79,7 @@ class Link extends React.PureComponent {
       );
     } else if (href) {
       return (
-        <Item isLink={isLink}>
+        <Item isLink={isLink} dark={dark}>
           <A href={href} >
             <Button />
           </A>
@@ -71,7 +89,7 @@ class Link extends React.PureComponent {
 
     // no links
     return (
-      <Item isLink={isLink}>
+      <Item isLink={isLink} dark={dark}>
         <Button />
       </Item>
     );
@@ -87,6 +105,7 @@ Link.propTypes = {
   to: PropTypes.string,
   href: PropTypes.string,
   children: PropTypes.node,
+  dark: PropTypes.bool,
 };
 
 export default Link;

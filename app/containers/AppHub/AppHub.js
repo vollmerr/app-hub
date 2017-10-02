@@ -72,6 +72,8 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
 
     const headerProps = {
       isMobile,
+      panel: panelSelected,
+      isOpen: panelIsOpen,
       appName: appMeta.name,
       appPath: appRoutes.find((route) => route.key === 'home').path,
       onClick: this.handlePanelClick,
