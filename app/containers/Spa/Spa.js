@@ -34,7 +34,7 @@ export class Spa extends React.PureComponent { // eslint-disable-line react/pref
     console.log('in app')
     return (
       <App app={app}>
-        in spa...
+        {this.props.children}
       </App>
     );
   }
