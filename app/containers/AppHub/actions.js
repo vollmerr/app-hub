@@ -33,18 +33,10 @@ export function changePanelSelected(selected) {
   };
 }
 
-export function changeAppName(name) {
+export function changeApp({ routes, meta }) {
   return {
-    name,
-    type: CHANGE_APP_NAME,
-  };
-}
-
-
-export function changeApp({ name, path }) {
-  return {
-    name,
-    path,
+    routes,
+    meta,
     type: CHANGE_APP,
   };
 }

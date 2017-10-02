@@ -11,7 +11,6 @@ import Loadable from 'react-loadable';
 import Panel from 'components/Panel';
 import { HELP_PANEL, APPS_PANEL, APP_NAV_PANEL } from 'containers/AppHub/constants';
 
-
 const HelpPanel = Loadable({
   loader: () => import('./Help'),
   loading: () => null,
@@ -35,13 +34,13 @@ const panels = {
 
 class AppHubPanel extends React.PureComponent {
   render() {
-    const { panel, isOpen, onClick } = this.props;
+    const { panel, isOpen, onClick, routes } = this.props;
     const Content = panels[panel];
     const left = panel === APP_NAV_PANEL;
 
     return (
       <Panel isOpen={isOpen} onClick={onClick} left={left}>
-        <Content onClick={() => onClick()} />
+        <Content onClick={() => onClick()} routes={routes} />
       </Panel>
     );
   }

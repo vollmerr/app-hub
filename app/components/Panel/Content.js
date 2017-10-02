@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import theme from 'utils/theme';
 
 const Content = styled.div`
-  background: ${theme.neutralLighter};
+  background: ${theme.neutralLighterAlt};
   bottom: 0;
   ${(props) => props.left ? 'left' : 'right'}: 0;
   position: absolute;

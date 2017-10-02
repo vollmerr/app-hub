@@ -9,22 +9,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
 
 import { changeApp } from 'containers/AppHub/actions';
-import AppNav from 'components/App-Nav';
+import { makeSelectIsMobile, makeSelectAppMeta, makeSelectAppRoutes } from 'containers/AppHub/selectors';
+import { initialState } from 'containers/AppHub/reducer';
+import AppNavDesktop from 'components/App-Nav/Desktop';
 
-export class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
+export class App extends React.PureComponent {
   componentDidMount() {
-    const { route: { name, path } } = this.props;
-    this.props.dispatch(changeApp({ name, path }));
+    const { app } = this.props;
+    this.props.dispatch(changeApp(app));
   }
 
   componentWillUnmount() {
-    this.props.dispatch(changeApp({ name: '', path: '' }));
+    this.props.dispatch(changeApp(initialState.app));
   }
 
   render() {
-    const { children, meta: { name, title, desc } } = this.props;
+    const { children, isMobile, appMeta, appRoutes } = this.props;
+    const { name, title, desc } = appMeta;
 
     return (
       <div>
@@ -32,7 +38,10 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
           <title>{title}</title>
           <meta name={name} content={desc} />
         </Helmet>
-        <AppNav />
+        {
+          !isMobile &&
+          <AppNavDesktop routes={appRoutes} />
+        }
         {children}
       </div>
     );
@@ -41,17 +50,25 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
 
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  route: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired,
-  }).isRequired,
-  meta: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    desc: PropTypes.string.isRequired,
-  }).isRequired,
+  // route: PropTypes.shape({
+  //   name: PropTypes.string.isRequired,
+  //   path: PropTypes.string.isRequired,
+  // }).isRequired,
+  // meta: PropTypes.shape({
+  //   name: PropTypes.string.isRequired,
+  //   title: PropTypes.string.isRequired,
+  //   desc: PropTypes.string.isRequired,
+  // }).isRequired,
   children: PropTypes.node.isRequired,
 };
+
+const mapStateToProps = createStructuredSelector({
+  isMobile: makeSelectIsMobile(),
+  // panelIsOpen: makeSelectPanelIsOpen(),
+  // panelSelected: makeSelectPanelSelected(),
+  appRoutes: makeSelectAppRoutes(),
+  appMeta: makeSelectAppMeta(),
+});
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -59,4 +76,8 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(null, mapDispatchToProps)(App);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(
+  withConnect,
+)(App);

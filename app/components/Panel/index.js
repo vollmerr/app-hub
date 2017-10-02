@@ -13,7 +13,7 @@ import Content from './Content';
 
 class Panel extends React.PureComponent {
   render() {
-    const { onClick, children, left = false, isOpen = false } = this.props;
+    const { onClick, children, left, isOpen } = this.props;
 
     if (isOpen) {
       return (
@@ -33,7 +33,7 @@ class Panel extends React.PureComponent {
 Panel.propTypes = {
   onClick: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
-  left: PropTypes.bool.isRequired,
+  left: PropTypes.bool,
   isOpen: PropTypes.bool.isRequired,
 };
 

@@ -22,9 +22,9 @@ class Apps extends React.PureComponent {
     return (
       <div>
         {
-          Object.values(routes).map((route) => (
+          routes.map((route) => (
             <Wrapper key={route.path} onClick={this.props.onClick}>
-              <Link to={route.path} >{route.text}</Link>
+              <Link to={route.path} >{route.name}</Link>
             </Wrapper>
           ))
         }

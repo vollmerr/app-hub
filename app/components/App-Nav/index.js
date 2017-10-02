@@ -6,36 +6,49 @@
 
 import React from 'react';
 import styled from 'styled-components';
-
 import { Link } from 'react-router-dom';
-import { routes } from 'containers/Spa/Router';
+import { Nav } from 'office-ui-fabric-react/lib/Nav';
 
-// TODO: make more common (pass in routes), sperate into other files...
-const Wrapper = styled.div`
-padding: 15px;
-a {
-  display: block;
-}
+import theme from 'utils/theme';
+
+const NavItems = styled(Nav) `
+  // width: 350px;
+  background: ${theme.neutralLighterAlt};
+  li > div {
+    background: ${theme.neutralLighterAlt};
+
+    a {
+      text-decoration: none;
+      display: block;
+
+      &: hover,
+      &: focus,
+      &: active {
+        background: ${theme.neutralLight};
+      }
+    }
+
+    &:hover a,
+    &.is-selected a {
+      background: ${theme.neutralLight};
+    }
+  }
 `;
 
-const AppLinks = () => (
-  <div>
-    {
-      Object.values(routes).map((route) => (
-        <Wrapper key={route.path}>
-          <Link to={route.path} >{route.text}</Link>
-        </Wrapper>
-      ))
-    }
-  </div>
-);
 
 class AppNav extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const { routes, onClick } = this.props;
+
     return (
-      <div>
-        <AppLinks />
-      </div>
+      <NavItems
+        groups={[{ links: routes }]}
+        onRenderLink={(link) => (
+          link.path ?
+            <Link to={link.path} key={link.key} onClick={onClick}>{link.name}</Link> :
+            <a href={link.href} key={link.key}>{link.name}</a>
+        )}
+      />
     );
   }
 }

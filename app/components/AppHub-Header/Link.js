@@ -16,11 +16,11 @@ const A = LinkStyled.withComponent('a');
 
 const ButtonStyled = styled(CommandButton) `
   color: ${theme.themePrimary};
-  display: block;
+  display: flex;
+  justify-content: center;
   vertical-align: middle;
   border-width: 0;
-  margin: 0;
-  padding: 0 15px;
+  padding: 0 10px;
   min-width: ${theme.hub.headerHeight};
   height: ${theme.hub.headerHeight};
   box-sizing: border-box;

@@ -27,19 +27,24 @@ class Header extends React.PureComponent {
 
           {/* MOBILE ? APP NAV HAMBUGER : CDT LOGO */}
           {
-            isMobile ?
-              <Link
-                iconProps={{
-                  iconName: 'GlobalNavButton',
-                  style: { fontSize: '28px' },
-                }}
-                panel={APP_NAV_PANEL}
-                onClick={onClick}
-              />
-              :
-              <Logo />
+            (isMobile && appName) &&
+            <Link
+              iconProps={{
+                iconName: 'GlobalNavButton',
+                style: { fontSize: '28px' },
+              }}
+              panel={APP_NAV_PANEL}
+              onClick={onClick}
+            />
           }
-          {!isMobile && <Line partial />}
+          {
+            !isMobile &&
+            <Logo />
+          }
+          {
+            !isMobile &&
+            <Line partial />
+          }
 
           {/* APP HUB TITLE */}
           {

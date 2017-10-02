@@ -7,25 +7,27 @@ const OtherPage = () => <div>OTHER PAGE TEST</div>;
 
 export const base = '/spa';
 
-export const routes = {
-  home: {
+export const routes = [
+  {
+    key: 'home',
+    name: 'Home',
     path: `${base}/`,
-    text: 'Home',
     exact: true,
     component: SpaHome,
   },
-  OtherPage: {
+  {
+    key: 'otherPage',
+    name: 'Other Page',
     path: `${base}/OtherPage`,
-    text: 'OtherPage',
     exact: true,
     component: OtherPage,
   },
-};
+];
 
 const Router = () => (
   <Switch>
     {
-      Object.values(routes).map((route) => (
+      routes.map((route) => (
         <Route exact={route.exact} key={route.path} path={route.path} component={route.component} />
       ))
     }

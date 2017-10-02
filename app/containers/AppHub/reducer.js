@@ -10,11 +10,10 @@ import {
   CHANGE_PANEL_OPEN,
   CHANGE_PANEL_SELECTED,
   APPS_PANEL,
-  CHANGE_APP_NAME,
   CHANGE_APP,
 } from './constants';
 
-const initialState = fromJS({
+export const initialState = {
   view: {
     isMobile: false,
     panel: {
@@ -23,12 +22,14 @@ const initialState = fromJS({
     },
   },
   app: {
-    name: '',
-    path: '/',
+    routes: [
+      { key: 'home', name: 'Home', path: '' },
+    ],
+    meta: {},
   },
-});
+};
 
-function appHubReducer(state = initialState, action) {
+function appHubReducer(state = fromJS(initialState), action) {
   switch (action.type) {
     case CHANGE_MOBILE:
       return state
@@ -41,8 +42,8 @@ function appHubReducer(state = initialState, action) {
         .setIn(['view', 'panel', 'selected'], action.selected);
     case CHANGE_APP:
       return state
-        .setIn(['app', 'path'], action.path)
-        .setIn(['app', 'name'], action.name);
+        .setIn(['app', 'routes'], fromJS(action.routes))
+        .setIn(['app', 'meta'], fromJS(action.meta));
     default:
       return state;
   }

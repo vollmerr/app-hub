@@ -20,8 +20,8 @@ import {
   makeSelectIsMobile,
   makeSelectPanelIsOpen,
   makeSelectPanelSelected,
-  makeSelectAppName,
-  makeSelectAppPath,
+  makeSelectAppRoutes,
+  makeSelectAppMeta,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -68,16 +68,17 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
   }
 
   render() {
-    const { isMobile, panelSelected, panelIsOpen, appName, appPath } = this.props;
+    const { isMobile, panelSelected, panelIsOpen, appMeta, appRoutes } = this.props;
 
     const headerProps = {
-      appName,
-      appPath,
       isMobile,
+      appName: appMeta.name,
+      appPath: appRoutes.find((route) => route.key === 'home').path,
       onClick: this.handlePanelClick,
     };
 
     const panelProps = {
+      routes: appRoutes,
       panel: panelSelected,
       isOpen: panelIsOpen,
       onClick: this.handlePanelClick,
@@ -97,16 +98,16 @@ AppHub.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   panelIsOpen: PropTypes.bool.isRequired,
   panelSelected: PropTypes.string.isRequired,
-  appName: PropTypes.string,
-  appPath: PropTypes.string,
+  // appName: PropTypes.string,
+  // appPath: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
   isMobile: makeSelectIsMobile(),
   panelIsOpen: makeSelectPanelIsOpen(),
   panelSelected: makeSelectPanelSelected(),
-  appName: makeSelectAppName(),
-  appPath: makeSelectAppPath(),
+  appRoutes: makeSelectAppRoutes(),
+  appMeta: makeSelectAppMeta(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -117,11 +118,11 @@ function mapDispatchToProps(dispatch) {
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'appHub', reducer });
+// const withReducer = injectReducer({ key: 'appHub', reducer });
 const withSaga = injectSaga({ key: 'appHub', saga });
 
 export default compose(
-  withReducer,
+  // withReducer,
   withSaga,
   withConnect,
 )(AppHub);

@@ -8,7 +8,6 @@ import odiLogo from './odiLogo.png';
 
 const Img = styled.img`
   height: calc(${theme.hub.headerHeight} - 10px);
-  margin:  0 0 0 -10px;
 `;
 
 const Logo = () => (

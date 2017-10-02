@@ -18,14 +18,10 @@ import App from 'containers/App';
 import makeSelectSpa from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { base } from './Router';
+import { routes } from './Router';
 
-
-const appProps = {
-  route: {
-    name: 'SPA',
-    path: base,
-  },
+const app = {
+  routes,
   meta: {
     name: 'SPA',
     title: 'SPA',
@@ -35,8 +31,9 @@ const appProps = {
 
 export class Spa extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
+    console.log('in app')
     return (
-      <App {...appProps}>
+      <App app={app}>
         in spa...
       </App>
     );
