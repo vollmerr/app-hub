@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { HELP_PANEL, APPS_PANEL, APP_NAV_PANEL } from 'containers/AppHub/constants';
+import { HELP_PANEL, APPS_PANEL, APP_NAV_PANEL, ALERTS_PANEL } from 'containers/AppHub/constants';
 
 import Wrapper from './Wrapper';
 import Section from './Section';
@@ -82,6 +82,20 @@ class Header extends React.PureComponent {
             />
           }
           <Line />
+
+{/* TODO: CONDITIONAL IF ALERTS */}
+          {/* ALERTS PANEL */}
+          <Link
+            iconProps={{
+              iconName: 'Warning',
+              style: { fontSize: '28px' },
+            }}
+            panel={ALERTS_PANEL}
+            onClick={onClick}
+            checked={panel === ALERTS_PANEL && isOpen}
+          />
+          <Line />
+{/* /TODO: CONDITIONAL IF ALERTS */}
 
           {/* HELP PANEL */}
           <Link
