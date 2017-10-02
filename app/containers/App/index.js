@@ -18,6 +18,7 @@ import { initialState } from 'containers/AppHub/reducer';
 import AppNavDesktop from 'components/App-Nav/Desktop';
 
 import Wrapper from './Wrapper';
+import Content from './Content';
 
 export class App extends React.PureComponent {
   componentDidMount() {
@@ -43,9 +44,9 @@ export class App extends React.PureComponent {
           !isMobile &&
           <AppNavDesktop routes={appRoutes} />
         }
-        <Wrapper>
+        <Content>
           {children}
-        </Wrapper>
+        </Content>
       </Wrapper>
     );
   }
