@@ -17,6 +17,7 @@ import { makeSelectIsMobile, makeSelectAppMeta, makeSelectAppRoutes } from 'cont
 import { initialState } from 'containers/AppHub/reducer';
 import AppNavDesktop from 'components/App-Nav/Desktop';
 
+import Wrapper from './Wrapper';
 
 export class App extends React.PureComponent {
   componentDidMount() {
@@ -33,7 +34,7 @@ export class App extends React.PureComponent {
     const { name, title, desc } = appMeta;
 
     return (
-      <div>
+      <Wrapper>
         <Helmet>
           <title>{title}</title>
           <meta name={name} content={desc} />
@@ -42,8 +43,10 @@ export class App extends React.PureComponent {
           !isMobile &&
           <AppNavDesktop routes={appRoutes} />
         }
-        {children}
-      </div>
+        <Wrapper>
+          {children}
+        </Wrapper>
+      </Wrapper>
     );
   }
 }

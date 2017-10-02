@@ -12,7 +12,6 @@ import { Nav } from 'office-ui-fabric-react/lib/Nav';
 import theme from 'utils/theme';
 
 const NavItems = styled(Nav) `
-  // width: 350px;
   background: ${theme.neutralLighterAlt};
   li > div {
     background: ${theme.neutralLighterAlt};
