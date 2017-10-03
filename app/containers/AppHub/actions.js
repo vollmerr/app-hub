@@ -8,8 +8,9 @@ import {
   CHANGE_MOBILE,
   CHANGE_PANEL_OPEN,
   CHANGE_PANEL_SELECTED,
-  CHANGE_APP_NAME,
   CHANGE_APP,
+  AUTH_USER,
+  EXAMPLE_REQUEST,
 } from './constants';
 
 export function changeMobile(isMobile) {
@@ -38,5 +39,19 @@ export function changeApp({ routes, meta }) {
     routes,
     meta,
     type: CHANGE_APP,
+  };
+}
+
+export function authUser(sam, roles) {
+  return {
+    sam,
+    roles,
+    type: AUTH_USER,
+  };
+}
+
+export function testRequest() {
+  return {
+    type: EXAMPLE_REQUEST,
   };
 }

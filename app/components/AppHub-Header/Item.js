@@ -2,6 +2,12 @@ import styled from 'styled-components';
 
 import theme from 'utils/theme';
 
+const focusStyle = (props) => `
+  color: ${props.dark ? theme.white : theme.themeDark};
+  background: ${props.dark ? theme.themeDark : theme.themeLighter};
+  border-bottom: 2px solid ${props.dark ? theme.orange : theme.orangeLighter};
+`;
+
 const Item = styled.div`
   display: flex;
   align-items: center;
@@ -11,12 +17,12 @@ const Item = styled.div`
   ${(props) => props.isLink &&
     `&:hover,
     &:active,
-    &:focus,
-    .is-checked {
-      color: ${props.dark ? theme.white : theme.themeDark};
-      background: ${props.dark ? theme.themeDark : theme.themeLighter};
-      border-bottom: 2px solid ${props.dark ? theme.orange : theme.orangeLighter};
+    &:focus {
+      ${focusStyle(props)}
     }`
+  }
+  ${(props) => props.checked &&
+    focusStyle(props)
   }
 `;
 

@@ -68,10 +68,16 @@ class Link extends React.PureComponent {
       </ButtonStyled>
     );
 
+    const itemProps = {
+      isLink,
+      dark,
+      checked,
+    };
+
     // handle internal routing
     if (to) {
       return (
-        <Item isLink={isLink} dark={dark}>
+        <Item {...itemProps}>
           <LinkStyled to={to} >
             <Button />
           </LinkStyled>
@@ -79,7 +85,7 @@ class Link extends React.PureComponent {
       );
     } else if (href) {
       return (
-        <Item isLink={isLink} dark={dark}>
+        <Item {...itemProps}>
           <A href={href} >
             <Button />
           </A>
@@ -89,7 +95,7 @@ class Link extends React.PureComponent {
 
     // no links
     return (
-      <Item isLink={isLink} dark={dark}>
+      <Item {...itemProps}>
         <Button />
       </Item>
     );

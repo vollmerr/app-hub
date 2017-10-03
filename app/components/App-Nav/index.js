@@ -6,8 +6,9 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { Nav } from 'office-ui-fabric-react/lib/Nav';
+
+import { history } from 'configureStore';
 
 import theme from 'utils/theme';
 
@@ -20,9 +21,9 @@ const NavItems = styled(Nav) `
       text-decoration: none;
       display: block;
 
-      &: hover,
-      &: focus,
-      &: active {
+      &:hover,
+      &:focus,
+      &:active {
         background: ${theme.neutralLight};
       }
     }
@@ -34,19 +35,27 @@ const NavItems = styled(Nav) `
   }
 `;
 
+// https://github.com/OfficeDev/office-ui-fabric-react/issues/915
+class AppNav extends React.PureComponent {
+  handleClickLink = (event, element) => {
+    event.preventDefault();
+    const { onClick } = this.props;
 
-class AppNav extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+    if (onClick) {
+      onClick(event, element);
+    }
+
+    const path = element.path || element.href;
+    history.push(path);
+  }
+
   render() {
-    const { routes, onClick } = this.props;
+    const { routes } = this.props;
 
     return (
       <NavItems
         groups={[{ links: routes }]}
-        onRenderLink={(link) => (
-          link.path ?
-            <Link to={link.path} key={link.key} onClick={onClick}>{link.name}</Link> :
-            <a href={link.href} key={link.key}>{link.name}</a>
-        )}
+        onLinkClick={this.handleClickLink.bind(this)} // eslint-disable-line
       />
     );
   }

@@ -31,7 +31,6 @@ const app = {
 
 export class Spa extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
-    console.log('in app')
     return (
       <App app={app}>
         {this.props.children}
@@ -42,6 +41,7 @@ export class Spa extends React.PureComponent { // eslint-disable-line react/pref
 
 Spa.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -1,4 +1,71 @@
+import { call, put } from 'redux-saga/effects';
+import decode from 'jwt-decode';
 import 'whatwg-fetch';
+
+import { authUser } from 'containers/AppHub/actions';
+
+/**
+ * Helper function to valdate that token exists and is not expired
+ * @param {object} token  - jwt token
+ *
+ * @return {bool}         - valid ? true : false
+ */
+function validToken(token) {
+  if (token) {
+    const { exp } = decode(token);
+    const now = new Date().getTime().toString().substring(0, 10);
+
+    return exp > now;
+  }
+
+  return false;
+}
+
+
+/**
+ * Helper function to put jwt token into global redux store
+ * @param {string} token    - jwt token
+ * @param {string} appName  - name of app supplied in jwt for roles
+ */
+function* putToken(token, appName) {
+  const {
+    sub: sam,
+    [appName]: roles,
+  } = decode(token);
+
+  yield put(authUser(sam, roles));
+}
+
+
+/**
+ * Authenticates a user
+ * Checks local storage for token first
+ * @param {string} appName  - name of app supplied in jwt for roles
+ */
+export function* authenticate(appName = 'AppHub') {
+  const token = localStorage.getItem('id_token');
+
+  if (validToken(token)) {
+    // update user in global appHub state
+    yield putToken(token, appName);
+  } else {
+    try {
+      const options = {
+        method: 'get',
+        credentials: 'include',
+      };
+
+      const { id_token } = yield call(request, 'https://testsec.api.technology.ca.gov/createToken', options);
+      // set into local storage for future authentication caching
+      localStorage.setItem('id_token', id_token);
+      // update user in global appHub state
+      yield putToken(id_token, appName);
+    } catch (err) {
+      throw new Error('ERROR AUTHENICATING');
+    }
+  }
+}
+
 
 /**
  * Parses the JSON returned by a network request
@@ -13,6 +80,7 @@ function parseJSON(response) {
   }
   return response.json();
 }
+
 
 /**
  * Checks if a network request came back fine, and throws an error if not
@@ -31,6 +99,7 @@ function checkStatus(response) {
   throw error;
 }
 
+
 /**
  * Requests a URL, returning a promise
  *
@@ -39,8 +108,10 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-export default function request(url, options) {
+function request(url, options) {
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON);
 }
+
+export default request;

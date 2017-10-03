@@ -13,7 +13,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-import createHistory from 'history/createHashHistory';
 import 'sanitize.css/sanitize.css';
 import { initializeIcons } from '@uifabric/icons';
 
@@ -36,7 +35,7 @@ import '!file-loader?name=[name].[ext]!./manifest.json';
 import 'file-loader?name=[name].[ext]!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
 
-import configureStore from './configureStore';
+import configureStore, { history } from './configureStore';
 
 // Import CSS reset and Global Styles
 import './global-styles';
@@ -56,7 +55,6 @@ const App = isExamples ? <Examples /> : <AppHub />;
 
 // Create redux store with history
 const initialState = {};
-const history = createHistory();
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 

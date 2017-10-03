@@ -15,3 +15,9 @@ export const APP_NAV_PANEL = 'app/AppHub/APP_NAV_PANEL';
 export const ALERTS_PANEL = 'app/AppHub/ALERTS_PANEL';
 // APP
 export const CHANGE_APP = 'app/AppHub/CHANGE_APP';
+
+// user
+export const AUTH_USER = 'app/AppHub/AUTH_USER';
+export const EXAMPLE_REQUEST = 'app/AppHub/EXAMPLE_REQUEST';
+
+export const REQUEST = '_REQUEST';

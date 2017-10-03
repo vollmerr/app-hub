@@ -11,6 +11,7 @@ import {
   CHANGE_PANEL_SELECTED,
   APPS_PANEL,
   CHANGE_APP,
+  AUTH_USER,
 } from './constants';
 
 export const initialState = {
@@ -26,6 +27,10 @@ export const initialState = {
       { key: 'home', name: 'Home', path: '' },
     ],
     meta: {},
+  },
+  user: {
+    sam: '',
+    roles: [],
   },
 };
 
@@ -44,6 +49,10 @@ function appHubReducer(state = fromJS(initialState), action) {
       return state
         .setIn(['app', 'routes'], fromJS(action.routes))
         .setIn(['app', 'meta'], fromJS(action.meta));
+    case AUTH_USER:
+      return state
+        .setIn(['user', 'sam'], action.sam)
+        .setIn(['user', 'roles'], action.roles);
     default:
       return state;
   }
