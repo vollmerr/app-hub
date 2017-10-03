@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   height: ${theme.hub.headerHeight};
   border-bottom: 2px solid ${theme.yellow};
   box-sizing: border-box;
+  background: ${theme.themeDark};
 `;
 
 export default Wrapper;

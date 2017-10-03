@@ -24,15 +24,15 @@ const Wrapper = styled.div`
 const App = styled(Link) `
   flex: 1;
   justify-content: center;
-  padding: 15px;
-  margin: 2px;
+  padding: 12px;
+  margin: 3px;
   height: 120px;
   box-sizing: border-box;
   text-align: center;
   overflow: visible;
   transition: background-color .467s cubic-bezier(.1,.9,.2,1) 34ms;
   pointer-events: all;
-  font-size: ${(props) => props.size || '26px'};
+  font-size: ${(props) => props.size || '22px'};
   text-decoration: none;
   background: ${theme.themePrimary};
 

@@ -15,12 +15,12 @@ const LinkStyled = styled(RouterLink) `
 const A = LinkStyled.withComponent('a');
 
 const ButtonStyled = styled(CommandButton) `
-  color: ${theme.themePrimary};
+  color: ${theme.white};
   display: flex;
   justify-content: center;
   vertical-align: middle;
   border-width: 0;
-  padding: 0 10px;
+  padding: 0 ${(props) => props.padding || '10px'};
   min-width: ${theme.hub.headerHeight};
   height: ${theme.hub.headerHeight};
   box-sizing: border-box;
@@ -31,9 +31,11 @@ const ButtonStyled = styled(CommandButton) `
   pointer-events: all;
   font-size: ${(props) => props.size || '28px'};
 
+  &:hover,
+  i.ms-Icon,
   &:hover i.ms-Icon,
   &.is-checked i.ms-Icon {
-    color: ${(props) => props.dark ? theme.white : theme.themeDark};
+    color: ${theme.white};
   }
 `;
 
@@ -50,6 +52,7 @@ class Link extends React.PureComponent {
       children,
       dark,
       checked,
+      padding,
     } = this.props;
 
     const isLink = onClick || to || href;
@@ -62,6 +65,7 @@ class Link extends React.PureComponent {
         dark={dark}
         ariaLabel={title}
         checked={checked}
+        padding={padding}
       >
         {text}
         {children}

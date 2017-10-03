@@ -11,7 +11,7 @@ import theme from 'utils/theme';
 import Item from './Item';
 
 const Text = styled.span`
-  color: ${theme.themePrimary};
+  color: ${theme.themeLighterAlt};
   line-height: ${theme.hub.headerHeight};
   display: inline-block;
   font-family: "SegoeUI-SemiLight-final","Segoe UI SemiLight","Segoe UI WPC Semilight","Segoe UI",Segoe,Tahoma,Helvetica,Arial,sans-serif;

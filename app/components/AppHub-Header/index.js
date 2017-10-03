@@ -59,6 +59,7 @@ class Header extends React.PureComponent {
               title={'App Hub'}
               text={'App Hub'}
               to={'/'}
+              padding={'20px'}
             />
           }
           {appName && <Line partial={!isMobile} />}
@@ -68,6 +69,7 @@ class Header extends React.PureComponent {
             title={appName}
             text={appName}
             to={appPath}
+            padding={'20px'}
           />
         </Section>
 
@@ -84,7 +86,7 @@ class Header extends React.PureComponent {
           }
           <Line />
 
-{/* TODO: CONDITIONAL IF ALERTS */}
+          {/* TODO: CONDITIONAL IF ALERTS */}
           {/* ALERTS PANEL */}
           <Link
             iconProps={{
@@ -97,7 +99,7 @@ class Header extends React.PureComponent {
             checked={panel === ALERTS_PANEL && isOpen}
           />
           <Line />
-{/* /TODO: CONDITIONAL IF ALERTS */}
+          {/* /TODO: CONDITIONAL IF ALERTS */}
 
           {/* HELP PANEL */}
           <Link
