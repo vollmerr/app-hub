@@ -13,19 +13,36 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import makeSelectSpaHome from './selectors';
+import { makeSelectUser } from 'containers/AppHub/selectors';
+
+import makeSelectSpaHome, { makeSelectExampleData } from './selectors';
+import { exampleDataRequest } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
 export class SpaHome extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
+    const { user, exampleData, dispatch } = this.props;
+
     return (
       <div>
         <Helmet>
           <title>Spa - Home</title>
           <meta name="description" content="Description of Spa Home" />
         </Helmet>
-        in spa home......
+        <p>in spa home......</p>
+        <p>Logged in as {user.sam}</p>
+        <p>with permissions (BARS):</p>
+        <ul>
+          {
+            user.roles.map((role) => <li key={role}>{role}</li>)
+          }
+        </ul>
+        <button style={{ background: '#333', color: '#fff' }} onClick={() => dispatch(exampleDataRequest())}>Test data fetch</button>
+        {
+          exampleData &&
+          <p>{JSON.stringify(exampleData)}</p>
+        }
       </div>
     );
   }
@@ -33,10 +50,13 @@ export class SpaHome extends React.Component { // eslint-disable-line react/pref
 
 SpaHome.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   spaHome: makeSelectSpaHome(),
+  exampleData: makeSelectExampleData(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

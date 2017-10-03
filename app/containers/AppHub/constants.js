@@ -17,7 +17,8 @@ export const ALERTS_PANEL = 'app/AppHub/ALERTS_PANEL';
 export const CHANGE_APP = 'app/AppHub/CHANGE_APP';
 
 // user
-export const AUTH_USER = 'app/AppHub/AUTH_USER';
-export const EXAMPLE_REQUEST = 'app/AppHub/EXAMPLE_REQUEST';
+export const AUTH_USER_REQUEST = 'app/AppHub/AUTH_USER_REQUEST';
+export const AUTH_USER_SUCCESS = 'app/AppHub/AUTH_USER_SUCCESS';
+export const AUTH_USER_FAILURE = 'app/AppHub/AUTH_USER_FAILURE';
 
 export const REQUEST = '_REQUEST';

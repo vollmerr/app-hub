@@ -9,8 +9,9 @@ import {
   CHANGE_PANEL_OPEN,
   CHANGE_PANEL_SELECTED,
   CHANGE_APP,
-  AUTH_USER,
-  EXAMPLE_REQUEST,
+  AUTH_USER_REQUEST,
+  AUTH_USER_SUCCESS,
+  AUTH_USER_FAILURE,
 } from './constants';
 
 export function changeMobile(isMobile) {
@@ -42,16 +43,23 @@ export function changeApp({ routes, meta }) {
   };
 }
 
-export function authUser(sam, roles) {
+// TODO: SIMPLIFY USING FACTORY
+export function authUserRequest() {
   return {
-    sam,
-    roles,
-    type: AUTH_USER,
+    type: AUTH_USER_REQUEST,
   };
 }
 
-export function testRequest() {
+export function authUserSuccess(sam, roles) {
   return {
-    type: EXAMPLE_REQUEST,
+    sam,
+    roles,
+    type: AUTH_USER_SUCCESS,
+  };
+}
+
+export function authUserFailure() {
+  return {
+    type: AUTH_USER_FAILURE,
   };
 }

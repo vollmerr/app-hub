@@ -53,6 +53,12 @@ const makeSelectAppMeta = () => createSelector(
   (substate) => substate.getIn(['app', 'meta']).toJS()
 );
 
+// USER
+const makeSelectUser = () => createSelector(
+  selectAppHubDomain,
+  (substate) => substate.get('user').toJS()
+);
+
 /**
  * Default selector used by AppHub
  */
@@ -75,4 +81,6 @@ export {
   makeSelectApp,
   makeSelectAppRoutes,
   makeSelectAppMeta,
+
+  makeSelectUser,
 };

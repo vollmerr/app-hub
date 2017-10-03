@@ -3,5 +3,5 @@
  * SpaHome constants
  *
  */
-
-export const DEFAULT_ACTION = 'app/SpaHome/DEFAULT_ACTION';
+export const EXAMPLE_DATA_REQUEST = 'app/SpaHome/EXAMPLE_DATA_REQUEST';
+export const EXAMPLE_DATA_SUCCESS = 'app/SpaHome/EXAMPLE_DATA_SUCCESS';

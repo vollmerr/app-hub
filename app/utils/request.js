@@ -2,7 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import decode from 'jwt-decode';
 import 'whatwg-fetch';
 
-import { authUser } from 'containers/AppHub/actions';
+import { authUserSuccess } from 'containers/AppHub/actions';
 
 /**
  * Helper function to valdate that token exists and is not expired
@@ -33,7 +33,7 @@ function* putToken(token, appName) {
     [appName]: roles,
   } = decode(token);
 
-  yield put(authUser(sam, roles));
+  yield put(authUserSuccess(sam, roles));
 }
 
 

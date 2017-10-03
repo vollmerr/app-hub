@@ -5,11 +5,19 @@
  */
 
 import {
-  DEFAULT_ACTION,
+  EXAMPLE_DATA_REQUEST,
+  EXAMPLE_DATA_SUCCESS,
 } from './constants';
 
-export function defaultAction() {
+export function exampleDataRequest() {
   return {
-    type: DEFAULT_ACTION,
+    type: EXAMPLE_DATA_REQUEST,
+  };
+}
+
+export function exampleDataSuccess(data) {
+  return {
+    data,
+    type: EXAMPLE_DATA_SUCCESS,
   };
 }

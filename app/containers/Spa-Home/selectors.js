@@ -9,6 +9,10 @@ const selectSpaHomeDomain = (state) => state.get('spaHome');
  * Other specific selectors
  */
 
+const makeSelectExampleData = () => createSelector(
+  selectSpaHomeDomain,
+  (substate) => substate.get('exampleData')
+);
 
 /**
  * Default selector used by SpaHome
@@ -22,4 +26,5 @@ const makeSelectSpaHome = () => createSelector(
 export default makeSelectSpaHome;
 export {
   selectSpaHomeDomain,
+  makeSelectExampleData,
 };

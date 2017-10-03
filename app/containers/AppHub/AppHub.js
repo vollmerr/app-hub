@@ -23,9 +23,9 @@ import {
   makeSelectAppRoutes,
   makeSelectAppMeta,
 } from './selectors';
-import reducer from './reducer';
+// import reducer from './reducer';
 import saga from './saga';
-import { changeMobile, changePanelOpen, changePanelSelected, testRequest } from './actions';
+import { changeMobile, changePanelOpen, changePanelSelected, authUserRequest } from './actions';
 
 export class AppHub extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -34,6 +34,7 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
   }
 
   componentDidMount() {
+    this.props.dispatch(authUserRequest());
     this.handleResize();
     window.addEventListener('resize', this.handleResize);
   }
@@ -54,7 +55,6 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
   handlePanelClick = (panel) => {
     const { dispatch, panelSelected, panelIsOpen } = this.props;
     const selected = panel || panelSelected; // errors if null, so set a default
-    dispatch(testRequest());
     // click on same panel or overlay
     if (!panel || (panelSelected === panel && panelIsOpen)) {
       // close it

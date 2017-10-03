@@ -6,15 +6,18 @@
 
 import { fromJS } from 'immutable';
 import {
-  DEFAULT_ACTION,
+  EXAMPLE_DATA_SUCCESS,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  exampleData: {},
+});
 
 function spaHomeReducer(state = initialState, action) {
   switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
+    case EXAMPLE_DATA_SUCCESS:
+      return state
+        .set('exampleData', action.data);
     default:
       return state;
   }
