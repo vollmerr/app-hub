@@ -33,6 +33,7 @@ class Header extends React.PureComponent {
                 iconName: 'GlobalNavButton',
                 style: { fontSize: '28px' },
               }}
+              title={`${appName} Navigation`}
               panel={APP_NAV_PANEL}
               onClick={onClick}
               checked={panel === APP_NAV_PANEL && isOpen}
@@ -90,6 +91,7 @@ class Header extends React.PureComponent {
               iconName: 'Warning',
               style: { fontSize: '28px' },
             }}
+            title={'Alerts Panel'}
             panel={ALERTS_PANEL}
             onClick={onClick}
             checked={panel === ALERTS_PANEL && isOpen}
@@ -103,6 +105,7 @@ class Header extends React.PureComponent {
               iconName: 'Help',
               style: { fontSize: '28px' },
             }}
+            title={'Help Panel'}
             panel={HELP_PANEL}
             onClick={onClick}
             checked={panel === HELP_PANEL && isOpen}

@@ -11,7 +11,7 @@ const Img = styled.img`
 `;
 
 const Logo = () => (
-  <Link href={'http://www.cdt.ca.gov'}>
+  <Link href={'http://www.cdt.ca.gov'} title={'CDT ODI Logo'}>
     <Img
       src={odiLogo}
       alt={'CDT ODI Logo'}

@@ -6,7 +6,7 @@ import theme from 'utils/theme';
 import AppNav from './';
 
 const Wrapper = styled.div`
-  flex: 0 0 350px;
+  flex: 0 0 250px;
   background: ${theme.neutralLighterAlt};
 `;
 
