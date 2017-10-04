@@ -23,9 +23,7 @@ export const initialState = {
     },
   },
   app: {
-    routes: [
-      { key: 'home', name: 'Home', path: '' },
-    ],
+    routes: [],
     meta: {},
   },
   user: {

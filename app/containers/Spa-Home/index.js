@@ -23,7 +23,7 @@ import saga from './saga';
 export class SpaHome extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { user, exampleData, dispatch } = this.props;
-    const testScroll = false;
+    const testScroll = 12;
     return (
       <div>
         <Helmet>

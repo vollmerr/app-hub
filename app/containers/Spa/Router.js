@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import SpaHome from 'containers/Spa-Home';
 
@@ -9,9 +9,9 @@ export const base = '/spa';
 
 export const routes = [
   {
-    key: 'home',
+    key: 'spaHome', // default route must be first and end with 'Home' for key
     name: 'Home',
-    path: `${base}/`,
+    path: `${base}/home`,
     exact: true,
     component: SpaHome,
   },
@@ -31,6 +31,7 @@ const Router = () => (
         <Route exact={route.exact} key={route.path} path={route.path} component={route.component} />
       ))
     }
+    <Redirect to={routes[0].path} />
   </Switch>
 );
 

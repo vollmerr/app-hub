@@ -15,10 +15,9 @@ import { compose } from 'redux';
 import { changeApp } from 'containers/AppHub/actions';
 import { makeSelectIsMobile, makeSelectAppMeta, makeSelectAppRoutes } from 'containers/AppHub/selectors';
 import { initialState } from 'containers/AppHub/reducer';
-import AppNavDesktop from 'components/App-Nav/Desktop';
+import AppNav from 'components/App-Nav';
 
 import Wrapper from './Wrapper';
-import Content from './Content';
 
 export class App extends React.PureComponent {
   componentDidMount() {
@@ -31,22 +30,19 @@ export class App extends React.PureComponent {
   }
 
   render() {
-    const { children, isMobile, appMeta, appRoutes } = this.props;
+    const { isMobile, appMeta, appRoutes } = this.props;
     const { name, title, desc } = appMeta;
 
     return (
-      <Wrapper isMobile={isMobile}>
+      <Wrapper>
         <Helmet>
           <title>{title}</title>
           <meta name={name} content={desc} />
         </Helmet>
         {
           !isMobile &&
-          <AppNavDesktop routes={appRoutes} />
+          <AppNav routes={appRoutes} />
         }
-        <Content>
-          {children}
-        </Content>
       </Wrapper>
     );
   }
@@ -63,7 +59,6 @@ App.propTypes = {
   //   title: PropTypes.string.isRequired,
   //   desc: PropTypes.string.isRequired,
   // }).isRequired,
-  children: PropTypes.node.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -71,14 +71,15 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
 
   render() {
     const { isMobile, panelSelected, panelIsOpen, appMeta, appRoutes, userName } = this.props;
+    const appPath = appRoutes.length ? appRoutes.find((route) => route.key.match(/Home/)).path : '';
 
     const headerProps = {
       isMobile,
       userName,
+      appPath,
+      appName: appMeta.name,
       panel: panelSelected,
       isOpen: panelIsOpen,
-      appName: appMeta.name,
-      appPath: appRoutes.find((route) => route.key === 'home').path,
       onClick: this.handlePanelClick,
     };
 

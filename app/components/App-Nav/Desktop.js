@@ -1,19 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
+// import React from 'react';
+// import styled from 'styled-components';
 
-import theme from 'utils/theme';
 
-import AppNav from './';
 
-const Wrapper = styled.div`
-  flex: 0 0 ${theme.app.navWidth};
-  background: ${theme.neutralLight};
-`;
+// import AppNav from './';
 
-const AppNavDesktop = ({ routes }) => (
-  <Wrapper>
-    <AppNav routes={routes} />
-  </Wrapper>
-);
 
-export default AppNavDesktop;
+
+// const AppNavDesktop = ({ routes }) => (
+//   <Wrapper>
+
+//   </Wrapper>
+// );
+
+// export default AppNavDesktop;
