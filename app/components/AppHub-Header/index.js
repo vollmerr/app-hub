@@ -59,6 +59,7 @@ class Header extends React.PureComponent {
               title={'App Hub'}
               text={'App Hub'}
               to={'/'}
+              onClick={onClick}
               padding={'20px'}
             />
           }
@@ -69,6 +70,7 @@ class Header extends React.PureComponent {
             title={appName}
             text={appName}
             to={appPath}
+            onClick={onClick}
             padding={'20px'}
           />
         </Section>
