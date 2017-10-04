@@ -4,9 +4,8 @@ import styled from 'styled-components';
 import theme from 'utils/theme';
 
 const Wrapper = styled.div`
-  display: flex;
-  flex: 1;
-  min-height: calc(100vh - ${theme.hub.headerHeight});
+  flex: 0 0 ${theme.app.navWidth};
+  background: ${theme.neutralLight};
 `;
 
 export default Wrapper;

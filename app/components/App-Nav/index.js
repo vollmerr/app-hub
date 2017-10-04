@@ -12,6 +12,8 @@ import { history } from 'configureStore';
 
 import theme from 'utils/theme';
 
+// import Wrapper from './Wrapper';
+
 const NavItems = styled(Nav) `
   background: ${theme.neutralLight};
   li > div {

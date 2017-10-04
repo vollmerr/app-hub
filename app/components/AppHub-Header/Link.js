@@ -14,7 +14,7 @@ const ButtonStyled = styled(CommandButton) `
   justify-content: center;
   vertical-align: middle;
   border-width: 0;
-  padding: 0 ${(props) => props.padding || '10px'};
+  padding: 0 ${(props) => props.padding || '0'};
   min-width: ${theme.hub.headerHeight};
   height: ${theme.hub.headerHeight};
   box-sizing: border-box;
@@ -23,7 +23,7 @@ const ButtonStyled = styled(CommandButton) `
   overflow: visible;
   transition: background-color .467s cubic-bezier(.1,.9,.2,1) 34ms;
   pointer-events: all;
-  font-size: ${(props) => props.size || '28px'};
+  font-size: ${(props) => props.size || '24px'};
 
   &:hover,
   i.ms-Icon,

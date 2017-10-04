@@ -24,9 +24,15 @@ export const routes = [
   },
   {
     key: 'cold',
-    name: 'Cold',
+    name: 'COLD',
     href: 'https://cold.govops.ca.gov/',
     icon: 'Rename',
+  },
+  {
+    key: 'bars',
+    name: 'BARS',
+    href: 'http://barsui.technology.ca.gov/',
+    icon: 'IDBadge',
   },
 ];
 

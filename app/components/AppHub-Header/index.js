@@ -62,7 +62,7 @@ class Header extends React.PureComponent {
             <Link
               iconProps={{
                 iconName: 'Glimmer',
-                style: { fontSize: '24px', marginRight: '10px' },
+                style: { fontSize: '22px', marginRight: '10px' },
               }}
               title={'App Hub'}
               text={'App Hub'}
@@ -103,7 +103,7 @@ class Header extends React.PureComponent {
             <Link
               iconProps={{
                 iconName: 'Code',
-                style: { fontSize: '28px' },
+                style: { fontSize: '24px' },
               }}
               title={'Dev Panel'}
               panel={DEV_PANEL}
@@ -120,7 +120,7 @@ class Header extends React.PureComponent {
           <Link
             iconProps={{
               iconName: 'Warning',
-              style: { fontSize: '28px' },
+              style: { fontSize: '24px' },
             }}
             title={'Alerts Panel'}
             panel={ALERTS_PANEL}
@@ -133,7 +133,7 @@ class Header extends React.PureComponent {
           <Link
             iconProps={{
               iconName: 'Help',
-              style: { fontSize: '28px' },
+              style: { fontSize: '24px' },
             }}
             title={'Help Panel'}
             panel={HELP_PANEL}
@@ -146,7 +146,7 @@ class Header extends React.PureComponent {
             dark
             iconProps={{
               iconName: 'Waffle',
-              style: { fontSize: '40px' },
+              style: { fontSize: '36px' },
             }}
             title={'Hub Navigation'}
             panel={APPS_PANEL}

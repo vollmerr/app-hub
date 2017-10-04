@@ -6,9 +6,8 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   height: ${theme.hub.headerHeight};
-  border-bottom: 2px solid ${theme.yellow};
   box-sizing: border-box;
-  background: ${theme.themeDark};
+  background: ${theme.neutralPrimary};
 `;
 
 export default Wrapper;

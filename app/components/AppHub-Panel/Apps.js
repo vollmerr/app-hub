@@ -13,26 +13,25 @@ import { routes } from 'containers/AppHub/Router';
 import theme from 'utils/theme';
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  align-content: around;
   padding: 15px;
   background: ${theme.themeDarker};
   height: 100%;
 `;
 
 const App = styled(Link) `
-  flex: 1;
+  display: flex;
+  float: left;
+  flex-direction: column;
   justify-content: center;
-  padding: 12px;
+  align-items: center;
   margin: 3px;
-  height: 120px;
+  height: 102px;
+  width: 102px;
   box-sizing: border-box;
-  text-align: center;
   overflow: visible;
   transition: background-color .467s cubic-bezier(.1,.9,.2,1) 34ms;
   pointer-events: all;
-  font-size: ${(props) => props.size || '22px'};
+  font-size: ${(props) => props.size || '18px'};
   text-decoration: none;
   background: ${theme.themePrimary};
 
@@ -42,6 +41,7 @@ const App = styled(Link) `
 
   * {
     color: white;
+    display: flex;
   }
 
   &:hover * {
@@ -50,7 +50,7 @@ const App = styled(Link) `
 `;
 
 const StyledIcon = styled(Icon) `
-  font-size: 36px;
+  font-size: 26px;
 `;
 
 class Apps extends React.PureComponent {

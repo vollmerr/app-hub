@@ -4,11 +4,11 @@ import { DefaultPalette } from 'office-ui-fabric-react/lib/Styling';
 export default {
   ...DefaultPalette,
   hub: {
-    headerHeight: '60px',
+    headerHeight: '50px',
     panelWidth: '360px',
   },
   app: {
-    navWidth: '265px',
+    navWidth: '225px',
   },
   zIndex: { // https://v4-alpha.getbootstrap.com/layout/overview/#z-index
     overlay: 1040,
