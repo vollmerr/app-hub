@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import theme from 'utils/theme';
-
 import Link from './Link';
-import odiLogo from './cdtLogo.svg';
+import odiLogo from './cdtLogo.png';
 
 const Img = styled.img`
 
