@@ -5,10 +5,14 @@ export default {
   ...DefaultPalette,
   hub: {
     headerHeight: '60px',
+    panelWidth: '360px',
   },
   app: {
-    headerHeight: '50px',
-    navWidth: '240px',
+    navWidth: '265px',
+  },
+  zIndex: { // https://v4-alpha.getbootstrap.com/layout/overview/#z-index
+    overlay: 1040,
+    panel: 1050,
   },
   breakpoints: {
     sm: 576,

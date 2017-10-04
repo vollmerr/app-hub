@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import theme from 'utils/theme';
 
 import Link from './Link';
-import odiLogo from './odiLogo.png';
+import odiLogo from './cdtLogo.svg';
 
 const Img = styled.img`
-  height: calc(${theme.hub.headerHeight} - 10px);
+
 `;
 
 const Logo = () => (

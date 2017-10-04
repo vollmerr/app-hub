@@ -13,9 +13,9 @@ import { history } from 'configureStore';
 import theme from 'utils/theme';
 
 const NavItems = styled(Nav) `
-  background: ${theme.neutralLighterAlt};
+  background: ${theme.neutralLight};
   li > div {
-    background: ${theme.neutralLighterAlt};
+    background: ${theme.neutralLight};
 
     a {
       text-decoration: none;
@@ -24,13 +24,13 @@ const NavItems = styled(Nav) `
       &:hover,
       &:focus,
       &:active {
-        background: ${theme.neutralLight};
+        background: ${theme.neutralTertiaryAlt};
       }
     }
 
     &:hover a,
     &.is-selected a {
-      background: ${theme.neutralLight};
+      background: ${theme.neutralTertiaryAlt};
     }
   }
 `;
@@ -54,6 +54,7 @@ class AppNav extends React.PureComponent {
 
     return (
       <NavItems
+        initialSelectedKey={'home'}
         groups={[{ links: routes }]}
         onLinkClick={this.handleClickLink.bind(this)} // eslint-disable-line
       />
