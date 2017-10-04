@@ -59,6 +59,11 @@ const makeSelectUser = () => createSelector(
   (substate) => substate.get('user').toJS()
 );
 
+const makeSelectUserSam = () => createSelector(
+  selectAppHubDomain,
+  (substate) => substate.getIn(['user', 'sam'])
+);
+
 /**
  * Default selector used by AppHub
  */
@@ -83,4 +88,5 @@ export {
   makeSelectAppMeta,
 
   makeSelectUser,
+  makeSelectUserSam,
 };

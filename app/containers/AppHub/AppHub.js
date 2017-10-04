@@ -15,13 +15,14 @@ import AppHubPanel from 'components/AppHub-Panel';
 import theme from 'utils/theme';
 
 import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
+// import injectReducer from 'utils/injectReducer';
 import {
   makeSelectIsMobile,
   makeSelectPanelIsOpen,
   makeSelectPanelSelected,
   makeSelectAppRoutes,
   makeSelectAppMeta,
+  makeSelectUserSam,
 } from './selectors';
 // import reducer from './reducer';
 import saga from './saga';
@@ -69,10 +70,11 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
   }
 
   render() {
-    const { isMobile, panelSelected, panelIsOpen, appMeta, appRoutes } = this.props;
+    const { isMobile, panelSelected, panelIsOpen, appMeta, appRoutes, userName } = this.props;
 
     const headerProps = {
       isMobile,
+      userName,
       panel: panelSelected,
       isOpen: panelIsOpen,
       appName: appMeta.name,
@@ -111,6 +113,7 @@ const mapStateToProps = createStructuredSelector({
   panelSelected: makeSelectPanelSelected(),
   appRoutes: makeSelectAppRoutes(),
   appMeta: makeSelectAppMeta(),
+  userName: makeSelectUserSam(),
 });
 
 function mapDispatchToProps(dispatch) {

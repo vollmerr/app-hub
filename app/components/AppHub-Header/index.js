@@ -7,7 +7,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { HELP_PANEL, APPS_PANEL, APP_NAV_PANEL, ALERTS_PANEL } from 'containers/AppHub/constants';
+import {
+  HELP_PANEL,
+  APPS_PANEL,
+  APP_NAV_PANEL,
+  ALERTS_PANEL,
+  DEV_PANEL,
+} from 'containers/AppHub/constants';
 
 import Wrapper from './Wrapper';
 import Section from './Section';
@@ -17,9 +23,12 @@ import Line from './Line';
 
 import Link from './Link';
 
+const isDev = process.env.NODE_ENV === 'development';
+
 class Header extends React.PureComponent {
   render() {
-    const { isMobile, onClick, appName, appPath, panel, isOpen } = this.props;
+    const { isMobile, onClick, appName, appPath, panel, isOpen, userName } = this.props;
+    const initials = userName ? userName.split(/[. ]/, 2).map((x) => x[0].toUpperCase()).join('') : '';
 
     return (
       <Wrapper>
@@ -84,11 +93,28 @@ class Header extends React.PureComponent {
           {
             !isMobile &&
             <UserInfo
-              text={'Vollmer, Ryan@CIO'}
-              initals={'RV'}
+              text={userName}
+              initals={initials}
             />
           }
           <Line />
+          {
+            isDev &&
+            <Link
+              iconProps={{
+                iconName: 'Code',
+                style: { fontSize: '28px' },
+              }}
+              title={'Dev Panel'}
+              panel={DEV_PANEL}
+              onClick={onClick}
+              checked={panel === DEV_PANEL && isOpen}
+            />
+          }
+          {
+            isDev &&
+            <Line />
+          }
           {/* TODO: CONDITIONAL IF ALERTS */}
           {/* ALERTS PANEL */}
           <Link
@@ -138,6 +164,8 @@ Header.propTypes = {
   onClick: PropTypes.func.isRequired,
   appName: PropTypes.string,
   appPath: PropTypes.string,
+  panel: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool.isRequired,
 };
 
 export default Header;
