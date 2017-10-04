@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CommandButton, ElementType } from 'office-ui-fabric-react/lib/Button';
+import { CommandButton } from 'office-ui-fabric-react/lib/Button';
 import { Link as RouterLink } from 'react-router-dom';
 
 import theme from 'utils/theme';

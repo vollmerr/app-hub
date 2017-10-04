@@ -23,7 +23,7 @@ import saga from './saga';
 export class SpaHome extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { user, exampleData, dispatch } = this.props;
-
+    const testScroll = false;
     return (
       <div>
         <Helmet>
@@ -42,6 +42,10 @@ export class SpaHome extends React.Component { // eslint-disable-line react/pref
         {
           exampleData &&
           <p>{JSON.stringify(exampleData)}</p>
+        }
+        {
+          testScroll &&
+          <div><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1></div>
         }
       </div>
     );

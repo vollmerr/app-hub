@@ -47,7 +47,6 @@ class Header extends React.PureComponent {
             !isMobile &&
             <Line partial />
           }
-
           {/* APP HUB TITLE */}
           {
             (!isMobile || !appName) &&
@@ -63,21 +62,24 @@ class Header extends React.PureComponent {
               padding={'20px'}
             />
           }
-          {appName && <Line partial={!isMobile} />}
-
+          {
+            appName &&
+            <Line partial={!isMobile} />
+          }
           {/* APP TITLE */}
-          <Link
-            title={appName}
-            text={appName}
-            to={appPath}
-            onClick={onClick}
-            padding={'20px'}
-          />
+          {
+            appName &&
+            <Link
+              title={appName}
+              text={appName}
+              to={appPath}
+              onClick={onClick}
+              padding={'20px'}
+            />
+          }
         </Section>
-
         {/* RIGHT SECTION */}
         <Section>
-
           {/* USER INFO */}
           {
             !isMobile &&
@@ -87,7 +89,6 @@ class Header extends React.PureComponent {
             />
           }
           <Line />
-
           {/* TODO: CONDITIONAL IF ALERTS */}
           {/* ALERTS PANEL */}
           <Link
@@ -102,7 +103,6 @@ class Header extends React.PureComponent {
           />
           <Line />
           {/* /TODO: CONDITIONAL IF ALERTS */}
-
           {/* HELP PANEL */}
           <Link
             iconProps={{
@@ -115,7 +115,6 @@ class Header extends React.PureComponent {
             checked={panel === HELP_PANEL && isOpen}
           />
           <Line />
-
           {/* APP HUB NAV PANEL */}
           <Link
             dark

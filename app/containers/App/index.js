@@ -35,7 +35,7 @@ export class App extends React.PureComponent {
     const { name, title, desc } = appMeta;
 
     return (
-      <Wrapper>
+      <Wrapper isMobile={isMobile}>
         <Helmet>
           <title>{title}</title>
           <meta name={name} content={desc} />

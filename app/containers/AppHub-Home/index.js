@@ -10,23 +10,52 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import styled from 'styled-components';
 
+import theme from 'utils/theme';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+
 import makeSelectAppHubHome from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-export class AppHubHome extends React.Component { // eslint-disable-line react/prefer-stateless-function
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
+
+const UpperSection = styled.div`
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex: 1;
+  background: ${theme.neutralLighterAlt};
+  min-height: 75%;
+  padding: 0 30px;
+`;
+
+const LowerSection = UpperSection.extend`
+  min-height: 25%;
+  background: ${theme.neutralLight};
+`;
+
+export class AppHubHome extends React.PureComponent {
   render() {
     return (
-      <div>
+      <Wrapper>
         <Helmet>
           <title>AppHub | Home</title>
           <meta name="description" content="Description of AppHubHome" />
         </Helmet>
-        <div style={{ padding: '15px' }}>in the app hub home...</div>
-      </div>
+        <UpperSection>
+          <h1>upper content</h1>
+        </UpperSection>
+        <LowerSection>
+          lower content
+        </LowerSection>
+      </Wrapper>
     );
   }
 }
