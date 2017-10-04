@@ -1,18 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { CommandButton } from 'office-ui-fabric-react/lib/Button';
-import { Link as RouterLink } from 'react-router-dom';
 
+import StyledLink from 'components/Link';
 import theme from 'utils/theme';
-import PropTypes from 'prop-types';
 // import HeaderItem from 'components/Header/HeaderItem';
 import Item from './Item';
-
-const LinkStyled = styled(RouterLink) `
-  text-decoration: none;
-`;
-
-const A = LinkStyled.withComponent('a');
 
 const ButtonStyled = styled(CommandButton) `
   color: ${theme.white};
@@ -78,21 +72,13 @@ class Link extends React.PureComponent {
       checked,
     };
 
-    // handle internal routing
-    if (to) {
+    // handle routing
+    if (to || href) {
       return (
         <Item {...itemProps}>
-          <LinkStyled to={to} >
+          <StyledLink to={to} href={href} >
             <Button />
-          </LinkStyled>
-        </Item>
-      );
-    } else if (href) {
-      return (
-        <Item {...itemProps}>
-          <A href={href} >
-            <Button />
-          </A>
+          </StyledLink>
         </Item>
       );
     }

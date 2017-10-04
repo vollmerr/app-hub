@@ -8,11 +8,11 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 export const routes = [
   {
     key: 'home',
-    name: 'Home',
+    name: 'App Hub',
     path: '/',
     exact: true,
     component: AppHubHome,
-    icon: 'HomeSolid',
+    icon: 'Glimmer',
   },
   {
     key: 'spa',
@@ -21,6 +21,12 @@ export const routes = [
     exact: false,
     component: Spa,
     icon: 'BulletedList2Mirrored',
+  },
+  {
+    key: 'cold',
+    name: 'Cold',
+    href: 'https://cold.govops.ca.gov/',
+    icon: 'Rename',
   },
 ];
 

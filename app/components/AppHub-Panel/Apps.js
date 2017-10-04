@@ -5,10 +5,10 @@
 */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
+import Link from 'components/Link';
 import { routes } from 'containers/AppHub/Router';
 import theme from 'utils/theme';
 
@@ -59,7 +59,7 @@ class Apps extends React.PureComponent {
       <Wrapper>
         {
           routes.map((route) => (
-            <App key={route.key} to={route.path} onClick={this.props.onClick}>
+            <App key={route.key} to={route.path} href={route.href} onClick={this.props.onClick}>
               <StyledIcon iconName={route.icon} />
               <div>{route.name}</div>
             </App>
