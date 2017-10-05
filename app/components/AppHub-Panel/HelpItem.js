@@ -21,7 +21,7 @@ const StlyedLink = styled(Link) `
   &:hover,
   &:active,
   &:focus {
-    color: ${theme.themeDarker};
+    color: ${theme.neutralDark};
   }
 `;
 

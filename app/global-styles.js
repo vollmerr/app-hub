@@ -12,6 +12,6 @@ injectGlobal`
   }
 
   * {
-    transition: 0.25s ease;
+    transition: 0.1s ease;
   }
 `;

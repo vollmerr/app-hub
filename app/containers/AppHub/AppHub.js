@@ -50,6 +50,7 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
 
     if (mobile !== isMobile) {
       dispatch(changeMobile(mobile));
+      dispatch(changePanelOpen(false));
     }
   }
 
@@ -84,6 +85,7 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
     };
 
     const panelProps = {
+      isMobile,
       routes: appRoutes,
       panel: panelSelected,
       isOpen: panelIsOpen,

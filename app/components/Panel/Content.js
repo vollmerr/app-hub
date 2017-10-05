@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import theme from 'utils/theme';
 
 const Content = styled.div`
-  background: ${theme.neutralPrimaryAlt};
+  background: ${theme.neutralSecondary};
   color: ${theme.white};
+  font-size: 16px;
   bottom: 0;
   ${(props) => props.left ? 'left' : 'right'}: 0;
   position: absolute;

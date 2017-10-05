@@ -17,22 +17,7 @@ import theme from 'utils/theme';
 import Wrapper from './Wrapper';
 
 const Field = styled.div`
-  label,
-  .ms-Dropdown-caretDown,
-  .ms-Dropdown:hover .ms-Dropdown-caretDown {
-    color: ${theme.white};
-  }
-
-  .ms-TextField-fieldGroup,
-  .ms-Dropdown-title {
-    border: transparent;
-  }
-
-  .ms-Dropdown,
-  .ms-Dropdown-title,
-  .ms-TextField-field,
-  .ms-TextField-field[disabled] {
-    background: ${theme.neutralSecondary};
+  label {
     color: ${theme.white};
   }
 `;
