@@ -44,7 +44,7 @@ function* putToken(token, appName) {
  */
 export function* authenticate(appName = 'AppHub') {
   const token = localStorage.getItem('id_token');
-
+  console.log('token', token)
   if (validToken(token)) {
     // update user in global appHub state
     yield putToken(token, appName);
@@ -56,6 +56,7 @@ export function* authenticate(appName = 'AppHub') {
       };
 
       const { id_token } = yield call(request, 'https://testsec.api.technology.ca.gov/createToken', options);
+      console.log('id_token', id_token)
       // set into local storage for future authentication caching
       localStorage.setItem('id_token', id_token);
       // update user in global appHub state
@@ -108,7 +109,22 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-function request(url, options = {}) {
+export function request(url, options) {
+  return fetch(url, options)
+    .then(checkStatus)
+    .then(parseJSON);
+}
+
+
+/**
+ * Requests a URL with jwt token in header for authorization, returning a promise
+ *
+ * @param  {string} url       The URL we want to request
+ * @param  {object} [options] The options we want to pass to "fetch"
+ *
+ * @return {object}           The response data
+ */
+function requestWithToken(url, options = {}) {
   // get users jwt token form storage else they dont have one
   const token = localStorage.getItem('id_token') || null;
   // config settings to send api
@@ -122,9 +138,7 @@ function request(url, options = {}) {
     ...options,
   };
 
-  return fetch(url, config)
-    .then(checkStatus)
-    .then(parseJSON);
+  return request(url, config);
 }
 
-export default request;
+export default requestWithToken;

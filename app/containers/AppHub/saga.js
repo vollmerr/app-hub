@@ -9,6 +9,6 @@ function* authenticateUser(action) {
   }
 }
 
-export default function* exampleSaga() {
+export default function* appHubSaga() {
   yield takeEvery('*', authenticateUser);
 }

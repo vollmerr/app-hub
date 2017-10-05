@@ -14,7 +14,7 @@ const Item = styled.li`
 `;
 
 const StlyedLink = styled(Link) `
-  color: ${theme.themePrimary};
+  color: ${theme.white};
   display: block;
   padding: 15px;
 

@@ -43,6 +43,7 @@ class Help extends React.PureComponent {
     return (
       <Wrapper>
         <h2>Help</h2>
+        <hr />
         <Items>
           {
             links.map((link) => <HelpItem key={link.key} href={link.href}>{link.name}</HelpItem>)

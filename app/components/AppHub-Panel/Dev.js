@@ -4,6 +4,7 @@
 *
 */
 import React from 'react';
+import styled from 'styled-components';
 import { Dropdown } from 'office-ui-fabric-react/lib/Dropdown';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { connect } from 'react-redux';
@@ -11,8 +12,30 @@ import { createStructuredSelector } from 'reselect';
 
 import { authUserRequest } from 'containers/AppHub/actions';
 import { makeSelectUserSam } from 'containers/AppHub/selectors';
+import theme from 'utils/theme';
 
 import Wrapper from './Wrapper';
+
+const Field = styled.div`
+  label,
+  .ms-Dropdown-caretDown,
+  .ms-Dropdown:hover .ms-Dropdown-caretDown {
+    color: ${theme.white};
+  }
+
+  .ms-TextField-fieldGroup,
+  .ms-Dropdown-title {
+    border: transparent;
+  }
+
+  .ms-Dropdown,
+  .ms-Dropdown-title,
+  .ms-TextField-field,
+  .ms-TextField-field[disabled] {
+    background: ${theme.neutralSecondary};
+    color: ${theme.white};
+  }
+`;
 
 /* eslint-disable */
 /**
@@ -37,23 +60,26 @@ class Dev extends React.PureComponent {
     return (
       DEV_JWT ?
         <Wrapper>
-          <h2>Development Options</h2>
+          <h2>Developer Options</h2>
           <hr />
           <h3>Switch User</h3>
-          <TextField
-            disabled
-            label={'Current User'}
-            value={userSam}
-          />
+          <Field>
+            <TextField
+              disabled
+              label={'Current User'}
+              value={userSam}
+            />
+          </Field>
           {
             Object.keys(DEV_JWT).map(group => (
-              <Dropdown
-                key={group}
-                label={`${group} Test Users`}
-                id={group}
-                options={DEV_JWT[group]}
-                onChanged={this.handleClickUser}
-              />
+              <Field key={group}>
+                <Dropdown
+                  label={`${group} Test Users`}
+                  id={group}
+                  options={DEV_JWT[group]}
+                  onChanged={this.handleClickUser}
+                />
+              </Field>
             ))
           }
         </Wrapper> :

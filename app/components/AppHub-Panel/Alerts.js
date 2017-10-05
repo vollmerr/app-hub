@@ -13,6 +13,7 @@ class Alerts extends React.PureComponent {
     return (
       <Wrapper>
         <h2>Alerts</h2>
+        <hr />
         ...
       </Wrapper>
     );
