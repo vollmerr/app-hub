@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AppNav from 'components/App-Nav';
+import AppNav from 'containers/App-Nav';
 import Panel from 'components/Panel';
 import {
   HELP_PANEL,

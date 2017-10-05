@@ -15,7 +15,7 @@ import { compose } from 'redux';
 import { changeApp } from 'containers/AppHub/actions';
 import { makeSelectIsMobile, makeSelectAppMeta, makeSelectAppRoutes } from 'containers/AppHub/selectors';
 import { initialState } from 'containers/AppHub/reducer';
-import AppNav from 'components/App-Nav';
+import AppNav from 'containers/App-Nav';
 
 import Wrapper from './Wrapper';
 
@@ -63,8 +63,6 @@ App.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   isMobile: makeSelectIsMobile(),
-  // panelIsOpen: makeSelectPanelIsOpen(),
-  // panelSelected: makeSelectPanelSelected(),
   appRoutes: makeSelectAppRoutes(),
   appMeta: makeSelectAppMeta(),
 });

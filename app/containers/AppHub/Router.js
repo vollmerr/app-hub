@@ -42,7 +42,7 @@ const Router = () => (
   <Switch>
     {
       routes.map((route) => (
-        <Route exact={route.exact} key={route.path} path={route.path} component={route.component} />
+        <Route exact={route.exact} key={route.key} path={route.path} component={route.component} />
       ))
     }
     <Route component={notFound} />
