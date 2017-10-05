@@ -10,6 +10,7 @@ import AppHub from './AppHub';
 
 const Wrapper = styled(Fabric)`
   height: 100%;
+  overflow: hidden;
 `;
 
 const Content = styled.div`

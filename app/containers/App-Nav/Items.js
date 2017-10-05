@@ -6,6 +6,7 @@ import theme from 'utils/theme';
 
 const Items = styled(Nav) `
   background: ${(props) => props.isMobile ? theme.neutralSecondary : theme.neutralLight};
+
   li > div {
     background: ${(props) => props.isMobile ? theme.neutralSecondary : theme.neutralLight};
 

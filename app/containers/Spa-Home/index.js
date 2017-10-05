@@ -20,10 +20,19 @@ import { exampleDataRequest } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
-export class SpaHome extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class SpaHome extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isScrolling: false,
+    };
+  }
+
+
   render() {
     const { user, exampleData, dispatch } = this.props;
-    const testScroll = 12;
+    const { isScrolling } = this.state;
+
     return (
       <div>
         <Helmet>
@@ -38,13 +47,16 @@ export class SpaHome extends React.Component { // eslint-disable-line react/pref
             user.roles.map((role) => <li key={role}>{role}</li>)
           }
         </ul>
+
         <button style={{ background: '#333', color: '#fff' }} onClick={() => dispatch(exampleDataRequest())}>Test data fetch</button>
         {
           exampleData &&
           <p>{JSON.stringify(exampleData)}</p>
         }
+
+        <button style={{ background: '#333', color: '#fff' }} onClick={() => this.setState({ isScrolling: !isScrolling })}>Test window scroll</button>
         {
-          testScroll &&
+          isScrolling &&
           <div><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1></div>
         }
       </div>

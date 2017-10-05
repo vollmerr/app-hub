@@ -8,6 +8,8 @@ const AppContent = styled.div`
   flex: 1;
   padding: 0 15px;
   background-color: ${theme.neutralLighterAlt};
+  height: 100vh;
+  overflow: auto;
 `;
 
 export default AppContent;
