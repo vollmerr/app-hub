@@ -5,6 +5,7 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
@@ -70,9 +71,9 @@ class Apps extends React.PureComponent {
     );
   }
 }
-// iconProps={{ iconName: route.icon, style: { fontSize: '28px' } }}
-Apps.propTypes = {
 
+Apps.propTypes = {
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Apps;

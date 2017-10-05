@@ -32,13 +32,13 @@ const panels = {
 
 class AppHubPanel extends React.PureComponent {
   render() {
-    const { panel, isOpen, onClick, routes, isMobile } = this.props;
+    const { panel, isOpen, onClick, routes } = this.props;
     const Content = panels[panel];
     const left = panel === APP_NAV_PANEL;
 
     return (
       <Panel isOpen={isOpen} onClick={onClick} left={left}>
-        <Content onClick={() => onClick()} routes={routes} isMobile={isMobile} />
+        <Content onClick={() => onClick()} routes={routes} />
       </Panel>
     );
   }

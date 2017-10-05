@@ -5,6 +5,7 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -37,7 +38,9 @@ class Link extends React.PureComponent {
 }
 
 Link.propTypes = {
-
+  to: PropTypes.string,
+  href: PropTypes.string,
+  children: PropTypes.node.isRequired,
 };
 
 export default Link;

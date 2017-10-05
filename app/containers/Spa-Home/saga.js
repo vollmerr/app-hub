@@ -19,7 +19,7 @@ function* exampleDataSagaWorker() {
     const data = yield call(request, exampleUrl);
     yield put(exampleDataSuccess(data));
   } catch (error) {
-    console.log("FETCH FAILURE: ", error)
+    console.log('FETCH FAILURE: ', error); // eslint-disable-line
   }
 }
 

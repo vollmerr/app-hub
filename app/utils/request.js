@@ -44,7 +44,7 @@ function* putToken(token, appName) {
  */
 export function* authenticate(appName = 'AppHub') {
   const token = localStorage.getItem('id_token');
-  console.log('token', token)
+
   if (validToken(token)) {
     // update user in global appHub state
     yield putToken(token, appName);
@@ -56,7 +56,6 @@ export function* authenticate(appName = 'AppHub') {
       };
 
       const { id_token } = yield call(request, 'https://testsec.api.technology.ca.gov/createToken', options);
-      console.log('id_token', id_token)
       // set into local storage for future authentication caching
       localStorage.setItem('id_token', id_token);
       // update user in global appHub state

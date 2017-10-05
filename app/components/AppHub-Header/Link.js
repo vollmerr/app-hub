@@ -102,6 +102,8 @@ Link.propTypes = {
   href: PropTypes.string,
   children: PropTypes.node,
   dark: PropTypes.bool,
+  checked: PropTypes.bool,
+  padding: PropTypes.string,
 };
 
 export default Link;

@@ -166,6 +166,7 @@ Header.propTypes = {
   appPath: PropTypes.string,
   panel: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
+  userName: PropTypes.string.isRequired,
 };
 
 export default Header;

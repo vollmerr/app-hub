@@ -106,8 +106,9 @@ AppHub.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   panelIsOpen: PropTypes.bool.isRequired,
   panelSelected: PropTypes.string.isRequired,
-  // appName: PropTypes.string,
-  // appPath: PropTypes.string,
+  userName: PropTypes.string.isRequired,
+  appMeta: PropTypes.object.isRequired,
+  appRoutes: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
