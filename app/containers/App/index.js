@@ -50,15 +50,10 @@ export class App extends React.PureComponent {
 
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  // route: PropTypes.shape({
-  //   name: PropTypes.string.isRequired,
-  //   path: PropTypes.string.isRequired,
-  // }).isRequired,
-  // meta: PropTypes.shape({
-  //   name: PropTypes.string.isRequired,
-  //   title: PropTypes.string.isRequired,
-  //   desc: PropTypes.string.isRequired,
-  // }).isRequired,
+  app: PropTypes.object.isRequired,
+  isMobile: PropTypes.bool.isRequired,
+  appRoutes: PropTypes.array.isRequired,
+  appMeta: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

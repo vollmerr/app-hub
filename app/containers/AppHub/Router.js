@@ -1,9 +1,11 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import AppHubHome from 'containers/AppHub-Home/Loadable';
+import AppHubHome from 'containers/AppHub-Home';
 import Spa from 'containers/Spa/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+
+import Loading from 'components/Loading';
 
 export const routes = [
   {
@@ -23,6 +25,13 @@ export const routes = [
     icon: 'BulletedList2Mirrored',
   },
   {
+    key: 'loading',
+    name: 'Test App Loading',
+    path: '/loading',
+    component: Loading,
+    icon: 'ProgressRingDots',
+  },
+  {
     key: 'cold',
     name: 'COLD',
     href: 'https://cold.govops.ca.gov/',
@@ -33,6 +42,12 @@ export const routes = [
     name: 'BARS',
     href: 'http://barsui.technology.ca.gov/',
     icon: 'IDBadge',
+  },
+  {
+    key: 'ed',
+    name: 'ED',
+    href: 'http://employeedirectory/',
+    icon: 'ContactInfo',
   },
 ];
 

@@ -108,8 +108,21 @@ function checkStatus(response) {
  *
  * @return {object}           The response data
  */
-function request(url, options) {
-  return fetch(url, options)
+function request(url, options = {}) {
+  // get users jwt token form storage else they dont have one
+  const token = localStorage.getItem('id_token') || null;
+  // config settings to send api
+  const config = {
+    method: options.method || 'get',
+    body: JSON.stringify(options.body),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    ...options,
+  };
+
+  return fetch(url, config)
     .then(checkStatus)
     .then(parseJSON);
 }

@@ -29,7 +29,7 @@ class Link extends React.PureComponent {
     }
 
     return (
-      <A href={href} target={'_blank'} {...props}>
+      <A href={href} target={'_blank'} rel={'noopener noreferrer'} {...props}>
         {children}
       </A>
     );

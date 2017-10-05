@@ -4,7 +4,6 @@
 *
 */
 import React from 'react';
-import styled from 'styled-components';
 import { Dropdown } from 'office-ui-fabric-react/lib/Dropdown';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { connect } from 'react-redux';
@@ -13,9 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { authUserRequest } from 'containers/AppHub/actions';
 import { makeSelectUserSam } from 'containers/AppHub/selectors';
 
-const Wrapper = styled.div`
-  padding: 15px;
-`;
+import Wrapper from './Wrapper';
 
 /* eslint-disable */
 /**
@@ -40,9 +37,9 @@ class Dev extends React.PureComponent {
     return (
       DEV_JWT ?
         <Wrapper>
-          <h1>Development Options</h1>
+          <h2>Development Options</h2>
           <hr />
-          <h2>Switch User</h2>
+          <h3>Switch User</h3>
           <TextField
             disabled
             label={'Current User'}

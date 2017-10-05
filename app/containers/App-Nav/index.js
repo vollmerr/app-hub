@@ -38,6 +38,8 @@ const NavItems = styled(Nav) `
 
 // https://github.com/OfficeDev/office-ui-fabric-react/issues/915
 class AppNav extends React.PureComponent {
+  static history;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -47,7 +49,7 @@ class AppNav extends React.PureComponent {
 
   componentDidMount() {
     // listen for changes on history, updated selected on change
-    history.listen((location) => {
+    this.history = history.listen((location) => {
       const { routes } = this.props;
       this.getSelectedKey(routes, location);
     });
@@ -60,6 +62,11 @@ class AppNav extends React.PureComponent {
       return true;
     }
     return false;
+  }
+
+  componentWillUnmount() {
+    // unlisten from history when unmounted (so not trying to update state on unmounted component)
+    this.history();
   }
 
   /**

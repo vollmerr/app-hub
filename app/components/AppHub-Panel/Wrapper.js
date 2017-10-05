@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  cursor: pointer;
+  padding: 5px 20px;
 `;
 
 export default Wrapper;
-

@@ -6,12 +6,15 @@
 
 import React from 'react';
 
+import Wrapper from './Wrapper';
+
 class Alerts extends React.PureComponent {
   render() {
     return (
-      <div>
-        IN Alerts PANEL
-      </div>
+      <Wrapper>
+        <h2>Alerts</h2>
+        ...
+      </Wrapper>
     );
   }
 }

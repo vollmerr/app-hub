@@ -5,7 +5,7 @@ import { EXAMPLE_DATA_REQUEST } from './constants';
 import { exampleDataSuccess } from './actions';
 
 // example of a url, just dummy data pulled in
-const exampleUrl = 'https://jsonplaceholder.typicode.com/posts/1';
+const exampleUrl = 'http://barsapi/api/BadgeRequests/GetBarsAppStartupData/';
 
 /**
  * This function is a generator (notice the * after function), meaning it

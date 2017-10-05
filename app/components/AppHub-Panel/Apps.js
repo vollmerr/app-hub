@@ -24,6 +24,7 @@ const App = styled(Link) `
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
   margin: 3px;
   height: 102px;
   width: 102px;
