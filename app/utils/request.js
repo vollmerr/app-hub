@@ -2,7 +2,12 @@ import { call, put } from 'redux-saga/effects';
 import decode from 'jwt-decode';
 import 'whatwg-fetch';
 
-import { authUserSuccess } from 'containers/AppHub/actions';
+import { authUserSuccess, authUserFailure } from 'containers/AppHub/actions';
+
+function sleep(ms) {
+  console.log('sleeping to simulate server delay...');
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 /**
  * Helper function to valdate that token exists and is not expired
@@ -61,7 +66,7 @@ export function* authenticate(appName = 'AppHub') {
       // update user in global appHub state
       yield putToken(id_token, appName);
     } catch (err) {
-      throw new Error('ERROR AUTHENICATING');
+      yield authUserFailure(err);
     }
   }
 }

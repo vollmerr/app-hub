@@ -22,4 +22,8 @@ export const AUTH_USER_REQUEST = 'app/AppHub/AUTH_USER_REQUEST';
 export const AUTH_USER_SUCCESS = 'app/AppHub/AUTH_USER_SUCCESS';
 export const AUTH_USER_FAILURE = 'app/AppHub/AUTH_USER_FAILURE';
 
+// REQUEST STATUS TYPES
 export const REQUEST = '_REQUEST';
+export const SUCCESS = '_SUCCESS';
+export const FAILURE = '_FAILURE';
+

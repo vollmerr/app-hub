@@ -14,11 +14,25 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectUser } from 'containers/AppHub/selectors';
+import Loading from 'components/Loading';
 
-import makeSelectSpaHome, { makeSelectExampleData } from './selectors';
+import makeSelectSpaHome, {
+  makeSelectExampleData,
+  makeSelectError,
+  makeSelectLoading,
+} from './selectors';
+
 import { exampleDataRequest } from './actions';
 import reducer from './reducer';
 import saga from './saga';
+
+const Button = ({ onClick, disabled, text }) => (
+  <button
+    onClick={onClick}
+    disabled={disabled}
+    style={{ background: disabled ? '#666' : '#333', color: '#fff', padding: '10px 15px', cursor: 'pointer' }}
+  >{text}</button>
+);
 
 export class SpaHome extends React.Component {
   constructor(props) {
@@ -30,8 +44,12 @@ export class SpaHome extends React.Component {
 
 
   render() {
-    const { user, exampleData, dispatch } = this.props;
+    const { user, exampleData, dispatch, error, loading } = this.props;
     const { isScrolling } = this.state;
+
+    if (error) {
+      return <p>Placholder for error message</p>;
+    }
 
     return (
       <div>
@@ -48,18 +66,18 @@ export class SpaHome extends React.Component {
           }
         </ul>
 
-        <button style={{ background: '#333', color: '#fff' }} onClick={() => dispatch(exampleDataRequest())}>Test data fetch</button>
+        <Button onClick={() => dispatch(exampleDataRequest())} text={'Load Authorized Data'} disabled={loading} />
         {
           exampleData &&
           <p>{JSON.stringify(exampleData)}</p>
         }
 
-        <button style={{ background: '#333', color: '#fff' }} onClick={() => this.setState({ isScrolling: !isScrolling })}>Test window scroll</button>
+        <Button onClick={() => this.setState({ isScrolling: !isScrolling })} text={'Make Window Scroll'} disabled={loading} />
         {
           isScrolling &&
           <div><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1></div>
         }
-      </div>
+      </div >
     );
   }
 }
@@ -68,12 +86,16 @@ SpaHome.propTypes = {
   dispatch: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   exampleData: PropTypes.object,
+  error: PropTypes.string,
+  loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   spaHome: makeSelectSpaHome(),
   exampleData: makeSelectExampleData(),
   user: makeSelectUser(),
+  error: makeSelectError(),
+  loading: makeSelectLoading(),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -14,6 +14,17 @@ const makeSelectExampleData = () => createSelector(
   (substate) => substate.get('exampleData')
 );
 
+const makeSelectError = () => createSelector(
+  selectSpaHomeDomain,
+  (substate) => substate.get('error')
+);
+
+const makeSelectLoading = () => createSelector(
+  selectSpaHomeDomain,
+  (substate) => substate.get('loading')
+);
+
+
 /**
  * Default selector used by SpaHome
  */
@@ -27,4 +38,6 @@ export default makeSelectSpaHome;
 export {
   selectSpaHomeDomain,
   makeSelectExampleData,
+  makeSelectError,
+  makeSelectLoading,
 };

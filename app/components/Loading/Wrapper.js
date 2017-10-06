@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: 100%;
+  width: 100%;
   > div {
     margin-top: -${theme.hub.headerHeight};
   }

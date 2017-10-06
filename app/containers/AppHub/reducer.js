@@ -5,6 +5,7 @@
  */
 
 import { fromJS } from 'immutable';
+
 import {
   CHANGE_MOBILE,
   CHANGE_PANEL_OPEN,
