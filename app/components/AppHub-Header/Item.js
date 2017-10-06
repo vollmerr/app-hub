@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import theme from 'utils/theme';
 
 const focusStyle = (props) => `
-  background: ${props.dark ? theme.themeDarker : theme.neutralSecondary};
+  background: ${props.dark ? theme.themeDarker : theme.neutralPrimary};
 `;
 
 const Item = styled.div`

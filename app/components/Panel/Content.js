@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import theme from 'utils/theme';
 
 const Content = styled.div`
-  background: ${theme.neutralSecondary};
+  background: ${theme.neutralPrimary};
   color: ${theme.white};
   font-size: 16px;
   bottom: 0;

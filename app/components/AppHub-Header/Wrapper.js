@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
   height: ${theme.hub.headerHeight};
   box-sizing: border-box;
-  background: ${theme.neutralPrimary};
+  background: ${theme.neutralDark};
 `;
 
 export default Wrapper;

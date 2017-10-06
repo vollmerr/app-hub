@@ -5,10 +5,13 @@ import { Nav } from 'office-ui-fabric-react/lib/Nav';
 import theme from 'utils/theme';
 
 const Items = styled(Nav) `
-  background: ${(props) => props.isMobile ? theme.neutralSecondary : theme.neutralLight};
+  background: ${(props) => props.isMobile ? theme.neutralPrimary : theme.neutralLight};
+  * {
+    transition: none;
+  }
 
   li > div {
-    background: ${(props) => props.isMobile ? theme.neutralSecondary : theme.neutralLight};
+    background: ${(props) => props.isMobile ? theme.neutralPrimary : theme.neutralLight};
 
     a {
       text-decoration: none;
