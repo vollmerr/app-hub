@@ -4,8 +4,8 @@ import 'whatwg-fetch';
 
 import { authUserSuccess, authUserFailure } from 'containers/AppHub/actions';
 
-function sleep(ms) {
-  console.log('sleeping to simulate server delay...');
+export function sleep(ms) {
+  console.log('sleeping to simulate server delay...'); // eslint-disable-line
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 

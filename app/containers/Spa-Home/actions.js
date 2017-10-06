@@ -7,7 +7,7 @@
 import {
   EXAMPLE_DATA_REQUEST,
   EXAMPLE_DATA_SUCCESS,
-  EXAMPLE_DATA_FAILURE
+  EXAMPLE_DATA_FAILURE,
 } from './constants';
 
 export function exampleDataRequest() {

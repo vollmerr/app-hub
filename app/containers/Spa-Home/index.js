@@ -14,7 +14,6 @@ import { compose } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectUser } from 'containers/AppHub/selectors';
-import Loading from 'components/Loading';
 
 import makeSelectSpaHome, {
   makeSelectExampleData,
@@ -26,7 +25,7 @@ import { exampleDataRequest } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 
-const Button = ({ onClick, disabled, text }) => (
+const Button = ({ onClick, disabled, text }) => ( // eslint-disable-line
   <button
     onClick={onClick}
     disabled={disabled}
