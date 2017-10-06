@@ -19,6 +19,7 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectAppHubHome from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import Apps from './Apps';
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,13 +33,20 @@ const UpperSection = styled.div`
   display: flex;
   flex: 1;
   background: ${theme.neutralLighterAlt};
-  min-height: 75%;
-  padding: 0 30px;
+  min-height: 40%;
 `;
 
 const LowerSection = UpperSection.extend`
-  min-height: 25%;
+  min-height: 60%;
   background: ${theme.neutralLight};
+`;
+
+const Text = styled.div`
+  background: ${theme.neutralLighter};
+  height: 80%;
+  width: 50%;
+  padding: 15px;
+  box-shadow: 0 0 15px ${theme.neutralTertiaryAlt};
 `;
 
 export class AppHubHome extends React.PureComponent {
@@ -50,10 +58,12 @@ export class AppHubHome extends React.PureComponent {
           <meta name="description" content="Description of AppHubHome" />
         </Helmet>
         <UpperSection>
-          <h1>upper content</h1>
+          <Apps />
         </UpperSection>
         <LowerSection>
-          lower content
+          <Text>
+            placeholder
+          </Text>
         </LowerSection>
       </Wrapper>
     );

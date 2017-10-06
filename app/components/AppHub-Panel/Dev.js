@@ -29,7 +29,7 @@ const Field = styled.div`
  */
 class Dev extends React.PureComponent {
   handleClickUser = (user) => {
-    const { dispatch } = this.props;
+    const { dispatch, onClick } = this.props;
 
     if (user && user.key) {
       localStorage.setItem('id_token', user.key);
@@ -37,6 +37,7 @@ class Dev extends React.PureComponent {
       localStorage.removeItem('id_token');
     }
     dispatch(authUserRequest());
+    onClick();
   }
 
   render() {

@@ -14,14 +14,17 @@ import { routes } from 'containers/AppHub/Router';
 import theme from 'utils/theme';
 
 const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 15px;
   background: ${theme.themeDarker};
   height: 100%;
+  width: 100%;
 `;
 
 const App = styled(Link) `
   display: flex;
-  float: left;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -49,7 +52,7 @@ const App = styled(Link) `
   }
 
   &:hover * {
-    color: ${theme.themePrimary};
+    color: ${theme.themeDark}
   }
 `;
 
