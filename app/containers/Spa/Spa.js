@@ -18,15 +18,12 @@ import App from 'containers/App';
 import makeSelectSpa from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { routes } from './Router';
+import routes from './routes';
+import meta from './meta';
 
 const app = {
+  meta,
   routes,
-  meta: {
-    name: 'SPA',
-    title: 'SPA',
-    desc: 'SPA DESC',
-  },
 };
 
 export class Spa extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -39,6 +36,7 @@ export class Spa extends React.PureComponent { // eslint-disable-line react/pref
 
 Spa.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  app: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

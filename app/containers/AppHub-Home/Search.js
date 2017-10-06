@@ -11,10 +11,10 @@ import styled from 'styled-components';
 
 import theme from 'utils/theme';
 
-// width: ${(props) => props.isMobile ? '350px' : `calc(6 * ${theme.hub.tileSize} + 10 * 3px)`}; // 6 * width of app tile + space between for all but 2 ends
+const numApps = 5; // UPDATE THIS TO HOW MANY APPS SHOULD BE DISPLAYED ON HOMESCREEN
 const Wrapper = styled.div`
   width: 100%;
-  max-width: calc(6 * ${theme.hub.tileSize} + 10 * 3px);
+  max-width: calc(${numApps} * ${theme.hub.tileSize} + ${numApps * 2} * 3px);
   background: ${theme.white};
 `;
 

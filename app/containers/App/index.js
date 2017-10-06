@@ -31,13 +31,14 @@ export class App extends React.PureComponent {
 
   render() {
     const { isMobile, appMeta, appRoutes } = this.props;
-    const { name, title, desc } = appMeta;
+    const { title, desc, keywords } = appMeta;
 
     return (
       <Wrapper isMobile={isMobile}>
         <Helmet>
-          <title>{title}</title>
-          <meta name={name} content={desc} />
+          <title>{`App Hub | ${title}`}</title>
+          <meta name={'description'} content={desc} />
+          <meta name={'keywords'} content={keywords} />
         </Helmet>
         {
           !isMobile &&

@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 import Link from 'components/Link';
-import { routes } from 'containers/AppHub/Router';
+import routes from 'containers/AppHub/routes';
 import theme from 'utils/theme';
 
 const Wrapper = styled.div`

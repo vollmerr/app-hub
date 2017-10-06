@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 
 import theme from 'utils/theme';
+import Router from 'components/Router';
 
-import Router from './Router';
 import AppHub from './AppHub';
-
+import routes from './routes';
 
 const Wrapper = styled(Fabric)`
   height: 100%;
@@ -26,7 +26,7 @@ export default () => (
   <Wrapper>
     <AppHub />
     <Content>
-      <Router />
+      <Router routes={routes} />
     </Content>
   </Wrapper>
 );

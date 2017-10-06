@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-// import AppHubHeader from 'containers/AppHub-Header';
+import { Helmet } from 'react-helmet';
+
 import AppHubHeader from 'components/AppHub-Header';
 import AppHubPanel from 'components/AppHub-Panel';
 import theme from 'utils/theme';
@@ -78,7 +79,7 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
       isMobile,
       userName,
       appPath,
-      appName: appMeta.name,
+      appName: appMeta.title,
       panel: panelSelected,
       isOpen: panelIsOpen,
       onClick: this.handlePanelClick,
@@ -94,6 +95,9 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
 
     return (
       <div>
+        <Helmet>
+          <title>App Hub</title>
+        </Helmet>
         <AppHubHeader {...headerProps} />
         <AppHubPanel {...panelProps} />
       </div>

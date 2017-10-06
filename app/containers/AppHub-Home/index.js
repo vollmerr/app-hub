@@ -7,12 +7,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import styled from 'styled-components';
 
-import { routes } from 'containers/AppHub/Router';
+import { apps } from 'containers/AppHub/routes';
 import theme from 'utils/theme';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -83,7 +82,7 @@ export class AppHubHome extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      appRoutes: routes,
+      appRoutes: apps,
     };
   }
 
@@ -97,10 +96,6 @@ export class AppHubHome extends React.PureComponent {
 
     return (
       <Wrapper>
-        <Helmet>
-          <title>AppHub | Home</title>
-          <meta name="description" content="Description of AppHubHome" />
-        </Helmet>
         <UpperSection>
           <Container>
             <Search isMobile={isMobile} />

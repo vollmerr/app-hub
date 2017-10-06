@@ -1,13 +1,9 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-
 import AppHubHome from 'containers/AppHub-Home';
 import Spa from 'containers/Spa/Loadable';
-import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import Loading from 'components/Loading';
 
-export const routes = [
+const routes = [
   {
     key: 'home',
     name: 'App Hub',
@@ -51,17 +47,6 @@ export const routes = [
   },
 ];
 
-export const notFound = NotFoundPage;
+export const apps = routes.slice(1);
 
-const Router = () => (
-  <Switch>
-    {
-      routes.map((route) => (
-        <Route exact={route.exact} key={route.key} path={route.path} component={route.component} />
-      ))
-    }
-    <Route component={notFound} />
-  </Switch>
-);
-
-export default Router;
+export default routes;

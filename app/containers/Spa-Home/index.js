@@ -52,9 +52,6 @@ export class SpaHome extends React.Component {
 
     return (
       <div>
-        <Helmet>
-          <title>Spa | Home</title>
-        </Helmet>
         <p>in spa home......</p>
         <p>Logged in as {user.sam}</p>
         <p>with permissions (BARS):</p>
