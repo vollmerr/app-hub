@@ -6,6 +6,7 @@ export default {
   hub: {
     headerHeight: '50px',
     panelWidth: '360px',
+    tileSize: '102px',
   },
   app: {
     navWidth: '225px',
@@ -15,6 +16,7 @@ export default {
     panel: 1050,
   },
   breakpoints: {
+    xs: 430,
     sm: 576,
     md: 768,
     lg: 992,

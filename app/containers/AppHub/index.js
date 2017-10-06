@@ -11,6 +11,7 @@ import AppHub from './AppHub';
 const Wrapper = styled(Fabric)`
   height: 100%;
   overflow: hidden;
+  min-width: ${theme.breakpoints.xs}px;
 `;
 
 const Content = styled.div`

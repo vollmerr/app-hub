@@ -31,7 +31,7 @@ const App = styled(Link) `
   width: 102px;
   box-sizing: border-box;
   overflow: visible;
-  transition: background-color .467s cubic-bezier(.1,.9,.2,1) 34ms;
+  transition: .25s ease;
   pointer-events: all;
   font-size: ${(props) => props.size || '18px'};
   text-decoration: none;

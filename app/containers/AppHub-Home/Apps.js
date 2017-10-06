@@ -10,17 +10,17 @@ import styled from 'styled-components';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
 import Link from 'components/Link';
-import { routes } from 'containers/AppHub/Router';
 import theme from 'utils/theme';
 
 const Wrapper = styled.div`
   display: flex;
+  flex-flow: row wrap;
   align-items: center;
   justify-content: center;
-  padding: 15px;
-  background: ${theme.themeDarker};
-  height: 100%;
+  height: 102px;
+  overflow: hidden;
   width: 100%;
+  margin-top: 30px;
 `;
 
 const App = styled(Link) `
@@ -30,11 +30,11 @@ const App = styled(Link) `
   align-items: center;
   text-align: center;
   margin: 3px;
-  height: 102px;
-  width: 102px;
+  height: ${theme.hub.tileSize};
+  width: ${theme.hub.tileSize};
   box-sizing: border-box;
   overflow: visible;
-  transition: background-color .467s cubic-bezier(.1,.9,.2,1) 34ms;
+  transition: .25s ease;
   pointer-events: all;
   font-size: ${(props) => props.size || '18px'};
   text-decoration: none;
@@ -65,8 +65,8 @@ class Apps extends React.PureComponent {
     return (
       <Wrapper>
         {
-          routes.map((route) => (
-            <App key={route.key} to={route.path} href={route.href} onClick={this.props.onClick}>
+          this.props.routes.map((route) => (
+            <App key={route.key} to={route.path} href={route.href}>
               <StyledIcon iconName={route.icon} />
               <div>{route.name}</div>
             </App>
@@ -78,7 +78,7 @@ class Apps extends React.PureComponent {
 }
 
 Apps.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  routes: PropTypes.array.isRequired,
 };
 
 export default Apps;
