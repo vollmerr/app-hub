@@ -11,7 +11,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import styled from 'styled-components';
 
-import { apps } from 'containers/AppHub/routes';
 import theme from 'utils/theme';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -82,13 +81,23 @@ export class AppHubHome extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      appRoutes: apps,
+      appRoutes: this.props.routes,
     };
   }
 
-  // handleChangeSearch = (newValue) => {
-  //   const newAppRoutes = routes.fitler()
-  // }
+  handleChangeSearch = (value) => {
+    const { routes } = this.props;
+    const re = new RegExp(value, 'i');
+
+    const appRoutes = routes.filter((route) => {
+      const { title, desc, keywords } = route.meta;
+      const meta = `${title} ${desc} ${keywords}`;
+      console.log('[META]', meta, '\n[VALUE]', value, '\n[meta.match(value)]', meta.match(value))
+      return meta.match(re);
+    });
+
+    this.setState({ appRoutes });
+  }
 
   render() {
     const { isMobile } = this.props;
@@ -98,7 +107,7 @@ export class AppHubHome extends React.PureComponent {
       <Wrapper>
         <UpperSection>
           <Container>
-            <Search isMobile={isMobile} />
+            <Search isMobile={isMobile} onChange={this.handleChangeSearch} />
             <Apps routes={appRoutes} />
           </Container>
         </UpperSection>
@@ -115,6 +124,7 @@ export class AppHubHome extends React.PureComponent {
 AppHubHome.propTypes = {
   dispatch: PropTypes.func.isRequired,
   isMobile: PropTypes.bool.isRequired,
+  routes: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

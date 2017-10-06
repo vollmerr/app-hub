@@ -7,7 +7,14 @@ const Router = ({ routes }) => (
   <Switch>
     {
       routes.map((route) => (
-        <Route exact={route.exact} key={route.key} path={route.path} component={route.component} />
+        <Route
+          key={route.key}
+          exact={route.exact}
+          path={route.path}
+          render={(props) => (
+            <route.component {...props} routes={routes} />
+          )}
+        />
       ))
     }
     <Redirect to={routes[0].path} />

@@ -11,7 +11,7 @@ import styled from 'styled-components';
 
 import theme from 'utils/theme';
 
-const numApps = 5; // UPDATE THIS TO HOW MANY APPS SHOULD BE DISPLAYED ON HOMESCREEN
+const numApps = 6; // UPDATE THIS TO HOW MANY APPS SHOULD BE DISPLAYED ON HOMESCREEN
 const Wrapper = styled.div`
   width: 100%;
   max-width: calc(${numApps} * ${theme.hub.tileSize} + ${numApps * 2} * 3px);
@@ -23,8 +23,7 @@ class Search extends React.PureComponent {
     return (
       <Wrapper>
         <SearchBox
-          onFocus={() => console.log('onFocus called')}
-          onBlur={() => console.log('onBlur called')}
+          onChange={this.props.onChange}
         />
       </Wrapper>
     );
@@ -32,7 +31,7 @@ class Search extends React.PureComponent {
 }
 
 Search.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Search;

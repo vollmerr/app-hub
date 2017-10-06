@@ -28,6 +28,7 @@ import {
 // import reducer from './reducer';
 import saga from './saga';
 import { changeMobile, changePanelOpen, changePanelSelected, authUserRequest } from './actions';
+import meta from './meta';
 
 export class AppHub extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -96,7 +97,9 @@ export class AppHub extends React.Component { // eslint-disable-line react/prefe
     return (
       <div>
         <Helmet>
-          <title>App Hub</title>
+          <title>{meta.title}</title>
+          <meta name={'description'} content={meta.desc} />
+          <meta name={'keywords'} content={meta.keywords} />
         </Helmet>
         <AppHubHeader {...headerProps} />
         <AppHubPanel {...panelProps} />
