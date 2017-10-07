@@ -36,7 +36,6 @@ export class Spa extends React.PureComponent { // eslint-disable-line react/pref
 
 Spa.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  app: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
