@@ -11,6 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import styled from 'styled-components';
 
+import { escapeRegExp } from 'utils/string';
 import theme from 'utils/theme';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -87,12 +88,12 @@ export class AppHubHome extends React.PureComponent {
 
   handleChangeSearch = (value) => {
     const { routes } = this.props;
-    const re = new RegExp(value, 'i');
+    const re = new RegExp(escapeRegExp(value), 'i');
 
     const appRoutes = routes.filter((route) => {
       const { title, desc, keywords } = route.meta;
       const meta = `${title} ${desc} ${keywords}`;
-      console.log('[META]', meta, '\n[VALUE]', value, '\n[meta.match(value)]', meta.match(value))
+
       return meta.match(re);
     });
 
@@ -122,7 +123,6 @@ export class AppHubHome extends React.PureComponent {
 }
 
 AppHubHome.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   isMobile: PropTypes.bool.isRequired,
   routes: PropTypes.array.isRequired,
 };
@@ -132,13 +132,7 @@ const mapStateToProps = createStructuredSelector({
   isMobile: makeSelectIsMobile(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withConnect = connect(mapStateToProps);
 
 const withReducer = injectReducer({ key: 'appHubHome', reducer });
 const withSaga = injectSaga({ key: 'appHubHome', saga });
