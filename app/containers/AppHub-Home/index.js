@@ -22,6 +22,7 @@ import reducer from './reducer';
 import saga from './saga';
 import Apps from './Apps';
 import Search from './Search';
+import Updates from './Updates';
 
 const Wrapper = styled.div`
   display: flex;
@@ -67,16 +68,6 @@ const LowerSection = UpperSection.extend`
   padding: ${(props) => props.isMobile ? '0' : '15px'};
 `;
 
-const Text = styled.div`
-  background: ${theme.neutralLighter};
-  height: ${(props) => props.isMobile ? '100%' : '80%'};
-  width: 100%;
-  max-width: 800px;
-  ${(props) => !props.isMobile &&
-    `box-shadow: 0 0 15px ${theme.neutralTertiaryAlt};`
-  }
-`;
-
 
 export class AppHubHome extends React.PureComponent {
   constructor(props) {
@@ -113,9 +104,7 @@ export class AppHubHome extends React.PureComponent {
           </Container>
         </UpperSection>
         <LowerSection isMobile={isMobile}>
-          <Text isMobile={isMobile}>
-            placeholder
-          </Text>
+          <Updates isMobile={isMobile} />
         </LowerSection>
       </Wrapper>
     );

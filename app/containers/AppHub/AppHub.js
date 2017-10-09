@@ -30,7 +30,7 @@ import saga from './saga';
 import { changeMobile, changePanelOpen, changePanelSelected, authUserRequest } from './actions';
 import meta from './meta';
 
-export class AppHub extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class AppHub extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {};

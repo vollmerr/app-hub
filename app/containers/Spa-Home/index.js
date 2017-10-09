@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -33,7 +32,7 @@ const Button = ({ onClick, disabled, text }) => ( // eslint-disable-line
   >{text}</button>
 );
 
-export class SpaHome extends React.Component {
+export class SpaHome extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {

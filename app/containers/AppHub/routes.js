@@ -42,7 +42,7 @@ const routes = [
   {
     key: 'bars',
     name: 'BARS',
-    href: 'http://barsui.technology.ca.gov/',
+    href: 'http://bars.technology.ca.gov/',
     icon: 'IDBadge',
     meta: meta.bars,
   },
