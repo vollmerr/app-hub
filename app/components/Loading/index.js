@@ -1,13 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
-import styled from 'styled-components';
 
-import Wrapper from './Wrapper';
-
-const ErrorMessage = styled.div`
-  font-size: 24px;
-`;
+import ErrorMessage from './ErrorMessage';
 
 // https://www.npmjs.com/package/react-loadable
 class Loading extends React.PureComponent {
@@ -16,20 +10,14 @@ class Loading extends React.PureComponent {
 
     if (isLoading) {
       if (timedOut) {
-        return <div>Timeoput</div>
+        return <ErrorMessage />;
       } else if (pastDelay) {
         return (
-          <Wrapper>
-            <Spinner size={SpinnerSize.large} label={text || 'Loading...'} ariaLive={'assertive'} />
-          </Wrapper>
+          <Loading text={text} />
         );
       }
     } else if (error) {
-      return (
-        <Wrapper>
-          <div>Sorry, an error has occurred.</div>
-        </Wrapper>
-      );
+      return <ErrorMessage />;
     }
 
     return null;
@@ -38,6 +26,10 @@ class Loading extends React.PureComponent {
 
 Loading.propTypes = {
   text: PropTypes.string,
+  isLoading: PropTypes.bool,
+  timedOut: PropTypes.bool,
+  pastDelay: PropTypes.bool,
+  error: PropTypes.bool,
 };
 
 export default Loading;
