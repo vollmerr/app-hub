@@ -145,7 +145,7 @@ class Header extends React.PureComponent {
           <Link
             dark
             iconProps={{
-              iconName: 'Waffle',
+              iconName: 'waffle2',
               style: { fontSize: '36px' },
             }}
             title={'Hub Navigation'}

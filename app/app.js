@@ -14,7 +14,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import 'sanitize.css/sanitize.css';
-import { initializeIcons } from '@uifabric/icons';
+// import { initializeIcons } from '@uifabric/icons';
 
 // Import root app
 import AppHub from 'containers/AppHub';
@@ -36,6 +36,7 @@ import 'file-loader?name=[name].[ext]!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
 
 import configureStore, { history } from './configureStore';
+import initializeIcons from './utils/initializeIcons';
 
 // Import CSS reset and Global Styles
 import './global-styles';
