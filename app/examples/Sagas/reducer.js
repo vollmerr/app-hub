@@ -9,8 +9,8 @@ import {
   EXAMPLE_DATA_SUCCESS,
 } from './constants';
 
-const initialState = fromJS({
-  data: {},
+export const initialState = fromJS({
+  data: null,
 });
 
 function sagasReducer(state = initialState, action) {

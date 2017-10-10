@@ -21,17 +21,23 @@ import saga from './saga';
 import messages from './messages';
 import { exampleRequest } from './actions';
 
-export class Sagas extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class Sagas extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+    this.stats = {};
+  }
   // fetch the data async using a saga and redux's dispatch function
   handleFetchData = () => {
     this.props.dispatch(exampleRequest());
   }
 
   render() {
+    const { data } = this.props;
+
     return (
       <Example header={messages.header} desc={messages.desc}>
         <Button onClick={this.handleFetchData}>Click me to Load Data</Button>
-        <p>Data: {JSON.stringify(this.props.data)}</p>
+        {data && <p>Data: {JSON.stringify(data)}</p>}
       </Example>
     );
   }

@@ -1,20 +1,14 @@
 import React from 'react';
 import { Switch, Route, Link } from 'react-router-dom';
-import Loadable from 'react-loadable';
 import styled from 'styled-components';
 
 import Example from 'examples/common/Example';
 import Button from 'examples/common/Button';
 
 import messages from './messages';
-import Redux from './Redux/Loadable';
-import Sagas from './Sagas/Loadable';
-
-// already a Loadable.js for code splitting example, so to doing here...
-export const CodeSplitting = Loadable({
-  loader: () => import('./CodeSplitting'),
-  loading: () => null,  // This would be a loading component
-});
+import Redux from './Redux';
+import Sagas from './Sagas';
+import CodeSplitting from './CodeSplitting';
 
 // Example styles
 const ExamplesWrapper = styled.div`

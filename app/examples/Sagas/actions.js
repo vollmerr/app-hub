@@ -23,7 +23,7 @@ export function exampleSuccess(data) {
   };
 }
 
-export function exampleFailure(error) {
+export function exampleFailure(error = {}) {
   return {
     message: error.message,
     type: EXAMPLE_DATA_FAILURE,

@@ -1,7 +1,8 @@
 import { registerIcons } from '@uifabric/styling/lib/index';
 import appHubIcons from 'images/office365icons.woff';
 
-const initializeIcons = (baseUrl = 'images/') => {
+// http://o365icons.cloudapp.net/
+const initializeIcons = () => {
   registerIcons({
     style: {
       MozOsxFontSmoothing: 'grayscale',
@@ -11,9 +12,7 @@ const initializeIcons = (baseUrl = 'images/') => {
       speak: 'none',
     },
     fontFace: {
-      // fontFamily: `"FabricMDL2Icons"`, // eslint-disable-line
-      // src: `url('images/fabricmdl2icons-2.38.woff') format('woff')`,
-      fontFamily: `"appHubIcons"`,
+      fontFamily: `"appHubIcons"`, // eslint-disable-line
       src: `url(${appHubIcons}) format('woff')`,
     },
     icons: {
@@ -38,5 +37,5 @@ const initializeIcons = (baseUrl = 'images/') => {
     },
   });
 };
-// https://static2.sharepointonline.com/files/fabric/assets/icons/fabricmdl2icons-2.38.woff
+
 export default initializeIcons;
