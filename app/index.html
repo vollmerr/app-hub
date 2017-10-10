@@ -13,9 +13,16 @@
   <body>
     <!-- Display a message if JS has been disabled on the browser. -->
     <noscript>If you're seeing this message, that means <strong>JavaScript has been disabled on your browser</strong>, please <strong>enable JS</strong> to make this app work.</noscript>
-
+    <script type="text/javascript">
+      window.FabricConfig = {
+        fontBaseUrl: ""
+      };
+    </script>
     <!-- The app hooks into this div -->
     <div id="app"></div>
     <!-- A lot of magic happens in this file. HtmlWebpackPlugin automatically includes all assets (e.g. bundle.js, main.css) with the correct HTML tags, which is why they are missing in this HTML file. Don't add any assets here! (Check out webpackconfig.js if you want to know more) -->
+    <link rel="preload" href="926245d7543965395355a09749ae703f.woff" as="font" type="font/woff" crossorigin>
+    <link rel="preload" href="7bf19436893a42e7cf42f6bd5286a226.png" as="image" type="image/png">
+    <link rel="preload" href="1.740ea0c7ea11bd419211.chunk.js" as="script" type="application/javascript">
   </body>
 </html>
