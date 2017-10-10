@@ -10,7 +10,8 @@ class TestPage extends React.PureComponent {
       isLoading: true,
       timedOut: false,
       pastDelay: true,
-      error: false,
+      error: null,
+      // error: { message: 'error message...' },
     };
   }
 

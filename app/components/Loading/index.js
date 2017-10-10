@@ -16,7 +16,7 @@ class Loading extends React.PureComponent {
         return <LoadingMessage text={text} />;
       }
     } else if (error) {
-      return <ErrorMessage />;
+      return <ErrorMessage error={error} />;
     }
 
     return null;
@@ -28,7 +28,7 @@ Loading.propTypes = {
   isLoading: PropTypes.bool,
   timedOut: PropTypes.bool,
   pastDelay: PropTypes.bool,
-  error: PropTypes.bool,
+  error: PropTypes.object,
 };
 
 export default Loading;
