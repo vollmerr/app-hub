@@ -14,7 +14,7 @@ import theme from 'utils/theme';
 const numApps = 6; // UPDATE THIS TO HOW MANY APPS SHOULD BE DISPLAYED ON HOMESCREEN
 const Wrapper = styled.div`
   width: 100%;
-  max-width: calc(${numApps} * ${theme.hub.tileSize} + ${numApps * 2} * 3px);
+  max-width: calc(${numApps} * ${theme.hub.tileSize} + ${(numApps - 1) * 2} * 3px);
   background: ${theme.white};
 `;
 
