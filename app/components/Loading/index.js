@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ErrorMessage from './ErrorMessage';
+import LoadingMessage from './LoadingMessage';
 
 // https://www.npmjs.com/package/react-loadable
 class Loading extends React.PureComponent {
@@ -12,9 +13,7 @@ class Loading extends React.PureComponent {
       if (timedOut) {
         return <ErrorMessage />;
       } else if (pastDelay) {
-        return (
-          <Loading text={text} />
-        );
+        return <LoadingMessage text={text} />;
       }
     } else if (error) {
       return <ErrorMessage />;

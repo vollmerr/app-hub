@@ -50,11 +50,12 @@ class Link extends React.PureComponent {
     } = this.props;
 
     const isLink = onClick || to || href;
+    const newIconProps = { style: { fontSize: '20px' }, ...iconProps };
 
     const Button = () => (
       <ButtonStyled
         onClick={onClick ? () => onClick(panel) : null}
-        iconProps={iconProps}
+        iconProps={newIconProps}
         title={title}
         dark={dark}
         ariaLabel={title}

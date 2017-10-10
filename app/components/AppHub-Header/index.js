@@ -39,8 +39,7 @@ class Header extends React.PureComponent {
             (isMobile && appName) &&
             <Link
               iconProps={{
-                iconName: 'GlobalNavButton',
-                style: { fontSize: '28px' },
+                iconName: 'appMenu',
               }}
               title={`${appName} Navigation`}
               panel={APP_NAV_PANEL}
@@ -61,8 +60,8 @@ class Header extends React.PureComponent {
             (!isMobile || !appName) &&
             <Link
               iconProps={{
-                iconName: 'Glimmer',
-                style: { fontSize: '22px', marginRight: '10px' },
+                iconName: 'Apphub',
+                style: { fontSize: '20px', marginRight: '10px' },
               }}
               title={'App Hub'}
               text={'App Hub'}
@@ -102,8 +101,7 @@ class Header extends React.PureComponent {
             isDev &&
             <Link
               iconProps={{
-                iconName: 'Code',
-                style: { fontSize: '24px' },
+                iconName: 'settingsMenu',
               }}
               title={'Dev Panel'}
               panel={DEV_PANEL}
@@ -119,8 +117,7 @@ class Header extends React.PureComponent {
           {/* ALERTS PANEL */}
           <Link
             iconProps={{
-              iconName: 'Warning',
-              style: { fontSize: '24px' },
+              iconName: 'alertsMenu',
             }}
             title={'Alerts Panel'}
             panel={ALERTS_PANEL}
@@ -132,8 +129,7 @@ class Header extends React.PureComponent {
           {/* HELP PANEL */}
           <Link
             iconProps={{
-              iconName: 'Help',
-              style: { fontSize: '24px' },
+              iconName: 'helpMenu',
             }}
             title={'Help Panel'}
             panel={HELP_PANEL}
@@ -145,8 +141,7 @@ class Header extends React.PureComponent {
           <Link
             dark
             iconProps={{
-              iconName: 'waffle2',
-              style: { fontSize: '36px' },
+              iconName: 'appHubMenu',
             }}
             title={'Hub Navigation'}
             panel={APPS_PANEL}

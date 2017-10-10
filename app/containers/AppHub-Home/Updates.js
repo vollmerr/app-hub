@@ -15,35 +15,39 @@ const Wrapper = styled.div`
   ${(props) => !props.isMobile &&
     `box-shadow: 0 0 15px ${theme.neutralTertiaryAlt};`
   }
-  > h2 {
-    padding: 15px;
-  }
 `;
+
+const Padded = styled.div`
+  padding: 0 0 15px 15px;
+`;
+
+const Header = Padded.withComponent('h2');
 
 const updates = [
   {
     name: 'The Badge Access Request System (BARS) is now live!',
     date: '2017/10/08',
     href: 'http://bars.technology.ca.gov/',
-    desc: <div>
+    desc: <Padded>
       <p>This system allows users to easily apply for ODI access badges. It relaces the old paper form for an entirely online experience, and provides features including email reminders and alerts, automatic workflow, and record history.</p>
       <p>Get started today at <Link href={'http://bars.technology.ca.gov/'}>http://bars.technology.ca.gov</Link>.</p>
-    </div>,
+    </Padded>,
   },
   {
     name: 'Initial release of the ODI App Hub',
     date: '2017/10/08',
     to: '/',
-    desc: <div>
+    desc: <Padded>
       <p>We are proud to announce the release of the ODI App hub; a central location for ODI internal applications.</p>
       <p>It is built using the latest technologies such as React, Webpack, Node, and .Net Core 2</p>
-    </div>,
+    </Padded>,
   },
 ];
 
 const Item = styled.div`
   display: flex;
-  padding: 15px;
+  align-items: center;
+  padding: 0 15px;
   min-height: 50px;
 
   &:hover,
@@ -61,13 +65,22 @@ const Name = styled(Link) `
   flex: 4;
   padding: 0 15px;
   color: ${theme.neutralDark};
+
+  &:hover {
+    color: ${theme.themeDark};
+  }
 `;
 
 const ReadMore = styled.div`
   flex: 1;
-  text-align: right;
+  text-align: center;
   cursor: pointer;
-  color: ${theme.themePrimary};
+  color: ${theme.themeDark};
+  padding: 15px;
+
+  &:hover {
+    color: ${theme.themePrimary};
+  }
 `;
 
 export class Updates extends React.PureComponent {
@@ -103,7 +116,13 @@ export class Updates extends React.PureComponent {
 
     return (
       <Wrapper isMobile={isMobile}>
-        <h2>{isReadingMore ? name : 'Updates'}</h2>
+        <Header>
+          {
+            isReadingMore ?
+              name :
+              'Updates'
+          }
+        </Header>
         {
           isReadingMore ?
             <div>{desc}<ReadMore onClick={() => this.handleClickRead()}>Back</ReadMore></div> :

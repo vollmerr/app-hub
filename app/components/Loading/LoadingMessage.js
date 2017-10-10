@@ -4,7 +4,7 @@ import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 
 import Wrapper from './Wrapper';
 
-class ErrorMessage extends React.PureComponent {
+class LoadingMessage extends React.PureComponent {
   render() {
     const { text } = this.props;
 
@@ -16,8 +16,8 @@ class ErrorMessage extends React.PureComponent {
   }
 }
 
-ErrorMessage.propTypes = {
+LoadingMessage.propTypes = {
   text: PropTypes.string,
 };
 
-export default ErrorMessage;
+export default LoadingMessage;

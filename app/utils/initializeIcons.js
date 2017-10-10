@@ -1,4 +1,5 @@
 import { registerIcons } from '@uifabric/styling/lib/index';
+import appHubIcons from 'images/office365icons.woff';
 
 const initializeIcons = (baseUrl = 'images/') => {
   registerIcons({
@@ -13,15 +14,27 @@ const initializeIcons = (baseUrl = 'images/') => {
       // fontFamily: `"FabricMDL2Icons"`, // eslint-disable-line
       // src: `url('images/fabricmdl2icons-2.38.woff') format('woff')`,
       fontFamily: `"appHubIcons"`,
-      src: `url('') format('woff')`,
+      src: `url(${appHubIcons}) format('woff')`,
     },
     icons: {
-      GlobalNavButton: '\uE700',
-      question: '\uE006',
-      bell: '\uE010',
-      menu: '\uE020',
-      gear: '\uE035',
-      waffle2: '\uE704',
+      // NAV
+      helpMenu: '\uE006',
+      alertsMenu: '\uE010',
+      appMenu: '\uE020',
+      settingsMenu: '\uE035',
+      appHubMenu: '\uE303',
+      // APPS
+      ED: '\uE417',
+      Loading: '\uE20B',
+      SPA: '\uE22E',
+      Apphub: '\uE300',
+      COLD: '\uE408',
+      BARS: '\uE259',
+      // requried by office-ui
+      chevrondown: '\uE087',
+      chevronup: '\uE088',
+      Search: '\uE039',
+      clear: '\uE353',
     },
   });
 };

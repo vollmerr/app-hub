@@ -1,7 +1,7 @@
 import AppHubHome from 'containers/AppHub-Home';
 import Spa from 'containers/Spa/Loadable';
 
-import Loading from 'components/Loading';
+import Loading from 'components/Loading/TestPage';
 
 import { meta } from './meta';
 
@@ -12,7 +12,7 @@ const routes = [
     path: '/',
     exact: true,
     component: AppHubHome,
-    icon: 'Glimmer',
+    icon: 'Apphub',
     meta: meta.apphub,
   },
   {
@@ -21,7 +21,7 @@ const routes = [
     path: '/spa',
     exact: false,
     component: Spa,
-    icon: 'BulletedList2Mirrored',
+    icon: 'SPA',
     meta: meta.spa,
   },
   {
@@ -29,28 +29,28 @@ const routes = [
     name: 'Test App Loading',
     path: '/loading',
     component: Loading,
-    icon: 'ProgressRingDots',
+    icon: 'Loading',
     meta: meta.loading,
   },
   {
     key: 'cold',
     name: 'COLD',
     href: 'https://cold.govops.ca.gov/',
-    icon: 'Rename',
+    icon: 'COLD',
     meta: meta.cold,
   },
   {
     key: 'bars',
     name: 'BARS',
     href: 'http://bars.technology.ca.gov/',
-    icon: 'IDBadge',
+    icon: 'BARS',
     meta: meta.bars,
   },
   {
     key: 'ed',
     name: 'ED',
     href: 'http://employeedirectory/',
-    icon: 'ContactInfo',
+    icon: 'ED',
     meta: meta.ed,
   },
 ];
