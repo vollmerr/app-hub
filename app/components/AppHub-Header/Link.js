@@ -5,7 +5,7 @@ import { CommandButton } from 'office-ui-fabric-react/lib/Button';
 
 import StyledLink from 'components/Link';
 import theme from 'utils/theme';
-// import HeaderItem from 'components/Header/HeaderItem';
+
 import Item from './Item';
 
 const ButtonStyled = styled(CommandButton) `
@@ -50,7 +50,7 @@ class Link extends React.PureComponent {
     } = this.props;
 
     const isLink = onClick || to || href;
-    const newIconProps = { style: { fontSize: '20px' }, ...iconProps };
+    const newIconProps = iconProps && { style: { fontSize: '20px' }, ...iconProps };
 
     const Button = () => (
       <ButtonStyled

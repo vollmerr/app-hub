@@ -61,13 +61,13 @@ class Header extends React.PureComponent {
             <Link
               iconProps={{
                 iconName: 'Apphub',
-                style: { fontSize: '20px', marginRight: '10px' },
+                style: { fontSize: '24px', marginRight: '10px' },
               }}
               title={'App Hub'}
               text={'App Hub'}
               to={'/'}
               onClick={onClick}
-              padding={'20px'}
+              padding={'15px'}
             />
           }
           {
@@ -82,7 +82,7 @@ class Header extends React.PureComponent {
               text={appName}
               to={appPath}
               onClick={onClick}
-              padding={'20px'}
+              padding={'15px'}
             />
           }
         </Section>
