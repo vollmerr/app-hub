@@ -21,3 +21,9 @@ describe('makeSelectSagasData', () => {
     expect(dataSelector(state).toJS()).toEqual(data);
   });
 });
+
+// describe('examples/Sagas makeSelectSagasData', () => {
+//   it('should select data from the sagas object', () => {
+//     expect(makeSelectSagasData(state).toJS()).toEqual(data);
+//   });
+// });
