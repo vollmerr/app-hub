@@ -37,7 +37,7 @@ export class Redux extends React.PureComponent {
     const data = event.target.value;
     // use the action we passed into 'mapDispatchToProps' to
     // update the redux store. note the action is in the 'this.props' object
-    this.props.handleExampleAction(data);
+    this.props.onExampleAction(data);
   }
 
   render() {
@@ -59,7 +59,7 @@ export class Redux extends React.PureComponent {
  * when 'connect' is called.
  */
 Redux.propTypes = {
-  handleExampleAction: PropTypes.func.isRequired,
+  onExampleAction: PropTypes.func.isRequired,
   exampleData: PropTypes.string,
 };
 
@@ -79,7 +79,7 @@ const mapStateToProps = createStructuredSelector({
  */
 export function mapDispatchToProps(dispatch) {
   return {
-    handleExampleAction: (data) => dispatch(exampleAction(data)),
+    onExampleAction: (data) => dispatch(exampleAction(data)),
   };
 }
 

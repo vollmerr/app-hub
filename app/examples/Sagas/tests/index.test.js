@@ -5,6 +5,7 @@ import Button from 'examples/common/Button';
 import { Sagas, mapDispatchToProps } from '../index';
 import { exampleRequest } from '../actions';
 
+
 describe('<Sagas />', () => {
   let wrapper;
   let mockFn;
