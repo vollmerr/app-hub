@@ -52,7 +52,7 @@ const mapStateToProps = createStructuredSelector({
   data: makeSelectSagasData(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     onExampleRequest: () => dispatch(exampleRequest()),
   };

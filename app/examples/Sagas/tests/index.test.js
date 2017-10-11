@@ -2,19 +2,19 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Button from 'examples/common/Button';
 
-import { Sagas } from '../index';
-
+import { Sagas, mapDispatchToProps } from '../index';
+import { exampleRequest } from '../actions';
 
 describe('<Sagas />', () => {
   let wrapper;
-  let dispatch;
+  let mockFn;
   let mockData;
 
   beforeEach(() => {
     mockData = { a: 1, b: 4 };
-    dispatch = jest.fn();
+    mockFn = jest.fn();
     wrapper = shallow(
-      <Sagas data={mockData} dispatch={dispatch} />
+      <Sagas data={mockData} onExampleRequest={mockFn} />
     );
   });
 
@@ -33,24 +33,37 @@ describe('<Sagas />', () => {
   });
 
   it('should not render data if it does not exist', () => {
-    wrapper = shallow(<Sagas dispatch={dispatch} />);
+    wrapper.setProps({ data: null });
     expect(wrapper.find('p').length).toBe(0);
   });
 
+  describe('handleFetchData', () => {
+    it('should exist', () => {
+      const instance = wrapper.instance();
+      expect(instance.handleFetchData).toBeDefined();
+    });
+
+    it('should dispatch exampleRequest when called', () => {
+      const instance = wrapper.instance();
+      instance.handleFetchData();
+      expect(mockFn).toHaveBeenCalled();
+    });
+  });
+
   describe('mapDispatchToProps', () => {
-    describe('onChangeUsername', () => {
+    let mappedDispatch;
+    beforeEach(() => {
+      mappedDispatch = mapDispatchToProps(mockFn);
+    });
+
+    describe('onExampleRequest', () => {
       it('should be injected', () => {
-        const dispatch = jest.fn();
-        const result = mapDispatchToProps(dispatch);
-        expect(result.onChangeUsername).toBeDefined();
+        expect(mappedDispatch.onExampleRequest).toBeDefined();
       });
 
-      it('should dispatch changeUsername when called', () => {
-        const dispatch = jest.fn();
-        const result = mapDispatchToProps(dispatch);
-        const username = 'mxstbr';
-        result.onChangeUsername({ target: { value: username } });
-        expect(dispatch).toHaveBeenCalledWith(changeUsername(username));
+      it('should dispatch exampleRequest when called', () => {
+        mappedDispatch.onExampleRequest();
+        expect(mockFn).toHaveBeenCalledWith(exampleRequest());
       });
     });
   });

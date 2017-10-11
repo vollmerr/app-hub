@@ -77,7 +77,7 @@ const mapStateToProps = createStructuredSelector({
  * This will be any actions to update the redux store.
  * They are defined in
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
     handleExampleAction: (data) => dispatch(exampleAction(data)),
   };
@@ -98,7 +98,7 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
  * associated to the reducer we are injecting, and the 'reducer'
  * will be the redcuer we want to inject (imported at the top).
  */
-const withReducer = injectReducer({ key: 'widthRedux', reducer });
+const withReducer = injectReducer({ key: 'redux', reducer });
 
 /**
  * Combine our injected reducers with redux's connect functionality.

@@ -1,3 +1,4 @@
+import { delay } from 'redux-saga';
 import { takeEvery, call, put } from 'redux-saga/effects';
 import request from 'utils/request';
 
@@ -17,6 +18,7 @@ export const exampleUrl = 'https://jsonplaceholder.typicode.com/posts/1';
 export function* exampleSagaWorker() {
   try {
     const data = yield call(request, exampleUrl);
+    yield delay(500); // making sure async delay is noticable for example by adding a delay
     yield put(exampleSuccess(data));
   } catch (error) {
     yield put(exampleFailure(error));
