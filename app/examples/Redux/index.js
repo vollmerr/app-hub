@@ -26,7 +26,8 @@ import { exampleAction } from './actions'; // actions are what you call when you
 import messages from './messages';
 import Input from './Input';
 
-export class WithRedux extends React.Component { // eslint-disable-line react/prefer-stateless-function
+// Exported by name, not connected to redux for testng purposes
+export class Redux extends React.PureComponent {
   /**
    * Updates the redux store when use enters data into the input field.
    * @param {event} event   - onChange event for input
@@ -40,10 +41,12 @@ export class WithRedux extends React.Component { // eslint-disable-line react/pr
   }
 
   render() {
+    const { exampleData } = this.props; // this makes 'exampleData' a reference to 'this.props.exampleData'
+
     return (
       <Example header={messages.header} desc={messages.desc}>
         <Input placeholder={'Enter some text'} onChange={this.handleUpdateData} />
-        <p>{this.props.exampleData}</p>
+        {exampleData && <p>{exampleData}</p>}
       </Example>
     );
   }
@@ -55,7 +58,7 @@ export class WithRedux extends React.Component { // eslint-disable-line react/pr
  * our props from 'mapStateToProps' and 'mapDispatchToProps'
  * when 'connect' is called.
  */
-WithRedux.propTypes = {
+Redux.propTypes = {
   handleExampleAction: PropTypes.func.isRequired,
   exampleData: PropTypes.string,
 };
@@ -107,4 +110,4 @@ const withReducer = injectReducer({ key: 'widthRedux', reducer });
 export default compose(
   withReducer,
   withConnect,
-)(WithRedux);
+)(Redux);

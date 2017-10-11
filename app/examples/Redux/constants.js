@@ -4,4 +4,4 @@
  *
  */
 
-export const EXAMPLE_ACTION = 'app/WithRedux/EXAMPLE_ACTION';
+export const EXAMPLE_ACTION = 'app/Redux/EXAMPLE_ACTION';

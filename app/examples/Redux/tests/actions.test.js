@@ -1,18 +1,18 @@
 
 import {
-  defaultAction,
+  exampleAction,
 } from '../actions';
 import {
-  DEFAULT_ACTION,
+  EXAMPLE_ACTION,
 } from '../constants';
 
 describe('Redux actions', () => {
-  describe('Default Action', () => {
-    it('has a type of DEFAULT_ACTION', () => {
+  describe('Example Action', () => {
+    it('has a type of EXAMPLE_ACTION', () => {
       const expected = {
-        type: DEFAULT_ACTION,
+        type: EXAMPLE_ACTION,
       };
-      expect(defaultAction()).toEqual(expected);
+      expect(exampleAction()).toEqual(expected);
     });
   });
 });

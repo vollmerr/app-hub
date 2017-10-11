@@ -9,9 +9,11 @@ import {
   EXAMPLE_ACTION,
 } from './constants';
 
-const initialState = fromJS({});
+export const initialState = fromJS({
+  exampleData: null,
+});
 
-function withReduxReducer(state = initialState, action) {
+function reduxReducer(state = initialState, action) {
   switch (action.type) {
     case EXAMPLE_ACTION:
       return state
@@ -21,4 +23,4 @@ function withReduxReducer(state = initialState, action) {
   }
 }
 
-export default withReduxReducer;
+export default reduxReducer;

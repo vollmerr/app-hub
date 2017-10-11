@@ -28,7 +28,7 @@ export class Sagas extends React.PureComponent { // eslint-disable-line react/pr
   }
   // fetch the data async using a saga and redux's dispatch function
   handleFetchData = () => {
-    this.props.dispatch(exampleRequest());
+    this.props.onExampleRequest();
   }
 
   render() {
@@ -44,7 +44,7 @@ export class Sagas extends React.PureComponent { // eslint-disable-line react/pr
 }
 
 Sagas.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  onExampleRequest: PropTypes.func.isRequired,
   data: PropTypes.object,
 };
 
@@ -54,7 +54,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onExampleRequest: () => dispatch(exampleRequest()),
   };
 }
 

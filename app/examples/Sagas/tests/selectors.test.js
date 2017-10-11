@@ -10,13 +10,14 @@ const state = fromJS({
 
 
 describe('selectSagasDomain', () => {
-  it('should select the sagas object', () => {
+  it('should select the sagas state', () => {
     expect(selectSagasDomain(state).toJS()).toEqual(sagas);
   });
 });
 
-// describe('examples/Sagas makeSelectSagasData', () => {
-//   it('should select data from the sagas object', () => {
-//     expect(makeSelectSagasData(state).toJS()).toEqual(data);
-//   });
-// });
+describe('makeSelectSagasData', () => {
+  const dataSelector = makeSelectSagasData();
+  it('should select sagas.data from state', () => {
+    expect(dataSelector(state).toJS()).toEqual(data);
+  });
+});
