@@ -6,12 +6,11 @@ import { Route } from 'react-router-dom';
 import Router from '../index';
 
 /* eslint-disable */
-const Route1 = (props) => <div>route 1</div>;
-const Route2 = (props) => <div>route 2</div>;
-
+const paths = ['/test1', '/test2'];
+const Routes = [() => <div>route 1</div>, () => <div>route 2</div>];
 const routes = [
-  { key: '1', exact: true, path: '/test1', component: Route1 },
-  { key: '2', exact: false, path: '/test2', component: Route2 },
+  { key: '1', exact: true, path: paths[0], component: Routes[0] },
+  { key: '2', exact: false, path: paths[1], component: Routes[1] },
 ];
 
 describe('<Router />', () => {
@@ -27,13 +26,30 @@ describe('<Router />', () => {
   });
 
   it('should only render the component passed to the route', () => {
-    expect(wrapper.find(Route).find(Route1).exists()).toEqual(true);
-    expect(wrapper.find(Route).find(Route2).exists()).toEqual(false);
+    // push first path into history and update references
+    withRouter.children().prop('history').push(paths[0]);
+    withRouter.update();
+    wrapper = withRouter.find(Router);
 
+    expect(wrapper.find(Route).find(Routes[0]).exists()).toEqual(true);
+    expect(wrapper.find(Route).find(Routes[1]).exists()).toEqual(false);
+
+    // push second path into history and update references
+    withRouter.children().prop('history').push(paths[1]);
+    withRouter.update();
+    wrapper = withRouter.find(Router);
+
+    expect(wrapper.find(Route).find(Routes[0]).exists()).toEqual(false);
+    expect(wrapper.find(Route).find(Routes[1]).exists()).toEqual(true);
   });
 
   it('should redirect to the path of the first route', () => {
-    expect(wrapper.find(Route).find(Route1).exists()).toEqual(true);
-    expect(wrapper.find(Route).find(Route2).exists()).toEqual(false);
+    // push unknown path into history and update references
+    withRouter.children().prop('history').push('/asdfsdf');
+    withRouter.update();
+    wrapper = withRouter.find(Router);
+
+    expect(wrapper.find(Route).find(Routes[0]).exists()).toEqual(true);
+    expect(wrapper.find(Route).find(Routes[1]).exists()).toEqual(false);
   });
 });
