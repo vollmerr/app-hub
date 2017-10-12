@@ -3,9 +3,8 @@ import React from 'react';
 import Loading from './';
 
 class TestPage extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
+  render() {
+    const props = {
       text: 'Test Loading...',
       isLoading: true,
       timedOut: false,
@@ -13,10 +12,8 @@ class TestPage extends React.PureComponent {
       error: null,
       // error: { message: 'error message...' },
     };
-  }
 
-  render() {
-    return <Loading {...this.state} />;
+    return <Loading {...props} />;
   }
 }
 

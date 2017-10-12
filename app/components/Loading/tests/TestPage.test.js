@@ -1,5 +1,16 @@
+import React from 'react';
+import { shallow } from 'enzyme';
+
+import TestPage from '../TestPage';
+
+
 describe('<TestPage />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<TestPage />);
+  });
+
+  it('should render correctly', () => {
+    expect(wrapper).toMatchSnapshot();
   });
 });

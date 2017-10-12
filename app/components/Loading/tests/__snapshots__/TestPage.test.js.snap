@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TestPage /> should render correctly 1`] = `
+<Loading
+  error={null}
+  isLoading={true}
+  pastDelay={true}
+  text="Test Loading..."
+  timedOut={false}
+/>
+`;

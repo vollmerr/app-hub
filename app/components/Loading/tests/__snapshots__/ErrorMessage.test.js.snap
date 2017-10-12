@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ErrorMessage /> should render correctly 1`] = `
+<Wrapper__Wrapper>
+  <ErrorMessage__Header>
+    Sorry, an error has occurred.
+  </ErrorMessage__Header>
+  <Link
+    to="/"
+  >
+    <ErrorMessage__Button
+      primary={true}
+    >
+      Home
+    </ErrorMessage__Button>
+  </Link>
+</Wrapper__Wrapper>
+`;
