@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Input /> should render correctly 1`] = `
+exports[`<Input__Input /> should render correctly 1`] = `
 <input
   className="Input__Input-ixjKAz leJUIT"
 />

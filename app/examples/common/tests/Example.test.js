@@ -4,9 +4,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import Example from '../Example';
-// header: PropTypes.string.isRequired,
-// desc: PropTypes.arrayOf(PropTypes.string).isRequired,
-// children: PropTypes.node,
 
 const header = 'test header';
 const desc = ['test desc 1', 'test desc 2'];
@@ -17,6 +14,7 @@ const wrapper = shallow(
     <Children />
   </Example>
 );
+
 
 describe('<Example />', () => {
   it('should render correctly', () => {
