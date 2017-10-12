@@ -26,16 +26,16 @@ const NavWrapper = styled.div`
 `;
 
 const LinkButton = Button.withComponent(Link);
-const StyledLink = styled(LinkButton) `
+export const StyledLink = styled(LinkButton) `
   flex: 1;
 `;
 
 // Example components
-const ExamplesHome = () => (
+export const ExamplesHome = () => (
   <Example header={messages.header} desc={messages.desc} />
 );
 
-const ExamplesNav = () => (
+export const ExamplesNav = () => (
   <NavWrapper>
     {
       Object.values(routes).map((route) => (

@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Loadable /> should render correctly 1`] = `
+LoadableComponent {
+  "_delay": 3,
+  "_mounted": true,
+  "context": Object {},
+  "props": Object {},
+  "refs": Object {},
+  "state": Object {
+    "error": null,
+    "loaded": Object {
+      "ExamplesHome": [Function],
+      "ExamplesNav": [Function],
+      "StyledLink": [Function],
+      "default": [Function],
+    },
+    "loading": false,
+    "pastDelay": false,
+    "timedOut": false,
+  },
+  "updater": Updater {
+    "_renderer": ReactShallowRenderer {
+      "_context": Object {},
+      "_element": <LoadableComponent />,
+      "_instance": [Circular],
+      "_newState": Object {
+        "error": null,
+        "loaded": Object {
+          "ExamplesHome": [Function],
+          "ExamplesNav": [Function],
+          "StyledLink": [Function],
+          "default": [Function],
+        },
+        "loading": false,
+        "pastDelay": false,
+        "timedOut": false,
+      },
+      "_rendered": <Examples />,
+      "_rendering": false,
+      "_updater": [Circular],
+    },
+  },
+}
+`;
