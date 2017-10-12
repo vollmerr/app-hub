@@ -5,24 +5,32 @@ import Button from '../Button';
 
 
 describe('<Button />', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<Button />);
+  });
+
+  it('should render correctly', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('should render an <button> tag', () => {
-    const wrapper = shallow(<Button />);
     expect(wrapper.type()).toEqual('button');
   });
 
   it('should have a className attribute', () => {
-    const wrapper = shallow(<Button />);
     expect(wrapper.prop('className')).toBeDefined();
   });
 
   it('should adopt a valid attribute', () => {
     const id = 'test';
-    const wrapper = shallow(<Button id={id} />);
+    wrapper.setProps({ id });
     expect(wrapper.prop('id')).toEqual(id);
   });
 
   it('should not adopt an invalid attribute', () => {
-    const wrapper = shallow(<Button attribute={'test'} />);
+    const attribute = 'test';
+    wrapper.setProps({ attribute });
     expect(wrapper.prop('attribute')).toBeUndefined();
   });
 });

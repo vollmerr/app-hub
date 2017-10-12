@@ -19,6 +19,9 @@ describe('<Redux />', () => {
     );
   });
 
+  it('should render correctly', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
 
   it('should render a single input', () => {
     expect(wrapper.find(Input).length).toBe(1);

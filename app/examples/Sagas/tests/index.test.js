@@ -19,6 +19,10 @@ describe('<Sagas />', () => {
     );
   });
 
+  it('should render correctly', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('should render the button for fetching data', () => {
     expect(wrapper.find(Button).length).toBe(1);
   });

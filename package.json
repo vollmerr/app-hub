@@ -222,8 +222,14 @@
       ".*\\.(css|less|styl|scss|sass)$": "<rootDir>/internals/mocks/cssModule.js",
       ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/image.js"
     },
-    "setupFiles": ["<rootDir>/internals/testing/test-shim.js", "<rootDir>/internals/testing/test-bundler.js"],
-    "testRegex": "tests/.*\\.test\\.js$"
+    "setupFiles": [
+      "<rootDir>/internals/testing/test-shim.js",
+      "<rootDir>/internals/testing/test-bundler.js"
+    ],
+    "testRegex": "tests/.*\\.test\\.js$",
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   },
   "dependencies": {
     "babel-polyfill": "6.23.0",
@@ -283,6 +289,7 @@
     "css-loader": "0.28.4",
     "enzyme": "^3.1.0",
     "enzyme-adapter-react-16": "^1.0.1",
+    "enzyme-to-json": "^3.1.2",
     "eslint": "3.19.0",
     "eslint-config-airbnb": "15.0.1",
     "eslint-config-airbnb-base": "11.2.0",
