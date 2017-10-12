@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import 'jest-styled-components';
 
-
-function testStyledComponent(Component) {
+function testStyledComponent(Component, extend = null) {
   describe(`<${Component.displayName} />`, () => {
     let wrapper;
     beforeEach(() => {
@@ -27,11 +27,17 @@ function testStyledComponent(Component) {
       expect(wrapper.prop('id')).toEqual(id);
     });
 
-    it('should not adopt an invalid attribute', () => {
-      const attribute = 'test';
-      wrapper.setProps({ attribute });
-      expect(wrapper.prop('attribute')).toBeUndefined();
-    });
+    if (extend) {
+      it(`should extend ${extend.name}`, () => {
+        expect(wrapper.find(extend).exists()).toEqual(true);
+      });
+    } else {
+      it('should not adopt an invalid attribute', () => {
+        const attribute = 'test';
+        wrapper.setProps({ attribute });
+        expect(wrapper.prop('attribute')).toBeUndefined();
+      });
+    }
   });
 }
 

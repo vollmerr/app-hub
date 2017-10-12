@@ -1,7 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Input__Input /> should render correctly 1`] = `
+.c0 {
+  padding: 15px;
+  background: #efefef;
+  border: 1px solid #ddd;
+  width: 100%;
+}
+
 <input
-  className="Input__Input-ixjKAz leJUIT"
+  className="c0"
 />
 `;

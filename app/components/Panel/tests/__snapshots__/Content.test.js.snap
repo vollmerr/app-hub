@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Content /> should render correctly left 1`] = `
+.c0 {
+  background: #333333;
+  color: #ffffff;
+  font-size: 16px;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  width: 360px;
+  height: calc(100vh - 50px);
+  border-right: 1px solid #666666;
+  box-sizing: border-box;
+  cursor: default;
+  z-index: 1050;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Content /> should render correctly right 1`] = `
+.c0 {
+  background: #333333;
+  color: #ffffff;
+  font-size: 16px;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  width: 360px;
+  height: calc(100vh - 50px);
+  border-left: 1px solid #666666;
+  box-sizing: border-box;
+  cursor: default;
+  z-index: 1050;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Content__Content /> should render correctly 1`] = `
+.c0 {
+  background: #333333;
+  color: #ffffff;
+  font-size: 16px;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  width: 360px;
+  height: calc(100vh - 50px);
+  border-left: 1px solid #666666;
+  box-sizing: border-box;
+  cursor: default;
+  z-index: 1050;
+}
+
+<div
+  className="c0"
+/>
+`;
