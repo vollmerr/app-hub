@@ -10,7 +10,7 @@ import Wrapper from './Wrapper';
 
 import HelpItem from './HelpItem';
 
-const links = [
+export const links = [
   {
     key: 'conditionsOfUse',
     name: 'Conditions of Use',
@@ -33,7 +33,7 @@ const links = [
   },
 ];
 
-const Items = styled.ul`
+export const Items = styled.ul`
   padding: 0;
   margin: 0;
 `;

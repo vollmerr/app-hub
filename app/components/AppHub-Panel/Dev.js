@@ -4,6 +4,7 @@
 *
 */
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Dropdown } from 'office-ui-fabric-react/lib/Dropdown';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
@@ -16,7 +17,7 @@ import theme from 'utils/theme';
 
 import Wrapper from './Wrapper';
 
-const Field = styled.div`
+export const Field = styled.div`
   label {
     color: ${theme.white};
   }
@@ -27,17 +28,16 @@ const Field = styled.div`
  * Panel for development utilities, such as changing user jwt.
  * (This should be in containers, but makes more sense to have with other panels)
  */
-class Dev extends React.PureComponent {
+export class Dev extends React.PureComponent {
   handleClickUser = (user) => {
-    const { dispatch, onClick } = this.props;
+    const { onAuthUserRequest } = this.props;
 
     if (user && user.key) {
       localStorage.setItem('id_token', user.key);
     } else {
       localStorage.removeItem('id_token');
     }
-    dispatch(authUserRequest());
-    onClick();
+    onAuthUserRequest();
   }
 
   render() {
@@ -75,7 +75,8 @@ class Dev extends React.PureComponent {
 }
 
 Dev.propTypes = {
-
+  onAuthUserRequest: PropTypes.func.isRequired,
+  userSam: PropTypes.string,
 };
 
 
@@ -83,9 +84,9 @@ const mapStateToProps = createStructuredSelector({
   userSam: makeSelectUserSam(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onAuthUserRequest: () => dispatch(authUserRequest()),
   };
 }
 

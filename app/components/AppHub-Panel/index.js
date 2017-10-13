@@ -36,6 +36,7 @@ class AppHubPanel extends React.PureComponent {
     const Content = panels[panel];
     const left = panel === APP_NAV_PANEL;
 
+    /* istanbul ignore next */
     return (
       <Panel isOpen={isOpen} onClick={onClick} left={left}>
         <Content onClick={() => onClick()} routes={routes} isMobile={isMobile} />

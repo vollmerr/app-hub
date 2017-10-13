@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AppHubPanel /> should render correctly 1`] = `
+<Panel
+  isOpen={true}
+  left={false}
+  onClick={[Function]}
+>
+  <Help
+    isMobile={false}
+    onClick={[Function]}
+    routes={Array []}
+  />
+</Panel>
+`;

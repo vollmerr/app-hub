@@ -40,7 +40,7 @@ class Link extends React.PureComponent {
 Link.propTypes = {
   to: PropTypes.string,
   href: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default Link;

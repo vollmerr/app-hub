@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Wrapper__Wrapper /> should render correctly 1`] = `
+.c0 {
+  padding: 5px 20px;
+}
+
+<div
+  className="c0"
+/>
+`;
