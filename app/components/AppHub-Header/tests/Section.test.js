@@ -1,5 +1,5 @@
-describe('<Section />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
-  });
-});
+import testStyledComponent from 'utils/testStyledComponent';
+
+import Section from '../Section';
+
+testStyledComponent(Section);

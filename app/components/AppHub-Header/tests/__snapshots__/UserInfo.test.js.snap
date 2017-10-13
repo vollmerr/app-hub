@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserInfo /> should render correctly 1`] = `
+<Item__Item>
+  <UserInfo__Name>
+    test name
+  </UserInfo__Name>
+  <UserInfo__Initials>
+    tn
+  </UserInfo__Initials>
+</Item__Item>
+`;

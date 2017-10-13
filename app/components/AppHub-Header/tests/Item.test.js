@@ -1,5 +1,5 @@
-describe('<Item />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
-  });
-});
+import testStyledComponent from 'utils/testStyledComponent';
+
+import Item from '../Item';
+
+testStyledComponent(Item);

@@ -92,8 +92,8 @@ class Header extends React.PureComponent {
           {
             !isMobile &&
             <UserInfo
-              text={userName}
-              initals={initials}
+              name={userName}
+              initials={initials}
             />
           }
           <Line />

@@ -1,5 +1,5 @@
-describe('<Line />', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
-  });
-});
+import testStyledComponent from 'utils/testStyledComponent';
+
+import Line from '../Line';
+
+testStyledComponent(Line);
