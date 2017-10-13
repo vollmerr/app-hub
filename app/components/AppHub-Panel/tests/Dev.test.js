@@ -24,10 +24,12 @@ global.DEV_JWT = {
 
 describe('<Dev />', () => {
   let wrapper;
+  let onClick;
   let onAuthUserRequest;
   beforeEach(() => {
+    onClick = jest.fn();
     onAuthUserRequest = jest.fn();
-    wrapper = shallow(<Dev onAuthUserRequest={onAuthUserRequest} />);
+    wrapper = shallow(<Dev onClick={onClick} onAuthUserRequest={onAuthUserRequest} />);
   });
 
   it('should render correctly', () => {
@@ -57,7 +59,6 @@ describe('<Dev />', () => {
         setItem: jest.fn(),
         removeItem: jest.fn(),
       };
-
       instance = wrapper.instance();
     });
 
@@ -106,7 +107,7 @@ describe('<Dev />', () => {
   // KEEP LAST AS MODIFYING GLOBAL VARIABLE
   it('should not render if DEV_JWT does not exist (production)', () => {
     global.DEV_JWT = undefined;
-    wrapper = shallow(<Dev onAuthUserRequest={onAuthUserRequest} />);
+    wrapper = shallow(<Dev onClick={onClick} onAuthUserRequest={onAuthUserRequest} />);
     expect(wrapper.equals(null)).toEqual(true);
   });
 });

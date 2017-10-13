@@ -22,6 +22,7 @@ const props = {
   isOpen: true,
   onClick: jest.fn(),
   routes: [],
+  appRoutes: [],
   isMobile: false,
 };
 

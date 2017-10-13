@@ -30,7 +30,7 @@ export const Field = styled.div`
  */
 export class Dev extends React.PureComponent {
   handleClickUser = (user) => {
-    const { onAuthUserRequest } = this.props;
+    const { onAuthUserRequest, onClick } = this.props;
 
     if (user && user.key) {
       localStorage.setItem('id_token', user.key);
@@ -38,6 +38,7 @@ export class Dev extends React.PureComponent {
       localStorage.removeItem('id_token');
     }
     onAuthUserRequest();
+    onClick();
   }
 
   render() {
@@ -77,6 +78,7 @@ export class Dev extends React.PureComponent {
 Dev.propTypes = {
   onAuthUserRequest: PropTypes.func.isRequired,
   userSam: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
 };
 
 
