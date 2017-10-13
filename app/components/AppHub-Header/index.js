@@ -23,12 +23,24 @@ import Line from './Line';
 
 import Link from './Link';
 
-const isDev = process.env.NODE_ENV === 'development';
+global.isDev = process.env.NODE_ENV === 'development';
+
 
 class Header extends React.PureComponent {
   render() {
-    const { isMobile, onClick, appName, appPath, panel, isOpen, userName } = this.props;
+    const {
+      isMobile,
+      onClick,
+      appName,
+      appPath,
+      panel,
+      isOpen,
+      userName,
+      alerts,
+    } = this.props;
+
     const initials = userName ? userName.split(/[. ]/, 2).map((x) => x[0].toUpperCase()).join('') : '';
+    const hasAlerts = alerts && alerts.length;
 
     return (
       <Wrapper>
@@ -90,7 +102,7 @@ class Header extends React.PureComponent {
         <Section>
           {/* USER INFO */}
           {
-            !isMobile &&
+            (!isMobile && userName) &&
             <UserInfo
               name={userName}
               initials={initials}
@@ -98,7 +110,7 @@ class Header extends React.PureComponent {
           }
           <Line />
           {
-            isDev &&
+            global.isDev &&
             <Link
               iconProps={{
                 iconName: 'settingsMenu',
@@ -110,21 +122,27 @@ class Header extends React.PureComponent {
             />
           }
           {
-            isDev &&
+            global.isDev &&
             <Line />
           }
           {/* TODO: CONDITIONAL IF ALERTS */}
           {/* ALERTS PANEL */}
-          <Link
-            iconProps={{
-              iconName: 'alertsMenu',
-            }}
-            title={'Alerts Panel'}
-            panel={ALERTS_PANEL}
-            onClick={onClick}
-            checked={panel === ALERTS_PANEL && isOpen}
-          />
-          <Line />
+          {
+            hasAlerts &&
+            <Link
+              iconProps={{
+                iconName: 'alertsMenu',
+              }}
+              title={'Alerts Panel'}
+              panel={ALERTS_PANEL}
+              onClick={onClick}
+              checked={panel === ALERTS_PANEL && isOpen}
+            />
+          }
+          {
+            hasAlerts &&
+            <Line />
+          }
           {/* /TODO: CONDITIONAL IF ALERTS */}
           {/* HELP PANEL */}
           <Link
@@ -161,7 +179,8 @@ Header.propTypes = {
   appPath: PropTypes.string,
   panel: PropTypes.string.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  userName: PropTypes.string.isRequired,
+  userName: PropTypes.string,
+  alerts: PropTypes.array,
 };
 
 export default Header;

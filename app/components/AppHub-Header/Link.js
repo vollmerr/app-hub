@@ -8,7 +8,7 @@ import theme from 'utils/theme';
 
 import Item from './Item';
 
-const ButtonStyled = styled(CommandButton) `
+export const ButtonStyled = styled(CommandButton) `
   color: ${theme.white};
   display: flex;
   justify-content: center;
@@ -33,39 +33,37 @@ const ButtonStyled = styled(CommandButton) `
   }
 `;
 
+
+export function Button({ text, children, onClick, panel, ...props }) { //eslint-disable-line
+  const newOnClick = onClick ? () => onClick(panel) : null;
+
+  return (
+    <ButtonStyled
+      onClick={newOnClick}
+      {...props}
+    >
+      {text}
+      {children}
+    </ButtonStyled>
+  );
+}
+
+
 class Link extends React.PureComponent {
   render() {
     const {
-      panel,
-      title,
       iconProps,
       onClick,
       to,
       href,
-      text,
-      children,
       dark,
+      title,
       checked,
-      padding,
+      ...props
     } = this.props;
 
-    const isLink = onClick || to || href;
+    const isLink = !!(onClick || to || href);
     const newIconProps = iconProps && { style: { fontSize: '20px' }, ...iconProps };
-
-    const Button = () => (
-      <ButtonStyled
-        onClick={onClick ? () => onClick(panel) : null}
-        iconProps={newIconProps}
-        title={title}
-        dark={dark}
-        ariaLabel={title}
-        checked={checked}
-        padding={padding}
-      >
-        {text}
-        {children}
-      </ButtonStyled>
-    );
 
     const itemProps = {
       isLink,
@@ -73,12 +71,22 @@ class Link extends React.PureComponent {
       checked,
     };
 
+    const buttonProps = {
+      dark,
+      title,
+      checked,
+      onClick,
+      ariaLabel: title,
+      iconProps: newIconProps,
+      ...props,
+    };
+
     // handle routing
     if (to || href) {
       return (
         <Item {...itemProps}>
           <StyledLink to={to} href={href} >
-            <Button />
+            <Button {...buttonProps} />
           </StyledLink>
         </Item>
       );
@@ -87,7 +95,7 @@ class Link extends React.PureComponent {
     // no links
     return (
       <Item {...itemProps}>
-        <Button />
+        <Button {...buttonProps} />
       </Item>
     );
   }

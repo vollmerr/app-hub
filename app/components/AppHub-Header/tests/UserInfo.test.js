@@ -1,7 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import testStyledComponent from 'utils/testStyledComponent';
 import UserInfo, { Name, Initials } from '../UserInfo';
+
+testStyledComponent(Name);
+testStyledComponent(Initials);
 
 const name = 'test name';
 const initials = 'tn';

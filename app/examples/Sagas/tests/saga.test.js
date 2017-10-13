@@ -3,9 +3,10 @@
  */
 
 /* eslint-disable redux-saga/yield-effects */
+import { delay } from 'redux-saga';
 import { takeEvery, call, put } from 'redux-saga/effects';
 
-import request from 'utils/request';
+import { request } from 'utils/request';
 import exampleSaga, { exampleSagaWorker, exampleUrl } from '../saga';
 import { EXAMPLE_DATA_REQUEST } from '../constants';
 import { exampleSuccess, exampleFailure } from '../actions';
@@ -32,6 +33,12 @@ describe('exampleSagaWorker', () => {
 
   it('should call the api', () => {
     expect(gen.next().value).toEqual(call(request, exampleUrl));
+  });
+
+  it('should delay (to show that it is async more clearly)', () => {
+    const value = JSON.stringify(gen.next(testData).value); // note must call with testData to setup next test...
+    const expected = JSON.stringify(delay());
+    expect(value).toEqual(expected);
   });
 
   it('should update the store with the api results', () => {

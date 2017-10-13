@@ -16,14 +16,14 @@ export function sleep(ms) {
  * @return {bool}         - valid ? true : false
  */
 function validToken(token) {
-  if (token) {
+  try {
     const { exp } = decode(token);
     const now = new Date().getTime().toString().substring(0, 10);
 
     return exp > now;
+  } catch (e) {
+    return false;
   }
-
-  return false;
 }
 
 
