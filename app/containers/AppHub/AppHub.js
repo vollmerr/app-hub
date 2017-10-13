@@ -73,7 +73,7 @@ export class AppHub extends React.PureComponent { // eslint-disable-line react/p
   }
 
   render() {
-    const { isMobile, panelSelected, panelIsOpen, appMeta, appRoutes, userName } = this.props;
+    const { isMobile, panelSelected, panelIsOpen, appMeta, appRoutes, routes, userName } = this.props;
     const appPath = appRoutes.length ? appRoutes.find((route) => route.key.match(/Home/)).path : '';
 
     const headerProps = {
@@ -88,7 +88,8 @@ export class AppHub extends React.PureComponent { // eslint-disable-line react/p
 
     const panelProps = {
       isMobile,
-      routes: appRoutes,
+      routes,
+      appRoutes,
       panel: panelSelected,
       isOpen: panelIsOpen,
       onClick: this.handlePanelClick,
@@ -116,6 +117,7 @@ AppHub.propTypes = {
   userName: PropTypes.string.isRequired,
   appMeta: PropTypes.object.isRequired,
   appRoutes: PropTypes.array.isRequired,
+  routes: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

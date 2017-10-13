@@ -25,15 +25,15 @@ class AppNav extends React.PureComponent {
   componentDidMount() {
     // listen for changes on history, updated selected on change
     this.history = history.listen((location) => {
-      const { routes } = this.props;
-      this.getSelectedKey(routes, location);
+      const { appRoutes } = this.props;
+      this.getSelectedKey(appRoutes, location);
     });
   }
 
   componentWillReceiveProps(nextProps) {
     // when mounted routes do not exist, and component is PureCOmponent must check here for route change
     if (nextProps !== this.props) {
-      this.getSelectedKey(nextProps.routes, history.location);
+      this.getSelectedKey(nextProps.appRoutes, history.location);
       return true;
     }
     return false;
@@ -73,14 +73,14 @@ class AppNav extends React.PureComponent {
   }
 
   render() {
-    const { routes, isMobile } = this.props;
+    const { appRoutes, isMobile } = this.props;
     const { selectedKey } = this.state;
 
     return (
       <Items
         isMobile={isMobile}
         selectedKey={selectedKey}
-        groups={[{ links: routes }]}
+        groups={[{ links: appRoutes }]}
         onLinkClick={this.handleClickLink.bind(this)} // eslint-disable-line
       />
     );
@@ -88,7 +88,7 @@ class AppNav extends React.PureComponent {
 }
 
 AppNav.propTypes = {
-  routes: PropTypes.array.isRequired,
+  appRoutes: PropTypes.array.isRequired,
   onClick: PropTypes.func,
   isMobile: PropTypes.bool.isRequired,
 };

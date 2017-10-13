@@ -42,7 +42,7 @@ export class App extends React.PureComponent {
         </Helmet>
         {
           !isMobile &&
-          <AppNav routes={appRoutes} isMobile={isMobile} />
+          <AppNav appRoutes={appRoutes} isMobile={isMobile} />
         }
       </Wrapper>
     );

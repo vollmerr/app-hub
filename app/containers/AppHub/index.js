@@ -24,7 +24,7 @@ const Content = styled.div`
  */
 export default () => (
   <Wrapper>
-    <AppHub />
+    <AppHub routes={routes} />
     <Content>
       <Router routes={routes} />
     </Content>
