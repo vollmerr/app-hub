@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AppNav /> should render correctly 1`] = `
+<Items__Items
+  groups={
+    Array [
+      Object {
+        "links": Array [
+          Object {
+            "key": "test-key",
+            "name": "test route1",
+            "path": "/test-route",
+          },
+        ],
+      },
+    ]
+  }
+  isMobile={false}
+  onLinkClick={[Function]}
+  selectedKey={null}
+/>
+`;

@@ -25,18 +25,19 @@ class AppNav extends React.PureComponent {
   componentDidMount() {
     // listen for changes on history, updated selected on change
     this.history = history.listen((location) => {
+      /* istanbul ignore next */
       const { appRoutes } = this.props;
+      /* istanbul ignore next */
       this.getSelectedKey(appRoutes, location);
     });
   }
 
   componentWillReceiveProps(nextProps) {
     // when mounted routes do not exist, and component is PureCOmponent must check here for route change
-    if (nextProps !== this.props) {
+    if (nextProps.appRoutes !== this.props.appRoutes) {
       this.getSelectedKey(nextProps.appRoutes, history.location);
-      return true;
     }
-    return false;
+    return nextProps !== this.props;
   }
 
   componentWillUnmount() {
