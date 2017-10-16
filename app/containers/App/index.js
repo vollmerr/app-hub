@@ -22,11 +22,11 @@ import Wrapper from './Wrapper';
 export class App extends React.PureComponent {
   componentDidMount() {
     const { app } = this.props;
-    this.props.dispatch(changeApp(app));
+    this.props.onChangeApp(app);
   }
 
   componentWillUnmount() {
-    this.props.dispatch(changeApp(initialState.app));
+    this.props.onChangeApp(initialState.app);
   }
 
   render() {
@@ -50,7 +50,7 @@ export class App extends React.PureComponent {
 }
 
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  onChangeApp: PropTypes.func.isRequired,
   app: PropTypes.object.isRequired,
   isMobile: PropTypes.bool.isRequired,
   appRoutes: PropTypes.array.isRequired,
@@ -63,9 +63,9 @@ const mapStateToProps = createStructuredSelector({
   appMeta: makeSelectAppMeta(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onChangeApp: (app) => dispatch(changeApp(app)),
   };
 }
 

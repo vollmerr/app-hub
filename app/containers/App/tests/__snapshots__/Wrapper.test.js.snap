@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Wrapper /> should be hidden in mobile view 1`] = `
+.c0 {
+  display: none;
+  -webkit-flex: 0 0 225px;
+  -ms-flex: 0 0 225px;
+  flex: 0 0 225px;
+  background: #eaeaea;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Wrapper /> should be visible in desktop view 1`] = `
+.c0 {
+  display: block;
+  -webkit-flex: 0 0 225px;
+  -ms-flex: 0 0 225px;
+  flex: 0 0 225px;
+  background: #eaeaea;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Wrapper__Wrapper /> should render correctly 1`] = `
+.c0 {
+  display: block;
+  -webkit-flex: 0 0 225px;
+  -ms-flex: 0 0 225px;
+  flex: 0 0 225px;
+  background: #eaeaea;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+<div
+  className="c0"
+/>
+`;
