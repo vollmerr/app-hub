@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import 'jest-styled-components';
 import { Nav } from 'office-ui-fabric-react/lib/Nav';
 
-import testStyledComponent from 'utils/testStyledComponent';
+import { testStyledComponent } from 'utils/testUtils';
 
 import Items from '../Items';
 

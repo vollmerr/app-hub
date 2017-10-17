@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { CommandButton } from 'office-ui-fabric-react/lib/Button';
-import testStyledComponent from 'utils/testStyledComponent';
+import { testStyledComponent } from 'utils/testUtils';
 
 import StyledLink from 'components/Link';
 import Link, { ButtonStyled, Button } from '../Link';

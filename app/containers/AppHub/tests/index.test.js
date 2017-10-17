@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
 
-import testStyledComponent from 'utils/testStyledComponent';
+import { testStyledComponent } from 'utils/testUtils';
 import Router from 'components/Router';
 
 import AppHubEntry, { Wrapper, Content } from '../index';

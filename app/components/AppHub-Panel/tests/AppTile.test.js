@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Icon } from 'office-ui-fabric-react/lib/Icon';
 
-import testStyledComponent from 'utils/testStyledComponent';
+import { testStyledComponent } from 'utils/testUtils';
 
 import Link from 'components/Link';
 import AppTile, { App, StyledIcon, Text } from '../AppTile';

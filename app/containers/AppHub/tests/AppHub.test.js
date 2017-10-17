@@ -1,10 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { testMapDispatchToProps } from 'utils/testUtils';
+
 // import AppHubHeader from 'components/AppHub-Header';
 // import AppHubPanel from 'components/AppHub-Panel';
-// mapDispatchToProps
-import { AppHub } from '../AppHub';
+import { AppHub, mapDispatchToProps } from '../AppHub';
+import { changeMobile, changePanelOpen, changePanelSelected, authUserRequest } from '../actions';
 
 const props = {
   onChangePanelOpen: jest.fn(),
@@ -24,6 +26,7 @@ const props = {
 describe('<AppHub />', () => {
   let wrapper;
   beforeEach(() => {
+    jest.resetAllMocks();
     wrapper = shallow(<AppHub {...props} />);
   });
 
@@ -31,27 +34,34 @@ describe('<AppHub />', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should have tests for AppHubHeader and AppHubPanel', () => {
-    expect(1).toEqual(0);
-  });
+  // it('should have tests for AppHubHeader and AppHubPanel', () => {
+  //   expect(1).toEqual(0);
+  // });
 
-  describe('componentDidMount', () => {
-    expect(1).toEqual(0);
-  });
+  // describe('componentDidMount', () => {
+  //   expect(1).toEqual(0);
+  // });
 
-  describe('componentWillUnmount', () => {
-    expect(1).toEqual(0);
-  });
+  // describe('componentWillUnmount', () => {
+  //   expect(1).toEqual(0);
+  // });
 
-  describe('handleResize', () => {
-    expect(1).toEqual(0);
-  });
+  // describe('handleResize', () => {
+  //   expect(1).toEqual(0);
+  // });
 
-  describe('handlePanelClick', () => {
-    expect(1).toEqual(0);
-  });
+  // describe('handlePanelClick', () => {
+  //   expect(1).toEqual(0);
+  // });
 
   describe('mapDispatchToProps', () => {
-    expect(1).toEqual(0);
+    const actions = [
+      changeMobile,
+      changePanelOpen,
+      changePanelSelected,
+      authUserRequest,
+    ];
+
+    testMapDispatchToProps(mapDispatchToProps, actions);
   });
 });

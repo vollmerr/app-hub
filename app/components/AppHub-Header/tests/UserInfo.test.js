@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import testStyledComponent from 'utils/testStyledComponent';
+import { testStyledComponent } from 'utils/testUtils';
 import UserInfo, { Name, Initials } from '../UserInfo';
 
 testStyledComponent(Name);

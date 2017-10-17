@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import testStyledComponent from 'utils/testStyledComponent';
+import { testStyledComponent } from 'utils/testUtils';
 
 import Logo, { Img } from '../Logo';
 import Link from '../Link';

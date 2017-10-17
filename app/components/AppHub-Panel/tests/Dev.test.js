@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import testStyledComponent from 'utils/testStyledComponent';
+import { testStyledComponent } from 'utils/testUtils';
 import { authUserRequest } from 'containers/AppHub/actions';
 
 import { Dev, Field, mapDispatchToProps } from '../Dev';

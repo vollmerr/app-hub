@@ -1,4 +1,4 @@
-import testStyledComponent from 'utils/testStyledComponent';
+import { testStyledComponent } from 'utils/testUtils';
 
 import Section from '../Section';
 
