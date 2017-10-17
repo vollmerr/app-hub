@@ -6,7 +6,7 @@ import { List } from 'office-ui-fabric-react/lib/List';
 import Link from 'components/Link';
 import theme from 'utils/theme';
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   background: ${theme.neutralLighter};
   padding: 25px;
   height: ${(props) => props.isMobile ? '100%' : '80%'};
@@ -17,13 +17,13 @@ const Wrapper = styled.div`
   }
 `;
 
-const Padded = styled.div`
+export const Padded = styled.div`
   padding: 0 0 15px 15px;
 `;
 
-const Header = Padded.withComponent('h2');
+export const Header = Padded.withComponent('h2');
 
-const updates = [
+export const updates = [
   {
     name: 'The Badge Access Request System (BARS) is now live!',
     date: '2017/10/08',
@@ -44,7 +44,7 @@ const updates = [
   },
 ];
 
-const Item = styled.div`
+export const Item = styled.div`
   display: flex;
   align-items: center;
   padding: 0 15px;
@@ -57,11 +57,11 @@ const Item = styled.div`
   }
 `;
 
-const Date = styled.div`
+export const Date = styled.div`
   flex: 1;
 `;
 
-const Name = styled(Link) `
+export const Name = styled(Link) `
   flex: 4;
   padding: 0 15px;
   color: ${theme.neutralDark};
@@ -71,7 +71,7 @@ const Name = styled(Link) `
   }
 `;
 
-const ReadMore = styled.div`
+export const ReadMore = styled.div`
   flex: 1;
   text-align: center;
   cursor: pointer;
@@ -83,7 +83,7 @@ const ReadMore = styled.div`
   }
 `;
 
-export class Updates extends React.PureComponent {
+class Updates extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -94,11 +94,10 @@ export class Updates extends React.PureComponent {
   }
 
   handleClickRead = (item = {}) => {
-    const { isReadingMore } = this.state;
     this.setState({
       name: item.name,
       desc: item.desc,
-      isReadingMore: !isReadingMore,
+      isReadingMore: item.name,
     });
   }
 

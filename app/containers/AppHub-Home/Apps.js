@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 import AppTile from 'components/AppHub-Panel/AppTile';
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
   align-items: center;

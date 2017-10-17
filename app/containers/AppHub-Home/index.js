@@ -15,18 +15,17 @@ import { escapeRegExp } from 'utils/string';
 import theme from 'utils/theme';
 import { makeSelectIsMobile } from 'containers/AppHub/selectors';
 
-import makeSelectAppHubHome from './selectors';
 import Apps from './Apps';
 import Search from './Search';
 import Updates from './Updates';
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
@@ -48,7 +47,7 @@ const Container = styled.div`
   }
 `;
 
-const UpperSection = styled.div`
+export const UpperSection = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
@@ -58,7 +57,7 @@ const UpperSection = styled.div`
   min-height: 40%;
 `;
 
-const LowerSection = UpperSection.extend`
+export const LowerSection = UpperSection.extend`
   min-height: 60%;
   background: ${theme.neutralLight};
   padding: ${(props) => props.isMobile ? '0' : '15px'};
@@ -113,7 +112,6 @@ AppHubHome.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  apphubhome: makeSelectAppHubHome(),
   isMobile: makeSelectIsMobile(),
 });
 

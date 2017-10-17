@@ -137,7 +137,6 @@ function requestWithToken(url, options = {}) {
   // config settings to send api
   const config = {
     method: options.method || 'get',
-    body: JSON.stringify(options.body),
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -145,7 +144,11 @@ function requestWithToken(url, options = {}) {
     ...options,
   };
 
-  return request(url, config);
+  if (options.body) {
+    config.body = JSON.stringify(options.body);
+  }
+
+  return exports.request(url, config);
 }
 
 export default requestWithToken;

@@ -7,7 +7,7 @@ import { expectSaga } from 'redux-saga-test-plan';
 import decode from 'jwt-decode';
 import { authUserSuccess, authUserFailure } from 'containers/AppHub/actions';
 
-import { authApi, request, authenticate, putToken, validToken } from '../request';
+import requestWithToken, { authApi, request, authenticate, putToken, validToken } from '../request';
 
 describe('request', () => {
   // Before each test, stub the fetch function
@@ -108,6 +108,12 @@ describe('authenticate', () => {
     mockFetch();
   });
 
+  it('should pull the users token from localstorage', () => {
+    window.localStorage.getItem = jest.fn();
+    authenticate().next();
+    expect(window.localStorage.getItem).toHaveBeenCalledWith('id_token');
+  });
+
   it('should update the user is a valid token in localStorage', () => {
     window.localStorage.getItem = () => global.jwt.valid;
     expectSaga(authenticate, appName)
@@ -168,5 +174,47 @@ describe('validToken', () => {
   it('should return false if any errors', () => {
     const token = global.jwt.invalid;
     expect(validToken(token)).toEqual(false);
+  });
+});
+
+
+const url = 'testUrl';
+const defaultOptions = {
+  method: 'get',
+  headers: {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${global.jwt.valid}`,
+  },
+};
+
+describe('requestWithToken', () => {
+  let mockRequest;
+  beforeEach(() => {
+    window.localStorage.getItem = () => global.jwt.valid;
+    mockRequest = require('../request'); // eslint-disable-line
+    mockRequest.request = jest.fn();
+  });
+
+  it('should pull the users token form localstorage', () => {
+    window.localStorage.getItem = jest.fn();
+    requestWithToken(url);
+    expect(window.localStorage.getItem).toHaveBeenCalledWith('id_token');
+  });
+
+  it('should call request with defaults if no options passed', () => {
+    requestWithToken(url);
+    expect(mockRequest.request).toHaveBeenCalledWith(url, defaultOptions);
+  });
+
+  it('should call request with a stringified body and different methods', () => {
+    const options = { ...defaultOptions };
+    options.method = 'post';
+    options.body = { test1: 'test data', test2: 'test 2 data' };
+
+    const expectedOptions = { ...options };
+    expectedOptions.body = JSON.stringify(options.body);
+
+    requestWithToken(url, options);
+    expect(mockRequest.request).toHaveBeenCalledWith(url, expectedOptions);
   });
 });
