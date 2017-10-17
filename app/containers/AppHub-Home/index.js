@@ -13,13 +13,9 @@ import styled from 'styled-components';
 
 import { escapeRegExp } from 'utils/string';
 import theme from 'utils/theme';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 import { makeSelectIsMobile } from 'containers/AppHub/selectors';
 
 import makeSelectAppHubHome from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 import Apps from './Apps';
 import Search from './Search';
 import Updates from './Updates';
@@ -123,11 +119,6 @@ const mapStateToProps = createStructuredSelector({
 
 const withConnect = connect(mapStateToProps);
 
-const withReducer = injectReducer({ key: 'appHubHome', reducer });
-const withSaga = injectSaga({ key: 'appHubHome', saga });
-
 export default compose(
-  withReducer,
-  withSaga,
   withConnect,
 )(AppHubHome);
