@@ -11,6 +11,7 @@ const Routes = [() => <div>route 1</div>, () => <div>route 2</div>];
 const routes = [
   { key: '1', exact: true, path: paths[0], component: Routes[0] },
   { key: '2', exact: false, path: paths[1], component: Routes[1] },
+  { key: '3', href: 'testHref' },
 ];
 
 describe('<Router />', () => {
@@ -22,6 +23,7 @@ describe('<Router />', () => {
   });
 
   it('should render some routes', () => {
+    // cannot snapshot due to key always changing...
     expect(wrapper.find(Route).exists()).toEqual(true);
   });
 
@@ -41,6 +43,14 @@ describe('<Router />', () => {
 
     expect(wrapper.find(Route).find(Routes[0]).exists()).toEqual(false);
     expect(wrapper.find(Route).find(Routes[1]).exists()).toEqual(true);
+  });
+
+  it('should not include routes that have no `path`', () => {
+    withRouter.children().prop('history').push(routes[2].href);
+    withRouter.update();
+    wrapper = withRouter.find(Router);
+    // renders first component instead...
+    expect(wrapper.find(Route).find(Routes[0]).exists()).toEqual(true);
   });
 
   it('should redirect to the path of the first route', () => {
