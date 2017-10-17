@@ -24,10 +24,9 @@ class AppNav extends React.PureComponent {
 
   componentDidMount() {
     // listen for changes on history, updated selected on change
+    /* istanbul ignore next */
     this.history = history.listen((location) => {
-      /* istanbul ignore next */
       const { appRoutes } = this.props;
-      /* istanbul ignore next */
       this.getSelectedKey(appRoutes, location);
     });
   }
