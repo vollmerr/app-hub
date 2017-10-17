@@ -51,7 +51,7 @@ function appHubReducer(state = fromJS(initialState), action) {
     case AUTH_USER_SUCCESS:
       return state
         .setIn(['user', 'sam'], action.sam)
-        .setIn(['user', 'roles'], action.roles);
+        .setIn(['user', 'roles'], fromJS(action.roles));
     default:
       return state;
   }

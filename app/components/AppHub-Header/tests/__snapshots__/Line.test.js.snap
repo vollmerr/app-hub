@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Line /> should render correctly if is \`partial\` 1`] = `
+.c0 {
+  width: 1px;
+  margin: auto;
+  background: #666666;
+  height: calc(50px - 15px);
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Line__Line /> should render correctly 1`] = `
+.c0 {
+  width: 1px;
+  margin: auto;
+  background: #666666;
+  height: calc(50px - 2px);
+}
+
+<div
+  className="c0"
+/>
+`;

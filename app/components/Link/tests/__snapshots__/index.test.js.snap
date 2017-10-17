@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Link /> external links (href) should render an anchor 1`] = `
+<Link__A
+  href="http://test.com"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <Children />
+</Link__A>
+`;
+
+exports[`<Link /> internal links (to) should render a react-router Link 1`] = `
+<Link__StyledLink
+  to="/test-route"
+>
+  <Children />
+</Link__StyledLink>
+`;
+
+exports[`<Link /> should render an anchor by default 1`] = `
+<Link__A
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <Children />
+</Link__A>
+`;

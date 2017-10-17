@@ -6,7 +6,7 @@ import { Icon } from 'office-ui-fabric-react/lib/Icon';
 import Link from 'components/Link';
 import theme from 'utils/theme';
 
-const App = styled(Link) `
+export const App = styled(Link) `
   display: flex;
   float: left;
   flex-direction: column;
@@ -40,11 +40,11 @@ const App = styled(Link) `
   }
 `;
 
-const StyledIcon = styled(Icon) `
+export const StyledIcon = styled(Icon) `
   font-size: 26px;
 `;
 
-const Text = styled.div`
+export const Text = styled.div`
   display: table;
 `;
 

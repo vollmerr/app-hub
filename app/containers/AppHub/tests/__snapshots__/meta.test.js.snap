@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`meta should be in the correct format 1`] = `
+Object {
+  "apphub": Object {
+    "desc": "Central location for CDT ODI applications",
+    "keywords": "App, Hub",
+    "title": "App hub",
+  },
+  "bars": Object {
+    "desc": "Badge Access Request System",
+    "keywords": "badge, employee, new, student, request",
+    "title": "BARS",
+  },
+  "cold": Object {
+    "desc": "",
+    "keywords": "",
+    "title": "COLD",
+  },
+  "ed": Object {
+    "desc": "Employee Directory",
+    "keywords": "Employee, Directory, Lookup",
+    "title": "ED",
+  },
+  "loading": Object {
+    "desc": "test...",
+    "keywords": "test, loading",
+    "title": "TEST LOADING",
+  },
+  "spa": Object {
+    "desc": "Document Acknowledgment",
+    "keywords": "SPA, Approval, Acknowlegde, Document",
+    "title": "SPA",
+  },
+}
+`;
+
+exports[`meta should be in the correct format 2`] = `
+Object {
+  "desc": "Central location for CDT ODI applications",
+  "keywords": "App, Hub",
+  "title": "App hub",
+}
+`;

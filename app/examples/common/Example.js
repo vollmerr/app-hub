@@ -42,7 +42,7 @@ const Example = ({
 Example.propTypes = {
   header: PropTypes.string.isRequired,
   desc: PropTypes.arrayOf(PropTypes.string).isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default Example;

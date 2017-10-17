@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Help /> should render correctly 1`] = `
+<Wrapper__Wrapper>
+  <h2>
+    Help
+  </h2>
+  <hr />
+  <Help__Items>
+    <HelpItem
+      href="http://www.ca.gov/Use"
+      key="conditionsOfUse"
+    >
+      Conditions of Use
+    </HelpItem>
+    <HelpItem
+      href="http://www.ca.gov/Privacy"
+      key="privacyPolicy"
+    >
+      Privacy Policy
+    </HelpItem>
+    <HelpItem
+      href="http://www.ca.gov/Accessibility"
+      key="accessibility"
+    >
+      Accessibility
+    </HelpItem>
+    <HelpItem
+      href="https://cdt.ca.gov/support/"
+      key="contactUs"
+    >
+      Contact Us
+    </HelpItem>
+  </Help__Items>
+</Wrapper__Wrapper>
+`;
+
+exports[`<Help__Items /> should render correctly 1`] = `
+.c0 {
+  padding: 0;
+  margin: 0;
+}
+
+<ul
+  className="c0"
+/>
+`;

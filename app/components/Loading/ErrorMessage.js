@@ -7,11 +7,11 @@ import Link from 'components/Link';
 
 import Wrapper from './Wrapper';
 
-const Header = styled.div`
+export const Header = styled.div`
   font-size: 24px;
 `;
 
-const Message = styled.div`
+export const Message = styled.div`
   font-size: 14px;
 `;
 

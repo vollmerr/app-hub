@@ -9,11 +9,11 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 
-const StyledLink = styled(RouterLink) `
+export const StyledLink = styled(RouterLink) `
   text-decoration: none;
 `;
 
-const A = styled.a`
+export const A = styled.a`
   text-decoration: none;
 `;
 
@@ -40,7 +40,7 @@ class Link extends React.PureComponent {
 Link.propTypes = {
   to: PropTypes.string,
   href: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };
 
 export default Link;

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Button__Button /> should render correctly 1`] = `
+.c0 {
+  min-width: 50px;
+  padding: 15px;
+  -webkit-text-align: center;
+  text-align: center;
+  margin: 10px;
+  color: #333;
+  background: #e6e6e6;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0:hover {
+  background: #ddd;
+}
+
+<button
+  className="c0"
+/>
+`;

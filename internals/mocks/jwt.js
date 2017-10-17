@@ -1,7 +1,6 @@
 module.exports = {
   Dev: [
     { text: 'Use Own Credentials', key: '' },
-    { text: 'Curtis Myers', key: '  ' },
     { text: 'Eric Buckle', key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlcmljLmJ1Y2tsZSIsIkJBUlMiOlsiVXNlciJdLCJpYXQiOjE0OTU0ODU0OTEsImV4cCI6MTk5NTQ4OTA5MX0.BGGqkJ1kY_iylouqIkIMEXy6raQweEvSwFpWKjHl0HQ' },
     { text: 'Evelyn Rosa', key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkY2FpMzAiLCJCQVJTIjpbIlVzZXIiXSwiaWF0IjoxNDk1NDg1NDkxLCJleHAiOjE5OTU0ODkwOTF9.hiZ1EsXVNTCXezwJsGSA5s2h358WmSDbIC9M8cJMfB4' },
     { text: 'Linda Bonner', key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJsaW5kYS5ib25uZXIiLCJCQVJTIjpbIlVzZXIiXSwiaWF0IjoxNDk1NDg1NDkxLCJleHAiOjE5OTU0ODkwOTF9.Fmxp3YW_9afvpucgeGSAKpk4OoF7dpBW3vuJ8iwRJc0' },

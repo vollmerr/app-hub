@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Items /> should render correctly in desktop view 1`] = `
+.c0 {
+  background: #eaeaea;
+}
+
+.c0 * {
+  -webkit-transition: none;
+  transition: none;
+}
+
+.c0 li > div {
+  background: #eaeaea;
+}
+
+.c0 li > div a {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+.c0 li > div a:hover,
+.c0 li > div a:focus,
+.c0 li > div a:active {
+  color: inherit;
+  background: #c8c8c8;
+}
+
+.c0 li > div:hover a,
+.c0 li > div.is-selected a {
+  background: #c8c8c8;
+}
+
+<Nav
+  className="c0"
+  groups={null}
+  isMobile={false}
+  onRenderLink={[Function]}
+/>
+`;
+
+exports[`<Items /> should render correctly in desktop view 2`] = `
+.c0 {
+  background: #333333;
+}
+
+.c0 * {
+  -webkit-transition: none;
+  transition: none;
+}
+
+.c0 li > div {
+  background: #333333;
+}
+
+.c0 li > div a {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: block;
+  color: #ffffff;
+}
+
+.c0 li > div a:hover,
+.c0 li > div a:focus,
+.c0 li > div a:active {
+  color: #212121;
+  background: #f4f4f4;
+}
+
+.c0 li > div:hover a,
+.c0 li > div.is-selected a {
+  background: #f4f4f4;
+}
+
+<Nav
+  className="c0"
+  groups={null}
+  isMobile={true}
+  onRenderLink={[Function]}
+/>
+`;
+
+exports[`<Items__Items /> should render correctly 1`] = `
+.c0 {
+  background: #eaeaea;
+}
+
+.c0 * {
+  -webkit-transition: none;
+  transition: none;
+}
+
+.c0 li > div {
+  background: #eaeaea;
+}
+
+.c0 li > div a {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+.c0 li > div a:hover,
+.c0 li > div a:focus,
+.c0 li > div a:active {
+  color: inherit;
+  background: #c8c8c8;
+}
+
+.c0 li > div:hover a,
+.c0 li > div.is-selected a {
+  background: #c8c8c8;
+}
+
+<Nav
+  className="c0"
+  groups={null}
+  onRenderLink={[Function]}
+/>
+`;

@@ -26,7 +26,8 @@ import { exampleAction } from './actions'; // actions are what you call when you
 import messages from './messages';
 import Input from './Input';
 
-export class WithRedux extends React.Component { // eslint-disable-line react/prefer-stateless-function
+// Exported by name, not connected to redux for testng purposes
+export class Redux extends React.PureComponent {
   /**
    * Updates the redux store when use enters data into the input field.
    * @param {event} event   - onChange event for input
@@ -36,14 +37,16 @@ export class WithRedux extends React.Component { // eslint-disable-line react/pr
     const data = event.target.value;
     // use the action we passed into 'mapDispatchToProps' to
     // update the redux store. note the action is in the 'this.props' object
-    this.props.handleExampleAction(data);
+    this.props.onExampleAction(data);
   }
 
   render() {
+    const { exampleData } = this.props; // this makes 'exampleData' a reference to 'this.props.exampleData'
+
     return (
       <Example header={messages.header} desc={messages.desc}>
         <Input placeholder={'Enter some text'} onChange={this.handleUpdateData} />
-        <p>{this.props.exampleData}</p>
+        {exampleData && <p>{exampleData}</p>}
       </Example>
     );
   }
@@ -55,8 +58,8 @@ export class WithRedux extends React.Component { // eslint-disable-line react/pr
  * our props from 'mapStateToProps' and 'mapDispatchToProps'
  * when 'connect' is called.
  */
-WithRedux.propTypes = {
-  handleExampleAction: PropTypes.func.isRequired,
+Redux.propTypes = {
+  onExampleAction: PropTypes.func.isRequired,
   exampleData: PropTypes.string,
 };
 
@@ -74,9 +77,9 @@ const mapStateToProps = createStructuredSelector({
  * This will be any actions to update the redux store.
  * They are defined in
  */
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
-    handleExampleAction: (data) => dispatch(exampleAction(data)),
+    onExampleAction: (data) => dispatch(exampleAction(data)),
   };
 }
 
@@ -95,7 +98,7 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
  * associated to the reducer we are injecting, and the 'reducer'
  * will be the redcuer we want to inject (imported at the top).
  */
-const withReducer = injectReducer({ key: 'widthRedux', reducer });
+const withReducer = injectReducer({ key: 'redux', reducer });
 
 /**
  * Combine our injected reducers with redux's connect functionality.
@@ -107,4 +110,4 @@ const withReducer = injectReducer({ key: 'widthRedux', reducer });
 export default compose(
   withReducer,
   withConnect,
-)(WithRedux);
+)(Redux);

@@ -4,10 +4,18 @@ import 'whatwg-fetch';
 
 import { authUserSuccess, authUserFailure } from 'containers/AppHub/actions';
 
-export function sleep(ms) {
-  console.log('sleeping to simulate server delay...'); // eslint-disable-line
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+export const authApi = {
+  url: 'https://testsec.api.technology.ca.gov/createToken',
+  defaultOptions: {
+    method: 'get',
+    credentials: 'include',
+  },
+};
+
+// export function sleep(ms) {
+//   console.log('sleeping to simulate server delay...'); // eslint-disable-line
+//   return new Promise((resolve) => setTimeout(resolve, ms));
+// }
 
 /**
  * Helper function to valdate that token exists and is not expired
@@ -15,15 +23,15 @@ export function sleep(ms) {
  *
  * @return {bool}         - valid ? true : false
  */
-function validToken(token) {
-  if (token) {
+export function validToken(token) {
+  try {
     const { exp } = decode(token);
     const now = new Date().getTime().toString().substring(0, 10);
 
     return exp > now;
+  } catch (e) {
+    return false;
   }
-
-  return false;
 }
 
 
@@ -32,7 +40,7 @@ function validToken(token) {
  * @param {string} token    - jwt token
  * @param {string} appName  - name of app supplied in jwt for roles
  */
-function* putToken(token, appName) {
+export function* putToken(token, appName) {
   const {
     sub: sam,
     [appName]: roles,
@@ -52,21 +60,16 @@ export function* authenticate(appName = 'AppHub') {
 
   if (validToken(token)) {
     // update user in global appHub state
-    yield putToken(token, appName);
+    yield call(putToken, token, appName);
   } else {
     try {
-      const options = {
-        method: 'get',
-        credentials: 'include',
-      };
-
-      const { id_token } = yield call(request, 'https://testsec.api.technology.ca.gov/createToken', options);
+      const { id_token } = yield call(request, authApi.url, authApi.defaultOptions);
       // set into local storage for future authentication caching
       localStorage.setItem('id_token', id_token);
       // update user in global appHub state
-      yield putToken(id_token, appName);
+      yield call(putToken, id_token, appName);
     } catch (err) {
-      yield authUserFailure(err);
+      yield put(authUserFailure(err));
     }
   }
 }
@@ -79,7 +82,7 @@ export function* authenticate(appName = 'AppHub') {
  *
  * @return {object}          The parsed JSON from the request
  */
-function parseJSON(response) {
+export function parseJSON(response) {
   if (response.status === 204 || response.status === 205) {
     return null;
   }
@@ -94,7 +97,7 @@ function parseJSON(response) {
  *
  * @return {object|undefined} Returns either the response, or throws an error
  */
-function checkStatus(response) {
+export function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
@@ -134,7 +137,6 @@ function requestWithToken(url, options = {}) {
   // config settings to send api
   const config = {
     method: options.method || 'get',
-    body: JSON.stringify(options.body),
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
@@ -142,7 +144,11 @@ function requestWithToken(url, options = {}) {
     ...options,
   };
 
-  return request(url, config);
+  if (options.body) {
+    config.body = JSON.stringify(options.body);
+  }
+
+  return exports.request(url, config);
 }
 
 export default requestWithToken;

@@ -25,6 +25,7 @@
     "build:clean": "rimraf ./build",
     "build:dll": "node ./internals/scripts/dependencies.js",
     "start": "cross-env NODE_ENV=development node server",
+    "start:watch": "npm-run-all --parallel start test:watch",
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
     "start:production": "npm run test && npm run build && npm run start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",
@@ -42,7 +43,7 @@
     "pretest": "npm run test:clean && npm run lint",
     "test:clean": "rimraf ./coverage",
     "test": "cross-env NODE_ENV=test jest --coverage",
-    "test:watch": "cross-env NODE_ENV=test jest --watchAll",
+    "test:watch": "cross-env NODE_ENV=test jest --watch",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "lint-staged": {
@@ -222,8 +223,14 @@
       ".*\\.(css|less|styl|scss|sass)$": "<rootDir>/internals/mocks/cssModule.js",
       ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/image.js"
     },
-    "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
-    "testRegex": "tests/.*\\.test\\.js$"
+    "setupFiles": [
+      "<rootDir>/internals/testing/test-shim.js",
+      "<rootDir>/internals/testing/test-bundler.js"
+    ],
+    "testRegex": "tests/.*\\.test\\.js$",
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   },
   "dependencies": {
     "babel-polyfill": "6.23.0",
@@ -281,7 +288,9 @@
     "copy-webpack-plugin": "4.1.0",
     "coveralls": "2.13.1",
     "css-loader": "0.28.4",
-    "enzyme": "2.8.2",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-16": "^1.0.1",
+    "enzyme-to-json": "^3.1.2",
     "eslint": "3.19.0",
     "eslint-config-airbnb": "15.0.1",
     "eslint-config-airbnb-base": "11.2.0",
@@ -298,14 +307,17 @@
     "image-webpack-loader": "2.0.0",
     "imports-loader": "0.7.1",
     "jest-cli": "20.0.4",
+    "jest-styled-components": "^4.7.0",
     "lint-staged": "3.5.1",
     "ngrok": "2.2.9",
     "node-plop": "0.7.0",
+    "npm-run-all": "^4.1.1",
     "null-loader": "0.1.1",
     "offline-plugin": "4.8.1",
     "plop": "1.8.0",
     "pre-commit": "1.2.2",
-    "react-test-renderer": "15.6.1",
+    "react-test-renderer": "^16.0.0",
+    "redux-saga-test-plan": "^3.2.0",
     "rimraf": "2.6.1",
     "shelljs": "0.7.7",
     "style-loader": "0.18.1",

@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the redux state domain
  */
-const selectReduxDomain = (state) => state.get('widthRedux');
+const selectReduxDomain = (state) => state.get('redux');
 
 /**
  * Other specific selectors

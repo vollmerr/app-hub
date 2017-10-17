@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Alerts /> should render correctly 1`] = `
+<Wrapper__Wrapper>
+  <h2>
+    Alerts
+  </h2>
+  <hr />
+  ...
+</Wrapper__Wrapper>
+`;

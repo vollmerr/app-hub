@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Link from 'components/Link';
 import theme from 'utils/theme';
 
-const Item = styled.li`
+export const Item = styled.li`
   list-style-type: none;
   margin: 0 -20px;
 
@@ -13,7 +13,7 @@ const Item = styled.li`
   }
 `;
 
-const StlyedLink = styled(Link) `
+export const StlyedLink = styled(Link) `
   color: ${theme.white};
   display: block;
   padding: 15px;

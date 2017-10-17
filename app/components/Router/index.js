@@ -7,6 +7,7 @@ const Router = ({ routes }) => (
   <Switch>
     {
       routes.map((route) => (
+        route.path &&
         <Route
           key={route.key}
           exact={route.exact}

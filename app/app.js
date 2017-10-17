@@ -14,7 +14,6 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import 'sanitize.css/sanitize.css';
-// import { initializeIcons } from '@uifabric/icons';
 
 // Import root app
 import AppHub from 'containers/AppHub';
@@ -45,14 +44,6 @@ initializeIcons();
 // For running examples instead of actual code
 const isExamples = process.env.NODE_ENV === 'EXAMPLES';
 const App = isExamples ? <Examples /> : <AppHub />;
-
-// SSR ATTEMPT
-// // Grab the state from a global variable injected into the server-generated HTML
-// const preloadedState = window.__PRELOADED_STATE__;
-
-// // Allow the passed state to be garbage-collected
-// delete window.__PRELOADED_STATE__;
-// const initialState = preloadedState || {};
 
 // Create redux store with history
 const initialState = {};

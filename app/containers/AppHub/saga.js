@@ -4,7 +4,7 @@ import { authenticate } from 'utils/request';
 
 import { REQUEST } from './constants';
 
-function* matchPattern(action) {
+export function* matchPattern(action) {
   const type = action.type;
 
   if (type.match(REQUEST)) {

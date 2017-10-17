@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Example /> should render correctly 1`] = `
+<Example__Wrapper>
+  <HelmetWrapper
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      test header
+    </title>
+  </HelmetWrapper>
+  <Example__Left>
+    <h1>
+      test header
+    </h1>
+    <p
+      key="0"
+    >
+      test desc 1
+    </p>
+    <p
+      key="1"
+    >
+      test desc 2
+    </p>
+  </Example__Left>
+  <Example__Right>
+    <Children />
+  </Example__Right>
+</Example__Wrapper>
+`;

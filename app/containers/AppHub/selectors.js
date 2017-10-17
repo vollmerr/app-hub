@@ -44,13 +44,13 @@ const makeSelectApp = () => createSelector(
 );
 
 const makeSelectAppRoutes = () => createSelector(
-  selectAppHubDomain,
-  (substate) => substate.getIn(['app', 'routes']).toJS()
+  makeSelectApp(),
+  (substate) => substate.get('routes').toJS()
 );
 
 const makeSelectAppMeta = () => createSelector(
-  selectAppHubDomain,
-  (substate) => substate.getIn(['app', 'meta']).toJS()
+  makeSelectApp(),
+  (substate) => substate.get('meta').toJS()
 );
 
 // USER

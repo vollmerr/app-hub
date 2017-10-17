@@ -16,7 +16,7 @@ import AppHubPanel from 'components/AppHub-Panel';
 import theme from 'utils/theme';
 
 import injectSaga from 'utils/injectSaga';
-// import injectReducer from 'utils/injectReducer';
+
 import {
   makeSelectIsMobile,
   makeSelectPanelIsOpen,
@@ -25,7 +25,7 @@ import {
   makeSelectAppMeta,
   makeSelectUserSam,
 } from './selectors';
-// import reducer from './reducer';
+
 import saga from './saga';
 import { changeMobile, changePanelOpen, changePanelSelected, authUserRequest } from './actions';
 import meta from './meta';
@@ -37,7 +37,9 @@ export class AppHub extends React.PureComponent { // eslint-disable-line react/p
   }
 
   componentDidMount() {
-    this.props.dispatch(authUserRequest());
+    const { onAuthUserRequest } = this.props;
+
+    onAuthUserRequest();
     this.handleResize();
     window.addEventListener('resize', this.handleResize);
   }
@@ -47,33 +49,33 @@ export class AppHub extends React.PureComponent { // eslint-disable-line react/p
   }
 
   handleResize = () => {
-    const { dispatch, isMobile } = this.props;
+    const { onChangeMobile, onChangePanelOpen, isMobile } = this.props;
     const mobile = window.innerWidth <= theme.breakpoints.lg;
 
     if (mobile !== isMobile) {
-      dispatch(changeMobile(mobile));
-      dispatch(changePanelOpen(false));
+      onChangeMobile(mobile);
+      onChangePanelOpen(false);
     }
   }
 
   handlePanelClick = (panel) => {
-    const { dispatch, panelSelected, panelIsOpen } = this.props;
+    const { onChangePanelOpen, onChangePanelSelected, panelSelected, panelIsOpen } = this.props;
     const selected = panel || panelSelected; // errors if null, so set a default
     // click on same panel or overlay
     if (!panel || (panelSelected === panel && panelIsOpen)) {
       // close it
-      dispatch(changePanelOpen(false));
+      onChangePanelOpen(false);
     } else {
       // open the panel (don't dispatch unessecary actions if already open)
       if (!panelIsOpen) {
-        dispatch(changePanelOpen(true));
+        onChangePanelOpen(true);
       }
-      dispatch(changePanelSelected(selected));
+      onChangePanelSelected(selected);
     }
   }
 
   render() {
-    const { isMobile, panelSelected, panelIsOpen, appMeta, appRoutes, userName } = this.props;
+    const { isMobile, panelSelected, panelIsOpen, appMeta, appRoutes, routes, userName } = this.props;
     const appPath = appRoutes.length ? appRoutes.find((route) => route.key.match(/Home/)).path : '';
 
     const headerProps = {
@@ -88,7 +90,8 @@ export class AppHub extends React.PureComponent { // eslint-disable-line react/p
 
     const panelProps = {
       isMobile,
-      routes: appRoutes,
+      routes,
+      appRoutes,
       panel: panelSelected,
       isOpen: panelIsOpen,
       onClick: this.handlePanelClick,
@@ -109,13 +112,17 @@ export class AppHub extends React.PureComponent { // eslint-disable-line react/p
 }
 
 AppHub.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  onChangePanelOpen: PropTypes.func.isRequired,
+  onChangePanelSelected: PropTypes.func.isRequired,
+  onChangeMobile: PropTypes.func.isRequired,
+  onAuthUserRequest: PropTypes.func.isRequired,
   isMobile: PropTypes.bool.isRequired,
   panelIsOpen: PropTypes.bool.isRequired,
   panelSelected: PropTypes.string.isRequired,
   userName: PropTypes.string.isRequired,
   appMeta: PropTypes.object.isRequired,
   appRoutes: PropTypes.array.isRequired,
+  routes: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -127,9 +134,12 @@ const mapStateToProps = createStructuredSelector({
   userName: makeSelectUserSam(),
 });
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onChangePanelOpen: (open) => dispatch(changePanelOpen(open)),
+    onChangePanelSelected: (panel) => dispatch(changePanelSelected(panel)),
+    onChangeMobile: (isMobile) => dispatch(changeMobile(isMobile)),
+    onAuthUserRequest: () => dispatch(authUserRequest()),
   };
 }
 

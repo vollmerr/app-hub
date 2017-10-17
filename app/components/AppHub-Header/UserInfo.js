@@ -1,16 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import {
-  Persona,
-  PersonaSize,
-} from 'office-ui-fabric-react/lib/Persona';
 
 import theme from 'utils/theme';
 
 import Item from './Item';
 
-const Text = styled.span`
+export const Name = styled.span`
   color: ${theme.themeLighterAlt};
   line-height: ${theme.hub.headerHeight};
   display: inline-block;
@@ -19,28 +15,28 @@ const Text = styled.span`
   -webkit-font-smoothing: antialiased;
 `;
 
-const User = styled(Persona) `
-  margin: 0 15px !important;
-
-  .ms-Persona .ms-Persona-imageArea .ms-Persona-initials {
-    background: ${theme.themePrimary};
-  }
+export const Initials = styled.div`
+  width: calc(${theme.hub.headerHeight} - 10px);
+  height: calc(${theme.hub.headerHeight} - 10px);
+  color: ${theme.themeLighterAlt};
+  background: ${theme.themePrimary};
+  border-radius: 50%;
+  margin: 0 15px 0 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
-const UserInfo = ({ text, initals }) => (
+const UserInfo = ({ name, initials }) => (
   <Item>
-    <Text>{text}</Text>
-    <User
-      hidePersonaDetails
-      size={PersonaSize.small}
-      imageInitials={initals}
-    />
+    <Name>{name}</Name>
+    <Initials>{initials}</Initials>
   </Item>
 );
 
 UserInfo.propTypes = {
-  text: PropTypes.string.isRequired,
-  initals: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  initials: PropTypes.string.isRequired,
 };
 
 export default UserInfo;

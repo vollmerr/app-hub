@@ -13,24 +13,19 @@ import styled from 'styled-components';
 
 import { escapeRegExp } from 'utils/string';
 import theme from 'utils/theme';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 import { makeSelectIsMobile } from 'containers/AppHub/selectors';
 
-import makeSelectAppHubHome from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 import Apps from './Apps';
 import Search from './Search';
 import Updates from './Updates';
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
 `;
 
-const Container = styled.div`
+export const Container = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
@@ -52,7 +47,7 @@ const Container = styled.div`
   }
 `;
 
-const UpperSection = styled.div`
+export const UpperSection = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
@@ -62,7 +57,7 @@ const UpperSection = styled.div`
   min-height: 40%;
 `;
 
-const LowerSection = UpperSection.extend`
+export const LowerSection = UpperSection.extend`
   min-height: 60%;
   background: ${theme.neutralLight};
   padding: ${(props) => props.isMobile ? '0' : '15px'};
@@ -117,17 +112,11 @@ AppHubHome.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  apphubhome: makeSelectAppHubHome(),
   isMobile: makeSelectIsMobile(),
 });
 
 const withConnect = connect(mapStateToProps);
 
-const withReducer = injectReducer({ key: 'appHubHome', reducer });
-const withSaga = injectSaga({ key: 'appHubHome', saga });
-
 export default compose(
-  withReducer,
-  withSaga,
   withConnect,
 )(AppHubHome);

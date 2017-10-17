@@ -6,7 +6,7 @@ import theme from 'utils/theme';
 import Link from './Link';
 import odiLogo from './cdtLogo.png';
 
-const Img = styled.img`
+export const Img = styled.img`
   height: ${theme.hub.headerHeight};
   margin: 0 10px;
 `;

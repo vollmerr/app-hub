@@ -1,11 +1,12 @@
+import { delay } from 'redux-saga';
 import { takeEvery, call, put } from 'redux-saga/effects';
-import request from 'utils/request';
+import { request } from 'utils/request';
 
 import { EXAMPLE_DATA_REQUEST } from './constants';
 import { exampleFailure, exampleSuccess } from './actions';
 
 // example of a url, just dummy data pulled in
-const exampleUrl = 'https://jsonplaceholder.typicode.com/posts/1';
+export const exampleUrl = 'https://jsonplaceholder.typicode.com/posts/1';
 
 /**
  * This function is a generator (notice the * after function), meaning it
@@ -14,9 +15,10 @@ const exampleUrl = 'https://jsonplaceholder.typicode.com/posts/1';
  * This function makes a call to the API and puts the result into the
  * redux store once it returns.
  */
-function* exampleSagaWorker() {
+export function* exampleSagaWorker() {
   try {
     const data = yield call(request, exampleUrl);
+    yield delay(500); // making sure async delay is noticable for example by adding a delay
     yield put(exampleSuccess(data));
   } catch (error) {
     yield put(exampleFailure(error));

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Search /> should render correctly 1`] = `
+<Search__Wrapper>
+  <SearchBox
+    labelText="Search"
+    onChange={[Function]}
+  />
+</Search__Wrapper>
+`;
+
+exports[`<Search__Wrapper /> should render correctly 1`] = `
+.c0 {
+  width: 100%;
+  max-width: calc(6 * 102px + 10 * 3px);
+  background: #ffffff;
+}
+
+<div
+  className="c0"
+/>
+`;

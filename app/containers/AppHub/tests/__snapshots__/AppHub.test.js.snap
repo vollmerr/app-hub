@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AppHub /> should render correctly 1`] = `
+<div>
+  <HelmetWrapper
+    encodeSpecialCharacters={true}
+  >
+    <title>
+      App hub
+    </title>
+    <meta
+      content="Central location for CDT ODI applications"
+      name="description"
+    />
+    <meta
+      content="App, Hub"
+      name="keywords"
+    />
+  </HelmetWrapper>
+  <Header
+    appPath="/testpath"
+    isMobile={false}
+    isOpen={false}
+    onClick={[Function]}
+    panel="test panel"
+    userName="test name"
+  />
+  <AppHubPanel
+    appRoutes={
+      Array [
+        Object {
+          "key": "testHome",
+          "name": "approute1",
+          "path": "/testpath",
+        },
+        Object {
+          "key": "2",
+          "name": "approute2",
+          "path": "/testpath2",
+        },
+      ]
+    }
+    isMobile={false}
+    isOpen={false}
+    onClick={[Function]}
+    panel="test panel"
+    routes={
+      Array [
+        Object {
+          "key": "testHome",
+          "name": "route1",
+          "path": "/testpath",
+        },
+        Object {
+          "key": "2",
+          "name": "route2",
+          "path": "/testpath2",
+        },
+      ]
+    }
+  />
+</div>
+`;
