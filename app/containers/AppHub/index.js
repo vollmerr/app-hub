@@ -8,13 +8,13 @@ import Router from 'components/Router';
 import AppHub from './AppHub';
 import routes from './routes';
 
-const Wrapper = styled(Fabric)`
+export const Wrapper = styled(Fabric)`
   height: 100%;
   overflow: hidden;
   min-width: ${theme.breakpoints.xs}px;
 `;
 
-const Content = styled.div`
+export const Content = styled.div`
   height: calc(100% - ${theme.hub.headerHeight});
 `;
 

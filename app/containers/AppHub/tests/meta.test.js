@@ -1,5 +1,8 @@
+import appHub, { meta } from '../meta';
+
 describe('meta', () => {
-  it('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+  it('should be in the correct format', () => {
+    expect(meta).toMatchSnapshot();
+    expect(appHub).toMatchSnapshot();
   });
 });
