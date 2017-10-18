@@ -1,6 +1,6 @@
 import { delay } from 'redux-saga';
 import { takeEvery, call, put } from 'redux-saga/effects';
-import { request } from 'utils/request';
+import request from 'utils/request';
 
 import { EXAMPLE_DATA_REQUEST } from './constants';
 import { exampleFailure, exampleSuccess } from './actions';

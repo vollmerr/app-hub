@@ -1,6 +1,6 @@
 // import { take, call, put, select } from 'redux-saga/effects';
 import { call, takeEvery } from 'redux-saga/effects';
-import { authenticate } from 'utils/request';
+import { authenticate } from 'utils/requestWithToken';
 
 import { REQUEST } from './constants';
 

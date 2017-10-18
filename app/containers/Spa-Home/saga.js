@@ -1,6 +1,6 @@
 // import { take, call, put, select } from 'redux-saga/effects';
 import { call, put, takeEvery } from 'redux-saga/effects';
-import request from 'utils/request';
+import requestWithToken from 'utils/requestWithToken';
 import { EXAMPLE_DATA_REQUEST } from './constants';
 import { exampleDataSuccess, exampleDataFailure } from './actions';
 
@@ -9,7 +9,7 @@ const exampleUrl = 'http://barsapi/api/BadgeRequests/GetBarsAppStartupData/';
 
 function* exampleDataSagaWorker() {
   try {
-    const data = yield call(request, exampleUrl);
+    const data = yield call(requestWithToken, exampleUrl);
     yield put(exampleDataSuccess(data));
   } catch (error) {
     yield put(exampleDataFailure(error.message));

@@ -5,7 +5,7 @@
 /* eslint-disable redux-saga/yield-effects */
 import { testSaga } from 'redux-saga-test-plan';
 
-import { authenticate } from 'utils/request';
+import { authenticate } from 'utils/requestWithToken';
 import appHubSaga, { matchPattern } from '../saga';
 
 describe('appHubSaga Saga', () => {
