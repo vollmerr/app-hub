@@ -11,15 +11,17 @@ testStyledComponent(Field);
 const user1 = { name: 'test name 1', key: 'test key 1' };
 const user2 = { name: 'test name 3', key: 'test key 3' };
 
-global.DEV_JWT = {
-  group1: [
-    user1,
-    { name: 'test name 2', key: 'test key 2' },
-  ],
-  group2: [
-    user2,
-    { name: 'test name 4', key: 'test key 4' },
-  ],
+global.DEV = {
+  JWT: {
+    group1: [
+      user1,
+      { name: 'test name 2', key: 'test key 2' },
+    ],
+    group2: [
+      user2,
+      { name: 'test name 4', key: 'test key 4' },
+    ],
+  },
 };
 
 describe('<Dev />', () => {
@@ -106,7 +108,7 @@ describe('<Dev />', () => {
 
   // KEEP LAST AS MODIFYING GLOBAL VARIABLE
   it('should not render if DEV_JWT does not exist (production)', () => {
-    global.DEV_JWT = undefined;
+    global.DEV.JWT = undefined;
     wrapper = shallow(<Dev onClick={onClick} onAuthUserRequest={onAuthUserRequest} />);
     expect(wrapper.equals(null)).toEqual(true);
   });

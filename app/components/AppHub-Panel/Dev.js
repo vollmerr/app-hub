@@ -43,9 +43,10 @@ export class Dev extends React.PureComponent {
 
   render() {
     const { userSam } = this.props;
+    const jwts = DEV.JWT;
 
     return (
-      DEV_JWT ?
+      jwts ?
         <Wrapper>
           <h2>Developer Options</h2>
           <hr />
@@ -58,12 +59,12 @@ export class Dev extends React.PureComponent {
             />
           </Field>
           {
-            Object.keys(DEV_JWT).map(group => (
+            Object.keys(jwts).map(group => (
               <Field key={group}>
                 <Dropdown
                   label={`${group} Test Users`}
                   id={group}
-                  options={DEV_JWT[group]}
+                  options={jwts[group]}
                   onChanged={this.handleClickUser}
                 />
               </Field>

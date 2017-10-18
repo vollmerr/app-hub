@@ -26,7 +26,15 @@ const plugins = [
     failOnError: false, // show a warning when there is a circular dependency
   }),
   new webpack.DefinePlugin({
-    DEV_JWT: JSON.stringify(devJwts),
+    DEV: JSON.stringify({
+      JWT: devJwts,
+    }),
+  }),
+  new webpack.DefinePlugin({
+    API: JSON.stringify({
+      ED: 'http://testapphubapi.technology.ca.gov/directory/employees',
+      JWT: 'https://testsec.api.technology.ca.gov/createToken',
+    }),
   }),
 ];
 

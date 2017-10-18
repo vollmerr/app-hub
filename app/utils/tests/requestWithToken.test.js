@@ -6,10 +6,14 @@ import { call } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import decode from 'jwt-decode';
 import { authUserSuccess, authUserFailure } from 'containers/AppHub/actions';
-import requestWithToken, { authenticate, putToken, config, validToken } from '../requestWithToken';
+import requestWithToken, { authenticate, putToken, validToken } from '../requestWithToken';
 
 jest.mock('../request');
 const request = require('../request').default;
+
+global.API = {
+  JWT: 'https://urlForGettingAJwtToken',
+};
 
 const url = 'testUrl';
 const defaultOptions = {
@@ -51,6 +55,11 @@ describe('requestWithToken', () => {
 });
 
 
+const authOptions = {
+  method: 'get',
+  credentials: 'include',
+};
+
 describe('authenticate', () => {
   let appName;
   beforeEach(() => {
@@ -79,9 +88,9 @@ describe('authenticate', () => {
     window.localStorage.getItem = () => global.jwt.expired;
     expectSaga(authenticate, appName)
       .provide([
-        [call(request, config.url, config.defaultOptions), { id_token: global.jwt.valid }] // eslint-disable-line
+        [call(request, global.API.JWT, authOptions), { id_token: global.jwt.valid }] // eslint-disable-line
       ])
-      .call(request, config.url, config.defaultOptions)
+      .call(request, global.API.JWT, authOptions)
       .call(putToken, global.jwt.valid, appName)
       .run();
   });
@@ -90,9 +99,9 @@ describe('authenticate', () => {
     window.localStorage.getItem = () => global.jwt.expired;
     expectSaga(authenticate, appName)
       .provide([
-        [call(request, config.url, config.defaultOptions), { id_token: '' }] // eslint-disable-line
+        [call(request, global.API.JWT, authOptions), { id_token: '' }] // eslint-disable-line
       ])
-      .call(request, config.url, config.defaultOptions)
+      .call(request, global.API.JWT, authOptions)
       .put(authUserFailure())
       .run();
   });

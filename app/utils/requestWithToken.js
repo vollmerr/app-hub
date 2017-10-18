@@ -5,14 +5,6 @@ import 'whatwg-fetch';
 import { authUserSuccess, authUserFailure } from 'containers/AppHub/actions';
 import request from './request';
 
-export const config = {
-  url: 'https://testsec.api.technology.ca.gov/createToken',
-  options: {
-    method: 'get',
-    credentials: 'include',
-  },
-};
-
 // export function sleep(ms) {
 //   console.log('sleeping to simulate server delay...'); // eslint-disable-line
 //   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -64,7 +56,11 @@ export function* authenticate(appName = 'AppHub') {
     yield call(putToken, token, appName);
   } else {
     try {
-      const { id_token } = yield call(request, config.url, config.defaultOptions);
+      const options = {
+        method: 'get',
+        credentials: 'include',
+      };
+      const { id_token } = yield call(request, API.JWT, options); // eslint-disable-line
       // set into local storage for future authentication caching
       localStorage.setItem('id_token', id_token);
       // update user in global appHub state

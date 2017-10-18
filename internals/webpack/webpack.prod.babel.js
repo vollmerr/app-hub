@@ -44,6 +44,13 @@ module.exports = require('./webpack.base.babel')({
       inject: true,
     }),
 
+    new webpack.DefinePlugin({
+      API: JSON.stringify({
+        ED: 'http://testapphubapi.technology.ca.gov/directory/employees',
+        JWT: 'https://testsec.api.technology.ca.gov/createToken',
+      }),
+    }),
+
     // Put it in the end to capture all the HtmlWebpackPlugin's
     // assets manipulations and do leak its manipulations to HtmlWebpackPlugin
     // new OfflinePlugin({
