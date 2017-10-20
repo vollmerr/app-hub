@@ -1,9 +1,3 @@
-/**
- *
- * SpaHome
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -14,7 +8,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { makeSelectUser } from 'containers/AppHub/selectors';
 
-import makeSelectSpaHome, {
+import makeSelectDemoHome, {
   makeSelectExampleData,
   makeSelectError,
   makeSelectLoading,
@@ -32,7 +26,7 @@ const Button = ({ onClick, disabled, text }) => ( // eslint-disable-line
   >{text}</button>
 );
 
-export class SpaHome extends React.PureComponent {
+export class DemoHome extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -76,7 +70,7 @@ export class SpaHome extends React.PureComponent {
   }
 }
 
-SpaHome.propTypes = {
+DemoHome.propTypes = {
   dispatch: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   exampleData: PropTypes.object,
@@ -85,7 +79,7 @@ SpaHome.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  spaHome: makeSelectSpaHome(),
+  demoHome: makeSelectDemoHome(),
   exampleData: makeSelectExampleData(),
   user: makeSelectUser(),
   error: makeSelectError(),
@@ -100,11 +94,11 @@ function mapDispatchToProps(dispatch) {
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'spaHome', reducer });
-const withSaga = injectSaga({ key: 'spaHome', saga });
+const withReducer = injectReducer({ key: 'demoHome', reducer });
+const withSaga = injectSaga({ key: 'demoHome', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(SpaHome);
+)(DemoHome);

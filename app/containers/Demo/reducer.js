@@ -1,9 +1,3 @@
-/*
- *
- * Spa reducer
- *
- */
-
 import { fromJS } from 'immutable';
 import {
   DEFAULT_ACTION,
@@ -11,7 +5,7 @@ import {
 
 const initialState = fromJS({});
 
-function spaReducer(state = initialState, action) {
+function demoReducer(state = initialState, action) {
   switch (action.type) {
     case DEFAULT_ACTION:
       return state;
@@ -20,4 +14,4 @@ function spaReducer(state = initialState, action) {
   }
 }
 
-export default spaReducer;
+export default demoReducer;

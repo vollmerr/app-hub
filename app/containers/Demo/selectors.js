@@ -3,7 +3,7 @@ import { createSelector } from 'reselect';
 /**
  * Direct selector to the spa state domain
  */
-const selectSpaDomain = (state) => state.get('spa');
+const selectDemoDomain = (state) => state.get('demo');
 
 /**
  * Other specific selectors
@@ -14,12 +14,12 @@ const selectSpaDomain = (state) => state.get('spa');
  * Default selector used by Spa
  */
 
-const makeSelectSpa = () => createSelector(
-  selectSpaDomain,
+const makeSelectDemo = () => createSelector(
+  selectDemoDomain,
   (substate) => substate.toJS()
 );
 
-export default makeSelectSpa;
+export default makeSelectDemo;
 export {
-  selectSpaDomain,
+  selectDemoDomain,
 };

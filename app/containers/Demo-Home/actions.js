@@ -1,9 +1,3 @@
-/*
- *
- * SpaHome actions
- *
- */
-
 import {
   EXAMPLE_DATA_REQUEST,
   EXAMPLE_DATA_SUCCESS,

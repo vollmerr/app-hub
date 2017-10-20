@@ -1,9 +1,3 @@
-/*
- *
- * SpaHome reducer
- *
- */
-
 import { fromJS } from 'immutable';
 import {
   EXAMPLE_DATA_REQUEST,
@@ -17,7 +11,7 @@ const initialState = fromJS({
   loading: false,
 });
 
-function spaHomeReducer(state = initialState, action) {
+function demoHomeReducer(state = initialState, action) {
   switch (action.type) {
     case EXAMPLE_DATA_REQUEST:
       return state
@@ -36,4 +30,4 @@ function spaHomeReducer(state = initialState, action) {
   }
 }
 
-export default spaHomeReducer;
+export default demoHomeReducer;

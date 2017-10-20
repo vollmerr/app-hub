@@ -1,4 +1,3 @@
-// import { take, call, put, select } from 'redux-saga/effects';
 import { call, put, takeEvery } from 'redux-saga/effects';
 import requestWithToken from 'utils/requestWithToken';
 import { EXAMPLE_DATA_REQUEST } from './constants';
@@ -16,6 +15,6 @@ function* exampleDataSagaWorker() {
   }
 }
 
-export default function* spaHomeSaga() {
+export default function* demoHomeSaga() {
   yield takeEvery(EXAMPLE_DATA_REQUEST, exampleDataSagaWorker);
 }

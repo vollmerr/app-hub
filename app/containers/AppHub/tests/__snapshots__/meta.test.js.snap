@@ -17,6 +17,11 @@ Object {
     "keywords": "",
     "title": "COLD",
   },
+  "demo": Object {
+    "desc": "Demo Description",
+    "keywords": "Demo Keyword 1, Demo Keyword 2",
+    "title": "Demo Title",
+  },
   "ed": Object {
     "desc": "Employee Directory",
     "keywords": "Employee, Directory, Lookup",
@@ -26,11 +31,6 @@ Object {
     "desc": "test...",
     "keywords": "test, loading",
     "title": "TEST LOADING",
-  },
-  "spa": Object {
-    "desc": "Document Acknowledgment",
-    "keywords": "SPA, Approval, Acknowlegde, Document",
-    "title": "SPA",
   },
 }
 `;

@@ -1,17 +1,17 @@
 import React from 'react';
-import SpaHome from 'containers/Spa-Home';
+import DemoHome from 'containers/Demo-Home';
 
 const OtherPage = () => <div>OTHER PAGE TEST</div>;
 
-export const base = '/spa';
+export const base = '/demo';
 
 export default [
   {
-    key: 'spaHome', // default route must be first and end with 'Home' for key
+    key: 'demoHome', // default route must be first and end with 'Home' for key
     name: 'Home',
     path: `${base}/home`,
     exact: true,
-    component: SpaHome,
+    component: DemoHome,
   },
   {
     key: 'otherPage',

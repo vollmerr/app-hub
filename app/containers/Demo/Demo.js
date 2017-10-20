@@ -1,9 +1,3 @@
-/**
- *
- * Spa
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -14,19 +8,19 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import App from 'containers/App';
+import { meta } from 'containers/AppHub/meta';
 
-import makeSelectSpa from './selectors';
+import makeSelectDemo from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import routes from './routes';
-import meta from './meta';
 
 const app = {
-  meta,
+  meta: meta.demo,
   routes,
 };
 
-export class Spa extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Demo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
       <App app={app} />
@@ -34,12 +28,12 @@ export class Spa extends React.PureComponent { // eslint-disable-line react/pref
   }
 }
 
-Spa.propTypes = {
+Demo.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  spa: makeSelectSpa(),
+  demo: makeSelectDemo(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -50,11 +44,11 @@ function mapDispatchToProps(dispatch) {
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'spa', reducer });
-const withSaga = injectSaga({ key: 'spa', saga });
+const withReducer = injectReducer({ key: 'demo', reducer });
+const withSaga = injectSaga({ key: 'demo', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(Spa);
+)(Demo);

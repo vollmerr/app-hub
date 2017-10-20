@@ -1,42 +1,42 @@
 import { createSelector } from 'reselect';
 
 /**
- * Direct selector to the spaHome state domain
+ * Direct selector to the DemoHome state domain
  */
-const selectSpaHomeDomain = (state) => state.get('spaHome');
+const selectDemoHomeDomain = (state) => state.get('demoHome');
 
 /**
  * Other specific selectors
  */
 
 const makeSelectExampleData = () => createSelector(
-  selectSpaHomeDomain,
+  selectDemoHomeDomain,
   (substate) => substate.get('exampleData')
 );
 
 const makeSelectError = () => createSelector(
-  selectSpaHomeDomain,
+  selectDemoHomeDomain,
   (substate) => substate.get('error')
 );
 
 const makeSelectLoading = () => createSelector(
-  selectSpaHomeDomain,
+  selectDemoHomeDomain,
   (substate) => substate.get('loading')
 );
 
 
 /**
- * Default selector used by SpaHome
+ * Default selector used by DemoHome
  */
 
-const makeSelectSpaHome = () => createSelector(
-  selectSpaHomeDomain,
+const makeSelectDemoHome = () => createSelector(
+  selectDemoHomeDomain,
   (substate) => substate.toJS()
 );
 
-export default makeSelectSpaHome;
+export default makeSelectDemoHome;
 export {
-  selectSpaHomeDomain,
+  selectDemoHomeDomain,
   makeSelectExampleData,
   makeSelectError,
   makeSelectLoading,
