@@ -32,6 +32,11 @@ Object {
     "keywords": "test, loading",
     "title": "TEST LOADING",
   },
+  "spa": Object {
+    "desc": "Document Acknowledgment",
+    "keywords": "SPA, Approval, Acknowlegde, Document",
+    "title": "SPA",
+  },
 }
 `;
 
