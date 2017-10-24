@@ -7,6 +7,7 @@ export default {
     headerHeight: '50px',
     panelWidth: '360px',
     tileSize: '102px',
+    numApps: 6,
   },
   app: {
     navWidth: '225px',

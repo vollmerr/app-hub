@@ -38,6 +38,7 @@ exports[`<Apps /> should render correctly 1`] = `
 
 exports[`<Apps__Wrapper /> should render correctly 1`] = `
 .c0 {
+  max-width: calc(6 * 102px + 12 * 3px);
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
