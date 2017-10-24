@@ -126,7 +126,7 @@ module.exports = {
       // update apphub routes
       {
         type: 'modify',
-        pattern: /([^]*AppHub-Home';)(\n)([^]*\/\/ internal apps)(\n)([^]*routes;)/m,
+        pattern: /([^]*AppHub-Home';)(\n)([^]*\/\/ internal apps)(\n)([^]*routes;)(\n)/m,
         path: '../../app/containers/AppHub/routes.js',
         templateFile: './app/appHubRoutes.js.hbs',
         abortOnFail: true,
@@ -134,9 +134,17 @@ module.exports = {
       // update apphub meta
       {
         type: 'modify',
-        pattern: /([^]*\/\/ internal apps)(\n)([^]*)/m,
+        pattern: /([^]*\/\/ internal apps)(\n)([^]*)(\n)/m,
         path: '../../app/containers/AppHub/meta.js',
         templateFile: './app/appHubMeta.js.hbs',
+        abortOnFail: true,
+      },
+      // update icon file
+      {
+        type: 'modify',
+        pattern: /([^]*\/\/ APPS)(\n)([^]*)(\n)/m,
+        path: '../../app/utils/initializeIcons.js',
+        templateFile: './app/icon.js.hbs',
         abortOnFail: true,
       },
     ];
