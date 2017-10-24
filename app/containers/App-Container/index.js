@@ -1,6 +1,6 @@
 /**
  *
- * App
+ * AppContainer
  *
  * Container for apps that are hosted in AppHub
  */
@@ -19,7 +19,7 @@ import AppNav from 'containers/App-Nav';
 
 import Wrapper from './Wrapper';
 
-export class App extends React.PureComponent {
+export class AppContainer extends React.PureComponent {
   componentDidMount() {
     const { app } = this.props;
     this.props.onChangeApp(app);
@@ -49,7 +49,7 @@ export class App extends React.PureComponent {
   }
 }
 
-App.propTypes = {
+AppContainer.propTypes = {
   onChangeApp: PropTypes.func.isRequired,
   app: PropTypes.object.isRequired,
   isMobile: PropTypes.bool.isRequired,
@@ -73,4 +73,4 @@ const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(
   withConnect,
-)(App);
+)(AppContainer);

@@ -45,7 +45,7 @@ export class DemoHome extends React.PureComponent {
 
     return (
       <div>
-        <p>in spa home......</p>
+        <p>in demo home......</p>
         <p>Logged in as {user.sam}</p>
         <p>with permissions (BARS):</p>
         <ul>

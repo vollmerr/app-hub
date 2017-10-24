@@ -1,0 +1,13 @@
+$1
+import {{ properCase name }} from 'containers/{{ properCase name }}/Loadable';
+$3
+  {
+    key: '{{ camelCase name }}',
+    name: '{{ titleCase name }}',
+    path: '/{{ dashCase name }}',
+    exact: false,
+    component: {{ properCase name }},
+    icon: '{{ properCase name }}',
+    meta: meta.{{ camelCase name }},
+  },
+$5

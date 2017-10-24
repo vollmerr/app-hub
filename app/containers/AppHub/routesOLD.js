@@ -1,11 +1,11 @@
 import AppHubHome from 'containers/AppHub-Home';
 import Demo from 'containers/Demo/Loadable';
+import AppName from 'containers/AppName/Loadable';
 import Loading from 'components/Loading/TestPage';
 
 import { meta } from './meta';
 
 const routes = [
-  // hub
   {
     key: 'home',
     name: 'App Hub',
@@ -15,7 +15,6 @@ const routes = [
     icon: 'Apphub',
     meta: meta.apphub,
   },
-  // internal apps
   {
     key: 'demo',
     name: 'Demo',
@@ -33,7 +32,6 @@ const routes = [
     icon: 'Loading',
     meta: meta.loading,
   },
-  // external apps
   {
     key: 'cold',
     name: 'COLD',
@@ -60,6 +58,3 @@ const routes = [
 export const apps = routes.slice(1);
 
 export default routes;
-
-
-

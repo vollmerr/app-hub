@@ -14,7 +14,7 @@ module.exports = {
     type: 'list',
     name: 'type',
     message: 'Select the type of component',
-    default: 'Stateless Function',
+    default: 'React.PureComponent',
     choices: () => ['Stateless Function', 'React.PureComponent', 'React.Component'],
   }, {
     type: 'input',
@@ -28,11 +28,6 @@ module.exports = {
 
       return 'The name is required';
     },
-  }, {
-    type: 'confirm',
-    name: 'wantMessages',
-    default: true,
-    message: 'Do you want i18n messages (i.e. will this component use text)?',
   }, {
     type: 'confirm',
     name: 'wantLoadable',
@@ -64,16 +59,6 @@ module.exports = {
       templateFile: './component/test.js.hbs',
       abortOnFail: true,
     }];
-
-    // If they want a i18n messages file
-    if (data.wantMessages) {
-      actions.push({
-        type: 'add',
-        path: '../../app/components/{{properCase name}}/messages.js',
-        templateFile: './component/messages.js.hbs',
-        abortOnFail: true,
-      });
-    }
 
     // If want Loadable.js to load the component asynchronously
     if (data.wantLoadable) {

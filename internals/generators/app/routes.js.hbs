@@ -1,0 +1,13 @@
+import {{ properCase home }} from 'containers/{{ home }}';
+
+export const base = '/{{ dashCase name }}';
+
+export default [
+  {
+    key: '{{ camelCase home }}', // default route must be first and end with 'Home' for key
+    name: 'Home',
+    path: `${base}/home`,
+    exact: true,
+    component: {{ properCase home }},
+  },
+];

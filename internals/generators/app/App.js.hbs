@@ -6,21 +6,20 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-
 import AppContainer from 'containers/App-Container';
 import { meta } from 'containers/AppHub/meta';
 
-import makeSelectDemo from './selectors';
+import makeSelect{{ properCase name }} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import routes from './routes';
 
 const app = {
-  meta: meta.demo,
+  meta: meta.{{ camelCase name }},
   routes,
 };
 
-export class Demo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class {{ properCase name }} extends React.PureComponent {
   render() {
     return (
       <AppContainer app={app} />
@@ -28,12 +27,12 @@ export class Demo extends React.PureComponent { // eslint-disable-line react/pre
   }
 }
 
-Demo.propTypes = {
+{{ properCase name }}.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  demo: makeSelectDemo(),
+  {{ camelCase name }}: makeSelect{{ properCase name }}(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -43,12 +42,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: 'demo', reducer });
-const withSaga = injectSaga({ key: 'demo', saga });
+const withReducer = injectReducer({ key: '{{ camelCase name }}', reducer });
+const withSaga = injectSaga({ key: '{{ camelCase name }}', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(Demo);
+)({{ properCase name }});

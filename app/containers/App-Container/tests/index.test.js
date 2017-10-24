@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import AppNav from 'containers/App-Nav';
 import { changeApp } from 'containers/AppHub/actions';
 import { initialState } from 'containers/AppHub/reducer';
-import { App, mapDispatchToProps } from '../index';
+import { AppContainer, mapDispatchToProps } from '../index';
 
 const props = {
   onChangeApp: jest.fn(),
@@ -30,10 +30,10 @@ const props = {
 };
 
 
-describe('<App />', () => {
+describe('<AppContainer />', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<App {...props} />);
+    wrapper = shallow(<AppContainer {...props} />);
   });
 
   it('should render correctly', () => {
