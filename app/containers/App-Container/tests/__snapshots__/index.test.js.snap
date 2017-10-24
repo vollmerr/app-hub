@@ -1,37 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<App /> should render correctly 1`] = `
-<Wrapper__Wrapper
-  isMobile={false}
->
-  <HelmetWrapper
-    encodeSpecialCharacters={true}
-  >
-    <title>
-      App Hub | test title
-    </title>
-    <meta
-      content="test desc"
-      name="description"
-    />
-    <meta
-      content="test, keywords"
-      name="keywords"
-    />
-  </HelmetWrapper>
-  <AppNav
-    appRoutes={
-      Array [
-        Object {
-          "name": "test route1",
-        },
-      ]
-    }
-    isMobile={false}
-  />
-</Wrapper__Wrapper>
-`;
-
 exports[`<AppContainer /> should render correctly 1`] = `
 <Wrapper__Wrapper
   isMobile={false}

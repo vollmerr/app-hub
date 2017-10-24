@@ -15,9 +15,9 @@ const props = {
     { name: 'stuff', test: 1, other: '2000/12/01' },
   ],
   columns: [
-    { key: 'nameKey', name: 'name', fieldName: 'name', isSorted: true, isSortedDescending: false },
-    { key: 'testKey', name: 'test', fieldName: 'test', notSortable: true },
-    { key: 'otherKey', name: 'other', fieldName: 'other' },
+    { key: 'name', name: 'name', fieldName: 'name' },
+    { key: 'test', name: 'test', fieldName: 'test', notSortable: true },
+    { key: 'other', name: 'other', fieldName: 'other' },
   ],
 };
 
@@ -81,11 +81,9 @@ describe('<List />', () => {
     let selected;
     let expected;
     beforeEach(() => {
-      selected = 1;
+      selected = 0;
       expected = props.columns.map((col) => ({
         ...col,
-        isSorted: false,
-        isSortedDescending: true,
         ...!col.notSortable && { onColumnClick: instance.handleColumnClick },
       }));
       expected[selected].isSorted = true;
@@ -99,36 +97,63 @@ describe('<List />', () => {
       expect(wrapper.state('columns')).toEqual(expected);
     });
 
-    it('should toggle sorting descending', () => {
+    it('should toggle sorting (asc > desc > none)', () => {
       // toggle to isSortedDescending
       instance.handleColumnClick(null, props.columns[selected]);
+      expect(wrapper.state('columns')).toEqual(expected);
       // toggle to not isSortedDescending
       expected[selected].isSortedDescending = false;
+      instance.handleColumnClick(null, props.columns[selected]);
+      expect(wrapper.state('columns')).toEqual(expected);
+      // toggle to not sorted
+      expected[selected].isSorted = false;
+      expected[selected].isSortedDescending = undefined;
       instance.handleColumnClick(null, props.columns[selected]);
       expect(wrapper.state('columns')).toEqual(expected);
     });
 
     it('should call `handleSort` to sort the items', () => {
-      const { fieldName, isSortedDescending } = expected[selected];
       instance.handleColumnClick(null, props.columns[selected]);
-      expect(instance.handleSort).toHaveBeenCalledWith(fieldName, isSortedDescending);
+      expect(instance.handleSort).toHaveBeenCalledWith(expected, expected[selected].key);
     });
   });
 
   describe('handleSort', () => {
-    it('should sort the items based off input', () => {
-      // asc
-      let items = instance.handleSort(props.columns[0].fieldName, false);
-      let expected = [
+    it('should update the sort order and sort the items', () => {
+      let items = [
+        props.items[0],
+        props.items[2],
+        props.items[1],
+      ];
+      let sortOrder = [
+        props.columns[2].key,
+        props.columns[0].key,
+        props.columns[1].key,
+      ];
+      let selected = props.columns[2].key;
+      instance.handleSort(props.columns, selected);
+      expect(wrapper.state('items')).toEqual(items);
+      expect(wrapper.state('sortOrder')).toEqual(sortOrder);
+
+      // manually update since columns not updated in search
+      const columns = wrapper.state('columns');
+      columns[2].isSorted = true;
+      columns[2].isSortedDescending = true;
+
+      items = [
         props.items[1],
         props.items[0],
         props.items[2],
       ];
-      expect(items).toEqual(expected);
-      // desc
-      items = instance.handleSort(props.columns[0].fieldName, true);
-      expected = expected.reverse();
-      expect(items).toEqual(expected);
+      sortOrder = [
+        props.columns[0].key,
+        props.columns[2].key,
+        props.columns[1].key,
+      ];
+      selected = props.columns[0].key;
+      instance.handleSort(columns, selected);
+      expect(wrapper.state('items')).toEqual(items);
+      expect(wrapper.state('sortOrder')).toEqual(sortOrder);
     });
   });
 });

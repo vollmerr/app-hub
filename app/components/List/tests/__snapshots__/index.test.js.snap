@@ -15,21 +15,19 @@ exports[`<List /> should render correctly 1`] = `
       Array [
         Object {
           "fieldName": "name",
-          "isSorted": true,
-          "isSortedDescending": false,
-          "key": "nameKey",
+          "key": "name",
           "name": "name",
           "onColumnClick": [Function],
         },
         Object {
           "fieldName": "test",
-          "key": "testKey",
+          "key": "test",
           "name": "test",
           "notSortable": true,
         },
         Object {
           "fieldName": "other",
-          "key": "otherKey",
+          "key": "other",
           "name": "other",
           "onColumnClick": [Function],
         },
@@ -54,7 +52,6 @@ exports[`<List /> should render correctly 1`] = `
         },
       ]
     }
-    layoutMode={1}
   />
 </Wrapper__Wrapper>
 `;

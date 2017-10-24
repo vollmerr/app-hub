@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DetailsList, DetailsListLayoutMode } from 'office-ui-fabric-react/lib/DetailsList';
+import { DetailsList } from 'office-ui-fabric-react/lib/DetailsList';
 import orderBy from 'lodash/orderBy';
 
 import { escapeRegExp } from 'utils/string';
