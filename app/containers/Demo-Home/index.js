@@ -2,29 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 import { makeSelectUser } from 'containers/AppHub/selectors';
 
 import makeSelectDemoHome, {
   makeSelectExampleData,
   makeSelectError,
   makeSelectLoading,
-} from './selectors';
+} from 'containers/Demo/selectors';
+import { exampleDataRequest } from 'containers/Demo/actions';
 
-import { exampleDataRequest } from './actions';
-import reducer from './reducer';
-import saga from './saga';
-
-const Button = ({ onClick, disabled, text }) => ( // eslint-disable-line
-  <button
-    onClick={onClick}
-    disabled={disabled}
-    style={{ background: disabled ? '#666' : '#333', color: '#fff', padding: '10px 15px', cursor: 'pointer' }}
-  >{text}</button>
-);
+import Scroll from './Scroll';
+import Button from './Button';
 
 export class DemoHome extends React.PureComponent {
   constructor(props) {
@@ -34,9 +23,8 @@ export class DemoHome extends React.PureComponent {
     };
   }
 
-
   render() {
-    const { user, exampleData, dispatch, error, loading } = this.props;
+    const { user, exampleData, onExampleDataRequest, error, loading } = this.props;
     const { isScrolling } = this.state;
 
     if (error) {
@@ -54,7 +42,7 @@ export class DemoHome extends React.PureComponent {
           }
         </ul>
 
-        <Button onClick={() => dispatch(exampleDataRequest())} text={'Load Authorized Data'} disabled={loading} />
+        <Button onClick={() => onExampleDataRequest()} text={'Load Authorized Data'} disabled={loading} />
         {
           exampleData &&
           <p>{JSON.stringify(exampleData)}</p>
@@ -63,7 +51,7 @@ export class DemoHome extends React.PureComponent {
         <Button onClick={() => this.setState({ isScrolling: !isScrolling })} text={'Make Window Scroll'} disabled={loading} />
         {
           isScrolling &&
-          <div><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1><h1>TEST SCROLL</h1></div>
+          <Scroll />
         }
       </div >
     );
@@ -71,7 +59,7 @@ export class DemoHome extends React.PureComponent {
 }
 
 DemoHome.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  onExampleDataRequest: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   exampleData: PropTypes.object,
   error: PropTypes.string,
@@ -88,17 +76,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onExampleDataRequest: () => dispatch(exampleDataRequest()),
   };
 }
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: 'demoHome', reducer });
-const withSaga = injectSaga({ key: 'demoHome', saga });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(DemoHome);
+export default connect(mapStateToProps, mapDispatchToProps)(DemoHome);
