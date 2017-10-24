@@ -1,9 +1,3 @@
-/*
- *
- * AppHub reducer
- *
- */
-
 import { fromJS } from 'immutable';
 
 import {

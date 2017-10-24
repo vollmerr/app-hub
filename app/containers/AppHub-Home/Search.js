@@ -1,9 +1,3 @@
-/**
-*
-* Apps
-*
-*/
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';

@@ -1,9 +1,3 @@
-/*
- *
- * AppHub actions
- *
- */
-
 import {
   CHANGE_MOBILE,
   CHANGE_PANEL_OPEN,

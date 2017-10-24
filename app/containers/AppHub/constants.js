@@ -1,9 +1,3 @@
-/*
- *
- * AppHub constants
- *
- */
-
 // VIEW
 export const CHANGE_MOBILE = 'app/AppHub/CHANGE_MOBILE';
 export const CHANGE_PANEL_OPEN = 'app/AppHub/CHANGE_PANEL_OPEN';
