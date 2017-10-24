@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SpaEntry /> should render correctly 1`] = `
+<Wrapper__Wrapper>
+  <withReducer(withSaga(Connect(Spa))) />
+  <App-Content__AppContent>
+    <Router
+      routes={
+        Array [
+          Object {
+            "component": [Function],
+            "exact": true,
+            "key": "spaHome",
+            "name": "Home",
+            "path": "/spa/home",
+          },
+        ]
+      }
+    />
+  </App-Content__AppContent>
+</Wrapper__Wrapper>
+`;
