@@ -6,6 +6,11 @@ export const meta = {
     keywords: 'App, Hub',
   },
   // internal apps
+  spa: {
+    title: 'SPA',
+    desc: 'Document Acknowledgment',
+    keywords: 'SPA, Approval, Acknowlegde, Document',
+  },
   // ETERNAL APPS
   cold: {
     title: 'COLD',
@@ -36,7 +41,3 @@ export const meta = {
 };
 
 export default meta.apphub;
-
-
-
-

@@ -11,6 +11,9 @@ export default {
   app: {
     navWidth: '225px',
   },
+  list: {
+    headerHeight: '60px',
+  },
   zIndex: { // https://v4-alpha.getbootstrap.com/layout/overview/#z-index
     overlay: 1040,
     panel: 1050,

@@ -24,8 +24,9 @@ const initializeIcons = () => {
       appHubMenu: '\uE303',
       // APPS
       ED: '\uE417',
-      Loading: '\uE20B',
-      Demo: '\uE22E',
+      Loading: '\uF8FD',
+      Demo: '\uF8FD',
+      SPA: '\uE22E',
       Apphub: '\uE300',
       COLD: '\uE408',
       BARS: '\uE259',
@@ -34,6 +35,10 @@ const initializeIcons = () => {
       chevronup: '\uE088',
       Search: '\uE039',
       clear: '\uE353',
+      CircleRing: '\uF8FE',
+      StatusCircleCheckmark: '\uF8FF',
+      sortup: '\uF8FB',
+      sortdown: '\uF8FC',
     },
   });
 };

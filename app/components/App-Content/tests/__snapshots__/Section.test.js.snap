@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Section__Content /> should render correctly 1`] = `
+.c0 {
+  margin: 15px 0;
+  background: #ffffff;
+}
+
+<div
+  className="c0"
+/>
+`;

@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<List /> should render correctly 1`] = `
+<Wrapper__Wrapper>
+  <Header__Header>
+    <Title__Title>
+      test title
+    </Title__Title>
+    <Search__Search
+      onChange={[Function]}
+    />
+  </Header__Header>
+  <WithViewportComponent
+    columns={
+      Array [
+        Object {
+          "fieldName": "name",
+          "isSorted": true,
+          "isSortedDescending": false,
+          "key": "nameKey",
+          "name": "name",
+          "onColumnClick": [Function],
+        },
+        Object {
+          "fieldName": "test",
+          "key": "testKey",
+          "name": "test",
+          "notSortable": true,
+        },
+        Object {
+          "fieldName": "other",
+          "key": "otherKey",
+          "name": "other",
+          "onColumnClick": [Function],
+        },
+      ]
+    }
+    items={
+      Array [
+        Object {
+          "name": "name 2",
+          "other": "1989/22/08",
+          "test": 1,
+        },
+        Object {
+          "name": "name 1",
+          "other": "2001/11/01",
+          "test": 7,
+        },
+        Object {
+          "name": "stuff",
+          "other": "2000/12/01",
+          "test": 1,
+        },
+      ]
+    }
+    layoutMode={1}
+  />
+</Wrapper__Wrapper>
+`;
