@@ -1,0 +1,33 @@
+import React from 'react';
+import { shallow } from 'enzyme';
+
+import Content from 'components/App-Content/Content';
+
+import { {{ properCase home }}, mapDispatchToProps } from '../index';
+
+const props = {
+  dispatch: jest.fn(),
+};
+
+describe('<{{ properCase home }} />', () => {
+  let wrapper;
+  beforeEach(() => {
+    jest.resetAllMocks();
+    wrapper = shallow(<{{ properCase home }} {...props} />);
+  });
+
+  it('should render correctly', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render Content', () => {
+    expect(wrapper.find(Content).length).toEqual(1);
+  });
+
+  describe('mapDispatchToProps', () => {
+    it('returns dispatch', () => {
+      const dispatch = mapDispatchToProps(props.dispatch);
+      expect(dispatch).toEqual({ dispatch: props.dispatch });
+    });
+  });
+});

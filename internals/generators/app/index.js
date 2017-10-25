@@ -50,7 +50,12 @@ module.exports = {
         templateFile: './app/index.js.hbs',
         abortOnFail: true,
       },
-
+      {
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/tests/index.test.js',
+        templateFile: './app/index.test.js.hbs',
+        abortOnFail: true,
+      },
       // App
       {
         type: 'add',
@@ -58,7 +63,12 @@ module.exports = {
         templateFile: './app/App.js.hbs',
         abortOnFail: true,
       },
-
+      {
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/tests/{{properCase name}}.test.js',
+        templateFile: './app/App.test.js.hbs',
+        abortOnFail: true,
+      },
       // routes
       {
         type: 'add',
@@ -66,7 +76,12 @@ module.exports = {
         templateFile: './app/routes.js.hbs',
         abortOnFail: true,
       },
-
+      {
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/tests/routes.test.js',
+        templateFile: './app/routes.test.js.hbs',
+        abortOnFail: true,
+      },
       // Loadable
       {
         type: 'add',
@@ -90,7 +105,12 @@ module.exports = {
         templateFile: './container/actions.js.hbs',
         abortOnFail: true,
       },
-
+      {
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/tests/actions.test.js',
+        templateFile: './container/actions.test.js.hbs',
+        abortOnFail: true,
+      },
       // selectors
       {
         type: 'add',
@@ -98,7 +118,12 @@ module.exports = {
         templateFile: './container/selectors.js.hbs',
         abortOnFail: true,
       },
-
+      {
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/tests/selectors.test.js',
+        templateFile: './container/selectors.test.js.hbs',
+        abortOnFail: true,
+      },
       // reducer
       {
         type: 'add',
@@ -106,7 +131,12 @@ module.exports = {
         templateFile: './container/reducer.js.hbs',
         abortOnFail: true,
       },
-
+      {
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/tests/reducer.test.js',
+        templateFile: './container/reducer.test.js.hbs',
+        abortOnFail: true,
+      },
       // sagas
       {
         type: 'add',
@@ -114,12 +144,23 @@ module.exports = {
         templateFile: './container/saga.js.hbs',
         abortOnFail: true,
       },
-
+      {
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/tests/saga.test.js',
+        templateFile: './container/saga.test.js.hbs',
+        abortOnFail: true,
+      },
       // Home page
       {
         type: 'add',
         path: '../../app/containers/{{ home }}/index.js',
         templateFile: './app/Home.js.hbs',
+        abortOnFail: true,
+      },
+      {
+        type: 'add',
+        path: '../../app/containers/{{ home }}/tests/index.test.js',
+        templateFile: './app/Home.test.js.hbs',
         abortOnFail: true,
       },
 
