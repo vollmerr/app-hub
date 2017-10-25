@@ -3,10 +3,11 @@ import { shallow } from 'enzyme';
 import Button from 'examples/common/Button';
 
 import { Sagas, mapDispatchToProps } from '../index';
-import { exampleRequest } from '../actions';
+import { exampleRequest, clearErrors } from '../actions';
 
 const props = {
   onExampleRequest: jest.fn(),
+  onClearErrors: jest.fn(),
   data: null,
   loading: false,
   error: null,
@@ -88,6 +89,17 @@ describe('<Sagas />', () => {
       it('should dispatch exampleRequest when called', () => {
         mappedDispatch.onExampleRequest();
         expect(dispatch).toHaveBeenCalledWith(exampleRequest());
+      });
+    });
+
+    describe('onClearErrors', () => {
+      it('should be injected', () => {
+        expect(mappedDispatch.onExampleRequest).toBeDefined();
+      });
+
+      it('should dispatch clearErrors when called', () => {
+        mappedDispatch.onClearErrors();
+        expect(dispatch).toHaveBeenCalledWith(clearErrors());
       });
     });
   });

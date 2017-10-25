@@ -2,9 +2,9 @@ import { fromJS } from 'immutable';
 import { handleActions } from 'redux-actions';
 
 import {
-  EXAMPLE_DATA_REQUEST,
-  EXAMPLE_DATA_SUCCESS,
-  EXAMPLE_DATA_FAILURE,
+  INIT_DATA_REQUEST,
+  INIT_DATA_SUCCESS,
+  INIT_DATA_FAILURE,
   CLEAR_ERRORS,
 } from './constants';
 
@@ -15,15 +15,15 @@ export const initialState = {
 };
 
 const actions = {
-  [EXAMPLE_DATA_REQUEST]: (state) => state.set('loading', true),
+  [INIT_DATA_REQUEST]: (state) => state.set('loading', true),
 
-  [EXAMPLE_DATA_SUCCESS]: (state, action) => (
+  [INIT_DATA_SUCCESS]: (state, action) => (
     state
       .set('loading', false)
       .set('data', fromJS(action.payload))
   ),
 
-  [EXAMPLE_DATA_FAILURE]: (state, action) => (
+  [INIT_DATA_FAILURE]: (state, action) => (
     state
       .set('loading', false)
       .set('error', fromJS(action.payload))

@@ -1,9 +1,3 @@
-/**
- *
- * Sagas
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -22,16 +16,23 @@ import makeSelectSagasData, {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { exampleRequest } from './actions';
+import { exampleRequest, clearErrors } from './actions';
 
-export class Sagas extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class Sagas extends React.PureComponent {
   constructor(props) {
     super(props);
     this.stats = {};
   }
+
+  componentDidMount() {
+    const { onClearErrors } = this.props;
+    onClearErrors();
+  }
+
   // fetch the data async using a saga and redux's dispatch function
   handleFetchData = () => {
-    this.props.onExampleRequest();
+    const { onExampleRequest } = this.props;
+    onExampleRequest();
   }
 
   render() {
@@ -52,6 +53,7 @@ export class Sagas extends React.PureComponent { // eslint-disable-line react/pr
 
 Sagas.propTypes = {
   onExampleRequest: PropTypes.func.isRequired,
+  onClearErrors: PropTypes.func.isRequired,
   data: PropTypes.object,
   loading: PropTypes.bool,
   error: PropTypes.object,
@@ -66,6 +68,7 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) {
   return {
     onExampleRequest: () => dispatch(exampleRequest()),
+    onClearErrors: () => dispatch(clearErrors()),
   };
 }
 

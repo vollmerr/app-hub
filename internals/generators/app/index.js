@@ -11,7 +11,6 @@ module.exports = {
     type: 'input',
     name: 'name',
     message: 'What should it be called?',
-    default: 'AppName',
     validate: (value) => {
       if ((/.+/).test(value)) {
         return componentExists(value) ? 'An app / container with this name already exists' : true;
@@ -23,19 +22,16 @@ module.exports = {
     type: 'input',
     name: 'title',
     message: 'What is the title (meta data)?',
-    default: 'title',
     validate: (value) => (/.+/).test(value) || 'The title is required',
   }, {
     type: 'input',
     name: 'desc',
     message: 'What is the description (meta data)?',
-    default: 'description',
     validate: (value) => (/.+/).test(value) || 'The description is required',
   }, {
     type: 'input',
     name: 'keywords',
     message: 'What are some keywords (meta data)?',
-    default: 'keywords',
     validate: (value) => (/.+/).test(value) || 'Keywords are required',
   }],
 
@@ -94,7 +90,7 @@ module.exports = {
       {
         type: 'add',
         path: '../../app/containers/{{properCase name}}/constants.js',
-        templateFile: './container/constants.js.hbs',
+        templateFile: './app/constants.js.hbs',
         abortOnFail: true,
       },
 
@@ -102,52 +98,52 @@ module.exports = {
       {
         type: 'add',
         path: '../../app/containers/{{properCase name}}/actions.js',
-        templateFile: './container/actions.js.hbs',
+        templateFile: './app/actions.js.hbs',
         abortOnFail: true,
       },
       {
         type: 'add',
         path: '../../app/containers/{{properCase name}}/tests/actions.test.js',
-        templateFile: './container/actions.test.js.hbs',
+        templateFile: './app/actions.test.js.hbs',
         abortOnFail: true,
       },
       // selectors
       {
         type: 'add',
         path: '../../app/containers/{{properCase name}}/selectors.js',
-        templateFile: './container/selectors.js.hbs',
+        templateFile: './app/selectors.js.hbs',
         abortOnFail: true,
       },
       {
         type: 'add',
         path: '../../app/containers/{{properCase name}}/tests/selectors.test.js',
-        templateFile: './container/selectors.test.js.hbs',
+        templateFile: './app/selectors.test.js.hbs',
         abortOnFail: true,
       },
       // reducer
       {
         type: 'add',
         path: '../../app/containers/{{properCase name}}/reducer.js',
-        templateFile: './container/reducer.js.hbs',
+        templateFile: './app/reducer.js.hbs',
         abortOnFail: true,
       },
       {
         type: 'add',
         path: '../../app/containers/{{properCase name}}/tests/reducer.test.js',
-        templateFile: './container/reducer.test.js.hbs',
+        templateFile: './app/reducer.test.js.hbs',
         abortOnFail: true,
       },
       // sagas
       {
         type: 'add',
         path: '../../app/containers/{{properCase name}}/saga.js',
-        templateFile: './container/saga.js.hbs',
+        templateFile: './app/saga.js.hbs',
         abortOnFail: true,
       },
       {
         type: 'add',
         path: '../../app/containers/{{properCase name}}/tests/saga.test.js',
-        templateFile: './container/saga.test.js.hbs',
+        templateFile: './app/saga.test.js.hbs',
         abortOnFail: true,
       },
       // Home page
@@ -167,7 +163,7 @@ module.exports = {
       // update apphub routes
       {
         type: 'modify',
-        pattern: /([^]*AppHub-Home';)(\n)([^]*\/\/ internal apps)(\n)([^]*routes;)(\n)/m,
+        pattern: /([^]*AppHub-Home';)([\r\n]*)([^]*\/\/ __APPS__)([\r\n]*)([^]*;)([\r\n]*)/m,
         path: '../../app/containers/AppHub/routes.js',
         templateFile: './app/appHubRoutes.js.hbs',
         abortOnFail: true,
@@ -175,7 +171,7 @@ module.exports = {
       // update apphub meta
       {
         type: 'modify',
-        pattern: /([^]*\/\/ internal apps)(\n)([^]*)(\n)/m,
+        pattern: /([^]*\/\/ __APPS__)([\r\n]*)([^]*;)([\r\n]*)/m,
         path: '../../app/containers/AppHub/meta.js',
         templateFile: './app/appHubMeta.js.hbs',
         abortOnFail: true,
@@ -183,7 +179,7 @@ module.exports = {
       // update icon file
       {
         type: 'modify',
-        pattern: /([^]*\/\/ APPS)(\n)([^]*)(\n)/m,
+        pattern: /([^]*\/\/ __APPS__)([\r\n]*)([^]*;)([\r\n]*)/m,
         path: '../../app/utils/initializeIcons.js',
         templateFile: './app/icon.js.hbs',
         abortOnFail: true,

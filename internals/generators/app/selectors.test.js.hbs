@@ -1,0 +1,48 @@
+import { fromJS } from 'immutable';
+import makeSelect{{ properCase name }}, {
+  select{{ properCase name }}Domain,
+  makeSelect{{ properCase name }}Loading,
+  makeSelect{{ properCase name }}Error,
+  makeSelect{{ properCase name }}Data,
+} from '../selectors';
+
+const data = { a: 'test data' };
+const {{ camelCase name }} = { data, loading: false, error: null };
+const state = fromJS({
+  {{ camelCase name }},
+  otherStuff: { b: 'other stuff' },
+});
+
+describe('makeSelect{{ properCase name }}', () => {
+  const selector = makeSelect{{ properCase name }}();
+  it('should select the {{ properCase name }} state as plain JS', () => {
+    expect(selector(state)).toEqual({{ camelCase name }});
+  });
+});
+
+describe('select{{ properCase name }}Domain', () => {
+  it('should select the {{ camelCase name }} state', () => {
+    expect(select{{ properCase name }}Domain(state).toJS()).toEqual({{ camelCase name }});
+  });
+});
+
+describe('makeSelectData', () => {
+  const selector = makeSelect{{ properCase name }}Data();
+  it('should select data from state', () => {
+    expect(selector(state).toJS()).toEqual({{ camelCase name }}.data);
+  });
+});
+
+describe('makeSelect{{ properCase name }}Error', () => {
+  const selector = makeSelect{{ properCase name }}Error();
+  it('should select error from state', () => {
+    expect(selector(state)).toEqual({{ camelCase name }}.error);
+  });
+});
+
+describe('makeSelect{{ properCase name }}Loading', () => {
+  const selector = makeSelect{{ properCase name }}Loading();
+  it('should select loading from state', () => {
+    expect(selector(state)).toEqual({{ camelCase name }}.loading);
+  });
+});

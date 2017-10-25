@@ -1,0 +1,21 @@
+import { takeEvery, call, put } from 'redux-saga/effects';
+
+import requestWithToken from 'utils/requestWithToken';
+import { INIT_DATA_REQUEST } from './constants';
+import { initSuccess, initFailure } from './actions';
+
+
+export function* {{ camelCase name }}Worker() {
+  try {
+    const data = yield call(requestWithToken, 'TODO');
+    yield put(initSuccess(data));
+  } catch (error) {
+    yield put(initFailure(error));
+  }
+}
+
+function* {{ camelCase name }}Saga() {
+  yield takeEvery(INIT_DATA_REQUEST, {{ camelCase name }}Worker);
+}
+
+export default {{ camelCase name }}Saga;

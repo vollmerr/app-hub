@@ -1,0 +1,31 @@
+import { createSelector } from 'reselect';
+
+const select{{ properCase name }}Domain = (state) => state.get('{{ camelCase name }}');
+
+const makeSelect{{ properCase name }}Data = () => createSelector(
+  select{{ properCase name }}Domain,
+  (substate) => substate.get('data')
+);
+
+const makeSelect{{ properCase name }}Error = () => createSelector(
+  select{{ properCase name }}Domain,
+  (substate) => substate.get('error')
+);
+
+const makeSelect{{ properCase name }}Loading = () => createSelector(
+  select{{ properCase name }}Domain,
+  (substate) => substate.get('loading')
+);
+
+const makeSelect{{ properCase name }} = () => createSelector(
+  select{{ properCase name }}Domain,
+  (substate) => substate.toJS()
+);
+
+export default makeSelect{{ properCase name }};
+export {
+  select{{ properCase name }}Domain,
+  makeSelect{{ properCase name }}Data,
+  makeSelect{{ properCase name }}Error,
+  makeSelect{{ properCase name }}Loading,
+};

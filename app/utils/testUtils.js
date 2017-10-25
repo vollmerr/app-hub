@@ -50,11 +50,11 @@ export function testStyledComponent(Component, extend = null) {
 /**
  * Tests a components for basic mapDispatchToProps information
  * @param {func} mapDispatchToProps   - components mapDispatchToProps function
- * @param {array} actions             - functions in mapDispatchToProps to test
+ * @param {object} actions            - functions in mapDispatchToProps to test
  */
 export function testMapDispatchToProps(mapDispatchToProps, actions) {
   const onAction = (action) => (
-    `on${action.name.charAt(0).toUpperCase()}${action.name.slice(1)}`
+    `on${action.charAt(0).toUpperCase()}${action.slice(1)}`
   );
 
   let dispatch;
@@ -64,7 +64,7 @@ export function testMapDispatchToProps(mapDispatchToProps, actions) {
     dispatchProps = mapDispatchToProps(dispatch);
   });
 
-  actions.forEach((action) => {
+  Object.keys(actions).forEach((action) => {
     describe(onAction(action), () => {
       it('should be injected', () => {
         expect(dispatchProps[onAction(action)]).toBeDefined();
@@ -72,7 +72,7 @@ export function testMapDispatchToProps(mapDispatchToProps, actions) {
 
       it(`should dispatch ${action.name} when called`, () => {
         dispatchProps[onAction(action)]();
-        expect(dispatch).toHaveBeenCalledWith(action());
+        expect(dispatch).toHaveBeenCalledWith(actions[action]());
       });
     });
   });

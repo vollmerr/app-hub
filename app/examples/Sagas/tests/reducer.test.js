@@ -1,21 +1,22 @@
 
 import { fromJS } from 'immutable';
 
-import { CLEAR_ERRORS } from 'containers/AppHub/constants';
 import sagasReducer, { initialState } from '../reducer';
 import {
   EXAMPLE_DATA_REQUEST,
   EXAMPLE_DATA_SUCCESS,
   EXAMPLE_DATA_FAILURE,
+  CLEAR_ERRORS,
 } from '../constants';
 
-const state = initialState.toJS();
+const state = initialState;
 const data = 'test data';
 const error = { message: 'test error' };
 
 describe('sagasReducer', () => {
   it('returns the initial state', () => {
-    expect(sagasReducer(undefined, {})).toEqual(initialState);
+    const expected = fromJS(initialState);
+    expect(sagasReducer(undefined, {})).toEqual(expected);
   });
 
   it('handles EXAMPLE_DATA_REQUEST', () => {

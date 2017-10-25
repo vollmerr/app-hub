@@ -135,12 +135,12 @@ describe('<AppHub />', () => {
   });
 
   describe('mapDispatchToProps', () => {
-    const actions = [
+    const actions = {
       changeMobile,
       changePanelOpen,
       changePanelSelected,
       authUserRequest,
-    ];
+    };
 
     testMapDispatchToProps(mapDispatchToProps, actions);
   });

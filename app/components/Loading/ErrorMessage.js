@@ -43,7 +43,10 @@ class ErrorMessage extends React.PureComponent {
 }
 
 ErrorMessage.propTypes = {
-  error: PropTypes.object,
+  error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]),
   to: PropTypes.string,
 };
 

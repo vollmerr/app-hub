@@ -1,16 +1,20 @@
-
 import {
   exampleRequest,
   exampleSuccess,
   exampleFailure,
+  clearErrors,
 } from '../actions';
 
 import {
   EXAMPLE_DATA_REQUEST,
   EXAMPLE_DATA_SUCCESS,
   EXAMPLE_DATA_FAILURE,
+  CLEAR_ERRORS,
 } from '../constants';
 
+const payload = {
+  data: 'test data',
+};
 
 describe('actions', () => {
   describe('example Action', () => {
@@ -23,16 +27,25 @@ describe('actions', () => {
 
     it('has a type of EXAMPLE_DATA_SUCCESS', () => {
       const expected = {
+        payload,
         type: EXAMPLE_DATA_SUCCESS,
       };
-      expect(exampleSuccess()).toEqual(expected);
+      expect(exampleSuccess(payload)).toEqual(expected);
     });
 
     it('has a type of EXAMPLE_DATA_FAILURE', () => {
       const expected = {
+        payload,
         type: EXAMPLE_DATA_FAILURE,
       };
-      expect(exampleFailure()).toEqual(expected);
+      expect(exampleFailure(payload)).toEqual(expected);
+    });
+
+    it('has a type of CLEAR_ERRORS', () => {
+      const expected = {
+        type: CLEAR_ERRORS,
+      };
+      expect(clearErrors()).toEqual(expected);
     });
   });
 });

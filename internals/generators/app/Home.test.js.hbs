@@ -1,12 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { testMapDispatchToProps } from 'utils/testUtils';
 import Content from 'components/App-Content/Content';
+import { clearErrors } from 'containers/{{ properCase name }}/actions';
+import ErrorMessage from 'components/Loading/ErrorMessage';
 
 import { {{ properCase home }}, mapDispatchToProps } from '../index';
 
 const props = {
-  dispatch: jest.fn(),
+  onClearErrors: jest.fn(),
+  error: null,
 };
 
 describe('<{{ properCase home }} />', () => {
@@ -24,10 +28,16 @@ describe('<{{ properCase home }} />', () => {
     expect(wrapper.find(Content).length).toEqual(1);
   });
 
+  it('should render an error message if passed an error', () => {
+    wrapper.setProps({ error: 'test error' });
+    expect(wrapper.find(ErrorMessage).length).toEqual(1);
+  });
+
   describe('mapDispatchToProps', () => {
-    it('returns dispatch', () => {
-      const dispatch = mapDispatchToProps(props.dispatch);
-      expect(dispatch).toEqual({ dispatch: props.dispatch });
-    });
+    const actions = {
+      clearErrors,
+    };
+
+    testMapDispatchToProps(mapDispatchToProps, actions);
   });
 });

@@ -16,7 +16,7 @@ const routes = [
     icon: 'Apphub',
     meta: meta.apphub,
   },
-  // internal apps
+  // __APPS__
   {
     key: 'spa',
     name: 'SPA',

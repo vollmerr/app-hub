@@ -5,7 +5,7 @@ export const meta = {
     desc: 'Central location for CDT ODI applications',
     keywords: 'App, Hub',
   },
-  // internal apps
+  // __APPS__
   spa: {
     title: 'SPA',
     desc: 'Document Acknowledgment',

@@ -1,13 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { testMapDispatchToProps } from 'utils/testUtils';
 import AppContainer from 'containers/App-Container';
+
 import { {{ properCase name }}, mapDispatchToProps } from '../{{ properCase name }}';
+import { initRequest } from '../actions';
 
 const props = {
   meta: { desc: 'test desc' },
   routes: [{ name: 'route1', key: 'testHome', path: '/testpath' }, { name: 'route2', key: '2', path: '/testpath2' }],
-  dispatch: jest.fn(),
+  onInitRequest: jest.fn(),
 };
 
 
@@ -27,9 +30,10 @@ describe('<{{ properCase name }} />', () => {
   });
 
   describe('mapDispatchToProps', () => {
-    it('returns dispatch', () => {
-      const dispatch = mapDispatchToProps(props.dispatch);
-      expect(dispatch).toEqual({ dispatch: props.dispatch });
-    });
+    const actions = {
+      initRequest,
+    };
+
+    testMapDispatchToProps(mapDispatchToProps, actions);
   });
 });

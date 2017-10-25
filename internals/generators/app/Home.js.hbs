@@ -3,10 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 
+import ErrorMessage from 'components/Loading/ErrorMessage';
 import Content from 'components/App-Content/Content';
+import { clearErrors } from 'containers/{{ properCase name }}/actions';
 
 export class {{ properCase home }} extends React.PureComponent {
+  componentDidMount() {
+    const { onClearErrors } = this.props;
+    onClearErrors();
+  }
+
   render() {
+    const { error } = this.props;
+
+    if (error) {
+      return <ErrorMessage error={error} to={'/{{ dashCase name }}'} />;
+    }
+
     return (
       <Content>
         CONTENT PLACEHOLDER
@@ -16,13 +29,17 @@ export class {{ properCase home }} extends React.PureComponent {
 }
 
 {{ properCase home }}.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  onClearErrors: PropTypes.func.isRequired,
+  error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]),
 };
 
 
 export function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onClearErrors: () => dispatch(clearErrors()),
   };
 }
 
