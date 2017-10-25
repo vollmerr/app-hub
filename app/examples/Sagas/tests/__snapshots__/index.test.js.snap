@@ -21,9 +21,5 @@ exports[`<Sagas /> should render correctly 1`] = `
   >
     Click me to Load Data
   </Button__Button>
-  <p>
-    Data: 
-    {"a":1,"b":4}
-  </p>
 </Example>
 `;

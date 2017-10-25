@@ -29,6 +29,7 @@ export class Spa extends React.PureComponent {
 
 Spa.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  spa: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -9,6 +9,7 @@ import { Spa } from '../Spa';
 const props = {
   meta: { desc: 'test desc' },
   routes: [{ name: 'route1', key: 'testHome', path: '/testpath' }, { name: 'route2', key: '2', path: '/testpath2' }],
+  dispatch: jest.fn(),
 };
 
 
@@ -26,12 +27,4 @@ describe('<Spa />', () => {
   it('should have render a AppContainer', () => {
     expect(wrapper.find(AppContainer).length).toEqual(1);
   });
-
-  // describe('mapDispatchToProps', () => {
-  //   const actions = [
-
-  //   ];
-
-  //   testMapDispatchToProps(mapDispatchToProps, actions);
-  // });
 });

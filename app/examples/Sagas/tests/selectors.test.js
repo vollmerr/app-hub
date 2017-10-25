@@ -1,8 +1,12 @@
 import { fromJS } from 'immutable';
-import makeSelectSagasData, { selectSagasDomain } from '../selectors';
+import makeSelectSagasData, {
+  selectSagasDomain,
+  makeSelectSagasLoading,
+  makeSelectSagasError,
+} from '../selectors';
 
 const data = { a: 'test data' };
-const sagas = { data };
+const sagas = { data, loading: false, error: null };
 const state = fromJS({
   sagas,
   otherStuff: { b: 'other stuff' },
@@ -16,8 +20,22 @@ describe('selectSagasDomain', () => {
 });
 
 describe('makeSelectSagasData', () => {
-  const dataSelector = makeSelectSagasData();
-  it('should select sagas.data from state', () => {
-    expect(dataSelector(state).toJS()).toEqual(data);
+  const selector = makeSelectSagasData();
+  it('should select data from state', () => {
+    expect(selector(state).toJS()).toEqual(sagas.data);
+  });
+});
+
+describe('makeSelectSagasLoading', () => {
+  const selector = makeSelectSagasLoading();
+  it('should select loading from state', () => {
+    expect(selector(state)).toEqual(sagas.loading);
+  });
+});
+
+describe('makeSelectSagasError', () => {
+  const selector = makeSelectSagasError();
+  it('should select error from state', () => {
+    expect(selector(state)).toEqual(sagas.error);
   });
 });

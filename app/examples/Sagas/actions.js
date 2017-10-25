@@ -1,8 +1,4 @@
-/*
- *
- * Sagas actions
- *
- */
+import { createAction } from 'redux-actions';
 
 import {
   EXAMPLE_DATA_REQUEST,
@@ -10,22 +6,6 @@ import {
   EXAMPLE_DATA_FAILURE,
 } from './constants';
 
-export function exampleRequest() {
-  return {
-    type: EXAMPLE_DATA_REQUEST,
-  };
-}
-
-export function exampleSuccess(data) {
-  return {
-    data,
-    type: EXAMPLE_DATA_SUCCESS,
-  };
-}
-
-export function exampleFailure(error = {}) {
-  return {
-    message: error.message,
-    type: EXAMPLE_DATA_FAILURE,
-  };
-}
+export const exampleRequest = createAction(EXAMPLE_DATA_REQUEST);
+export const exampleSuccess = createAction(EXAMPLE_DATA_SUCCESS);
+export const exampleFailure = createAction(EXAMPLE_DATA_FAILURE);
