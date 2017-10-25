@@ -1,10 +1,10 @@
 import { fromJS } from 'immutable';
-import { CLEAR_ERRORS } from 'containers/AppHub/constants';
 
 import {
   EXAMPLE_DATA_REQUEST,
   EXAMPLE_DATA_SUCCESS,
   EXAMPLE_DATA_FAILURE,
+  CLEAR_ERRORS,
 } from './constants';
 
 const initialState = fromJS({
@@ -28,7 +28,6 @@ function demoReducer(state = initialState, action) {
         .set('loading', false)
         .set('error', action.error);
     case CLEAR_ERRORS:
-    console.log('wtf m8')
       return state
         .set('error', null);
     default:

@@ -5,14 +5,13 @@ import { createStructuredSelector } from 'reselect';
 
 import ErrorMessage from 'components/Loading/ErrorMessage';
 import { makeSelectUser } from 'containers/AppHub/selectors';
-import { clearErrors } from 'containers/AppHub/actions';
 
 import makeSelectDemoHome, {
   makeSelectExampleData,
   makeSelectError,
   makeSelectLoading,
 } from 'containers/Demo/selectors';
-import { exampleDataRequest } from 'containers/Demo/actions';
+import { exampleDataRequest, clearErrors } from 'containers/Demo/actions';
 
 import Scroll from './Scroll';
 import Button from './Button';
