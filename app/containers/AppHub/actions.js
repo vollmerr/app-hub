@@ -6,6 +6,7 @@ import {
   AUTH_USER_REQUEST,
   AUTH_USER_SUCCESS,
   AUTH_USER_FAILURE,
+  CLEAR_ERRORS,
 } from './constants';
 
 export function changeMobile(isMobile) {
@@ -55,5 +56,11 @@ export function authUserSuccess(sam, roles) {
 export function authUserFailure() {
   return {
     type: AUTH_USER_FAILURE,
+  };
+}
+
+export function clearErrors() {
+  return {
+    type: CLEAR_ERRORS,
   };
 }

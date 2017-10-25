@@ -21,14 +21,22 @@ const Button = styled(DefaultButton) `
 
 class ErrorMessage extends React.PureComponent {
   render() {
-    const { error } = this.props;
-    const message = error && error.message;
+    const { error, to } = this.props;
+
+    let message;
+    if (error) {
+      if (typeof error === 'string') {
+        message = error;
+      } else {
+        message = error.message;
+      }
+    }
 
     return (
       <Wrapper>
         <Header>Sorry, an error has occurred.</Header>
         {message && <Message>{message}</Message>}
-        <Link to={'/'}><Button primary>Home</Button></Link>
+        <Link to={to || '/'}><Button primary>Home</Button></Link>
       </Wrapper>
     );
   }
@@ -36,6 +44,7 @@ class ErrorMessage extends React.PureComponent {
 
 ErrorMessage.propTypes = {
   error: PropTypes.object,
+  to: PropTypes.string,
 };
 
 export default ErrorMessage;

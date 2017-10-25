@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
+import ErrorMessage from 'components/Loading/ErrorMessage';
 import { makeSelectUser } from 'containers/AppHub/selectors';
+import { clearErrors } from 'containers/AppHub/actions';
 
 import makeSelectDemoHome, {
   makeSelectExampleData,
@@ -23,12 +25,16 @@ export class DemoHome extends React.PureComponent {
     };
   }
 
+  componentDidMount() {
+    this.props.onClearErrors();
+  }
+
   render() {
     const { user, exampleData, onExampleDataRequest, error, loading } = this.props;
     const { isScrolling } = this.state;
 
     if (error) {
-      return <p>Placholder for error message</p>;
+      return <ErrorMessage error={error} to={'/demo'} />;
     }
 
     return (
@@ -60,6 +66,7 @@ export class DemoHome extends React.PureComponent {
 
 DemoHome.propTypes = {
   onExampleDataRequest: PropTypes.func.isRequired,
+  onClearErrors: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   exampleData: PropTypes.object,
   error: PropTypes.string,
@@ -77,6 +84,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     onExampleDataRequest: () => dispatch(exampleDataRequest()),
+    onClearErrors: () => dispatch(clearErrors()),
   };
 }
 
