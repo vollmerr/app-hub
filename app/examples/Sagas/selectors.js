@@ -9,6 +9,15 @@ const selectSagasDomain = (state) => state.get('sagas');
  * Other specific selectors
  */
 
+const makeSelectSagasLoading = () => createSelector(
+  selectSagasDomain,
+  (substate) => substate.get('loading')
+);
+
+const makeSelectSagasError = () => createSelector(
+  selectSagasDomain,
+  (substate) => substate.get('error')
+);
 
 /**
  * Default selector used by Sagas
@@ -22,4 +31,6 @@ const makeSelectSagasData = () => createSelector(
 export default makeSelectSagasData;
 export {
   selectSagasDomain,
+  makeSelectSagasLoading,
+  makeSelectSagasError,
 };

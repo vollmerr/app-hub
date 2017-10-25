@@ -1,8 +1,3 @@
-/**
- *
- * text to display in  WithRedux component
- *
- */
 /* eslint-disable quotes */
 export default {
   header: 'Sagas Example',

@@ -15,7 +15,10 @@ import Button from 'examples/common/Button';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import makeSelectSagasData from './selectors';
+import makeSelectSagasData, {
+  makeSelectSagasLoading,
+  makeSelectSagasError,
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -32,12 +35,16 @@ export class Sagas extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   render() {
-    const { data } = this.props;
+    const { data, loading, error } = this.props;
 
     return (
       <Example header={messages.header} desc={messages.desc}>
         <Button onClick={this.handleFetchData}>Click me to Load Data</Button>
-        {data && <p>Data: {JSON.stringify(data)}</p>}
+        {
+          (loading && <p>Loading...</p>) ||
+          (error && <p>An error has occurred.</p>) ||
+          (data && <p>Data: {JSON.stringify(data)}</p>)
+        }
       </Example>
     );
   }
@@ -46,10 +53,14 @@ export class Sagas extends React.PureComponent { // eslint-disable-line react/pr
 Sagas.propTypes = {
   onExampleRequest: PropTypes.func.isRequired,
   data: PropTypes.object,
+  loading: PropTypes.bool,
+  error: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   data: makeSelectSagasData(),
+  loading: makeSelectSagasLoading(),
+  error: makeSelectSagasError(),
 });
 
 export function mapDispatchToProps(dispatch) {

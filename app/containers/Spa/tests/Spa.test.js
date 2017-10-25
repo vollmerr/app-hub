@@ -27,12 +27,4 @@ describe('<Spa />', () => {
   it('should have render a AppContainer', () => {
     expect(wrapper.find(AppContainer).length).toEqual(1);
   });
-
-  // describe('mapDispatchToProps', () => {
-  //   const actions = [
-
-  //   ];
-
-  //   testMapDispatchToProps(mapDispatchToProps, actions);
-  // });
 });
