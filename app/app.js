@@ -15,6 +15,10 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import 'sanitize.css/sanitize.css';
 
+// import injectors to avoid duplicate code in app chunks
+import 'utils/injectReducer';
+import 'utils/injectSaga';
+
 // Import root app
 import AppHub from 'containers/AppHub';
 import Examples from 'examples/Loadable';

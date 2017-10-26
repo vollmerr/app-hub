@@ -16,23 +16,6 @@ const routes = [
     meta: meta.apphub,
   },
   // __APPS__
-  {
-    key: 'demo',
-    name: 'Demo',
-    path: '/demo',
-    exact: false,
-    component: Demo,
-    icon: 'Demo',
-    meta: meta.demo,
-  },
-  {
-    key: 'loading',
-    name: 'Test App Loading',
-    path: '/loading',
-    component: Loading,
-    icon: 'Loading',
-    meta: meta.loading,
-  },
   // external apps
   {
     key: 'cold',
@@ -56,6 +39,27 @@ const routes = [
     meta: meta.ed,
   },
 ];
+
+/* istanbul ignore next */
+if (process.env.NODE_ENV === 'development') {
+  routes.push({
+    key: 'demo',
+    name: 'Demo',
+    path: '/demo',
+    exact: false,
+    component: Demo,
+    icon: 'Demo',
+    meta: meta.demo,
+  });
+  routes.push({
+    key: 'loading',
+    name: 'Test App Loading',
+    path: '/loading',
+    component: Loading,
+    icon: 'Loading',
+    meta: meta.loading,
+  });
+}
 
 export const apps = routes.slice(1);
 
