@@ -43,19 +43,6 @@ exports[`<AppHubEntry /> should render correctly 1`] = `
         Object {
           "component": [Function],
           "exact": false,
-          "icon": "SPA",
-          "key": "spa",
-          "meta": Object {
-            "desc": "Document Acknowledgment",
-            "keywords": "SPA, Approval, Acknowlegde, Document",
-            "title": "SPA",
-          },
-          "name": "SPA",
-          "path": "/spa",
-        },
-        Object {
-          "component": [Function],
-          "exact": false,
           "icon": "Demo",
           "key": "demo",
           "meta": Object {
@@ -130,19 +117,6 @@ exports[`<AppHubEntry /> should render correctly 1`] = `
             },
             "name": "App Hub",
             "path": "/",
-          },
-          Object {
-            "component": [Function],
-            "exact": false,
-            "icon": "SPA",
-            "key": "spa",
-            "meta": Object {
-              "desc": "Document Acknowledgment",
-              "keywords": "SPA, Approval, Acknowlegde, Document",
-              "title": "SPA",
-            },
-            "name": "SPA",
-            "path": "/spa",
           },
           Object {
             "component": [Function],

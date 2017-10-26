@@ -1,7 +1,6 @@
-import React from 'react';
 import DemoHome from 'containers/Demo-Home';
+import DemoLists from 'containers/Demo-Lists';
 
-const OtherPage = () => <div>OTHER PAGE TEST</div>;
 
 export const base = '/demo';
 
@@ -14,10 +13,10 @@ export default [
     component: DemoHome,
   },
   {
-    key: 'otherPage',
-    name: 'Other Page',
-    path: `${base}/OtherPage`,
+    key: 'lists',
+    name: 'Example Lists',
+    path: `${base}/lists`,
     exact: true,
-    component: OtherPage,
+    component: DemoLists,
   },
 ];

@@ -1,13 +1,6 @@
-/**
- *
- * SpaHome
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import styled from 'styled-components';
 import { CheckboxVisibility } from 'office-ui-fabric-react/lib/DetailsList';
 
@@ -26,13 +19,13 @@ const columns = Object.keys(aBunchOfItems()[0]).map((key) => ({
   fieldName: key,
 }));
 
-const Active = styled(Section)`
-  height: calc(50vh - ${theme.hub.headerHeight});
+const Hidden = styled(Section)`
+  height: calc(33vh - ${theme.hub.headerHeight});
   overflow: hidden;
 
   .ms-Viewport {
     overflow: auto;
-    height: calc(50vh - ${theme.hub.headerHeight} - ${theme.list.headerHeight} - 15px)
+    height: calc(33vh - ${theme.hub.headerHeight} - ${theme.list.headerHeight} - 15px)
   }
 
   .ms-DetailsList {
@@ -40,40 +33,50 @@ const Active = styled(Section)`
   }
 `;
 
-const History = styled(Active)``;
+const Always = styled(Hidden)``;
+const OnHover = styled(Hidden)``;
 
-const activeProps = {
+
+const hiddenProps = {
   columns,
-  title: 'Waiting Acknowledgement',
+  title: 'Example List with CheckboxVisibility hidden',
   items: aBunchOfItems(),
   checkboxVisibility: CheckboxVisibility.hidden,
 };
-activeProps.items[2].col2 = 'x';
-activeProps.items[1].col2 = 'x';
 
-const historyProps = {
+const alwaysProps = {
   columns,
-  title: 'Previously Acknowledged',
+  title: 'Example List with CheckboxVisibility always',
   items: aBunchOfItems(),
   checkboxVisibility: CheckboxVisibility.always,
 };
 
-export class SpaHome extends React.PureComponent {
+const onHoverProps = {
+  columns,
+  title: 'Example List with CheckboxVisibility onHover',
+  items: aBunchOfItems(),
+  checkboxVisibility: CheckboxVisibility.onHover,
+};
+
+export class DemoLists extends React.PureComponent {
   render() {
     return (
       <Content>
-        <Active>
-          <List {...activeProps} />
-        </Active>
-        <History>
-          <List {...historyProps} />
-        </History>
+        <Hidden>
+          <List {...hiddenProps} />
+        </Hidden>
+        <Always>
+          <List {...alwaysProps} />
+        </Always>
+        <OnHover>
+          <List {...onHoverProps} />
+        </OnHover>
       </Content>
     );
   }
 }
 
-SpaHome.propTypes = {
+DemoLists.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
@@ -84,8 +87,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const withConnect = connect(null, mapDispatchToProps);
-
-export default compose(
-  withConnect,
-)(SpaHome);
+export default connect(null, mapDispatchToProps)(DemoLists);
