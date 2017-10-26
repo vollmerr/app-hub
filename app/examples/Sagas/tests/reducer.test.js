@@ -25,12 +25,6 @@ describe('sagasReducer', () => {
     expect(sagasReducer(undefined, action)).toEqual(expected);
   });
 
-  it('handles EXAMPLE_DATA_REQUEST', () => {
-    const expected = fromJS({ ...state, loading: true });
-    const action = { type: EXAMPLE_DATA_REQUEST };
-    expect(sagasReducer(undefined, action)).toEqual(expected);
-  });
-
   it('handles EXAMPLE_DATA_SUCCESS', () => {
     const expected = fromJS({ ...state, loading: false, data });
     const action = { type: EXAMPLE_DATA_SUCCESS, payload: data };

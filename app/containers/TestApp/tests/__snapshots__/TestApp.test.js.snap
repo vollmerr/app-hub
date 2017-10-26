@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TestApp /> should render correctly 1`] = `
+<Connect(AppContainer)
+  app={
+    Object {
+      "meta": Object {
+        "desc": "a",
+        "keywords": "a",
+        "title": "a",
+      },
+      "routes": Array [
+        Object {
+          "component": [Function],
+          "exact": true,
+          "key": "testAppHome",
+          "name": "Home",
+          "path": "/test-app/home",
+        },
+      ],
+    }
+  }
+/>
+`;

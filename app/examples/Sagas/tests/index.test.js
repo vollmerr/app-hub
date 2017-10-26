@@ -13,14 +13,6 @@ const props = {
   error: null,
 };
 
-const props = {
-  onExampleRequest: jest.fn(),
-  data: null,
-  loading: false,
-  error: null,
-};
-
-
 describe('<Sagas />', () => {
   let wrapper;
   beforeEach(() => {
@@ -96,7 +88,6 @@ describe('<Sagas />', () => {
       it('should dispatch exampleRequest when called', () => {
         mappedDispatch.onExampleRequest();
         expect(dispatch).toHaveBeenCalledWith(exampleRequest());
-<<<<<<< HEAD
       });
     });
 
@@ -108,8 +99,6 @@ describe('<Sagas />', () => {
       it('should dispatch clearErrors when called', () => {
         mappedDispatch.onClearErrors();
         expect(dispatch).toHaveBeenCalledWith(clearErrors());
-=======
->>>>>>> dad2298b98c0015113155179b0d1da46de988d29
       });
     });
   });

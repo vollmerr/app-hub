@@ -6,6 +6,11 @@ export const meta = {
     keywords: 'App, Hub',
   },
   // __APPS__
+  testApp: {
+    title: 'a',
+    desc: 'a',
+    keywords: 'a',
+  },
   spa: {
     title: 'SPA',
     desc: 'Document Acknowledgment',

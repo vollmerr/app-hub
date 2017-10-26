@@ -2,11 +2,6 @@
 
 exports[`meta should be in the correct format 1`] = `
 Object {
-  "appName": Object {
-    "desc": "description",
-    "keywords": "keywords",
-    "title": "title",
-  },
   "apphub": Object {
     "desc": "Central location for CDT ODI applications",
     "keywords": "App, Hub",
@@ -41,6 +36,11 @@ Object {
     "desc": "Document Acknowledgment",
     "keywords": "SPA, Approval, Acknowlegde, Document",
     "title": "SPA",
+  },
+  "testApp": Object {
+    "desc": "a",
+    "keywords": "a",
+    "title": "a",
   },
 }
 `;
