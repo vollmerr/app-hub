@@ -30,10 +30,11 @@ export function changePanelSelected(selected) {
   };
 }
 
-export function changeApp({ routes, meta }) {
+export function changeApp({ routes, meta, name }) {
   return {
     routes,
     meta,
+    name,
     type: CHANGE_APP,
   };
 }

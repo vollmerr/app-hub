@@ -7,6 +7,7 @@ import AppContainer from 'containers/App-Container';
 import { Spa } from '../Spa';
 
 const props = {
+  name: 'test name',
   meta: { desc: 'test desc' },
   routes: [{ name: 'route1', key: 'testHome', path: '/testpath' }, { name: 'route2', key: '2', path: '/testpath2' }],
   dispatch: jest.fn(),

@@ -18,6 +18,7 @@ export const initialState = {
     },
   },
   app: {
+    name: '',
     routes: [],
     meta: {},
   },
@@ -40,6 +41,7 @@ function appHubReducer(state = fromJS(initialState), action) {
         .setIn(['view', 'panel', 'selected'], action.selected);
     case CHANGE_APP:
       return state
+        .setIn(['app', 'name'], action.name)
         .setIn(['app', 'routes'], fromJS(action.routes))
         .setIn(['app', 'meta'], fromJS(action.meta));
     case AUTH_USER_SUCCESS:

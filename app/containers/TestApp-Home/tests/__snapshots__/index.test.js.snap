@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<TestAppHome /> should render correctly 1`] = `
-<Content__Content>
-  CONTENT PLACEHOLDER
-</Content__Content>
-`;

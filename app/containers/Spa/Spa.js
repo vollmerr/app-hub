@@ -21,14 +21,17 @@ const app = {
 
 export class Spa extends React.PureComponent {
   render() {
+    app.name = this.props.name;
+
     return (
       <AppContainer app={app} />
     );
   }
 }
-
+/* eslint-disable */
 Spa.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
   spa: PropTypes.object,
 };
 

@@ -43,6 +43,11 @@ const makeSelectApp = () => createSelector(
   (substate) => substate.get('app')
 );
 
+const makeSelectAppName = () => createSelector(
+  makeSelectApp(),
+  (substate) => substate.get('name')
+);
+
 const makeSelectAppRoutes = () => createSelector(
   makeSelectApp(),
   (substate) => substate.get('routes').toJS()
@@ -84,6 +89,7 @@ export {
   makeSelectPanelSelected,
 
   makeSelectApp,
+  makeSelectAppName,
   makeSelectAppRoutes,
   makeSelectAppMeta,
 

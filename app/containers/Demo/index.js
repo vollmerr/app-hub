@@ -11,9 +11,9 @@ import routes from './routes';
  * Routing must be separate from redux (otherwise routing breaks)
  * so Demo and Router are in differnt files pulled in here.
  */
-export default () => (
+export default ({ name }) => ( // eslint-disable-line
   <Wrapper>
-    <Demo />
+    <Demo name={name} />
     <AppContent>
       <Router routes={routes} />
     </AppContent>

@@ -15,8 +15,8 @@ import {
   makeSelectIsMobile,
   makeSelectPanelIsOpen,
   makeSelectPanelSelected,
+  makeSelectAppName,
   makeSelectAppRoutes,
-  makeSelectAppMeta,
   makeSelectUserSam,
 } from './selectors';
 
@@ -24,7 +24,7 @@ import saga from './saga';
 import { changeMobile, changePanelOpen, changePanelSelected, authUserRequest } from './actions';
 import meta from './meta';
 
-export class AppHub extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class AppHub extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {};
@@ -69,14 +69,14 @@ export class AppHub extends React.PureComponent { // eslint-disable-line react/p
   }
 
   render() {
-    const { isMobile, panelSelected, panelIsOpen, appMeta, appRoutes, routes, userName } = this.props;
+    const { isMobile, panelSelected, panelIsOpen, appName, appRoutes, routes, userName } = this.props;
     const appPath = appRoutes.length ? appRoutes.find((route) => route.key.match(/Home/)).path : '';
 
     const headerProps = {
       isMobile,
       userName,
       appPath,
-      appName: appMeta.title,
+      appName,
       panel: panelSelected,
       isOpen: panelIsOpen,
       onClick: this.handlePanelClick,
@@ -114,7 +114,7 @@ AppHub.propTypes = {
   panelIsOpen: PropTypes.bool.isRequired,
   panelSelected: PropTypes.string.isRequired,
   userName: PropTypes.string.isRequired,
-  appMeta: PropTypes.object.isRequired,
+  appName: PropTypes.string.isRequired,
   appRoutes: PropTypes.array.isRequired,
   routes: PropTypes.array.isRequired,
 };
@@ -123,8 +123,8 @@ const mapStateToProps = createStructuredSelector({
   isMobile: makeSelectIsMobile(),
   panelIsOpen: makeSelectPanelIsOpen(),
   panelSelected: makeSelectPanelSelected(),
+  appName: makeSelectAppName(),
   appRoutes: makeSelectAppRoutes(),
-  appMeta: makeSelectAppMeta(),
   userName: makeSelectUserSam(),
 });
 

@@ -27,6 +27,8 @@ export class {{ properCase name }} extends React.PureComponent {
   }
 
   render() {
+    app.name = this.props.name;
+
     return (
       <AppContainer app={app} />
     );

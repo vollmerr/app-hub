@@ -7,9 +7,9 @@ import Router from 'components/Router';
 import {{ properCase name }} from './{{ properCase name }}';
 import routes from './routes';
 
-export default () => (
+export default ({ name }) => ( // eslint-disable-line
   <Wrapper>
-    <{{ properCase name }} />
+    <{{ properCase name }} name={name} />
     <AppContent>
       <Router routes={routes} />
     </AppContent>

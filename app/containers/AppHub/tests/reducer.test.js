@@ -42,10 +42,12 @@ describe('appHubReducer', () => {
   it('handles CHANGE_APP', () => {
     const routes = [{ name: 'route1', key: 'test' }];
     const meta = { desc: 'test desc' };
+    const name = 'test name';
     const expected = initialState;
     expected.app.routes = routes;
     expected.app.meta = meta;
-    const action = { type: CHANGE_APP, routes, meta };
+    expected.app.name = name;
+    const action = { type: CHANGE_APP, routes, meta, name };
 
     expect(appHubReducer(undefined, action)).toEqual(fromJS(expected));
   });

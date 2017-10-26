@@ -13,7 +13,7 @@ const Router = ({ routes }) => (
           exact={route.exact}
           path={route.path}
           render={(props) => (
-            <route.component {...props} routes={routes} />
+            <route.component {...props} routes={routes} name={route.name} />
           )}
         />
       ))

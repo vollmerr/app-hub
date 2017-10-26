@@ -7,6 +7,7 @@ import makeSelectAppHub, {
   makeSelectPanelIsOpen,
   makeSelectPanelSelected,
   makeSelectApp,
+  makeSelectAppName,
   makeSelectAppRoutes,
   makeSelectAppMeta,
   makeSelectUser,
@@ -23,6 +24,7 @@ const state = {
       },
     },
     app: {
+      name: 'test name',
       routes: [{ name: 'test-route' }],
       meta: { desc: 'test desc' },
     },
@@ -82,6 +84,12 @@ describe('app selectors', () => {
   it('should select the entire state', () => {
     const selector = makeSelectApp();
     const expected = fromJS(state.appHub.app);
+    expect(selector(actual)).toEqual(expected);
+  });
+
+  it('should select `name` as plain JS', () => {
+    const selector = makeSelectAppName();
+    const expected = state.appHub.app.name;
     expect(selector(actual)).toEqual(expected);
   });
 

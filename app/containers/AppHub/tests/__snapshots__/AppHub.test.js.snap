@@ -18,6 +18,7 @@ exports[`<AppHub /> should render correctly 1`] = `
     />
   </HelmetWrapper>
   <Header
+    appName="test app name"
     appPath="/testpath"
     isMobile={false}
     isOpen={false}

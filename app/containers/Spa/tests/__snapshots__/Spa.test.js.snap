@@ -9,6 +9,7 @@ exports[`<Spa /> should render correctly 1`] = `
         "keywords": "SPA, Approval, Acknowlegde, Document",
         "title": "SPA",
       },
+      "name": "test name",
       "routes": Array [
         Object {
           "component": [Function],

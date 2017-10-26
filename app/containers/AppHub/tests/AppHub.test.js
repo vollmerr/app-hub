@@ -18,7 +18,7 @@ const props = {
   panelIsOpen: false,
   panelSelected: 'test panel',
   userName: 'test name',
-  appMeta: { desc: 'test desc' },
+  appName: 'test app name',
   appRoutes: [{ name: 'approute1', key: 'testHome', path: '/testpath' }, { name: 'approute2', key: '2', path: '/testpath2' }],
   routes: [{ name: 'route1', key: 'testHome', path: '/testpath' }, { name: 'route2', key: '2', path: '/testpath2' }],
 };

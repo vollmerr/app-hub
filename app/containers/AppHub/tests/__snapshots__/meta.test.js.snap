@@ -37,11 +37,6 @@ Object {
     "keywords": "SPA, Approval, Acknowlegde, Document",
     "title": "SPA",
   },
-  "testApp": Object {
-    "desc": "a",
-    "keywords": "a",
-    "title": "a",
-  },
 }
 `;
 
