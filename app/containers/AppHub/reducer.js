@@ -6,6 +6,7 @@ import {
   CHANGE_PANEL_SELECTED,
   APPS_PANEL,
   CHANGE_APP,
+  CHANGE_APP_STATUS,
   AUTH_USER_SUCCESS,
 } from './constants';
 
@@ -19,6 +20,8 @@ export const initialState = {
   },
   app: {
     name: '',
+    error: null,
+    loading: false,
     routes: [],
     meta: {},
   },
@@ -41,9 +44,15 @@ function appHubReducer(state = fromJS(initialState), action) {
         .setIn(['view', 'panel', 'selected'], action.selected);
     case CHANGE_APP:
       return state
+        .setIn(['app', 'error'], null)
+        .setIn(['app', 'loading'], false)
         .setIn(['app', 'name'], action.name)
         .setIn(['app', 'routes'], fromJS(action.routes))
         .setIn(['app', 'meta'], fromJS(action.meta));
+    case CHANGE_APP_STATUS:
+      return state
+        .setIn(['app', 'error'], fromJS(action.error))
+        .setIn(['app', 'loading'], action.loading);
     case AUTH_USER_SUCCESS:
       return state
         .setIn(['user', 'sam'], action.sam)

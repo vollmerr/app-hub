@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
+import { changeAppStatus } from 'containers/AppHub/actions';
 import Link from 'components/Link';
 
 import Wrapper from './Wrapper';
@@ -19,9 +21,9 @@ const Button = styled(DefaultButton) `
   margin: 20px;
 `;
 
-class ErrorMessage extends React.PureComponent {
+export class ErrorMessage extends React.PureComponent {
   render() {
-    const { error, to } = this.props;
+    const { error, to, onChangeAppStatus } = this.props;
 
     let message;
     if (error) {
@@ -36,7 +38,7 @@ class ErrorMessage extends React.PureComponent {
       <Wrapper>
         <Header>Sorry, an error has occurred.</Header>
         {message && <Message>{message}</Message>}
-        <Link to={to || '/'}><Button primary>Home</Button></Link>
+        <Link to={to || '/'} onClick={onChangeAppStatus}><Button primary>Home</Button></Link>
       </Wrapper>
     );
   }
@@ -48,6 +50,13 @@ ErrorMessage.propTypes = {
     PropTypes.string,
   ]),
   to: PropTypes.string,
+  onChangeAppStatus: PropTypes.func.isRequired,
 };
 
-export default ErrorMessage;
+export function mapDispatchToProps(dispatch) {
+  return {
+    onChangeAppStatus: () => dispatch(changeAppStatus({ loading: false, error: null })),
+  };
+}
+
+export default connect(null, mapDispatchToProps)(ErrorMessage);

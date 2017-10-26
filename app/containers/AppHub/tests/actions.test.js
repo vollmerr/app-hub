@@ -4,10 +4,10 @@ import {
   changePanelOpen,
   changePanelSelected,
   changeApp,
+  changeAppStatus,
   authUserRequest,
   authUserSuccess,
   authUserFailure,
-  clearErrors,
 } from '../actions';
 
 import {
@@ -15,10 +15,10 @@ import {
   CHANGE_PANEL_OPEN,
   CHANGE_PANEL_SELECTED,
   CHANGE_APP,
+  CHANGE_APP_STATUS,
   AUTH_USER_REQUEST,
   AUTH_USER_SUCCESS,
   AUTH_USER_FAILURE,
-  CLEAR_ERRORS,
 } from '../constants';
 
 describe('AppHub actions', () => {
@@ -59,6 +59,17 @@ describe('AppHub actions', () => {
       };
       expect(changeApp({ routes, meta })).toEqual(expected);
     });
+
+    it('has a type of CHANGE_APP_STATUS', () => {
+      const loading = true;
+      const error = 'test error';
+      const expected = {
+        error,
+        loading,
+        type: CHANGE_APP_STATUS,
+      };
+      expect(changeAppStatus({ loading, error })).toEqual(expected);
+    });
   });
 
   describe('user authenication actions', () => {
@@ -85,13 +96,6 @@ describe('AppHub actions', () => {
         type: AUTH_USER_FAILURE,
       };
       expect(authUserFailure()).toEqual(expected);
-    });
-
-    it('has a type of CLEAR_ERRORS', () => {
-      const expected = {
-        type: CLEAR_ERRORS,
-      };
-      expect(clearErrors()).toEqual(expected);
     });
   });
 });

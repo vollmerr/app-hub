@@ -3,10 +3,10 @@ import {
   CHANGE_PANEL_OPEN,
   CHANGE_PANEL_SELECTED,
   CHANGE_APP,
+  CHANGE_APP_STATUS,
   AUTH_USER_REQUEST,
   AUTH_USER_SUCCESS,
   AUTH_USER_FAILURE,
-  CLEAR_ERRORS,
 } from './constants';
 
 export function changeMobile(isMobile) {
@@ -39,6 +39,14 @@ export function changeApp({ routes, meta, name }) {
   };
 }
 
+export function changeAppStatus(payload = {}) {
+  return {
+    error: payload.error || null,
+    loading: payload.loading || false,
+    type: CHANGE_APP_STATUS,
+  };
+}
+
 // TODO: SIMPLIFY USING FACTORY
 export function authUserRequest() {
   return {
@@ -57,11 +65,5 @@ export function authUserSuccess(sam, roles) {
 export function authUserFailure() {
   return {
     type: AUTH_USER_FAILURE,
-  };
-}
-
-export function clearErrors() {
-  return {
-    type: CLEAR_ERRORS,
   };
 }

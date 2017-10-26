@@ -1,14 +1,22 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+import { testMapDispatchToProps } from 'utils/testUtils';
 import Link from 'components/Link';
-import ErrorMessage, { Header, Message } from '../ErrorMessage';
+import { changeAppStatus } from 'containers/AppHub/actions';
 
+import { ErrorMessage, Header, Message, mapDispatchToProps } from '../ErrorMessage';
+
+const props = {
+  onChangeAppStatus: jest.fn(),
+  to: undefined,
+  error: null,
+};
 
 describe('<ErrorMessage />', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<ErrorMessage />);
+    wrapper = shallow(<ErrorMessage {...props} />);
   });
 
   it('should render correctly', () => {
@@ -22,6 +30,9 @@ describe('<ErrorMessage />', () => {
   it('should render a link to the homepage by default', () => {
     expect(wrapper.find(Link).length).toEqual(1);
     expect(wrapper.find(Link).prop('to')).toEqual('/');
+
+    wrapper.find(Link).simulate('click');
+    expect(props.onChangeAppStatus).toHaveBeenCalled();
   });
 
   it('should render the link passed', () => {
@@ -44,5 +55,13 @@ describe('<ErrorMessage />', () => {
     wrapper.setProps({ error: error.message });
     expect(wrapper.find(Message).length).toEqual(1);
     expect(wrapper.find(Message).contains(error.message)).toEqual(true);
+  });
+
+  describe('mapDispatchToProps', () => {
+    const actions = {
+      changeAppStatus,
+    };
+
+    testMapDispatchToProps(mapDispatchToProps, actions);
   });
 });

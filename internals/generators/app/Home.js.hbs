@@ -1,20 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
+import { makeSelectApp } from 'containers/AppHub/selectors';
 import ErrorMessage from 'components/Loading/ErrorMessage';
 import Content from 'components/App-Content/Content';
-import { clearErrors } from 'containers/{{ properCase name }}/actions';
 
 export class {{ properCase home }} extends React.PureComponent {
-  componentDidMount() {
-    const { onClearErrors } = this.props;
-    onClearErrors();
-  }
-
   render() {
-    const { error } = this.props;
+    const { app } = this.props;
+    const { error, loading } = app;
 
     if (error) {
       return <ErrorMessage error={error} to={'/{{ dashCase name }}'} />;
@@ -23,28 +19,24 @@ export class {{ properCase home }} extends React.PureComponent {
     return (
       <Content>
         CONTENT PLACEHOLDER
+        {loading && <p>Loading...</p>}
       </Content>
     );
   }
 }
 
 {{ properCase home }}.propTypes = {
-  onClearErrors: PropTypes.func.isRequired,
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
-  ]),
+  app: PropTypes.shape({
+    error: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.string,
+    ]),
+    loading: PropTypes.bool,
+  }).isRequired,
 };
 
+const mapStateToProps = createStructuredSelector({
+  app: makeSelectApp(),
+});
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    onClearErrors: () => dispatch(clearErrors()),
-  };
-}
-
-const withConnect = connect(null, mapDispatchToProps);
-
-export default compose(
-  withConnect,
-)({{ properCase home }});
+export default connect(mapStateToProps, {})({{ properCase home }});

@@ -4,14 +4,12 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import ErrorMessage from 'components/Loading/ErrorMessage';
-import { makeSelectUser } from 'containers/AppHub/selectors';
+import { makeSelectUser, makeSelectApp } from 'containers/AppHub/selectors';
 
 import makeSelectDemoHome, {
   makeSelectExampleData,
-  makeSelectError,
-  makeSelectLoading,
 } from 'containers/Demo/selectors';
-import { exampleDataRequest, clearErrors } from 'containers/Demo/actions';
+import { exampleDataRequest } from 'containers/Demo/actions';
 
 import Scroll from './Scroll';
 import Button from './Button';
@@ -24,13 +22,10 @@ export class DemoHome extends React.PureComponent {
     };
   }
 
-  componentDidMount() {
-    this.props.onClearErrors();
-  }
-
   render() {
-    const { user, exampleData, onExampleDataRequest, error, loading } = this.props;
+    const { user, exampleData, onExampleDataRequest, app } = this.props;
     const { isScrolling } = this.state;
+    const { error, loading } = app;
 
     if (error) {
       return <ErrorMessage error={error} to={'/demo'} />;
@@ -65,25 +60,21 @@ export class DemoHome extends React.PureComponent {
 
 DemoHome.propTypes = {
   onExampleDataRequest: PropTypes.func.isRequired,
-  onClearErrors: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   exampleData: PropTypes.object,
-  error: PropTypes.string,
-  loading: PropTypes.bool.isRequired,
+  app: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   demoHome: makeSelectDemoHome(),
   exampleData: makeSelectExampleData(),
   user: makeSelectUser(),
-  error: makeSelectError(),
-  loading: makeSelectLoading(),
+  app: makeSelectApp(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     onExampleDataRequest: () => dispatch(exampleDataRequest()),
-    onClearErrors: () => dispatch(clearErrors()),
   };
 }
 

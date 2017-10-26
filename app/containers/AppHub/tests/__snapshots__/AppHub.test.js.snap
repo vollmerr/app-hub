@@ -6,7 +6,7 @@ exports[`<AppHub /> should render correctly 1`] = `
     encodeSpecialCharacters={true}
   >
     <title>
-      App hub
+      App Hub
     </title>
     <meta
       content="Central location for CDT ODI applications"

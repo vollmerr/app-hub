@@ -81,9 +81,9 @@ describe('view selectors', () => {
 
 
 describe('app selectors', () => {
-  it('should select the entire state', () => {
+  it('should select the entire state as plain JS', () => {
     const selector = makeSelectApp();
-    const expected = fromJS(state.appHub.app);
+    const expected = state.appHub.app;
     expect(selector(actual)).toEqual(expected);
   });
 

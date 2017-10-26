@@ -38,23 +38,28 @@ const makeSelectPanelSelected = () => createSelector(
 );
 
 // APP
-const makeSelectApp = () => createSelector(
+const makeSelectAppDomain = () => createSelector(
   selectAppHubDomain,
   (substate) => substate.get('app')
 );
 
+const makeSelectApp = () => createSelector(
+  makeSelectAppDomain(),
+  (substate) => substate.toJS()
+);
+
 const makeSelectAppName = () => createSelector(
-  makeSelectApp(),
+  makeSelectAppDomain(),
   (substate) => substate.get('name')
 );
 
 const makeSelectAppRoutes = () => createSelector(
-  makeSelectApp(),
+  makeSelectAppDomain(),
   (substate) => substate.get('routes').toJS()
 );
 
 const makeSelectAppMeta = () => createSelector(
-  makeSelectApp(),
+  makeSelectAppDomain(),
   (substate) => substate.get('meta').toJS()
 );
 

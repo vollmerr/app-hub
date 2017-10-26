@@ -1,7 +1,7 @@
 export const meta = {
   // hub
   apphub: {
-    title: 'App hub',
+    title: 'App Hub',
     desc: 'Central location for CDT ODI applications',
     keywords: 'App, Hub',
   },

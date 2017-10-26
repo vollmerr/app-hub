@@ -37,6 +37,7 @@ export class {{ properCase name }} extends React.PureComponent {
 
 {{ properCase name }}.propTypes = {
   onInitRequest: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

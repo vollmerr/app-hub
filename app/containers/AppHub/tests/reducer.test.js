@@ -7,6 +7,7 @@ import {
   CHANGE_PANEL_OPEN,
   CHANGE_PANEL_SELECTED,
   CHANGE_APP,
+  CHANGE_APP_STATUS,
   AUTH_USER_SUCCESS,
 } from '../constants';
 
@@ -49,6 +50,20 @@ describe('appHubReducer', () => {
     expected.app.name = name;
     const action = { type: CHANGE_APP, routes, meta, name };
 
+    expect(appHubReducer(undefined, action)).toEqual(fromJS(expected));
+  });
+
+  it('handles CHANGE_APP_STATUS', () => {
+    const expected = initialState;
+    expected.app.loading = true;
+    expected.app.error = undefined;
+    let action = { type: CHANGE_APP_STATUS, loading: true };
+
+    expect(appHubReducer(undefined, action)).toEqual(fromJS(expected));
+
+    expected.app.loading = undefined;
+    expected.app.error = 'test error';
+    action = { type: CHANGE_APP_STATUS, error: 'test error' };
     expect(appHubReducer(undefined, action)).toEqual(fromJS(expected));
   });
 

@@ -10,6 +10,7 @@ export const ALERTS_PANEL = 'app/AppHub/ALERTS_PANEL';
 export const DEV_PANEL = 'app/AppHub/DEV_PANEL';
 // APP
 export const CHANGE_APP = 'app/AppHub/CHANGE_APP';
+export const CHANGE_APP_STATUS = 'app/AppHub/CHANGE_APP_STATUS';
 
 // user
 export const AUTH_USER_REQUEST = 'app/AppHub/AUTH_USER_REQUEST';
@@ -20,5 +21,3 @@ export const AUTH_USER_FAILURE = 'app/AppHub/AUTH_USER_FAILURE';
 export const REQUEST = '_REQUEST';
 export const SUCCESS = '_SUCCESS';
 export const FAILURE = '_FAILURE';
-
-export const CLEAR_ERRORS = 'app/AppHub/CLEAR_ERRORS';

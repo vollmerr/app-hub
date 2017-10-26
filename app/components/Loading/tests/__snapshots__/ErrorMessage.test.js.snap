@@ -6,6 +6,7 @@ exports[`<ErrorMessage /> should render correctly 1`] = `
     Sorry, an error has occurred.
   </ErrorMessage__Header>
   <Link
+    onClick={[Function]}
     to="/"
   >
     <ErrorMessage__Button

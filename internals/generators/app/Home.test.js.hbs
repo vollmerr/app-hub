@@ -1,16 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { testMapDispatchToProps } from 'utils/testUtils';
 import Content from 'components/App-Content/Content';
-import { clearErrors } from 'containers/{{ properCase name }}/actions';
 import ErrorMessage from 'components/Loading/ErrorMessage';
 
-import { {{ properCase home }}, mapDispatchToProps } from '../index';
+import { {{ properCase home }} } from '../index';
 
 const props = {
-  onClearErrors: jest.fn(),
-  error: null,
+  app: {
+    error: null,
+    loading: false,
+  },
 };
 
 describe('<{{ properCase home }} />', () => {
@@ -29,15 +29,15 @@ describe('<{{ properCase home }} />', () => {
   });
 
   it('should render an error message if passed an error', () => {
-    wrapper.setProps({ error: 'test error' });
+    const app = { ...props.app, error: 'test error' };
+    wrapper.setProps({ app });
     expect(wrapper.find(ErrorMessage).length).toEqual(1);
   });
 
-  describe('mapDispatchToProps', () => {
-    const actions = {
-      clearErrors,
-    };
-
-    testMapDispatchToProps(mapDispatchToProps, actions);
+  it('should indicate loading if loading', () => {
+    const app = { ...props.app, loading: true };
+    wrapper.setProps({ app });
+    expect(wrapper.find('p').length).toEqual(1);
+    expect(wrapper.find('p').text()).toContain('Loading');
   });
 });

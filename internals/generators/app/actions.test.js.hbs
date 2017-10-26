@@ -2,14 +2,12 @@ import {
   initRequest,
   initSuccess,
   initFailure,
-  clearErrors,
 } from '../actions';
 
 import {
   INIT_DATA_REQUEST,
   INIT_DATA_SUCCESS,
   INIT_DATA_FAILURE,
-  CLEAR_ERRORS,
 } from '../constants';
 
 const payload = {
@@ -39,15 +37,6 @@ describe('actions', () => {
         type: INIT_DATA_FAILURE,
       };
       expect(initFailure(payload)).toEqual(expected);
-    });
-  });
-
-  describe('clear errors', () => {
-    it('has a type of CLEAR_ERRORS', () => {
-      const expected = {
-        type: CLEAR_ERRORS,
-      };
-      expect(clearErrors()).toEqual(expected);
     });
   });
 });

@@ -35,7 +35,7 @@ exports[`<AppHubEntry /> should render correctly 1`] = `
           "meta": Object {
             "desc": "Central location for CDT ODI applications",
             "keywords": "App, Hub",
-            "title": "App hub",
+            "title": "App Hub",
           },
           "name": "App Hub",
           "path": "/",
@@ -126,7 +126,7 @@ exports[`<AppHubEntry /> should render correctly 1`] = `
             "meta": Object {
               "desc": "Central location for CDT ODI applications",
               "keywords": "App, Hub",
-              "title": "App hub",
+              "title": "App Hub",
             },
             "name": "App Hub",
             "path": "/",

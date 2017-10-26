@@ -5,7 +5,7 @@ Object {
   "apphub": Object {
     "desc": "Central location for CDT ODI applications",
     "keywords": "App, Hub",
-    "title": "App hub",
+    "title": "App Hub",
   },
   "bars": Object {
     "desc": "Badge Access Request System",
@@ -44,6 +44,6 @@ exports[`meta should be in the correct format 2`] = `
 Object {
   "desc": "Central location for CDT ODI applications",
   "keywords": "App, Hub",
-  "title": "App hub",
+  "title": "App Hub",
 }
 `;
