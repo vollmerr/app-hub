@@ -34,12 +34,16 @@ export function validToken(token) {
  * @param {string} appName  - name of app supplied in jwt for roles
  */
 export function* putToken(token, appName) {
-  const {
-    sub: sam,
-    [appName]: roles,
-  } = decode(token);
+  try {
+    const {
+      sub: sam,
+      [appName]: roles,
+    } = decode(token);
 
-  yield put(authUserSuccess(sam, roles));
+    yield put(authUserSuccess({ sam, roles }));
+  } catch (error) {
+    yield put(authUserFailure(new Error(error)));
+  }
 }
 
 
@@ -65,8 +69,8 @@ export function* authenticate(appName = 'AppHub') {
       localStorage.setItem('id_token', id_token);
       // update user in global appHub state
       yield call(putToken, id_token, appName);
-    } catch (err) {
-      yield put(authUserFailure(err));
+    } catch (error) {
+      yield put(authUserFailure(new Error(error)));
     }
   }
 }

@@ -2,7 +2,7 @@
  * Test the requestWithToken function
  */
 
-import { call } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import decode from 'jwt-decode';
 import { authUserSuccess, authUserFailure } from 'containers/AppHub/actions';
@@ -86,7 +86,7 @@ describe('authenticate', () => {
 
   it('should get a new token if the token in localStorage is expired', () => {
     window.localStorage.getItem = () => global.jwt.expired;
-    expectSaga(authenticate, appName)
+    return expectSaga(authenticate, appName)
       .provide([
         [call(request, global.API.JWT, authOptions), { id_token: global.jwt.valid }] // eslint-disable-line
       ])
@@ -97,13 +97,16 @@ describe('authenticate', () => {
 
   it('should handle errors', () => {
     window.localStorage.getItem = () => global.jwt.expired;
-    expectSaga(authenticate, appName)
+    return expectSaga(authenticate, appName)
       .provide([
         [call(request, global.API.JWT, authOptions), { id_token: '' }] // eslint-disable-line
       ])
       .call(request, global.API.JWT, authOptions)
-      .put(authUserFailure())
-      .run();
+      .run()
+      .then((result) => {
+        const payload = new Error('InvalidTokenError: Invalid token specified: Cannot read property \'replace\' of undefined');
+        expect(result.effects.put[0]).toEqual(put(authUserFailure(payload))); // eslint-disable-line
+      });
   });
 });
 
@@ -117,7 +120,7 @@ describe('putToken', () => {
     const roles = decoded.BARS;
 
     expectSaga(putToken, token, appName)
-      .put(authUserSuccess(sam, roles))
+      .put(authUserSuccess({ sam, roles }))
       .run();
   });
 });

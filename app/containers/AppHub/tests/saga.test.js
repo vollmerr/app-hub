@@ -37,10 +37,11 @@ describe('matchPattern', () => {
 
   it('should put changeAppStatus if the type ends in SUCCESS', () => {
     const action = { type: 'TEST_SUCCESS' };
+    const payload = { loading: false, error: null };
 
     testSaga(matchPattern, action)
       .next()
-      .put({ type: CHANGE_APP_STATUS, loading: false, error: null })
+      .put({ type: CHANGE_APP_STATUS, payload })
       .finish()
       .isDone();
   });
@@ -48,10 +49,11 @@ describe('matchPattern', () => {
   it('should put changeAppStatus if the type ends in FAILURE', () => {
     const error = 'test error';
     const action = { type: 'TEST_FAILURE', error };
+    const payload = { loading: false, error };
 
     testSaga(matchPattern, action)
       .next()
-      .put({ type: CHANGE_APP_STATUS, loading: false, error })
+      .put({ type: CHANGE_APP_STATUS, payload })
       .finish()
       .isDone();
   });

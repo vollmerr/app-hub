@@ -27,24 +27,24 @@ describe('AppHub actions', () => {
       const expected = {
         type: CHANGE_MOBILE,
       };
-      expect(changeMobile(true)).toEqual({ ...expected, isMobile: true });
-      expect(changeMobile(false)).toEqual({ ...expected, isMobile: false });
+      expect(changeMobile(true)).toEqual({ ...expected, payload: true });
+      expect(changeMobile(false)).toEqual({ ...expected, payload: false });
     });
 
     it('has a type of CHANGE_PANEL_OPEN', () => {
       const expected = {
         type: CHANGE_PANEL_OPEN,
       };
-      expect(changePanelOpen(true)).toEqual({ ...expected, isOpen: true });
-      expect(changePanelOpen(false)).toEqual({ ...expected, isOpen: false });
+      expect(changePanelOpen(true)).toEqual({ ...expected, payload: true });
+      expect(changePanelOpen(false)).toEqual({ ...expected, payload: false });
     });
 
     it('has a type of CHANGE_PANEL_SELECTED', () => {
       const expected = {
         type: CHANGE_PANEL_SELECTED,
       };
-      expect(changePanelSelected('panel1')).toEqual({ ...expected, selected: 'panel1' });
-      expect(changePanelSelected('panel2')).toEqual({ ...expected, selected: 'panel2' });
+      expect(changePanelSelected('panel1')).toEqual({ ...expected, payload: 'panel1' });
+      expect(changePanelSelected('panel2')).toEqual({ ...expected, payload: 'panel2' });
     });
   });
 
@@ -53,8 +53,7 @@ describe('AppHub actions', () => {
       const routes = [{ name: 'route 1', key: 1 }, { name: 'route 2', key: 2 }];
       const meta = { desc: 'test' };
       const expected = {
-        meta,
-        routes,
+        payload: { meta, routes },
         type: CHANGE_APP,
       };
       expect(changeApp({ routes, meta })).toEqual(expected);
@@ -64,8 +63,7 @@ describe('AppHub actions', () => {
       const loading = true;
       const error = 'test error';
       const expected = {
-        error,
-        loading,
+        payload: { error, loading },
         type: CHANGE_APP_STATUS,
       };
       expect(changeAppStatus({ loading, error })).toEqual(expected);
@@ -84,11 +82,10 @@ describe('AppHub actions', () => {
       const sam = 'testSam';
       const roles = ['role1', 'role2'];
       const expected = {
-        sam,
-        roles,
+        payload: { sam, roles },
         type: AUTH_USER_SUCCESS,
       };
-      expect(authUserSuccess(sam, roles)).toEqual(expected);
+      expect(authUserSuccess({ sam, roles })).toEqual(expected);
     });
 
     it('has a type of AUTH_USER_FAILURE', () => {

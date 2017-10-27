@@ -12,7 +12,7 @@ export function* matchPattern(action) {
   }
 
   if (type.match(SUCCESS) || type.match(FAILURE)) {
-    yield put(changeAppStatus({ loading: false, error: action.error }));
+    yield put(changeAppStatus({ loading: false, error: action.error || null }));
   }
 }
 

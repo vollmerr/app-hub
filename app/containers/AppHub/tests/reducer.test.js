@@ -12,69 +12,72 @@ import {
 } from '../constants';
 
 describe('appHubReducer', () => {
+  let expected;
+  beforeEach(() => {
+    expected = fromJS(initialState);
+  });
+
   it('returns the initial state', () => {
-    expect(appHubReducer(undefined, {})).toEqual(fromJS(initialState));
+    expect(appHubReducer(undefined, {})).toEqual(expected);
   });
 
   it('handles CHANGE_MOBILE', () => {
-    const expected = initialState;
-    expected.view.isMobile = true;
-    const action = { type: CHANGE_MOBILE, isMobile: true };
+    expected = expected.setIn(['view', 'isMobile'], true);
+    const action = { type: CHANGE_MOBILE, payload: true };
 
-    expect(appHubReducer(undefined, action)).toEqual(fromJS(expected));
+    expect(appHubReducer(undefined, action)).toEqual(expected);
   });
 
   it('handles CHANGE_PANEL_OPEN', () => {
-    const expected = initialState;
-    expected.view.panel.isOpen = true;
-    const action = { type: CHANGE_PANEL_OPEN, isOpen: true };
+    expected = expected.setIn(['view', 'panel', 'isOpen'], true);
+    const action = { type: CHANGE_PANEL_OPEN, payload: true };
 
-    expect(appHubReducer(undefined, action)).toEqual(fromJS(expected));
+    expect(appHubReducer(undefined, action)).toEqual(expected);
   });
 
   it('handles CHANGE_PANEL_SELECTED', () => {
-    const expected = initialState;
-    expected.view.panel.selected = 'testPanel';
-    const action = { type: CHANGE_PANEL_SELECTED, selected: 'testPanel' };
+    expected = expected.setIn(['view', 'panel', 'selected'], 'testPanel');
+    const action = { type: CHANGE_PANEL_SELECTED, payload: 'testPanel' };
 
-    expect(appHubReducer(undefined, action)).toEqual(fromJS(expected));
+    expect(appHubReducer(undefined, action)).toEqual(expected);
   });
 
   it('handles CHANGE_APP', () => {
     const routes = [{ name: 'route1', key: 'test' }];
     const meta = { desc: 'test desc' };
     const name = 'test name';
-    const expected = initialState;
-    expected.app.routes = routes;
-    expected.app.meta = meta;
-    expected.app.name = name;
-    const action = { type: CHANGE_APP, routes, meta, name };
+    expected = expected
+      .setIn(['app', 'routes'], fromJS(routes))
+      .setIn(['app', 'meta'], fromJS(meta))
+      .setIn(['app', 'name'], name);
+    const action = { type: CHANGE_APP, payload: { routes, meta, name } };
 
-    expect(appHubReducer(undefined, action)).toEqual(fromJS(expected));
+    expect(appHubReducer(undefined, action)).toEqual(expected);
   });
 
   it('handles CHANGE_APP_STATUS', () => {
-    const expected = initialState;
-    expected.app.loading = true;
-    expected.app.error = undefined;
-    let action = { type: CHANGE_APP_STATUS, loading: true };
+    expected = expected
+      .setIn(['app', 'loading'], true)
+      .setIn(['app', 'error'], null);
+    let action = { type: CHANGE_APP_STATUS, payload: { loading: true } };
 
-    expect(appHubReducer(undefined, action)).toEqual(fromJS(expected));
+    expect(appHubReducer(undefined, action)).toEqual(expected);
 
-    expected.app.loading = undefined;
-    expected.app.error = 'test error';
-    action = { type: CHANGE_APP_STATUS, error: 'test error' };
-    expect(appHubReducer(undefined, action)).toEqual(fromJS(expected));
+    expected = expected
+      .setIn(['app', 'loading'], false)
+      .setIn(['app', 'error'], 'test error');
+    action = { type: CHANGE_APP_STATUS, payload: { error: 'test error' } };
+    expect(appHubReducer(undefined, action)).toEqual(expected);
   });
 
   it('handles AUTH_USER_SUCCESS', () => {
     const sam = 'testSam';
     const roles = ['role1', 'role2'];
-    const expected = initialState;
-    expected.user.sam = sam;
-    expected.user.roles = roles;
-    const action = { type: AUTH_USER_SUCCESS, sam, roles };
+    expected = expected
+      .setIn(['user', 'sam'], sam)
+      .setIn(['user', 'roles'], fromJS(roles));
+    const action = { type: AUTH_USER_SUCCESS, payload: { sam, roles } };
 
-    expect(appHubReducer(undefined, action)).toEqual(fromJS(expected));
+    expect(appHubReducer(undefined, action)).toEqual(expected);
   });
 });

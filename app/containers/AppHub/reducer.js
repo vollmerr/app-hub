@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+import { handleActions } from 'redux-actions';
 
 import {
   CHANGE_MOBILE,
@@ -31,35 +32,32 @@ export const initialState = {
   },
 };
 
-function appHubReducer(state = fromJS(initialState), action) {
-  switch (action.type) {
-    case CHANGE_MOBILE:
-      return state
-        .setIn(['view', 'isMobile'], action.isMobile);
-    case CHANGE_PANEL_OPEN:
-      return state
-        .setIn(['view', 'panel', 'isOpen'], action.isOpen);
-    case CHANGE_PANEL_SELECTED:
-      return state
-        .setIn(['view', 'panel', 'selected'], action.selected);
-    case CHANGE_APP:
-      return state
-        .setIn(['app', 'error'], null)
-        .setIn(['app', 'loading'], false)
-        .setIn(['app', 'name'], action.name)
-        .setIn(['app', 'routes'], fromJS(action.routes))
-        .setIn(['app', 'meta'], fromJS(action.meta));
-    case CHANGE_APP_STATUS:
-      return state
-        .setIn(['app', 'error'], fromJS(action.error))
-        .setIn(['app', 'loading'], action.loading);
-    case AUTH_USER_SUCCESS:
-      return state
-        .setIn(['user', 'sam'], action.sam)
-        .setIn(['user', 'roles'], fromJS(action.roles));
-    default:
-      return state;
-  }
-}
-
-export default appHubReducer;
+export default handleActions({
+  // VIEW
+  [CHANGE_MOBILE]: (state, action) => state.setIn(['view', 'isMobile'], action.payload),
+  [CHANGE_PANEL_OPEN]: (state, action) => state.setIn(['view', 'panel', 'isOpen'], action.payload),
+  [CHANGE_PANEL_SELECTED]: (state, action) => state.setIn(['view', 'panel', 'selected'], action.payload),
+  // APP
+  [CHANGE_APP]: (state, action) => {
+    const { name, routes, meta } = action.payload;
+    return state
+      .setIn(['app', 'error'], null)
+      .setIn(['app', 'loading'], false)
+      .setIn(['app', 'name'], name)
+      .setIn(['app', 'routes'], fromJS(routes))
+      .setIn(['app', 'meta'], fromJS(meta));
+  },
+  [CHANGE_APP_STATUS]: (state, action) => {
+    const { error, loading } = action.payload;
+    return state
+      .setIn(['app', 'error'], error || null)
+      .setIn(['app', 'loading'], loading || false);
+  },
+  // USER
+  [AUTH_USER_SUCCESS]: (state, action) => {
+    const { sam, roles } = action.payload;
+    return state
+      .setIn(['user', 'sam'], sam)
+      .setIn(['user', 'roles'], fromJS(roles));
+  },
+}, fromJS(initialState));
