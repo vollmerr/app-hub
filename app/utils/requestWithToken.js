@@ -42,7 +42,7 @@ export function* putToken(token, appName) {
 
     yield put(authUserSuccess({ sam, roles }));
   } catch (error) {
-    yield put(authUserFailure(new Error(error)));
+    throw new Error(error);
   }
 }
 
@@ -70,7 +70,7 @@ export function* authenticate(appName = 'AppHub') {
       // update user in global appHub state
       yield call(putToken, id_token, appName);
     } catch (error) {
-      yield put(authUserFailure(new Error(error)));
+      yield put(authUserFailure(error));
     }
   }
 }

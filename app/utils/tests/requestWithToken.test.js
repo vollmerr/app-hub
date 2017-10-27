@@ -1,7 +1,4 @@
-/**
- * Test the requestWithToken function
- */
-
+/* eslint-disable redux-saga/yield-effects */
 import { call, put } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import decode from 'jwt-decode';
@@ -79,7 +76,7 @@ describe('authenticate', () => {
 
   it('should update the user is a valid token in localStorage', () => {
     window.localStorage.getItem = () => global.jwt.valid;
-    expectSaga(authenticate, appName)
+    return expectSaga(authenticate, appName)
       .call(putToken, global.jwt.valid, appName)
       .run();
   });
@@ -88,7 +85,7 @@ describe('authenticate', () => {
     window.localStorage.getItem = () => global.jwt.expired;
     return expectSaga(authenticate, appName)
       .provide([
-        [call(request, global.API.JWT, authOptions), { id_token: global.jwt.valid }] // eslint-disable-line
+        [call(request, global.API.JWT, authOptions), { id_token: global.jwt.valid }],
       ])
       .call(request, global.API.JWT, authOptions)
       .call(putToken, global.jwt.valid, appName)
@@ -99,13 +96,13 @@ describe('authenticate', () => {
     window.localStorage.getItem = () => global.jwt.expired;
     return expectSaga(authenticate, appName)
       .provide([
-        [call(request, global.API.JWT, authOptions), { id_token: '' }] // eslint-disable-line
+        [call(request, global.API.JWT, authOptions), { id_token: '' }],
       ])
       .call(request, global.API.JWT, authOptions)
       .run()
       .then((result) => {
         const payload = new Error('InvalidTokenError: Invalid token specified: Cannot read property \'replace\' of undefined');
-        expect(result.effects.put[0]).toEqual(put(authUserFailure(payload))); // eslint-disable-line
+        expect(result.effects.put[0]).toEqual(put(authUserFailure(payload)));
       });
   });
 });
@@ -119,9 +116,24 @@ describe('putToken', () => {
     const sam = decoded.sub;
     const roles = decoded.BARS;
 
-    expectSaga(putToken, token, appName)
+    return expectSaga(putToken, token, appName)
       .put(authUserSuccess({ sam, roles }))
       .run();
+  });
+
+  it('should handle errors', () => {
+    const error = new Error('InvalidTokenError: Invalid token specified');
+    const token = global.jwt.invalid;
+    const appName = 'BARS';
+
+    const gen = putToken(token, appName);
+    try {
+      gen.next();
+    } catch (err) {
+      expect(err).toEqual(error);
+    }
+
+    expect(gen.next()).toEqual({ done: true, value: undefined });
   });
 });
 

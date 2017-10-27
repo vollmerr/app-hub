@@ -70,7 +70,7 @@ export function testMapDispatchToProps(mapDispatchToProps, actions) {
         expect(dispatchProps[onAction(action)]).toBeDefined();
       });
 
-      it(`should dispatch when called`, () => {
+      it('should dispatch when called', () => {
         dispatchProps[onAction(action)]();
         expect(dispatch).toHaveBeenCalled();
       });
