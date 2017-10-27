@@ -14,18 +14,18 @@ exports[`<Updates /> should render correctly 1`] = `
           "date": "2017/10/08",
           "desc": <Updates__Padded>
             <p>
-                  This system allows users to easily apply for ODI access badges. It relaces the old paper form for an entirely online experience, and provides features including email reminders and alerts, automatic workflow, and record history.
+              This system allows users to easily apply for ODI access badges. It relaces the old paper form for an entirely online experience, and provides features including email reminders and alerts, automatic workflow, and record history.
             </p>
             <p>
-                  Get started today at 
-                  <Link
-                        href="http://bars.technology.ca.gov/"
-                  >
-                        http://bars.technology.ca.gov
-                  </Link>
-                  .
+              Get started today at 
+              <Link
+                href="http://bars.technology.ca.gov/"
+              >
+                http://bars.technology.ca.gov
+              </Link>
+              .
             </p>
-      </Updates__Padded>,
+          </Updates__Padded>,
           "href": "http://bars.technology.ca.gov/",
           "name": "The Badge Access Request System (BARS) is now live!",
         },
@@ -33,12 +33,12 @@ exports[`<Updates /> should render correctly 1`] = `
           "date": "2017/10/08",
           "desc": <Updates__Padded>
             <p>
-                  We are proud to announce the release of the ODI App hub; a central location for ODI internal applications.
+              We are proud to announce the release of the ODI App hub; a central location for ODI internal applications.
             </p>
             <p>
-                  It is built using the latest technologies such as React, Webpack, Node, and .Net Core 2
+              It is built using the latest technologies such as React, Webpack, Node, and .Net Core 2
             </p>
-      </Updates__Padded>,
+          </Updates__Padded>,
           "name": "Initial release of the ODI App Hub",
           "to": "/",
         },

@@ -7,18 +7,24 @@ import {
   INIT_DATA_SUCCESS,
 } from '../constants';
 
-const state = initialState;
-const data = 'test data';
+const payload = {
+  id: 1,
+  data: 'test data'
+};
 
 describe('{{ camelCase name }}Reducer', () => {
+  let expected;
+  beforeEach(() => {
+    expected = fromJS(initialState);
+  });
+
   it('returns the initial state', () => {
-    const expected = fromJS(initialState);
     expect({{ camelCase name }}Reducer(undefined, {})).toEqual(expected);
   });
 
   it('handles INIT_DATA_SUCCESS', () => {
-    const expected = fromJS({ ...state, data });
-    const action = { type: INIT_DATA_SUCCESS, payload: data };
+    expected = expected.set('data', fromJS(payload));
+    const action = { type: INIT_DATA_SUCCESS, payload };
     expect({{ camelCase name }}Reducer(undefined, action)).toEqual(expected);
   });
 });

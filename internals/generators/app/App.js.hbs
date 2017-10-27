@@ -9,7 +9,7 @@ import injectReducer from 'utils/injectReducer';
 import AppContainer from 'containers/App-Container';
 import { meta } from 'containers/AppHub/meta';
 
-import { initRequest } from './actions';
+import { initDataRequest } from './actions';
 import makeSelect{{ properCase name }} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -22,8 +22,8 @@ const app = {
 
 export class {{ properCase name }} extends React.PureComponent {
   componentDidMount() {
-    const { onInitRequest } = this.props;
-    onInitRequest();
+    const { onInitDataRequest } = this.props;
+    onInitDataRequest();
   }
 
   render() {
@@ -36,7 +36,7 @@ export class {{ properCase name }} extends React.PureComponent {
 }
 
 {{ properCase name }}.propTypes = {
-  onInitRequest: PropTypes.func.isRequired,
+  onInitDataRequest: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
 };
 
@@ -46,7 +46,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onInitRequest: () => dispatch(initRequest()),
+    onInitDataRequest: () => dispatch(initDataRequest()),
   };
 }
 
