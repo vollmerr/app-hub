@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Field should render the returned component correctly 1`] = `
+<Field
+  component={[Function]}
+  disabled={false}
+  name="test input"
+  required={false}
+  validate={Array []}
+/>
+`;

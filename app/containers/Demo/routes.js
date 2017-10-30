@@ -1,6 +1,6 @@
 import DemoHome from 'containers/Demo-Home';
 import DemoLists from 'containers/Demo-Lists';
-
+import DemoForm from 'containers/Demo-Form';
 
 export const base = '/demo';
 
@@ -18,5 +18,12 @@ export default [
     path: `${base}/lists`,
     exact: true,
     component: DemoLists,
+  },
+  {
+    key: 'form',
+    name: 'Example Form',
+    path: `${base}/form`,
+    exact: true,
+    component: DemoForm,
   },
 ];
