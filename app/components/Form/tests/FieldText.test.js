@@ -13,10 +13,10 @@ const props = {
   },
   input: {
     value: '',
+    onBlur: jest.fn(),
+    onFocus: jest.fn(),
+    onChange: jest.fn(),
   },
-  onBlur: jest.fn(),
-  onFocus: jest.fn(),
-  onChange: jest.fn(),
 };
 
 describe('FieldText', () => {

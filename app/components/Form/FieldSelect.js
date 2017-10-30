@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { ComboBox } from 'office-ui-fabric-react/lib/ComboBox';
 
 import { isEmptyText } from 'utils/validate';
 
 import Field from './Field';
 
 
-export class FieldText extends React.Component {
+export class FieldSelect extends React.Component {
+  handleChange = (option) => {
+    const { input } = this.props;
+    input.onChange(option.key);
+  }
+
   render() {
     const {
       meta,
@@ -16,23 +21,24 @@ export class FieldText extends React.Component {
     } = this.props;
 
     const { touched, error } = meta;
-    const { onChange, ...inputProps } = input;
+    const { value, onFocus } = input;
     const errorMessage = touched && error ? error : '';
 
     const fieldProps = {
       ...props,
-      ...inputProps,
-      onChanged: onChange,
+      onFocus,
       errorMessage,
+      selectedKey: value,
+      onChanged: this.handleChange,
     };
 
     return (
-      <TextField {...fieldProps} />
+      <ComboBox {...fieldProps} />
     );
   }
 }
 
-FieldText.propTypes = {
+FieldSelect.propTypes = {
   meta: PropTypes.object.isRequired,
   input: PropTypes.object.isRequired,
   onBlur: PropTypes.func,
@@ -40,4 +46,4 @@ FieldText.propTypes = {
   onChange: PropTypes.func,
 };
 
-export default Field(FieldText, isEmptyText);
+export default Field(FieldSelect, isEmptyText);

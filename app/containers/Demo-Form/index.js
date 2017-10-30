@@ -5,11 +5,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Field, reduxForm } from 'redux-form/immutable';
+import { reduxForm } from 'redux-form/immutable';
 import { isEmptyText } from 'utils/validate';
 
-import { FieldText } from 'components/Form';
-import { TextField } from 'office-ui-fabric-react/lib/TextField';
+import { FieldText, FieldSelect } from 'components/Form';
 
 const validate = (values) => {
   const errors = {};
@@ -41,12 +40,37 @@ export class DemoForm extends React.PureComponent {
 
         <FieldText
           required
-          label={'First Name'}
-          name="firstName"
-          placeholder="First Name Placeholder"
+          label={'Example Text'}
+          name={'text'}
+          placeholder={'Placeholder...'}
         />
 
-      <div>
+        <FieldText
+          required
+          multiline
+          label={'Example Textarea'}
+          name={'textArea'}
+          placeholder={'Placeholder...'}
+          onChange={(val, x) => console.log(val, x)}
+        />
+
+        <FieldSelect
+          required
+          options={
+            [
+              { key: 'N/A', text: 'Does Not Apply' },
+              { key: 'Under', text: 'Under' },
+              { key: 'Over', text: 'Over' },
+            ]
+          }
+          label={'Example Select'}
+          name={'select'}
+          placeholder={'Placeholder...'}
+          onChange={() => console.log('changin..')}
+          onBlur={() => console.log('blurring...')}
+        />
+
+      {/* <div>
         <label>Last Name</label>
         <div>
           <Field
@@ -118,7 +142,7 @@ export class DemoForm extends React.PureComponent {
         <div>
           <Field name="notes" component="textarea" />
         </div>
-      </div>
+      </div> */}
       <div>
         <button type="submit" disabled={pristine || submitting}>
           Submit
