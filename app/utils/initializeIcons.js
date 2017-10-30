@@ -31,8 +31,8 @@ const initializeIcons = () => {
       COLD: '\uE408',
       BARS: '\uE259',
       // requried by office-ui
-      chevrondown: '\uE087',
-      chevronup: '\uE088',
+      chevrondown: '\uE088',
+      chevronup: '\uE087',
       Search: '\uE039',
       clear: '\uE353',
       CircleRing: '\uF8FE',
