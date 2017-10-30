@@ -14,17 +14,6 @@ const makeSelectExampleData = () => createSelector(
   (substate) => substate.get('exampleData')
 );
 
-const makeSelectError = () => createSelector(
-  selectDemoDomain,
-  (substate) => substate.get('error')
-);
-
-const makeSelectLoading = () => createSelector(
-  selectDemoDomain,
-  (substate) => substate.get('loading')
-);
-
-
 /**
  * Default selector used by DemoHome
  */
@@ -38,6 +27,4 @@ export default makeSelectDemo;
 export {
   selectDemoDomain,
   makeSelectExampleData,
-  makeSelectError,
-  makeSelectLoading,
 };

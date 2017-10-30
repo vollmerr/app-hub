@@ -16,10 +16,13 @@ describe('appHubSaga Saga', () => {
 });
 
 describe('matchPattern', () => {
-  it('should call authenticate if the type ends in REQUEST', () => {
+  it('should change the app status then call authenticate if the type ends in REQUEST', () => {
     const action = { type: 'TEST_REQUEST' };
+    const payload = { loading: true, error: null };
 
     testSaga(matchPattern, action)
+      .next()
+      .put({ type: CHANGE_APP_STATUS, payload })
       .next()
       .call(authenticate, 'BARS')
       .finish()

@@ -8,6 +8,7 @@ export function* matchPattern(action) {
   const type = action.type;
 
   if (type.match(REQUEST)) {
+    yield put(changeAppStatus({ loading: true, error: null }));
     yield call(authenticate, 'BARS');
   }
 
