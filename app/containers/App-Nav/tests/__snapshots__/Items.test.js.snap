@@ -37,7 +37,6 @@ exports[`<Items /> should render correctly in desktop view 1`] = `
   className="c0"
   groups={null}
   isMobile={false}
-  onRenderLink={[Function]}
 />
 `;
 
@@ -78,7 +77,6 @@ exports[`<Items /> should render correctly in desktop view 2`] = `
   className="c0"
   groups={null}
   isMobile={true}
-  onRenderLink={[Function]}
 />
 `;
 
@@ -118,6 +116,5 @@ exports[`<Items__Items /> should render correctly 1`] = `
 <Nav
   className="c0"
   groups={null}
-  onRenderLink={[Function]}
 />
 `;

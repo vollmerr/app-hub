@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FieldText should render correctly 1`] = `
+<TextField
+  autoAdjustHeight={false}
+  borderless={false}
+  deferredValidationTime={200}
+  errorMessage=""
+  multiline={false}
+  name="test name"
+  onBeforeChange={[Function]}
+  onBlur={[Function]}
+  onChanged={[Function]}
+  onFocus={[Function]}
+  onGetErrorMessage={[Function]}
+  onNotifyValidationResult={[Function]}
+  resizable={true}
+  underlined={false}
+  validateOnFocusIn={false}
+  validateOnFocusOut={false}
+  validateOnLoad={true}
+  value=""
+/>
+`;
