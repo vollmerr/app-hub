@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FieldSelect should render correctly 1`] = `
+<div>
+  <ChoiceGroup
+    name="test name"
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "key": "key1",
+          "text": "text 1",
+        },
+        Object {
+          "key": "key2",
+          "text": "text 2",
+        },
+        Object {
+          "key": "key3",
+          "text": "text 3",
+        },
+      ]
+    }
+    selectedKey=""
+  />
+</div>
+`;

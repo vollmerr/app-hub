@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ComboBox } from 'office-ui-fabric-react/lib/ComboBox';
+import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
 
-import Default, { FieldSelect } from '../FieldSelect';
-import { FieldSelect as Index } from '../index';
+import Default, { FieldRadios } from '../FieldRadios';
+import { FieldRadios as Index } from '../index';
+import FieldError from '../FieldError';
 
 const props = {
   name: 'test name',
@@ -28,43 +29,45 @@ describe('FieldSelect', () => {
   let wrapper;
   beforeEach(() => {
     jest.resetAllMocks();
-    wrapper = shallow(<FieldSelect {...props} />);
+    wrapper = shallow(<FieldRadios {...props} />);
   });
 
   it('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render a `ComboBox`', () => {
-    expect(wrapper.find(ComboBox).length).toEqual(1);
+  it('should render a `ChoiceGroup`', () => {
+    expect(wrapper.find(ChoiceGroup).length).toEqual(1);
   });
 
   it('should handle errors if touched', () => {
     const error = 'test error';
     const meta = { error, touched: true };
     wrapper.setProps({ meta });
-    expect(wrapper.find(ComboBox).prop('errorMessage')).toEqual(error);
+    expect(wrapper.find(FieldError).length).toEqual(1);
+    expect(wrapper.find(FieldError).dive().text()).toContain(error);
   });
 
   it('should not render errors if not touched or no error', () => {
     let meta = { error: 'test error' };
     wrapper.setProps({ meta });
-    expect(wrapper.find(ComboBox).prop('errorMessage')).toEqual('');
+    expect(wrapper.find(FieldError).length).toEqual(0);
 
     meta = { touched: true, error: null };
     wrapper.setProps({ meta });
-    expect(wrapper.find(ComboBox).prop('errorMessage')).toEqual('');
+    expect(wrapper.find(FieldError).length).toEqual(0);
   });
 
   it('should handle changing the selected key', () => {
     const option = props.options[2];
     const instance = wrapper.instance();
-    instance.handleChange(option);
+    instance.handleChange(null, option);
     expect(props.input.onChange).toHaveBeenCalledWith(option.key);
   });
 
-  it('should not pass onBlur', () => {
-    expect(wrapper.find(ComboBox).prop('onBlur')).toEqual(undefined);
+  it('should not pass onBlur or onFocus', () => {
+    expect(wrapper.find(ChoiceGroup).prop('onBlur')).toEqual(undefined);
+    expect(wrapper.find(ChoiceGroup).prop('onFocus')).toEqual(undefined);
   });
 
   it('should be exported (wrapped) in the index', () => {

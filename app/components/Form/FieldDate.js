@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DatePicker } from 'office-ui-fabric-react/lib/DatePicker';
@@ -17,7 +16,7 @@ import Field from './Field';
  * https://github.com/OfficeDev/office-ui-fabric-react/blob/master/packages/office-ui-fabric-react/src/components/DatePicker/DatePicker.tsx
  */
 /* istanbul ignore next */
-DatePicker.prototype.componentWillReceiveProps = function(nextProps) {
+DatePicker.prototype.componentWillReceiveProps = function (nextProps) { // eslint-disable-line
   const { formatDate, value, errorMessage } = nextProps;
 
   this.setState({
@@ -28,7 +27,7 @@ DatePicker.prototype.componentWillReceiveProps = function(nextProps) {
     selectedDate: value || new Date(),
     formattedDate: (formatDate && value) ? formatDate(value) : '',
   });
-}
+};
 
 /**
  * Fix _validateTextInput instead of completely rewritting...
@@ -40,8 +39,8 @@ DatePicker.prototype.componentWillReceiveProps = function(nextProps) {
  * https://github.com/OfficeDev/office-ui-fabric-react/blob/master/packages/office-ui-fabric-react/src/components/DatePicker/DatePicker.tsx
  */
 /* istanbul ignore next */
-DatePicker.prototype._validateTextInput = function() {
-  const { isRequired } = this.props;
+DatePicker.prototype._validateTextInput = function() { // eslint-disable-line
+  const { isRequired, errorMessage } = this.props;
   const { formattedDate, isDatePickerShown } = this.state;
   // Do validation only if DatePicker's popup is dismissed
   if (isDatePickerShown) {
@@ -53,9 +52,8 @@ DatePicker.prototype._validateTextInput = function() {
     this.setState({
       errorMessage,
     });
-    return;
   }
-}
+};
 
 
 export class FieldDate extends React.Component {
