@@ -39,6 +39,9 @@ const initializeIcons = () => {
       StatusCircleCheckmark: '\uF8FF',
       sortup: '\uF8FB',
       sortdown: '\uF8FC',
+      calendar: '\uE38E',
+      up: '\uE27A',
+      down: '\uE27B',
     },
   });
 };
