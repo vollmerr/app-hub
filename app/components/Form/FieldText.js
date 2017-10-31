@@ -35,9 +35,6 @@ export class FieldText extends React.Component {
 FieldText.propTypes = {
   meta: PropTypes.object.isRequired,
   input: PropTypes.object.isRequired,
-  onBlur: PropTypes.func,
-  onFocus: PropTypes.func,
-  onChange: PropTypes.func,
 };
 
 export default Field(FieldText, isEmptyText);

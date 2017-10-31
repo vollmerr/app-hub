@@ -8,7 +8,7 @@ import { compose } from 'redux';
 import { reduxForm } from 'redux-form/immutable';
 import { isEmptyText } from 'utils/validate';
 
-import { FieldText, FieldSelect } from 'components/Form';
+import { FieldText, FieldSelect, FieldDate } from 'components/Form';
 
 const validate = (values) => {
   const errors = {};
@@ -54,6 +54,14 @@ export class DemoForm extends React.PureComponent {
           onChange={(val, x) => console.log(val, x)}
         />
 
+        <FieldText
+          required
+          disabled
+          label={'Example Disabled Text'}
+          name={'textDisabled'}
+          placeholder={'Placeholder...'}
+        />
+
         <FieldSelect
           required
           options={
@@ -68,6 +76,36 @@ export class DemoForm extends React.PureComponent {
           placeholder={'Placeholder...'}
           onChange={() => console.log('changin..')}
           onBlur={() => console.log('blurring...')}
+        />
+
+        <FieldSelect
+          required
+          disabled
+          options={
+            [
+              { key: 'N/A', text: 'Does Not Apply' },
+              { key: 'Under', text: 'Under' },
+              { key: 'Over', text: 'Over' },
+            ]
+          }
+          label={'Example Disabled Select'}
+          name={'selectDisabled'}
+          placeholder={'Placeholder...'}
+        />
+
+        <FieldDate
+          required
+          label={'Example Date'}
+          name={'date'}
+          placeholder={'Placeholder...'}
+        />
+
+        <FieldDate
+          required
+          disabled
+          label={'Example Disabled Date'}
+          name={'dateDisabled'}
+          placeholder={'Placeholder...'}
         />
 
       {/* <div>

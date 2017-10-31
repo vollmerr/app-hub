@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FieldSelect should render correctly 1`] = `
+<DatePicker
+  allowTextInput={false}
+  borderless={false}
+  errorMessage={null}
+  firstDayOfWeek={0}
+  firstWeekOfYear={0}
+  formatDate={[Function]}
+  highlightCurrentMonth={true}
+  isMonthPickerVisible={true}
+  isRequired={false}
+  name="test name"
+  onSelectDate={[Function]}
+  options={
+    Array [
+      Object {
+        "key": "key1",
+        "text": "text 1",
+      },
+      Object {
+        "key": "key2",
+        "text": "text 2",
+      },
+      Object {
+        "key": "key3",
+        "text": "text 3",
+      },
+    ]
+  }
+  parseDateFromString={[Function]}
+  pickerAriaLabel="Calender"
+  showGoToToday={true}
+  showMonthPickerAsOverlay={false}
+  showWeekNumbers={false}
+  strings={
+    Object {
+      "days": Array [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ],
+      "goToToday": "Go to today",
+      "months": Array [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ],
+      "nextMonthAriaLabel": "Go to next month",
+      "nextYearAriaLabel": "Go to next year",
+      "prevMonthAriaLabel": "Go to previous month",
+      "prevYearAriaLabel": "Go to previous year",
+      "shortDays": Array [
+        "S",
+        "M",
+        "T",
+        "W",
+        "T",
+        "F",
+        "S",
+      ],
+      "shortMonths": Array [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ],
+    }
+  }
+  value=""
+/>
+`;
