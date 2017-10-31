@@ -1,9 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ComboBox } from 'office-ui-fabric-react/lib/ComboBox';
+import { testStyledComponent } from 'utils/testUtils';
 
-import Default, { FieldSelect } from '../FieldSelect';
+import Default, { FieldSelect, Select } from '../FieldSelect';
 import { FieldSelect as Index } from '../index';
+
+testStyledComponent(Select, ComboBox);
 
 const props = {
   name: 'test name',
@@ -35,25 +38,25 @@ describe('FieldSelect', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render a `ComboBox`', () => {
-    expect(wrapper.find(ComboBox).length).toEqual(1);
+  it('should render a `Select`', () => {
+    expect(wrapper.find(Select).length).toEqual(1);
   });
 
   it('should handle errors if touched', () => {
     const error = 'test error';
     const meta = { error, touched: true };
     wrapper.setProps({ meta });
-    expect(wrapper.find(ComboBox).prop('errorMessage')).toEqual(error);
+    expect(wrapper.find(Select).prop('errorMessage')).toEqual(error);
   });
 
   it('should not render errors if not touched or no error', () => {
     let meta = { error: 'test error' };
     wrapper.setProps({ meta });
-    expect(wrapper.find(ComboBox).prop('errorMessage')).toEqual('');
+    expect(wrapper.find(Select).prop('errorMessage')).toEqual('');
 
     meta = { touched: true, error: null };
     wrapper.setProps({ meta });
-    expect(wrapper.find(ComboBox).prop('errorMessage')).toEqual('');
+    expect(wrapper.find(Select).prop('errorMessage')).toEqual('');
   });
 
   it('should handle changing the selected key', () => {
@@ -64,7 +67,7 @@ describe('FieldSelect', () => {
   });
 
   it('should not pass onBlur', () => {
-    expect(wrapper.find(ComboBox).prop('onBlur')).toEqual(undefined);
+    expect(wrapper.find(Select).prop('onBlur')).toEqual(undefined);
   });
 
   it('should be exported (wrapped) in the index', () => {

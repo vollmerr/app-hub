@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FieldError__FieldError /> should render correctly 1`] = `
+.c0 {
+  color: #a80000;
+  font-size: 12px;
+  margin: 0;
+  padding-top: 5px;
+}
+
+<p
+  className="c0"
+/>
+`;

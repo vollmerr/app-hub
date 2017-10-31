@@ -1,7 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FieldSelect should render correctly 1`] = `
+exports[`<FieldSelect__Select /> should render correctly 1`] = `
+.c0 .ms-ComboBox {
+  margin: 0;
+  box-sizing: border-box;
+}
+
 <CustomizedComboBox
+  className="c0"
+/>
+`;
+
+exports[`FieldSelect should render correctly 1`] = `
+<FieldSelect__Select
   errorMessage=""
   name="test name"
   onChanged={[Function]}

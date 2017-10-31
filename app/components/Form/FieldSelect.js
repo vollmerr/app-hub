@@ -1,11 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ComboBox } from 'office-ui-fabric-react/lib/ComboBox';
+import styled from 'styled-components';
 
 import { isEmptyText } from 'utils/validate';
 
 import Field from './Field';
 
+export const Select = styled(ComboBox)`
+  .ms-ComboBox {
+    margin: 0;
+    box-sizing: border-box;
+  }
+`;
 
 export class FieldSelect extends React.Component {
   handleChange = (option) => {
@@ -33,7 +40,7 @@ export class FieldSelect extends React.Component {
     };
 
     return (
-      <ComboBox {...fieldProps} />
+      <Select {...fieldProps} />
     );
   }
 }
