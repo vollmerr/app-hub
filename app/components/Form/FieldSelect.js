@@ -41,9 +41,6 @@ export class FieldSelect extends React.Component {
 FieldSelect.propTypes = {
   meta: PropTypes.object.isRequired,
   input: PropTypes.object.isRequired,
-  onBlur: PropTypes.func,
-  onFocus: PropTypes.func,
-  onChange: PropTypes.func,
 };
 
 export default Field(FieldSelect, isEmptyText);

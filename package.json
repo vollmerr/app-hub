@@ -317,7 +317,7 @@
     "plop": "1.8.0",
     "pre-commit": "1.2.2",
     "react-test-renderer": "16.0.0",
-    "redux-saga-test-plan": "3.2.0",
+    "redux-saga-test-plan": "3.3.0",
     "rimraf": "2.6.1",
     "shelljs": "0.7.7",
     "style-loader": "0.18.1",

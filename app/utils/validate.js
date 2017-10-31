@@ -4,3 +4,9 @@ export const isEmptyText = (value) => (
     ? 'Required'
     : undefined
 );
+
+export const isEmptyDate = (value) => (
+  !value || isNaN(new Date(value))
+    ? 'Required'
+    : undefined
+);
