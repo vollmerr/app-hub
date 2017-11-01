@@ -1,34 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`FieldSelect should render correctly 1`] = `
+exports[`<FieldDate__Picker /> should render correctly 1`] = `
 <DatePicker
   allowTextInput={false}
   borderless={false}
-  errorMessage={null}
+  className=""
   firstDayOfWeek={0}
   firstWeekOfYear={0}
   formatDate={[Function]}
-  highlightCurrentMonth={true}
+  highlightCurrentMonth={false}
   isMonthPickerVisible={true}
   isRequired={false}
-  name="test name"
-  onSelectDate={[Function]}
-  options={
-    Array [
-      Object {
-        "key": "key1",
-        "text": "text 1",
-      },
-      Object {
-        "key": "key2",
-        "text": "text 2",
-      },
-      Object {
-        "key": "key3",
-        "text": "text 3",
-      },
-    ]
-  }
   parseDateFromString={[Function]}
   pickerAriaLabel="Calender"
   showGoToToday={true}
@@ -88,6 +70,31 @@ exports[`FieldSelect should render correctly 1`] = `
         "Dec",
       ],
     }
+  }
+/>
+`;
+
+exports[`FieldDate should render correctly 1`] = `
+<FieldDate__Picker
+  errorMessage={null}
+  highlightCurrentMonth={true}
+  name="test name"
+  onSelectDate={[Function]}
+  options={
+    Array [
+      Object {
+        "key": "key1",
+        "text": "text 1",
+      },
+      Object {
+        "key": "key2",
+        "text": "text 2",
+      },
+      Object {
+        "key": "key3",
+        "text": "text 3",
+      },
+    ]
   }
   value=""
 />

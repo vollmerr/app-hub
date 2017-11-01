@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DatePicker } from 'office-ui-fabric-react/lib/DatePicker';
+import styled from 'styled-components';
 
 import { isEmptyDate } from 'utils/validate';
 
@@ -56,6 +57,10 @@ DatePicker.prototype._validateTextInput = function() { // eslint-disable-line
 };
 
 
+export const Picker = styled(DatePicker)`
+  ${(props) => props.disabled && '.ms-Icon { display: none; }'}
+`;
+
 export class FieldDate extends React.Component {
   handleChange = (date) => {
     const { input } = this.props;
@@ -84,7 +89,7 @@ export class FieldDate extends React.Component {
     };
 
     return (
-      <DatePicker {...fieldProps} />
+      <Picker {...fieldProps} />
     );
   }
 }

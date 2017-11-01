@@ -9,25 +9,30 @@ function Field(WrappedComponent, requiredFunc = null) {
       required: PropTypes.bool,
       disabled: PropTypes.bool,
       validate: PropTypes.array,
+      placeholder: PropTypes.string,
     };
 
     static defaultProps = {
       required: false,
       disabled: false,
       validate: [],
-    }
+      placholder: '',
+    };
 
     render() {
       const {
         required,
         disabled,
         validate,
+        placeholder,
         ...props
       } = this.props;
 
       let toValidate = [];
+      let newPlaceholder;
       if (!disabled) {
         toValidate = [...validate];
+        newPlaceholder = placeholder;
 
         if (required) {
           toValidate.push(requiredFunc);
@@ -41,6 +46,7 @@ function Field(WrappedComponent, requiredFunc = null) {
         disabled,
         required: isRequired,
         validate: toValidate,
+        placeholder: newPlaceholder,
         component: WrappedComponent,
       };
 

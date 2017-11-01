@@ -5,6 +5,7 @@ exports[`Field should render the returned component correctly 1`] = `
   component={[Function]}
   disabled={false}
   name="test input"
+  placholder=""
   required={false}
   validate={Array []}
 />

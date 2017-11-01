@@ -53,7 +53,7 @@ export class DemoHome extends React.PureComponent {
           isScrolling &&
           <Scroll />
         }
-      </div >
+      </div>
     );
   }
 }

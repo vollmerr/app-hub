@@ -2,8 +2,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { DatePicker } from 'office-ui-fabric-react/lib/DatePicker';
 
-import Default, { FieldDate } from '../FieldDate';
+import { testStyledComponent } from 'utils/testUtils';
+
+import Default, { FieldDate, Picker } from '../FieldDate';
 import { FieldDate as Index } from '../index';
+
+testStyledComponent(Picker, DatePicker);
 
 const props = {
   name: 'test name',
@@ -24,7 +28,7 @@ const props = {
   ],
 };
 
-describe('FieldSelect', () => {
+describe('FieldDate', () => {
   let wrapper;
   beforeEach(() => {
     jest.resetAllMocks();
@@ -35,35 +39,35 @@ describe('FieldSelect', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render a `DatePicker`', () => {
-    expect(wrapper.find(DatePicker).length).toEqual(1);
+  it('should render a `Picker`', () => {
+    expect(wrapper.find(Picker).length).toEqual(1);
   });
 
   it('should handle errors if touched', () => {
     const error = 'test error';
     const meta = { error, touched: true };
     wrapper.setProps({ meta });
-    expect(wrapper.find(DatePicker).prop('errorMessage')).toEqual(error);
+    expect(wrapper.find(Picker).prop('errorMessage')).toEqual(error);
   });
 
   it('should not render errors if not touched or no error', () => {
     let meta = { error: 'test error' };
     wrapper.setProps({ meta });
-    expect(wrapper.find(DatePicker).prop('errorMessage')).toEqual(null);
+    expect(wrapper.find(Picker).prop('errorMessage')).toEqual(null);
 
     meta = { touched: true, error: null };
     wrapper.setProps({ meta });
-    expect(wrapper.find(DatePicker).prop('errorMessage')).toEqual(null);
+    expect(wrapper.find(Picker).prop('errorMessage')).toEqual(null);
   });
 
   it('should not pass onBlur or onFocus', () => {
-    expect(wrapper.find(DatePicker).prop('onBlur')).toEqual(undefined);
-    expect(wrapper.find(DatePicker).prop('onFocus')).toEqual(undefined);
+    expect(wrapper.find(Picker).prop('onBlur')).toEqual(undefined);
+    expect(wrapper.find(Picker).prop('onFocus')).toEqual(undefined);
   });
 
   it('should handle changing the value', () => {
     const instance = wrapper.instance();
-    expect(wrapper.find(DatePicker).prop('onSelectDate')).toEqual(instance.handleChange);
+    expect(wrapper.find(Picker).prop('onSelectDate')).toEqual(instance.handleChange);
 
     const date = new Date('12/12/2010');
     instance.handleChange(date);
