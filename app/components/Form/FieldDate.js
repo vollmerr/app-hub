@@ -56,10 +56,10 @@ DatePicker.prototype._validateTextInput = function() { // eslint-disable-line
   }
 };
 
-
 export const Picker = styled(DatePicker)`
   ${(props) => props.disabled && '.ms-Icon { display: none; }'}
 `;
+
 
 export class FieldDate extends React.Component {
   handleChange = (date) => {

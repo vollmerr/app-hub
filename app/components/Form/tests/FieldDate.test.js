@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { DatePicker } from 'office-ui-fabric-react/lib/DatePicker';
+import 'jest-styled-components';
 
 import { testStyledComponent } from 'utils/testUtils';
 
@@ -8,6 +9,22 @@ import Default, { FieldDate, Picker } from '../FieldDate';
 import { FieldDate as Index } from '../index';
 
 testStyledComponent(Picker, DatePicker);
+
+describe('Picker', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<Picker disabled={false} />);
+  });
+
+  it('should render properly when not disabled', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render properly when disabled', () => {
+    wrapper.setProps({ disabled: true });
+    expect(wrapper).toMatchSnapshot();
+  });
+});
 
 const props = {
   name: 'test name',

@@ -1,10 +1,31 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
+import 'jest-styled-components';
 
-import Default, { FieldRadios } from '../FieldRadios';
+import { testStyledComponent } from 'utils/testUtils';
+
+import Default, { FieldRadios, Radios } from '../FieldRadios';
 import { FieldRadios as Index } from '../index';
 import FieldError from '../FieldError';
+
+testStyledComponent(Radios, ChoiceGroup);
+
+describe('Radios', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<Radios errorMessage={null} />);
+  });
+
+  it('should render properly when no errorMessage', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render properly when errorMessage', () => {
+    wrapper.setProps({ errorMessage: 'test error' });
+    expect(wrapper).toMatchSnapshot();
+  });
+});
 
 const props = {
   name: 'test name',
@@ -36,8 +57,8 @@ describe('FieldSelect', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render a `ChoiceGroup`', () => {
-    expect(wrapper.find(ChoiceGroup).length).toEqual(1);
+  it('should render a `Radios`', () => {
+    expect(wrapper.find(Radios).length).toEqual(1);
   });
 
   it('should handle errors if touched', () => {
@@ -66,8 +87,8 @@ describe('FieldSelect', () => {
   });
 
   it('should not pass onBlur or onFocus', () => {
-    expect(wrapper.find(ChoiceGroup).prop('onBlur')).toEqual(undefined);
-    expect(wrapper.find(ChoiceGroup).prop('onFocus')).toEqual(undefined);
+    expect(wrapper.find(Radios).prop('onBlur')).toEqual(undefined);
+    expect(wrapper.find(Radios).prop('onFocus')).toEqual(undefined);
   });
 
   it('should be exported (wrapped) in the index', () => {

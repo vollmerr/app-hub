@@ -1,8 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<FieldRadios__Radios /> should render correctly 1`] = `
+<ChoiceGroup
+  className=""
+  options={Array []}
+/>
+`;
+
 exports[`FieldSelect should render correctly 1`] = `
 <div>
-  <ChoiceGroup
+  <FieldRadios__Radios
+    errorMessage=""
     name="test name"
     onChange={[Function]}
     options={
@@ -24,4 +32,24 @@ exports[`FieldSelect should render correctly 1`] = `
     selectedKey=""
   />
 </div>
+`;
+
+exports[`Radios should render properly when errorMessage 1`] = `
+.c0 .ms-ChoiceField-field::before {
+  border-color: #a80000;
+}
+
+<ChoiceGroup
+  className="c0"
+  errorMessage="test error"
+  options={Array []}
+/>
+`;
+
+exports[`Radios should render properly when no errorMessage 1`] = `
+<ChoiceGroup
+  className=""
+  errorMessage={null}
+  options={Array []}
+/>
 `;
