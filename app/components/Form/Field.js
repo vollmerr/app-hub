@@ -16,7 +16,7 @@ function Field(WrappedComponent, requiredFunc = null) {
       required: false,
       disabled: false,
       validate: [],
-      placholder: '',
+      placeholder: '',
     };
 
     render() {

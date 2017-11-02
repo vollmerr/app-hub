@@ -3,6 +3,7 @@ import {
   FieldSelect,
   FieldDate,
   FieldRadios,
+  FieldChecks,
 } from 'components/Form';
 
 import { normalizeNumber } from './normalize';
@@ -28,7 +29,8 @@ export default {
    * const from above used for consistency (in the first value).
    * Would nomrally be placed under bySection, but above for readability of example
    */
-  allSections: [SECTION_TEXT, 'select', 'radios', 'dates'],
+  // allSections: [SECTION_TEXT, 'select', 'dates', 'radios', 'checks'],
+  allSections: ['checks'],
   /**
    * All sections of form (unordered)
    */
@@ -145,7 +147,7 @@ export default {
         },
         radiosRequired: {
           required: true,
-          label: 'Default Radios',
+          label: 'Required Radios',
           name: 'radiosRequired',
           component: FieldRadios,
           options: [
@@ -178,23 +180,62 @@ export default {
           placeholder: 'Select Date...',
           component: FieldDate,
         },
-        requiredDefault: {
+        dateRequired: {
           required: true,
           label: 'Required Date',
-          name: 'requiredDefault',
+          name: 'dateRequired',
           placeholder: 'Select Date...',
           component: FieldDate,
         },
-        disabledDefault: {
+        dateDisabled: {
           required: true, // required for testing purposes (should render as not required due to being disabled)
           disabled: true,
           label: 'Disabled Date',
-          name: 'disabledDefault',
+          name: 'dateDisabled',
           placeholder: 'Select Date...',
           component: FieldDate,
         },
       },
-      allNames: ['dateDefault', 'requiredDefault', 'disabledDefault'],
+      allNames: ['dateDefault', 'dateRequired', 'dateDisabled'],
+    },
+    checks: {
+      title: 'Check Boxes',
+      byName: {
+        checkDefault: {
+          label: 'Default Check Boxes',
+          name: 'checkDefault',
+          component: FieldChecks,
+          options: [
+            { key: 'N/A', text: 'Does Not Apply' },
+            { key: 'Under', text: 'Under' },
+            { key: 'Over', text: 'Over' },
+          ],
+        },
+        checkRequired: {
+          required: true,
+          label: 'Required Check Boxes',
+          name: 'checkRequired',
+          component: FieldChecks,
+          options: [
+            { key: 'N/A', text: 'Does Not Apply' },
+            { key: 'Under', text: 'Under' },
+            { key: 'Over', text: 'Over' },
+          ],
+        },
+        checkDisabled: {
+          required: true, // required for testing purposes (should render as not required due to being disabled)
+          disabled: true,
+          label: 'Disabled Check Boxes',
+          name: 'checkDisabled',
+          component: FieldChecks,
+          options: [
+            { key: 'N/A', text: 'Does Not Apply' },
+            { key: 'Under', text: 'Under' },
+            { key: 'Over', text: 'Over' },
+          ],
+        },
+      },
+      allNames: ['checkDefault', 'checkRequired', 'checkDisabled'],
     },
   },
 };

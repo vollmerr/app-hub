@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FieldChecks__Check /> should render correctly 1`] = `
+<CustomizedCheckbox
+  className=""
+/>
+`;
+
+exports[`Check should render properly when errorMessage 1`] = `
+.c0 .ms-Checkbox-checkbox {
+  border-color: #a80000;
+}
+
+<CustomizedCheckbox
+  className="c0"
+  errorMessage="test error"
+/>
+`;
+
+exports[`Check should render properly when no errorMessage 1`] = `
+<CustomizedCheckbox
+  className=""
+  errorMessage={null}
+/>
+`;
+
+exports[`FieldChecks should render correctly 1`] = `
+<div>
+  <CustomizedLabel
+    label="test label"
+  >
+    test label
+  </CustomizedLabel>
+  <FieldChecks__Check
+    errorMessage=""
+    key="key1"
+    label="text 1"
+    name="test name"
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "key": "key1",
+          "text": "text 1",
+        },
+        Object {
+          "key": "key2",
+          "text": "text 2",
+        },
+        Object {
+          "key": "key3",
+          "text": "text 3",
+        },
+      ]
+    }
+    text="text 1"
+  />
+  <FieldChecks__Check
+    errorMessage=""
+    key="key2"
+    label="text 2"
+    name="test name"
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "key": "key1",
+          "text": "text 1",
+        },
+        Object {
+          "key": "key2",
+          "text": "text 2",
+        },
+        Object {
+          "key": "key3",
+          "text": "text 3",
+        },
+      ]
+    }
+    text="text 2"
+  />
+  <FieldChecks__Check
+    errorMessage=""
+    key="key3"
+    label="text 3"
+    name="test name"
+    onChange={[Function]}
+    options={
+      Array [
+        Object {
+          "key": "key1",
+          "text": "text 1",
+        },
+        Object {
+          "key": "key2",
+          "text": "text 2",
+        },
+        Object {
+          "key": "key3",
+          "text": "text 3",
+        },
+      ]
+    }
+    text="text 3"
+  />
+</div>
+`;

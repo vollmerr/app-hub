@@ -10,3 +10,9 @@ export const isEmptyDate = (value) => (
     ? 'Required'
     : undefined
 );
+
+export const isEmptyChecks = (value) => (
+  !value || typeof value !== 'object' || !value.length
+    ? 'Required'
+    : undefined
+);

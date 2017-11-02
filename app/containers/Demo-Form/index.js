@@ -12,13 +12,6 @@ import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import theme from 'utils/theme';
 import { isEmptyText } from 'utils/validate';
 
-import {
-  FieldText,
-  FieldSelect,
-  FieldDate,
-  FieldRadios,
-} from 'components/Form';
-
 import Section from './Section';
 import fields from './fields';
 import validate from './validate';

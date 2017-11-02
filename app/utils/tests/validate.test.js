@@ -1,18 +1,22 @@
-import { isEmptyText, isEmptyDate } from '../validate';
+import {
+  isEmptyText,
+  isEmptyDate,
+  isEmptyChecks,
+} from '../validate';
+
+const emptyVals = [
+  [],
+  {},
+  null,
+  undefined,
+  () => {},
+  '',
+];
 
 describe('validate utils', () => {
   describe('isEmptyText', () => {
     it('should return `Required` for non string or empty values', () => {
-      const values = [
-        [],
-        {},
-        null,
-        undefined,
-        () => {},
-        '',
-      ];
-
-      values.forEach((value) => {
+      emptyVals.forEach((value) => {
         expect(isEmptyText(value)).toEqual('Required');
       });
     });
@@ -31,16 +35,7 @@ describe('validate utils', () => {
 
   describe('isEmptyDate', () => {
     it('should return `Required` for empty values', () => {
-      const values = [
-        [],
-        {},
-        null,
-        undefined,
-        () => {},
-        '',
-      ];
-
-      values.forEach((value) => {
+      emptyVals.forEach((value) => {
         expect(isEmptyDate(value)).toEqual('Required');
       });
     });
@@ -54,6 +49,27 @@ describe('validate utils', () => {
 
       values.forEach((value) => {
         expect(isEmptyDate(value)).toEqual(undefined);
+      });
+    });
+  });
+
+  describe('isEmptyChecks', () => {
+    it('should return `Required` for empty check box group', () => {
+      const values = [...emptyVals, 'test value'];
+
+      values.forEach((value) => {
+        expect(isEmptyChecks(value)).toEqual('Required');
+      });
+    });
+
+    it('should return `undefined` for non empty check box group', () => {
+      const values = [
+        ['sdfs'],
+        [{ key: 1, a: '213' }, { key: 2, b: 'asd' }],
+      ];
+
+      values.forEach((value) => {
+        expect(isEmptyChecks(value)).toEqual(undefined);
       });
     });
   });
