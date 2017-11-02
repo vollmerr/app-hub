@@ -42,6 +42,7 @@ const initializeIcons = () => {
       calendar: '\uE38E',
       up: '\uE27A',
       down: '\uE27B',
+      checkmark: '\uF8FA',
     },
   });
 };

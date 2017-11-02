@@ -11,6 +11,8 @@ import Field from './Field';
 import FieldError from './FieldError';
 
 export const Check = styled(Checkbox)`
+  margin: 5px 0;
+
   .ms-Checkbox-checkbox {
     ${(props) => props.errorMessage && `border-color: ${theme.redDark};`}
   }

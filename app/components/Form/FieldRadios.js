@@ -10,6 +10,10 @@ import Field from './Field';
 import FieldError from './FieldError';
 
 export const Radios = styled(ChoiceGroup)`
+  .ms-ChoiceField {
+    margin: 0;
+  }
+
   .ms-ChoiceField-field::before {
     ${(props) => props.errorMessage && `border-color: ${theme.redDark};`}
   }

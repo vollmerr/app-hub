@@ -4,6 +4,7 @@ import {
   FieldDate,
   FieldRadios,
   FieldChecks,
+  FieldFile,
 } from 'components/Form';
 
 import { normalizeNumber } from './normalize';
@@ -29,8 +30,8 @@ export default {
    * const from above used for consistency (in the first value).
    * Would nomrally be placed under bySection, but above for readability of example
    */
-  // allSections: [SECTION_TEXT, 'select', 'dates', 'radios', 'checks'],
-  allSections: ['checks'],
+  allSections: [SECTION_TEXT, 'select', 'dates', 'radios', 'checks', 'file'],
+  // allSections: ['checks'],
   /**
    * All sections of form (unordered)
    */
@@ -236,6 +237,18 @@ export default {
         },
       },
       allNames: ['checkDefault', 'checkRequired', 'checkDisabled'],
+    },
+    file: {
+      title: 'File Picker',
+      byName: {
+        fileDefault: {
+          label: 'Default File Picker',
+          name: 'fileDefault',
+          placeholder: 'Select File...',
+          component: FieldFile,
+        },
+      },
+      allNames: ['fileDefault'],
     },
   },
 };
