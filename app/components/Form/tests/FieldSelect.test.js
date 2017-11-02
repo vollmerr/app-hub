@@ -2,11 +2,28 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { ComboBox } from 'office-ui-fabric-react/lib/ComboBox';
 import { testStyledComponent } from 'utils/testUtils';
+import 'jest-styled-components';
 
 import Default, { FieldSelect, Select } from '../FieldSelect';
 import { FieldSelect as Index } from '../index';
 
 testStyledComponent(Select, ComboBox);
+
+describe('FieldFile', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<Select disabled={false} />);
+  });
+
+  it('should render properly when not disabled', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render properly when disabled', () => {
+    wrapper.setProps({ disabled: true });
+    expect(wrapper).toMatchSnapshot();
+  });
+});
 
 const props = {
   name: 'test name',

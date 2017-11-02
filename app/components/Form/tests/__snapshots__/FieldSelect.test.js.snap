@@ -6,8 +6,64 @@ exports[`<FieldSelect__Select /> should render correctly 1`] = `
   box-sizing: border-box;
 }
 
+.c0 .ms-ComboBox:hover {
+  border-color: #333333;
+}
+
+.c0 label {
+  color: #333333;
+}
+
+.c0 * {
+  cursor: pointer;
+}
+
 <CustomizedComboBox
   className="c0"
+/>
+`;
+
+exports[`FieldFile should render properly when disabled 1`] = `
+.c0 .ms-ComboBox {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.c0 label {
+  color: #333333;
+}
+
+.c0 * {
+  cursor: default;
+}
+
+<CustomizedComboBox
+  className="c0"
+  disabled={true}
+/>
+`;
+
+exports[`FieldFile should render properly when not disabled 1`] = `
+.c0 .ms-ComboBox {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.c0 .ms-ComboBox:hover {
+  border-color: #333333;
+}
+
+.c0 label {
+  color: #333333;
+}
+
+.c0 * {
+  cursor: pointer;
+}
+
+<CustomizedComboBox
+  className="c0"
+  disabled={false}
 />
 `;
 

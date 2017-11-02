@@ -16,3 +16,9 @@ export const isEmptyChecks = (value) => (
     ? 'Required'
     : undefined
 );
+
+export const isEmptyFiles = (value) => (
+  !value || typeof value !== 'object' || !value.length || !value[0].name
+    ? 'Required'
+    : undefined
+);

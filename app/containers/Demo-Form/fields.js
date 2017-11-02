@@ -95,7 +95,7 @@ export default {
       title: 'Select / Dropdown',
       byName: {
         selectDefault: {
-          label: 'Default Text',
+          label: 'Default Select',
           name: 'selectDefault',
           placeholder: 'Enter text...',
           component: FieldSelect,
@@ -107,7 +107,7 @@ export default {
         },
         selectRequired: {
           required: true,
-          label: 'Requried Text',
+          label: 'Requried Select',
           name: 'selectRequired',
           placeholder: 'Enter text...',
           component: FieldSelect,
@@ -120,7 +120,7 @@ export default {
         selectDisabled: {
           required: true, // required for testing purposes (should render as not required due to being disabled)
           disabled: true,
-          label: 'Disabled Text',
+          label: 'Disabled Select',
           name: 'selectDisabled',
           placeholder: 'Enter text...',
           component: FieldSelect,
@@ -247,8 +247,23 @@ export default {
           placeholder: 'Select File...',
           component: FieldFile,
         },
+        fileRequired: {
+          required: true,
+          label: 'Required File Picker',
+          name: 'fileRequired',
+          placeholder: 'Select File...',
+          component: FieldFile,
+        },
+        fileDisabled: {
+          required: true, // required for testing purposes (should render as not required due to being disabled)
+          disabled: true,
+          label: 'Disabled File Picker',
+          name: 'fileDisabled',
+          placeholder: 'Select File...',
+          component: FieldFile,
+        },
       },
-      allNames: ['fileDefault'],
+      allNames: ['fileDefault', 'fileRequired', 'fileDisabled'],
     },
   },
 };

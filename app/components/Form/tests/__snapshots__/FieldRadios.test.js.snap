@@ -1,8 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<FieldRadios__Radios /> should render correctly 1`] = `
+.c0 .ms-ChoiceField {
+  margin: 0;
+}
+
 <ChoiceGroup
-  className=""
+  className="c0"
   options={Array []}
 />
 `;
@@ -35,6 +39,10 @@ exports[`FieldSelect should render correctly 1`] = `
 `;
 
 exports[`Radios should render properly when errorMessage 1`] = `
+.c0 .ms-ChoiceField {
+  margin: 0;
+}
+
 .c0 .ms-ChoiceField-field::before {
   border-color: #a80000;
 }
@@ -47,8 +55,12 @@ exports[`Radios should render properly when errorMessage 1`] = `
 `;
 
 exports[`Radios should render properly when no errorMessage 1`] = `
+.c0 .ms-ChoiceField {
+  margin: 0;
+}
+
 <ChoiceGroup
-  className=""
+  className="c0"
   errorMessage={null}
   options={Array []}
 />

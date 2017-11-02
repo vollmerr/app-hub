@@ -2,6 +2,7 @@ import {
   isEmptyText,
   isEmptyDate,
   isEmptyChecks,
+  isEmptyFiles,
 } from '../validate';
 
 const emptyVals = [
@@ -70,6 +71,27 @@ describe('validate utils', () => {
 
       values.forEach((value) => {
         expect(isEmptyChecks(value)).toEqual(undefined);
+      });
+    });
+  });
+
+  describe('isEmptyFiles', () => {
+    it('should return `Required` for empty check box group', () => {
+      const values = [...emptyVals, 'test value'];
+
+      values.forEach((value) => {
+        expect(isEmptyFiles(value)).toEqual('Required');
+      });
+    });
+
+    it('should return `undefined` for non empty files with a `name`', () => {
+      const values = [
+        [{ name: 'test1' }],
+        [{ key: 1, name: '213' }, { key: 2, name: 'asd' }],
+      ];
+
+      values.forEach((value) => {
+        expect(isEmptyFiles(value)).toEqual(undefined);
       });
     });
   });
