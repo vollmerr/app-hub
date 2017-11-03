@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const { string, bool, shape, func, arrayOf } = PropTypes;
+const { string, bool, shape, func, arrayOf, oneOfType } = PropTypes;
 
 export const metaDataProp = shape({
   title: string,
@@ -17,8 +17,8 @@ export const routeProp = shape({
 export const routesProp = arrayOf(routeProp);
 
 // REDUX-FORM
-export const inputProp = shape({
-  value: string,
+export const inputProp = (value) => shape({
+  value,
   onChange: func,
   onBlur: func,
   onFocus: func,

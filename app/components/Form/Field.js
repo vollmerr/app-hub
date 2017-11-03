@@ -50,6 +50,7 @@ function Field(WrappedComponent, requiredFunc = null) {
         validate: toValidate,
         placeholder: newPlaceholder,
         component: WrappedComponent,
+        format: (value) => (value === '' ? [] : value), // to stop warnings for array types (appears to work for text types...)
       };
 
       return (

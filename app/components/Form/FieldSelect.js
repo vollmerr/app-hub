@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ComboBox } from 'office-ui-fabric-react/lib/ComboBox';
 import styled from 'styled-components';
 
@@ -62,9 +63,12 @@ export class FieldSelect extends React.Component {
   }
 }
 
+
+const { string } = PropTypes;
+
 FieldSelect.propTypes = {
   meta: metaProp.isRequired,
-  input: inputProp.isRequired,
+  input: inputProp(string).isRequired,
 };
 
 export default Field(FieldSelect, isEmptyText);

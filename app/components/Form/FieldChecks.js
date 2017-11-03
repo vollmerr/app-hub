@@ -97,11 +97,11 @@ export class FieldChecks extends React.Component {
 }
 
 
-const { bool, string } = PropTypes;
+const { bool, string, arrayOf } = PropTypes;
 
 FieldChecks.propTypes = {
   meta: metaProp.isRequired,
-  input: inputProp.isRequired,
+  input: inputProp(arrayOf(string)).isRequired,
   label: string,
   required: bool,
   options: optionsProp.isRequired,

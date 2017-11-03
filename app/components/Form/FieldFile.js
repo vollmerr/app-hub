@@ -198,11 +198,11 @@ export class FieldFile extends React.Component {
 }
 
 
-const { bool, string } = PropTypes;
+const { bool, string, any } = PropTypes;
 
 FieldFile.propTypes = {
   meta: metaProp.isRequired,
-  input: inputProp.isRequired,
+  input: inputProp(any).isRequired,
   label: string,
   disabled: bool,
   required: bool,

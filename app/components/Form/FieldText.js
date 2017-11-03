@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 
 import { metaProp, inputProp } from 'utils/propTypes';
@@ -32,9 +33,12 @@ export class FieldText extends React.Component {
   }
 }
 
+
+const { string } = PropTypes;
+
 FieldText.propTypes = {
   meta: metaProp.isRequired,
-  input: inputProp.isRequired,
+  input: inputProp(string).isRequired,
 };
 
 export default Field(FieldText, isEmptyText);

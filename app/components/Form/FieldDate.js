@@ -99,11 +99,11 @@ export class FieldDate extends React.Component {
 }
 
 
-const { bool } = PropTypes;
+const { bool, instanceOf } = PropTypes;
 
 FieldDate.propTypes = {
   meta: metaProp.isRequired,
-  input: inputProp.isRequired,
+  input: inputProp(instanceOf(Date)).isRequired,
   required: bool,
 };
 
