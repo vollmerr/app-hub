@@ -1,13 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import styled from 'styled-components';
 
+import { metaProp, inputProp } from 'utils/propTypes';
 import { isEmptyText } from 'utils/validate';
 import theme from 'utils/theme';
 
 import Field from './Field';
 import FieldError from './FieldError';
+
 
 export const Radios = styled(ChoiceGroup)`
   .ms-ChoiceField {
@@ -54,8 +55,8 @@ export class FieldRadios extends React.Component {
 }
 
 FieldRadios.propTypes = {
-  meta: PropTypes.object.isRequired,
-  input: PropTypes.object.isRequired,
+  meta: metaProp.isRequired,
+  input: inputProp.isRequired,
 };
 
 export default Field(FieldRadios, isEmptyText);

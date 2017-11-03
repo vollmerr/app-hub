@@ -12,13 +12,14 @@ import theme from 'utils/theme';
 
 import Wrapper from './Wrapper';
 
+
 export const Field = styled.div`
   label {
     color: ${theme.white};
   }
 `;
 
-/* eslint-disable */
+
 /**
  * Panel for development utilities, such as changing user jwt.
  * (This should be in containers, but makes more sense to have with other panels)
@@ -38,7 +39,7 @@ export class Dev extends React.PureComponent {
 
   render() {
     const { userSam } = this.props;
-    const jwts = DEV.JWT;
+    const jwts = DEV.JWT; // eslint-disable-line
 
     return (
       jwts ?
@@ -54,7 +55,7 @@ export class Dev extends React.PureComponent {
             />
           </Field>
           {
-            Object.keys(jwts).map(group => (
+            Object.keys(jwts).map((group) => (
               <Field key={group}>
                 <Dropdown
                   label={`${group} Test Users`}
@@ -71,12 +72,14 @@ export class Dev extends React.PureComponent {
   }
 }
 
-Dev.propTypes = {
-  onAuthUserRequest: PropTypes.func.isRequired,
-  userSam: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
-};
 
+const { func, string } = PropTypes;
+
+Dev.propTypes = {
+  onAuthUserRequest: func.isRequired,
+  userSam: string,
+  onClick: func.isRequired,
+};
 
 const mapStateToProps = createStructuredSelector({
   userSam: makeSelectUserSam(),

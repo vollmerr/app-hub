@@ -2,15 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { routeProp } from 'utils/propTypes';
 import theme from 'utils/theme';
 
 import AppTile from './AppTile';
+
 
 export const Wrapper = styled.div`
   padding: 15px;
   background: ${theme.themeDarker};
   height: 100%;
 `;
+
 
 class Apps extends React.PureComponent {
   render() {
@@ -27,9 +30,12 @@ class Apps extends React.PureComponent {
   }
 }
 
+
+const { func, arrayOf } = PropTypes;
+
 Apps.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  routes: PropTypes.array.isRequired,
+  onClick: func.isRequired,
+  routes: arrayOf(routeProp).isRequired,
 };
 
 export default Apps;

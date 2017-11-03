@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field as ReduxField } from 'redux-form/immutable';
 
+const { bool, string, arrayOf, func } = PropTypes;
+
 
 function Field(WrappedComponent, requiredFunc = null) {
   return class WrappedField extends React.PureComponent {
     static propTypes = {
-      required: PropTypes.bool,
-      disabled: PropTypes.bool,
-      validate: PropTypes.array,
-      placeholder: PropTypes.string,
+      required: bool,
+      disabled: bool,
+      validate: arrayOf(func),
+      placeholder: string,
     };
 
     static defaultProps = {

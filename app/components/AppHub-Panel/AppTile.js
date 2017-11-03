@@ -48,6 +48,7 @@ export const Text = styled.div`
   display: table;
 `;
 
+
 class AppTile extends React.PureComponent {
   render() {
     const { onClick, route } = this.props;
@@ -62,9 +63,18 @@ class AppTile extends React.PureComponent {
   }
 }
 
+
+const { func, string, shape } = PropTypes;
+
 AppTile.propTypes = {
-  onClick: PropTypes.func,
-  route: PropTypes.object.isRequired,
+  onClick: func,
+  route: shape({
+    key: string,
+    href: string,
+    path: string,
+    name: string,
+    icon: string,
+  }).isRequired,
 };
 
 export default AppTile;

@@ -4,6 +4,7 @@ import { Spinner, SpinnerSize } from 'office-ui-fabric-react/lib/Spinner';
 
 import Wrapper from './Wrapper';
 
+
 class LoadingMessage extends React.PureComponent {
   render() {
     const { text } = this.props;
@@ -16,8 +17,11 @@ class LoadingMessage extends React.PureComponent {
   }
 }
 
+
+const { string } = PropTypes;
+
 LoadingMessage.propTypes = {
-  text: PropTypes.string,
+  text: string,
 };
 
 export default LoadingMessage;

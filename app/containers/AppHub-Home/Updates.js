@@ -6,6 +6,7 @@ import { List } from 'office-ui-fabric-react/lib/List';
 import Link from 'components/Link';
 import theme from 'utils/theme';
 
+
 export const Wrapper = styled.div`
   background: ${theme.neutralLighter};
   padding: 25px;
@@ -17,11 +18,14 @@ export const Wrapper = styled.div`
   }
 `;
 
+
 export const Padded = styled.div`
   padding: 0 0 15px 15px;
 `;
 
+
 export const Header = Padded.withComponent('h2');
+
 
 export const updates = [
   {
@@ -44,6 +48,7 @@ export const updates = [
   },
 ];
 
+
 export const Item = styled.div`
   display: flex;
   align-items: center;
@@ -57,9 +62,11 @@ export const Item = styled.div`
   }
 `;
 
+
 export const Date = styled.div`
   flex: 1;
 `;
+
 
 export const Name = styled(Link) `
   flex: 4;
@@ -70,6 +77,7 @@ export const Name = styled(Link) `
     color: ${theme.themeDark};
   }
 `;
+
 
 export const ReadMore = styled.div`
   flex: 1;
@@ -83,6 +91,7 @@ export const ReadMore = styled.div`
   }
 `;
 
+
 class Updates extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -93,7 +102,7 @@ class Updates extends React.PureComponent {
     };
   }
 
-  handleClickRead = (item = {}) => {
+  handleClickRead = (item = {}) => () => {
     this.setState({
       name: item.name,
       desc: item.desc,
@@ -105,7 +114,7 @@ class Updates extends React.PureComponent {
     <Item>
       <Date>{item.date}</Date>
       <Name to={item.to} href={item.href}>{item.name}</Name>
-      <ReadMore onClick={() => this.handleClickRead(item)}>Read More</ReadMore>
+      <ReadMore onClick={this.handleClickRead(item)}>Read More</ReadMore>
     </Item>
   )
 
@@ -124,7 +133,7 @@ class Updates extends React.PureComponent {
         </Header>
         {
           isReadingMore ?
-            <div>{desc}<ReadMore onClick={() => this.handleClickRead()}>Back</ReadMore></div> :
+            <div>{desc}<ReadMore onClick={this.handleClickRead()}>Back</ReadMore></div> :
             <List
               items={updates}
               onRenderCell={this.renderCell}
@@ -135,8 +144,11 @@ class Updates extends React.PureComponent {
   }
 }
 
+
+const { bool } = PropTypes;
+
 Updates.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
+  isMobile: bool.isRequired,
 };
 
 export default Updates;

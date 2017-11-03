@@ -83,14 +83,14 @@ describe('<Updates />', () => {
 
   describe('handleClickRead', () => {
     it('should set the item passed', () => {
-      instance.handleClickRead(item);
+      instance.handleClickRead(item)();
       expect(wrapper.state('name')).toEqual(item.name);
       expect(wrapper.state('desc')).toEqual(item.desc);
       expect(wrapper.state('isReadingMore')).toEqual(item.name);
     });
 
     it('should set no item when not passed one', () => {
-      instance.handleClickRead();
+      instance.handleClickRead()();
       expect(wrapper.state('name')).toEqual();
       expect(wrapper.state('desc')).toEqual();
       expect(wrapper.state('isReadingMore')).toEqual();

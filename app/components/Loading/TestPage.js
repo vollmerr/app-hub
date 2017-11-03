@@ -2,6 +2,7 @@ import React from 'react';
 
 import Loading from './';
 
+
 class TestPage extends React.PureComponent {
   render() {
     const props = {

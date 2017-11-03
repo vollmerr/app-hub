@@ -58,6 +58,7 @@ const onHoverProps = {
   checkboxVisibility: CheckboxVisibility.onHover,
 };
 
+
 export class DemoLists extends React.PureComponent {
   render() {
     return (
@@ -76,8 +77,11 @@ export class DemoLists extends React.PureComponent {
   }
 }
 
+
+const { func } = PropTypes;
+
 DemoLists.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  dispatch: func.isRequired,
 };
 
 

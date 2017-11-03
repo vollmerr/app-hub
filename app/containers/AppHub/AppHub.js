@@ -7,6 +7,7 @@ import { Helmet } from 'react-helmet';
 
 import AppHubHeader from 'components/AppHub-Header';
 import AppHubPanel from 'components/AppHub-Panel';
+import { routesProp } from 'utils/propTypes';
 import theme from 'utils/theme';
 
 import injectSaga from 'utils/injectSaga';
@@ -23,6 +24,7 @@ import {
 import saga from './saga';
 import { changeMobile, changePanelOpen, changePanelSelected, authUserRequest } from './actions';
 import meta from './meta';
+
 
 export class AppHub extends React.PureComponent {
   constructor(props) {
@@ -105,18 +107,21 @@ export class AppHub extends React.PureComponent {
   }
 }
 
+
+const { func, bool, string } = PropTypes;
+
 AppHub.propTypes = {
-  onChangePanelOpen: PropTypes.func.isRequired,
-  onChangePanelSelected: PropTypes.func.isRequired,
-  onChangeMobile: PropTypes.func.isRequired,
-  onAuthUserRequest: PropTypes.func.isRequired,
-  isMobile: PropTypes.bool.isRequired,
-  panelIsOpen: PropTypes.bool.isRequired,
-  panelSelected: PropTypes.string.isRequired,
-  userName: PropTypes.string.isRequired,
-  appName: PropTypes.string.isRequired,
-  appRoutes: PropTypes.array.isRequired,
-  routes: PropTypes.array.isRequired,
+  onChangePanelOpen: func.isRequired,
+  onChangePanelSelected: func.isRequired,
+  onChangeMobile: func.isRequired,
+  onAuthUserRequest: func.isRequired,
+  isMobile: bool.isRequired,
+  panelIsOpen: bool.isRequired,
+  panelSelected: string.isRequired,
+  userName: string.isRequired,
+  appName: string.isRequired,
+  appRoutes: routesProp.isRequired,
+  routes: routesProp.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -166,15 +166,17 @@ class Header extends React.PureComponent {
   }
 }
 
+const { func, bool, string, array } = PropTypes;
+
 Header.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
-  appName: PropTypes.string,
-  appPath: PropTypes.string,
-  panel: PropTypes.string.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  userName: PropTypes.string,
-  alerts: PropTypes.array,
+  isMobile: bool.isRequired,
+  onClick: func.isRequired,
+  appName: string,
+  appPath: string,
+  panel: string.isRequired,
+  isOpen: bool.isRequired,
+  userName: string,
+  alerts: array,
 };
 
 export default Header;

@@ -16,12 +16,14 @@ import Section from './Section';
 import fields from './fields';
 import validate from './validate';
 
+
 const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
   margin: 15px 0;
 `;
+
 
 const Buttons = styled.div`
   display: flex;
@@ -77,11 +79,14 @@ export class DemoForm extends React.PureComponent {
   }
 }
 
+
+const { func, bool, string } = PropTypes;
+
 DemoForm.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  reset: PropTypes.func.isRequired,
-  pristine: PropTypes.bool.isRequired,
-  submitting: PropTypes.bool.isRequired,
+  handleSubmit: func.isRequired,
+  reset: func.isRequired,
+  pristine: bool.isRequired,
+  submitting: bool.isRequired,
 };
 
 const withForm = reduxForm({

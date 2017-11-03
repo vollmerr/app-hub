@@ -4,11 +4,13 @@ import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import styled from 'styled-components';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 
+import { metaProp, inputProp, optionsProp } from 'utils/propTypes';
 import { isEmptyChecks } from 'utils/validate';
 import theme from 'utils/theme';
 
 import Field from './Field';
 import FieldError from './FieldError';
+
 
 export const Check = styled(Checkbox)`
   margin: 5px 0;
@@ -95,12 +97,14 @@ export class FieldChecks extends React.Component {
 }
 
 
+const { bool, string } = PropTypes;
+
 FieldChecks.propTypes = {
-  meta: PropTypes.object.isRequired,
-  input: PropTypes.object.isRequired,
-  label: PropTypes.string,
-  required: PropTypes.bool,
-  options: PropTypes.array.isRequired,
+  meta: metaProp.isRequired,
+  input: inputProp.isRequired,
+  label: string,
+  required: bool,
+  options: optionsProp.isRequired,
 };
 
 export default Field(FieldChecks, isEmptyChecks);

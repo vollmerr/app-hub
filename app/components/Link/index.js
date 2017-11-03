@@ -3,13 +3,16 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import styled from 'styled-components';
 
+
 export const StyledLink = styled(RouterLink) `
   text-decoration: none;
 `;
 
+
 export const A = styled.a`
   text-decoration: none;
 `;
+
 
 class Link extends React.PureComponent {
   render() {
@@ -31,10 +34,13 @@ class Link extends React.PureComponent {
   }
 }
 
+
+const { string, node } = PropTypes;
+
 Link.propTypes = {
-  to: PropTypes.string,
-  href: PropTypes.string,
-  children: PropTypes.node,
+  to: string,
+  href: string,
+  children: node,
 };
 
 export default Link;

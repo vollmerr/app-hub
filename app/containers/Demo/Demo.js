@@ -20,6 +20,7 @@ const app = {
   routes,
 };
 
+
 export class Demo extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     app.name = this.props.name;
@@ -30,9 +31,12 @@ export class Demo extends React.PureComponent { // eslint-disable-line react/pre
   }
 }
 
+
+const { func, string } = PropTypes;
+
 Demo.propTypes = {
-  dispatch: PropTypes.func.isRequired, //eslint-disable-line
-  name: PropTypes.string.isRequired,
+  dispatch: func.isRequired, //eslint-disable-line
+  name: string.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

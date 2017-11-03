@@ -112,11 +112,20 @@ class List extends React.PureComponent {
   }
 }
 
+
+const { string, number, arrayOf, shape, any } = PropTypes;
+
 List.propTypes = {
-  title: PropTypes.string,
-  items: PropTypes.array,
-  columns: PropTypes.array,
-  checkboxVisibility: PropTypes.number,
+  title: string,
+  items: arrayOf(any),
+  columns: arrayOf(
+    shape({
+      key: string,
+      name: string,
+      fieldName: string,
+    }),
+  ),
+  checkboxVisibility: number,
 };
 
 export default List;

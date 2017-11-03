@@ -5,11 +5,13 @@ import styled from 'styled-components';
 
 import theme from 'utils/theme';
 
+
 export const Wrapper = styled.div`
   width: 100%;
   max-width: calc(${theme.hub.numApps} * ${theme.hub.tileSize} + ${(theme.hub.numApps - 1) * 2} * 3px);
   background: ${theme.white};
 `;
+
 
 class Search extends React.PureComponent {
   render() {
@@ -23,8 +25,11 @@ class Search extends React.PureComponent {
   }
 }
 
+
+const { func } = PropTypes;
+
 Search.propTypes = {
-  onChange: PropTypes.func.isRequired,
+  onChange: func.isRequired,
 };
 
 export default Search;

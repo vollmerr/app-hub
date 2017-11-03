@@ -5,6 +5,7 @@ import Wrapper from './Wrapper';
 import Overlay from './Overlay';
 import Content from './Content';
 
+
 class Panel extends React.PureComponent {
   render() {
     const { onClick, children, left, isOpen } = this.props;
@@ -24,11 +25,14 @@ class Panel extends React.PureComponent {
   }
 }
 
+
+const { func, bool, node } = PropTypes;
+
 Panel.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-  left: PropTypes.bool,
-  isOpen: PropTypes.bool.isRequired,
+  onClick: func.isRequired,
+  children: node.isRequired,
+  left: bool,
+  isOpen: bool.isRequired,
 };
 
 export default Panel;

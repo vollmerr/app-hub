@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { routeProp } from 'utils/propTypes';
 import AppNav from 'containers/App-Nav';
 import Panel from 'components/Panel';
 import {
@@ -24,6 +25,7 @@ const panels = {
   [DEV_PANEL]: Dev,
 };
 
+
 class AppHubPanel extends React.PureComponent {
   render() {
     const { panel, isOpen, onClick, routes, appRoutes, isMobile } = this.props;
@@ -39,13 +41,16 @@ class AppHubPanel extends React.PureComponent {
   }
 }
 
+
+const { func, bool, string, arrayOf } = PropTypes;
+
 AppHubPanel.propTypes = {
-  panel: PropTypes.string.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  onClick: PropTypes.func.isRequired,
-  routes: PropTypes.array,
-  appRoutes: PropTypes.array,
-  isMobile: PropTypes.bool.isRequired,
+  panel: string.isRequired,
+  isOpen: bool.isRequired,
+  onClick: func.isRequired,
+  routes: arrayOf(routeProp),
+  appRoutes: arrayOf(routeProp),
+  isMobile: bool.isRequired,
 };
 
 export default AppHubPanel;

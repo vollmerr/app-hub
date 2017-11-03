@@ -101,18 +101,23 @@ class Link extends React.PureComponent {
   }
 }
 
+
+const { func, bool, string, node, shape } = PropTypes;
+
 Link.propTypes = {
-  panel: PropTypes.string,
-  title: PropTypes.string,
-  iconProps: PropTypes.object,
-  onClick: PropTypes.func,
-  text: PropTypes.string,
-  to: PropTypes.string,
-  href: PropTypes.string,
-  children: PropTypes.node,
-  dark: PropTypes.bool,
-  checked: PropTypes.bool,
-  padding: PropTypes.string,
+  panel: string,
+  title: string,
+  iconProps: shape({
+    iconName: string,
+  }),
+  onClick: func,
+  text: string,
+  to: string,
+  href: string,
+  children: node,
+  dark: bool,
+  checked: bool,
+  padding: string,
 };
 
 export default Link;

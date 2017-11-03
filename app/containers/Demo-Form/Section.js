@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import theme from 'utils/theme';
 
+
 const Wrapper = styled.div`
   flex: 30%;
   min-width: ${theme.breakpoints.xs}px;
@@ -36,10 +37,13 @@ export class Section extends React.PureComponent {
   }
 }
 
+
+const { object, array, string } = PropTypes;
+
 Section.propTypes = {
-  title: PropTypes.string.isRequired,
-  allNames: PropTypes.array.isRequired,
-  byName: PropTypes.object.isRequired,
+  title: string.isRequired,
+  allNames: array.isRequired,
+  byName: object.isRequired,
 };
 
 export default Section;

@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import styled from 'styled-components';
 
+import { routesProp } from 'utils/propTypes';
 import { escapeRegExp } from 'utils/string';
 import theme from 'utils/theme';
 import { makeSelectIsMobile } from 'containers/AppHub/selectors';
@@ -41,6 +42,7 @@ export const Container = styled.div`
   }
 `;
 
+
 export const UpperSection = styled.div`
   align-items: center;
   justify-content: center;
@@ -50,6 +52,7 @@ export const UpperSection = styled.div`
   background: ${theme.themeDarker};
   min-height: 40%;
 `;
+
 
 export const LowerSection = UpperSection.extend`
   min-height: 60%;
@@ -100,9 +103,12 @@ export class AppHubHome extends React.PureComponent {
   }
 }
 
+
+const { bool } = PropTypes;
+
 AppHubHome.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  routes: PropTypes.array.isRequired,
+  isMobile: bool.isRequired,
+  routes: routesProp.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -1,12 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { ComboBox } from 'office-ui-fabric-react/lib/ComboBox';
 import styled from 'styled-components';
 
+import { metaProp, inputProp } from 'utils/propTypes';
 import { isEmptyText } from 'utils/validate';
 import theme from 'utils/theme';
 
 import Field from './Field';
+
 
 export const Select = styled(ComboBox)`
   .ms-ComboBox {
@@ -28,6 +29,7 @@ export const Select = styled(ComboBox)`
     cursor: ${(props) => props.disabled ? 'default' : 'pointer'};
   }
 `;
+
 
 export class FieldSelect extends React.Component {
   handleChange = (option) => {
@@ -61,8 +63,8 @@ export class FieldSelect extends React.Component {
 }
 
 FieldSelect.propTypes = {
-  meta: PropTypes.object.isRequired,
-  input: PropTypes.object.isRequired,
+  meta: metaProp.isRequired,
+  input: inputProp.isRequired,
 };
 
 export default Field(FieldSelect, isEmptyText);

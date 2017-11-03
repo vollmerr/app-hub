@@ -1,9 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import AppTile from 'components/AppHub-Panel/AppTile';
+import { routesProp } from 'utils/propTypes';
 import theme from 'utils/theme';
+
 
 export const Wrapper = styled.div`
   max-width: calc(${theme.hub.numApps} * ${theme.hub.tileSize} + ${(theme.hub.numApps) * 2} * 3px);
@@ -33,7 +34,7 @@ class Apps extends React.PureComponent {
 }
 
 Apps.propTypes = {
-  routes: PropTypes.array.isRequired,
+  routes: routesProp.isRequired,
 };
 
 export default Apps;

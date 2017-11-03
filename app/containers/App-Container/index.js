@@ -5,12 +5,14 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import { metaDataProp, routesProp } from 'utils/propTypes';
 import { changeApp } from 'containers/AppHub/actions';
 import { makeSelectIsMobile, makeSelectAppMeta, makeSelectAppRoutes } from 'containers/AppHub/selectors';
 import { initialState } from 'containers/AppHub/reducer';
 import AppNav from 'containers/App-Nav';
 
 import Wrapper from './Wrapper';
+
 
 export class AppContainer extends React.PureComponent {
   componentDidMount() {
@@ -42,12 +44,18 @@ export class AppContainer extends React.PureComponent {
   }
 }
 
+
+const { func, bool, shape } = PropTypes;
+
 AppContainer.propTypes = {
-  onChangeApp: PropTypes.func.isRequired,
-  app: PropTypes.object.isRequired,
-  isMobile: PropTypes.bool.isRequired,
-  appRoutes: PropTypes.array.isRequired,
-  appMeta: PropTypes.object.isRequired,
+  onChangeApp: func.isRequired,
+  app: shape({
+    meta: metaDataProp,
+    routes: routesProp,
+  }).isRequired,
+  isMobile: bool.isRequired,
+  appRoutes: routesProp.isRequired,
+  appMeta: metaDataProp.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

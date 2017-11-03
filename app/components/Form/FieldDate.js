@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { DatePicker } from 'office-ui-fabric-react/lib/DatePicker';
 import styled from 'styled-components';
 
+import { metaProp, inputProp } from 'utils/propTypes';
 import { isEmptyDate } from 'utils/validate';
 
 import Field from './Field';
+
 
 /**
  * Fix componentWillReceiveProps instead of completely rewritting...
@@ -29,6 +31,7 @@ DatePicker.prototype.componentWillReceiveProps = function (nextProps) { // eslin
     formattedDate: (formatDate && value) ? formatDate(value) : '',
   });
 };
+
 
 /**
  * Fix _validateTextInput instead of completely rewritting...
@@ -55,6 +58,7 @@ DatePicker.prototype._validateTextInput = function() { // eslint-disable-line
     });
   }
 };
+
 
 export const Picker = styled(DatePicker)`
   ${(props) => props.disabled && '.ms-Icon { display: none; }'}
@@ -94,10 +98,13 @@ export class FieldDate extends React.Component {
   }
 }
 
+
+const { bool } = PropTypes;
+
 FieldDate.propTypes = {
-  meta: PropTypes.object.isRequired,
-  input: PropTypes.object.isRequired,
-  required: PropTypes.bool,
+  meta: metaProp.isRequired,
+  input: inputProp.isRequired,
+  required: bool,
 };
 
 export default Field(FieldDate, isEmptyDate);

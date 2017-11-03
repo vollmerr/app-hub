@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import ErrorMessage from './ErrorMessage';
 import LoadingMessage from './LoadingMessage';
 
+
 // https://www.npmjs.com/package/react-loadable
 class Loading extends React.PureComponent {
   render() {
@@ -23,12 +24,15 @@ class Loading extends React.PureComponent {
   }
 }
 
+
+const { bool, string, shape } = PropTypes;
+
 Loading.propTypes = {
-  text: PropTypes.string,
-  isLoading: PropTypes.bool,
-  timedOut: PropTypes.bool,
-  pastDelay: PropTypes.bool,
-  error: PropTypes.object,
+  text: string,
+  isLoading: bool,
+  timedOut: bool,
+  pastDelay: bool,
+  error: shape({ message: string }),
 };
 
 export default Loading;

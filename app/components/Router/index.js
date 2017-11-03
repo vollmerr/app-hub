@@ -1,7 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
+import { routesProp } from 'utils/propTypes';
 import { Switch, Route, Redirect } from 'react-router-dom';
+
 
 const Router = ({ routes }) => (
   <Switch>
@@ -23,7 +24,7 @@ const Router = ({ routes }) => (
 );
 
 Router.propTypes = {
-  routes: PropTypes.array.isRequired,
+  routes: routesProp.isRequired,
 };
 
 export default Router;

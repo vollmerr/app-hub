@@ -5,11 +5,13 @@ import styled from 'styled-components';
 import { DefaultButton, IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 
+import { metaProp, inputProp } from 'utils/propTypes';
 import { isEmptyFiles } from 'utils/validate';
 import theme from 'utils/theme';
 
 import Field from './Field';
 import FieldError from './FieldError';
+
 
 export const FilePicker = styled.div`
   display: flex;
@@ -28,6 +30,7 @@ export const FilePicker = styled.div`
   }
 `;
 
+
 export const DropZone = styled(Dropzone)`
   flex: 1;
   display: flex;
@@ -37,12 +40,14 @@ export const DropZone = styled(Dropzone)`
   cursor: pointer;
 `;
 
+
 export const FileName = styled.div`
   padding: 0 15px;
   color: ${(props) => (
     props.disabled && `${theme.neutralTertiary}`
   )};
 `;
+
 
 export class FieldFile extends React.Component {
   constructor(props) {
@@ -192,13 +197,16 @@ export class FieldFile extends React.Component {
   }
 }
 
+
+const { bool, string } = PropTypes;
+
 FieldFile.propTypes = {
-  meta: PropTypes.object.isRequired,
-  input: PropTypes.object.isRequired,
-  label: PropTypes.string,
-  disabled: PropTypes.bool,
-  required: PropTypes.bool,
-  placeholder: PropTypes.string,
+  meta: metaProp.isRequired,
+  input: inputProp.isRequired,
+  label: string,
+  disabled: bool,
+  required: bool,
+  placeholder: string,
 };
 
 export default Field(FieldFile, isEmptyFiles);

@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 
 import { history } from 'configureStore';
 
+import { routesProp } from 'utils/propTypes';
+
 import Items from './Items';
+
 
 // https://github.com/OfficeDev/office-ui-fabric-react/issues/915
 class AppNav extends React.PureComponent {
@@ -81,10 +84,13 @@ class AppNav extends React.PureComponent {
   }
 }
 
+
+const { func, bool } = PropTypes;
+
 AppNav.propTypes = {
-  appRoutes: PropTypes.array.isRequired,
-  onClick: PropTypes.func,
-  isMobile: PropTypes.bool.isRequired,
+  appRoutes: routesProp.isRequired,
+  onClick: func,
+  isMobile: bool.isRequired,
 };
 
 export default AppNav;

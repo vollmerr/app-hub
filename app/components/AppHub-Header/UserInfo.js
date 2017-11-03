@@ -27,6 +27,7 @@ export const Initials = styled.div`
   align-items: center;
 `;
 
+
 const UserInfo = ({ name, initials }) => (
   <Item>
     <Name>{name}</Name>
@@ -34,9 +35,12 @@ const UserInfo = ({ name, initials }) => (
   </Item>
 );
 
+
+const { string } = PropTypes;
+
 UserInfo.propTypes = {
-  name: PropTypes.string.isRequired,
-  initials: PropTypes.string.isRequired,
+  name: string.isRequired,
+  initials: string.isRequired,
 };
 
 export default UserInfo;

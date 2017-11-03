@@ -14,6 +14,7 @@ import { exampleDataRequest } from 'containers/Demo/actions';
 import Scroll from './Scroll';
 import Button from './Button';
 
+
 export class DemoHome extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -58,11 +59,14 @@ export class DemoHome extends React.PureComponent {
   }
 }
 
+
+const { func, object } = PropTypes;
+
 DemoHome.propTypes = {
-  onExampleDataRequest: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
-  exampleData: PropTypes.object,
-  app: PropTypes.object.isRequired,
+  onExampleDataRequest: func.isRequired,
+  user: object.isRequired,
+  exampleData: object,
+  app: object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

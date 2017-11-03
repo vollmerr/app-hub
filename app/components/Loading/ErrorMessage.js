@@ -9,17 +9,21 @@ import Link from 'components/Link';
 
 import Wrapper from './Wrapper';
 
+
 export const Header = styled.div`
   font-size: 24px;
 `;
+
 
 export const Message = styled.div`
   font-size: 14px;
 `;
 
-const Button = styled(DefaultButton) `
+
+export const Button = styled(DefaultButton) `
   margin: 20px;
 `;
+
 
 export class ErrorMessage extends React.PureComponent {
   render() {
@@ -44,13 +48,16 @@ export class ErrorMessage extends React.PureComponent {
   }
 }
 
+
+const { func, string, shape, oneOfType } = PropTypes;
+
 ErrorMessage.propTypes = {
-  error: PropTypes.oneOfType([
-    PropTypes.object,
-    PropTypes.string,
+  error: oneOfType([
+    shape({ message: string }),
+    string,
   ]),
-  to: PropTypes.string,
-  onChangeAppStatus: PropTypes.func.isRequired,
+  to: string,
+  onChangeAppStatus: func.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {
