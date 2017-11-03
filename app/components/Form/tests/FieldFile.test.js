@@ -1,20 +1,21 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Dropzone from 'react-dropzone';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { DefaultButton, IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import 'jest-styled-components';
 
 import { testStyledComponent } from 'utils/testUtils';
 
-import Default, { FieldFile, FilePicker, FileName } from '../FieldFile';
+import Default, { FieldFile, FilePicker, DropZone, FileName } from '../FieldFile';
 import { FieldFile as Index } from '../index';
 import FieldError from '../FieldError';
 
-testStyledComponent(FilePicker, Dropzone);
+testStyledComponent(FilePicker);
+testStyledComponent(DropZone, Dropzone);
 testStyledComponent(FileName);
 
-describe('FieldFile', () => {
+describe('FilePicker', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(<FilePicker disabled={false} data-error={null} />);
@@ -87,7 +88,7 @@ describe('FieldFile', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render a `label`', () => {
+  it('should render a `label` if passed one', () => {
     expect(wrapper.find(Label).length).toEqual(1);
   });
 
@@ -96,15 +97,34 @@ describe('FieldFile', () => {
     expect(wrapper.find(Label).length).toEqual(0);
   });
 
-  it('should render a FilePicker', () => {
+  it('should render a `FilePicker`', () => {
     expect(wrapper.find(FilePicker).length).toEqual(1);
   });
 
-  it('should render the file name', () => {
+  it('should render a clear icon button if it has files and not disabled', () => {
+    wrapper.setState({ files });
+    expect(wrapper.find(IconButton).length).toEqual(1);
+  });
+
+  it('should not render a clear icon button if it has no files', () => {
+    expect(wrapper.find(IconButton).length).toEqual(0);
+  });
+
+  it('should not render a clear icon button if it has files but is disabled', () => {
+    wrapper.setProps({ disabled: true });
+    wrapper.setState({ files });
+    expect(wrapper.find(IconButton).length).toEqual(0);
+  });
+
+  it('should render a `DropZone`', () => {
+    expect(wrapper.find(DropZone).length).toEqual(1);
+  });
+
+  it('should render a `FileName` within the drop zone', () => {
     const name = 'test name';
     wrapper.setState({ files: [{ name }] });
-    expect(wrapper.find(FileName).length).toEqual(1);
-    expect(wrapper.find(FileName).dive().text()).toEqual(name);
+    expect(wrapper.find(DropZone).find(FileName).length).toEqual(1);
+    expect(wrapper.find(DropZone).find(FileName).dive().text()).toEqual(name);
   });
 
   it('should render the placeholder when no file selected', () => {
@@ -168,7 +188,7 @@ describe('FieldFile', () => {
       input = { ...props.input, value: undefined };
       instance.componentWillReceiveProps({ ...props, input });
       expect(wrapper.state('files')).toEqual([]);
-      // test again with empy array
+      // test again with empty array
       input = { ...props.input, value: [] };
       instance.componentWillReceiveProps({ ...props, input });
       expect(wrapper.state('files')).toEqual([]);
@@ -200,5 +220,35 @@ describe('FieldFile', () => {
       expect(wrapper.state('files')).toEqual(files);
       expect(wrapper.state('attachError')).toEqual('Failed to attch file.');
     });
+  });
+
+  describe('onClear', () => {
+    let instance;
+    beforeEach(() => {
+      instance = wrapper.instance();
+    });
+
+    it('should handle calling redux-form`s onChange', () => {
+      instance.onClear();
+      expect(props.input.onChange).toHaveBeenCalledWith([]);
+    });
+
+    it('should handle updating `files` and `attachError` in the state', () => {
+      instance.onClear();
+      expect(wrapper.state('files')).toEqual([]);
+      expect(wrapper.state('attachError')).toEqual(null);
+    });
+
+    it('should be called when the clear icon is clicked', () => {
+      instance.onClear = jest.fn();
+      // make the icon button appear by having files...
+      wrapper.setState({ files });
+      wrapper.find(IconButton).simulate('click');
+      expect(instance.onClear).toHaveBeenCalled();
+    });
+  });
+
+  xit('should have tests for dropZoneRef', () => {
+    // TODO: FIGURE OUT HOW TO TEST REFS
   });
 });

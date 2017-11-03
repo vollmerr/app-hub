@@ -34,7 +34,7 @@ const initializeIcons = () => {
       chevrondown: '\uE088',
       chevronup: '\uE087',
       Search: '\uE039',
-      clear: '\uE353',
+      Clear: '\uE353',
       CircleRing: '\uF8FE',
       StatusCircleCheckmark: '\uF8FF',
       sortup: '\uF8FB',

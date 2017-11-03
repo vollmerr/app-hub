@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<FieldFile__DropZone /> should render correctly 1`] = `
+.c0 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-right: auto;
+  height: 32px;
+  cursor: pointer;
+}
+
+<Dropzone
+  className="c0"
+  disableClick={false}
+  disablePreview={false}
+  disabled={false}
+  maxSize={Infinity}
+  minSize={0}
+  multiple={true}
+  preventDropOnDocument={true}
+/>
+`;
+
 exports[`<FieldFile__FileName /> should render correctly 1`] = `
 .c0 {
   padding: 0 15px;
@@ -17,34 +47,21 @@ exports[`<FieldFile__FilePicker /> should render correctly 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
   -webkit-box-pack: space-between;
   -webkit-justify-content: space-between;
   -ms-flex-pack: space-between;
   justify-content: space-between;
-  height: 32px;
   border: 1px solid;
   border-right: 0;
   border-color: #a6a6a6;
-  cursor: pointer;
 }
 
 .c0:hover {
   border-color: #333333;
 }
 
-<Dropzone
+<div
   className="c0"
-  disableClick={false}
-  disablePreview={false}
-  disabled={false}
-  maxSize={Infinity}
-  minSize={0}
-  multiple={true}
-  preventDropOnDocument={true}
 />
 `;
 
@@ -58,167 +75,29 @@ exports[`FieldFile should render correctly 1`] = `
   </CustomizedLabel>
   <FieldFile__FilePicker
     disabled={false}
-    name="test name"
-    onDrop={[Function]}
-    type="file"
   >
-    <FieldFile__FileName
-      disabled={true}
+    <FieldFile__DropZone
+      disabled={false}
+      innerRef={[Function]}
+      name="test name"
+      onDrop={[Function]}
+      type="file"
     >
-      Select a file to upload
-    </FieldFile__FileName>
+      <FieldFile__FileName
+        disabled={true}
+      >
+        Select a file to upload
+      </FieldFile__FileName>
+    </FieldFile__DropZone>
     <CustomizedDefaultButton
       disabled={false}
+      onClick={[Function]}
       primary={true}
       text="Attach File"
       type="button"
     />
   </FieldFile__FilePicker>
 </div>
-`;
-
-exports[`FieldFile should render properly when disabled 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: space-between;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: space-between;
-  justify-content: space-between;
-  height: 32px;
-  border: 1px solid;
-  border-right: 0;
-  border-color: #eaeaea;
-  cursor: pointer;
-}
-
-<Dropzone
-  className="c0"
-  data-error={null}
-  disableClick={false}
-  disablePreview={false}
-  disabled={true}
-  maxSize={Infinity}
-  minSize={0}
-  multiple={true}
-  preventDropOnDocument={true}
-/>
-`;
-
-exports[`FieldFile should render properly when disabled and errors 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: space-between;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: space-between;
-  justify-content: space-between;
-  height: 32px;
-  border: 1px solid;
-  border-right: 0;
-  border-color: #eaeaea;
-  cursor: pointer;
-}
-
-<Dropzone
-  className="c0"
-  data-error="test error"
-  disableClick={false}
-  disablePreview={false}
-  disabled={true}
-  maxSize={Infinity}
-  minSize={0}
-  multiple={true}
-  preventDropOnDocument={true}
-/>
-`;
-
-exports[`FieldFile should render properly when errors 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: space-between;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: space-between;
-  justify-content: space-between;
-  height: 32px;
-  border: 1px solid;
-  border-right: 0;
-  border-color: #a80000;
-  cursor: pointer;
-}
-
-.c0:hover {
-  border-color: #333333;
-}
-
-<Dropzone
-  className="c0"
-  data-error="test error"
-  disableClick={false}
-  disablePreview={false}
-  disabled={false}
-  maxSize={Infinity}
-  minSize={0}
-  multiple={true}
-  preventDropOnDocument={true}
-/>
-`;
-
-exports[`FieldFile should render properly when not disabled or errors 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: space-between;
-  -webkit-justify-content: space-between;
-  -ms-flex-pack: space-between;
-  justify-content: space-between;
-  height: 32px;
-  border: 1px solid;
-  border-right: 0;
-  border-color: #a6a6a6;
-  cursor: pointer;
-}
-
-.c0:hover {
-  border-color: #333333;
-}
-
-<Dropzone
-  className="c0"
-  data-error={null}
-  disableClick={false}
-  disablePreview={false}
-  disabled={false}
-  maxSize={Infinity}
-  minSize={0}
-  multiple={true}
-  preventDropOnDocument={true}
-/>
 `;
 
 exports[`FileName should render properly when disabled 1`] = `
@@ -241,6 +120,102 @@ exports[`FileName should render properly when not disabled 1`] = `
 
 <div
   className="c0"
+  disabled={false}
+/>
+`;
+
+exports[`FilePicker should render properly when disabled 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-between;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: space-between;
+  justify-content: space-between;
+  border: 1px solid;
+  border-right: 0;
+  border-color: #eaeaea;
+}
+
+<div
+  className="c0"
+  data-error={null}
+  disabled={true}
+/>
+`;
+
+exports[`FilePicker should render properly when disabled and errors 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-between;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: space-between;
+  justify-content: space-between;
+  border: 1px solid;
+  border-right: 0;
+  border-color: #eaeaea;
+}
+
+<div
+  className="c0"
+  data-error="test error"
+  disabled={true}
+/>
+`;
+
+exports[`FilePicker should render properly when errors 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-between;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: space-between;
+  justify-content: space-between;
+  border: 1px solid;
+  border-right: 0;
+  border-color: #a80000;
+}
+
+.c0:hover {
+  border-color: #333333;
+}
+
+<div
+  className="c0"
+  data-error="test error"
+  disabled={false}
+/>
+`;
+
+exports[`FilePicker should render properly when not disabled or errors 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-between;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: space-between;
+  justify-content: space-between;
+  border: 1px solid;
+  border-right: 0;
+  border-color: #a6a6a6;
+}
+
+.c0:hover {
+  border-color: #333333;
+}
+
+<div
+  className="c0"
+  data-error={null}
   disabled={false}
 />
 `;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { DefaultButton, IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 
 import { isEmptyFiles } from 'utils/validate';
@@ -11,11 +11,9 @@ import theme from 'utils/theme';
 import Field from './Field';
 import FieldError from './FieldError';
 
-export const FilePicker = styled(Dropzone)`
+export const FilePicker = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  height: 32px;
   border: 1px solid;
   border-right: 0;
   border-color: ${(props) => (
@@ -23,7 +21,6 @@ export const FilePicker = styled(Dropzone)`
     (props['data-error'] && `${theme.redDark}`) ||
     `${theme.neutralTertiary}`
   )};
-  cursor: pointer;
 
   ${(props) => !props.disabled &&
     `&:hover {
@@ -32,35 +29,21 @@ export const FilePicker = styled(Dropzone)`
   }
 `;
 
+export const DropZone = styled(Dropzone)`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  height: 32px;
+  cursor: pointer;
+`;
+
 export const FileName = styled.div`
   padding: 0 15px;
   color: ${(props) => (
     props.disabled && `${theme.neutralTertiary}`
   )};
 `;
-
-// make into blob and save
-// const saveByteArray = (function _saveByteArray() {
-//   const a = document.createElement('a');
-//   document.body.appendChild(a);
-
-//   return (data, name) => {
-//     const blob = new Blob(data, { type: 'octet/stream' });
-
-//     // IE...
-//     if (window.navigator.msSaveOrOpenBlob) {
-//       window.navigator.msSaveOrOpenBlob(blob, name);
-//     } else {
-//       const url = window.URL.createObjectURL(blob);
-
-//       a.href = url;
-//       a.download = name;
-//       a.click();
-//       window.URL.revokeObjectURL(url);
-//     }
-//   };
-// }());
-
 
 export class FieldFile extends React.Component {
   constructor(props) {
@@ -95,8 +78,34 @@ export class FieldFile extends React.Component {
     input.onChange(files);
   }
 
+  onClear = () => {
+    const { input } = this.props;
+    const files = [];
+    this.setState({ files, attachError: null });
+    input.onChange(files);
+  }
+
   // handleFileDownload = () => {
-  //   saveByteArray([this.state.files[0]], this.state.files[0].name);
+  //   if (this.state.files.length) {
+  //     // make into blob and save
+  //     const a = document.createElement('a');
+  //     const data = [this.state.files[0]];
+  //     const name = this.state.files[0].name;
+  //     const blob = new Blob(data, { type: 'octet/stream' });
+
+  //     document.body.appendChild(a);
+  //     // IE...
+  //     if (window.navigator.msSaveOrOpenBlob) {
+  //       window.navigator.msSaveOrOpenBlob(blob, name);
+  //     } else {
+  //       const url = window.URL.createObjectURL(blob);
+
+  //       a.href = url;
+  //       a.download = name;
+  //       a.click();
+  //       window.URL.revokeObjectURL(url);
+  //     }
+  //   }
   // }
 
   render() {
@@ -110,8 +119,8 @@ export class FieldFile extends React.Component {
       ...props
     } = this.props;
 
-    const { attachError } = this.state;
-
+    const { attachError, files } = this.state;
+    const hasFiles = !!files.length && !disabled;
     const { touched, error } = meta;
     const name = this.state.files[0] ? this.state.files[0].name : placeholder || 'Select a file to upload';
 
@@ -128,11 +137,18 @@ export class FieldFile extends React.Component {
     };
 
     const fieldProps = {
+      disabled,
+      'data-error': errorMessage,
+    };
+
+    /* istanbul ignore next: TODO: how to test refs... */
+    const zoneProps = {
       ...props,
       type: 'file',
       disabled,
       'data-error': errorMessage,
       onDrop: this.onDrop,
+      innerRef: (node) => { this.dropZoneRef = node; },
     };
 
     const nameProps = {
@@ -140,19 +156,32 @@ export class FieldFile extends React.Component {
       children: name,
     };
 
+    const clearProps = {
+      iconProps: {
+        iconName: 'Clear',
+      },
+      onClick: this.onClear,
+    };
+
+    /* istanbul ignore next: TODO: how to test refs... */
     const buttonProps = {
       primary: true,
       disabled,
       type: 'button',
       text: 'Attach File',
+      onClick: () => { this.dropZoneRef.open(); },
     };
 
     return (
       <div>
         {label && <Label {...labelProps}>{label}</Label>}
 
+
         <FilePicker {...fieldProps}>
-          <FileName {...nameProps} />
+          {hasFiles && <IconButton {...clearProps} />}
+          <DropZone {...zoneProps}>
+            <FileName {...nameProps} />
+          </DropZone>
           <DefaultButton {...buttonProps} />
         </FilePicker>
 

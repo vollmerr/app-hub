@@ -30,7 +30,7 @@ class AppHubPanel extends React.PureComponent {
     const Content = panels[panel];
     const left = panel === APP_NAV_PANEL;
 
-    /* istanbul ignore next */
+    /* istanbul ignore next: TODO: how to test dynamic built components */
     return (
       <Panel isOpen={isOpen} onClick={onClick} left={left}>
         <Content onClick={() => onClick()} routes={routes} appRoutes={appRoutes} isMobile={isMobile} />
