@@ -15,7 +15,6 @@ export const FilePicker = styled.div`
   display: flex;
   justify-content: space-between;
   border: 1px solid;
-  border-right: 0;
   border-color: ${(props) => (
     (props.disabled && `${theme.neutralLight}`) ||
     (props['data-error'] && `${theme.redDark}`) ||
