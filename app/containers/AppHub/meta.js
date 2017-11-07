@@ -6,6 +6,11 @@ export const meta = {
     keywords: 'App, Hub',
   },
   // __APPS__
+  spa: {
+    title: 'SPA',
+    desc: 'Security Policy Acknowledgement',
+    keywords: 'SPA',
+  },
   // ETERNAL APPS
   cold: {
     title: 'COLD',

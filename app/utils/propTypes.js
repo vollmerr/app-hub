@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const { string, bool, shape, func, arrayOf, oneOfType } = PropTypes;
+const { string, bool, shape, func, arrayOf } = PropTypes;
 
 export const metaDataProp = shape({
   title: string,

@@ -41,6 +41,19 @@ exports[`<AppHubEntry /> should render correctly 1`] = `
           "path": "/",
         },
         Object {
+          "component": [Function],
+          "exact": false,
+          "icon": "Spa",
+          "key": "spa",
+          "meta": Object {
+            "desc": "Security Policy Acknowledgement",
+            "keywords": "SPA",
+            "title": "SPA",
+          },
+          "name": "Spa",
+          "path": "/spa",
+        },
+        Object {
           "href": "https://cold.govops.ca.gov/",
           "icon": "COLD",
           "key": "cold",
@@ -92,6 +105,19 @@ exports[`<AppHubEntry /> should render correctly 1`] = `
             },
             "name": "App Hub",
             "path": "/",
+          },
+          Object {
+            "component": [Function],
+            "exact": false,
+            "icon": "Spa",
+            "key": "spa",
+            "meta": Object {
+              "desc": "Security Policy Acknowledgement",
+              "keywords": "SPA",
+              "title": "SPA",
+            },
+            "name": "Spa",
+            "path": "/spa",
           },
           Object {
             "href": "https://cold.govops.ca.gov/",

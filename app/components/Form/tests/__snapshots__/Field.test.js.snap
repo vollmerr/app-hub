@@ -4,6 +4,7 @@ exports[`Field should render the returned component correctly 1`] = `
 <Field
   component={[Function]}
   disabled={false}
+  format={[Function]}
   name="test input"
   placeholder=""
   required={false}

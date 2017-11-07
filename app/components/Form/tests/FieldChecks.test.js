@@ -36,7 +36,7 @@ const props = {
     touched: false,
   },
   input: {
-    value: '',
+    value: [],
     onBlur: jest.fn(),
     onFocus: jest.fn(),
     onChange: jest.fn(),

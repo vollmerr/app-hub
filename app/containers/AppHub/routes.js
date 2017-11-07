@@ -1,4 +1,5 @@
 import AppHubHome from 'containers/AppHub-Home';
+import Spa from 'containers/Spa/Loadable';
 import Demo from 'containers/Demo/Loadable';
 import Loading from 'components/Loading/TestPage';
 
@@ -16,6 +17,15 @@ const routes = [
     meta: meta.apphub,
   },
   // __APPS__
+  {
+    key: 'spa',
+    name: 'Spa',
+    path: '/spa',
+    exact: false,
+    component: Spa,
+    icon: 'Spa',
+    meta: meta.spa,
+  },
   // external apps
   {
     key: 'cold',

@@ -67,6 +67,12 @@ describe('Field', () => {
     expect(wrapper.find(ReduxField).prop('validate')).toEqual([]);
   });
 
+  it('should format empty strings correctly', () => {
+    const value = 'test value';
+    expect(wrapper.find(ReduxField).prop('format')('')).toEqual([]);
+    expect(wrapper.find(ReduxField).prop('format')(value)).toEqual(value);
+  });
+
   it('should be exported in the index', () => {
     expect(Field).toBe(Index);
   });

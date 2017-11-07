@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Spa /> should render correctly 1`] = `
+<Connect(AppContainer)
+  app={
+    Object {
+      "meta": Object {
+        "desc": "Security Policy Acknowledgement",
+        "keywords": "SPA",
+        "title": "SPA",
+      },
+      "name": "test name",
+      "routes": Array [
+        Object {
+          "component": [Function],
+          "exact": true,
+          "key": "spaHome",
+          "name": "Home",
+          "path": "/spa/home",
+        },
+      ],
+    }
+  }
+/>
+`;

@@ -96,7 +96,7 @@ exports[`FieldDate should render correctly 1`] = `
       },
     ]
   }
-  value=""
+  value={null}
 />
 `;
 

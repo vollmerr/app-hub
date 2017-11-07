@@ -16,6 +16,19 @@ Array [
     "path": "/",
   },
   Object {
+    "component": [Function],
+    "exact": false,
+    "icon": "Spa",
+    "key": "spa",
+    "meta": Object {
+      "desc": "Security Policy Acknowledgement",
+      "keywords": "SPA",
+      "title": "SPA",
+    },
+    "name": "Spa",
+    "path": "/spa",
+  },
+  Object {
     "href": "https://cold.govops.ca.gov/",
     "icon": "COLD",
     "key": "cold",
@@ -53,6 +66,19 @@ Array [
 
 exports[`routes should be in the correct format in development 2`] = `
 Array [
+  Object {
+    "component": [Function],
+    "exact": false,
+    "icon": "Spa",
+    "key": "spa",
+    "meta": Object {
+      "desc": "Security Policy Acknowledgement",
+      "keywords": "SPA",
+      "title": "SPA",
+    },
+    "name": "Spa",
+    "path": "/spa",
+  },
   Object {
     "href": "https://cold.govops.ca.gov/",
     "icon": "COLD",
