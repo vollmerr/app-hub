@@ -75,7 +75,7 @@ export class FieldFile extends React.Component {
       files = acceptedFiles;
     } else {
       files = rejectedFiles;
-      attachError = 'Failed to attch file.';
+      attachError = 'Failed to attach file.';
     }
 
     this.setState({ files, attachError });
@@ -89,28 +89,28 @@ export class FieldFile extends React.Component {
     input.onChange(files);
   }
 
-  // handleFileDownload = () => {
-  //   if (this.state.files.length) {
-  //     // make into blob and save
-  //     const a = document.createElement('a');
-  //     const data = [this.state.files[0]];
-  //     const name = this.state.files[0].name;
-  //     const blob = new Blob(data, { type: 'octet/stream' });
+  handleFileDownload = () => {
+    if (this.state.files.length) {
+      // make into blob and save
+      const a = document.createElement('a');
+      const data = [this.state.files[0]];
+      const name = this.state.files[0].name;
+      const blob = new Blob(data, { type: 'octet/stream' });
 
-  //     document.body.appendChild(a);
-  //     // IE...
-  //     if (window.navigator.msSaveOrOpenBlob) {
-  //       window.navigator.msSaveOrOpenBlob(blob, name);
-  //     } else {
-  //       const url = window.URL.createObjectURL(blob);
+      document.body.appendChild(a);
+      // IE...
+      if (window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveOrOpenBlob(blob, name);
+      } else {
+        const url = window.URL.createObjectURL(blob);
 
-  //       a.href = url;
-  //       a.download = name;
-  //       a.click();
-  //       window.URL.revokeObjectURL(url);
-  //     }
-  //   }
-  // }
+        a.href = url;
+        a.download = name;
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }
+    }
+  }
 
   render() {
     const {
@@ -191,7 +191,7 @@ export class FieldFile extends React.Component {
 
         {errorMessage && <FieldError>{errorMessage}</FieldError>}
 
-        {/* <button onClick={this.handleFileDownload}>Download</button> */}
+        {/* {<button onClick={this.handleFileDownload}>Download</button>} */}
       </div>
     );
   }

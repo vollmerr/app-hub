@@ -9,6 +9,7 @@ import Wrapper from './Wrapper';
 import Title from './Title';
 import Search from './Search';
 import Header from './Header';
+import EmptyMessage from './EmptyMessage';
 
 
 class List extends React.PureComponent {
@@ -90,7 +91,7 @@ class List extends React.PureComponent {
   }
 
   render() {
-    const { title, checkboxVisibility } = this.props;
+    const { title, checkboxVisibility, emptyMessage } = this.props;
     const { items, columns } = this.state;
 
     return (
@@ -102,11 +103,15 @@ class List extends React.PureComponent {
           />
         </Header>
 
-        <DetailsList
-          items={items}
-          columns={columns}
-          checkboxVisibility={checkboxVisibility}
-        />
+        {
+          this.props.items.length ?
+            <DetailsList
+              items={items}
+              columns={columns}
+              checkboxVisibility={checkboxVisibility}
+            /> :
+            <EmptyMessage>{emptyMessage}</EmptyMessage>
+        }
       </Wrapper>
     );
   }
@@ -126,6 +131,12 @@ List.propTypes = {
     }),
   ),
   checkboxVisibility: number,
+  emptyMessage: string,
+};
+
+List.defaultProps = {
+  items: [],
+  emptyMessage: 'No items',
 };
 
 export default List;

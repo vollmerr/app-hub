@@ -12,7 +12,7 @@ const Items = styled(Nav) `
   li > div {
     background: ${(props) => props.isMobile ? theme.neutralPrimary : theme.neutralLight};
 
-    a {
+    button {
       text-decoration: none;
       display: block;
       color: ${(props) => props.isMobile ? theme.white : 'inherit'};
@@ -25,8 +25,8 @@ const Items = styled(Nav) `
       }
     }
 
-    &:hover a,
-    &.is-selected a {
+    &:hover button,
+    &.is-selected button {
       background: ${(props) => props.isMobile ? theme.neutralLighter : theme.neutralTertiaryAlt};
     }
   }

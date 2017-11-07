@@ -218,7 +218,7 @@ describe('FieldFile', () => {
       // rejectedFiles
       instance.onDrop([], files);
       expect(wrapper.state('files')).toEqual(files);
-      expect(wrapper.state('attachError')).toEqual('Failed to attch file.');
+      expect(wrapper.state('attachError')).toEqual('Failed to attach file.');
     });
   });
 

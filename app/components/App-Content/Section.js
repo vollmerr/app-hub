@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 import theme from 'utils/theme';
 
-const Content = styled.div`
+const Section = styled.div`
   margin: 15px 0;
   background: ${theme.white};
 `;
 
-export default Content;
+export default Section;
