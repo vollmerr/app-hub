@@ -1,42 +1,32 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+// import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
+// import { createStructuredSelector } from 'reselect';
 
-import { makeSelectApp } from 'containers/AppHub/selectors';
-import ErrorMessage from 'components/Loading/ErrorMessage';
-import Content from 'components/App-Content/Content';
+import appPage from 'containers/App-Container/appPage';
+// import { makeSelectApp } from 'containers/AppHub/selectors';
+
 
 export class {{ properCase home }} extends React.PureComponent {
   render() {
-    const { app } = this.props;
-    const { error, loading } = app;
-
-    if (error) {
-      return <ErrorMessage error={error} to={'/{{ dashCase name }}'} />;
-    }
-
     return (
-      <Content>
-        CONTENT PLACEHOLDER
-        {loading && <p>Loading...</p>}
-      </Content>
+      <div>PLACHOLDER</div>
     );
   }
 }
 
-{{ properCase home }}.propTypes = {
-  app: PropTypes.shape({
-    error: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.string,
-    ]),
-    loading: PropTypes.bool,
-  }).isRequired,
-};
 
-const mapStateToProps = createStructuredSelector({
-  app: makeSelectApp(),
-});
+// const { shape, arrayOf, string } = PropTypes;
 
-export default connect(mapStateToProps, {})({{ properCase home }});
+// {{ properCase home }}.propTypes = {};
+
+// const mapStateToProps = createStructuredSelector({
+//  app: makeSelectApp(),
+// });
+
+// const mapDispatchToProps = {};
+
+const withAppPage = appPage({{ properCase home }});
+
+// export default connect(mapStateToProps, mapDispatchToProps)(withAppPage);
+export default withAppPage;

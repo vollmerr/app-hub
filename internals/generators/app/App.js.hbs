@@ -10,7 +10,7 @@ import AppContainer from 'containers/App-Container';
 import { meta } from 'containers/AppHub/meta';
 
 import { initDataRequest } from './actions';
-import makeSelect{{ properCase name }} from './selectors';
+// import makeSelect{{ properCase name }} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import routes from './routes';
@@ -19,6 +19,7 @@ const app = {
   meta: meta.{{ camelCase name }},
   routes,
 };
+
 
 export class {{ properCase name }} extends React.PureComponent {
   componentDidMount() {
@@ -35,13 +36,16 @@ export class {{ properCase name }} extends React.PureComponent {
   }
 }
 
+
+const { func, string } = PropTypes;
+
 {{ properCase name }}.propTypes = {
-  onInitDataRequest: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
+  onInitDataRequest: func.isRequired,
+  name: string.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  {{ camelCase name }}: makeSelect{{ properCase name }}(),
+  // {{ camelCase name }}: makeSelect{{ properCase name }}(),
 });
 
 export function mapDispatchToProps(dispatch) {

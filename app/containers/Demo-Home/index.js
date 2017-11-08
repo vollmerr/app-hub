@@ -3,12 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import ErrorMessage from 'components/Loading/ErrorMessage';
-import { makeSelectUser, makeSelectApp } from 'containers/AppHub/selectors';
+import appPage from 'containers/App-Container/appPage';
+import { makeSelectUser } from 'containers/AppHub/selectors';
 
-import makeSelectDemoHome, {
-  makeSelectExampleData,
-} from 'containers/Demo/selectors';
+import { makeSelectExampleData } from 'containers/Demo/selectors';
 import { exampleDataRequest } from 'containers/Demo/actions';
 
 import Scroll from './Scroll';
@@ -24,13 +22,8 @@ export class DemoHome extends React.PureComponent {
   }
 
   render() {
-    const { user, exampleData, onExampleDataRequest, app } = this.props;
+    const { user, exampleData, onExampleDataRequest } = this.props;
     const { isScrolling } = this.state;
-    const { error, loading } = app;
-
-    if (error) {
-      return <ErrorMessage error={error} to={'/demo'} />;
-    }
 
     return (
       <div>
@@ -43,13 +36,13 @@ export class DemoHome extends React.PureComponent {
           }
         </ul>
 
-        <Button onClick={() => onExampleDataRequest()} text={'Load Authorized Data'} disabled={loading} />
+        <Button onClick={() => onExampleDataRequest()} text={'Load Authorized Data'} />
         {
           exampleData &&
           <p>{JSON.stringify(exampleData)}</p>
         }
 
-        <Button onClick={() => this.setState({ isScrolling: !isScrolling })} text={'Make Window Scroll'} disabled={loading} />
+        <Button onClick={() => this.setState({ isScrolling: !isScrolling })} text={'Make Window Scroll'} />
         {
           isScrolling &&
           <Scroll />
@@ -66,14 +59,11 @@ DemoHome.propTypes = {
   onExampleDataRequest: func.isRequired,
   user: object.isRequired,
   exampleData: object,
-  app: object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  demoHome: makeSelectDemoHome(),
   exampleData: makeSelectExampleData(),
   user: makeSelectUser(),
-  app: makeSelectApp(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -82,4 +72,6 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DemoHome);
+const withAppPage = appPage(DemoHome);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withAppPage);

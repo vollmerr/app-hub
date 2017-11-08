@@ -1,9 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Content from 'components/App-Content/Content';
-import ErrorMessage from 'components/Loading/ErrorMessage';
-
 import { SpaHome } from '../index';
 
 const props = {
@@ -22,22 +19,5 @@ describe('<SpaHome />', () => {
 
   it('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
-  });
-
-  it('should render Content', () => {
-    expect(wrapper.find(Content).length).toEqual(1);
-  });
-
-  it('should render an error message if passed an error', () => {
-    const app = { ...props.app, error: 'test error' };
-    wrapper.setProps({ app });
-    expect(wrapper.find(ErrorMessage).length).toEqual(1);
-  });
-
-  xit('should indicate loading if loading', () => {
-    const app = { ...props.app, loading: true };
-    wrapper.setProps({ app });
-    expect(wrapper.find('p').length).toEqual(1);
-    expect(wrapper.find('p').text()).toContain('Loading');
   });
 });

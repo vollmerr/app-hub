@@ -1,6 +1,15 @@
 import PropTypes from 'prop-types';
 
-const { string, bool, shape, func, arrayOf } = PropTypes;
+const { string, bool, object, shape, func, arrayOf, oneOfType } = PropTypes;
+
+export const appProp = shape({
+  error: oneOfType([
+    object,
+    string,
+  ]),
+  routes: routesProp,
+  loading: bool,
+});
 
 export const metaDataProp = shape({
   title: string,

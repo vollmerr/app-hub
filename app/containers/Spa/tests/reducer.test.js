@@ -1,7 +1,7 @@
 
 import { fromJS } from 'immutable';
 
-import spaReducer, { initialState } from '../reducer';
+import spaReducer, { initialState, mockData } from '../reducer';
 
 import {
   INIT_DATA_SUCCESS,
@@ -22,8 +22,8 @@ describe('spaReducer', () => {
     expect(spaReducer(undefined, {})).toEqual(expected);
   });
 
-  xit('handles INIT_DATA_SUCCESS', () => {
-    expected = expected.set('data', fromJS(payload));
+  it('handles INIT_DATA_SUCCESS [ TEMP - FOR MOCK DATA ]', () => {
+    expected = expected.set('data', fromJS(mockData));
     const action = { type: INIT_DATA_SUCCESS, payload };
     expect(spaReducer(undefined, action)).toEqual(expected);
   });

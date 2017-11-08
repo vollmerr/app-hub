@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { CheckboxVisibility } from 'office-ui-fabric-react/lib/DetailsList';
 
+import appPage from 'containers/App-Container/appPage';
 import theme from 'utils/theme';
 import Content from 'components/App-Content/Content';
 import Section from 'components/App-Content/Section';
@@ -84,11 +85,12 @@ DemoLists.propTypes = {
   dispatch: func.isRequired,
 };
 
-
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
   };
 }
 
-export default connect(null, mapDispatchToProps)(DemoLists);
+const withAppPage = appPage(DemoLists);
+
+export default connect(null, mapDispatchToProps)(withAppPage);

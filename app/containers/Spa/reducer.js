@@ -12,7 +12,7 @@ export const initialState = {
   },
 };
 
-const data = {
+export const mockData = {
   pendingAcks: [
     {
       name: 'item 1',
@@ -67,5 +67,5 @@ const data = {
 // }, fromJS(initialState));
 
 export default handleActions({
-  [INIT_DATA_SUCCESS]: (state) => state.set('data', fromJS(data)),
+  [INIT_DATA_SUCCESS]: (state) => state.set('data', fromJS(mockData)),
 }, fromJS(initialState));

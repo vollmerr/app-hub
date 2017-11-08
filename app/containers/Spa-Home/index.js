@@ -7,13 +7,11 @@ import { CheckboxVisibility } from 'office-ui-fabric-react/lib/DetailsList';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
 import theme from 'utils/theme';
-import { makeSelectApp } from 'containers/AppHub/selectors';
+import appPage from 'containers/App-Container/appPage';
 import { makeSelectPendingAcks } from 'containers/Spa/selectors';
-import ErrorMessage from 'components/Loading/ErrorMessage';
-import LoadingMessage from 'components/Loading/LoadingMessage';
-import Content from 'components/App-Content/Content';
 import Section from 'components/App-Content/Section';
 import List from 'components/List';
+
 
 const StyledList = styled(Section)`
   height: calc(50vh - ${theme.hub.headerHeight});
@@ -21,7 +19,7 @@ const StyledList = styled(Section)`
 
   .ms-Viewport {
     overflow: auto;
-    height: calc(50vh - ${theme.hub.headerHeight} - ${theme.list.headerHeight} - 15px)
+    height: calc(50vh - $ {theme.hub.headerHeight} - ${theme.list.headerHeight} - 15px)
   }
 
   .ms-DetailsList {
@@ -33,7 +31,7 @@ const StyledList = styled(Section)`
     cursor: pointer;
   }
 `;
-
+/* istanbul ignore next: TODO -> write tests for columns onClicks... */
 const columns = [
   {
     key: 'name',
@@ -80,16 +78,7 @@ const columns = [
 
 export class SpaHome extends React.PureComponent {
   render() {
-    const { app, pendingAcks } = this.props;
-    const { error, loading } = app;
-
-    if (error) {
-      return <ErrorMessage error={error} to={'/spa'} />;
-    }
-
-    if (loading) {
-      return <LoadingMessage />;
-    }
+    const { pendingAcks } = this.props;
 
     const pendingAckProps = {
       items: pendingAcks,
@@ -107,7 +96,7 @@ export class SpaHome extends React.PureComponent {
     };
 
     return (
-      <Content>
+      <div>
         <StyledList>
           <List {...pendingAckProps} />
         </StyledList>
@@ -115,22 +104,15 @@ export class SpaHome extends React.PureComponent {
         <StyledList>
           <List {...previousAckProps} />
         </StyledList>
-      </Content>
+      </div>
     );
   }
 }
 
 
-const { shape, arrayOf, oneOfType, object, string, bool } = PropTypes;
+const { shape, arrayOf, string } = PropTypes;
 
 SpaHome.propTypes = {
-  app: shape({
-    error: oneOfType([
-      object,
-      string,
-    ]),
-    loading: bool,
-  }).isRequired,
   pendingAcks: arrayOf(
     shape({
       name: string,
@@ -143,8 +125,11 @@ SpaHome.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  app: makeSelectApp(),
   pendingAcks: makeSelectPendingAcks(),
 });
 
-export default connect(mapStateToProps, {})(SpaHome);
+const mapDispatchToProps = {};
+
+const withAppPage = appPage(SpaHome);
+
+export default connect(mapStateToProps, mapDispatchToProps)(withAppPage);

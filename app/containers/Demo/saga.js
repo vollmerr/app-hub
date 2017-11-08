@@ -13,7 +13,7 @@ function* exampleDataSagaWorker() {
     // yield delay(2000) // uncomment to guarantee some delay for testing
     yield put(exampleDataSuccess(data));
   } catch (error) {
-    yield put(exampleDataFailure(error.message));
+    yield put(exampleDataFailure(error));
   }
 }
 

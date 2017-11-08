@@ -9,6 +9,7 @@ import { reduxForm } from 'redux-form/immutable';
 import styled from 'styled-components';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
+import appPage from 'containers/App-Container/appPage';
 import theme from 'utils/theme';
 import { isEmptyText } from 'utils/validate';
 
@@ -94,6 +95,8 @@ const withForm = reduxForm({
   validate, // form wide validation (such as if this field is filled out this one must also be)
 });
 
+const withAppPage = appPage(DemoForm);
+
 export default compose(
   withForm,
-)(DemoForm);
+)(withAppPage);

@@ -10,7 +10,7 @@ import AppContainer from 'containers/App-Container';
 import { meta } from 'containers/AppHub/meta';
 
 import { initDataRequest } from './actions';
-import makeSelectSpa from './selectors';
+// import makeSelectSpa from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import routes from './routes';
@@ -19,6 +19,7 @@ const app = {
   meta: meta.spa,
   routes,
 };
+
 
 export class Spa extends React.PureComponent {
   componentDidMount() {
@@ -35,13 +36,16 @@ export class Spa extends React.PureComponent {
   }
 }
 
+
+const { func, string } = PropTypes;
+
 Spa.propTypes = {
-  onInitDataRequest: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
+  onInitDataRequest: func.isRequired,
+  name: string.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  spa: makeSelectSpa(),
+  // spa: makeSelectSpa(),
 });
 
 export function mapDispatchToProps(dispatch) {
