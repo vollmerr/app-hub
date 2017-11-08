@@ -22,7 +22,7 @@ import {
 } from './selectors';
 
 import saga from './saga';
-import { changeMobile, changePanelOpen, changePanelSelected, authUserRequest } from './actions';
+import { changeMobile, changePanelOpen, changePanelSelected, authUser } from './actions';
 import meta from './meta';
 
 
@@ -33,9 +33,9 @@ export class AppHub extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { onAuthUserRequest } = this.props;
+    const { onAuthUser } = this.props;
 
-    onAuthUserRequest();
+    onAuthUser();
     this.handleResize();
     window.addEventListener('resize', this.handleResize);
   }
@@ -114,7 +114,7 @@ AppHub.propTypes = {
   onChangePanelOpen: func.isRequired,
   onChangePanelSelected: func.isRequired,
   onChangeMobile: func.isRequired,
-  onAuthUserRequest: func.isRequired,
+  onAuthUser: func.isRequired,
   isMobile: bool.isRequired,
   panelIsOpen: bool.isRequired,
   panelSelected: string.isRequired,
@@ -138,7 +138,7 @@ export function mapDispatchToProps(dispatch) {
     onChangePanelOpen: (open) => dispatch(changePanelOpen(open)),
     onChangePanelSelected: (panel) => dispatch(changePanelSelected(panel)),
     onChangeMobile: (isMobile) => dispatch(changeMobile(isMobile)),
-    onAuthUserRequest: () => dispatch(authUserRequest()),
+    onAuthUser: () => dispatch(authUser()),
   };
 }
 

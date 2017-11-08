@@ -6,9 +6,8 @@ import {
   CHANGE_PANEL_SELECTED,
   CHANGE_APP,
   CHANGE_APP_STATUS,
-  AUTH_USER_REQUEST,
-  AUTH_USER_SUCCESS,
-  AUTH_USER_FAILURE,
+  AUTH_USER,
+  AUTH_USER_DONE,
 } from './constants';
 
 // VIEW
@@ -19,6 +18,5 @@ export const changePanelSelected = createAction(CHANGE_PANEL_SELECTED);
 export const changeApp = createAction(CHANGE_APP);
 export const changeAppStatus = createAction(CHANGE_APP_STATUS);
 // USER
-export const authUserRequest = createAction(AUTH_USER_REQUEST);
-export const authUserSuccess = createAction(AUTH_USER_SUCCESS);
-export const authUserFailure = createAction(AUTH_USER_FAILURE);
+export const authUser = createAction(AUTH_USER);
+export const authUserDone = createAction(AUTH_USER_DONE);

@@ -2,6 +2,33 @@ import 'whatwg-fetch';
 
 
 /**
+ * Downloads a file
+ *
+ * @param  {object} file    - File to download
+ * @param  {string} name    - Name to save file as
+ */
+export /* istanbul ignore next */ function downloadFile(file, name) {
+  // make into blob and save
+  const a = document.createElement('a');
+  const data = [file];
+  const blob = new Blob(data, { type: 'octet/stream' });
+
+  document.body.appendChild(a);
+  // IE...
+  if (window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveOrOpenBlob(blob, name);
+  } else {
+    const url = window.URL.createObjectURL(blob);
+
+    a.href = url;
+    a.download = name;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+}
+
+
+/**
  * Parses the JSON returned by a network request
  *
  * @param  {object} response A response from a network request

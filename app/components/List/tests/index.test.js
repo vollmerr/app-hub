@@ -5,7 +5,7 @@ import { DetailsList } from 'office-ui-fabric-react/lib/DetailsList';
 import List from '../index';
 import Title from '../Title';
 import Search from '../Search';
-
+import EmptyMessage from '../EmptyMessage';
 
 const props = {
   title: 'test title',
@@ -19,6 +19,7 @@ const props = {
     { key: 'test', name: 'test', fieldName: 'test', notSortable: true },
     { key: 'other', name: 'other', fieldName: 'other' },
   ],
+  emptyMessage: 'test empty message',
 };
 
 
@@ -52,7 +53,13 @@ describe('<List />', () => {
     expect(wrapper.find(DetailsList).prop('items')).toEqual(wrapper.state('items'));
   });
 
-  describe('comonentDidMount', () => {
+  it('should render an empty `EmptyMessage` is there are no items passed', () => {
+    wrapper.setProps({ items: [] });
+    expect(wrapper.find(EmptyMessage).length).toEqual(1);
+    expect(wrapper.find(EmptyMessage).prop('children')).toEqual(props.emptyMessage);
+  });
+
+  describe('componentDidMount', () => {
     it('should bind `handleColumnClick` to columns without `notSortable`', () => {
       const columns = wrapper.state('columns');
       expect(columns[0].onColumnClick).toEqual(instance.handleColumnClick);

@@ -4,6 +4,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
 <Content__Content>
   <Spa-Home__StyledList>
     <List
+      checkboxVisibility={2}
       columns={
         Array [
           Object {
@@ -26,31 +27,26 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "key": "endDate",
             "name": "End Date",
           },
+          Object {
+            "fieldName": "readButton",
+            "isIconOnly": true,
+            "key": "readButton",
+            "name": "readButton",
+            "notSortable": true,
+            "onRender": [Function],
+          },
+          Object {
+            "fieldName": "ackButton",
+            "isIconOnly": true,
+            "key": "ackButton",
+            "name": "ackButton",
+            "notSortable": true,
+            "onRender": [Function],
+          },
         ]
       }
       emptyMessage="No Acknowledgments Pending Approval"
-      items={
-        Array [
-          Object {
-            "endDate": "12/13/2100",
-            "name": "item 1",
-            "startDate": "12/12/2100",
-            "status": "status 1",
-          },
-          Object {
-            "endDate": "12/15/2100",
-            "name": "item 2",
-            "startDate": "12/12/2100",
-            "status": "status 1",
-          },
-          Object {
-            "endDate": "12/12/2019",
-            "name": "item 3",
-            "startDate": "12/12/1900",
-            "status": "status 4",
-          },
-        ]
-      }
+      items={Array []}
       title="Pending Acknowledgment"
     />
   </Spa-Home__StyledList>
@@ -77,6 +73,22 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "fieldName": "endDate",
             "key": "endDate",
             "name": "End Date",
+          },
+          Object {
+            "fieldName": "readButton",
+            "isIconOnly": true,
+            "key": "readButton",
+            "name": "readButton",
+            "notSortable": true,
+            "onRender": [Function],
+          },
+          Object {
+            "fieldName": "ackButton",
+            "isIconOnly": true,
+            "key": "ackButton",
+            "name": "ackButton",
+            "notSortable": true,
+            "onRender": [Function],
           },
         ]
       }

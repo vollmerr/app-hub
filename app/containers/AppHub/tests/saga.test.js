@@ -50,8 +50,8 @@ describe('matchPattern', () => {
   });
 
   it('should put changeAppStatus if the type ends in FAILURE', () => {
-    const error = 'test error';
-    const action = { type: 'TEST_FAILURE', error };
+    const error = new Error('test error');
+    const action = { type: 'TEST_FAILURE', error: true, payload: error };
     const payload = { loading: false, error };
 
     testSaga(matchPattern, action)

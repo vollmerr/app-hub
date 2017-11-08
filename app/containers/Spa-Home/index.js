@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
+import { CheckboxVisibility } from 'office-ui-fabric-react/lib/DetailsList';
+import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
 import theme from 'utils/theme';
 import { makeSelectApp } from 'containers/AppHub/selectors';
+import { makeSelectPendingAcks } from 'containers/Spa/selectors';
 import ErrorMessage from 'components/Loading/ErrorMessage';
+import LoadingMessage from 'components/Loading/LoadingMessage';
 import Content from 'components/App-Content/Content';
 import Section from 'components/App-Content/Section';
 import List from 'components/List';
@@ -23,28 +27,12 @@ const StyledList = styled(Section)`
   .ms-DetailsList {
     overflow: visible;
   }
-`;
 
-const items = [
-  {
-    name: 'item 1',
-    status: 'status 1',
-    startDate: '12/12/2100',
-    endDate: '12/13/2100',
-  },
-  {
-    name: 'item 2',
-    status: 'status 1',
-    startDate: '12/12/2100',
-    endDate: '12/15/2100',
-  },
-  {
-    name: 'item 3',
-    status: 'status 4',
-    startDate: '12/12/1900',
-    endDate: '12/12/2019',
-  },
-];
+  .ms-DetailsRow-fields,
+  .ms-DetailsHeader-cell {
+    cursor: pointer;
+  }
+`;
 
 const columns = [
   {
@@ -67,23 +55,48 @@ const columns = [
     name: 'End Date',
     fieldName: 'endDate',
   },
+  {
+    key: 'readButton',
+    name: 'readButton',
+    fieldName: 'readButton',
+    isIconOnly: true,
+    notSortable: true,
+    onRender: () => (
+      <DefaultButton primary onClick={() => alert('clickkk')} text={'Read'} />
+    ),
+  },
+  {
+    key: 'ackButton',
+    name: 'ackButton',
+    fieldName: 'ackButton',
+    isIconOnly: true,
+    notSortable: true,
+    onRender: () => (
+      <DefaultButton disabled={false} primary onClick={() => alert('clickkk')} text={'Acknowledge'} />
+    ),
+  },
 ];
 
 
 export class SpaHome extends React.PureComponent {
   render() {
-    const { app } = this.props;
-    const { error } = app;
+    const { app, pendingAcks } = this.props;
+    const { error, loading } = app;
 
     if (error) {
       return <ErrorMessage error={error} to={'/spa'} />;
     }
 
+    if (loading) {
+      return <LoadingMessage />;
+    }
+
     const pendingAckProps = {
-      items, // items: items,
+      items: pendingAcks,
       columns,
       title: 'Pending Acknowledgment',
       emptyMessage: 'No Acknowledgments Pending Approval',
+      checkboxVisibility: CheckboxVisibility.hidden,
     };
 
     const previousAckProps = {
@@ -108,18 +121,30 @@ export class SpaHome extends React.PureComponent {
 }
 
 
+const { shape, arrayOf, oneOfType, object, string, bool } = PropTypes;
+
 SpaHome.propTypes = {
-  app: PropTypes.shape({
-    error: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.string,
+  app: shape({
+    error: oneOfType([
+      object,
+      string,
     ]),
-    loading: PropTypes.bool,
+    loading: bool,
   }).isRequired,
+  pendingAcks: arrayOf(
+    shape({
+      name: string,
+      status: string,
+      startDate: string,
+      endDate: string,
+      dateRead: string,
+    }),
+  ),
 };
 
 const mapStateToProps = createStructuredSelector({
   app: makeSelectApp(),
+  pendingAcks: makeSelectPendingAcks(),
 });
 
 export default connect(mapStateToProps, {})(SpaHome);

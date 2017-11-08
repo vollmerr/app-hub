@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { DefaultButton, IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 
+// import { downloadFile } from 'utils/request';
 import { metaProp, inputProp } from 'utils/propTypes';
 import { isEmptyFiles } from 'utils/validate';
 import theme from 'utils/theme';
@@ -89,29 +90,6 @@ export class FieldFile extends React.Component {
     input.onChange(files);
   }
 
-  handleFileDownload = () => {
-    if (this.state.files.length) {
-      // make into blob and save
-      const a = document.createElement('a');
-      const data = [this.state.files[0]];
-      const name = this.state.files[0].name;
-      const blob = new Blob(data, { type: 'octet/stream' });
-
-      document.body.appendChild(a);
-      // IE...
-      if (window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(blob, name);
-      } else {
-        const url = window.URL.createObjectURL(blob);
-
-        a.href = url;
-        a.download = name;
-        a.click();
-        window.URL.revokeObjectURL(url);
-      }
-    }
-  }
-
   render() {
     const {
       meta,
@@ -191,7 +169,17 @@ export class FieldFile extends React.Component {
 
         {errorMessage && <FieldError>{errorMessage}</FieldError>}
 
-        {/* {<button onClick={this.handleFileDownload}>Download</button>} */}
+        {/*
+          <button
+            onClick={() => (
+              this.state.files.length ?
+                downloadFile(this.state.files[0], this.state.files[0].name) :
+                null
+            )}
+          >
+            Download
+          </button>
+          */}
       </div>
     );
   }

@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { testStyledComponent } from 'utils/testUtils';
-import { authUserRequest } from 'containers/AppHub/actions';
+import { authUser } from 'containers/AppHub/actions';
 
 import { Dev, Field, mapDispatchToProps } from '../Dev';
 
@@ -27,11 +27,11 @@ global.DEV = {
 describe('<Dev />', () => {
   let wrapper;
   let onClick;
-  let onAuthUserRequest;
+  let onAuthUser;
   beforeEach(() => {
     onClick = jest.fn();
-    onAuthUserRequest = jest.fn();
-    wrapper = shallow(<Dev onClick={onClick} onAuthUserRequest={onAuthUserRequest} />);
+    onAuthUser = jest.fn();
+    wrapper = shallow(<Dev onClick={onClick} onAuthUser={onAuthUser} />);
   });
 
   it('should render correctly', () => {
@@ -70,7 +70,7 @@ describe('<Dev />', () => {
 
     it('should dispatch onAuthUserRequest when called', () => {
       instance.handleClickUser(user1);
-      expect(onAuthUserRequest).toHaveBeenCalled();
+      expect(onAuthUser).toHaveBeenCalled();
     });
 
     it('should update the local token if a user with a key is passed', () => {
@@ -94,14 +94,14 @@ describe('<Dev />', () => {
       mappedDispatch = mapDispatchToProps(dispatch);
     });
 
-    describe('onAuthUserRequest', () => {
+    describe('onAuthUser', () => {
       it('should be injected', () => {
-        expect(mappedDispatch.onAuthUserRequest).toBeDefined();
+        expect(mappedDispatch.onAuthUser).toBeDefined();
       });
 
-      it('should dispatch exampleRequest when called', () => {
-        mappedDispatch.onAuthUserRequest();
-        expect(dispatch).toHaveBeenCalledWith(authUserRequest());
+      it('should dispatch authUser when called', () => {
+        mappedDispatch.onAuthUser();
+        expect(dispatch).toHaveBeenCalledWith(authUser());
       });
     });
   });
@@ -109,7 +109,7 @@ describe('<Dev />', () => {
   // KEEP LAST AS MODIFYING GLOBAL VARIABLE
   it('should not render if DEV_JWT does not exist (production)', () => {
     global.DEV.JWT = undefined;
-    wrapper = shallow(<Dev onClick={onClick} onAuthUserRequest={onAuthUserRequest} />);
+    wrapper = shallow(<Dev onClick={onClick} onAuthUser={onAuthUser} />);
     expect(wrapper.equals(null)).toEqual(true);
   });
 });

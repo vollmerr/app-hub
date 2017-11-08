@@ -2,7 +2,7 @@ import { call, put } from 'redux-saga/effects';
 import decode from 'jwt-decode';
 import 'whatwg-fetch';
 
-import { authUserSuccess, authUserFailure } from 'containers/AppHub/actions';
+import { authUserDone } from 'containers/AppHub/actions';
 import request from './request';
 
 // export function sleep(ms) {
@@ -40,7 +40,7 @@ export function* putToken(token, appName) {
       [appName]: roles,
     } = decode(token);
 
-    yield put(authUserSuccess({ sam, roles }));
+    yield put(authUserDone({ sam, roles }));
   } catch (error) {
     throw new Error(error);
   }
@@ -70,7 +70,7 @@ export function* authenticate(appName = 'AppHub') {
       // update user in global appHub state
       yield call(putToken, id_token, appName);
     } catch (error) {
-      yield put(authUserFailure(error));
+      yield put(authUserDone(error));
     }
   }
 }

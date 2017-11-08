@@ -5,9 +5,8 @@ import {
   changePanelSelected,
   changeApp,
   changeAppStatus,
-  authUserRequest,
-  authUserSuccess,
-  authUserFailure,
+  authUser,
+  authUserDone,
 } from '../actions';
 
 import {
@@ -16,9 +15,8 @@ import {
   CHANGE_PANEL_SELECTED,
   CHANGE_APP,
   CHANGE_APP_STATUS,
-  AUTH_USER_REQUEST,
-  AUTH_USER_SUCCESS,
-  AUTH_USER_FAILURE,
+  AUTH_USER,
+  AUTH_USER_DONE,
 } from '../constants';
 
 describe('AppHub actions', () => {
@@ -71,28 +69,31 @@ describe('AppHub actions', () => {
   });
 
   describe('user authenication actions', () => {
-    it('has a type of AUTH_USER_REQUEST', () => {
+    it('has a type of AUTH_USER', () => {
       const expected = {
-        type: AUTH_USER_REQUEST,
+        type: AUTH_USER,
       };
-      expect(authUserRequest()).toEqual(expected);
+      expect(authUser()).toEqual(expected);
     });
 
-    it('has a type of AUTH_USER_SUCCESS', () => {
+    it('has a type of AUTH_USER_DONE', () => {
       const sam = 'testSam';
       const roles = ['role1', 'role2'];
       const expected = {
         payload: { sam, roles },
-        type: AUTH_USER_SUCCESS,
+        type: AUTH_USER_DONE,
       };
-      expect(authUserSuccess({ sam, roles })).toEqual(expected);
+      expect(authUserDone({ sam, roles })).toEqual(expected);
     });
 
-    it('has a type of AUTH_USER_FAILURE', () => {
+    it('has a type of AUTH_USER_DONE for errors', () => {
+      const error = new Error('test error');
       const expected = {
-        type: AUTH_USER_FAILURE,
+        type: AUTH_USER_DONE,
+        error: true,
+        payload: error,
       };
-      expect(authUserFailure()).toEqual(expected);
+      expect(authUserDone(error)).toEqual(expected);
     });
   });
 });

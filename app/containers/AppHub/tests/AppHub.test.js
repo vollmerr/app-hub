@@ -7,13 +7,13 @@ import theme from 'utils/theme';
 import AppHubHeader from 'components/AppHub-Header';
 import AppHubPanel from 'components/AppHub-Panel';
 import { AppHub, mapDispatchToProps } from '../AppHub';
-import { changeMobile, changePanelOpen, changePanelSelected, authUserRequest } from '../actions';
+import { changeMobile, changePanelOpen, changePanelSelected, authUser } from '../actions';
 
 const props = {
   onChangePanelOpen: jest.fn(),
   onChangePanelSelected: jest.fn(),
   onChangeMobile: jest.fn(),
-  onAuthUserRequest: jest.fn(),
+  onAuthUser: jest.fn(),
   isMobile: false,
   panelIsOpen: false,
   panelSelected: 'test panel',
@@ -53,7 +53,7 @@ describe('<AppHub />', () => {
 
   describe('componentDidMount', () => {
     it('should authorize the user', () => {
-      expect(props.onAuthUserRequest).toHaveBeenCalled();
+      expect(props.onAuthUser).toHaveBeenCalled();
     });
 
     it('should handle resizing', () => {
@@ -139,7 +139,7 @@ describe('<AppHub />', () => {
       changeMobile,
       changePanelOpen,
       changePanelSelected,
-      authUserRequest,
+      authUser,
     };
 
     testMapDispatchToProps(mapDispatchToProps, actions);

@@ -37,7 +37,6 @@ export class ErrorMessage extends React.PureComponent {
         message = error.message;
       }
     }
-
     return (
       <Wrapper>
         <Header>Sorry, an error has occurred.</Header>

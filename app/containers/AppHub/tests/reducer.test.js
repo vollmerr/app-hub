@@ -8,7 +8,7 @@ import {
   CHANGE_PANEL_SELECTED,
   CHANGE_APP,
   CHANGE_APP_STATUS,
-  AUTH_USER_SUCCESS,
+  AUTH_USER_DONE,
 } from '../constants';
 
 describe('appHubReducer', () => {
@@ -70,13 +70,23 @@ describe('appHubReducer', () => {
     expect(appHubReducer(undefined, action)).toEqual(expected);
   });
 
-  it('handles AUTH_USER_SUCCESS', () => {
+  it('handles AUTH_USER_DONE', () => {
     const sam = 'testSam';
     const roles = ['role1', 'role2'];
     expected = expected
       .setIn(['user', 'sam'], sam)
       .setIn(['user', 'roles'], fromJS(roles));
-    const action = { type: AUTH_USER_SUCCESS, payload: { sam, roles } };
+    const action = { type: AUTH_USER_DONE, payload: { sam, roles } };
+
+    expect(appHubReducer(undefined, action)).toEqual(expected);
+  });
+
+  it('handles AUTH_USER_DONE with errors', () => {
+    const error = new Error('test error');
+    expected = expected
+      .setIn(['app', 'error'], error)
+      .setIn(['app', 'loading'], false);
+    const action = { type: AUTH_USER_DONE, payload: error, error: true };
 
     expect(appHubReducer(undefined, action)).toEqual(expected);
   });

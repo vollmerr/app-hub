@@ -8,7 +8,7 @@ import {
   APPS_PANEL,
   CHANGE_APP,
   CHANGE_APP_STATUS,
-  AUTH_USER_SUCCESS,
+  AUTH_USER_DONE,
 } from './constants';
 
 export const initialState = {
@@ -49,13 +49,21 @@ export default handleActions({
   },
   [CHANGE_APP_STATUS]: (state, action) => {
     const { error, loading } = action.payload;
+
     return state
       .setIn(['app', 'error'], error || null)
       .setIn(['app', 'loading'], loading || false);
   },
   // USER
-  [AUTH_USER_SUCCESS]: (state, action) => {
+  [AUTH_USER_DONE]: (state, action) => {
     const { sam, roles } = action.payload;
+
+    if (action.error) {
+      return state
+        .setIn(['app', 'error'], action.payload)
+        .setIn(['app', 'loading'], false);
+    }
+
     return state
       .setIn(['user', 'sam'], sam)
       .setIn(['user', 'roles'], fromJS(roles));

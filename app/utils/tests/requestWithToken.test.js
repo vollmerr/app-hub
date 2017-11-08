@@ -2,7 +2,7 @@
 import { call, put } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import decode from 'jwt-decode';
-import { authUserSuccess, authUserFailure } from 'containers/AppHub/actions';
+import { authUserDone } from 'containers/AppHub/actions';
 import requestWithToken, { authenticate, putToken, validToken } from '../requestWithToken';
 
 jest.mock('../request');
@@ -102,7 +102,7 @@ describe('authenticate', () => {
       .run()
       .then((result) => {
         const payload = new Error('InvalidTokenError: Invalid token specified: Cannot read property \'replace\' of undefined');
-        expect(result.effects.put[0]).toEqual(put(authUserFailure(payload)));
+        expect(result.effects.put[0]).toEqual(put(authUserDone(payload)));
       });
   });
 });
@@ -117,7 +117,7 @@ describe('putToken', () => {
     const roles = decoded.BARS;
 
     return expectSaga(putToken, token, appName)
-      .put(authUserSuccess({ sam, roles }))
+      .put(authUserDone({ sam, roles }))
       .run();
   });
 

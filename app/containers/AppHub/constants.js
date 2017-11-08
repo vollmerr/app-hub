@@ -13,9 +13,8 @@ export const CHANGE_APP = 'app/AppHub/CHANGE_APP';
 export const CHANGE_APP_STATUS = 'app/AppHub/CHANGE_APP_STATUS';
 
 // user
-export const AUTH_USER_REQUEST = 'app/AppHub/AUTH_USER_REQUEST';
-export const AUTH_USER_SUCCESS = 'app/AppHub/AUTH_USER_SUCCESS';
-export const AUTH_USER_FAILURE = 'app/AppHub/AUTH_USER_FAILURE';
+export const AUTH_USER = 'app/AppHub/AUTH_USER';
+export const AUTH_USER_DONE = 'app/AppHub/AUTH_USER_DONE';
 
 // REQUEST STATUS TYPES
 export const REQUEST = '_REQUEST';

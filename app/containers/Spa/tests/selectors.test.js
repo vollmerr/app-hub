@@ -2,9 +2,10 @@ import { fromJS } from 'immutable';
 import makeSelectSpa, {
   selectSpaDomain,
   makeSelectSpaData,
+  makeSelectPendingAcks,
 } from '../selectors';
 
-const data = { a: 'test data' };
+const data = { a: 'test data', pendingAcks: [{ name: 'test1' }] };
 const spa = { data };
 const state = fromJS({
   spa,
@@ -24,9 +25,16 @@ describe('selectSpaDomain', () => {
   });
 });
 
-describe('makeSelectData', () => {
+describe('makeSelectSpaData', () => {
   const selector = makeSelectSpaData();
   it('should select data from state', () => {
     expect(selector(state).toJS()).toEqual(spa.data);
+  });
+});
+
+describe('makeSelectPendingAcks', () => {
+  const selector = makeSelectPendingAcks();
+  it('should select pendingAcks from spa.data as plain JS', () => {
+    expect(selector(state)).toEqual(spa.data.pendingAcks);
   });
 });

@@ -6,7 +6,7 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { authUserRequest } from 'containers/AppHub/actions';
+import { authUser } from 'containers/AppHub/actions';
 import { makeSelectUserSam } from 'containers/AppHub/selectors';
 import theme from 'utils/theme';
 
@@ -26,14 +26,14 @@ export const Field = styled.div`
  */
 export class Dev extends React.PureComponent {
   handleClickUser = (user) => {
-    const { onAuthUserRequest, onClick } = this.props;
+    const { onAuthUser, onClick } = this.props;
 
     if (user && user.key) {
       localStorage.setItem('id_token', user.key);
     } else {
       localStorage.removeItem('id_token');
     }
-    onAuthUserRequest();
+    onAuthUser();
     onClick();
   }
 
@@ -76,7 +76,7 @@ export class Dev extends React.PureComponent {
 const { func, string } = PropTypes;
 
 Dev.propTypes = {
-  onAuthUserRequest: func.isRequired,
+  onAuthUser: func.isRequired,
   userSam: string,
   onClick: func.isRequired,
 };
@@ -87,7 +87,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onAuthUserRequest: () => dispatch(authUserRequest()),
+    onAuthUser: () => dispatch(authUser()),
   };
 }
 
