@@ -3,7 +3,7 @@ import { put } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 
 import requestWithToken from 'utils/requestWithToken';
-import spaSaga, { spaWorker } from '../saga';
+import spaSaga, { initData } from '../saga';
 import { INIT_DATA_REQUEST } from '../constants';
 import { initDataSuccess, initDataFailure } from '../actions';
 
@@ -15,16 +15,16 @@ describe('spaSaga', () => {
   it('should wait for INIT_DATA_REQUEST', () => {
     testSaga(spaSaga)
       .next()
-      .takeEveryEffect(INIT_DATA_REQUEST, spaWorker)
+      .takeEveryEffect(INIT_DATA_REQUEST, initData)
       .finish()
       .isDone();
   });
 });
 
 
-describe('spaWorker', () => {
+describe('initData', () => {
   it('should call the api and update the store with its results', () => {
-    testSaga(spaWorker)
+    testSaga(initData)
       .next()
       .call(requestWithToken, 'http://barsapi/api/BadgeRequests/GetBarsAppStartupData/')
       .next(data)
@@ -34,7 +34,7 @@ describe('spaWorker', () => {
   });
 
   it('should handle errors', () => {
-    const errGen = spaWorker();
+    const errGen = initData();
     errGen.next();
     expect(errGen.throw(error).value).toEqual(put(initDataFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });

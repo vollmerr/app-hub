@@ -91,9 +91,9 @@ class List extends React.PureComponent {
   }
 
   render() {
-    const { title, checkboxVisibility, emptyMessage } = this.props;
+    const { title, emptyMessage, ...listProps } = this.props;
     const { items, columns } = this.state;
-
+console.log(listProps)
     return (
       <Wrapper>
         <Header>
@@ -106,9 +106,9 @@ class List extends React.PureComponent {
         {
           this.props.items.length ?
             <DetailsList
+              {...listProps}
               items={items}
               columns={columns}
-              checkboxVisibility={checkboxVisibility}
             /> :
             <EmptyMessage>{emptyMessage}</EmptyMessage>
         }

@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import styled from 'styled-components';
-import { CheckboxVisibility } from 'office-ui-fabric-react/lib/DetailsList';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { CheckboxVisibility, SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 
 import theme from 'utils/theme';
 import appPage from 'containers/App-Container/appPage';
@@ -12,8 +11,9 @@ import { makeSelectPendingAcks } from 'containers/Spa/selectors';
 import Section from 'components/App-Content/Section';
 import List from 'components/List';
 
+import AckModal from './AckModal';
 
-const StyledList = styled(Section)`
+const StyledList = styled(Section) `
   height: calc(50vh - ${theme.hub.headerHeight});
   overflow: hidden;
 
@@ -31,6 +31,7 @@ const StyledList = styled(Section)`
     cursor: pointer;
   }
 `;
+
 /* istanbul ignore next: TODO -> write tests for columns onClicks... */
 const columns = [
   {
@@ -53,39 +54,89 @@ const columns = [
     name: 'End Date',
     fieldName: 'endDate',
   },
-  {
-    key: 'readButton',
-    name: 'readButton',
-    fieldName: 'readButton',
-    isIconOnly: true,
-    notSortable: true,
-    onRender: () => (
-      <DefaultButton primary onClick={() => alert('clickkk')} text={'Read'} />
-    ),
-  },
-  {
-    key: 'ackButton',
-    name: 'ackButton',
-    fieldName: 'ackButton',
-    isIconOnly: true,
-    notSortable: true,
-    onRender: () => (
-      <DefaultButton disabled={false} primary onClick={() => alert('clickkk')} text={'Acknowledge'} />
-    ),
-  },
 ];
+
+// const normalizeById = (arr, key = 'id') => {
+//   const allIds = arr.reduce((acc, cur) => {
+//     acc[cur[key]] = cur;
+//     return acc;
+//   }, {});
+//   const byId = Object.keys(allIds);
+//   return { allIds, byId };
+// };
 
 
 export class SpaHome extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hasRead: false,
+      hideModal: true,
+      selectedItem: {},
+      // pendingColumns: [...testColumns, this.readButtonColumn(), this.ackButtonColumn()],
+      // previousColumns: [...testColumns, this.readButtonColumn()],
+    };
+  }
+
+  // readButtonColumn = () => ({
+  //   key: 'readButton',
+  //   name: 'readButton',
+  //   fieldName: 'readButton',
+  //   isIconOnly: true,
+  //   notSortable: true,
+  //   onRender: ({ id }) => (
+  //     <DefaultButton primary onClick={this.props.onStartAssignment(id)} text={'(I) Read'} />
+  //   ),
+  // });
+
+  // ackButtonColumn = () => ({
+  //   key: 'ackButton',
+  //   name: 'ackButton',
+  //   fieldName: 'ackButton',
+  //   isIconOnly: true,
+  //   notSortable: true,
+  //   onRender: ({ isRead, id }) => (
+  //     <DefaultButton disabled={!isRead} primary onClick={this.props.onFinishAssignment(id)} text={'(I) Acknowledge'} />
+  //   ),
+  // });
+
+  handleRead = () => {
+    this.setState({
+      hasRead: true,
+    });
+  }
+
+  handleAck = () => {
+    alert('doing API stuffs...');
+    this.handleCloseModal();
+  }
+
+  handleOpenModal = (item) => {
+    this.setState({
+      hideModal: false,
+      selectedItem: item,
+    });
+  }
+
+  handleCloseModal = () => {
+    this.setState({
+      hasRead: false,
+      hideModal: true,
+    });
+  }
+
   render() {
     const { pendingAcks } = this.props;
+    // const { pendingColumns, previousColumns } = this.state;
+    const { selectedItem, hasRead, hideModal } = this.state;
 
     const pendingAckProps = {
       items: pendingAcks,
       columns,
       title: 'Pending Acknowledgment',
       emptyMessage: 'No Acknowledgments Pending Approval',
-      checkboxVisibility: CheckboxVisibility.hidden,
+      selectionMode: SelectionMode.none,
+      onActiveItemChanged: this.handleOpenModal,
     };
 
     const previousAckProps = {
@@ -93,6 +144,15 @@ export class SpaHome extends React.PureComponent {
       columns,
       title: 'Previous Acknowledgments',
       emptyMessage: 'No Previous Acknowledgments',
+    };
+
+    const modalProps = {
+      hasRead,
+      hideModal,
+      item: selectedItem,
+      onClose: this.handleCloseModal,
+      onRead: this.handleRead,
+      onAck: this.handleAck,
     };
 
     return (
@@ -104,6 +164,8 @@ export class SpaHome extends React.PureComponent {
         <StyledList>
           <List {...previousAckProps} />
         </StyledList>
+
+        <AckModal {...modalProps} />
       </div>
     );
   }
@@ -128,7 +190,10 @@ const mapStateToProps = createStructuredSelector({
   pendingAcks: makeSelectPendingAcks(),
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = (dispatch) => ({
+  // onFinishAssignment: (id) => () => dispatch(finishAssignment(id)),
+  // onStartAssignment: (id) => () => dispatch(startAssignment(id)),
+});
 
 const withAppPage = appPage(SpaHome);
 

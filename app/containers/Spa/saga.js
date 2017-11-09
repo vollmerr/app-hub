@@ -5,7 +5,7 @@ import { INIT_DATA_REQUEST } from './constants';
 import { initDataSuccess, initDataFailure } from './actions';
 
 
-export function* spaWorker() {
+export function* initData() {
   try {
     const data = yield call(requestWithToken, 'http://barsapi/api/BadgeRequests/GetBarsAppStartupData/');
     yield put(initDataSuccess(data));
@@ -15,7 +15,7 @@ export function* spaWorker() {
 }
 
 function* spaSaga() {
-  yield takeEvery(INIT_DATA_REQUEST, spaWorker);
+  yield takeEvery(INIT_DATA_REQUEST, initData);
 }
 
 export default spaSaga;
