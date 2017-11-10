@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AckSection__AckSection /> should render correctly 1`] = `
+.c0 {
+  height: calc(50vh - 50px);
+  overflow: hidden;
+}
+
+.c0 .ms-Viewport {
+  overflow: auto;
+  height: calc(50vh - 50px - 60px - 15px);
+}
+
+.c0 .ms-DetailsList {
+  overflow: visible;
+}
+
+.c0 .ms-DetailsRow-fields,
+.c0 .ms-DetailsHeader-cell {
+  cursor: pointer;
+}
+
+<Section__Section
+  className="c0"
+/>
+`;

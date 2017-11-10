@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AckModal /> should render correctly 1`] = `
+<WithResponsiveMode
+  dialogContentProps={
+    Object {
+      "subText": "test details",
+      "title": "test name",
+      "type": 1,
+    }
+  }
+  hidden={false}
+  onDismiss={[Function]}
+>
+  <p>
+    Please read and acknowledge ... etc
+  </p>
+  <DialogFooter>
+    <CustomizedPrimaryButton
+      onClick={[Function]}
+      text="Read"
+    />
+    <CustomizedDefaultButton
+      onClick={[Function]}
+      text="Cancel"
+    />
+  </DialogFooter>
+</WithResponsiveMode>
+`;

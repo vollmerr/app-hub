@@ -56,7 +56,7 @@ export default handleActions({
   },
   // USER
   [AUTH_USER_DONE]: (state, action) => {
-    const { sam, roles } = action.payload;
+    const { sam, roles, expire } = action.payload;
 
     if (action.error) {
       return state
@@ -66,6 +66,7 @@ export default handleActions({
 
     return state
       .setIn(['user', 'sam'], sam)
-      .setIn(['user', 'roles'], fromJS(roles));
+      .setIn(['user', 'roles'], fromJS(roles))
+      .setIn(['user', 'expire'], expire);
   },
 }, fromJS(initialState));

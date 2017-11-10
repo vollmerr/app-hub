@@ -2,9 +2,8 @@
 
 exports[`<SpaHome /> should render correctly 1`] = `
 <div>
-  <Spa-Home__StyledList>
+  <AckSection__AckSection>
     <List
-      checkboxVisibility={2}
       columns={
         Array [
           Object {
@@ -26,31 +25,17 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "fieldName": "endDate",
             "key": "endDate",
             "name": "End Date",
-          },
-          Object {
-            "fieldName": "readButton",
-            "isIconOnly": true,
-            "key": "readButton",
-            "name": "readButton",
-            "notSortable": true,
-            "onRender": [Function],
-          },
-          Object {
-            "fieldName": "ackButton",
-            "isIconOnly": true,
-            "key": "ackButton",
-            "name": "ackButton",
-            "notSortable": true,
-            "onRender": [Function],
           },
         ]
       }
       emptyMessage="No Acknowledgments Pending Approval"
       items={Array []}
+      onActiveItemChanged={[Function]}
+      selectionMode={0}
       title="Pending Acknowledgment"
     />
-  </Spa-Home__StyledList>
-  <Spa-Home__StyledList>
+  </AckSection__AckSection>
+  <AckSection__AckSection>
     <List
       columns={
         Array [
@@ -74,28 +59,22 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "key": "endDate",
             "name": "End Date",
           },
-          Object {
-            "fieldName": "readButton",
-            "isIconOnly": true,
-            "key": "readButton",
-            "name": "readButton",
-            "notSortable": true,
-            "onRender": [Function],
-          },
-          Object {
-            "fieldName": "ackButton",
-            "isIconOnly": true,
-            "key": "ackButton",
-            "name": "ackButton",
-            "notSortable": true,
-            "onRender": [Function],
-          },
         ]
       }
       emptyMessage="No Previous Acknowledgments"
       items={Array []}
+      onActiveItemChanged={[Function]}
+      selectionMode={0}
       title="Previous Acknowledgments"
     />
-  </Spa-Home__StyledList>
+  </AckSection__AckSection>
+  <AckModal
+    hasRead={false}
+    hideModal={true}
+    item={Object {}}
+    onAck={[Function]}
+    onClose={[Function]}
+    onRead={[Function]}
+  />
 </div>
 `;

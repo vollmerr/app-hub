@@ -93,7 +93,7 @@ class List extends React.PureComponent {
   render() {
     const { title, emptyMessage, ...listProps } = this.props;
     const { items, columns } = this.state;
-console.log(listProps)
+
     return (
       <Wrapper>
         <Header>

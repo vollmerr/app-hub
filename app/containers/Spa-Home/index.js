@@ -2,37 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import styled from 'styled-components';
-import { CheckboxVisibility, SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
+import { SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 
-import theme from 'utils/theme';
 import appPage from 'containers/App-Container/appPage';
-import { makeSelectPendingAcks } from 'containers/Spa/selectors';
-import Section from 'components/App-Content/Section';
+import { makeSelectPendingAcks, makeSelectPreviousAcks } from 'containers/Spa/selectors';
 import List from 'components/List';
 
 import AckModal from './AckModal';
+import AckSection from './AckSection';
 
-const StyledList = styled(Section) `
-  height: calc(50vh - ${theme.hub.headerHeight});
-  overflow: hidden;
-
-  .ms-Viewport {
-    overflow: auto;
-    height: calc(50vh - $ {theme.hub.headerHeight} - ${theme.list.headerHeight} - 15px)
-  }
-
-  .ms-DetailsList {
-    overflow: visible;
-  }
-
-  .ms-DetailsRow-fields,
-  .ms-DetailsHeader-cell {
-    cursor: pointer;
-  }
-`;
-
-/* istanbul ignore next: TODO -> write tests for columns onClicks... */
 const columns = [
   {
     key: 'name',
@@ -56,16 +34,13 @@ const columns = [
   },
 ];
 
-// const normalizeById = (arr, key = 'id') => {
-//   const allIds = arr.reduce((acc, cur) => {
-//     acc[cur[key]] = cur;
-//     return acc;
-//   }, {});
-//   const byId = Object.keys(allIds);
-//   return { allIds, byId };
-// };
 
-
+/**
+ * Home page of SPA
+ *
+ * Contains lists of user acknowledgments, seperated
+ * into those that require action, those that do not.
+ */
 export class SpaHome extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -73,61 +48,56 @@ export class SpaHome extends React.PureComponent {
       hasRead: false,
       hideModal: true,
       selectedItem: {},
-      // pendingColumns: [...testColumns, this.readButtonColumn(), this.ackButtonColumn()],
-      // previousColumns: [...testColumns, this.readButtonColumn()],
     };
   }
 
-  // readButtonColumn = () => ({
-  //   key: 'readButton',
-  //   name: 'readButton',
-  //   fieldName: 'readButton',
-  //   isIconOnly: true,
-  //   notSortable: true,
-  //   onRender: ({ id }) => (
-  //     <DefaultButton primary onClick={this.props.onStartAssignment(id)} text={'(I) Read'} />
-  //   ),
-  // });
+  /**
+   * Handles downloading a file for reading
+   */
+  handleDownloadFile = () => {
+    // console.log('SpaHome.handleDownloadFile - downloading file.......');
+  }
 
-  // ackButtonColumn = () => ({
-  //   key: 'ackButton',
-  //   name: 'ackButton',
-  //   fieldName: 'ackButton',
-  //   isIconOnly: true,
-  //   notSortable: true,
-  //   onRender: ({ isRead, id }) => (
-  //     <DefaultButton disabled={!isRead} primary onClick={this.props.onFinishAssignment(id)} text={'(I) Acknowledge'} />
-  //   ),
-  // });
-
+  /**
+   * Handles marking that the policy has been read
+   */
   handleRead = () => {
     this.setState({
       hasRead: true,
     });
+    this.handleDownloadFile();
   }
 
+  /**
+   * Handles marking that the policy has been acknowledged
+   */
   handleAck = () => {
-    alert('doing API stuffs...');
+    // console.log('SpaHome.handleAck - doing API stuffs...');
     this.handleCloseModal();
   }
 
+  /**
+   * Handles opening the modal / resetting its state
+   */
   handleOpenModal = (item) => {
     this.setState({
+      hasRead: false,
       hideModal: false,
       selectedItem: item,
     });
   }
 
+  /**
+   * Handles closing the modal
+   */
   handleCloseModal = () => {
     this.setState({
-      hasRead: false,
       hideModal: true,
     });
   }
 
   render() {
-    const { pendingAcks } = this.props;
-    // const { pendingColumns, previousColumns } = this.state;
+    const { pendingAcks, previousAcks } = this.props;
     const { selectedItem, hasRead, hideModal } = this.state;
 
     const pendingAckProps = {
@@ -140,10 +110,12 @@ export class SpaHome extends React.PureComponent {
     };
 
     const previousAckProps = {
-      items: [],
+      items: previousAcks,
       columns,
       title: 'Previous Acknowledgments',
       emptyMessage: 'No Previous Acknowledgments',
+      selectionMode: SelectionMode.none,
+      onActiveItemChanged: this.handleDownloadFile,
     };
 
     const modalProps = {
@@ -157,13 +129,13 @@ export class SpaHome extends React.PureComponent {
 
     return (
       <div>
-        <StyledList>
+        <AckSection>
           <List {...pendingAckProps} />
-        </StyledList>
+        </AckSection>
 
-        <StyledList>
+        <AckSection>
           <List {...previousAckProps} />
-        </StyledList>
+        </AckSection>
 
         <AckModal {...modalProps} />
       </div>
@@ -184,16 +156,23 @@ SpaHome.propTypes = {
       dateRead: string,
     }),
   ),
+  previousAcks: arrayOf(
+    shape({
+      name: string,
+      status: string,
+      startDate: string,
+      endDate: string,
+      dateRead: string,
+    }),
+  ),
 };
 
 const mapStateToProps = createStructuredSelector({
   pendingAcks: makeSelectPendingAcks(),
+  previousAcks: makeSelectPreviousAcks(),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  // onFinishAssignment: (id) => () => dispatch(finishAssignment(id)),
-  // onStartAssignment: (id) => () => dispatch(startAssignment(id)),
-});
+const mapDispatchToProps = () => ({});
 
 const withAppPage = appPage(SpaHome);
 

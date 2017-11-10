@@ -12,6 +12,11 @@ const makeSelectPendingAcks = () => createSelector(
   (substate) => substate.get('pendingAcks').toJS()
 );
 
+const makeSelectPreviousAcks = () => createSelector(
+  makeSelectSpaData(),
+  (substate) => substate.get('previousAcks').toJS()
+);
+
 const makeSelectSpa = () => createSelector(
   selectSpaDomain,
   (substate) => substate.toJS()
@@ -22,4 +27,5 @@ export {
   selectSpaDomain,
   makeSelectSpaData,
   makeSelectPendingAcks,
+  makeSelectPreviousAcks,
 };

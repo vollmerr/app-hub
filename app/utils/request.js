@@ -76,3 +76,13 @@ function request(url, options) {
 }
 
 export default request;
+
+// // map object into { byId: [], allIds: {} }
+// const normalizeById = (arr, key = 'id') => {
+//   const allIds = arr.reduce((acc, cur) => {
+//     acc[cur[key]] = cur;
+//     return acc;
+//   }, {});
+//   const byId = Object.keys(allIds);
+//   return { allIds, byId };
+// };

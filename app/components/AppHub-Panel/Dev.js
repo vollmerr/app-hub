@@ -35,6 +35,7 @@ export class Dev extends React.PureComponent {
     }
     onAuthUser();
     onClick();
+    window.location.reload();
   }
 
   render() {

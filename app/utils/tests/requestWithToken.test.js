@@ -78,7 +78,7 @@ describe('authenticate', () => {
     window.localStorage.getItem = () => global.jwt.valid;
     return expectSaga(authenticate, appName)
       .call(putToken, global.jwt.valid, appName)
-      .run();
+      .silentRun();
   });
 
   it('should get a new token if the token in localStorage is expired', () => {
@@ -89,7 +89,7 @@ describe('authenticate', () => {
       ])
       .call(request, global.API.JWT, authOptions)
       .call(putToken, global.jwt.valid, appName)
-      .run();
+      .silentRun();
   });
 
   it('should handle errors', () => {
@@ -99,7 +99,7 @@ describe('authenticate', () => {
         [call(request, global.API.JWT, authOptions), { id_token: '' }],
       ])
       .call(request, global.API.JWT, authOptions)
-      .run()
+      .silentRun()
       .then((result) => {
         const payload = new Error('InvalidTokenError: Invalid token specified: Cannot read property \'replace\' of undefined');
         expect(result.effects.put[0]).toEqual(put(authUserDone(payload)));
@@ -109,15 +109,17 @@ describe('authenticate', () => {
 
 
 describe('putToken', () => {
-  it('should decode the jwt token and dispatch success', () => {
+  it('should decode the jwt token, dispatch success, then return the exipre time', () => {
     const token = global.jwt.valid;
     const appName = 'BARS';
-    const decoded = decode(token);
-    const sam = decoded.sub;
-    const roles = decoded.BARS;
+    const { sub, BARS, exp, iat } = decode(token);
+    const sam = sub;
+    const roles = BARS;
+    const expire = exp - iat;
 
     return expectSaga(putToken, token, appName)
-      .put(authUserDone({ sam, roles }))
+      .put(authUserDone({ sam, roles, expire }))
+      .returns(expire)
       .run();
   });
 

@@ -73,10 +73,12 @@ describe('appHubReducer', () => {
   it('handles AUTH_USER_DONE', () => {
     const sam = 'testSam';
     const roles = ['role1', 'role2'];
+    const expire = 1234;
     expected = expected
       .setIn(['user', 'sam'], sam)
-      .setIn(['user', 'roles'], fromJS(roles));
-    const action = { type: AUTH_USER_DONE, payload: { sam, roles } };
+      .setIn(['user', 'roles'], fromJS(roles))
+      .setIn(['user', 'expire'], expire);
+    const action = { type: AUTH_USER_DONE, payload: { sam, roles, expire } };
 
     expect(appHubReducer(undefined, action)).toEqual(expected);
   });

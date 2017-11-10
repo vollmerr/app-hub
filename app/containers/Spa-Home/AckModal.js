@@ -1,24 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 
-export class AckModal extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      hasRead: false,
-    };
-  }
-
-  handleReading = () => this.setState({ hasRead: true });
-
-  handleSubmit = () => {
-    const { onClose } = this.props;
-    this.setState({ hasRead: false });
-    alert('handling submit...');
-    onClose();
-  }
-
+/**
+ * Modal for reading and acknowledging a policy
+ */
+class AckModal extends React.PureComponent {
   render() {
     const {
       item,
@@ -46,16 +34,36 @@ export class AckModal extends React.PureComponent {
       text: hasRead ? 'Confirm' : 'Read',
     };
 
+    const cancelButtonProps = {
+      onClick: onClose,
+      text: 'Cancel',
+    };
+
     return (
       <Dialog {...dialogProps}>
         <p>Please read and acknowledge ... etc</p>
         <DialogFooter>
           <PrimaryButton {...primaryButtonProps} />
-          <DefaultButton onClick={onClose} text={'Cancel'} />
+          <DefaultButton {...cancelButtonProps} />
         </DialogFooter>
       </Dialog>
     );
   }
 }
+
+
+const { bool, func, string, shape } = PropTypes;
+
+AckModal.propTypes = {
+  item: shape({
+    name: string,
+    details: string,
+  }),
+  onAck: func,
+  onRead: func,
+  onClose: func,
+  hasRead: bool,
+  hideModal: bool,
+};
 
 export default AckModal;

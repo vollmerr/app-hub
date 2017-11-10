@@ -1,3 +1,4 @@
+import { delay } from 'redux-saga';
 import { call, put } from 'redux-saga/effects';
 import decode from 'jwt-decode';
 import 'whatwg-fetch';
@@ -38,9 +39,14 @@ export function* putToken(token, appName) {
     const {
       sub: sam,
       [appName]: roles,
+      exp,
+      iat,
     } = decode(token);
 
-    yield put(authUserDone({ sam, roles }));
+    const expire = exp - iat;
+
+    yield put(authUserDone({ sam, roles, expire }));
+    return expire;
   } catch (error) {
     throw new Error(error);
   }
@@ -54,24 +60,29 @@ export function* putToken(token, appName) {
  */
 export function* authenticate(appName = 'AppHub') {
   const token = localStorage.getItem('id_token');
+  let expire = 1000; // try again in 1s by default
 
-  if (validToken(token)) {
-    // update user in global appHub state
-    yield call(putToken, token, appName);
-  } else {
-    try {
-      const options = {
-        method: 'get',
-        credentials: 'include',
-      };
-      const { id_token } = yield call(request, API.JWT, options); // eslint-disable-line
-      // set into local storage for future authentication caching
-      localStorage.setItem('id_token', id_token);
+  while (true) { // eslint-disable-line
+    if (validToken(token)) {
       // update user in global appHub state
-      yield call(putToken, id_token, appName);
-    } catch (error) {
-      yield put(authUserDone(error));
+      expire = yield call(putToken, token, appName);
+    } else {
+      try {
+        const options = {
+          method: 'get',
+          credentials: 'include',
+        };
+        const { id_token } = yield call(request, API.JWT, options); // eslint-disable-line
+        // set into local storage for future authentication caching
+        localStorage.setItem('id_token', id_token);
+        // update user in global appHub state
+        expire = yield call(putToken, id_token, appName);
+      } catch (error) {
+        yield put(authUserDone(error));
+      }
     }
+    // authenicate again when token has expired
+    yield call(delay, expire);
   }
 }
 
