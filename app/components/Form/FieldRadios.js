@@ -23,9 +23,27 @@ export const Radios = styled(ChoiceGroup)`
 
 
 export class FieldRadios extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedKey: this.props.input ? this.props.input.value : null,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { input } = nextProps;
+    // when redux form resets, reset the selectedKey to none
+    if (!input.value) {
+      this.setState({ selectedKey: null });
+    }
+  }
+
   handleChange = (event, option) => {
     const { input } = this.props;
-    input.onChange(option.key);
+    const key = option.key;
+
+    this.setState({ selectedKey: key });
+    input.onChange(key);
   }
 
   render() {
@@ -35,14 +53,15 @@ export class FieldRadios extends React.Component {
       ...props
     } = this.props;
 
+    const { selectedKey } = this.state;
+
     const { touched, error } = meta;
-    const { value } = input;
     const errorMessage = touched && error ? error : '';
 
     const fieldProps = {
       ...props,
+      selectedKey,
       errorMessage,
-      selectedKey: value,
       onChange: this.handleChange,
     };
 
