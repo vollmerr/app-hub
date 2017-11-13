@@ -1,19 +1,29 @@
 import { createSelector } from 'reselect';
 
 /**
- * Direct selector to the redux state domain
+ * This selects the slice of the redux store for this container.
+ * (immutable object, so must toJS() it if you want to use this directly).
+ *
+ * (named `redux` as this example is named redux, would normally
+ * be the name lowercased of the container, ex: 'spa' for Spa)
  */
 const selectReduxDomain = (state) => state.get('redux');
 
 /**
- * Other specific selectors
+ * Selects a section of the containers redux slice.
+ *
+ * Like this:
+ *
+ * {
+ *  someOtherApp: {...},
+ *  redux: { // entire `redux` slice selected in `selectReduxDomain`
+ *    exampleData: { // just `redux.exampleData` from `makeSelectExampleData`
+ *      stuff: {...}
+ *    }
+ *  }
+ * }
+ *
  */
-
-
-/**
- * Default selector used by WithRedux
- */
-
 const makeSelectExampleData = () => createSelector(
   selectReduxDomain,
   (substate) => substate.get('exampleData')

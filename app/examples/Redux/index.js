@@ -1,16 +1,3 @@
-/**
- *
- * Redux
- *
- * It is recommended to use the Redux Dev Tool chrome extension when running this.
- *
- * This example demonstrates:
- *  - redux     => state management
- *  - actions   => functions that gets called to update the redux store
- *  - reducer   => handles how the redux store should be updated based off the action called
- *  - selectors => used to select a specific slice of the redux store's state
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux'; // connects react to the redux store
@@ -26,8 +13,17 @@ import { exampleAction } from './actions'; // actions are what you call when you
 import messages from './messages';
 import Input from './Input';
 
-// Exported by name, not connected to redux for testng purposes
-export class Redux extends React.PureComponent {
+/**
+ * It is recommended to use the Redux Dev Tool chrome extension when running this.
+ *
+ * This example demonstrates:
+ *  - redux     => state management
+ *  - actions   => functions that gets called to update the redux store (see `actions.js`)
+ *  - reducer   => handles how the redux store should be updated based off the action called (see `reducer.js`)
+ *  - selectors => used to select a specific slice of the redux store's state (see `selectors.js`)
+ */
+export class Redux extends React.PureComponent { // Exported by name, not connected to redux for testng purposes
+
   /**
    * Updates the redux store when use enters data into the input field.
    * @param {event} event   - onChange event for input
@@ -41,11 +37,15 @@ export class Redux extends React.PureComponent {
   }
 
   render() {
-    const { exampleData } = this.props; // this makes 'exampleData' a reference to 'this.props.exampleData'
+    // this makes 'exampleData' a reference to 'this.props.exampleData'
+    const { exampleData } = this.props;
 
     return (
       <Example header={messages.header} desc={messages.desc}>
-        <Input placeholder={'Enter some text'} onChange={this.handleUpdateData} />
+        <Input
+          placeholder={'Enter some text'}
+          onChange={this.handleUpdateData}
+        />
         {exampleData && <p>{exampleData}</p>}
       </Example>
     );
@@ -74,8 +74,11 @@ const mapStateToProps = createStructuredSelector({
 });
 
 /**
- * This will be any actions to update the redux store.
- * They are defined in
+ * This will be any actions that dispatch to update the redux store.
+ * They are defined in `actions.js`.
+ *
+ * Name them with `on` infront of the action name, for example
+ * `callApiRequest` would become `onCallApiRequest`
  */
 export function mapDispatchToProps(dispatch) {
   return {

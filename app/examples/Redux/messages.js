@@ -1,8 +1,4 @@
-/**
- *
- * text to display in  WithRedux component
- *
- */
+// ignore this file....
 /* eslint-disable quotes */
 export default {
   header: 'Redux Example',
