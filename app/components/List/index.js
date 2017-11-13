@@ -91,8 +91,20 @@ class List extends React.PureComponent {
   }
 
   render() {
-    const { title, emptyMessage, ...listProps } = this.props;
+    const { title, emptyMessage, emptyOnClick, emptyButtonText, ...list } = this.props;
     const { items, columns } = this.state;
+
+    const listProps = {
+      ...list,
+      items,
+      columns,
+    };
+
+    const emptyProps = {
+      message: emptyMessage,
+      onClick: emptyOnClick,
+      buttonText: emptyButtonText,
+    };
 
     return (
       <Wrapper>
@@ -105,12 +117,8 @@ class List extends React.PureComponent {
 
         {
           this.props.items.length ?
-            <DetailsList
-              {...listProps}
-              items={items}
-              columns={columns}
-            /> :
-            <EmptyMessage>{emptyMessage}</EmptyMessage>
+            <DetailsList {...listProps} /> :
+            <EmptyMessage {...emptyProps} />
         }
       </Wrapper>
     );

@@ -6,7 +6,7 @@ import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList
 
 import appPage from 'containers/App-Container/appPage';
 import ListSection from 'components/List/ListSection';
-import { makeSelectPendingAcks, makeSelectPreviousAcks } from 'containers/Spa/selectors';
+import { makeSelectPendingAcks } from 'containers/Spa/selectors';
 import List from 'components/List';
 
 import AdminNav from './AdminNav';
@@ -59,27 +59,47 @@ export class SpaAdmin extends React.PureComponent {
     });
   }
 
+  /**
+   * Generates the items for the admin navigation menu
+   */
   navItems = () => {
-    const { selectedItem } = this.state;
-    const items = [
-      {
-        key: 'new',
-        name: 'New',
-        icon: 'plus',
-        ariaLabel: 'Add new acknowledgment',
-        onClick: this.handleNew,
-      },
-    ];
+    const { selectedItem, hideNewAck } = this.state;
+    const items = [];
 
-    if (selectedItem.id) {
+    if (hideNewAck) {
+      // add `New` button
       items.push(
         {
-          key: 'disable',
-          name: 'Disable',
-          icon: 'Clear',
-          ariaLabel: 'Disable exisiting acknowledgment',
-          onClick: this.handleDisable,
-        }
+          key: 'new',
+          name: 'New',
+          icon: 'plus',
+          ariaLabel: 'Add New Acknowledgment',
+          onClick: this.handleNew,
+        },
+      );
+
+      // item selected, add `Disable` button
+      if (selectedItem.id) {
+        items.push(
+          {
+            key: 'disable',
+            name: 'Disable',
+            icon: 'Clear',
+            ariaLabel: 'Disable Exisiting Acknowledgment',
+            onClick: this.handleDisable,
+          }
+        );
+      }
+    } else {
+      // creating new acknowledgment, add `Back` button
+      items.push(
+        {
+          key: 'back',
+          name: 'Back',
+          icon: 'navBack',
+          ariaLabel: 'Back to Admin Page',
+          onClick: this.handleNewHide,
+        },
       );
     }
 
@@ -169,9 +189,10 @@ export class SpaAdmin extends React.PureComponent {
       columns,
       title: 'Acknowledgments',
       emptyMessage: 'No Acknowledgments',
-      selectionMode: SelectionMode.single,
-      // onActiveItemChanged: this.handleSelectItem,
+      emptyOnClick: this.handleNew,
+      emptyButtonText: 'Create New',
       selection: this.selection,
+      selectionMode: SelectionMode.single,
     };
 
     const modalProps = {
@@ -181,9 +202,7 @@ export class SpaAdmin extends React.PureComponent {
       onConfirm: this.handleDisableConfirm,
     };
 
-    const newAckProps = {
-      onClickBack: this.handleNewHide,
-    };
+    const newAckProps = {};
 
     return (
       <div>

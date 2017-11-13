@@ -45,6 +45,7 @@ const initializeIcons = () => {
       down: '\uE27B',
       checkmark: '\uF8FA',
       plus: '\uE278',
+      navBack: '\uF8F9',
     },
   });
 };

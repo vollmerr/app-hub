@@ -14,21 +14,6 @@ import theme from 'utils/theme';
 
 import fields from './fields';
 
-// export class NewAckForm extends React.PureComponent {
-//   render() {
-//     const { onClickBack } = this.props;
-
-//     return (
-//       <div>
-//         <button onClick={onClickBack}>back</button>
-
-//       </div>
-//     );
-//   }
-// }
-
-// export default NewAckForm;
-
 
 const Form = styled.form`
   min-height: calc(100vh - ${theme.hub.headerHeight} - ${theme.app.subNavHeight} - 30px);
