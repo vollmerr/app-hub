@@ -185,12 +185,15 @@ export class SpaAdmin extends React.PureComponent {
     const { selectedItem, hideModal, hideNewAck } = this.state;
 
     const pendingAckProps = {
-      items: pendingAcks,
+      items: [],
       columns,
       title: 'Acknowledgments',
-      emptyMessage: 'No Acknowledgments',
-      emptyOnClick: this.handleNew,
-      emptyButtonText: 'Create New',
+      empty: {
+        message: 'No Acknowledgments',
+        onClick: this.handleNew,
+        buttonText: 'Create New',
+        buttonIcon: 'plus',
+      },
       selection: this.selection,
       selectionMode: SelectionMode.single,
     };

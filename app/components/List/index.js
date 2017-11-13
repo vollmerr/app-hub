@@ -91,19 +91,13 @@ class List extends React.PureComponent {
   }
 
   render() {
-    const { title, emptyMessage, emptyOnClick, emptyButtonText, ...list } = this.props;
+    const { title, empty, ...list } = this.props;
     const { items, columns } = this.state;
 
     const listProps = {
       ...list,
       items,
       columns,
-    };
-
-    const emptyProps = {
-      message: emptyMessage,
-      onClick: emptyOnClick,
-      buttonText: emptyButtonText,
     };
 
     return (
@@ -118,7 +112,7 @@ class List extends React.PureComponent {
         {
           this.props.items.length ?
             <DetailsList {...listProps} /> :
-            <EmptyMessage {...emptyProps} />
+            <EmptyMessage {...empty} />
         }
       </Wrapper>
     );
@@ -139,12 +133,14 @@ List.propTypes = {
     }),
   ),
   checkboxVisibility: number,
-  emptyMessage: string,
+  empty: any,
 };
 
 List.defaultProps = {
   items: [],
-  emptyMessage: 'No items',
+  empty: {
+    message: 'No items',
+  },
 };
 
 export default List;

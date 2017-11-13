@@ -13,14 +13,22 @@ export const Wrapper = styled.div`
 
 export class EmptyMessage extends React.PureComponent {
   render() {
-    const { message, buttonText, onClick } = this.props;
+    const { message, buttonText, buttonIcon, onClick } = this.props;
+
+    const buttonProps = {
+      onClick,
+      text: buttonText,
+      iconProps: {
+        iconName: buttonIcon,
+      },
+    };
 
     return (
       <Wrapper>
         <p>{message}</p>
         {
           buttonText &&
-            <DefaultButton primary text={buttonText} onClick={onClick} />
+            <DefaultButton {...buttonProps} />
         }
       </Wrapper>
     );
@@ -34,6 +42,7 @@ EmptyMessage.propTypes = {
   message: string.isRequired,
   onClick: func,
   buttonText: string,
+  buttonIcon: string,
 };
 
 export default EmptyMessage;
