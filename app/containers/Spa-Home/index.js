@@ -5,11 +5,11 @@ import { createStructuredSelector } from 'reselect';
 import { SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 
 import appPage from 'containers/App-Container/appPage';
+import ListSection from 'components/List/ListSection';
 import { makeSelectPendingAcks, makeSelectPreviousAcks } from 'containers/Spa/selectors';
 import List from 'components/List';
 
 import AckModal from './AckModal';
-import AckSection from './AckSection';
 
 const columns = [
   {
@@ -33,6 +33,10 @@ const columns = [
     fieldName: 'endDate',
   },
 ];
+
+const halfHeight = {
+  vh: 50,
+};
 
 
 /**
@@ -129,13 +133,13 @@ export class SpaHome extends React.PureComponent {
 
     return (
       <div>
-        <AckSection>
+        <ListSection {...halfHeight}>
           <List {...pendingAckProps} />
-        </AckSection>
+        </ListSection>
 
-        <AckSection>
+        <ListSection {...halfHeight}>
           <List {...previousAckProps} />
-        </AckSection>
+        </ListSection>
 
         <AckModal {...modalProps} />
       </div>

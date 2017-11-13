@@ -1,4 +1,5 @@
 import SpaHome from 'containers/Spa-Home';
+import SpaAdmin from 'containers/Spa-Admin';
 
 export const base = '/spa';
 
@@ -9,5 +10,12 @@ export default [
     path: `${base}/home`,
     exact: true,
     component: SpaHome,
+  },
+  {
+    key: 'spaAdmin',
+    name: 'Admin',
+    path: `${base}/admin`,
+    exact: true,
+    component: SpaAdmin,
   },
 ];

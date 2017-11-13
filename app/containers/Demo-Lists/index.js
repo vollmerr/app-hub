@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import { CheckboxVisibility } from 'office-ui-fabric-react/lib/DetailsList';
 
 import appPage from 'containers/App-Container/appPage';
-import theme from 'utils/theme';
 import Content from 'components/App-Content/Content';
-import Section from 'components/App-Content/Section';
 import List from 'components/List';
+import ListSection from 'components/List/ListSection';
 
 const aBunch = 5;
 const aBunchOfRows = (x) => Array(aBunch).fill(0).reduce((o, v, i) => Object.assign(o, { [`col${i}`]: `row ${i}${x}` }, {}));
@@ -19,24 +17,6 @@ const columns = Object.keys(aBunchOfItems()[0]).map((key) => ({
   name: key,
   fieldName: key,
 }));
-
-const Hidden = styled(Section)`
-  height: calc(33vh - ${theme.hub.headerHeight});
-  overflow: hidden;
-
-  .ms-Viewport {
-    overflow: auto;
-    height: calc(33vh - ${theme.hub.headerHeight} - ${theme.list.headerHeight} - 15px)
-  }
-
-  .ms-DetailsList {
-    overflow: visible;
-  }
-`;
-
-const Always = styled(Hidden)``;
-const OnHover = styled(Hidden)``;
-
 
 const hiddenProps = {
   columns,
@@ -59,20 +39,24 @@ const onHoverProps = {
   checkboxVisibility: CheckboxVisibility.onHover,
 };
 
+const oneThird = {
+  vh: 33,
+  margin: -15,
+};
 
 export class DemoLists extends React.PureComponent {
   render() {
     return (
       <Content>
-        <Hidden>
+        <ListSection {...oneThird}>
           <List {...hiddenProps} />
-        </Hidden>
-        <Always>
+        </ListSection>
+        <ListSection {...oneThird}>
           <List {...alwaysProps} />
-        </Always>
-        <OnHover>
+        </ListSection>
+        <ListSection {...oneThird}>
           <List {...onHoverProps} />
-        </OnHover>
+        </ListSection>
       </Content>
     );
   }

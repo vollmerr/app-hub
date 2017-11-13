@@ -44,6 +44,7 @@ const initializeIcons = () => {
       up: '\uE27A',
       down: '\uE27B',
       checkmark: '\uF8FA',
+      plus: '\uE278',
     },
   });
 };

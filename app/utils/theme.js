@@ -11,6 +11,7 @@ export default {
   },
   app: {
     navWidth: '225px',
+    subNavHeight: '40px',
   },
   list: {
     headerHeight: '60px',
