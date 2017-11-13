@@ -53,6 +53,7 @@ export function* putToken(token, appName) {
 }
 
 
+const MAX_TRIES = 3;
 /**
  * Authenticates a user
  * Checks local storage for token first
@@ -61,11 +62,14 @@ export function* putToken(token, appName) {
 export function* authenticate(appName = 'AppHub') {
   const token = localStorage.getItem('id_token');
   let expire = 1000; // try again in 1s by default
+  let tries = 0;
 
-  while (true) { // eslint-disable-line
+  while (tries < MAX_TRIES) { // eslint-disable-line
     if (validToken(token)) {
       // update user in global appHub state
       expire = yield call(putToken, token, appName);
+      // reset max tries
+      tries = 0;
     } else {
       try {
         const options = {
@@ -77,8 +81,13 @@ export function* authenticate(appName = 'AppHub') {
         localStorage.setItem('id_token', id_token);
         // update user in global appHub state
         expire = yield call(putToken, id_token, appName);
+        // reset max tries
+        tries = MAX_TRIES;
       } catch (error) {
+        // set error
         yield put(authUserDone(error));
+        // increment max tries
+        tries += 1;
       }
     }
     // authenicate again when token has expired
