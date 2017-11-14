@@ -36,8 +36,9 @@ const columns = [
   },
 ];
 
-const fullHeight = {
-  margin: 70, // height of nav (40) + section margin (15*2)
+const halfHeight = {
+  vh: 50,
+  margin: 18, // section margin (15) + 3 due to being in div (margin outside div)
 };
 
 /**
@@ -184,18 +185,29 @@ export class SpaAdmin extends React.PureComponent {
     const { pendingAcks } = this.props;
     const { selectedItem, hideModal, hideNewAck } = this.state;
 
-    const pendingAckProps = {
-      items: [],
+    const activeProps = {
+      items: pendingAcks,
       columns,
-      title: 'Acknowledgments',
+      title: 'Active Acknowledgments',
       empty: {
-        message: 'No Acknowledgments',
+        message: 'No Active Acknowledgments',
         onClick: this.handleNew,
         buttonText: 'Create New',
         buttonIcon: 'plus',
       },
       selection: this.selection,
       selectionMode: SelectionMode.single,
+    };
+
+    const previousProps = {
+      items: pendingAcks,
+      columns,
+      title: 'Previous Acknowledgments',
+      empty: {
+        message: 'No Previous Acknowledgments',
+      },
+      // selection: this.selection,
+      // selectionMode: SelectionMode.single,
     };
 
     const modalProps = {
@@ -216,10 +228,17 @@ export class SpaAdmin extends React.PureComponent {
 
         {
           hideNewAck ?
-            <ListSection {...fullHeight}>
-              <List {...pendingAckProps} />
+            <div>
+              <ListSection {...halfHeight}>
+                <List {...activeProps} />
+              </ListSection>
+
+              <ListSection {...halfHeight}>
+                <List {...previousProps} />
+              </ListSection>
+
               <DisableModal {...modalProps} />
-            </ListSection> :
+            </div> :
             <NewAckForm {...newAckProps} />
         }
       </div>
