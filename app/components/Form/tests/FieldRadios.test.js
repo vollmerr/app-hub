@@ -48,9 +48,11 @@ const props = {
 
 describe('FieldSelect', () => {
   let wrapper;
+  let instance;
   beforeEach(() => {
     jest.resetAllMocks();
     wrapper = shallow(<FieldRadios {...props} />);
+    instance = wrapper.instance();
   });
 
   it('should render correctly', () => {
@@ -79,19 +81,37 @@ describe('FieldSelect', () => {
     expect(wrapper.find(FieldError).length).toEqual(0);
   });
 
-  it('should handle changing the selected key', () => {
-    const option = props.options[2];
-    const instance = wrapper.instance();
-    instance.handleChange(null, option);
-    expect(props.input.onChange).toHaveBeenCalledWith(option.key);
-  });
-
-  it('should not pass onBlur or onFocus', () => {
+  it('should not pass `onBlur` or `onFocus`', () => {
     expect(wrapper.find(Radios).prop('onBlur')).toEqual(undefined);
     expect(wrapper.find(Radios).prop('onFocus')).toEqual(undefined);
   });
 
   it('should be exported (wrapped) in the index', () => {
     expect(Default).toBe(Index);
+  });
+
+  describe('componentWillReceiveProps', () => {
+    it('should clear the `selectedKey` when redux form resets', () => {
+      wrapper.setState({ selectedKey: 'testKey' });
+      instance.componentWillReceiveProps({ input: { value: undefined } });
+      expect(wrapper.state('selectedKey')).toEqual(null);
+    });
+
+    it('should not clear or update the `selectedKey` if redux form has value', () => {
+      wrapper.setState({ selectedKey: 'testKey' });
+      instance.componentWillReceiveProps({ input: { value: 'test value' } });
+      expect(wrapper.state('selectedKey')).toEqual('testKey');
+    });
+  });
+
+  describe('handleChange', () => {
+    it('should handle changing the `selectedKey`', () => {
+      const option = props.options[2];
+      instance.handleChange(null, option);
+      // update redux store
+      expect(props.input.onChange).toHaveBeenCalledWith(option.key);
+      // update local state (UI)
+      expect(wrapper.state('selectedKey')).toEqual(option.key);
+    });
   });
 });

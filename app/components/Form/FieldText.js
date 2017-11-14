@@ -12,7 +12,7 @@ export class FieldText extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: this.props.input ? this.props.input.value : '',
+      value: this.props.input.value,
     };
   }
 

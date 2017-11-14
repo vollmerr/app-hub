@@ -21,9 +21,11 @@ const props = {
 
 describe('FieldText', () => {
   let wrapper;
+  let instance;
   beforeEach(() => {
     jest.resetAllMocks();
     wrapper = shallow(<FieldText {...props} />);
+    instance = wrapper.instance();
   });
 
   it('should render correctly', () => {
@@ -53,5 +55,31 @@ describe('FieldText', () => {
 
   it('should be exported (wrapped) in the index', () => {
     expect(Default).toBe(Index);
+  });
+
+  describe('componentWillReceiveProps', () => {
+    it('should clear the `value` when redux form resets', () => {
+      wrapper.setState({ value: 'test value' });
+      instance.componentWillReceiveProps({ input: { value: undefined } });
+      expect(wrapper.state('value')).toEqual('');
+    });
+
+    it('should not clear or update the `value` if redux form has a value', () => {
+      const value = 'test value';
+      wrapper.setState({ value });
+      instance.componentWillReceiveProps({ input: { value } });
+      expect(wrapper.state('value')).toEqual(value);
+    });
+  });
+
+  describe('handleChange', () => {
+    it('should handle changing the `value`', () => {
+      const value = 'test value';
+      instance.handleChange(value);
+      // update redux store
+      expect(props.input.onChange).toHaveBeenCalledWith(value);
+      // update local state (UI)
+      expect(wrapper.state('value')).toEqual(value);
+    });
   });
 });

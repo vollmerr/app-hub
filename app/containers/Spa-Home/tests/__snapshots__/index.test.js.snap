@@ -2,7 +2,9 @@
 
 exports[`<SpaHome /> should render correctly 1`] = `
 <div>
-  <AckSection__AckSection>
+  <ListSection__ListSection
+    vh={50}
+  >
     <List
       columns={
         Array [
@@ -27,6 +29,11 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "name": "End Date",
           },
         ]
+      }
+      empty={
+        Object {
+          "message": "No items",
+        }
       }
       emptyMessage="No Acknowledgments Pending Approval"
       items={Array []}
@@ -34,8 +41,10 @@ exports[`<SpaHome /> should render correctly 1`] = `
       selectionMode={0}
       title="Pending Acknowledgment"
     />
-  </AckSection__AckSection>
-  <AckSection__AckSection>
+  </ListSection__ListSection>
+  <ListSection__ListSection
+    vh={50}
+  >
     <List
       columns={
         Array [
@@ -61,13 +70,18 @@ exports[`<SpaHome /> should render correctly 1`] = `
           },
         ]
       }
+      empty={
+        Object {
+          "message": "No items",
+        }
+      }
       emptyMessage="No Previous Acknowledgments"
       items={Array []}
       onActiveItemChanged={[Function]}
       selectionMode={0}
       title="Previous Acknowledgments"
     />
-  </AckSection__AckSection>
+  </ListSection__ListSection>
   <AckModal
     hasRead={false}
     hideModal={true}

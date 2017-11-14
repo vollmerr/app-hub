@@ -14,6 +14,13 @@ exports[`Spa Entry should render correctly 1`] = `
             "name": "Home",
             "path": "/spa/home",
           },
+          Object {
+            "component": [Function],
+            "exact": true,
+            "key": "spaAdmin",
+            "name": "Admin",
+            "path": "/spa/admin",
+          },
         ]
       }
     />

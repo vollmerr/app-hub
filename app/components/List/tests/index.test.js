@@ -19,7 +19,9 @@ const props = {
     { key: 'test', name: 'test', fieldName: 'test', notSortable: true },
     { key: 'other', name: 'other', fieldName: 'other' },
   ],
-  emptyMessage: 'test empty message',
+  empty: {
+    message: 'test empty message',
+  },
 };
 
 
@@ -56,7 +58,7 @@ describe('<List />', () => {
   it('should render an empty `EmptyMessage` is there are no items passed', () => {
     wrapper.setProps({ items: [] });
     expect(wrapper.find(EmptyMessage).length).toEqual(1);
-    expect(wrapper.find(EmptyMessage).prop('children')).toEqual(props.emptyMessage);
+    expect(wrapper.find(EmptyMessage).prop('message')).toEqual(props.empty.message);
   });
 
   describe('componentDidMount', () => {

@@ -26,7 +26,7 @@ export class FieldRadios extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedKey: this.props.input ? this.props.input.value : null,
+      selectedKey: this.props.input.value,
     };
   }
 

@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Items /> should render correctly with nothing passed 1`] = `
+.c0 {
+  height: calc(100vh - 50px - 0px);
+  overflow: hidden;
+}
+
+.c0 .ms-Viewport {
+  overflow: auto;
+  height: calc(100vh - 50px - 60px - 15px);
+}
+
+.c0 .ms-DetailsList {
+  overflow: visible;
+}
+
+.c0 .ms-DetailsRow-fields,
+.c0 .ms-DetailsHeader-cell {
+  cursor: pointer;
+}
+
+<Section__Section
+  className="c0"
+/>
+`;
+
+exports[`<Items /> should render correctly with vh and margin passed 1`] = `
+.c0 {
+  height: calc(100vh - 50px - 15px);
+  overflow: hidden;
+}
+
+.c0 .ms-Viewport {
+  overflow: auto;
+  height: calc(100vh - 50px - 60px - 15px);
+}
+
+.c0 .ms-DetailsList {
+  overflow: visible;
+}
+
+.c0 .ms-DetailsRow-fields,
+.c0 .ms-DetailsHeader-cell {
+  cursor: pointer;
+}
+
+<Section__Section
+  className="c0"
+  margin={15}
+  vh={100}
+/>
+`;
+
+exports[`<ListSection__ListSection /> should render correctly 1`] = `
+.c0 {
+  height: calc(100vh - 50px - 0px);
+  overflow: hidden;
+}
+
+.c0 .ms-Viewport {
+  overflow: auto;
+  height: calc(100vh - 50px - 60px - 15px);
+}
+
+.c0 .ms-DetailsList {
+  overflow: visible;
+}
+
+.c0 .ms-DetailsRow-fields,
+.c0 .ms-DetailsHeader-cell {
+  cursor: pointer;
+}
+
+<Section__Section
+  className="c0"
+/>
+`;

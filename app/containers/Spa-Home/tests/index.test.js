@@ -2,10 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import List from 'components/List';
+import ListSection from 'components/List/ListSection';
 
 import { SpaHome } from '../index';
 import AckModal from '../AckModal';
-import AckSection from '../AckSection';
 
 const props = {
   app: {
@@ -28,7 +28,7 @@ describe('<SpaHome />', () => {
   });
 
   it('should render two sections with lists', () => {
-    expect(wrapper.find(AckSection).length).toEqual(2);
+    expect(wrapper.find(ListSection).length).toEqual(2);
     expect(wrapper.find(List).length).toEqual(2);
   });
 

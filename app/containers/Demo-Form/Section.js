@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   padding: 15px;
   margin: 5px;
   background: ${theme.white};
+  box-shadow: 0 0 3px ${theme.neutralLight};
 `;
 
 
