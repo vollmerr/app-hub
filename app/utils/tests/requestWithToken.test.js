@@ -3,7 +3,13 @@ import { call, put } from 'redux-saga/effects';
 import { expectSaga } from 'redux-saga-test-plan';
 import decode from 'jwt-decode';
 import { authUserDone } from 'containers/AppHub/actions';
-import requestWithToken, { authenticate, putToken, validToken } from '../requestWithToken';
+import requestWithToken, {
+  authenticate,
+  putToken,
+  validToken,
+  MAX_TRIES,
+  DEFAULT_EXPIRE,
+} from '../requestWithToken';
 
 jest.mock('../request');
 const request = require('../request').default;
@@ -99,7 +105,7 @@ describe('authenticate', () => {
         [call(request, global.API.JWT, authOptions), { id_token: '' }],
       ])
       .call(request, global.API.JWT, authOptions)
-      .silentRun()
+      .silentRun(MAX_TRIES * (DEFAULT_EXPIRE + 1))
       .then((result) => {
         const payload = new Error('InvalidTokenError: Invalid token specified: Cannot read property \'replace\' of undefined');
         expect(result.effects.put[0]).toEqual(put(authUserDone(payload)));

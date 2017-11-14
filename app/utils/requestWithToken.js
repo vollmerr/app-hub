@@ -53,7 +53,9 @@ export function* putToken(token, appName) {
 }
 
 
-const MAX_TRIES = 3;
+export const MAX_TRIES = 3;
+export const DEFAULT_EXPIRE = 1000;
+
 /**
  * Authenticates a user
  * Checks local storage for token first
@@ -61,8 +63,9 @@ const MAX_TRIES = 3;
  */
 export function* authenticate(appName = 'AppHub') {
   const token = localStorage.getItem('id_token');
-  let expire = 1000; // try again in 1s by default
+  let expire = DEFAULT_EXPIRE; // try again in 1s by default
   let tries = 0;
+  let error = 'Failed to authenticate';
 
   while (tries < MAX_TRIES) { // eslint-disable-line
     if (validToken(token)) {
@@ -83,11 +86,15 @@ export function* authenticate(appName = 'AppHub') {
         expire = yield call(putToken, id_token, appName);
         // reset max tries
         tries = MAX_TRIES;
-      } catch (error) {
-        // set error
-        yield put(authUserDone(error));
+      } catch (err) {
         // increment max tries
         tries += 1;
+        error = err;
+      }
+
+      if (tries === MAX_TRIES) {
+        // max number of tires, set error
+        yield put(authUserDone(error));
       }
     }
     // authenicate again when token has expired

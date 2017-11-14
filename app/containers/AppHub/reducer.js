@@ -60,7 +60,7 @@ export default handleActions({
 
     if (action.error) {
       return state
-        .setIn(['app', 'error'], action.payload)
+        .setIn(['app', 'error'], fromJS(action.payload))
         .setIn(['app', 'loading'], false);
     }
 
