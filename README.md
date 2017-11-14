@@ -2,6 +2,8 @@
 
 [![codecov](https://codecov.io/gh/vollmerr/app-hub/branch/master/graph/badge.svg)](https://codecov.io/gh/vollmerr/app-hub)
 [![Build Status](https://travis-ci.org/vollmerr/app-hub.svg?branch=master)](https://travis-ci.org/vollmerr/app-hub)
+[![dependencies Status](https://david-dm.org/vollmerr/app-hub/status.svg)](https://david-dm.org/vollmerr/app-hub)
+[![devDependencies Status](https://david-dm.org/vollmerr/app-hub/dev-status.svg)](https://david-dm.org/vollmerr/app-hub?type=dev)
 
 ## Getting Started
 
