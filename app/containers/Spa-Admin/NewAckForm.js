@@ -6,6 +6,7 @@ import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
 import appPage from 'containers/App-Container/appPage';
 import { Form, FormButtons } from 'components/Form';
+import theme from 'utils/theme';
 
 import fields from './fields';
 
@@ -24,8 +25,8 @@ export class NewAckForm extends React.PureComponent {
     const onSubmit = (vals) => alert(JSON.stringify(vals.toJS(), null, 2));
 
     return (
-      // pass custom onSubmit to redux-forms handleSubmit. Use noValidate to turn off html5 validation
-      <Form onSubmit={handleSubmit(onSubmit)} noValidate>
+      // pass custom onSubmit to redux-forms handleSubmit.
+      <Form onSubmit={handleSubmit(onSubmit)} margin={theme.app.subNavHeight}>
         <h3>{fields.title}</h3>
         {
           // go through each section in the form in order specified

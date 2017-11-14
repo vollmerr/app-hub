@@ -46,3 +46,16 @@ npm run test:watch
 ```
 npm run generate app
 ```
+
+## Examples
+There are two forms of examples in this repo as follows:
+
+### Demo App
+- located in app/containers/Demo*
+- ignored in tests/coverage, so no examples of those in there
+- run in dev mode to view
+
+### Specfic examples
+- located in app/examples/*
+- detailed comments throughout for explanations
+- run `npm run start:examples` to start
