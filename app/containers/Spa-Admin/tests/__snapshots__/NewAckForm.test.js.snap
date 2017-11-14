@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NewAckForm /> should render correctly 1`] = `
+<Form__Form
+  noValidate={true}
+>
+  <h3>
+    New Policy Acknowledgment
+  </h3>
+  <WrappedField
+    disabled={false}
+    key="name"
+    label="Name"
+    name="name"
+    placeholder="Enter acknowledgment name..."
+    required={true}
+    validate={Array []}
+  />
+  <WrappedField
+    disabled={false}
+    key="file"
+    label="Attachment"
+    name="file"
+    placeholder="Attach a File..."
+    required={false}
+    validate={Array []}
+  />
+  <FormButtons__Buttons>
+    <CustomizedDefaultButton
+      disabled={false}
+      primary={true}
+      text="Submit"
+      type="submit"
+    />
+    <CustomizedDefaultButton
+      disabled={false}
+      onClick={[Function]}
+      text="Clear"
+    />
+  </FormButtons__Buttons>
+</Form__Form>
+`;

@@ -51,7 +51,7 @@ export class SpaAdmin extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      hideModal: true,
+      hideDisable: true,
       hideNewAck: true,
       selectedItem: {},
     };
@@ -59,6 +59,10 @@ export class SpaAdmin extends React.PureComponent {
       onSelectionChanged: () => this.handleSelectItem(),
     });
   }
+
+  //
+  // HELPER FUNCS
+  //
 
   /**
    * Generates the items for the admin navigation menu
@@ -75,7 +79,7 @@ export class SpaAdmin extends React.PureComponent {
           name: 'New',
           icon: 'plus',
           ariaLabel: 'Add New Acknowledgment',
-          onClick: this.handleNew,
+          onClick: this.handleShowNew,
         },
       );
 
@@ -87,7 +91,7 @@ export class SpaAdmin extends React.PureComponent {
             name: 'Disable',
             icon: 'Clear',
             ariaLabel: 'Disable Exisiting Acknowledgment',
-            onClick: this.handleDisable,
+            onClick: this.handleShowDisable,
           }
         );
       }
@@ -99,7 +103,7 @@ export class SpaAdmin extends React.PureComponent {
           name: 'Back',
           icon: 'navBack',
           ariaLabel: 'Back to Admin Page',
-          onClick: this.handleNewHide,
+          onClick: this.handleHideNew,
         },
       );
     }
@@ -108,47 +112,7 @@ export class SpaAdmin extends React.PureComponent {
   }
 
   /**
-   * Handles opening the form for creating a new acknowledgment
-   */
-  handleNew = () => {
-    console.log('new ack...');
-    this.setState({ hideNewAck: false });
-  }
-
-  /**
-   * Handles hiding the new acknowledgment form
-   */
-  handleNewHide = () => {
-    console.log('hiding new ack...');
-    this.setState({ hideNewAck: true });
-  }
-
-  /**
-   * Handles disabling an exisiting acknowledgment
-   */
-  handleDisable = () => {
-    console.log('disabling...');
-    this.setState({ hideModal: false });
-  }
-
-  /**
-   * Handles confirming when disabling an acknowledgment
-   */
-  handleDisableConfirm = () => {
-    console.log('confirming disabling...');
-    this.handleDisableHide();
-  }
-
-  /**
-   * Handles canceling when disabling an acknowledgment
-   */
-  handleDisableHide = () => {
-    console.log('canceling disabling...');
-    this.setState({ hideModal: true });
-  }
-
-  /**
-   * Handles selecting an items from the list
+   * Handles selecting an item from the list
    */
   handleSelectItem = () => {
     const count = this.selection.getSelectedCount();
@@ -158,32 +122,67 @@ export class SpaAdmin extends React.PureComponent {
       item = this.selection.getSelection()[0];
     }
 
-    console.log('items selected: ', item);
     this.setState({ selectedItem: item });
   }
 
-  // /**
-  //  * Handles opening the modal for new
-  //  */
-  // handleOpenModal = (item) => {
-  //   this.setState({
-  //     hideModal: false,
-  //     selectedItem: item,
-  //   });
-  // }
+  //
+  // NEW ACKNOWLEDGMENTS
+  //
 
-  // /**
-  //  * Handles closing the modal
-  //  */
-  // handleCloseModal = () => {
-  //   this.setState({
-  //     hideModal: true,
-  //   });
-  // }
+  /**
+   * Handles opening the form for creating a new acknowledgment
+   */
+  handleShowNew = () => {
+    /* istanbul ignore next */ console.log('new ack...');  // eslint-disable-line
+    this.setState({ hideNewAck: false });
+  }
+
+  /**
+   * Handles hiding the new acknowledgment form
+   */
+  handleHideNew = () => {
+    /* istanbul ignore next */ console.log('hiding new ack...');  // eslint-disable-line
+    this.setState({ hideNewAck: true });
+  }
+
+  /**
+   * Handles submitting the new acknowledgment form to api
+   */
+  handleSubmitNew = () => {
+    /* istanbul ignore next */ console.log('submitting new ack to api...'); // eslint-disable-line
+  }
+
+  //
+  // DISABLE ACKNOWLEDGMENTS
+  //
+
+  /**
+   * Handles disabling an exisiting acknowledgment
+   */
+  handleShowDisable = () => {
+    /* istanbul ignore next */ console.log('disabling...');  // eslint-disable-line
+    this.setState({ hideDisable: false });
+  }
+
+  /**
+   * Handles canceling when disabling an acknowledgment
+   */
+  handleHideDisable = () => {
+    /* istanbul ignore next */ console.log('canceling disabling...');  // eslint-disable-line
+    this.setState({ hideDisable: true });
+  }
+
+  /**
+   * Handles confirming when disabling an acknowledgment
+   */
+  handleConfirmDisable = () => {
+    /* istanbul ignore next */ console.log('confirming disabling...');  // eslint-disable-line
+    this.handleHideDisable();
+  }
 
   render() {
     const { pendingAcks } = this.props;
-    const { selectedItem, hideModal, hideNewAck } = this.state;
+    const { selectedItem, hideDisable, hideNewAck } = this.state;
 
     const activeProps = {
       items: pendingAcks,
@@ -191,7 +190,7 @@ export class SpaAdmin extends React.PureComponent {
       title: 'Active Acknowledgments',
       empty: {
         message: 'No Active Acknowledgments',
-        onClick: this.handleNew,
+        onClick: this.handleShowNew,
         buttonText: 'Create New',
         buttonIcon: 'plus',
       },
@@ -211,10 +210,10 @@ export class SpaAdmin extends React.PureComponent {
     };
 
     const modalProps = {
-      hideModal,
+      hidden: hideDisable,
       item: selectedItem,
-      onClose: this.handleDisableHide,
-      onConfirm: this.handleDisableConfirm,
+      onClose: this.handleHideDisable,
+      onConfirm: this.handleConfirmDisable,
     };
 
     const newAckProps = {};

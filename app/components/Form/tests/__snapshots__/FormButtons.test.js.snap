@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FormButtons__Buttons /> should render correctly 1`] = `
+.c0 {
+  padding-top: 15px;
+}
+
+.c0 * {
+  -webkit-transition: none;
+  transition: none;
+}
+
+<div
+  className="c0"
+/>
+`;

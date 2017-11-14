@@ -1,37 +1,18 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { toJS } from 'immutable'
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { reduxForm } from 'redux-form/immutable';
-import styled from 'styled-components';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
 import appPage from 'containers/App-Container/appPage';
-import theme from 'utils/theme';
+import { Form, FormButtons } from 'components/Form';
 
 import fields from './fields';
 
 
-const Form = styled.form`
-  min-height: calc(100vh - ${theme.hub.headerHeight} - ${theme.app.subNavHeight} - 30px);
-  padding: 15px;
-  margin: 15px 0;
-  background: ${theme.white};
-`;
-
-
-const Buttons = styled.div`
-  padding-top: 15px;
-
-  * {
-    transition: none;
-  }
-`;
-
-
+/**
+ * Form for new acknowledgments, available only to admins
+ */
 export class NewAckForm extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -57,7 +38,7 @@ export class NewAckForm extends React.PureComponent {
           })
         }
 
-        <Buttons>
+        <FormButtons>
           <DefaultButton
             primary
             type={'submit'}
@@ -69,21 +50,21 @@ export class NewAckForm extends React.PureComponent {
             text={'Clear'}
             onClick={reset}
           />
-        </Buttons>
+        </FormButtons>
       </Form>
     );
   }
 }
 
 
-// const { func, bool, string } = PropTypes;
+const { func, bool } = PropTypes;
 
-// DemoForm.propTypes = {
-//   handleSubmit: func.isRequired,
-//   reset: func.isRequired,
-//   pristine: bool.isRequired,
-//   submitting: bool.isRequired,
-// };
+NewAckForm.propTypes = {
+  handleSubmit: func.isRequired,
+  reset: func.isRequired,
+  pristine: bool.isRequired,
+  submitting: bool.isRequired,
+};
 
 const withForm = reduxForm({
   form: 'spaAdmin',

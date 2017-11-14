@@ -10,8 +10,6 @@ import Items from './Items';
 
 // https://github.com/OfficeDev/office-ui-fabric-react/issues/915
 class AppNav extends React.PureComponent {
-  static history;
-
   constructor(props) {
     super(props);
     this.state = {
@@ -20,11 +18,13 @@ class AppNav extends React.PureComponent {
   }
 
   componentDidMount() {
+    const { appRoutes } = this.props;
+    // initalize to exisiting location
+    this.getSelectedKey(appRoutes, history.location);
     // listen for changes on history, updated selected on change
     /* istanbul ignore next */
     this.history = history.listen((location) => {
-      const { appRoutes } = this.props;
-      this.getSelectedKey(appRoutes, location);
+      this.getSelectedKey(this.props.appRoutes, location); // use this.props to get new reference
     });
   }
 

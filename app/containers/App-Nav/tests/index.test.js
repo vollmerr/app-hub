@@ -31,6 +31,19 @@ describe('<AppNav />', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  describe('componentDidMount', () => {
+    it('should set the `selectedKey` to the current location', () => {
+      instance.getSelectedKey = jest.fn();
+      instance.componentDidMount();
+      expect(instance.getSelectedKey).toHaveBeenCalledWith(props.appRoutes, history.location);
+    });
+
+    it('should bind the history listener to `this.history`', () => {
+      instance.componentDidMount();
+      expect(instance.history).toBeDefined();
+    });
+  });
+
   describe('handleClickLink', () => {
     it('should exist', () => {
       expect(instance.handleClickLink).toBeDefined();
@@ -48,7 +61,6 @@ describe('<AppNav />', () => {
     });
 
     it('should handle routing for internal links (path)', () => {
-      history.push = jest.fn();
       instance.handleClickLink(event, element);
       expect(history.push).toHaveBeenCalledWith(element.path);
     });
@@ -108,9 +120,5 @@ describe('<AppNav />', () => {
     mounted.setProps({ ...newProps });
     expect(inst.getSelectedKey).not.toHaveBeenCalled();
     expect(render).toHaveBeenCalled();
-  });
-
-  it('should bind the history listener to this.history', () => {
-    expect(instance.history).toBeDefined();
   });
 });

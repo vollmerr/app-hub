@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SpaAdmin /> should render correctly 1`] = `
+<div>
+  <AdminNav__AdminNav
+    isSearchBoxVisible={false}
+    items={
+      Array [
+        Object {
+          "ariaLabel": "Add New Acknowledgment",
+          "icon": "plus",
+          "key": "new",
+          "name": "New",
+          "onClick": [Function],
+        },
+      ]
+    }
+  />
+  <div>
+    <ListSection__ListSection
+      margin={18}
+      vh={50}
+    >
+      <List
+        columns={
+          Array [
+            Object {
+              "fieldName": "name",
+              "key": "name",
+              "name": "Name",
+            },
+            Object {
+              "fieldName": "status",
+              "key": "status",
+              "name": "Status",
+            },
+            Object {
+              "fieldName": "startDate",
+              "key": "startDate",
+              "name": "Start Date",
+            },
+            Object {
+              "fieldName": "endDate",
+              "key": "endDate",
+              "name": "End Date",
+            },
+          ]
+        }
+        empty={
+          Object {
+            "buttonIcon": "plus",
+            "buttonText": "Create New",
+            "message": "No Active Acknowledgments",
+            "onClick": [Function],
+          }
+        }
+        items={Array []}
+        selection={
+          Selection {
+            "_anchoredIndex": 0,
+            "_canSelectItem": [Function],
+            "_changeEventSuppressionCount": 0,
+            "_exemptedCount": 0,
+            "_exemptedIndices": Object {},
+            "_getKey": [Function],
+            "_isModal": false,
+            "_items": Array [],
+            "_keyToIndexMap": Object {},
+            "_onSelectionChanged": [Function],
+            "_unselectableCount": 0,
+            "_unselectableIndices": Object {},
+            "mode": 2,
+          }
+        }
+        selectionMode={1}
+        title="Active Acknowledgments"
+      />
+    </ListSection__ListSection>
+    <ListSection__ListSection
+      margin={18}
+      vh={50}
+    >
+      <List
+        columns={
+          Array [
+            Object {
+              "fieldName": "name",
+              "key": "name",
+              "name": "Name",
+            },
+            Object {
+              "fieldName": "status",
+              "key": "status",
+              "name": "Status",
+            },
+            Object {
+              "fieldName": "startDate",
+              "key": "startDate",
+              "name": "Start Date",
+            },
+            Object {
+              "fieldName": "endDate",
+              "key": "endDate",
+              "name": "End Date",
+            },
+          ]
+        }
+        empty={
+          Object {
+            "message": "No Previous Acknowledgments",
+          }
+        }
+        items={Array []}
+        title="Previous Acknowledgments"
+      />
+    </ListSection__ListSection>
+    <DisableModal
+      hidden={true}
+      item={Object {}}
+      onClose={[Function]}
+      onConfirm={[Function]}
+    />
+  </div>
+</div>
+`;
