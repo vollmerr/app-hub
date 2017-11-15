@@ -18,16 +18,13 @@ export class FieldText extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const { input } = nextProps;
-    // when redux form resets, reset the value to none
-    if (!input.value) {
-      this.setState({ value: '' });
-    }
+    const value = input.value || '';
+    this.setState({ value });
   }
 
-  handleChange = (value) => {
+  handleChange = () => {
     const { input } = this.props;
-    this.setState({ value });
-    input.onChange(value);
+    this.setState({ value: input.value || '' });
   }
 
   render() {
@@ -39,6 +36,7 @@ export class FieldText extends React.Component {
 
     const { value } = this.state;
 
+    const { onChange } = input;
     const { touched, error } = meta;
     const errorMessage = touched && error ? error : '';
 
@@ -46,6 +44,7 @@ export class FieldText extends React.Component {
       ...props,
       value,
       errorMessage,
+      onBeforeChange: onChange,
       onChanged: this.handleChange,
     };
 

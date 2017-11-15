@@ -17,7 +17,7 @@ export const normalizeNumber = (value, previousValue) => {
   }
 
   if (onlyNums.length <= 4) {
-    return onlyNums;
+    return `${onlyNums}`;
   }
 
   return `${onlyNums.slice(0, 4)}-${onlyNums.slice(4, 7)}`;

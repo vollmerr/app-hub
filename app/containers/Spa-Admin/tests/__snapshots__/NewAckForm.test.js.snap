@@ -2,7 +2,9 @@
 
 exports[`<NewAckForm /> should render correctly 1`] = `
 <Form__Form
+  margin="40px"
   noValidate={true}
+  vh={100}
 >
   <h3>
     New Policy Acknowledgment

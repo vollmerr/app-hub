@@ -10,6 +10,7 @@ exports[`<Form /> should render correctly with nothing passed 1`] = `
 
 <form
   className="c0"
+  noValidate={true}
 />
 `;
 
@@ -23,6 +24,7 @@ exports[`<Form /> should render correctly with vh and margin passed 1`] = `
 
 <form
   className="c0"
+  noValidate={true}
 />
 `;
 
@@ -36,5 +38,6 @@ exports[`<Form__Form /> should render correctly 1`] = `
 
 <form
   className="c0"
+  noValidate={true}
 />
 `;

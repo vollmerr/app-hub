@@ -73,13 +73,18 @@ describe('FieldText', () => {
   });
 
   describe('handleChange', () => {
-    it('should handle changing the `value`', () => {
+    it('should handle changing the `value` to the redux stores value', () => {
       const value = 'test value';
-      instance.handleChange(value);
-      // update redux store
-      expect(props.input.onChange).toHaveBeenCalledWith(value);
-      // update local state (UI)
+      wrapper.setProps({ input: { ...props.input, value } });
+      instance.handleChange();
       expect(wrapper.state('value')).toEqual(value);
+    });
+
+    it('should handle changing the `value` a default if none provided', () => {
+      const value = undefined;
+      wrapper.setProps({ input: { ...props.input, value } });
+      instance.handleChange();
+      expect(wrapper.state('value')).toEqual('');
     });
   });
 });

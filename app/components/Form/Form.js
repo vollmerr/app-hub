@@ -13,7 +13,7 @@ const Form = styled.form`
 Form.defaultProps = {
   noValidate: true,
   vh: 100,
-  margin: 0,
+  margin: '0px',
 };
 
 export default Form;
