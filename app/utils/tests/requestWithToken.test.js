@@ -121,7 +121,7 @@ describe('putToken', () => {
     const { sub, BARS, exp, iat } = decode(token);
     const sam = sub;
     const roles = BARS;
-    const expire = exp - iat;
+    const expire = (exp - iat) * 1000;
 
     return expectSaga(putToken, token, appName)
       .put(authUserDone({ sam, roles, expire }))

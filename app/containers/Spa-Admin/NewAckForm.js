@@ -22,6 +22,7 @@ export class NewAckForm extends React.PureComponent {
 
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props;
+    /* istanbul ignore next: TODO: submit to api... */
     const onSubmit = (vals) => alert(JSON.stringify(vals.toJS(), null, 2));
 
     return (

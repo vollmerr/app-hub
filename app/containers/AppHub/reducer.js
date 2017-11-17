@@ -64,9 +64,11 @@ export default handleActions({
         .setIn(['app', 'loading'], false);
     }
 
+    const rolesArray = typeof roles === 'string' ? [roles] : roles;
+
     return state
       .setIn(['user', 'sam'], sam)
-      .setIn(['user', 'roles'], fromJS(roles))
+      .setIn(['user', 'roles'], fromJS(rolesArray))
       .setIn(['user', 'expire'], expire);
   },
 }, fromJS(initialState));

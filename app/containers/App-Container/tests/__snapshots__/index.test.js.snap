@@ -19,7 +19,7 @@ exports[`<AppContainer /> should render correctly 1`] = `
       name="keywords"
     />
   </HelmetWrapper>
-  <AppNav
+  <Connect(AppNav)
     appRoutes={
       Array [
         Object {

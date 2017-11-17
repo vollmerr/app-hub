@@ -7,7 +7,23 @@ exports[`appPage should be a HOC that returns a new component 1`] = `
       Object {
         "error": null,
         "loading": false,
+        "routes": Array [
+          Object {
+            "key": "key1",
+            "path": "/test",
+          },
+          Object {
+            "key": "key2",
+            "path": "/test2",
+          },
+        ],
       }
+    }
+    userRoles={
+      Array [
+        "test role1",
+        "test role 2",
+      ]
     }
   />
 </Content__Content>

@@ -83,6 +83,19 @@ describe('appHubReducer', () => {
     expect(appHubReducer(undefined, action)).toEqual(expected);
   });
 
+  it('handles AUTH_USER_DONE when strings passed (single value not in array)', () => {
+    const sam = 'testSam';
+    const roles = ['role1'];
+    const expire = 1234;
+    expected = expected
+      .setIn(['user', 'sam'], sam)
+      .setIn(['user', 'roles'], fromJS(roles))
+      .setIn(['user', 'expire'], expire);
+    const action = { type: AUTH_USER_DONE, payload: { sam, roles: roles[0], expire } };
+
+    expect(appHubReducer(undefined, action)).toEqual(expected);
+  });
+
   it('handles AUTH_USER_DONE with errors', () => {
     const error = new Error('test error');
     expected = expected

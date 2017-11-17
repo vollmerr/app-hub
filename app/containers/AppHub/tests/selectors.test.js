@@ -12,6 +12,7 @@ import makeSelectAppHub, {
   makeSelectAppMeta,
   makeSelectUser,
   makeSelectUserSam,
+  makeSelectUserRoles,
 } from '../selectors';
 
 const state = {
@@ -30,7 +31,7 @@ const state = {
     },
     user: {
       sam: 'testUser',
-      roles: ['super duper admin'],
+      roles: ['super duper admin', 'best admin ever'],
     },
   },
 };
@@ -117,6 +118,12 @@ describe('user selectors', () => {
   it('should select `sam` as plain JS', () => {
     const selector = makeSelectUserSam();
     const expected = state.appHub.user.sam;
+    expect(selector(actual)).toEqual(expected);
+  });
+
+  it('should select `roles` as plain JS', () => {
+    const selector = makeSelectUserRoles();
+    const expected = state.appHub.user.roles;
     expect(selector(actual)).toEqual(expected);
   });
 });

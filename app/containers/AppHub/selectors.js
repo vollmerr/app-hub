@@ -74,6 +74,11 @@ const makeSelectUserSam = () => createSelector(
   (substate) => substate.getIn(['user', 'sam'])
 );
 
+const makeSelectUserRoles = () => createSelector(
+  selectAppHubDomain,
+  (substate) => substate.getIn(['user', 'roles']).toJS()
+);
+
 /**
  * Default selector used by AppHub
  */
@@ -100,4 +105,5 @@ export {
 
   makeSelectUser,
   makeSelectUserSam,
+  makeSelectUserRoles,
 };

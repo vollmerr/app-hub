@@ -43,7 +43,7 @@ export function* putToken(token, appName) {
       iat,
     } = decode(token);
 
-    const expire = exp - iat;
+    const expire = (exp - iat) * 1000; // convert from ms to s
 
     yield put(authUserDone({ sam, roles, expire }));
     return expire;

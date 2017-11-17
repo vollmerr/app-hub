@@ -5,3 +5,6 @@ export const INIT_DATA_FAILURE = 'app/Spa/INIT_DATA_FAILURE';
 // ASSIGNMENTS
 export const START_ASSIGNMENT = 'app/Spa/START_ASSIGNMENT';
 export const FINISH_ASSIGNMENT = 'app/Spa/FINISH_ASSIGNMENT';
+// ROLES
+export const SPA_ROLE_ADMIN = 'Security';
+export const SPA_ROLE_GUARD = 'Guard';

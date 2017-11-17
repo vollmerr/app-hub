@@ -2,16 +2,29 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import { history } from 'configureStore';
-import AppNav from '../index';
+import { AppNav } from '../index';
+
+const roles = [
+  'test role1',
+  'test role 2',
+];
+
+const routes = [
+  { name: 'test route1', path: '/test-route1', key: 'test-key1' },
+  { name: 'test route2', path: '/test-route2', key: 'test-key2', roles: ['otherRole'] },
+  { name: 'test route3', path: '/test-route3', key: 'test-key3', roles: [roles[1]] },
+];
+
+const filteredRoutes = [routes[0], routes[2]]; // routes user has permissions for
 
 const props = {
   onClick: jest.fn(),
   isMobile: false,
-  appRoutes: [
-    { name: 'test route1', path: '/test-route', key: 'test-key' },
-  ],
+  appRoutes: routes,
+  userRoles: roles,
 };
 
+history.location = props.appRoutes[0].path;
 history.push = jest.fn();
 
 describe('<AppNav />', () => {
@@ -20,9 +33,9 @@ describe('<AppNav />', () => {
   let event;
   let element;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<AppNav {...props} />);
     instance = wrapper.instance();
+    jest.resetAllMocks();
     event = { preventDefault: jest.fn() };
     element = { path: '/test' };
   });
@@ -32,15 +45,87 @@ describe('<AppNav />', () => {
   });
 
   describe('componentDidMount', () => {
-    it('should set the `selectedKey` to the current location', () => {
-      instance.getSelectedKey = jest.fn();
+    it('should update the routes to only those the user has access to', () => {
+      instance.getRoutes = jest.fn();
       instance.componentDidMount();
-      expect(instance.getSelectedKey).toHaveBeenCalledWith(props.appRoutes, history.location);
+      expect(instance.getRoutes).toHaveBeenCalledWith(routes, history.location);
     });
 
     it('should bind the history listener to `this.history`', () => {
       instance.componentDidMount();
       expect(instance.history).toBeDefined();
+    });
+  });
+
+  describe('componentWillReceiveProps', () => {
+    // not resetting between tests to preserve state
+    const render = jest.spyOn(AppNav.prototype, 'render');
+    const mounted = mount(<AppNav {...props} />);
+    const newProps = { ...props, appRoutes: [{ name: 'new route' }, ...props.appRoutes] };
+    const inst = mounted.instance();
+    inst.getSelectedKey = jest.fn();
+
+    it('should re-render and update the selectedKey when new `appRoutes` passed', () => {
+      mounted.setProps({ ...newProps });
+      expect(inst.getSelectedKey).toHaveBeenCalled();
+      expect(render).toHaveBeenCalled();
+    });
+
+    it('should not update when new same props passed', () => {
+      jest.resetAllMocks();
+      mounted.setProps({ ...newProps });
+      expect(inst.getSelectedKey).not.toHaveBeenCalled();
+      expect(render).not.toHaveBeenCalled();
+    });
+
+    it('should re-render but not update the selectedKey when new props but same `appRoutes` passed', () => {
+      jest.resetAllMocks();
+      newProps.isMobile = true;
+      mounted.setProps({ ...newProps });
+      expect(inst.getSelectedKey).not.toHaveBeenCalled();
+      expect(render).toHaveBeenCalled();
+    });
+  });
+
+  describe('componentWillUnmount', () => {
+    it('should unsubscribe from history', () => {
+      instance.history = jest.fn();
+      wrapper.unmount();
+      expect(instance.history).toHaveBeenCalled();
+    });
+  });
+
+  describe('getRoutes', () => {
+    beforeEach(() => {
+      instance.getSelectedKey = jest.fn();
+    });
+
+    it('should update the `selectedKey`', () => {
+      instance.getRoutes(routes, history.location);
+      expect(instance.getSelectedKey).toHaveBeenCalledWith(filteredRoutes, history.location);
+    });
+
+    it('should update the `routes` in state', () => {
+      instance.getRoutes(routes, history.location);
+      expect(wrapper.state('routes')).toEqual(filteredRoutes);
+    });
+  });
+
+  describe('getSelectedKey', () => {
+    it('should exist', () => {
+      expect(instance.getSelectedKey).toBeDefined();
+    });
+
+    it('should set the selectedKey if path found', () => {
+      const location = { pathname: routes[0].path };
+      instance.getSelectedKey(props.appRoutes, location);
+      expect(wrapper.state('selectedKey')).toEqual(routes[0].key);
+    });
+
+    it('should set not the selectedKey if path not found', () => {
+      const location = { pathname: '' };
+      instance.getSelectedKey(props.appRoutes, location);
+      expect(wrapper.state('selectedKey')).toEqual(null);
     });
   });
 
@@ -70,55 +155,5 @@ describe('<AppNav />', () => {
       instance.handleClickLink(event, element);
       expect(history.push).toHaveBeenCalledWith(element.href);
     });
-  });
-
-  describe('getSelectedKey', () => {
-    it('should exist', () => {
-      expect(instance.getSelectedKey).toBeDefined();
-    });
-
-    it('should set the selectedKey if path found', () => {
-      const location = { pathname: props.appRoutes[0].path };
-      instance.getSelectedKey(props.appRoutes, location);
-      expect(wrapper.state('selectedKey')).toEqual(props.appRoutes[0].key);
-    });
-
-    it('should set not the selectedKey if path not found', () => {
-      const location = { pathname: '' };
-      instance.getSelectedKey(props.appRoutes, location);
-      expect(wrapper.state('selectedKey')).toEqual(null);
-    });
-  });
-
-  it('should unsubscribe from history when unmounting', () => {
-    instance.history = jest.fn();
-    wrapper.unmount();
-    expect(instance.history).toHaveBeenCalled();
-  });
-
-  it('should handle receiveing props', () => {
-    const render = jest.spyOn(AppNav.prototype, 'render');
-    const mounted = mount(<AppNav {...props} />);
-    const newProps = { ...props, appRoutes: [{ name: 'new route' }, ...props.appRoutes] };
-    const inst = mounted.instance();
-    inst.getSelectedKey = jest.fn();
-
-    // called with different routes
-    mounted.setProps({ ...newProps });
-    expect(inst.getSelectedKey).toHaveBeenCalled();
-    expect(render).toHaveBeenCalled();
-
-    // call with same props
-    jest.resetAllMocks();
-    mounted.setProps({ ...newProps });
-    expect(inst.getSelectedKey).not.toHaveBeenCalled();
-    expect(render).not.toHaveBeenCalled();
-
-    // call with different props but same routes
-    jest.resetAllMocks();
-    newProps.isMobile = true;
-    mounted.setProps({ ...newProps });
-    expect(inst.getSelectedKey).not.toHaveBeenCalled();
-    expect(render).toHaveBeenCalled();
   });
 });

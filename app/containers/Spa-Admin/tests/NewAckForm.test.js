@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
 import { Form, FormButtons } from 'components/Form';
 
@@ -38,7 +39,18 @@ describe('<NewAckForm />', () => {
     expect(wrapper.find(Form).find(FormButtons).length).toEqual(1);
   });
 
+  it('should submit and clear `DefaultButton`s in the buttons seciton', () => {
+    expect(wrapper.find(FormButtons).find(DefaultButton).length).toEqual(2);
+  });
+
   it('should render all the fields', () => {
     expect(wrapper.find('WrappedField').length).toEqual(fields.allNames.length);
+  });
+
+  it('should disable the buttons when `pristine` or `submitting`', () => {
+    wrapper.setProps({ pristine: true });
+    expect(wrapper.find(DefaultButton).at(0).prop('disabled')).toEqual(true);
+    wrapper.setProps({ pristine: false, submitting: true });
+    expect(wrapper.find(DefaultButton).at(1).prop('disabled')).toEqual(true);
   });
 });

@@ -24,6 +24,9 @@ exports[`<Spa /> should render correctly 1`] = `
           "key": "spaAdmin",
           "name": "Admin",
           "path": "/spa/admin",
+          "roles": Array [
+            "Security",
+          ],
         },
       ],
     }

@@ -1,9 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import cloneDeep from 'lodash/cloneDeep';
 
 import ErrorMessage from 'components/Loading/ErrorMessage';
 import LoadingMessage from 'components/Loading/LoadingMessage';
 import Content from 'components/App-Content/Content';
+import { history } from 'configureStore';
 
 import { appPage } from '../appPage';
 
@@ -12,15 +14,26 @@ const props = {
   app: {
     error: null,
     loading: false,
+    routes: [{ key: 'key1', path: '/test' }, { key: 'key2', path: '/test2' }],
   },
+  userRoles: ['test role1', 'test role 2'],
 };
+
+history.push = jest.fn();
+
+const error = 'test error';
 
 describe('appPage', () => {
   let wrapper;
   let WithAppPage;
+  let instance;
+  let newProps;
   beforeEach(() => {
+    jest.resetAllMocks();
     WithAppPage = appPage(Component);
     wrapper = shallow(<WithAppPage {...props} />);
+    instance = wrapper.instance();
+    newProps = cloneDeep(props);
   });
 
   it('should be a HOC that returns a new component', () => {
@@ -47,27 +60,58 @@ describe('appPage', () => {
   });
 
   it('should render an error message if passed an error', () => {
-    const error = 'test error';
-    wrapper.setProps({ ...props, app: { error } });
+    newProps.app.error = error;
+    wrapper.setProps({ ...newProps });
     expect(wrapper.find(ErrorMessage).length).toEqual(1);
   });
 
   it('should pass the `error` and `to` path to the error message', () => {
-    const error = 'test error';
-    wrapper.setProps({ ...props, app: { error, routes: [{ path: '/test-route' }] } });
+    newProps.app.error = error;
+    wrapper.setProps({ ...newProps });
     expect(wrapper.find(ErrorMessage).prop('error')).toEqual(error);
-    expect(wrapper.find(ErrorMessage).prop('to')).toEqual('/test-route');
+    expect(wrapper.find(ErrorMessage).prop('to')).toEqual(props.app.routes[0].path);
   });
 
   it('should pass the AppHub base route to the error message if no `to` provided', () => {
-    const error = 'test error';
-    wrapper.setProps({ ...props, app: { error } });
+    newProps.app.error = error;
+    newProps.app.routes = [];
+    wrapper.setProps({ ...newProps });
     expect(wrapper.find(ErrorMessage).prop('to')).toEqual('/');
   });
 
   it('should render a loading message if loading', () => {
-    wrapper.setProps({ ...props, app: { loading: true } });
+    newProps.app.loading = true;
+    wrapper.setProps({ ...newProps });
     expect(wrapper.find(LoadingMessage).length).toEqual(1);
+  });
+
+  describe('componentWillReceiveProps', () => {
+    it('should update as normal when non route props change', () => {
+      newProps.app.loading = true;
+      expect(instance.componentWillReceiveProps(newProps)).toEqual(true);
+      expect(history.push).not.toHaveBeenCalled();
+    });
+
+    it('should update as normal if going to a valid route with no permissions needed', () => {
+      newProps.app.routes = [{ key: 'key3', path: '/test3' }];
+      history.location.pathname = '/test3';
+      expect(instance.componentWillReceiveProps(newProps)).toEqual(true);
+      expect(history.push).not.toHaveBeenCalled();
+    });
+
+    it('should update as normal if going to a valid route user has permissions for', () => {
+      newProps.app.routes = [{ key: 'key3', path: '/test3', roles: [props.userRoles[0]] }];
+      history.location.pathname = '/test3';
+      expect(instance.componentWillReceiveProps(newProps)).toEqual(true);
+      expect(history.push).not.toHaveBeenCalled();
+    });
+
+    it('should redirect to the app home if going to a route user doesnt have permissions for', () => {
+      newProps.app.routes = [{ key: 'key3', path: '/test3', roles: ['otherRole'] }];
+      history.location.pathname = '/test3';
+      expect(instance.componentWillReceiveProps(newProps)).toEqual(false);
+      expect(history.push).toHaveBeenCalled();
+    });
   });
 });
 

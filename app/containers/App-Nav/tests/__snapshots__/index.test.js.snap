@@ -7,9 +7,17 @@ exports[`<AppNav /> should render correctly 1`] = `
       Object {
         "links": Array [
           Object {
-            "key": "test-key",
+            "key": "test-key1",
             "name": "test route1",
-            "path": "/test-route",
+            "path": "/test-route1",
+          },
+          Object {
+            "key": "test-key3",
+            "name": "test route3",
+            "path": "/test-route3",
+            "roles": Array [
+              "test role 2",
+            ],
           },
         ],
       },
