@@ -2,7 +2,7 @@ import SpaHome from 'containers/Spa-Home';
 import SpaAdmin from 'containers/Spa-Admin';
 
 import {
-  SPA_ROLE_ADMIN,
+  SPA_ROLE_GUARD,
 } from './constants';
 export const base = '/spa';
 
@@ -20,6 +20,6 @@ export default [
     path: `${base}/admin`,
     exact: true,
     component: SpaAdmin,
-    roles: [SPA_ROLE_ADMIN],
+    roles: [SPA_ROLE_GUARD],
   },
 ];

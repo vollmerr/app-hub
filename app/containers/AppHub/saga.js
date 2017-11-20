@@ -1,7 +1,7 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects';
+import { put, takeEvery } from 'redux-saga/effects';
 import { authenticate } from 'utils/requestWithToken';
 
-import { REQUEST, SUCCESS, FAILURE } from './constants';
+import { REQUEST, SUCCESS, FAILURE, AUTH_USER } from './constants';
 import { changeAppStatus } from './actions';
 
 export function* matchPattern(action) {
@@ -17,8 +17,6 @@ export function* matchPattern(action) {
 }
 
 export default function* appHubSaga() {
-  yield all([
-    call(authenticate, 'BARS'),
-    takeEvery('*', matchPattern),
-  ]);
+  yield takeEvery(AUTH_USER, authenticate);
+  yield takeEvery('*', matchPattern);
 }

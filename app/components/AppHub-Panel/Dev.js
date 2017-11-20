@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { Dropdown } from 'office-ui-fabric-react/lib/Dropdown';
 import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import { connect } from 'react-redux';
@@ -25,6 +26,11 @@ export const Field = styled.div`
  * (This should be in containers, but makes more sense to have with other panels)
  */
 export class Dev extends React.PureComponent {
+  handleClearToken = () => {
+    localStorage.removeItem('id_token');
+    window.location.reload();
+  }
+
   handleClickUser = (user) => {
     const { onAuthUser, onClick } = this.props;
 
@@ -47,6 +53,10 @@ export class Dev extends React.PureComponent {
         <Wrapper>
           <h2>Developer Options</h2>
           <hr />
+          <DefaultButton
+            text={'Clear Token'}
+            onClick={this.handleClearToken}
+          />
           <h3>Switch User</h3>
           <Field>
             <TextField

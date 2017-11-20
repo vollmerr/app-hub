@@ -69,6 +69,9 @@ export class AppHubHome extends React.PureComponent {
     };
   }
 
+  /**
+   * Filters list of apps being displayed
+   */
   handleChangeSearch = (value) => {
     const { routes } = this.props;
     const re = new RegExp(escapeRegExp(value), 'i');
@@ -83,6 +86,14 @@ export class AppHubHome extends React.PureComponent {
     this.setState({ appRoutes });
   }
 
+  /**
+   * Does not redirect to apps home page unless we force it to
+   * update / rerender when clicking on app tile. (cant call directly for some reason...)
+   */
+  update = () => {
+    this.forceUpdate();
+  }
+
   render() {
     const { isMobile } = this.props;
     const { appRoutes } = this.state;
@@ -92,7 +103,7 @@ export class AppHubHome extends React.PureComponent {
         <UpperSection>
           <Container>
             <Search isMobile={isMobile} onChange={this.handleChangeSearch} />
-            <Apps routes={appRoutes} />
+            <Apps routes={appRoutes} onClick={this.update} />
           </Container>
         </UpperSection>
         <LowerSection isMobile={isMobile}>

@@ -11,3 +11,12 @@ global.jwt = {
 global.requestAnimationFrame = (callback) => {
   setTimeout(callback, 0);
 };
+
+
+global.API = {
+  BARS: 'test url',
+};
+
+global.localStorage = {};
+global.clearTimeout = jest.fn();
+global.setTimeout = jest.fn();

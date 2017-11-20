@@ -32,10 +32,9 @@ exports[`<SpaHome /> should render correctly 1`] = `
       }
       empty={
         Object {
-          "message": "No items",
+          "message": "No Acknowledgments Pending Approval",
         }
       }
-      emptyMessage="No Acknowledgments Pending Approval"
       items={Array []}
       onActiveItemChanged={[Function]}
       selectionMode={0}
@@ -72,10 +71,9 @@ exports[`<SpaHome /> should render correctly 1`] = `
       }
       empty={
         Object {
-          "message": "No items",
+          "message": "No Previous Acknowledgments",
         }
       }
-      emptyMessage="No Previous Acknowledgments"
       items={Array []}
       onActiveItemChanged={[Function]}
       selectionMode={0}

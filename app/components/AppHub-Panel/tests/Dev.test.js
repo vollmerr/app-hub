@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
 import { testStyledComponent } from 'utils/testUtils';
 import { authUser } from 'containers/AppHub/actions';
@@ -42,6 +43,10 @@ describe('<Dev />', () => {
     expect(wrapper.find('h2').length).toEqual(1);
   });
 
+  it('should render a button for clearing the token from localStorage', () => {
+    expect(wrapper.find(DefaultButton).length).toEqual(1);
+  });
+
   it('should render the groups in their own group', () => {
     const groups = wrapper.findWhere((x) => x.prop('options'));
     // there are 2 groups
@@ -52,6 +57,25 @@ describe('<Dev />', () => {
     // user 2 in group 2, but not user1
     expect(groups.at(1).prop('options').includes(user1)).toEqual(false);
     expect(groups.at(1).prop('options').includes(user2)).toEqual(true);
+  });
+
+  describe('handleClearToken', () => {
+    let instance;
+    beforeEach(() => {
+      global.localStorage.removeItem = jest.fn();
+      window.location.reload = jest.fn();
+      instance = wrapper.instance();
+    });
+
+    it('should exist', () => {
+      expect(instance.handleClearToken).toBeDefined();
+    });
+
+    it('should remove the token from localstorage then refresh the window', () => {
+      instance.handleClearToken();
+      expect(global.localStorage.removeItem).toHaveBeenCalledWith('id_token');
+      expect(window.location.reload).toHaveBeenCalled();
+    });
   });
 
   describe('handleClickUser', () => {

@@ -1,19 +1,17 @@
 /* eslint-disable redux-saga/yield-effects */
 import { testSaga } from 'redux-saga-test-plan';
-import { call, takeEvery } from 'redux-saga/effects';
 
 import { authenticate } from 'utils/requestWithToken';
 import appHubSaga, { matchPattern } from '../saga';
-import { CHANGE_APP_STATUS } from '../constants';
+import { CHANGE_APP_STATUS, AUTH_USER } from '../constants';
 
 describe('appHubSaga Saga', () => {
-  it('should call matchPattern for any patterns', () => {
+  it('should call `authenticate` then `matchPattern` for any patterns', () => {
     testSaga(appHubSaga)
       .next()
-      .all([
-        call(authenticate, 'BARS'),
-        takeEvery('*', matchPattern),
-      ])
+      .takeEveryEffect(AUTH_USER, authenticate)
+      .next()
+      .takeEveryEffect('*', matchPattern)
       .finish()
       .isDone();
   });

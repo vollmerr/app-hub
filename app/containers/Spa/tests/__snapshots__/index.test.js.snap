@@ -21,7 +21,7 @@ exports[`Spa Entry should render correctly 1`] = `
             "name": "Admin",
             "path": "/spa/admin",
             "roles": Array [
-              "Security",
+              "BARS Guard",
             ],
           },
         ]

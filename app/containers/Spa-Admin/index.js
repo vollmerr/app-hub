@@ -185,7 +185,7 @@ export class SpaAdmin extends React.PureComponent {
     const { selectedItem, hideDisable, hideNewAck } = this.state;
 
     const activeProps = {
-      items: pendingAcks,
+      items: [],
       columns,
       title: 'Active Acknowledgments',
       empty: {

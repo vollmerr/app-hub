@@ -6,6 +6,10 @@ exports[`<Dev /> should render correctly 1`] = `
     Developer Options
   </h2>
   <hr />
+  <CustomizedDefaultButton
+    onClick={[Function]}
+    text="Clear Token"
+  />
   <h3>
     Switch User
   </h3>

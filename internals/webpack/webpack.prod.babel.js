@@ -46,6 +46,7 @@ module.exports = require('./webpack.base.babel')({
 
     new webpack.DefinePlugin({
       API: JSON.stringify({
+        BARS: 'https://testbarsapi.technology.ca.gov/api/BadgeRequests',
         ED: 'http://testapphubapi.technology.ca.gov/directory/employees',
         JWT: 'https://testsec.api.technology.ca.gov/createToken',
       }),

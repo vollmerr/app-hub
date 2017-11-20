@@ -32,13 +32,12 @@ export function validToken(token) {
 /**
  * Helper function to put jwt token into global redux store
  * @param {string} token    - jwt token
- * @param {string} appName  - name of app supplied in jwt for roles
  */
-export function* putToken(token, appName) {
+export function* putToken(token) {
   try {
     const {
       sub: sam,
-      [appName]: roles,
+      roles,
       exp,
       iat,
     } = decode(token);
@@ -53,24 +52,21 @@ export function* putToken(token, appName) {
 }
 
 
-export const MAX_TRIES = 3;
 export const DEFAULT_EXPIRE = 1000;
 
 /**
  * Authenticates a user
  * Checks local storage for token first
- * @param {string} appName  - name of app supplied in jwt for roles
  */
-export function* authenticate(appName = 'AppHub') {
+export function* authenticate(maxTries = 3) {
   const token = localStorage.getItem('id_token');
   let expire = DEFAULT_EXPIRE; // try again in 1s by default
   let tries = 0;
-  let error = 'Failed to authenticate';
-
-  while (tries < MAX_TRIES) { // eslint-disable-line
+  let error = new Error('Failed to authenticate');
+  while (tries < maxTries) { // eslint-disable-line
     if (validToken(token)) {
       // update user in global appHub state
-      expire = yield call(putToken, token, appName);
+      expire = yield call(putToken, token);
       // reset max tries
       tries = 0;
     } else {
@@ -83,17 +79,16 @@ export function* authenticate(appName = 'AppHub') {
         // set into local storage for future authentication caching
         localStorage.setItem('id_token', id_token);
         // update user in global appHub state
-        expire = yield call(putToken, id_token, appName);
+        expire = yield call(putToken, id_token);
         // reset max tries
-        tries = MAX_TRIES;
+        tries = 0;
       } catch (err) {
         // increment max tries
         tries += 1;
         error = err;
       }
-
-      if (tries === MAX_TRIES) {
-        // max number of tires, set error
+      // max number of tires, set error
+      if (tries === maxTries) {
         yield put(authUserDone(error));
       }
     }
@@ -105,6 +100,7 @@ export function* authenticate(appName = 'AppHub') {
 
 /**
  * Requests a URL with jwt token in header for authorization, returning a promise
+ * Waits until jwt token is set in localStorage before making call
  *
  * @param  {string} url       The URL we want to request
  * @param  {object} [options] The options we want to pass to "fetch"
@@ -112,24 +108,35 @@ export function* authenticate(appName = 'AppHub') {
  * @return {object}           The response data
  */
 function requestWithToken(url, options = {}) {
-  // get users jwt token form storage else they dont have one
-  const token = localStorage.getItem('id_token') || null;
-  // config settings to send api
-  const newOptions = {
-    method: options.method || 'get',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    ...options,
+  let timer = null;
+
+  const requestIfToken = () => { // eslint-disable-line
+    // get users jwt token form storage else they dont have one
+    const token = localStorage.getItem('id_token') || null;
+    // valid token, call api
+    if (validToken(token)) {
+      clearTimeout(timer);
+      // config settings to send api
+      const newOptions = {
+        method: options.method || 'get',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        ...options,
+      };
+      // append optional body to request (POSTs)
+      if (options.body) {
+        newOptions.body = JSON.stringify(options.body);
+      }
+
+      return request(url, newOptions);
+    }
+    // wait again until token set
+    timer = setTimeout(requestIfToken, 100);
   };
 
-  if (options.body) {
-    newOptions.body = JSON.stringify(options.body);
-  }
-
-  return request(url, newOptions);
+  return requestIfToken();
 }
 
 export default requestWithToken;
-

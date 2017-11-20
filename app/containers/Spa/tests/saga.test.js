@@ -3,7 +3,7 @@ import { put } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 
 import requestWithToken from 'utils/requestWithToken';
-import spaSaga, { initData } from '../saga';
+import spaSaga, { initData, api } from '../saga';
 import { INIT_DATA_REQUEST } from '../constants';
 import { initDataSuccess, initDataFailure } from '../actions';
 
@@ -26,7 +26,7 @@ describe('initData', () => {
   it('should call the api and update the store with its results', () => {
     testSaga(initData)
       .next()
-      .call(requestWithToken, 'http://barsapi/api/BadgeRequests/GetBarsAppStartupData/')
+      .call(requestWithToken, api)
       .next(data)
       .put(initDataSuccess(data))
       .finish()

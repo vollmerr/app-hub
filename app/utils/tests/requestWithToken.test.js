@@ -1,15 +1,16 @@
 /* eslint-disable redux-saga/yield-effects */
-import { call, put } from 'redux-saga/effects';
-import { expectSaga } from 'redux-saga-test-plan';
+import { delay } from 'redux-saga';
+import { expectSaga, testSaga } from 'redux-saga-test-plan';
 import decode from 'jwt-decode';
 import { authUserDone } from 'containers/AppHub/actions';
 import requestWithToken, {
   authenticate,
   putToken,
   validToken,
-  MAX_TRIES,
   DEFAULT_EXPIRE,
 } from '../requestWithToken';
+
+expectSaga.DEFAULT_TIMEOUT = 50;
 
 jest.mock('../request');
 const request = require('../request').default;
@@ -64,14 +65,12 @@ const authOptions = {
 };
 
 describe('authenticate', () => {
-  let appName;
   beforeEach(() => {
     window.fetch = jest.fn();
     window.localStorage = {
       setItem: jest.fn(),
       getItem: jest.fn(),
     };
-    appName = 'test app name';
   });
 
   it('should pull the users token from localstorage', () => {
@@ -82,34 +81,41 @@ describe('authenticate', () => {
 
   it('should update the user is a valid token in localStorage', () => {
     window.localStorage.getItem = () => global.jwt.valid;
-    return expectSaga(authenticate, appName)
-      .call(putToken, global.jwt.valid, appName)
-      .silentRun();
+    testSaga(authenticate)
+      .next()
+      .call(putToken, global.jwt.valid)
+      .next(1)
+      .call(delay, 1)
+      .finish()
+      .isDone();
   });
 
   it('should get a new token if the token in localStorage is expired', () => {
     window.localStorage.getItem = () => global.jwt.expired;
-    return expectSaga(authenticate, appName)
-      .provide([
-        [call(request, global.API.JWT, authOptions), { id_token: global.jwt.valid }],
-      ])
+    testSaga(authenticate)
+      .next()
       .call(request, global.API.JWT, authOptions)
-      .call(putToken, global.jwt.valid, appName)
-      .silentRun();
+      .next({ id_token: global.jwt.valid })
+      .call(putToken, global.jwt.valid)
+      .next(1)
+      .call(delay, 1)
+      .finish()
+      .isDone();
   });
 
   it('should handle errors', () => {
+    const error = new Error('Bad jwt');
     window.localStorage.getItem = () => global.jwt.expired;
-    return expectSaga(authenticate, appName)
-      .provide([
-        [call(request, global.API.JWT, authOptions), { id_token: '' }],
-      ])
+    testSaga(authenticate, 1)
+      .next()
       .call(request, global.API.JWT, authOptions)
-      .silentRun(MAX_TRIES * (DEFAULT_EXPIRE + 1))
-      .then((result) => {
-        const payload = new Error('InvalidTokenError: Invalid token specified: Cannot read property \'replace\' of undefined');
-        expect(result.effects.put[0]).toEqual(put(authUserDone(payload)));
-      });
+      .next({ id_token: '' })
+      .throw(error)
+      .put(authUserDone(error))
+      .next()
+      .call(delay, DEFAULT_EXPIRE)
+      .finish()
+      .isDone();
   });
 });
 
@@ -117,13 +123,11 @@ describe('authenticate', () => {
 describe('putToken', () => {
   it('should decode the jwt token, dispatch success, then return the exipre time', () => {
     const token = global.jwt.valid;
-    const appName = 'BARS';
-    const { sub, BARS, exp, iat } = decode(token);
+    const { sub, roles, exp, iat } = decode(token);
     const sam = sub;
-    const roles = BARS;
     const expire = (exp - iat) * 1000;
 
-    return expectSaga(putToken, token, appName)
+    return expectSaga(putToken, token)
       .put(authUserDone({ sam, roles, expire }))
       .returns(expire)
       .run();
@@ -132,9 +136,8 @@ describe('putToken', () => {
   it('should handle errors', () => {
     const error = new Error('InvalidTokenError: Invalid token specified');
     const token = global.jwt.invalid;
-    const appName = 'BARS';
 
-    const gen = putToken(token, appName);
+    const gen = putToken(token);
     try {
       gen.next();
     } catch (err) {

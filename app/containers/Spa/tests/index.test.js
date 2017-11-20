@@ -8,6 +8,11 @@ import App from '../index';
 import Spa from '../Spa';
 import routes from '../routes';
 
+process.env.API = {
+  BARS: 'test url',
+};
+
+
 describe('Spa Entry', () => {
   let wrapper;
   beforeEach(() => {

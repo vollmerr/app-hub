@@ -108,7 +108,9 @@ export class SpaHome extends React.PureComponent {
       items: pendingAcks,
       columns,
       title: 'Pending Acknowledgment',
-      emptyMessage: 'No Acknowledgments Pending Approval',
+      empty: {
+        message: 'No Acknowledgments Pending Approval',
+      },
       selectionMode: SelectionMode.none,
       onActiveItemChanged: this.handleOpenModal,
     };
@@ -117,7 +119,9 @@ export class SpaHome extends React.PureComponent {
       items: previousAcks,
       columns,
       title: 'Previous Acknowledgments',
-      emptyMessage: 'No Previous Acknowledgments',
+      empty: {
+        message: 'No Previous Acknowledgments',
+      },
       selectionMode: SelectionMode.none,
       onActiveItemChanged: this.handleDownloadFile,
     };
