@@ -83,12 +83,4 @@ describe('<AppHubHome />', () => {
       expect(wrapper.state('appRoutes')).toEqual([]);
     });
   });
-
-  describe('update', () => {
-    it('should force a re-render (stays on page/breaks routing when clicking on app if not)', () => {
-      instance.render = jest.fn();
-      instance.update();
-      expect(instance.render).toHaveBeenCalled();
-    });
-  });
 });

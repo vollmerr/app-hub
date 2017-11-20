@@ -58,7 +58,7 @@ export const DEFAULT_EXPIRE = 1000;
  * Authenticates a user
  * Checks local storage for token first
  */
-export function* authenticate(maxTries = 3) {
+export function* authenticate(action, maxTries = 3) {
   const token = localStorage.getItem('id_token');
   let expire = DEFAULT_EXPIRE; // try again in 1s by default
   let tries = 0;

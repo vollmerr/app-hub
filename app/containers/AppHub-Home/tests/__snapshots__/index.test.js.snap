@@ -137,7 +137,6 @@ exports[`<AppHubHome /> should render correctly 1`] = `
         onChange={[Function]}
       />
       <Apps
-        onClick={[Function]}
         routes={
           Array [
             Object {

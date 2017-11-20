@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 
 import AppTile from 'components/AppHub-Panel/AppTile';
 import { routesProp } from 'utils/propTypes';
@@ -22,13 +21,11 @@ export const Wrapper = styled.div`
 
 class Apps extends React.PureComponent {
   render() {
-    const { onClick } = this.props;
-
     return (
       <Wrapper>
         {
           this.props.routes.slice(0, theme.hub.numApps).map((route) => (
-            <AppTile key={route.key} route={route} onClick={onClick} />
+            <AppTile key={route.key} route={route} />
           ))
         }
       </Wrapper>
@@ -36,12 +33,8 @@ class Apps extends React.PureComponent {
   }
 }
 
-
-const { func } = PropTypes;
-
 Apps.propTypes = {
   routes: routesProp.isRequired,
-  onClick: func.isRequired,
 };
 
 export default Apps;

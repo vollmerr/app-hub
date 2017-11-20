@@ -14,7 +14,6 @@ exports[`<AppHub__Wrapper /> should render correctly 1`] = `
 .c0 {
   height: 100%;
   overflow: hidden;
-  min-width: 430px;
 }
 
 <CustomizedFabric

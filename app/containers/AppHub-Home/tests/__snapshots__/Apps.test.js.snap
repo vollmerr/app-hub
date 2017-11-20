@@ -4,7 +4,6 @@ exports[`<Apps /> should render correctly 1`] = `
 <Apps__Wrapper>
   <AppTile
     key="1"
-    onClick={[Function]}
     route={
       Object {
         "component": [Function],
@@ -16,7 +15,6 @@ exports[`<Apps /> should render correctly 1`] = `
   />
   <AppTile
     key="2"
-    onClick={[Function]}
     route={
       Object {
         "component": [Function],
@@ -28,7 +26,6 @@ exports[`<Apps /> should render correctly 1`] = `
   />
   <AppTile
     key="3"
-    onClick={[Function]}
     route={
       Object {
         "href": "testHref",

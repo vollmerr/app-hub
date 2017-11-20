@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Fabric } from 'office-ui-fabric-react/lib/Fabric';
+import { withRouter } from 'react-router';
 
 import { validToken } from 'utils/requestWithToken';
 import theme from 'utils/theme';
@@ -13,7 +14,6 @@ import routes from './routes';
 export const Wrapper = styled(Fabric) `
   height: 100%;
   overflow: hidden;
-  min-width: ${theme.breakpoints.xs}px;
 `;
 
 export const Content = styled.div`
@@ -25,7 +25,7 @@ export const Content = styled.div`
  * Routing must be separate from redux (otherwise routing breaks)
  * so AppHub and Router are in differnt files pulled in here.
  */
-class AppHubRoot extends React.PureComponent {
+export class AppHubRoot extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -65,4 +65,4 @@ class AppHubRoot extends React.PureComponent {
   }
 }
 
-export default AppHubRoot;
+export default withRouter(AppHubRoot);

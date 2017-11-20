@@ -6,7 +6,7 @@ import LoadingMessage from 'components/Loading/LoadingMessage';
 import { testStyledComponent } from 'utils/testUtils';
 import Router from 'components/Router';
 
-import AppHubRoot, { Wrapper, Content } from '../index';
+import { AppHubRoot, Wrapper, Content } from '../index';
 import AppHub from '../AppHub';
 import routes from '../routes';
 

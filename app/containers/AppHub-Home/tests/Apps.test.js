@@ -14,7 +14,6 @@ const props = {
     { key: '2', exact: false, path: 'path2', component: () => <div>2</div> },
     { key: '3', href: 'testHref' },
   ],
-  onClick: jest.fn(),
 };
 
 describe('<Apps />', () => {
@@ -29,10 +28,5 @@ describe('<Apps />', () => {
 
   it('should map the routes to AppTiles', () => {
     expect(wrapper.find(AppTile).length).toEqual(props.routes.length);
-  });
-
-  it('should call the onCLick when clicked', () => {
-    wrapper.find(AppTile).at(0).simulate('click');
-    expect(props.onClick).toHaveBeenCalled();
   });
 });

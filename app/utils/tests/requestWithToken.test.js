@@ -106,7 +106,8 @@ describe('authenticate', () => {
   it('should handle errors', () => {
     const error = new Error('Bad jwt');
     window.localStorage.getItem = () => global.jwt.expired;
-    testSaga(authenticate, 1)
+    // expects first arg as action but doesnt use, seeting max attempts to 1 so fails first try
+    testSaga(authenticate, null, 1)
       .next()
       .call(request, global.API.JWT, authOptions)
       .next({ id_token: '' })
