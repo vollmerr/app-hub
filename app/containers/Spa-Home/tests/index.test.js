@@ -1,11 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
-import List from 'components/List';
 import ListSection from 'components/List/ListSection';
 
 import { SpaHome } from '../index';
 import AckModal from '../AckModal';
+
+const List = require.requireActual('components/List');
 
 const props = {
   app: {
@@ -13,6 +15,7 @@ const props = {
     loading: false,
   },
 };
+
 
 describe('<SpaHome />', () => {
   let wrapper;
@@ -29,18 +32,47 @@ describe('<SpaHome />', () => {
 
   it('should render two sections with lists', () => {
     expect(wrapper.find(ListSection).length).toEqual(2);
-    expect(wrapper.find(List).length).toEqual(2);
+    expect(wrapper.find(List.default).length).toEqual(2);
   });
 
   it('should render a modal for acknowledgments', () => {
     expect(wrapper.find(AckModal).length).toEqual(1);
   });
 
+
+  describe('selectionActive', () => {
+    it('should be an instance of `Selection`', () => {
+      expect(instance.selectionActive).toBeInstanceOf(Selection);
+    });
+
+    it('should call `handleSelectItem` when an item changes', () => {
+      List.handleSelectItem = jest.fn();
+      instance.selectionActive._onSelectionChanged(); // eslint-disable-line
+      expect(List.handleSelectItem).toHaveBeenCalled();
+    });
+  });
+
+
+  describe('selectionPrev', () => {
+    it('should be an instance of `Selection`', () => {
+      expect(instance.selectionPrev).toBeInstanceOf(Selection);
+    });
+
+    it('should call `handleSelectItem` when an item changes', () => {
+      List.handleSelectItem = jest.fn();
+      instance.selectionPrev._onSelectionChanged(); // eslint-disable-line
+      expect(List.handleSelectItem).toHaveBeenCalled();
+    });
+  });
+
+
   xdescribe('handleDownloadFile', () => {
     it('should handle downloading a file', () => {
       instance.handleDownloadFile();
+      // TODO...
     });
   });
+
 
   describe('handleRead', () => {
     it('should set that the acknowledgment has been read', () => {
@@ -55,6 +87,7 @@ describe('<SpaHome />', () => {
     });
   });
 
+
   describe('handleAck', () => {
     xit('should update the API that the user has acknowledged', () => {
       // TODO
@@ -66,6 +99,7 @@ describe('<SpaHome />', () => {
       expect(instance.handleCloseModal).toHaveBeenCalled();
     });
   });
+
 
   describe('handleOpenModal', () => {
     it('should display the modal', () => {
@@ -79,14 +113,8 @@ describe('<SpaHome />', () => {
       instance.handleOpenModal();
       expect(wrapper.state('hasRead')).toEqual(false);
     });
-
-    it('should set the item selected', () => {
-      const item = { test: 'test...' };
-      wrapper.setState({ selectedItem: null });
-      instance.handleOpenModal(item);
-      expect(wrapper.state('selectedItem')).toEqual(item);
-    });
   });
+
 
   describe('handleCloseModal', () => {
     it('should hide the modal', () => {

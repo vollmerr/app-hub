@@ -6,12 +6,13 @@ import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList
 
 import appPage from 'containers/App-Container/appPage';
 import ListSection from 'components/List/ListSection';
-import { makeSelectPendingAcks } from 'containers/Spa/selectors';
-import List from 'components/List';
+import { makeSelectPendingAcks, makeSelectPreviousAcks } from 'containers/Spa/selectors';
+import List, { handleSelectItem } from 'components/List';
 
 import AdminNav from './AdminNav';
 import NewAckForm from './NewAckForm';
 import DisableModal from './DisableModal';
+import Report from './Report';
 
 const columns = [
   {
@@ -41,6 +42,7 @@ const halfHeight = {
   margin: 18, // section margin (15) + 3 due to being in div (margin outside div)
 };
 
+
 /**
  * Admin page of SPA
  *
@@ -53,76 +55,16 @@ export class SpaAdmin extends React.PureComponent {
     this.state = {
       hideDisable: true,
       hideNewAck: true,
+      hideReport: true,
       selectedItem: {},
     };
-    this.selection = new Selection({
-      onSelectionChanged: () => this.handleSelectItem(),
+
+    this.selectionActive = new Selection({
+      onSelectionChanged: () => handleSelectItem(this, this.selectionActive, this.handleSelectActive),
     });
-  }
-
-  //
-  // HELPER FUNCS
-  //
-
-  /**
-   * Generates the items for the admin navigation menu
-   */
-  navItems = () => {
-    const { selectedItem, hideNewAck } = this.state;
-    const items = [];
-
-    if (hideNewAck) {
-      // add `New` button
-      items.push(
-        {
-          key: 'new',
-          name: 'New',
-          icon: 'plus',
-          ariaLabel: 'Add New Acknowledgment',
-          onClick: this.handleShowNew,
-        },
-      );
-
-      // item selected, add `Disable` button
-      if (selectedItem.id) {
-        items.push(
-          {
-            key: 'disable',
-            name: 'Disable',
-            icon: 'Clear',
-            ariaLabel: 'Disable Exisiting Acknowledgment',
-            onClick: this.handleShowDisable,
-          }
-        );
-      }
-    } else {
-      // creating new acknowledgment, add `Back` button
-      items.push(
-        {
-          key: 'back',
-          name: 'Back',
-          icon: 'navBack',
-          ariaLabel: 'Back to Admin Page',
-          onClick: this.handleHideNew,
-        },
-      );
-    }
-
-    return items;
-  }
-
-  /**
-   * Handles selecting an item from the list
-   */
-  handleSelectItem = () => {
-    const count = this.selection.getSelectedCount();
-
-    let item = {};
-    if (count) {
-      item = this.selection.getSelection()[0];
-    }
-
-    this.setState({ selectedItem: item });
+    this.selectionPrev = new Selection({
+      onSelectionChanged: () => handleSelectItem(this, this.selectionPrev, this.handleSelectPrevious),
+    });
   }
 
   //
@@ -133,7 +75,6 @@ export class SpaAdmin extends React.PureComponent {
    * Handles opening the form for creating a new acknowledgment
    */
   handleShowNew = () => {
-    /* istanbul ignore next */ console.log('new ack...');  // eslint-disable-line
     this.setState({ hideNewAck: false });
   }
 
@@ -141,7 +82,6 @@ export class SpaAdmin extends React.PureComponent {
    * Handles hiding the new acknowledgment form
    */
   handleHideNew = () => {
-    /* istanbul ignore next */ console.log('hiding new ack...');  // eslint-disable-line
     this.setState({ hideNewAck: true });
   }
 
@@ -160,7 +100,6 @@ export class SpaAdmin extends React.PureComponent {
    * Handles disabling an exisiting acknowledgment
    */
   handleShowDisable = () => {
-    /* istanbul ignore next */ console.log('disabling...');  // eslint-disable-line
     this.setState({ hideDisable: false });
   }
 
@@ -168,7 +107,6 @@ export class SpaAdmin extends React.PureComponent {
    * Handles canceling when disabling an acknowledgment
    */
   handleHideDisable = () => {
-    /* istanbul ignore next */ console.log('canceling disabling...');  // eslint-disable-line
     this.setState({ hideDisable: true });
   }
 
@@ -176,16 +114,112 @@ export class SpaAdmin extends React.PureComponent {
    * Handles confirming when disabling an acknowledgment
    */
   handleConfirmDisable = () => {
-    /* istanbul ignore next */ console.log('confirming disabling...');  // eslint-disable-line
     this.handleHideDisable();
   }
 
-  render() {
-    const { pendingAcks } = this.props;
-    const { selectedItem, hideDisable, hideNewAck } = this.state;
+  //
+  // REPORTING FOR ACKNOWLEDGMENTS
+  //
+
+  /**
+   * Handles showing the report screen
+   */
+  handleShowReport = () => {
+    this.setState({ hideReport: false });
+  }
+
+  /**
+   * Handles hiding the report screen
+   */
+  handleHideReport = () => {
+    this.setState({ hideReport: true });
+  }
+
+  //
+  // NAV FUNCS
+  //
+
+  /**
+   * Generates the items for the admin navigation menu
+   *
+   * @return {array} items    - items to use as buttons
+   */
+  navItems = () => {
+    const { hideNewAck, hideReport, selectedItem } = this.state;
+    const items = [];
+
+    if (hideNewAck && hideReport) {
+      // add `New` button
+      items.push(
+        {
+          key: 'new',
+          name: 'New',
+          icon: 'plus',
+          ariaLabel: 'Add New Acknowledgment',
+          onClick: this.handleShowNew,
+        },
+      );
+    } else {
+      // creating new acknowledgment, add `Back` button
+      items.push(
+        {
+          key: 'back',
+          name: 'Back',
+          icon: 'navBack',
+          ariaLabel: 'Back to Admin Page',
+          onClick: this.handleBack,
+        },
+      );
+      // showing report with current ack, add `Disable` button
+      if (!hideReport && selectedItem.isActive) {
+        items.push(
+          {
+            key: 'disable',
+            name: 'Disable',
+            icon: 'Clear',
+            ariaLabel: 'Disable Exisiting Acknowledgment',
+            onClick: this.handleShowDisable,
+          }
+        );
+      }
+    }
+
+    return items;
+  }
+
+  /**
+   * Callback for selecting an item from the active list
+   */
+  handleSelectActive = () => {
+    this.handleShowReport();
+  }
+
+  /**
+   * Callback for selecting an item from the previous list
+   */
+  handleSelectPrevious = () => {
+    this.handleShowReport();
+  }
+
+  /**
+   * Handles closing any screens / going back to the admin page
+   */
+  handleBack = () => {
+    this.handleHideNew();
+    this.handleHideReport();
+  }
+
+  /**
+   * Renders the content based off state (show lists / report / new form)
+   *
+   * @return {JSX}            - content to be rendered
+   */
+  renderContent = () => {
+    const { activeAcks, previousAcks } = this.props;
+    const { selectedItem, hideDisable, hideNewAck, hideReport } = this.state;
 
     const activeProps = {
-      items: [],
+      items: activeAcks,
       columns,
       title: 'Active Acknowledgments',
       empty: {
@@ -194,19 +228,19 @@ export class SpaAdmin extends React.PureComponent {
         buttonText: 'Create New',
         buttonIcon: 'plus',
       },
-      selection: this.selection,
-      selectionMode: SelectionMode.single,
+      selection: this.selectionActive,
+      selectionMode: SelectionMode.none,
     };
 
     const previousProps = {
-      items: pendingAcks,
+      items: previousAcks,
       columns,
       title: 'Previous Acknowledgments',
       empty: {
         message: 'No Previous Acknowledgments',
       },
-      // selection: this.selection,
-      // selectionMode: SelectionMode.single,
+      selection: this.selectionPrev,
+      selectionMode: SelectionMode.none,
     };
 
     const modalProps = {
@@ -217,29 +251,41 @@ export class SpaAdmin extends React.PureComponent {
     };
 
     const newAckProps = {};
+    // render form for new acknowledgments
+    if (!hideNewAck) {
+      return <NewAckForm {...newAckProps} />;
+    }
+    // render reporting
+    if (!hideReport && selectedItem.id) {
+      return (
+        <div>
+          <Report item={selectedItem} />
+          <DisableModal {...modalProps} />
+        </div>
+      );
+    }
+    // render lists of active and precious acknowledgments
+    return (
+      <div>
+        <ListSection {...halfHeight}>
+          <List {...activeProps} />
+        </ListSection>
 
+        <ListSection {...halfHeight}>
+          <List {...previousProps} />
+        </ListSection>
+      </div>
+    );
+  }
+
+  render() {
     return (
       <div>
         <AdminNav
           isSearchBoxVisible={false}
           items={this.navItems()}
         />
-
-        {
-          hideNewAck ?
-            <div>
-              <ListSection {...halfHeight}>
-                <List {...activeProps} />
-              </ListSection>
-
-              <ListSection {...halfHeight}>
-                <List {...previousProps} />
-              </ListSection>
-
-              <DisableModal {...modalProps} />
-            </div> :
-            <NewAckForm {...newAckProps} />
-        }
+        {this.renderContent()}
       </div>
     );
   }
@@ -249,7 +295,16 @@ export class SpaAdmin extends React.PureComponent {
 const { shape, arrayOf, string } = PropTypes;
 
 SpaAdmin.propTypes = {
-  pendingAcks: arrayOf(
+  activeAcks: arrayOf(
+    shape({
+      name: string,
+      status: string,
+      startDate: string,
+      endDate: string,
+      dateRead: string,
+    }),
+  ),
+  previousAcks: arrayOf(
     shape({
       name: string,
       status: string,
@@ -261,8 +316,8 @@ SpaAdmin.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  pendingAcks: makeSelectPendingAcks(),
-  // previousAcks: makeSelectPreviousAcks(),
+  activeAcks: makeSelectPendingAcks(),
+  previousAcks: makeSelectPreviousAcks(),
 });
 
 const mapDispatchToProps = () => ({});

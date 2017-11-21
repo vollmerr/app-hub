@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
+import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import appPage from 'containers/App-Container/appPage';
 import ListSection from 'components/List/ListSection';
 import { makeSelectPendingAcks, makeSelectPreviousAcks } from 'containers/Spa/selectors';
-import List from 'components/List';
+import List, { handleSelectItem } from 'components/List';
 
 import AckModal from './AckModal';
 
@@ -53,13 +53,20 @@ export class SpaHome extends React.PureComponent {
       hideModal: true,
       selectedItem: {},
     };
+
+    this.selectionActive = new Selection({
+      onSelectionChanged: () => handleSelectItem(this, this.selectionActive, this.handleOpenModal),
+    });
+    this.selectionPrev = new Selection({
+      onSelectionChanged: () => handleSelectItem(this, this.selectionPrev, this.handleDownloadFile),
+    });
   }
 
   /**
    * Handles downloading a file for reading
    */
   handleDownloadFile = () => {
-    // console.log('SpaHome.handleDownloadFile - downloading file.......');
+    console.log('SpaHome.handleDownloadFile - downloading file.......');
   }
 
   /**
@@ -76,18 +83,16 @@ export class SpaHome extends React.PureComponent {
    * Handles marking that the policy has been acknowledged
    */
   handleAck = () => {
-    // console.log('SpaHome.handleAck - doing API stuffs...');
     this.handleCloseModal();
   }
 
   /**
    * Handles opening the modal / resetting its state
    */
-  handleOpenModal = (item) => {
+  handleOpenModal = () => {
     this.setState({
       hasRead: false,
       hideModal: false,
-      selectedItem: item,
     });
   }
 
@@ -111,8 +116,8 @@ export class SpaHome extends React.PureComponent {
       empty: {
         message: 'No Acknowledgments Pending Approval',
       },
+      selection: this.selectionActive,
       selectionMode: SelectionMode.none,
-      onActiveItemChanged: this.handleOpenModal,
     };
 
     const previousAckProps = {
@@ -122,8 +127,8 @@ export class SpaHome extends React.PureComponent {
       empty: {
         message: 'No Previous Acknowledgments',
       },
+      selection: this.selectionPrev,
       selectionMode: SelectionMode.none,
-      onActiveItemChanged: this.handleDownloadFile,
     };
 
     const modalProps = {

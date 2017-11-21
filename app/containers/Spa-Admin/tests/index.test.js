@@ -6,15 +6,26 @@ import { SpaAdmin } from '../index';
 import AdminNav from '../AdminNav';
 import NewAckForm from '../NewAckForm';
 import DisableModal from '../DisableModal';
+import Report from '../Report';
 
-const props = {};
+const List = require.requireActual('components/List');
+
+const props = {
+  activeAcks: [],
+  previousAcks: [],
+};
 
 const state = {
+  hideDisable: true,
+  hideNewAck: true,
+  hideReport: true,
   selectedItem: {
-    name: 'test name',
-    id: 'testKey',
+    id: 1,
+    isActive: true,
+    name: 'test',
   },
 };
+
 
 describe('<SpaAdmin />', () => {
   let wrapper;
@@ -33,87 +44,41 @@ describe('<SpaAdmin />', () => {
     expect(wrapper.find(AdminNav).length).toEqual(1);
   });
 
-  it('should create a new instance of `Selection` on `this.selection`', () => {
-    expect(instance.selection).toBeInstanceOf(Selection);
+  it('should render two lists (active and previous)', () => {
+    expect(wrapper.find(List.default).length).toEqual(2);
   });
 
-  it('should update the selected item whent the selection has changed', () => {
-    instance.handleSelectItem = jest.fn();
-    instance.selection._onSelectionChanged(); // eslint-disable-line
-    expect(instance.handleSelectItem).toHaveBeenCalled();
+  it('should create a new instance of `Selection` for active acknowledgments', () => {
+    expect(instance.selectionActive).toBeInstanceOf(Selection);
+  });
+
+  it('should create a new instance of `Selection` for previous acknowledgments', () => {
+    expect(instance.selectionPrev).toBeInstanceOf(Selection);
   });
 
 
-  describe('navItems', () => {
-    it('should add a `new` button that calls `handleShowNew` onClick', () => {
-      instance.handleShowNew = jest.fn();
-      const items = instance.navItems();
-      // find new button, should only be one
-      const btns = items.filter((item) => item.key === 'new');
-      expect(btns.length).toEqual(1);
-      // click on new button
-      btns[0].onClick();
-      expect(instance.handleShowNew).toHaveBeenCalled();
+  describe('selectionActive', () => {
+    it('should be an instance of `Selection`', () => {
+      expect(instance.selectionActive).toBeInstanceOf(Selection);
     });
 
-    it('should add a `disable` button that calls `handleShowDisable` onClick', () => {
-      instance.handleShowDisable = jest.fn();
-      wrapper.setState({ selectedItem: state.selectedItem });
-      const items = instance.navItems();
-      // find disable button, should only be one
-      const btns = items.filter((item) => item.key === 'disable');
-      expect(btns.length).toEqual(1);
-      // click on new button
-      btns[0].onClick();
-      expect(instance.handleShowDisable).toHaveBeenCalled();
-    });
-
-    it('should only render 2 buttons (new, disable) if `hideNewAck`', () => {
-      wrapper.setState({ selectedItem: state.selectedItem });
-      const items = instance.navItems();
-      expect(items.length).toEqual(2);
-    });
-
-    it('should only render 1 button (back) if not `hideNewAck`', () => {
-      wrapper.setState({ hideNewAck: false, selectedItem: state.selectedItem });
-      const items = instance.navItems();
-      expect(items.length).toEqual(1);
-    });
-
-    it('should add a `back` button that calls `handleHideNew` onClick', () => {
-      instance.handleHideNew = jest.fn();
-      wrapper.setState({ hideNewAck: false });
-      const items = instance.navItems();
-      // find disable button, should only be one
-      const btns = items.filter((item) => item.key === 'back');
-      expect(btns.length).toEqual(1);
-      // click on new button
-      btns[0].onClick();
-      expect(instance.handleHideNew).toHaveBeenCalled();
+    it('should call `handleSelectItem` when an item changes', () => {
+      List.handleSelectItem = jest.fn();
+      instance.selectionActive._onSelectionChanged(); // eslint-disable-line
+      expect(List.handleSelectItem).toHaveBeenCalled();
     });
   });
 
 
-  describe('handleSelectItem', () => {
-    it('should update the `selectedItem` to the selected item', () => {
-      instance.selection = {
-        getSelectedCount: jest.fn(() => 1), // should only ever be 1 but lets make sure it works if more get selected somehow
-        getSelection: jest.fn(() => [state.selectedItem]),
-      };
-      instance.handleSelectItem();
-      wrapper.update();
-      expect(wrapper.state('selectedItem')).toEqual(state.selectedItem);
+  describe('selectionPrev', () => {
+    it('should be an instance of `Selection`', () => {
+      expect(instance.selectionPrev).toBeInstanceOf(Selection);
     });
 
-    it('should clear the `selectedItem` if there is no selected item', () => {
-      // set state to make sure it changes to no selection
-      wrapper.setState({ selectedItem: state.selectedItem });
-      instance.selection = {
-        getSelectedCount: jest.fn(() => 0),
-      };
-      instance.handleSelectItem();
-      wrapper.update();
-      expect(wrapper.state('selectedItem')).toEqual({});
+    it('should call `handleSelectItem` when an item changes', () => {
+      List.handleSelectItem = jest.fn();
+      instance.selectionPrev._onSelectionChanged(); // eslint-disable-line
+      expect(List.handleSelectItem).toHaveBeenCalled();
     });
   });
 
@@ -145,6 +110,11 @@ describe('<SpaAdmin />', () => {
 
 
   describe('Disable Acknowledgments', () => {
+    beforeEach(() => {
+      // requires report to be visibale with selected item
+      wrapper.setState({ selectedItem: state.selectedItem, hideReport: false });
+    });
+
     describe('handleShowDisable', () => {
       it('should display the disable modal', () => {
         instance.handleShowDisable();
@@ -163,7 +133,7 @@ describe('<SpaAdmin />', () => {
     });
 
     describe('handleConfirmDisable', () => {
-      it('should update the api', () => {
+      xit('should update the api', () => {
         // TODO
       });
 
@@ -171,6 +141,113 @@ describe('<SpaAdmin />', () => {
         instance.handleHideDisable = jest.fn();
         instance.handleConfirmDisable();
         expect(instance.handleHideDisable).toHaveBeenCalled();
+      });
+    });
+  });
+
+
+  describe('Reporting', () => {
+    beforeEach(() => {
+      // requires selected item
+      wrapper.setState({ selectedItem: state.selectedItem });
+    });
+
+    describe('handleShowReport', () => {
+      it('should display the report', () => {
+        instance.handleShowReport();
+        wrapper.update();
+        expect(wrapper.find(Report).length).toEqual(1);
+      });
+    });
+
+    describe('handleHideReport', () => {
+      it('should hide the report', () => {
+        wrapper.setState({ hideReport: false });
+        instance.handleHideReport();
+        wrapper.update();
+        expect(wrapper.find(Report).length).toEqual(0);
+      });
+    });
+  });
+
+
+  describe('Navigation', () => {
+    describe('navItems', () => {
+      it('should add a `new` button that calls `handleShowNew` onClick', () => {
+        instance.handleShowNew = jest.fn();
+        const items = instance.navItems();
+        // find new button, should only be one
+        const btns = items.filter((item) => item.key === 'new');
+        expect(btns.length).toEqual(1);
+        // click on new button
+        btns[0].onClick();
+        expect(instance.handleShowNew).toHaveBeenCalled();
+      });
+
+      it('should add a `disable` button that calls `handleShowDisable` onClick if showing the report and active item selected', () => {
+        instance.handleShowDisable = jest.fn();
+        wrapper.setState({ selectedItem: state.selectedItem, hideReport: false });
+        const items = instance.navItems();
+        // find disable button, should only be one
+        const btns = items.filter((item) => item.key === 'disable');
+        expect(btns.length).toEqual(1);
+        // click on new button
+        btns[0].onClick();
+        expect(instance.handleShowDisable).toHaveBeenCalled();
+      });
+
+      it('should add a `back` button that calls `handleHideNew` onClick if showing the report', () => {
+        instance.handleHideNew = jest.fn();
+        wrapper.setState({ hideReport: false });
+        const items = instance.navItems();
+        // find disable button, should only be one
+        const btns = items.filter((item) => item.key === 'back');
+        expect(btns.length).toEqual(1);
+        // click on new button
+        btns[0].onClick();
+        expect(instance.handleHideNew).toHaveBeenCalled();
+      });
+
+      it('should add a `back` button that calls `handleHideNew` onClick if showing the new acknowledgment form', () => {
+        instance.handleHideNew = jest.fn();
+        wrapper.setState({ hideNewAck: false });
+        const items = instance.navItems();
+        // find disable button, should only be one
+        const btns = items.filter((item) => item.key === 'back');
+        expect(btns.length).toEqual(1);
+        // click on new button
+        btns[0].onClick();
+        expect(instance.handleHideNew).toHaveBeenCalled();
+      });
+    });
+
+    describe('handleSelectActive', () => {
+      it('should display the report', () => {
+        instance.handleShowReport = jest.fn();
+        instance.handleSelectActive();
+        expect(instance.handleShowReport).toHaveBeenCalled();
+      });
+    });
+
+    describe('handleSelectPrevious', () => {
+      it('should display the report', () => {
+        instance.handleShowReport = jest.fn();
+        instance.handleSelectPrevious();
+        expect(instance.handleShowReport).toHaveBeenCalled();
+      });
+    });
+
+    describe('handleBack', () => {
+      it('should hide the new acknowledgment form', () => {
+        instance.handleHideNew = jest.fn();
+        instance.handleBack();
+        expect(instance.handleHideNew).toHaveBeenCalled();
+      });
+
+      it('should hide the report', () => {
+        instance.handleHideReport = jest.fn();
+        instance.handleBack();
+        expect(instance.handleHideReport).toHaveBeenCalled();
       });
     });
   });

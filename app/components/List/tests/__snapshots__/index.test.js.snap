@@ -36,16 +36,19 @@ exports[`<List /> should render correctly 1`] = `
     items={
       Array [
         Object {
+          "id": 1,
           "name": "name 2",
           "other": "1989/22/08",
           "test": 1,
         },
         Object {
+          "id": 2,
           "name": "name 1",
           "other": "2001/11/01",
           "test": 7,
         },
         Object {
+          "id": 3,
           "name": "stuff",
           "other": "2000/12/01",
           "test": 1,

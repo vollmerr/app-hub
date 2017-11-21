@@ -36,7 +36,23 @@ exports[`<SpaHome /> should render correctly 1`] = `
         }
       }
       items={Array []}
-      onActiveItemChanged={[Function]}
+      selection={
+        Selection {
+          "_anchoredIndex": 0,
+          "_canSelectItem": [Function],
+          "_changeEventSuppressionCount": 0,
+          "_exemptedCount": 0,
+          "_exemptedIndices": Object {},
+          "_getKey": [Function],
+          "_isModal": false,
+          "_items": Array [],
+          "_keyToIndexMap": Object {},
+          "_onSelectionChanged": [Function],
+          "_unselectableCount": 0,
+          "_unselectableIndices": Object {},
+          "mode": 2,
+        }
+      }
       selectionMode={0}
       title="Pending Acknowledgment"
     />
@@ -75,7 +91,23 @@ exports[`<SpaHome /> should render correctly 1`] = `
         }
       }
       items={Array []}
-      onActiveItemChanged={[Function]}
+      selection={
+        Selection {
+          "_anchoredIndex": 0,
+          "_canSelectItem": [Function],
+          "_changeEventSuppressionCount": 0,
+          "_exemptedCount": 0,
+          "_exemptedIndices": Object {},
+          "_getKey": [Function],
+          "_isModal": false,
+          "_items": Array [],
+          "_keyToIndexMap": Object {},
+          "_onSelectionChanged": [Function],
+          "_unselectableCount": 0,
+          "_unselectableIndices": Object {},
+          "mode": 2,
+        }
+      }
       selectionMode={0}
       title="Previous Acknowledgments"
     />

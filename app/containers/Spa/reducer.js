@@ -22,6 +22,7 @@ export const mockData = {
       endDate: '12/13/2100',
       dateRead: null,
       details: 'Details of items 1',
+      isActive: true,
     },
     {
       id: 2,
@@ -31,6 +32,7 @@ export const mockData = {
       endDate: '12/15/2100',
       dateRead: '12/15/2100',
       details: 'Details of items 2',
+      isActive: true,
     },
     {
       id: 3,
@@ -40,6 +42,7 @@ export const mockData = {
       endDate: '12/12/2019',
       dateRead: null,
       details: 'Details of items 3',
+      isActive: true,
     },
   ],
   previousAcks: [
@@ -51,6 +54,7 @@ export const mockData = {
       endDate: '12/13/2100',
       dateRead: '12/12/2019',
       details: 'Details of items 4',
+      isActive: false,
     },
     {
       id: 5,
@@ -60,6 +64,7 @@ export const mockData = {
       endDate: '12/15/2100',
       dateRead: '12/15/2100',
       details: 'Details of items 5',
+      isActive: false,
     },
     {
       id: 6,
@@ -69,6 +74,7 @@ export const mockData = {
       endDate: '12/12/2019',
       dateRead: '12/12/2019',
       details: 'Details of items 6',
+      isActive: false,
     },
   ],
 };

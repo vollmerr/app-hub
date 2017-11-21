@@ -12,6 +12,37 @@ import Header from './Header';
 import EmptyMessage from './EmptyMessage';
 
 
+/**
+ * Helper function to handle selecting a single item from a list
+ * Unselects the item so it can immediately be selected again
+ *
+ * Must be bound to a component to update `selectedItem` to the
+ * item selected. Calls the callback with item if passed one.
+ *
+ * @param {object} component    - component to set state on (will be `this`)
+ * @param {object} selection    - instance of `Selection` to use
+ * @param {func} callback       - called if item is selected
+ */
+export const handleSelectItem = (component, selection, callback) => {
+  const count = selection.getSelectedCount();
+  // default to object so no error in modal
+  let item = {};
+  // if there are any selected items
+  if (count) {
+    // get the item from the selction object
+    item = selection.getSelection()[0];
+    // get the index of the selected item
+    const index = selection.getSelectedIndices()[0];
+    // unselect that item, so it can be reselected later
+    selection.toggleKeySelected(index);
+  }
+  // set that item as selected, do callback if one is actually selected
+  component.setState({ selectedItem: item }, () => (
+    callback && item.id ? callback(item) : null
+  ));
+};
+
+
 class List extends React.PureComponent {
   constructor(props) {
     super(props);

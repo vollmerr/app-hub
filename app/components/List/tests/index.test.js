@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { DetailsList } from 'office-ui-fabric-react/lib/DetailsList';
 
-import List from '../index';
+import List, { handleSelectItem } from '../index';
 import Title from '../Title';
 import Search from '../Search';
 import EmptyMessage from '../EmptyMessage';
@@ -10,9 +10,9 @@ import EmptyMessage from '../EmptyMessage';
 const props = {
   title: 'test title',
   items: [
-    { name: 'name 2', test: 1, other: '1989/22/08' },
-    { name: 'name 1', test: 7, other: '2001/11/01' },
-    { name: 'stuff', test: 1, other: '2000/12/01' },
+    { id: 1, name: 'name 2', test: 1, other: '1989/22/08' },
+    { id: 2, name: 'name 1', test: 7, other: '2001/11/01' },
+    { id: 3, name: 'stuff', test: 1, other: '2000/12/01' },
   ],
   columns: [
     { key: 'name', name: 'name', fieldName: 'name' },
@@ -23,6 +23,46 @@ const props = {
     message: 'test empty message',
   },
 };
+
+const index = 1;
+const selectedItem = props.items[index];
+
+describe('handleSelectItem', () => {
+  let selection;
+  let wrapper;
+  let instance;
+  beforeEach(() => {
+    selection = {
+      getSelectedCount: jest.fn(() => 1), // should only ever be 1 but lets make sure it works if more get selected somehow
+      getSelection: jest.fn(() => [selectedItem]),
+      getSelectedIndices: jest.fn(() => index),
+      toggleKeySelected: jest.fn(),
+    };
+    wrapper = shallow(<List {...props} />);
+    instance = wrapper.instance();
+  });
+
+  it('should update the `selectedItem` to the selected item', () => {
+    handleSelectItem(instance, selection);
+    wrapper.update();
+    expect(wrapper.state('selectedItem')).toEqual(selectedItem);
+  });
+
+  it('should clear the `selectedItem` if there is no selected item', () => {
+    // set state to make sure it changes to no selection
+    wrapper.setState({ selectedItem });
+    selection.getSelectedCount = jest.fn(() => 0);
+    handleSelectItem(instance, selection);
+    wrapper.update();
+    expect(wrapper.state('selectedItem')).toEqual({});
+  });
+
+  it('should call the callback if passed one', () => {
+    const callback = jest.fn();
+    handleSelectItem(instance, selection, callback);
+    expect(callback).toHaveBeenCalledWith(selectedItem);
+  });
+});
 
 
 describe('<List />', () => {
