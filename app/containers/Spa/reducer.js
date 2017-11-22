@@ -12,78 +12,68 @@ export const initialState = {
   },
 };
 
-export const mockData = {
-  pendingAcks: [
-    {
-      id: 1,
-      name: 'item 1',
-      status: 'status 1',
-      startDate: '12/12/2100',
-      endDate: '12/13/2100',
-      dateRead: null,
-      details: 'Details of items 1',
-      isActive: true,
-    },
-    {
-      id: 2,
-      name: 'item 2',
-      status: 'status 1',
-      startDate: '12/12/2100',
-      endDate: '12/15/2100',
-      dateRead: '12/15/2100',
-      details: 'Details of items 2',
-      isActive: true,
-    },
-    {
-      id: 3,
-      name: 'item 3',
-      status: 'status 4',
-      startDate: '12/12/1900',
-      endDate: '12/12/2019',
-      dateRead: null,
-      details: 'Details of items 3',
-      isActive: true,
-    },
-  ],
-  previousAcks: [
-    {
-      id: 4,
-      name: 'item 01',
-      status: 'status 1',
-      startDate: '12/12/2100',
-      endDate: '12/13/2100',
-      dateRead: '12/12/2019',
-      details: 'Details of items 4',
-      isActive: false,
-    },
-    {
-      id: 5,
-      name: 'item 82',
-      status: 'status 1',
-      startDate: '12/12/2100',
-      endDate: '12/15/2100',
-      dateRead: '12/15/2100',
-      details: 'Details of items 5',
-      isActive: false,
-    },
-    {
-      id: 6,
-      name: 'item 6',
-      status: 'status 2',
-      startDate: '12/12/1900',
-      endDate: '12/12/2019',
-      dateRead: '12/12/2019',
-      details: 'Details of items 6',
-      isActive: false,
-    },
-  ],
+// /**
+//  * map api response to:
+//  *
+//  *  {
+//  *    byId: {
+//  *      id1: { ... },
+//  *      id2: { ... },
+//  *      id3: { ... },
+//  *    },
+//  *    allIds: [ 'id1', 'id2', 'id3' ],
+//  *    activeIds: [ 'id1', 'id3' ],
+//  *    previousIds: [ 'id2' ],
+//  *  }
+//  *
+//  * @param {*} response
+//  */
+// const mapResponse = (response) => {
+//   const data = {
+//     byId: {},
+//     allIds: [],
+//     activeIds: [],
+//     previousIds: [],
+//   };
+
+//   response.forEach((item) => {
+//     // add to byId
+//     data.byId[item.id] = item;
+//     // add to allIds
+//     data.allIds.push(item.id);
+
+//     if (item.isActive) {
+//       // add to active items if active
+//       data.activeIds.push(item.id);
+//     } else {
+//       // otherwise add to previous items
+//       data.previousIds.push(item.id);
+//     }
+//   });
+
+//   return data;
+// };
+
+
+const mapResponse = (response) => {
+  const data = {
+    pendingAcks: [],
+    previousAcks: [],
+  };
+
+  response.forEach((item) => {
+    if (item.isActive) {
+      // add to active items if active
+      data.pendingAcks.push(item);
+    } else {
+      // otherwise add to previous items
+      data.previousAcks.push(item);
+    }
+  });
+
+  return data;
 };
 
-
-// export default handleActions({
-//   [INIT_DATA_SUCCESS]: (state, action) => state.set('data', fromJS(action.payload)),
-// }, fromJS(initialState));
-
 export default handleActions({
-  [INIT_DATA_SUCCESS]: (state) => state.set('data', fromJS(mockData)),
+  [INIT_DATA_SUCCESS]: (state, action) => state.set('data', fromJS(mapResponse(action.payload))),
 }, fromJS(initialState));

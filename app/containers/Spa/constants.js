@@ -8,3 +8,21 @@ export const FINISH_ASSIGNMENT = 'app/Spa/FINISH_ASSIGNMENT';
 // ROLES
 export const SPA_ROLE_ADMIN = 'BARS Security';
 export const SPA_ROLE_GUARD = 'BARS Guard';
+// DATA FIELDS
+// fields for acknowledgment
+export const ACK = {
+  ID: 'id',
+  TITLE: 'title',
+  DATE_START: 'activeStartDate',
+  DATE_END: 'activeEndDate',
+  GROUP_CREATOR: 'creatorGroup',
+  GROUP_TARGET: 'targetADGroup',
+  STATEMENT: 'ackStatement',
+  DETAILS: 'detailsText',
+  FILE_NAME: 'fileName',
+  FILE_CONTENT: 'fileContent',
+};
+// all fields
+export const FIELDS = {
+  ACK,
+};

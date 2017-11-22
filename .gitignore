@@ -9,3 +9,6 @@ stats.json
 npm-debug.log
 .idea
 package-lock.json
+
+# jwt secret
+secret.js

@@ -8,34 +8,12 @@ import appPage from 'containers/App-Container/appPage';
 import ListSection from 'components/List/ListSection';
 import { makeSelectPendingAcks, makeSelectPreviousAcks } from 'containers/Spa/selectors';
 import List, { handleSelectItem } from 'components/List';
+import { adminColumns } from 'containers/Spa/mapped';
 
 import AdminNav from './AdminNav';
 import NewAckForm from './NewAckForm';
 import DisableModal from './DisableModal';
 import Report from './Report';
-
-const columns = [
-  {
-    key: 'name',
-    name: 'Name',
-    fieldName: 'name',
-  },
-  {
-    key: 'status',
-    name: 'Status',
-    fieldName: 'status',
-  },
-  {
-    key: 'startDate',
-    name: 'Start Date',
-    fieldName: 'startDate',
-  },
-  {
-    key: 'endDate',
-    name: 'End Date',
-    fieldName: 'endDate',
-  },
-];
 
 const halfHeight = {
   vh: 50,
@@ -220,7 +198,7 @@ export class SpaAdmin extends React.PureComponent {
 
     const activeProps = {
       items: activeAcks,
-      columns,
+      columns: adminColumns,
       title: 'Active Acknowledgments',
       empty: {
         message: 'No Active Acknowledgments',
@@ -234,7 +212,7 @@ export class SpaAdmin extends React.PureComponent {
 
     const previousProps = {
       items: previousAcks,
-      columns,
+      columns: adminColumns,
       title: 'Previous Acknowledgments',
       empty: {
         message: 'No Previous Acknowledgments',

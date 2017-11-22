@@ -3,12 +3,45 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { reduxForm } from 'redux-form/immutable';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import styled from 'styled-components';
 
+import mapped, { newAckForm } from 'containers/Spa/mapped';
 import appPage from 'containers/App-Container/appPage';
 import { Form, FormButtons } from 'components/Form';
 import theme from 'utils/theme';
 
-import fields from './fields';
+// import fields from './fields';
+
+
+const Fields = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+`;
+
+// min-width = xs breakpoint - 2 * 15px margin (Content) - 2 * 15px padding (Form) - 15px margin (Form)
+const FieldSection = styled.div`
+  flex: 50%;
+  padding-right: 15px;
+  min-width: calc(${theme.breakpoints.xs}px - 75px);
+`;
+
+
+function mapSection(section) {
+  return (
+    <FieldSection>
+      {
+        section.map((name) => {
+          const { component: C, ...props } = mapped[name];
+
+          return (
+            <C {...props} key={name} />
+          );
+        })
+      }
+    </FieldSection>
+  );
+}
 
 
 /**
@@ -28,17 +61,12 @@ export class NewAckForm extends React.PureComponent {
     return (
       // pass custom onSubmit to redux-forms handleSubmit.
       <Form onSubmit={handleSubmit(onSubmit)} margin={theme.app.subNavHeight}>
-        <h3>{fields.title}</h3>
-        {
-          // go through each section in the form in order specified
-          fields.allNames.map((name) => {
-            const { component: C, ...props } = fields.byName[name];
+        <h3>{newAckForm.title}</h3>
 
-            return (
-              <C {...props} key={name} />
-            );
-          })
-        }
+        <Fields>
+          {mapSection(newAckForm.sections.left)}
+          {mapSection(newAckForm.sections.right)}
+        </Fields>
 
         <FormButtons>
           <DefaultButton
