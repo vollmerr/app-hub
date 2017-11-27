@@ -5,10 +5,11 @@ import { createStructuredSelector } from 'reselect';
 import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import appPage from 'containers/App-Container/appPage';
-import ListSection from 'components/List/ListSection';
 import { makeSelectPendingAcks, makeSelectPreviousAcks } from 'containers/Spa/selectors';
-import List, { handleSelectItem } from 'components/List';
+import { newAckRequest } from 'containers/Spa/actions';
 import { adminColumns } from 'containers/Spa/mapped';
+import ListSection from 'components/List/ListSection';
+import List, { handleSelectItem } from 'components/List';
 
 import AdminNav from './AdminNav';
 import NewAckForm from './NewAckForm';
@@ -66,8 +67,10 @@ export class SpaAdmin extends React.PureComponent {
   /**
    * Handles submitting the new acknowledgment form to api
    */
-  handleSubmitNew = () => {
-    /* istanbul ignore next */ console.log('submitting new ack to api...'); // eslint-disable-line
+  handleSubmitNew = (values) => {
+    const { onNewAckRequest } = this.props;
+
+    onNewAckRequest(values);
   }
 
   //
@@ -196,6 +199,31 @@ export class SpaAdmin extends React.PureComponent {
     const { activeAcks, previousAcks } = this.props;
     const { selectedItem, hideDisable, hideNewAck, hideReport } = this.state;
 
+    // render form for new acknowledgments
+    if (!hideNewAck) {
+      const newAckProps = {
+        onSubmit: this.handleSubmitNew,
+      };
+
+      return <NewAckForm {...newAckProps} />;
+    }
+    // render reporting
+    if (!hideReport && selectedItem.id) {
+      const modalProps = {
+        hidden: hideDisable,
+        item: selectedItem,
+        onClose: this.handleHideDisable,
+        onConfirm: this.handleConfirmDisable,
+      };
+
+      return (
+        <div>
+          <Report item={selectedItem} />
+          <DisableModal {...modalProps} />
+        </div>
+      );
+    }
+    // render lists of active and precious acknowledgments
     const activeProps = {
       items: activeAcks,
       columns: adminColumns,
@@ -221,28 +249,6 @@ export class SpaAdmin extends React.PureComponent {
       selectionMode: SelectionMode.none,
     };
 
-    const modalProps = {
-      hidden: hideDisable,
-      item: selectedItem,
-      onClose: this.handleHideDisable,
-      onConfirm: this.handleConfirmDisable,
-    };
-
-    const newAckProps = {};
-    // render form for new acknowledgments
-    if (!hideNewAck) {
-      return <NewAckForm {...newAckProps} />;
-    }
-    // render reporting
-    if (!hideReport && selectedItem.id) {
-      return (
-        <div>
-          <Report item={selectedItem} />
-          <DisableModal {...modalProps} />
-        </div>
-      );
-    }
-    // render lists of active and precious acknowledgments
     return (
       <div>
         <ListSection {...halfHeight}>
@@ -270,7 +276,7 @@ export class SpaAdmin extends React.PureComponent {
 }
 
 
-const { shape, arrayOf, string } = PropTypes;
+const { shape, arrayOf, string, func } = PropTypes;
 
 SpaAdmin.propTypes = {
   activeAcks: arrayOf(
@@ -291,6 +297,7 @@ SpaAdmin.propTypes = {
       dateRead: string,
     }),
   ),
+  onNewAckRequest: func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -298,7 +305,9 @@ const mapStateToProps = createStructuredSelector({
   previousAcks: makeSelectPreviousAcks(),
 });
 
-const mapDispatchToProps = () => ({});
+export const mapDispatchToProps = (dispatch) => ({
+  onNewAckRequest: (vals) => dispatch(newAckRequest(vals)),
+});
 
 const withAppPage = appPage(SpaAdmin);
 

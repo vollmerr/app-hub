@@ -17,8 +17,8 @@ export const isEmptyChecks = (value) => (
     : undefined
 );
 
-export const isEmptyFiles = (value) => (
-  !value || typeof value !== 'object' || !value.length || !value[0].name
+export const isEmptyFile = (value) => (
+  !value || typeof value !== 'object' || !value.name
     ? 'Required'
     : undefined
 );

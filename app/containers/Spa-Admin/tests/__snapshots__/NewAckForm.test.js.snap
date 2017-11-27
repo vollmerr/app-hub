@@ -9,24 +9,101 @@ exports[`<NewAckForm /> should render correctly 1`] = `
   <h3>
     New Policy Acknowledgment
   </h3>
-  <WrappedField
-    disabled={false}
-    key="name"
-    label="Name"
-    name="name"
-    placeholder="Enter acknowledgment name..."
-    required={true}
-    validate={Array []}
-  />
-  <WrappedField
-    disabled={false}
-    key="file"
-    label="Attachment"
-    name="file"
-    placeholder="Attach a File..."
-    required={false}
-    validate={Array []}
-  />
+  <NewAckForm__Fields>
+    <NewAckForm__FieldSection>
+      <WrappedField
+        disabled={false}
+        key="title"
+        label="Title"
+        name="title"
+        placeholder="Enter acknowledgment name"
+        required={true}
+        validate={Array []}
+      />
+      <WrappedField
+        disabled={false}
+        key="activeStartDate"
+        label="Start Date"
+        name="activeStartDate"
+        placeholder="Select the start date"
+        required={true}
+        validate={Array []}
+      />
+      <WrappedField
+        disabled={false}
+        key="activeEndDate"
+        label="Start Date"
+        name="activeEndDate"
+        placeholder="Select the end date"
+        required={true}
+        validate={Array []}
+      />
+      <WrappedField
+        disabled={false}
+        key="targetADGroup"
+        label="Target Group(s)"
+        name="targetADGroup"
+        options={
+          Array [
+            Object {
+              "key": "group1",
+              "text": "Group 1",
+            },
+            Object {
+              "key": "group2",
+              "text": "Group 2",
+            },
+            Object {
+              "key": "group3",
+              "text": "Group 3",
+            },
+          ]
+        }
+        placeholder=""
+        required={true}
+        validate={Array []}
+      />
+    </NewAckForm__FieldSection>
+    <NewAckForm__FieldSection>
+      <WrappedField
+        disabled={false}
+        key="ackStatement"
+        label="Statement"
+        name="ackStatement"
+        placeholder="Enter the acknowledgment statement"
+        required={true}
+        validate={Array []}
+      />
+      <WrappedField
+        disabled={false}
+        key="detailsText"
+        label="Details"
+        multiline={true}
+        name="detailsText"
+        placeholder="Enter acknowledgment details"
+        required={true}
+        validate={Array []}
+      />
+      <WrappedField
+        disabled={false}
+        key="fileName"
+        label="Attachment Name"
+        name="fileName"
+        placeholder="Enter attachment name"
+        required={false}
+        validate={Array []}
+      />
+      <WrappedField
+        disabled={false}
+        key="fileContent"
+        label="Attachment"
+        name="fileContent"
+        placeholder="Attach a File"
+        required={false}
+        validate={Array []}
+      />
+    </NewAckForm__FieldSection>
+  </NewAckForm__Fields>
   <FormButtons__Buttons>
     <CustomizedDefaultButton
       disabled={false}

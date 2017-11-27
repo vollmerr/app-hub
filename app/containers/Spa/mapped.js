@@ -2,7 +2,7 @@
  * Mapping of names and data to structures
  * such as form fields, columns, etc
  */
-import * as KEYS from 'containers/Spa/constants';
+import { ACK } from 'containers/Spa/constants';
 
 import {
   FieldText,
@@ -14,47 +14,59 @@ import {
 
 /**
  * Maps a object to the format Office-UI-Fabric-React
- * TODO: SHAPE OF INPUT/OUPT COMENT
  *
  * @param {object} obj    - object to map
+ * @param {array} include - keys to include, if empty includes all
+ * @param {array} exclude - keys to exclude
+ *
+ * @return {object}       - mapped object to use in List
  */
-function mapToColumns(obj) {
-  return Object.values(obj).map((value) => ({
-    key: value.name,
-    name: value.label,
-    fieldName: value.name,
-  }));
+function mapToColumns(obj, include = [], exclude = []) {
+  const keys = include.length ?
+    Object.keys(obj).filter((key) => include.includes(key)) :
+    Object.keys(obj);
+
+  return keys
+    .filter((key) => !exclude.includes(key))
+    .map((key) => ({
+      key: obj[key].name,
+      name: obj[key].label,
+      fieldName: obj[key].name,
+      isResizable: true,
+      minWidth: 100,
+      maxWidth: 400,
+    }));
 }
 
 
 // ALL VALUES FOR SPA
 // Other lists lookup from this list
 const all = {
-  [KEYS.ACK.TITLE]: {
+  [ACK.TITLE]: {
     label: 'Title',
     required: true,
-    name: KEYS.ACK.TITLE,
+    name: ACK.TITLE,
     placeholder: 'Enter acknowledgment name',
     component: FieldText,
   },
-  [KEYS.ACK.DATE_START]: {
+  [ACK.DATE_START]: {
     label: 'Start Date',
     required: true,
-    name: KEYS.ACK.DATE_START,
+    name: ACK.DATE_START,
     placeholder: 'Select the start date',
     component: FieldDate,
   },
-  [KEYS.ACK.DATE_END]: {
+  [ACK.DATE_END]: {
     label: 'Start Date',
     required: true,
-    name: KEYS.ACK.DATE_END,
+    name: ACK.DATE_END,
     placeholder: 'Select the end date',
     component: FieldDate,
   },
-  [KEYS.ACK.GROUP_TARGET]: {
+  [ACK.GROUP_TARGET]: {
     label: 'Target Group(s)',
     required: true,
-    name: KEYS.ACK.GROUP_TARGET,
+    name: ACK.GROUP_TARGET,
     component: FieldChecks,
     options: [
       { key: 'group1', text: 'Group 1' },
@@ -62,32 +74,32 @@ const all = {
       { key: 'group3', text: 'Group 3' },
     ],
   },
-  [KEYS.ACK.STATEMENT]: {
+  [ACK.STATEMENT]: {
     label: 'Statement',
     required: true,
-    name: KEYS.ACK.STATEMENT,
+    name: ACK.STATEMENT,
     placeholder: 'Enter the acknowledgment statement',
     component: FieldText,
   },
-  [KEYS.ACK.DETAILS]: {
+  [ACK.DETAILS]: {
     label: 'Details',
     required: true,
     multiline: true,
-    name: KEYS.ACK.DETAILS,
+    name: ACK.DETAILS,
     placeholder: 'Enter acknowledgment details',
     component: FieldText,
   },
-  [KEYS.ACK.FILE_NAME]: {
+  [ACK.FILE_NAME]: {
     label: 'Attachment Name',
     required: false,
-    name: KEYS.ACK.FILE_NAME,
+    name: ACK.FILE_NAME,
     placeholder: 'Enter attachment name',
     component: FieldText,
   },
-  [KEYS.ACK.FILE_CONTENT]: {
+  [ACK.FILE_CONTENT]: {
     label: 'Attachment',
     required: false,
-    name: KEYS.ACK.FILE_CONTENT,
+    name: ACK.FILE_CONTENT,
     placeholder: 'Attach a File',
     component: FieldFile,
   },
@@ -99,21 +111,27 @@ export const newAckForm = {
   title: 'New Policy Acknowledgment',
   sections: {
     left: [
-      KEYS.ACK.TITLE,
-      KEYS.ACK.DATE_START,
-      KEYS.ACK.DATE_END,
-      KEYS.ACK.GROUP_TARGET,
+      ACK.TITLE,
+      ACK.DATE_START,
+      ACK.DATE_END,
+      ACK.GROUP_TARGET,
     ],
     right: [
-      KEYS.ACK.STATEMENT,
-      KEYS.ACK.DETAILS,
-      KEYS.ACK.FILE_NAME,
-      KEYS.ACK.FILE_CONTENT,
+      ACK.STATEMENT,
+      ACK.DETAILS,
+      ACK.FILE_NAME,
+      ACK.FILE_CONTENT,
     ],
   },
 };
 
 // Columns for admin page lists
-export const adminColumns = mapToColumns(all);
+const adminExcludes = [ACK.STATEMENT, ACK.DETAILS, ACK.FILE_CONTENT];
+export const adminColumns = mapToColumns(all, [], adminExcludes);
+// columns for home page
+const homePendingIncludes = [ACK.TITLE, ACK.DATE_START, ACK.DATE_END];
+export const homePendingColumns = mapToColumns(all, homePendingIncludes);
+const homePreviousIncludes = [...homePendingIncludes];
+export const homePreviousColumns = mapToColumns(all, homePreviousIncludes);
 
 export default all;

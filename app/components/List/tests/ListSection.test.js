@@ -12,7 +12,7 @@ testStyledComponent(ListSection, Section);
 
 const props = {
   vh: 100,
-  margin: 15,
+  margin: 20,
 };
 
 

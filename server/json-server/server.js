@@ -10,8 +10,7 @@ if (generate) {
   const jwt = require('express-jwt');
   const jsonServer = require('json-server');
   const server = jsonServer.create();
-  const createDb = require('./db');
-  const router = jsonServer.router(createDb());
+  const router = jsonServer.router(path.join(__dirname, 'db.json'));
   const middlewares = jsonServer.defaults();
 
   const secret = require('./secret');

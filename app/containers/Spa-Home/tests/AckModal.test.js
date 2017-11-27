@@ -3,12 +3,15 @@ import { shallow } from 'enzyme';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 
+import { ACK } from 'containers/Spa/constants';
+
 import AckModal from '../AckModal';
 
 const props = {
   item: {
-    name: 'test name',
-    details: 'test details',
+    [ACK.TITLE]: 'test title',
+    [ACK.DETAILS]: 'test details',
+    [ACK.STATEMENT]: 'test statement',
   },
   onAck: jest.fn(),
   onRead: jest.fn(),

@@ -3,15 +3,16 @@ import { shallow } from 'enzyme';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
 import { Form, FormButtons } from 'components/Form';
+import { newAckForm } from 'containers/Spa/mapped';
 
 import { NewAckForm } from '../NewAckForm';
-import fields from '../fields';
 
 const props = {
   handleSubmit: jest.fn(),
   reset: jest.fn(),
   pristine: false,
   submitting: false,
+  onSubmit: jest.fn(),
 };
 
 
@@ -32,7 +33,7 @@ describe('<NewAckForm />', () => {
 
   it('should render a title (h3)', () => {
     expect(wrapper.find(Form).find('h3').length).toEqual(1);
-    expect(wrapper.find('h3').text()).toEqual(fields.title);
+    expect(wrapper.find('h3').text()).toEqual(newAckForm.title);
   });
 
   it('should render a `FormButtons` section for action buttons', () => {
@@ -44,7 +45,8 @@ describe('<NewAckForm />', () => {
   });
 
   it('should render all the fields', () => {
-    expect(wrapper.find('WrappedField').length).toEqual(fields.allNames.length);
+    const len = newAckForm.sections.left.length + newAckForm.sections.right.length;
+    expect(wrapper.find('WrappedField').length).toEqual(len);
   });
 
   it('should disable the buttons when `pristine` or `submitting`', () => {
@@ -52,5 +54,10 @@ describe('<NewAckForm />', () => {
     expect(wrapper.find(DefaultButton).at(0).prop('disabled')).toEqual(true);
     wrapper.setProps({ pristine: false, submitting: true });
     expect(wrapper.find(DefaultButton).at(1).prop('disabled')).toEqual(true);
+  });
+
+  it('should call onSubmit with redux-form`s handleSubmit when submitting the form', () => {
+    wrapper.find(Form).simulate('submit');
+    expect(props.handleSubmit).toHaveBeenCalledWith(props.onSubmit);
   });
 });

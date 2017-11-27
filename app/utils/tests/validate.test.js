@@ -2,7 +2,7 @@ import {
   isEmptyText,
   isEmptyDate,
   isEmptyChecks,
-  isEmptyFiles,
+  isEmptyFile,
 } from '../validate';
 
 const emptyVals = [
@@ -80,18 +80,18 @@ describe('validate utils', () => {
       const values = [...emptyVals, 'test value'];
 
       values.forEach((value) => {
-        expect(isEmptyFiles(value)).toEqual('Required');
+        expect(isEmptyFile(value)).toEqual('Required');
       });
     });
 
     it('should return `undefined` for non empty files with a `name`', () => {
       const values = [
-        [{ name: 'test1' }],
-        [{ key: 1, name: '213' }, { key: 2, name: 'asd' }],
+        { name: 'test1' },
+        { key: 1, name: '213' },
       ];
 
       values.forEach((value) => {
-        expect(isEmptyFiles(value)).toEqual(undefined);
+        expect(isEmptyFile(value)).toEqual(undefined);
       });
     });
   });

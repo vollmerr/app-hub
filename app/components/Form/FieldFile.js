@@ -7,7 +7,7 @@ import { Label } from 'office-ui-fabric-react/lib/Label';
 
 // import { downloadFile } from 'utils/request';
 import { metaProp, inputProp } from 'utils/propTypes';
-import { isEmptyFiles } from 'utils/validate';
+import { isEmptyFile } from 'utils/validate';
 import theme from 'utils/theme';
 
 import Field from './Field';
@@ -32,7 +32,7 @@ export const FilePicker = styled.div`
 `;
 
 
-export const DropZone = styled(Dropzone)`
+export const DropZone = styled(Dropzone) `
   flex: 1;
   display: flex;
   align-items: center;
@@ -54,7 +54,7 @@ export class FieldFile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      files: [],
+      file: null,
       attachError: null,
     };
   }
@@ -62,8 +62,8 @@ export class FieldFile extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { input } = nextProps;
     // when redux form resets, reset the options to not checked
-    if (!input.value || !input.value.length) {
-      this.setState({ files: [], attachError: null });
+    if (!input.value) {
+      this.setState({ file: null, attachError: null });
     }
   }
 
@@ -79,15 +79,17 @@ export class FieldFile extends React.Component {
       attachError = 'Failed to attach file.';
     }
 
-    this.setState({ files, attachError });
-    input.onChange(files);
+    const file = files[0];
+
+    this.setState({ file, attachError });
+    input.onChange(file);
   }
 
   onClear = () => {
     const { input } = this.props;
-    const files = [];
-    this.setState({ files, attachError: null });
-    input.onChange(files);
+    const file = null;
+    this.setState({ file, attachError: null });
+    input.onChange(file);
   }
 
   render() {
@@ -101,10 +103,10 @@ export class FieldFile extends React.Component {
       ...props
     } = this.props;
 
-    const { attachError, files } = this.state;
-    const hasFiles = !!files.length && !disabled;
+    const { attachError, file } = this.state;
+    const hasFile = file && !disabled;
     const { touched, error } = meta;
-    const name = this.state.files[0] ? this.state.files[0].name : placeholder || 'Select a file to upload';
+    const name = file ? file.name : placeholder || 'Select a file to upload';
 
     let errorMessage;
     if (attachError) {
@@ -134,7 +136,7 @@ export class FieldFile extends React.Component {
     };
 
     const nameProps = {
-      disabled: disabled || !this.state.files.length,
+      disabled: disabled || !file,
       children: name,
     };
 
@@ -158,9 +160,8 @@ export class FieldFile extends React.Component {
       <div>
         {label && <Label {...labelProps}>{label}</Label>}
 
-
         <FilePicker {...fieldProps}>
-          {hasFiles && <IconButton {...clearProps} />}
+          {hasFile && <IconButton {...clearProps} />}
           <DropZone {...zoneProps}>
             <FileName {...nameProps} />
           </DropZone>
@@ -172,8 +173,8 @@ export class FieldFile extends React.Component {
         {/*
           <button
             onClick={() => (
-              this.state.files.length ?
-                downloadFile(this.state.files[0], this.state.files[0].name) :
+              this.state.file ?
+                downloadFile(this.state.file, this.state.file.name) :
                 null
             )}
           >
@@ -197,4 +198,4 @@ FieldFile.propTypes = {
   placeholder: string,
 };
 
-export default Field(FieldFile, isEmptyFiles);
+export default Field(FieldFile, isEmptyFile);

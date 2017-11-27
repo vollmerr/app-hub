@@ -2,7 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
-import { SpaAdmin } from '../index';
+import { testMapDispatchToProps } from 'utils/testUtils';
+import { newAckRequest } from 'containers/Spa/actions';
+
+import { SpaAdmin, mapDispatchToProps } from '../index';
 import AdminNav from '../AdminNav';
 import NewAckForm from '../NewAckForm';
 import DisableModal from '../DisableModal';
@@ -13,6 +16,7 @@ const List = require.requireActual('components/List');
 const props = {
   activeAcks: [],
   previousAcks: [],
+  onNewAckRequest: jest.fn(),
 };
 
 const state = {
@@ -250,5 +254,14 @@ describe('<SpaAdmin />', () => {
         expect(instance.handleHideReport).toHaveBeenCalled();
       });
     });
+  });
+
+
+  describe('mapDispatchToProps', () => {
+    const actions = {
+      newAckRequest,
+    };
+
+    testMapDispatchToProps(mapDispatchToProps, actions);
   });
 });

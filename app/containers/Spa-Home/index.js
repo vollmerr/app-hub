@@ -8,31 +8,9 @@ import appPage from 'containers/App-Container/appPage';
 import ListSection from 'components/List/ListSection';
 import { makeSelectPendingAcks, makeSelectPreviousAcks } from 'containers/Spa/selectors';
 import List, { handleSelectItem } from 'components/List';
+import { homePendingColumns, homePreviousColumns } from 'containers/Spa/mapped';
 
 import AckModal from './AckModal';
-
-const columns = [
-  {
-    key: 'name',
-    name: 'Name',
-    fieldName: 'name',
-  },
-  {
-    key: 'status',
-    name: 'Status',
-    fieldName: 'status',
-  },
-  {
-    key: 'startDate',
-    name: 'Start Date',
-    fieldName: 'startDate',
-  },
-  {
-    key: 'endDate',
-    name: 'End Date',
-    fieldName: 'endDate',
-  },
-];
 
 const halfHeight = {
   vh: 50,
@@ -66,7 +44,7 @@ export class SpaHome extends React.PureComponent {
    * Handles downloading a file for reading
    */
   handleDownloadFile = () => {
-    console.log('SpaHome.handleDownloadFile - downloading file.......');
+    // TODO
   }
 
   /**
@@ -111,7 +89,7 @@ export class SpaHome extends React.PureComponent {
 
     const pendingAckProps = {
       items: pendingAcks,
-      columns,
+      columns: homePendingColumns,
       title: 'Pending Acknowledgment',
       empty: {
         message: 'No Acknowledgments Pending Approval',
@@ -122,7 +100,7 @@ export class SpaHome extends React.PureComponent {
 
     const previousAckProps = {
       items: previousAcks,
-      columns,
+      columns: homePreviousColumns,
       title: 'Previous Acknowledgments',
       empty: {
         message: 'No Previous Acknowledgments',

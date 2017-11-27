@@ -75,7 +75,8 @@ const props = {
   placeholder: '',
 };
 
-const files = [{ name: 'file1' }];
+const files = [{ name: 'file1' }, { name: 'otherFile' }];
+const file = files[0];
 
 describe('FieldFile', () => {
   let wrapper;
@@ -102,7 +103,7 @@ describe('FieldFile', () => {
   });
 
   it('should render a clear icon button if it has files and not disabled', () => {
-    wrapper.setState({ files });
+    wrapper.setState({ file });
     expect(wrapper.find(IconButton).length).toEqual(1);
   });
 
@@ -112,7 +113,7 @@ describe('FieldFile', () => {
 
   it('should not render a clear icon button if it has files but is disabled', () => {
     wrapper.setProps({ disabled: true });
-    wrapper.setState({ files });
+    wrapper.setState({ file });
     expect(wrapper.find(IconButton).length).toEqual(0);
   });
 
@@ -121,10 +122,9 @@ describe('FieldFile', () => {
   });
 
   it('should render a `FileName` within the drop zone', () => {
-    const name = 'test name';
-    wrapper.setState({ files: [{ name }] });
+    wrapper.setState({ file });
     expect(wrapper.find(DropZone).find(FileName).length).toEqual(1);
-    expect(wrapper.find(DropZone).find(FileName).dive().text()).toEqual(name);
+    expect(wrapper.find(DropZone).find(FileName).dive().text()).toEqual(file.name);
   });
 
   it('should render the placeholder when no file selected', () => {
@@ -179,19 +179,19 @@ describe('FieldFile', () => {
     it('should handle clearing the files and error when no value from redux-form (on form reset)', () => {
       // start state off with files
       const attachError = 'test error';
-      wrapper.setState({ files, attachError });
+      wrapper.setState({ file, attachError });
       // set an input value, should not change files
       let input = { ...props.input, value: [...files, { name: 'other file' }] };
       instance.componentWillReceiveProps({ ...props, input });
-      expect(wrapper.state('files')).toEqual(files);
+      expect(wrapper.state('file')).toEqual(file);
       // simulate clearing form (no input.value), should clear all files
       input = { ...props.input, value: undefined };
       instance.componentWillReceiveProps({ ...props, input });
-      expect(wrapper.state('files')).toEqual([]);
+      expect(wrapper.state('file')).toEqual(null);
       // test again with empty array
       input = { ...props.input, value: [] };
       instance.componentWillReceiveProps({ ...props, input });
-      expect(wrapper.state('files')).toEqual([]);
+      expect(wrapper.state('file')).toEqual(null);
     });
   });
 
@@ -204,20 +204,20 @@ describe('FieldFile', () => {
     it('should handle calling redux-form`s onChange', () => {
       // acceptedFiles
       instance.onDrop(files, []);
-      expect(props.input.onChange).toHaveBeenCalledWith(files);
+      expect(props.input.onChange).toHaveBeenCalledWith(file);
       // rejectedFiles
       instance.onDrop([], files);
-      expect(props.input.onChange).toHaveBeenCalledWith(files);
+      expect(props.input.onChange).toHaveBeenCalledWith(file);
     });
 
     it('should handle updating `files` and `attachError` in the state', () => {
       // acceptedFiles
       instance.onDrop(files, []);
-      expect(wrapper.state('files')).toEqual(files);
+      expect(wrapper.state('file')).toEqual(file);
       expect(wrapper.state('attachError')).toEqual(null);
       // rejectedFiles
       instance.onDrop([], files);
-      expect(wrapper.state('files')).toEqual(files);
+      expect(wrapper.state('file')).toEqual(file);
       expect(wrapper.state('attachError')).toEqual('Failed to attach file.');
     });
   });
@@ -230,19 +230,19 @@ describe('FieldFile', () => {
 
     it('should handle calling redux-form`s onChange', () => {
       instance.onClear();
-      expect(props.input.onChange).toHaveBeenCalledWith([]);
+      expect(props.input.onChange).toHaveBeenCalledWith(null);
     });
 
-    it('should handle updating `files` and `attachError` in the state', () => {
+    it('should handle updating `file` and `attachError` in the state', () => {
       instance.onClear();
-      expect(wrapper.state('files')).toEqual([]);
+      expect(wrapper.state('file')).toEqual(null);
       expect(wrapper.state('attachError')).toEqual(null);
     });
 
     it('should be called when the clear icon is clicked', () => {
       instance.onClear = jest.fn();
       // make the icon button appear by having files...
-      wrapper.setState({ files });
+      wrapper.setState({ file });
       wrapper.find(IconButton).simulate('click');
       expect(instance.onClear).toHaveBeenCalled();
     });

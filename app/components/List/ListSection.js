@@ -7,12 +7,22 @@ import Section from 'components/App-Content/Section';
  * Contianer section for for lists
  */
 const ListSection = styled(Section) `
-  height: calc(${(props) => props.vh || 100}vh - ${theme.hub.headerHeight} - ${(props) => props.margin || 0}px);
+  height: calc(
+    ${(props) => props.vh || 100}vh - \
+    ${theme.hub.headerHeight} - \
+    ${(props) => props.margin || 0}px
+  );
   overflow: hidden;
 
   .ms-Viewport {
     overflow: auto;
-    height: calc(${(props) => props.vh || 100}vh - ${theme.hub.headerHeight} - ${theme.list.headerHeight} - 15px)
+    height: calc(
+      ${(props) => props.vh || 100}vh - \
+      ${theme.hub.headerHeight} - \
+      ${theme.list.headerHeight} - \
+      ${(props) => props.margin || 0}px - \
+      15px
+    );
   }
 
   .ms-DetailsList {

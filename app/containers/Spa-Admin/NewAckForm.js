@@ -10,8 +10,6 @@ import appPage from 'containers/App-Container/appPage';
 import { Form, FormButtons } from 'components/Form';
 import theme from 'utils/theme';
 
-// import fields from './fields';
-
 
 const Fields = styled.div`
   display: flex;
@@ -54,9 +52,7 @@ export class NewAckForm extends React.PureComponent {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props;
-    /* istanbul ignore next: TODO: submit to api... */
-    const onSubmit = (vals) => alert(JSON.stringify(vals.toJS(), null, 2));
+    const { handleSubmit, pristine, reset, submitting, onSubmit } = this.props;
 
     return (
       // pass custom onSubmit to redux-forms handleSubmit.
@@ -94,6 +90,7 @@ NewAckForm.propTypes = {
   reset: func.isRequired,
   pristine: bool.isRequired,
   submitting: bool.isRequired,
+  onSubmit: func.isRequired,
 };
 
 const withForm = reduxForm({

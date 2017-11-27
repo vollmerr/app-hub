@@ -1,20 +1,14 @@
-/* This script generates mock data for local development.
-   This way you don't have to point to an actual API,
-   but you can enjoy realistic, but randomized data,
-   and rapid page loads due to local, static data.
- */
-
+/* eslint-disable */
+const path = require('path');
 const jsf = require('json-schema-faker');
-jsf.extend('faker', function() {
-  return require('faker');
-});
+jsf.extend('faker', () => require('faker'));
 
-const schema = require('./db/spa/schema');
+const schema = require('./schemas/spa'); // TODO: multiple schemas merged into one (NAMESPACING...)
 const fs = require('fs');
 
 const json = JSON.stringify(jsf(schema));
 
-fs.writeFile('./server/json-server/db/spa/db.json', json, function (err) {
+fs.writeFile(path.join(__dirname, 'db.json'), json, (err) => {
   if (err) {
     return console.log(err);
   }

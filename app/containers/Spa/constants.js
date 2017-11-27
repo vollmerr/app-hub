@@ -2,6 +2,10 @@
 export const INIT_DATA_REQUEST = 'app/Spa/INIT_DATA_REQUEST';
 export const INIT_DATA_SUCCESS = 'app/Spa/INIT_DATA_SUCCESS';
 export const INIT_DATA_FAILURE = 'app/Spa/INIT_DATA_FAILURE';
+// NEW ACKNOWLEDGMENT
+export const NEW_ACK_REQUEST = 'app/Spa/NEW_ACK_REQUEST';
+export const NEW_ACK_SUCCESS = 'app/Spa/NEW_ACK_SUCCESS';
+export const NEW_ACK_FAILURE = 'app/Spa/NEW_ACK_FAILURE';
 // ASSIGNMENTS
 export const START_ASSIGNMENT = 'app/Spa/START_ASSIGNMENT';
 export const FINISH_ASSIGNMENT = 'app/Spa/FINISH_ASSIGNMENT';

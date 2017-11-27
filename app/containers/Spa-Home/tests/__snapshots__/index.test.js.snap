@@ -9,24 +9,28 @@ exports[`<SpaHome /> should render correctly 1`] = `
       columns={
         Array [
           Object {
-            "fieldName": "name",
-            "key": "name",
-            "name": "Name",
+            "fieldName": "title",
+            "isResizable": true,
+            "key": "title",
+            "maxWidth": 400,
+            "minWidth": 100,
+            "name": "Title",
           },
           Object {
-            "fieldName": "status",
-            "key": "status",
-            "name": "Status",
-          },
-          Object {
-            "fieldName": "startDate",
-            "key": "startDate",
+            "fieldName": "activeStartDate",
+            "isResizable": true,
+            "key": "activeStartDate",
+            "maxWidth": 400,
+            "minWidth": 100,
             "name": "Start Date",
           },
           Object {
-            "fieldName": "endDate",
-            "key": "endDate",
-            "name": "End Date",
+            "fieldName": "activeEndDate",
+            "isResizable": true,
+            "key": "activeEndDate",
+            "maxWidth": 400,
+            "minWidth": 100,
+            "name": "Start Date",
           },
         ]
       }
@@ -64,24 +68,28 @@ exports[`<SpaHome /> should render correctly 1`] = `
       columns={
         Array [
           Object {
-            "fieldName": "name",
-            "key": "name",
-            "name": "Name",
+            "fieldName": "title",
+            "isResizable": true,
+            "key": "title",
+            "maxWidth": 400,
+            "minWidth": 100,
+            "name": "Title",
           },
           Object {
-            "fieldName": "status",
-            "key": "status",
-            "name": "Status",
-          },
-          Object {
-            "fieldName": "startDate",
-            "key": "startDate",
+            "fieldName": "activeStartDate",
+            "isResizable": true,
+            "key": "activeStartDate",
+            "maxWidth": 400,
+            "minWidth": 100,
             "name": "Start Date",
           },
           Object {
-            "fieldName": "endDate",
-            "key": "endDate",
-            "name": "End Date",
+            "fieldName": "activeEndDate",
+            "isResizable": true,
+            "key": "activeEndDate",
+            "maxWidth": 400,
+            "minWidth": 100,
+            "name": "Start Date",
           },
         ]
       }

@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 
+import { ACK } from 'containers/Spa/constants';
+
 /**
  * Modal for reading and acknowledging a policy
  */
@@ -17,15 +19,13 @@ class AckModal extends React.PureComponent {
       hideModal,
     } = this.props;
 
-    const { name, details } = item;
-
     const dialogProps = {
       hidden: hideModal,
       onDismiss: onClose,
       dialogContentProps: {
         type: DialogType.largeHeader,
-        title: name,
-        subText: details,
+        title: item[ACK.TITLE],
+        subText: item[ACK.DETAILS],
       },
     };
 
@@ -41,7 +41,7 @@ class AckModal extends React.PureComponent {
 
     return (
       <Dialog {...dialogProps}>
-        <p>Please read and acknowledge ... etc</p>
+        <p>{item[ACK.STATEMENT]}</p>
         <DialogFooter>
           <PrimaryButton {...primaryButtonProps} />
           <DefaultButton {...cancelButtonProps} />
