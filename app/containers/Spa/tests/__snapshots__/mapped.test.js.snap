@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mapToColumns should map the object to the correct format for office-ui-fabric-react DetailsList\`s 1`] = `
+Array [
+  Object {
+    "fieldName": "testName1",
+    "isResizable": true,
+    "key": "testName1",
+    "maxWidth": 400,
+    "minWidth": 100,
+    "name": "testLabel1",
+  },
+  Object {
+    "fieldName": "testName2",
+    "isResizable": true,
+    "key": "testName2",
+    "maxWidth": 400,
+    "minWidth": 100,
+    "name": "testLabel2",
+  },
+  Object {
+    "fieldName": "testName3",
+    "isResizable": true,
+    "key": "testName3",
+    "maxWidth": 400,
+    "minWidth": 100,
+    "name": "testLabel3",
+  },
+]
+`;
+
+exports[`mapToColumns should not use keys in \`exclude\` if provided 1`] = `
+Array [
+  Object {
+    "fieldName": "testName1",
+    "isResizable": true,
+    "key": "testName1",
+    "maxWidth": 400,
+    "minWidth": 100,
+    "name": "testLabel1",
+  },
+]
+`;
+
+exports[`mapToColumns should only use keys in \`include\` if provided 1`] = `
+Array [
+  Object {
+    "fieldName": "testName1",
+    "isResizable": true,
+    "key": "testName1",
+    "maxWidth": 400,
+    "minWidth": 100,
+    "name": "testLabel1",
+  },
+  Object {
+    "fieldName": "testName3",
+    "isResizable": true,
+    "key": "testName3",
+    "maxWidth": 400,
+    "minWidth": 100,
+    "name": "testLabel3",
+  },
+]
+`;

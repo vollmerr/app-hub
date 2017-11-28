@@ -32,15 +32,9 @@ describe('spaReducer', () => {
     expect(spaReducer(undefined, {})).toEqual(expected);
   });
 
-  it('sets the pending acknowledgments on `INIT_DATA_SUCCESS`', () => {
+  it('sets the data on `INIT_DATA_SUCCESS`', () => {
     const action = { type: INIT_DATA_SUCCESS, payload };
-    const actual = spaReducer(undefined, action).get('data').get('pendingAcks').toJS();
-    expect(actual).toEqual(pendingAcks);
-  });
-
-  it('sets the previous acknowledgments on `INIT_DATA_SUCCESS`', () => {
-    const action = { type: INIT_DATA_SUCCESS, payload };
-    const actual = spaReducer(undefined, action).get('data').get('previousAcks').toJS();
-    expect(actual).toEqual(previousAcks);
+    const actual = spaReducer(undefined, action).get('data').toJS();
+    expect(actual).toEqual(payload);
   });
 });

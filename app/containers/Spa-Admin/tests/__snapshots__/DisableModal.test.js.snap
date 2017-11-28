@@ -5,14 +5,14 @@ exports[`<DisableModal /> should render correctly 1`] = `
   dialogContentProps={
     Object {
       "subText": "test details",
-      "title": "test name",
+      "title": "test title",
       "type": 0,
     }
   }
   onDismiss={[Function]}
 >
   <p>
-    Are you sure you want to disable ... etc
+    Are you sure you want to disable test title?
   </p>
   <DialogFooter>
     <CustomizedPrimaryButton

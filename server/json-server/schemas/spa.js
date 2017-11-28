@@ -3,8 +3,8 @@ const spaSchema = {
   properties: {
     acknowledgments: {
       type: 'array',
-      minItems: 3,
-      maxItems: 5,
+      minItems: 4,
+      maxItems: 6,
       items: {
         type: 'object',
         properties: {
@@ -15,8 +15,10 @@ const spaSchema = {
             type: 'string',
             faker: 'company.catchPhrase',
           },
-          isActive: {
-            type: 'boolean',
+          status: {
+            type: 'number',
+            minimum: 0,
+            maximum: 3,
           },
           activeStartDate: {
             type: 'string',
@@ -52,7 +54,7 @@ const spaSchema = {
         required: [
           'id',
           'title',
-          'isActive',
+          'status',
           'activeStartDate',
           'activeEndDate',
           'creatorGroup',

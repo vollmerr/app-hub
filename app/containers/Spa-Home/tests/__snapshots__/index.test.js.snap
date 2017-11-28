@@ -39,7 +39,18 @@ exports[`<SpaHome /> should render correctly 1`] = `
           "message": "No Acknowledgments Pending Approval",
         }
       }
-      items={Array []}
+      items={
+        Array [
+          Object {
+            "id": 1,
+            "name": "test1",
+          },
+          Object {
+            "id": 3,
+            "name": "test3",
+          },
+        ]
+      }
       selection={
         Selection {
           "_anchoredIndex": 0,
@@ -98,7 +109,18 @@ exports[`<SpaHome /> should render correctly 1`] = `
           "message": "No Previous Acknowledgments",
         }
       }
-      items={Array []}
+      items={
+        Array [
+          Object {
+            "id": 2,
+            "name": "test2",
+          },
+          Object {
+            "id": 4,
+            "name": "test4",
+          },
+        ]
+      }
       selection={
         Selection {
           "_anchoredIndex": 0,

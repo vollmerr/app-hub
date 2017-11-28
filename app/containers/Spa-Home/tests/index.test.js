@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { fromJS } from 'immutable';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import ListSection from 'components/List/ListSection';
@@ -10,10 +11,20 @@ import AckModal from '../AckModal';
 const List = require.requireActual('components/List');
 
 const props = {
-  app: {
-    error: null,
-    loading: false,
-  },
+  pendingAcks: fromJS([{
+    id: 1,
+    name: 'test1',
+  }, {
+    id: 3,
+    name: 'test3',
+  }]),
+  previousAcks: fromJS([{
+    id: 2,
+    name: 'test2',
+  }, {
+    id: 4,
+    name: 'test4',
+  }]),
 };
 
 

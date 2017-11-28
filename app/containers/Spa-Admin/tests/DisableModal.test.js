@@ -3,14 +3,16 @@ import { shallow } from 'enzyme';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 
+import { ACK } from 'containers/Spa/constants';
+
 import DisableModal from '../DisableModal';
 
 const props = {
   item: {
-    name: 'test name',
-    details: 'test details',
+    [ACK.TITLE]: 'test title',
+    [ACK.DETAILS]: 'test details',
   },
-  onConfirm: jest.fn(),
+  onSubmit: jest.fn(),
   onClose: jest.fn(),
   hideModal: false,
 };
@@ -42,9 +44,9 @@ describe('<DisableModal />', () => {
     expect(wrapper.find(DialogFooter).find(DefaultButton).length).toEqual(1);
   });
 
-  it('should `onConfirm` when clicking the primary button', () => {
+  it('should `onSubmit` when clicking the primary button', () => {
     wrapper.find(PrimaryButton).simulate('click');
-    expect(props.onConfirm).toHaveBeenCalled();
+    expect(props.onSubmit).toHaveBeenCalled();
   });
 
   it('should `onClose` when clicking the secondary button', () => {

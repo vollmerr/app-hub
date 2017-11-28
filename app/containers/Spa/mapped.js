@@ -13,7 +13,7 @@ import {
 
 
 /**
- * Maps a object to the format Office-UI-Fabric-React
+ * Maps a object to the format Office-UI-Fabric-React DetailsList`s expect
  *
  * @param {object} obj    - object to map
  * @param {array} include - keys to include, if empty includes all
@@ -21,7 +21,7 @@ import {
  *
  * @return {object}       - mapped object to use in List
  */
-function mapToColumns(obj, include = [], exclude = []) {
+export function mapToColumns(obj, include = [], exclude = []) {
   const keys = include.length ?
     Object.keys(obj).filter((key) => include.includes(key)) :
     Object.keys(obj);

@@ -88,7 +88,7 @@ export class SpaHome extends React.PureComponent {
     const { selectedItem, hasRead, hideModal } = this.state;
 
     const pendingAckProps = {
-      items: pendingAcks,
+      items: pendingAcks.toJS(),
       columns: homePendingColumns,
       title: 'Pending Acknowledgment',
       empty: {
@@ -99,7 +99,7 @@ export class SpaHome extends React.PureComponent {
     };
 
     const previousAckProps = {
-      items: previousAcks,
+      items: previousAcks.toJS(),
       columns: homePreviousColumns,
       title: 'Previous Acknowledgments',
       empty: {
@@ -135,27 +135,11 @@ export class SpaHome extends React.PureComponent {
 }
 
 
-const { shape, arrayOf, string } = PropTypes;
+const { object } = PropTypes;
 
 SpaHome.propTypes = {
-  pendingAcks: arrayOf(
-    shape({
-      name: string,
-      status: string,
-      startDate: string,
-      endDate: string,
-      dateRead: string,
-    }),
-  ),
-  previousAcks: arrayOf(
-    shape({
-      name: string,
-      status: string,
-      startDate: string,
-      endDate: string,
-      dateRead: string,
-    }),
-  ),
+  pendingAcks: object.isRequired,
+  previousAcks: object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

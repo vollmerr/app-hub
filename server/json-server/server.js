@@ -20,6 +20,26 @@ if (generate) {
 
   server.use(middlewares);
 
+  server.use(jsonServer.bodyParser)
+
+  // handle patching in correct format
+  // http://jsonpatch.com/
+  // https://tools.ietf.org/html/rfc6902#section-4.3
+  server.use((req, res, next) => {
+    if (req.method === 'PATCH') {
+      let newBody = {};
+      req.body.forEach((x) => {
+        // handle replace ops
+        if (x.op === 'replace') {
+          newBody[x.path.slice(1)] = x.value;
+        }
+      });
+      req.body = newBody;
+    }
+    // Continue to JSON Server router
+    next()
+  })
+
   if (auth) {
     server.use(jwt({ secret }));
     server.use((req, res, next) => {

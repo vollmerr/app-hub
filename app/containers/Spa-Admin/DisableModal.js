@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 
+import { ACK } from 'containers/Spa/constants';
 
 /**
  * Modal for confirming that a acknowledgment should be disabled
@@ -13,23 +14,21 @@ class DisableModal extends React.PureComponent {
       item,
       hidden,
       onClose,
-      onConfirm,
+      onSubmit,
     } = this.props;
-
-    const { name, details } = item;
 
     const dialogProps = {
       hidden,
       onDismiss: onClose,
       dialogContentProps: {
         type: DialogType.normal,
-        title: name,
-        subText: details,
+        title: item[ACK.TITLE],
+        subText: item[ACK.DETAILS],
       },
     };
 
     const primaryButtonProps = {
-      onClick: onConfirm,
+      onClick: onSubmit,
       text: 'Confirm',
     };
 
@@ -38,9 +37,11 @@ class DisableModal extends React.PureComponent {
       text: 'Cancel',
     };
 
+    const warningText = `Are you sure you want to disable ${item[ACK.TITLE]}?`;
+
     return (
       <Dialog {...dialogProps}>
-        <p>Are you sure you want to disable ... etc</p>
+        <p>{warningText}</p>
         <DialogFooter>
           <PrimaryButton {...primaryButtonProps} />
           <DefaultButton {...cancelButtonProps} />
@@ -58,7 +59,7 @@ DisableModal.propTypes = {
     name: string,
     details: string,
   }),
-  onConfirm: func,
+  onSubmit: func,
   onClose: func,
   hidden: bool,
 };

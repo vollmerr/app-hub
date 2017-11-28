@@ -1,9 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { fromJS } from 'immutable';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import { testMapDispatchToProps } from 'utils/testUtils';
-import { newAckRequest } from 'containers/Spa/actions';
+import { newAckRequest, disableAckRequest } from 'containers/Spa/actions';
+import { ACK, STATUS } from 'containers/Spa/constants';
 
 import { SpaAdmin, mapDispatchToProps } from '../index';
 import AdminNav from '../AdminNav';
@@ -13,10 +15,21 @@ import Report from '../Report';
 
 const List = require.requireActual('components/List');
 
+const activeAcks = [
+  { [ACK.ID]: 1, [ACK.TITLE]: 'testPending1', [ACK.STATUS]: STATUS.ACTIVE },
+  { [ACK.ID]: 2, [ACK.TITLE]: 'testPending2', [ACK.STATUS]: STATUS.ACTIVE },
+];
+
+const previousAcks = [
+  { [ACK.ID]: 3, [ACK.TITLE]: 'testPrevious1', [ACK.STATUS]: STATUS.EXIPRED },
+  { [ACK.ID]: 4, [ACK.TITLE]: 'testPrevious2', [ACK.STATUS]: STATUS.DISABLED },
+];
+
 const props = {
-  activeAcks: [],
-  previousAcks: [],
+  activeAcks: fromJS(activeAcks),
+  previousAcks: fromJS(previousAcks),
   onNewAckRequest: jest.fn(),
+  onDisableAckRequest: jest.fn(),
 };
 
 const state = {
@@ -24,9 +37,9 @@ const state = {
   hideNewAck: true,
   hideReport: true,
   selectedItem: {
-    id: 1,
-    isActive: true,
-    name: 'test',
+    [ACK.ID]: 1,
+    [ACK.STATUS]: STATUS.ACTIVE,
+    [ACK.TITLE]: 'test',
   },
 };
 
@@ -106,8 +119,9 @@ describe('<SpaAdmin />', () => {
     });
 
     describe('handleSubmitNew', () => {
-      xit('should update the api', () => {
-        // TODO
+      it('should dispatch a new acknowledgment to the api', () => {
+        instance.handleSubmitNew(previousAcks);
+        expect(props.onNewAckRequest).toHaveBeenCalledWith(previousAcks);
       });
     });
   });
@@ -136,14 +150,15 @@ describe('<SpaAdmin />', () => {
       });
     });
 
-    describe('handleConfirmDisable', () => {
-      xit('should update the api', () => {
-        // TODO
+    describe('handleSubmitDisable', () => {
+      it('should submit a request for disabling the item to the api', () => {
+        instance.handleSubmitDisable();
+        expect(props.onDisableAckRequest).toHaveBeenCalled();
       });
 
       it('should hide the disable modal', () => {
         instance.handleHideDisable = jest.fn();
-        instance.handleConfirmDisable();
+        instance.handleSubmitDisable();
         expect(instance.handleHideDisable).toHaveBeenCalled();
       });
     });
@@ -260,6 +275,7 @@ describe('<SpaAdmin />', () => {
   describe('mapDispatchToProps', () => {
     const actions = {
       newAckRequest,
+      disableAckRequest,
     };
 
     testMapDispatchToProps(mapDispatchToProps, actions);

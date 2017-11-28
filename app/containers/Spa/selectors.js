@@ -1,31 +1,27 @@
 import { createSelector } from 'reselect';
 
-const selectSpaDomain = (state) => state.get('spa');
+import { STATUS } from './constants';
 
-const makeSelectSpaData = () => createSelector(
-  selectSpaDomain,
-  (substate) => substate.get('data')
+const selectSpa = (state) => state.get('spa');
+const selectData = (state) => state.getIn(['spa', 'data']);
+
+const makeSelectSpa = () => createSelector(
+  selectSpa,
+  (substate) => substate
 );
 
 const makeSelectPendingAcks = () => createSelector(
-  makeSelectSpaData(),
-  (substate) => substate.get('pendingAcks').toJS()
+  selectData,
+  (substate) => substate.filter((x) => x.get('status') === STATUS.ACTIVE)
 );
 
 const makeSelectPreviousAcks = () => createSelector(
-  makeSelectSpaData(),
-  (substate) => substate.get('previousAcks').toJS()
+  selectData,
+  (substate) => substate.filter((x) => x.get('status') !== STATUS.ACTIVE)
 );
 
-const makeSelectSpa = () => createSelector(
-  selectSpaDomain,
-  (substate) => substate.toJS()
-);
-
-export default makeSelectSpa;
 export {
-  selectSpaDomain,
-  makeSelectSpaData,
+  makeSelectSpa,
   makeSelectPendingAcks,
   makeSelectPreviousAcks,
 };

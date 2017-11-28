@@ -74,7 +74,20 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
             "onClick": [Function],
           }
         }
-        items={Array []}
+        items={
+          Array [
+            Object {
+              "id": 1,
+              "status": 0,
+              "title": "testPending1",
+            },
+            Object {
+              "id": 2,
+              "status": 0,
+              "title": "testPending2",
+            },
+          ]
+        }
         selection={
           Selection {
             "_anchoredIndex": 0,
@@ -150,7 +163,20 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
             "message": "No Previous Acknowledgments",
           }
         }
-        items={Array []}
+        items={
+          Array [
+            Object {
+              "id": 3,
+              "status": undefined,
+              "title": "testPrevious1",
+            },
+            Object {
+              "id": 4,
+              "status": 2,
+              "title": "testPrevious2",
+            },
+          ]
+        }
         selection={
           Selection {
             "_anchoredIndex": 0,
