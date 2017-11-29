@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { fromJS } from 'immutable';
 
 import { testMapDispatchToProps } from 'utils/testUtils';
 import theme from 'utils/theme';
@@ -19,7 +20,7 @@ const props = {
   panelSelected: 'test panel',
   userName: 'test name',
   appName: 'test app name',
-  appRoutes: [{ name: 'approute1', key: 'testHome', path: '/testpath' }, { name: 'approute2', key: '2', path: '/testpath2' }],
+  appRoutes: fromJS([{ name: 'approute1', key: 'testHome', path: '/testpath' }, { name: 'approute2', key: '2', path: '/testpath2' }]),
   routes: [{ name: 'route1', key: 'testHome', path: '/testpath' }, { name: 'route2', key: '2', path: '/testpath2' }],
 };
 
@@ -47,7 +48,7 @@ describe('<AppHub />', () => {
   });
 
   it('should not set an appPath if no `appRoutes`', () => {
-    wrapper.setProps({ appRoutes: [] });
+    wrapper.setProps({ appRoutes: fromJS([]) });
     expect(wrapper.find(AppHubHeader).prop('appPath')).toEqual('');
   });
 

@@ -4,15 +4,15 @@ exports[`appPage should be a HOC that returns a new component 1`] = `
 <Content__Content>
   <Component
     app={
-      Object {
+      Immutable.Map {
         "error": null,
         "loading": false,
-        "routes": Array [
-          Object {
-            "key": "key1",
+        "routes": Immutable.List [
+          Immutable.Map {
+            "key": "testHome",
             "path": "/test",
           },
-          Object {
+          Immutable.Map {
             "key": "key2",
             "path": "/test2",
           },
@@ -20,7 +20,7 @@ exports[`appPage should be a HOC that returns a new component 1`] = `
       }
     }
     userRoles={
-      Array [
+      Immutable.List [
         "test role1",
         "test role 2",
       ]

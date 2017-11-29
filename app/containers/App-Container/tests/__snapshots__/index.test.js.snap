@@ -21,8 +21,8 @@ exports[`<AppContainer /> should render correctly 1`] = `
   </HelmetWrapper>
   <Connect(AppNav)
     appRoutes={
-      Array [
-        Object {
+      Immutable.List [
+        Immutable.Map {
           "name": "test route1",
         },
       ]

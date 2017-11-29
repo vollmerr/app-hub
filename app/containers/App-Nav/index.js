@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { history } from 'configureStore';
-import { routesProp } from 'utils/propTypes';
-
 import { makeSelectUserRoles } from 'containers/AppHub/selectors';
 
 import Items from './Items';
@@ -47,41 +45,50 @@ export class AppNav extends React.PureComponent {
 
   /**
    * Maps the routes to only those that the user has role for
+   *
+   * @param {object} allRoutes  - routes to get map (immutable)
+   * @param {object} location   - user location info
    */
   getRoutes = (allRoutes, location) => {
     const { userRoles } = this.props;
 
     const routes = allRoutes.filter((route) => {
       // no roles on route, keep on list of routes
-      if (!route.roles) {
+      if (!route.get('roles')) {
         return true;
       }
       // keep if user has correct role
-      if (route.roles.some((role) => userRoles.includes(role))) {
+      if (route.get('roles').some((role) => userRoles.includes(role))) {
         return true;
       }
       return false;
     });
 
-    this.setState({ routes });
+    this.setState({ routes: routes.toJS() });
     this.getSelectedKey(routes, location);
   }
 
   /**
    * Handles getting the key of the selected nav item
+   *
+   * @param {object} routes     - routes to get selected key from (immutable)
+   * @param {object} location   - user location info
    */
   getSelectedKey = (routes, location) => {
-    const index = routes.findIndex((route) => route.path === location.pathname);
+    const validRoute = routes.find((route) => route.get('path') === location.pathname);
     // valid route
-    if (index > -1) {
+    if (validRoute) {
       this.setState({
-        selectedKey: routes[index].key,
+        selectedKey: validRoute.get('key'),
       });
     }
   }
 
   /**
    * Handles clicking on a link in the nav
+   *
+   * @param {event} event     - click event occuring
+   * @param {object} element  - element being clicked
    */
   handleClickLink = (event, element) => {
     event.preventDefault();
@@ -111,13 +118,13 @@ export class AppNav extends React.PureComponent {
 }
 
 
-const { func, bool, arrayOf, string } = PropTypes;
+const { func, bool, object } = PropTypes;
 
 AppNav.propTypes = {
-  appRoutes: routesProp.isRequired,
+  appRoutes: object.isRequired,
   onClick: func,
   isMobile: bool.isRequired,
-  userRoles: arrayOf(string).isRequired,
+  userRoles: object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

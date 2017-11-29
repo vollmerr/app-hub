@@ -55,7 +55,7 @@ describe('view selectors', () => {
     expect(selector(actual)).toEqual(expected);
   });
 
-  it('should select `isMobile` as plain JS', () => {
+  it('should select `isMobile`', () => {
     const selector = makeSelectIsMobile();
     const expected = state.appHub.view.isMobile;
     expect(selector(actual)).toEqual(expected);
@@ -67,13 +67,13 @@ describe('view selectors', () => {
     expect(selector(actual)).toEqual(expected);
   });
 
-  it('should select `panel.isOpen` as plain JS', () => {
+  it('should select `panel.isOpen`', () => {
     const selector = makeSelectPanelIsOpen();
     const expected = state.appHub.view.panel.isOpen;
     expect(selector(actual)).toEqual(expected);
   });
 
-  it('should select `panel.selected` as plain JS', () => {
+  it('should select `panel.selected`', () => {
     const selector = makeSelectPanelSelected();
     const expected = state.appHub.view.panel.selected;
     expect(selector(actual)).toEqual(expected);
@@ -82,48 +82,48 @@ describe('view selectors', () => {
 
 
 describe('app selectors', () => {
-  it('should select the entire state as plain JS', () => {
+  it('should select the entire state', () => {
     const selector = makeSelectApp();
-    const expected = state.appHub.app;
+    const expected = fromJS(state.appHub.app);
     expect(selector(actual)).toEqual(expected);
   });
 
-  it('should select `name` as plain JS', () => {
+  it('should select `name`', () => {
     const selector = makeSelectAppName();
     const expected = state.appHub.app.name;
     expect(selector(actual)).toEqual(expected);
   });
 
-  it('should select `routes` as plain JS', () => {
+  it('should select `routes`', () => {
     const selector = makeSelectAppRoutes();
-    const expected = state.appHub.app.routes;
+    const expected = fromJS(state.appHub.app.routes);
     expect(selector(actual)).toEqual(expected);
   });
 
-  it('should select `meta` as plain JS', () => {
+  it('should select `meta`', () => {
     const selector = makeSelectAppMeta();
-    const expected = state.appHub.app.meta;
+    const expected = fromJS(state.appHub.app.meta);
     expect(selector(actual)).toEqual(expected);
   });
 });
 
 
 describe('user selectors', () => {
-  it('should select the entire state as plain JS', () => {
+  it('should select the entire state', () => {
     const selector = makeSelectUser();
-    const expected = state.appHub.user;
+    const expected = fromJS(state.appHub.user);
     expect(selector(actual)).toEqual(expected);
   });
 
-  it('should select `sam` as plain JS', () => {
+  it('should select `sam`', () => {
     const selector = makeSelectUserSam();
     const expected = state.appHub.user.sam;
     expect(selector(actual)).toEqual(expected);
   });
 
-  it('should select `roles` as plain JS', () => {
+  it('should select `roles`', () => {
     const selector = makeSelectUserRoles();
-    const expected = state.appHub.user.roles;
+    const expected = fromJS(state.appHub.user.roles);
     expect(selector(actual)).toEqual(expected);
   });
 });

@@ -26,14 +26,13 @@ export class AppContainer extends React.PureComponent {
 
   render() {
     const { isMobile, appMeta, appRoutes } = this.props;
-    const { title, desc, keywords } = appMeta;
 
     return (
       <Wrapper isMobile={isMobile}>
         <Helmet>
-          <title>{`App Hub | ${title}`}</title>
-          <meta name={'description'} content={desc} />
-          <meta name={'keywords'} content={keywords} />
+          <title>{`App Hub | ${appMeta.get('title')}`}</title>
+          <meta name={'description'} content={appMeta.get('desc')} />
+          <meta name={'keywords'} content={appMeta.get('keywords')} />
         </Helmet>
         {
           !isMobile &&
@@ -45,7 +44,7 @@ export class AppContainer extends React.PureComponent {
 }
 
 
-const { func, bool, shape } = PropTypes;
+const { func, bool, shape, object } = PropTypes;
 
 AppContainer.propTypes = {
   onChangeApp: func.isRequired,
@@ -54,8 +53,8 @@ AppContainer.propTypes = {
     routes: routesProp,
   }).isRequired,
   isMobile: bool.isRequired,
-  appRoutes: routesProp.isRequired,
-  appMeta: metaDataProp.isRequired,
+  appRoutes: object.isRequired,
+  appMeta: object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

@@ -34,7 +34,6 @@ export class AppHub extends React.PureComponent {
 
   componentDidMount() {
     const { onAuthUser } = this.props;
-
     onAuthUser();
     this.handleResize();
     window.addEventListener('resize', this.handleResize);
@@ -72,7 +71,7 @@ export class AppHub extends React.PureComponent {
 
   render() {
     const { isMobile, panelSelected, panelIsOpen, appName, appRoutes, routes, userName } = this.props;
-    const appPath = appRoutes.length ? appRoutes.find((route) => route.key.match(/Home/)).path : '';
+    const appPath = appRoutes.isEmpty() ? '' : appRoutes.find((route) => route.get('key').match(/Home/)).get('path');
 
     const headerProps = {
       isMobile,
@@ -87,7 +86,7 @@ export class AppHub extends React.PureComponent {
     const panelProps = {
       isMobile,
       routes,
-      appRoutes,
+      appRoutes: appRoutes.toJS(),
       panel: panelSelected,
       isOpen: panelIsOpen,
       onClick: this.handlePanelClick,
@@ -108,7 +107,7 @@ export class AppHub extends React.PureComponent {
 }
 
 
-const { func, bool, string } = PropTypes;
+const { func, bool, string, object } = PropTypes;
 
 AppHub.propTypes = {
   onChangePanelOpen: func.isRequired,
@@ -120,7 +119,7 @@ AppHub.propTypes = {
   panelSelected: string.isRequired,
   userName: string.isRequired,
   appName: string.isRequired,
-  appRoutes: routesProp.isRequired,
+  appRoutes: object.isRequired,
   routes: routesProp.isRequired,
 };
 

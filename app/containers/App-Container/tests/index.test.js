@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { fromJS } from 'immutable';
 
 import AppNav from 'containers/App-Nav';
 import { changeApp } from 'containers/AppHub/actions';
@@ -19,14 +20,14 @@ const props = {
     },
   },
   isMobile: false,
-  appRoutes: [
+  appRoutes: fromJS([
     { name: 'test route1' },
-  ],
-  appMeta: {
+  ]),
+  appMeta: fromJS({
     title: 'test title',
     desc: 'test desc',
     keywords: 'test, keywords',
-  },
+  }),
 };
 
 

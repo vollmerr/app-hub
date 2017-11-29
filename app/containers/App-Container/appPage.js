@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { history } from 'configureStore';
-import { appProp } from 'utils/propTypes';
 import ErrorMessage from 'components/Loading/ErrorMessage';
 import LoadingMessage from 'components/Loading/LoadingMessage';
 import Content from 'components/App-Content/Content';
@@ -14,26 +13,36 @@ import { makeSelectApp, makeSelectUserRoles } from 'containers/AppHub/selectors'
 export function appPage(Component) {
   return class extends React.PureComponent {
     static displayName = Component.displayName ||
-    Component.name /* istanbul ignore next: can't set `name` for testing as read only */ ||
-    'AppPage';
+      Component.name /* istanbul ignore next: can't set `name` for testing as read only */ ||
+      'AppPage';
 
     static propTypes = {
-      app: appProp.isRequired,
-      userRoles: PropTypes.arrayOf(PropTypes.string).isRequired,
+      app: PropTypes.object.isRequired,
+      userRoles: PropTypes.object.isRequired,
     };
 
     componentWillReceiveProps(nextProps) {
       const { app, userRoles } = this.props;
       // if there are different routes (is empty when component loads, so check here)
-      if (nextProps.app.routes.length !== app.routes.length) {
+      if (nextProps.app.get('routes') !== app.get('routes')) {
         // get index of current route
-        const index = nextProps.app.routes.findIndex((route) => route.path === history.location.pathname);
+        const currentRoute = nextProps.app
+          .get('routes')
+          .find((route) => (
+            route.get('path') === history.location.pathname)
+          );
         // route found, that has permissions set
-        if (index > -1 && nextProps.app.routes[index].roles) {
+        if (currentRoute && currentRoute.get('roles')) {
           // not authorized for route
-          if (!nextProps.app.routes[index].roles.some((role) => userRoles.includes(role))) {
+          if (!currentRoute.get('roles').some((role) => userRoles.includes(role))) {
+            // get home route for app
+            const homeRoute = nextProps.app
+              .get('routes')
+              .find((route) => (
+                route.get('key').match(/Home/))
+              );
             // push to home of app
-            history.push(nextProps.app.routes[0].path);
+            history.push(homeRoute ? homeRoute.get('path') : '/');
             // dont update
             return false;
           }
@@ -44,12 +53,15 @@ export function appPage(Component) {
 
     render() {
       const { app } = this.props;
-      const { error, loading, routes } = app;
-      const to = routes && routes[0] ? routes[0].path : '/';
+      const routes = app.get('routes');
+      const homeRoute = routes.find((route) => (
+        route.get('key').match(/Home/))
+      );
+      const to = homeRoute ? homeRoute.get('path') : '/';
 
-      if (error) {
-        return <ErrorMessage error={error} to={to} />;
-      } else if (loading) {
+      if (app.get('error')) {
+        return <ErrorMessage error={app.get('error')} to={to} />;
+      } else if (app.get('loading')) {
         return <LoadingMessage />;
       }
 

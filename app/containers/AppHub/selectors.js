@@ -45,7 +45,7 @@ const makeSelectAppDomain = () => createSelector(
 
 const makeSelectApp = () => createSelector(
   makeSelectAppDomain(),
-  (substate) => substate.toJS()
+  (substate) => substate
 );
 
 const makeSelectAppName = () => createSelector(
@@ -55,18 +55,18 @@ const makeSelectAppName = () => createSelector(
 
 const makeSelectAppRoutes = () => createSelector(
   makeSelectAppDomain(),
-  (substate) => substate.get('routes').toJS()
+  (substate) => substate.get('routes')
 );
 
 const makeSelectAppMeta = () => createSelector(
   makeSelectAppDomain(),
-  (substate) => substate.get('meta').toJS()
+  (substate) => substate.get('meta')
 );
 
 // USER
 const makeSelectUser = () => createSelector(
   selectAppHubDomain,
-  (substate) => substate.get('user').toJS()
+  (substate) => substate.get('user')
 );
 
 const makeSelectUserSam = () => createSelector(
@@ -76,7 +76,7 @@ const makeSelectUserSam = () => createSelector(
 
 const makeSelectUserRoles = () => createSelector(
   selectAppHubDomain,
-  (substate) => substate.getIn(['user', 'roles']).toJS()
+  (substate) => substate.getIn(['user', 'roles'])
 );
 
 /**

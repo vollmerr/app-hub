@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import { fromJS } from 'immutable';
 
 import { history } from 'configureStore';
 import { AppNav } from '../index';
@@ -20,11 +21,11 @@ const filteredRoutes = [routes[0], routes[2]]; // routes user has permissions fo
 const props = {
   onClick: jest.fn(),
   isMobile: false,
-  appRoutes: routes,
-  userRoles: roles,
+  appRoutes: fromJS(routes),
+  userRoles: fromJS(roles),
 };
 
-history.location = props.appRoutes[0].path;
+history.location = routes[0].path;
 history.push = jest.fn();
 
 describe('<AppNav />', () => {
@@ -44,11 +45,12 @@ describe('<AppNav />', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+
   describe('componentDidMount', () => {
     it('should update the routes to only those the user has access to', () => {
       instance.getRoutes = jest.fn();
       instance.componentDidMount();
-      expect(instance.getRoutes).toHaveBeenCalledWith(routes, history.location);
+      expect(instance.getRoutes).toHaveBeenCalledWith(props.appRoutes, history.location);
     });
 
     it('should bind the history listener to `this.history`', () => {
@@ -57,11 +59,12 @@ describe('<AppNav />', () => {
     });
   });
 
+
   describe('componentWillReceiveProps', () => {
     // not resetting between tests to preserve state
     const render = jest.spyOn(AppNav.prototype, 'render');
     const mounted = mount(<AppNav {...props} />);
-    const newProps = { ...props, appRoutes: [{ name: 'new route' }, ...props.appRoutes] };
+    const newProps = { ...props, appRoutes: fromJS([{ name: 'new route' }, ...routes]) };
     const inst = mounted.instance();
     inst.getSelectedKey = jest.fn();
 
@@ -87,6 +90,7 @@ describe('<AppNav />', () => {
     });
   });
 
+
   describe('componentWillUnmount', () => {
     it('should unsubscribe from history', () => {
       instance.history = jest.fn();
@@ -95,21 +99,23 @@ describe('<AppNav />', () => {
     });
   });
 
+
   describe('getRoutes', () => {
     beforeEach(() => {
       instance.getSelectedKey = jest.fn();
     });
 
     it('should update the `selectedKey`', () => {
-      instance.getRoutes(routes, history.location);
-      expect(instance.getSelectedKey).toHaveBeenCalledWith(filteredRoutes, history.location);
+      instance.getRoutes(props.appRoutes, history.location);
+      expect(instance.getSelectedKey).toHaveBeenCalledWith(fromJS(filteredRoutes), history.location);
     });
 
     it('should update the `routes` in state', () => {
-      instance.getRoutes(routes, history.location);
+      instance.getRoutes(props.appRoutes, history.location);
       expect(wrapper.state('routes')).toEqual(filteredRoutes);
     });
   });
+
 
   describe('getSelectedKey', () => {
     it('should exist', () => {
@@ -128,6 +134,7 @@ describe('<AppNav />', () => {
       expect(wrapper.state('selectedKey')).toEqual(null);
     });
   });
+
 
   describe('handleClickLink', () => {
     it('should exist', () => {
