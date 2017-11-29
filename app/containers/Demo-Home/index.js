@@ -28,11 +28,11 @@ export class DemoHome extends React.PureComponent {
     return (
       <div>
         <p>in demo home......</p>
-        <p>Logged in as {user.sam}</p>
+        <p>Logged in as {user.get('sam')}</p>
         <p>with permissions (BARS):</p>
         <ul>
           {
-            user.roles.map((role) => <li key={role}>{role}</li>)
+            user.get('roles').map((role) => <li key={role}>{role}</li>)
           }
         </ul>
 
