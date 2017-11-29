@@ -12,15 +12,17 @@ exports[`<NewAckForm /> should render correctly 1`] = `
   <NewAckForm__Fields>
     <NewAckForm__FieldSection>
       <WrappedField
+        ariaLabel="Title of the acknowledgment"
         disabled={false}
         key="title"
         label="Title"
         name="title"
-        placeholder="Enter acknowledgment name"
+        placeholder="Enter acknowledgment title"
         required={true}
         validate={Array []}
       />
       <WrappedField
+        ariaLabel="Date the acknowledgment takes effect"
         disabled={false}
         key="activeStartDate"
         label="Start Date"
@@ -30,6 +32,7 @@ exports[`<NewAckForm /> should render correctly 1`] = `
         validate={Array []}
       />
       <WrappedField
+        ariaLabel="Date the acknowledgment expires"
         disabled={false}
         key="activeEndDate"
         label="Start Date"
@@ -39,6 +42,7 @@ exports[`<NewAckForm /> should render correctly 1`] = `
         validate={Array []}
       />
       <WrappedField
+        ariaLabel="AD groups that must acknowledge the policy"
         disabled={false}
         key="targetADGroup"
         label="Target Group(s)"
@@ -66,6 +70,7 @@ exports[`<NewAckForm /> should render correctly 1`] = `
     </NewAckForm__FieldSection>
     <NewAckForm__FieldSection>
       <WrappedField
+        ariaLabel="Statement that will be placed under the details of the acknowledgment"
         disabled={false}
         key="ackStatement"
         label="Statement"
@@ -75,6 +80,7 @@ exports[`<NewAckForm /> should render correctly 1`] = `
         validate={Array []}
       />
       <WrappedField
+        ariaLabel="Details of the acknowledgment"
         disabled={false}
         key="detailsText"
         label="Details"
@@ -85,6 +91,7 @@ exports[`<NewAckForm /> should render correctly 1`] = `
         validate={Array []}
       />
       <WrappedField
+        ariaLabel="Name of the file that must be read before acknowledging"
         disabled={false}
         key="fileName"
         label="Attachment Name"
@@ -94,6 +101,7 @@ exports[`<NewAckForm /> should render correctly 1`] = `
         validate={Array []}
       />
       <WrappedField
+        ariaLabel="Attach the file that must be read before acknowledging"
         disabled={false}
         key="fileContent"
         label="Attachment"

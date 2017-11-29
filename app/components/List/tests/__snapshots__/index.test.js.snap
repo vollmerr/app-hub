@@ -14,6 +14,7 @@ exports[`<List /> should render correctly 1`] = `
     columns={
       Array [
         Object {
+          "ariaLabel": "test aria label",
           "fieldName": "name",
           "key": "name",
           "name": "name",
@@ -55,6 +56,7 @@ exports[`<List /> should render correctly 1`] = `
         },
       ]
     }
+    onRenderDetailsHeader={[Function]}
   />
 </Wrapper__Wrapper>
 `;

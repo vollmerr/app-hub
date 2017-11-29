@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { DetailsList } from 'office-ui-fabric-react/lib/DetailsList';
+import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 
 import List, { handleSelectItem } from '../index';
 import Title from '../Title';
@@ -15,7 +16,7 @@ const props = {
     { id: 3, name: 'stuff', test: 1, other: '2000/12/01' },
   ],
   columns: [
-    { key: 'name', name: 'name', fieldName: 'name' },
+    { key: 'name', name: 'name', fieldName: 'name', ariaLabel: 'test aria label' },
     { key: 'test', name: 'test', fieldName: 'test', notSortable: true },
     { key: 'other', name: 'other', fieldName: 'other' },
   ],
@@ -26,6 +27,7 @@ const props = {
 
 const index = 1;
 const selectedItem = props.items[index];
+
 
 describe('handleSelectItem', () => {
   let selection;
@@ -101,6 +103,7 @@ describe('<List />', () => {
     expect(wrapper.find(EmptyMessage).prop('message')).toEqual(props.empty.message);
   });
 
+
   describe('componentDidMount', () => {
     it('should bind `handleColumnClick` to columns without `notSortable`', () => {
       const columns = wrapper.state('columns');
@@ -109,6 +112,7 @@ describe('<List />', () => {
       expect(columns[2].onColumnClick).toEqual(instance.handleColumnClick);
     });
   });
+
 
   describe('handleSearch', () => {
     it('should filter the items based off input', () => {
@@ -126,6 +130,7 @@ describe('<List />', () => {
     });
   });
 
+
   describe('handleColumnClick', () => {
     let selected;
     let expected;
@@ -139,7 +144,6 @@ describe('<List />', () => {
       expected[selected].isSortedDescending = true;
       instance.handleSort = jest.fn();
     });
-
 
     it('should update all columns sorted status', () => {
       instance.handleColumnClick(null, props.columns[selected]);
@@ -166,6 +170,7 @@ describe('<List />', () => {
       expect(instance.handleSort).toHaveBeenCalledWith(expected, expected[selected].key);
     });
   });
+
 
   describe('handleSort', () => {
     it('should update the sort order and sort the items', () => {
@@ -203,6 +208,33 @@ describe('<List />', () => {
       instance.handleSort(columns, selected);
       expect(wrapper.state('items')).toEqual(items);
       expect(wrapper.state('sortOrder')).toEqual(sortOrder);
+    });
+  });
+
+
+  describe('renderHeader', () => {
+    it('should render a tooltip if there is an `ariaLabel`', () => {
+      const defaultRender = jest.fn((renderProps) => (
+        renderProps.onRenderColumnHeaderTooltip({
+          content: renderProps.columns[0].ariaLabel,
+          children: renderProps.columns[0].name,
+        })
+      ));
+      // need to mount on parent (div) so you can dive in to find
+      const actual = shallow(<div>{instance.renderHeader(props, defaultRender)}</div>);
+      expect(actual.find(TooltipHost).length).toEqual(1);
+    });
+
+    it('should not render a tooltip if there is no `ariaLabel`', () => {
+      const defaultRender = jest.fn((renderProps) => (
+        renderProps.onRenderColumnHeaderTooltip({
+          content: renderProps.columns[1].ariaLabel,
+          children: renderProps.columns[1].name,
+        })
+      ));
+      // need to mount on parent (div) so you can dive in to find
+      const actual = shallow(<div>{instance.renderHeader(props, defaultRender)}</div>);
+      expect(actual.find(TooltipHost).length).toEqual(0);
     });
   });
 });

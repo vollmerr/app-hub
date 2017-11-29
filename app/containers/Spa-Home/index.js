@@ -8,7 +8,7 @@ import appPage from 'containers/App-Container/appPage';
 import ListSection from 'components/List/ListSection';
 import { makeSelectPendingAcks, makeSelectPreviousAcks } from 'containers/Spa/selectors';
 import List, { handleSelectItem } from 'components/List';
-import { homePendingColumns, homePreviousColumns } from 'containers/Spa/mapped';
+import { homePendingColumns, homePreviousColumns } from 'containers/Spa/columns';
 
 import AckModal from './AckModal';
 

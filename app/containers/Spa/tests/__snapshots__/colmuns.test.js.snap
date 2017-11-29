@@ -3,6 +3,7 @@
 exports[`mapToColumns should map the object to the correct format for office-ui-fabric-react DetailsList\`s 1`] = `
 Array [
   Object {
+    "ariaLabel": undefined,
     "fieldName": "testName1",
     "isResizable": true,
     "key": "testName1",
@@ -11,6 +12,7 @@ Array [
     "name": "testLabel1",
   },
   Object {
+    "ariaLabel": undefined,
     "fieldName": "testName2",
     "isResizable": true,
     "key": "testName2",
@@ -19,6 +21,7 @@ Array [
     "name": "testLabel2",
   },
   Object {
+    "ariaLabel": undefined,
     "fieldName": "testName3",
     "isResizable": true,
     "key": "testName3",
@@ -32,6 +35,7 @@ Array [
 exports[`mapToColumns should not use keys in \`exclude\` if provided 1`] = `
 Array [
   Object {
+    "ariaLabel": undefined,
     "fieldName": "testName1",
     "isResizable": true,
     "key": "testName1",
@@ -45,6 +49,7 @@ Array [
 exports[`mapToColumns should only use keys in \`include\` if provided 1`] = `
 Array [
   Object {
+    "ariaLabel": undefined,
     "fieldName": "testName1",
     "isResizable": true,
     "key": "testName1",
@@ -53,6 +58,7 @@ Array [
     "name": "testLabel1",
   },
   Object {
+    "ariaLabel": undefined,
     "fieldName": "testName3",
     "isResizable": true,
     "key": "testName3",

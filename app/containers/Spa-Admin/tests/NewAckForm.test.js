@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
 import { Form, FormButtons } from 'components/Form';
-import { newAckForm } from 'containers/Spa/mapped';
+import { newAckForm } from 'containers/Spa/fields';
 
 import { NewAckForm } from '../NewAckForm';
 

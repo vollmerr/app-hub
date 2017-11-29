@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DetailsList } from 'office-ui-fabric-react/lib/DetailsList';
+import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import orderBy from 'lodash/orderBy';
 
 import { escapeRegExp } from 'utils/string';
@@ -121,6 +122,17 @@ class List extends React.PureComponent {
     this.setState({ items: newItems, sortOrder: newSortOrder });
   }
 
+  renderHeader = (props, defaultRender) => (
+    defaultRender({
+      ...props,
+      onRenderColumnHeaderTooltip: (tooltipHostProps) => (
+        tooltipHostProps.content ?
+          <TooltipHost {...tooltipHostProps} /> :
+          <div>{tooltipHostProps.children}</div>
+      ),
+    })
+  )
+
   render() {
     const { title, empty, ...list } = this.props;
     const { items, columns } = this.state;
@@ -129,6 +141,7 @@ class List extends React.PureComponent {
       ...list,
       items,
       columns,
+      onRenderDetailsHeader: this.renderHeader,
     };
 
     return (

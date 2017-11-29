@@ -7,7 +7,7 @@ import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList
 import appPage from 'containers/App-Container/appPage';
 import { makeSelectPendingAcks, makeSelectPreviousAcks } from 'containers/Spa/selectors';
 import { newAckRequest, disableAckRequest } from 'containers/Spa/actions';
-import { adminColumns } from 'containers/Spa/mapped';
+import { adminColumns } from 'containers/Spa/columns';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
 import { ACK, STATUS } from 'containers/Spa/constants';

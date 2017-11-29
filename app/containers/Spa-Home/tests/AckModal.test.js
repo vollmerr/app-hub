@@ -63,6 +63,6 @@ describe('<AckModal />', () => {
   it('should handle acknowledging when pressing the primary button if read', () => {
     wrapper.setProps({ hasRead: true });
     expect(wrapper.find(PrimaryButton).prop('onClick')).toEqual(props.onAck);
-    expect(wrapper.find(PrimaryButton).prop('text')).toEqual('Confirm');
+    expect(wrapper.find(PrimaryButton).prop('text')).toEqual('Submit');
   });
 });

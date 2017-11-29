@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form/immutable';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import styled from 'styled-components';
 
-import mapped, { newAckForm } from 'containers/Spa/mapped';
+import spaFields, { newAckForm } from 'containers/Spa/fields';
 import appPage from 'containers/App-Container/appPage';
 import { Form, FormButtons } from 'components/Form';
 import theme from 'utils/theme';
@@ -30,7 +30,7 @@ function mapSection(section) {
     <FieldSection>
       {
         section.map((name) => {
-          const { component: C, ...props } = mapped[name];
+          const { component: C, ...props } = spaFields[name];
 
           return (
             <C {...props} key={name} />

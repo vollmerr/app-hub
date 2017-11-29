@@ -9,6 +9,7 @@ import spaSaga, { initData, newAck, disableAck, base } from '../saga';
 import {
   INIT_DATA_REQUEST,
   NEW_ACK_REQUEST,
+  DISABLE_ACK_REQUEST,
   STATUS,
   ACK,
 } from '../constants';
@@ -29,12 +30,17 @@ let action;
 
 
 describe('spaSaga', () => {
-  it('should wait for `INIT_DATA_REQUEST` and `NEW_ACK_REQUEST`', () => {
+  it(`should take the latest
+      'INIT_DATA_REQUEST',
+      'NEW_ACK_REQUEST', and
+      'DISABLE_ACK_REQUEST'`, () => {
     testSaga(spaSaga)
       .next()
       .takeLatestEffect(INIT_DATA_REQUEST, initData)
       .next()
       .takeLatestEffect(NEW_ACK_REQUEST, newAck)
+      .next()
+      .takeLatestEffect(DISABLE_ACK_REQUEST, disableAck)
       .finish()
       .isDone();
   });

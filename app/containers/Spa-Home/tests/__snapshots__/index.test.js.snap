@@ -9,6 +9,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
       columns={
         Array [
           Object {
+            "ariaLabel": "Title of the acknowledgment",
             "fieldName": "title",
             "isResizable": true,
             "key": "title",
@@ -17,6 +18,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "name": "Title",
           },
           Object {
+            "ariaLabel": "Date the acknowledgment takes effect",
             "fieldName": "activeStartDate",
             "isResizable": true,
             "key": "activeStartDate",
@@ -25,6 +27,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "name": "Start Date",
           },
           Object {
+            "ariaLabel": "Date the acknowledgment expires",
             "fieldName": "activeEndDate",
             "isResizable": true,
             "key": "activeEndDate",
@@ -79,6 +82,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
       columns={
         Array [
           Object {
+            "ariaLabel": "Title of the acknowledgment",
             "fieldName": "title",
             "isResizable": true,
             "key": "title",
@@ -87,6 +91,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "name": "Title",
           },
           Object {
+            "ariaLabel": "Date the acknowledgment takes effect",
             "fieldName": "activeStartDate",
             "isResizable": true,
             "key": "activeStartDate",
@@ -95,6 +100,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "name": "Start Date",
           },
           Object {
+            "ariaLabel": "Date the acknowledgment expires",
             "fieldName": "activeEndDate",
             "isResizable": true,
             "key": "activeEndDate",

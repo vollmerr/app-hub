@@ -31,7 +31,7 @@ class AckModal extends React.PureComponent {
 
     const primaryButtonProps = {
       onClick: hasRead ? onAck : onRead,
-      text: hasRead ? 'Confirm' : 'Read',
+      text: hasRead ? 'Submit' : 'Read',
     };
 
     const cancelButtonProps = {
