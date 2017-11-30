@@ -272,6 +272,39 @@ describe('<SpaAdmin />', () => {
   });
 
 
+  describe('Rendering', () => {
+    describe('renderItemColumn', () => {
+      it('should render a column`s content as a string by default', () => {
+        const content = 'test content';
+        const item = {
+          testFieldName: content,
+        };
+        const column = {
+          fieldName: 'testFieldName',
+        };
+        const actual = instance.renderItemColumn(item, null, column);
+        expect(actual).toEqual(content);
+      });
+
+      it('should render a column`s content as a comma seperated string if it`s an array', () => {
+        const content = ['test', 'content'];
+        const item = {
+          testFieldName: content,
+        };
+        const column = {
+          fieldName: 'testFieldName',
+        };
+        const actual = instance.renderItemColumn(item, null, column);
+        expect(actual).toEqual(content.join(', '));
+      });
+    });
+
+    describe('renderContent', () => {
+
+    });
+  });
+
+
   describe('mapDispatchToProps', () => {
     const actions = {
       newAckRequest,

@@ -212,6 +212,30 @@ export class SpaAdmin extends React.PureComponent {
     this.handleHideReport();
   }
 
+  //
+  // RENDERING FUNCS
+  //
+
+  /**
+   * Renders columns in a custom format
+   *
+   * @param {object} item     - current item (row) of list
+   * @param {number} index    - index of current item
+   * @param {object} column   - column to render
+   *
+   * @return {string}         - content to render
+   */
+  renderItemColumn = (item, index, column) => {
+    let content = item[column.fieldName];
+
+    // convert arrays to csv strings
+    if (content.join) {
+      content = content.join(', ');
+    }
+
+    return String(content);
+  }
+
   /**
    * Renders the content based off state (show lists / report / new form)
    *
@@ -258,6 +282,7 @@ export class SpaAdmin extends React.PureComponent {
       },
       selection: this.selectionActive,
       selectionMode: SelectionMode.none,
+      onRenderItemColumn: this.renderItemColumn,
     };
 
     const previousProps = {
@@ -269,6 +294,7 @@ export class SpaAdmin extends React.PureComponent {
       },
       selection: this.selectionPrev,
       selectionMode: SelectionMode.none,
+      onRenderItemColumn: this.renderItemColumn,
     };
 
     return (

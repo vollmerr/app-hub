@@ -93,6 +93,7 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
             },
           ]
         }
+        onRenderItemColumn={[Function]}
         selection={
           Selection {
             "_anchoredIndex": 0,
@@ -187,6 +188,7 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
             },
           ]
         }
+        onRenderItemColumn={[Function]}
         selection={
           Selection {
             "_anchoredIndex": 0,
