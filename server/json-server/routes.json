@@ -1,5 +1,7 @@
 {
   "/spa": "/spaAcknowledgments",
   "/spa/acknowledgments": "/spaAcknowledgments",
-  "/spa/recipients": "/spaRecipients"
+  "/spa/acknowledgments/:id": "/spaAcknowledgments/:id",
+  "/spa/recipients": "/spaRecipients",
+  "/spa/recipients/:id": "/spaRecipients/:id"
 }

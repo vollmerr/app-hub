@@ -3,8 +3,8 @@ const spaSchema = {
   properties: {
     spaAcknowledgments: {
       type: 'array',
-      minItems: 4,
-      maxItems: 6,
+      minItems: 8,
+      maxItems: 12,
       items: {
         type: 'object',
         properties: {
@@ -67,8 +67,8 @@ const spaSchema = {
     },
     spaRecipients: {
       type: 'array',
-      minItems: 3,
-      maxItems: 5,
+      minItems: 15,
+      maxItems: 20,
       items: {
         type: 'object',
         properties: {
@@ -125,8 +125,8 @@ const spaSchema = {
       uniqueItems: true,
       items: {
         type: 'number',
-        minimum: 1,
-        maximum: 99999,
+        minimum: 0,
+        maximum: 3,
       },
     },
   },

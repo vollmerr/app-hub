@@ -15,6 +15,7 @@ import {
 } from '../constants';
 
 import {
+  initDataRequest,
   initDataSuccess,
   initDataFailure,
   newAckSuccess,
@@ -71,7 +72,7 @@ describe('initData', () => {
 
 
 describe('newAck', () => {
-  it('should call the api and update the store with its results', () => {
+  it('should call the api, update the store with its results, then get the updated acknowledgments', () => {
     action = { payload: fromJS(data) };
     const options = {
       method: 'POST',
@@ -84,6 +85,8 @@ describe('newAck', () => {
       .call(requestWithToken, url, options)
       .next(data)
       .put(newAckSuccess(data))
+      .next()
+      .put(initDataRequest())
       .finish()
       .isDone();
   });

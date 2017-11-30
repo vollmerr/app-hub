@@ -36,6 +36,10 @@ if (generate) {
       });
       req.body = newBody;
     }
+    if (req.method === 'POST') {
+      // set to active status
+      req.body.status = 0;
+    }
     // Continue to JSON Server router
     next();
   })

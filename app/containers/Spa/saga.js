@@ -11,6 +11,7 @@ import {
 } from './constants';
 
 import {
+  initDataRequest,
   initDataSuccess,
   initDataFailure,
   newAckSuccess,
@@ -45,6 +46,7 @@ export function* newAck(action) {
     };
     const data = yield call(requestWithToken, url, options);
     yield put(newAckSuccess(data));
+    yield put(initDataRequest());
   } catch (error) {
     yield put(newAckFailure(error));
   }

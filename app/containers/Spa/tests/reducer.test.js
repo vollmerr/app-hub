@@ -5,19 +5,22 @@ import spaReducer, { initialState } from '../reducer';
 
 import {
   INIT_DATA_SUCCESS,
+  DISABLE_ACK_SUCCESS,
+  ACK,
+  STATUS,
 } from '../constants';
 
 const pendingAcks = [
-  { id: 1, name: 'testPending1', isActive: true },
-  { id: 2, name: 'testPending2', isActive: true },
+  { [ACK.ID]: 1, [ACK.TITLE]: 'testPending1', [ACK.STATUS]: STATUS.ACTIVE },
+  { [ACK.ID]: 2, [ACK.TITLE]: 'testPending2', [ACK.STATUS]: STATUS.ACTIVE },
 ];
 
 const previousAcks = [
-  { id: 3, name: 'testPrevious1', isActive: false },
-  { id: 4, name: 'testPrevious2', isActive: false },
+  { [ACK.ID]: 3, [ACK.TITLE]: 'testPrevious1', [ACK.STATUS]: STATUS.DISABLED },
+  { [ACK.ID]: 4, [ACK.TITLE]: 'testPrevious2', [ACK.STATUS]: STATUS.EXPIRED },
 ];
 
-const payload = [
+const data = [
   ...pendingAcks,
   ...previousAcks,
 ];
@@ -28,13 +31,22 @@ describe('spaReducer', () => {
     expected = fromJS(initialState);
   });
 
-  it('returns the initial state', () => {
+  it('should return the initial state', () => {
     expect(spaReducer(undefined, {})).toEqual(expected);
   });
 
-  it('sets the data on `INIT_DATA_SUCCESS`', () => {
-    const action = { type: INIT_DATA_SUCCESS, payload };
+  it('should set the data on `INIT_DATA_SUCCESS`', () => {
+    const action = { type: INIT_DATA_SUCCESS, payload: data };
     const actual = spaReducer(undefined, action).get('data').toJS();
-    expect(actual).toEqual(payload);
+    expect(actual).toEqual(data);
+  });
+
+  it('should set the acknowledgment as disabled on `DISABLE_ACK_SUCCESS`', () => {
+    const action = { type: DISABLE_ACK_SUCCESS, payload: pendingAcks[0] };
+    const state = fromJS({ data });
+    const actual = spaReducer(state, action).get('data').toJS();
+    expected = [...data];
+    expected[0][ACK.STATUS] = STATUS.DISABLED;
+    expect(actual).toEqual(expected);
   });
 });
