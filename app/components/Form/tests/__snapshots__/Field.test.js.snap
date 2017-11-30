@@ -2,6 +2,7 @@
 
 exports[`Field should render the returned component correctly 1`] = `
 <Field
+  aria-label=""
   component={[Function]}
   disabled={false}
   format={[Function]}

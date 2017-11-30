@@ -121,6 +121,13 @@ export class SpaAdmin extends React.PureComponent {
     this.setState({ hideReport: true });
   }
 
+  /**
+   * Handles hiding the report screen
+   */
+  handleDownload = () => {
+    // TODO: download...
+  }
+
   //
   // NAV FUNCS
   //
@@ -154,6 +161,16 @@ export class SpaAdmin extends React.PureComponent {
           icon: 'navBack',
           ariaLabel: 'Back to Admin Page',
           onClick: this.handleBack,
+        },
+      );
+      // download report button
+      items.push(
+        {
+          key: 'download',
+          name: 'Download',
+          icon: 'down',
+          ariaLabel: 'Download Report',
+          onClick: this.handleDownload,
         },
       );
       // showing report with current ack, add `Disable` button

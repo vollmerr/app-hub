@@ -1,7 +1,7 @@
 const spaSchema = {
   type: 'object',
   properties: {
-    acknowledgments: {
+    spaAcknowledgments: {
       type: 'array',
       minItems: 4,
       maxItems: 6,
@@ -65,7 +65,7 @@ const spaSchema = {
         ],
       },
     },
-    recipients: {
+    spaRecipients: {
       type: 'array',
       minItems: 3,
       maxItems: 5,
@@ -110,7 +110,7 @@ const spaSchema = {
       },
     },
   },
-  required: ['acknowledgments', 'recipients'],
+  required: ['spaAcknowledgments', 'spaRecipients'],
   definitions: {
     id: {
       type: 'number',

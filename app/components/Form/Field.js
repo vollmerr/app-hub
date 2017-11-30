@@ -12,6 +12,7 @@ function Field(WrappedComponent, requiredFunc = null) {
       disabled: bool,
       validate: arrayOf(func),
       placeholder: string,
+      ariaLabel: string,
     };
 
     static defaultProps = {
@@ -19,6 +20,7 @@ function Field(WrappedComponent, requiredFunc = null) {
       disabled: false,
       validate: [],
       placeholder: '',
+      ariaLabel: '',
     };
 
     render() {
@@ -27,6 +29,7 @@ function Field(WrappedComponent, requiredFunc = null) {
         disabled,
         validate,
         placeholder,
+        ariaLabel,
         ...props
       } = this.props;
 
@@ -49,6 +52,7 @@ function Field(WrappedComponent, requiredFunc = null) {
         required: isRequired,
         validate: toValidate,
         placeholder: newPlaceholder,
+        'aria-label': ariaLabel,
         component: WrappedComponent,
         format: (value) => (value === '' ? [] : value), // to stop warnings for array types (appears to work for text types...)
       };

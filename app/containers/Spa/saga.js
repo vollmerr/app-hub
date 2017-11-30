@@ -23,7 +23,7 @@ export const base = API.SPA;
 
 export function* initData() {
   try {
-    const url = `${base}/acknowledgments`; // TODO! STARTUP ROUTE!
+    const url = `${base}/`; // TODO! STARTUP ROUTE!
     const data = yield call(requestWithToken, url);
     yield put(initDataSuccess(data));
   } catch (error) {

@@ -50,7 +50,7 @@ describe('spaSaga', () => {
 describe('initData', () => {
   it('should call the api and update the store with its results', () => {
     action = { payload: fromJS(data) };
-    const url = `${base}/acknowledgments`;
+    const url = `${base}/`;
 
     testSaga(initData)
       .next()

@@ -30,7 +30,7 @@ const plugins = [
       BARS: 'https://testbarsapi.technology.ca.gov/api/BadgeRequests',
       ED: 'http://testapphubapi.technology.ca.gov/directory/employees',
       JWT: 'https://testsec.api.technology.ca.gov/createToken',
-      SPA: 'http://localhost:3001',
+      SPA: 'http://localhost:3001/spa',
     }),
     DEV: JSON.stringify({
       JWT: devJwts,

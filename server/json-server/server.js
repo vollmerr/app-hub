@@ -12,15 +12,15 @@ if (generate) {
   const server = jsonServer.create();
   const router = jsonServer.router(path.join(__dirname, 'db.json'));
   const middlewares = jsonServer.defaults();
-
+  const redirects = require('./routes.json');
   const secret = require('./secret');
 
   const host = 'localhost';
   const port = 3001;
 
   server.use(middlewares);
-
-  server.use(jsonServer.bodyParser)
+  server.use(jsonServer.rewriter(redirects));
+  server.use(jsonServer.bodyParser);
 
   // handle patching in correct format
   // http://jsonpatch.com/
@@ -37,7 +37,7 @@ if (generate) {
       req.body = newBody;
     }
     // Continue to JSON Server router
-    next()
+    next();
   })
 
   if (auth) {
