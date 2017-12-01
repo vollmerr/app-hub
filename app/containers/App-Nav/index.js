@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { history } from 'configureStore';
+import { routesProp } from 'utils/propTypes';
 import { makeSelectUserRoles } from 'containers/AppHub/selectors';
 
 import Items from './Items';
@@ -46,7 +47,7 @@ export class AppNav extends React.PureComponent {
   /**
    * Maps the routes to only those that the user has role for
    *
-   * @param {object} allRoutes  - routes to get map (immutable)
+   * @param {object} allRoutes  - routes to get map
    * @param {object} location   - user location info
    */
   getRoutes = (allRoutes, location) => {
@@ -54,17 +55,17 @@ export class AppNav extends React.PureComponent {
 
     const routes = allRoutes.filter((route) => {
       // no roles on route, keep on list of routes
-      if (!route.get('roles')) {
+      if (!route.roles) {
         return true;
       }
       // keep if user has correct role
-      if (route.get('roles').some((role) => userRoles.includes(role))) {
+      if (route.roles.some((role) => userRoles.includes(role))) {
         return true;
       }
       return false;
     });
 
-    this.setState({ routes: routes.toJS() });
+    this.setState({ routes });
     this.getSelectedKey(routes, location);
   }
 
@@ -75,11 +76,11 @@ export class AppNav extends React.PureComponent {
    * @param {object} location   - user location info
    */
   getSelectedKey = (routes, location) => {
-    const validRoute = routes.find((route) => route.get('path') === location.pathname);
+    const index = routes.findIndex((route) => route.path === location.pathname);
     // valid route
-    if (validRoute) {
+    if (index > -1) {
       this.setState({
-        selectedKey: validRoute.get('key'),
+        selectedKey: routes[index].key,
       });
     }
   }
@@ -121,7 +122,7 @@ export class AppNav extends React.PureComponent {
 const { func, bool, object } = PropTypes;
 
 AppNav.propTypes = {
-  appRoutes: object.isRequired,
+  appRoutes: routesProp.isRequired,
   onClick: func,
   isMobile: bool.isRequired,
   userRoles: object.isRequired,

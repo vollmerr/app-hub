@@ -21,7 +21,7 @@ const filteredRoutes = [routes[0], routes[2]]; // routes user has permissions fo
 const props = {
   onClick: jest.fn(),
   isMobile: false,
-  appRoutes: fromJS(routes),
+  appRoutes: routes,
   userRoles: fromJS(roles),
 };
 
@@ -64,7 +64,7 @@ describe('<AppNav />', () => {
     // not resetting between tests to preserve state
     const render = jest.spyOn(AppNav.prototype, 'render');
     const mounted = mount(<AppNav {...props} />);
-    const newProps = { ...props, appRoutes: fromJS([{ name: 'new route' }, ...routes]) };
+    const newProps = { ...props, appRoutes: [{ name: 'new route' }, ...props.appRoutes] };
     const inst = mounted.instance();
     inst.getSelectedKey = jest.fn();
 
@@ -107,7 +107,7 @@ describe('<AppNav />', () => {
 
     it('should update the `selectedKey`', () => {
       instance.getRoutes(props.appRoutes, history.location);
-      expect(instance.getSelectedKey).toHaveBeenCalledWith(fromJS(filteredRoutes), history.location);
+      expect(instance.getSelectedKey).toHaveBeenCalledWith(filteredRoutes, history.location);
     });
 
     it('should update the `routes` in state', () => {

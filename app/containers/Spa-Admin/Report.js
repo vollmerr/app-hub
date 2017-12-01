@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { withFauxDOM } from 'react-faux-dom';
 import * as d3 from 'd3';
@@ -12,23 +13,28 @@ import Section from 'components/App-Content/Section';
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  height: calc(100vh - ${theme.hub.headerHeight} - ${theme.app.subNavHeight} - 30px);
-  margin: 15px 0;
+  height: calc(100vh - ${theme.hub.headerHeight} - ${theme.app.subNavHeight} - 20px);
+  margin: 10px 0;
+  width: 100%;
 `;
 
 const Left = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  min-width: calc(${theme.breakpoints.xs}px - 40px);
 `;
 
 const Right = styled.div`
   flex: 1;
   margin-bottom: 10px;
+  width: 100%;
+  min-width: calc(${theme.breakpoints.xs}px - 40px);
 `;
 
 const Chart = styled(Section) `
-  flex: 1;
+  flex: 2;
   margin: 5px;
   padding: 15px;
 
@@ -225,7 +231,7 @@ export class Report extends React.PureComponent {
             Details of ack goes here....
           </Details>
           <Chart>
-            {chart}
+            {/* {chart} */}
             {/* {
               tooltip &&
               <p>{tooltip}</p>

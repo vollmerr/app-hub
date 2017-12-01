@@ -36,7 +36,7 @@ export class AppContainer extends React.PureComponent {
         </Helmet>
         {
           !isMobile &&
-          <AppNav appRoutes={appRoutes} isMobile={isMobile} />
+          <AppNav appRoutes={appRoutes.toJS()} isMobile={isMobile} />
         }
       </Wrapper>
     );
