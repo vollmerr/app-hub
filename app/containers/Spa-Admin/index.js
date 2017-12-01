@@ -17,6 +17,8 @@ import NewAckForm from './NewAckForm';
 import DisableModal from './DisableModal';
 import Report from './Report';
 
+import data from './ed.json';
+
 const halfHeight = {
   vh: 50,
   margin: 18, // section margin (15) + 3 due to being in div (margin outside div)
@@ -255,6 +257,24 @@ export class SpaAdmin extends React.PureComponent {
     }
     // render reporting
     if (!hideReport && selectedItem[ACK.ID]) {
+      const reportProps = {
+        selectedItem,
+        data,
+        dataKey: 'isManager',
+
+        list: {
+          items: activeAcks.toJS(),
+          columns: adminColumns,
+          title: 'Pending Acknowledgments',
+          empty: {
+            message: 'No Pending Acknowledgments',
+          },
+          selection: this.selectionActive,
+          selectionMode: SelectionMode.none,
+          onRenderItemColumn: this.renderItemColumn,
+        },
+      };
+
       const modalProps = {
         hidden: hideDisable,
         item: selectedItem,
@@ -264,7 +284,7 @@ export class SpaAdmin extends React.PureComponent {
 
       return (
         <div>
-          <Report item={selectedItem} />
+          <Report {...reportProps} />
           <DisableModal {...modalProps} />
         </div>
       );
