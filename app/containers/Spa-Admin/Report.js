@@ -8,7 +8,10 @@ import theme from 'utils/theme';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
 import Section from 'components/App-Content/Section';
+import { RECIPIENT } from 'containers/Spa/constants';
 
+
+const colors = [theme.themePrimary, theme.themeDarker];
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,34 +27,78 @@ const Left = styled.div`
   flex-direction: column;
   width: 100%;
   min-width: calc(${theme.breakpoints.xs}px - 40px);
+  min-height: 100%;
 `;
 
 const Right = styled.div`
   flex: 1;
-  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   min-width: calc(${theme.breakpoints.xs}px - 40px);
+  min-height: 100%;
 `;
 
-const Chart = styled(Section) `
+const ChartSection = styled(Section) `
   flex: 2;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: center;
   margin: 5px;
   padding: 15px;
+`;
+
+const Chart = styled.div`
+  flex: 3;
+  min-width: ${theme.chart.width}px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  > div {
+    display: flex;
+    align-items: center;
+  }
 
   .arc path {
-    stroke: #333;
+    stroke: ${theme.themeDarker};
     stroke-width: 1px;
-    stroke-opacity: 0.7;
   }
 
   .arc path:hover {
-    fill-opacity: 0.3;
+    fill-opacity: 0;
     cursor: pointer;
   }
 `;
 
 const ChartDetails = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+  min-width: ${theme.chart.detailsWidth}px;
+`;
 
+const ChartDetailsItem = styled.div`
+  display:flex;
+  align-items: center;
+  padding: 5px;
+`;
+
+const ChartDetailsItemColor = styled.div`
+  display: inline-block;
+  margin-right: 5px;
+  width: 15px;
+  height: 15px;
+  background: ${props => colors[props.index]};
+  border: 1px solid ${theme.themeDarker};
+`;
+
+const ChartDetailsItemDesc = styled.div`
 `;
 
 const Details = styled(Section) `
@@ -65,8 +112,8 @@ const Details = styled(Section) `
 `;
 
 const UserList = styled(ListSection) `
+  flex: 1;
   margin: 5px;
-  height: 100%;
 `;
 
 
@@ -75,11 +122,13 @@ export class Report extends React.PureComponent {
     super(props);
     this.state = {
       tooltip: null,
+      pending: [],
+      acknowledged: [],
     };
   }
 
   componentDidMount() {
-    this.renderD3();
+    this.mapData(this.renderD3);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -89,8 +138,31 @@ export class Report extends React.PureComponent {
       data !== prevProps.data ||
       dataKey !== prevProps.dataKey
     ) {
-      this.updateD3();
+
+      this.mapData(this.updateD3);
     }
+  }
+
+  mapData = (cb) => {
+    const { data } = this.props;
+    const pending = [];
+    const acknowledged = [];
+    // go through all recipients
+    data.forEach((recipient) => {
+      // if acknowledged,
+      if (recipient[RECIPIENT.ACK_DATE]) {
+        // add to acknowledged list
+        acknowledged.push(recipient);
+      } else {
+        // add to not acknowledged list
+        pending.push(recipient);
+      }
+    });
+    // update with our new lists
+    this.setState({
+      pending,
+      acknowledged,
+    }, () => cb && cb());
   }
 
   onMouseOver = (data) => (d, i) => {
@@ -119,11 +191,13 @@ export class Report extends React.PureComponent {
     const faux = connectFauxDOM('div', 'chart');
     const svg = d3.select(faux).select('svg');
     // init some vars
-    const width = 400;
-    const height = 400;
+    const width = theme.chart.width;
+    const height = theme.chart.height;
     const radius = Math.min(width, height) / 2;
     // set color of chart
-    const color = d3.scaleOrdinal(d3.schemeCategory20c);
+    const color = d3.scaleOrdinal()
+      .domain([0, 1])
+      .range(colors);
     // helper func for binding data as pie
     const pie = d3.pie()
       .sort(null)
@@ -180,11 +254,13 @@ export class Report extends React.PureComponent {
     // attach to faux dom
     const faux = connectFauxDOM('div', 'chart');
     // init some vars
-    const width = 400;
-    const height = 400;
+    const width = theme.chart.width;
+    const height = theme.chart.height;
     const radius = Math.min(width, height) / 2;
     // set color of chart
-    const color = d3.scaleOrdinal(d3.schemeCategory20c);
+    const color = d3.scaleOrdinal()
+      .domain([0, 1])
+      .range(colors);
     // helper func for binding data as pie
     const pie = d3.pie()
       .sort(null)
@@ -214,14 +290,18 @@ export class Report extends React.PureComponent {
   }
 
   render() {
-    const { chart, dataKey } = this.props;
-    const { tooltip } = this.state;
+    const { chart, data, dataKey } = this.props;
+    const { tooltip, pending, acknowledged } = this.state;
 
     // TODO!
     const halfHeight = {
       vh: 50,
       margin: 18, // section margin (15) + 3 due to being in div (margin outside div)
     };
+
+    const totalCount = data.length || 1;
+    const pendingPercent = (pending.length / totalCount) * 100;
+    const acknowldgedPercent = (acknowledged.length / totalCount) * 100;
 
     return (
       <Wrapper>
@@ -230,18 +310,25 @@ export class Report extends React.PureComponent {
             <h2>name of report goes here....</h2>
             Details of ack goes here....
           </Details>
-          <Chart>
-            {/* {chart} */}
+          <ChartSection>
+            <Chart>
+              {chart}
+            </Chart>
             {/* {
               tooltip &&
               <p>{tooltip}</p>
             } */}
             <ChartDetails>
-              <p>Pending: 1 billion</p>
-              <p>Acknowldged: 0</p>
-              <p>Total Acknowledged: 0 %</p>
+              <ChartDetailsItem>
+                <ChartDetailsItemColor index={0}/>
+                <ChartDetailsItemDesc>Pending: {pending.length} ({pendingPercent} %)</ChartDetailsItemDesc>
+              </ChartDetailsItem>
+              <ChartDetailsItem>
+                <ChartDetailsItemColor index={1} />
+                <ChartDetailsItemDesc>Acknowldged: {acknowledged.length} ({acknowldgedPercent} %)</ChartDetailsItemDesc>
+              </ChartDetailsItem>
             </ChartDetails>
-          </Chart>
+          </ChartSection>
         </Left>
         <Right>
           <UserList {...halfHeight}>

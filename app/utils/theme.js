@@ -16,6 +16,11 @@ export default {
   list: {
     headerHeight: '60px',
   },
+  chart: {
+    width: 400,
+    height: 400,
+    detailsWidth: 200,
+  },
   zIndex: { // https://v4-alpha.getbootstrap.com/layout/overview/#z-index
     overlay: 1040,
     panel: 1050,

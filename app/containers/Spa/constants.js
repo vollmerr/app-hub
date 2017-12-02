@@ -37,7 +37,22 @@ export const ACK = {
   FILE_CONTENT: 'fileContent',
   STATUS: 'status',
 };
+// fields for recipient
+export const RECIPIENT = {
+  ID: 'id',
+  SID: 'SID',
+  SAM: 'SamAccount',
+  FIRST_NAME: 'FirstName',
+  LAST_NAME: 'LastName',
+  EMAIL: 'Email',
+  FIRST_REMINDER_DATE: 'FirstReminderDate',
+  SECOND_REMINDER_DATE: 'SecondReminderDate',
+  FINAL_REMINDER_DATE: 'FinalReminderDate',
+  ACK_ID: 'AcknowledgmentID',
+  ACK_DATE: 'AcknowledgmentDate',
+};
 // all fields
 export const FIELDS = {
   ACK,
+  RECIPIENT,
 };
