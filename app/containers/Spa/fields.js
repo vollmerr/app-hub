@@ -34,10 +34,10 @@ const spaFields = {
     ariaLabel: 'Date the acknowledgment expires',
     component: FieldDate,
   },
-  [ACK.GROUP_TARGET]: {
+  [ACK.TARGET_GROUPS]: {
     label: 'Target Group(s)',
     required: true,
-    name: ACK.GROUP_TARGET,
+    name: ACK.TARGET_GROUPS,
     ariaLabel: 'AD groups that must acknowledge the policy',
     component: FieldChecks,
     options: [
@@ -90,7 +90,7 @@ export const newAckForm = {
       ACK.TITLE,
       ACK.DATE_START,
       ACK.DATE_END,
-      ACK.GROUP_TARGET,
+      ACK.TARGET_GROUPS,
     ],
     right: [
       ACK.STATEMENT,
