@@ -8,7 +8,6 @@ stats.json
 .db.json
 .jwt.json
 .routes.json
-.secret.js
 
 # Cruft
 .DS_Store

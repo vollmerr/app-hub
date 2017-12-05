@@ -1,7 +1,7 @@
-const faker = require('faker');
+const faker = require('faker/locale/en');
 const jwt = require('jsonwebtoken');
 
-const secret = require('../../../internals/.secret');
+const secret = require('../secret');
 
 const roles = [
   'SPA Admin',
