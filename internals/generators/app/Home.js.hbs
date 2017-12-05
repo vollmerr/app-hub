@@ -9,6 +9,12 @@ import appPage from 'containers/App-Container/appPage';
 
 export class {{ properCase home }} extends React.PureComponent {
   render() {
+    const { Loading } = this.props;
+
+    if (Loading) {
+      return Loading;
+    }
+
     return (
       <div>PLACHOLDER</div>
     );
@@ -16,9 +22,11 @@ export class {{ properCase home }} extends React.PureComponent {
 }
 
 
-// const { shape, arrayOf, string } = PropTypes;
+const { node } = PropTypes;
 
-// {{ properCase home }}.propTypes = {};
+{{ properCase home }}.propTypes = {
+  Loading: node,
+};
 
 // const mapStateToProps = createStructuredSelector({
 //  app: makeSelectApp(),

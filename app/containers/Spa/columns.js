@@ -1,4 +1,4 @@
-import { ACK } from 'containers/Spa/constants';
+import { ACK, RECIPIENT } from 'containers/Spa/constants';
 
 import spaFields from './fields';
 
@@ -25,10 +25,46 @@ export function mapToColumns(obj, include = [], exclude = []) {
       fieldName: obj[key].name,
       isResizable: true,
       ariaLabel: obj[key].ariaLabel,
-      minWidth: 100,
-      maxWidth: 400,
+      minWidth: obj[key].minWidth || 150,
+      maxWidth: obj[key].maxWidth || 300,
     }));
 }
+
+// columns for report page
+const recipients = {
+  [RECIPIENT.FIRST_NAME]: {
+    label: 'First Name',
+    name: RECIPIENT.FIRST_NAME,
+    ariaLabel: 'First name of the recipient',
+    maxWidth: 100,
+  },
+  [RECIPIENT.LAST_NAME]: {
+    label: 'Last Name',
+    name: RECIPIENT.LAST_NAME,
+    ariaLabel: 'Last name of the recipient',
+    maxWidth: 100,
+  },
+  [RECIPIENT.SAM]: {
+    label: 'Sam Account',
+    name: RECIPIENT.SAM,
+    ariaLabel: 'Sam account of the recipient',
+    maxWidth: 100,
+  },
+  [RECIPIENT.EMAIL]: {
+    label: 'Email',
+    name: RECIPIENT.EMAIL,
+    ariaLabel: 'Email of the recipient',
+    minWidth: 200,
+  },
+  [RECIPIENT.ACK_DATE]: {
+    label: 'Acknowledgment Date',
+    name: RECIPIENT.ACK_DATE,
+    ariaLabel: 'Date the recipient acknowledged the policy',
+  },
+};
+
+export const reportPendingColumns = mapToColumns(recipients, [], [RECIPIENT.ACK_DATE]);
+export const reportAckColumns = mapToColumns(recipients);
 
 // Columns for admin page lists
 const adminExcludes = [ACK.STATEMENT, ACK.DETAILS, ACK.FILE_CONTENT];
@@ -36,6 +72,5 @@ export const adminColumns = mapToColumns(spaFields, [], adminExcludes);
 // columns for home page
 const homePendingIncludes = [ACK.TITLE, ACK.DATE_START, ACK.DATE_END];
 export const homePendingColumns = mapToColumns(spaFields, homePendingIncludes);
-
 const homePreviousIncludes = [...homePendingIncludes];
 export const homePreviousColumns = mapToColumns(spaFields, homePreviousIncludes);

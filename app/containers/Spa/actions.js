@@ -10,6 +10,9 @@ import {
   DISABLE_ACK_REQUEST,
   DISABLE_ACK_SUCCESS,
   DISABLE_ACK_FAILURE,
+  GET_RECIPIENTS_REQUEST,
+  GET_RECIPIENTS_SUCCESS,
+  GET_RECIPIENTS_FAILURE,
 } from './constants';
 // INITAL DATA
 export const initDataRequest = createAction(INIT_DATA_REQUEST);
@@ -23,3 +26,7 @@ export const newAckFailure = createAction(NEW_ACK_FAILURE);
 export const disableAckRequest = createAction(DISABLE_ACK_REQUEST);
 export const disableAckSuccess = createAction(DISABLE_ACK_SUCCESS);
 export const disableAckFailure = createAction(DISABLE_ACK_FAILURE);
+// GET LIST OF RECIPIENTS FOR EXISTSING ACK
+export const getRecipientsRequest = createAction(GET_RECIPIENTS_REQUEST);
+export const getRecipientsSuccess = createAction(GET_RECIPIENTS_SUCCESS);
+export const getRecipientsFailure = createAction(GET_RECIPIENTS_FAILURE);

@@ -3,6 +3,7 @@
 exports[`appPage should be a HOC that returns a new component 1`] = `
 <Content__Content>
   <Component
+    Loading={null}
     app={
       Immutable.Map {
         "error": null,

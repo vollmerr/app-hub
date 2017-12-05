@@ -57,6 +57,7 @@ exports[`<List /> should render correctly 1`] = `
       ]
     }
     onRenderDetailsHeader={[Function]}
+    onRenderItemColumn={[Function]}
   />
 </Wrapper__Wrapper>
 `;

@@ -4,8 +4,9 @@ import { fromJS } from 'immutable';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import { testMapDispatchToProps } from 'utils/testUtils';
-import { newAckRequest, disableAckRequest } from 'containers/Spa/actions';
+import { newAckRequest, disableAckRequest, getRecipientsRequest } from 'containers/Spa/actions';
 import { ACK, STATUS } from 'containers/Spa/constants';
+import { initialState } from 'containers/Spa/reducer';
 
 import { SpaAdmin, mapDispatchToProps } from '../index';
 import AdminNav from '../AdminNav';
@@ -25,11 +26,22 @@ const previousAcks = [
   { [ACK.ID]: 4, [ACK.TITLE]: 'testPrevious2', [ACK.STATUS]: STATUS.DISABLED },
 ];
 
+const spa = fromJS({
+  ...initialState,
+  recipients: {
+    1: [activeAcks[0], activeAcks[1]],
+    99: [activeAcks[0], previousAcks[0]],
+  },
+});
+
 const props = {
+  spa: fromJS(spa),
   activeAcks: fromJS(activeAcks),
   previousAcks: fromJS(previousAcks),
   onNewAckRequest: jest.fn(),
   onDisableAckRequest: jest.fn(),
+  onGetRecipientsRequest: jest.fn(),
+  Loading: null,
 };
 
 const state = {
@@ -55,6 +67,12 @@ describe('<SpaAdmin />', () => {
 
   it('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render the loading indicator if loading', () => {
+    const Loading = () => <div>test loading...</div>;
+    wrapper.setProps({ Loading: <Loading /> });
+    expect(wrapper.find(Loading).length).toEqual(1);
   });
 
   it('should render an `AdminNav`', () => {
@@ -242,17 +260,47 @@ describe('<SpaAdmin />', () => {
 
     describe('handleSelectActive', () => {
       it('should display the report', () => {
+        const item = { [ACK.ID]: 999, name: 'test item' };
         instance.handleShowReport = jest.fn();
-        instance.handleSelectActive();
+        instance.handleSelectActive(item);
         expect(instance.handleShowReport).toHaveBeenCalled();
+      });
+
+      it('should get the recipients from the api if no entry', () => {
+        const item = { [ACK.ID]: 999, name: 'test item' };
+        instance.handleShowReport = jest.fn();
+        instance.handleSelectActive(item);
+        expect(props.onGetRecipientsRequest).toHaveBeenCalledWith(item);
+      });
+
+      it('should not get the recipients from the api if an entry exists', () => {
+        const item = { [ACK.ID]: 1, name: 'test item' };
+        instance.handleShowReport = jest.fn();
+        instance.handleSelectActive(item);
+        expect(props.onGetRecipientsRequest).not.toHaveBeenCalled();
       });
     });
 
     describe('handleSelectPrevious', () => {
       it('should display the report', () => {
+        const item = { [ACK.ID]: 999, name: 'test item' };
         instance.handleShowReport = jest.fn();
-        instance.handleSelectPrevious();
+        instance.handleSelectPrevious(item);
         expect(instance.handleShowReport).toHaveBeenCalled();
+      });
+
+      it('should get the recipients from the api if no entry', () => {
+        const item = { [ACK.ID]: 999, name: 'test item' };
+        instance.handleShowReport = jest.fn();
+        instance.handleSelectPrevious(item);
+        expect(props.onGetRecipientsRequest).toHaveBeenCalledWith(item);
+      });
+
+      it('should not get the recipients from the api if an entry exists', () => {
+        const item = { [ACK.ID]: 1, name: 'test item' };
+        instance.handleShowReport = jest.fn();
+        instance.handleSelectPrevious(item);
+        expect(props.onGetRecipientsRequest).not.toHaveBeenCalled();
       });
     });
 
@@ -273,34 +321,10 @@ describe('<SpaAdmin />', () => {
 
 
   describe('Rendering', () => {
-    describe('renderItemColumn', () => {
-      it('should render a column`s content as a string by default', () => {
-        const content = 'test content';
-        const item = {
-          testFieldName: content,
-        };
-        const column = {
-          fieldName: 'testFieldName',
-        };
-        const actual = instance.renderItemColumn(item, null, column);
-        expect(actual).toEqual(content);
-      });
-
-      it('should render a column`s content as a comma seperated string if it`s an array', () => {
-        const content = ['test', 'content'];
-        const item = {
-          testFieldName: content,
-        };
-        const column = {
-          fieldName: 'testFieldName',
-        };
-        const actual = instance.renderItemColumn(item, null, column);
-        expect(actual).toEqual(content.join(', '));
-      });
-    });
-
     describe('renderContent', () => {
-
+      xit('should have tests...', () => {
+        expect(1).toEqual(0);
+      });
     });
   });
 
@@ -309,6 +333,7 @@ describe('<SpaAdmin />', () => {
     const actions = {
       newAckRequest,
       disableAckRequest,
+      getRecipientsRequest,
     };
 
     testMapDispatchToProps(mapDispatchToProps, actions);

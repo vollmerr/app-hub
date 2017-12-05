@@ -84,10 +84,10 @@ describe('appPage', () => {
     expect(wrapper.find(ErrorMessage).prop('to')).toEqual('/');
   });
 
-  it('should render a loading message if loading', () => {
+  it('should pass a loading component if loading', () => {
     newProps.app = newProps.app.set('loading', true);
     wrapper.setProps({ ...newProps });
-    expect(wrapper.find(LoadingMessage).length).toEqual(1);
+    expect(wrapper.find(Component).prop('Loading')).toEqual(<LoadingMessage />);
   });
 
 

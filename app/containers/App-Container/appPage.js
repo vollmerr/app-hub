@@ -61,11 +61,18 @@ export function appPage(Component) {
 
       if (app.get('error')) {
         return <ErrorMessage error={app.get('error')} to={to} />;
-      } else if (app.get('loading')) {
-        return <LoadingMessage />;
       }
 
-      return <Content><Component {...this.props} /></Content>;
+      let Loading = null;
+      if (app.get('loading')) {
+        Loading = <LoadingMessage />;
+      }
+
+      return (
+        <Content>
+          <Component {...this.props} Loading={Loading} />
+        </Content>
+      );
     }
   };
 }

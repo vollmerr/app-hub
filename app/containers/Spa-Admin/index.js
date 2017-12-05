@@ -5,19 +5,25 @@ import { createStructuredSelector } from 'reselect';
 import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import appPage from 'containers/App-Container/appPage';
-import { makeSelectPendingAcks, makeSelectPreviousAcks } from 'containers/Spa/selectors';
-import { newAckRequest, disableAckRequest } from 'containers/Spa/actions';
+
+import {
+  makeSelectSpa,
+  makeSelectPendingAcks,
+  makeSelectPreviousAcks,
+  selectRecipientsById,
+} from 'containers/Spa/selectors';
+
+import { newAckRequest, disableAckRequest, getRecipientsRequest } from 'containers/Spa/actions';
 import { adminColumns } from 'containers/Spa/columns';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
-import { ACK, STATUS } from 'containers/Spa/constants';
+import { ACK, STATUS, RECIPIENT } from 'containers/Spa/constants';
 
 import AdminNav from './AdminNav';
 import NewAckForm from './NewAckForm';
 import DisableModal from './DisableModal';
 import Report from './Report';
 
-import data from './ed.json';
 
 const halfHeight = {
   vh: 50,
@@ -195,14 +201,25 @@ export class SpaAdmin extends React.PureComponent {
   /**
    * Callback for selecting an item from the active list
    */
-  handleSelectActive = () => {
+  handleSelectActive = (item) => {
+    const { onGetRecipientsRequest, spa } = this.props;
+    // call api if no entry for recipients stored
+    if (!selectRecipientsById(spa, item[ACK.ID])) {
+      onGetRecipientsRequest(item);
+    }
     this.handleShowReport();
   }
 
   /**
    * Callback for selecting an item from the previous list
    */
-  handleSelectPrevious = () => {
+  handleSelectPrevious = (item) => {
+    const { onGetRecipientsRequest, spa } = this.props;
+
+    // call api if no entry for recipients stored
+    if (!selectRecipientsById(spa, item[ACK.ID])) {
+      onGetRecipientsRequest(item);
+    }
     this.handleShowReport();
   }
 
@@ -219,33 +236,17 @@ export class SpaAdmin extends React.PureComponent {
   //
 
   /**
-   * Renders columns in a custom format
-   *
-   * @param {object} item     - current item (row) of list
-   * @param {number} index    - index of current item
-   * @param {object} column   - column to render
-   *
-   * @return {string}         - content to render
-   */
-  renderItemColumn = (item, index, column) => {
-    let content = item[column.fieldName];
-
-    // convert arrays to csv strings
-    if (content.join) {
-      content = content.join(', ');
-    }
-
-    return String(content);
-  }
-
-  /**
    * Renders the content based off state (show lists / report / new form)
    *
    * @return {JSX}            - content to be rendered
    */
   renderContent = () => {
-    const { activeAcks, previousAcks } = this.props;
+    const { activeAcks, previousAcks, Loading, spa } = this.props;
     const { selectedItem, hideDisable, hideNewAck, hideReport } = this.state;
+
+    if (Loading) {
+      return Loading;
+    }
 
     // render form for new acknowledgments
     if (!hideNewAck) {
@@ -257,22 +258,12 @@ export class SpaAdmin extends React.PureComponent {
     }
     // render reporting
     if (!hideReport && selectedItem[ACK.ID]) {
+      const recipients = selectRecipientsById(spa, selectedItem[ACK.ID]);
+
       const reportProps = {
         selectedItem,
-        data,
-        dataKey: 'isManager',
-
-        list: {
-          items: activeAcks.toJS(),
-          columns: adminColumns,
-          title: 'Pending Acknowledgments',
-          empty: {
-            message: 'No Pending Acknowledgments',
-          },
-          selection: this.selectionActive,
-          selectionMode: SelectionMode.none,
-          onRenderItemColumn: this.renderItemColumn,
-        },
+        data: recipients ? recipients.toJS() : [],
+        dataKey: RECIPIENT.ACK_DATE,
       };
 
       const modalProps = {
@@ -302,7 +293,6 @@ export class SpaAdmin extends React.PureComponent {
       },
       selection: this.selectionActive,
       selectionMode: SelectionMode.none,
-      onRenderItemColumn: this.renderItemColumn,
     };
 
     const previousProps = {
@@ -314,7 +304,6 @@ export class SpaAdmin extends React.PureComponent {
       },
       selection: this.selectionPrev,
       selectionMode: SelectionMode.none,
-      onRenderItemColumn: this.renderItemColumn,
     };
 
     return (
@@ -344,16 +333,20 @@ export class SpaAdmin extends React.PureComponent {
 }
 
 
-const { object, func } = PropTypes;
+const { object, func, node } = PropTypes;
 
 SpaAdmin.propTypes = {
+  spa: object.isRequired,
   activeAcks: object.isRequired,
   previousAcks: object.isRequired,
   onNewAckRequest: func.isRequired,
   onDisableAckRequest: func.isRequired,
+  onGetRecipientsRequest: func.isRequired,
+  Loading: node,
 };
 
 const mapStateToProps = createStructuredSelector({
+  spa: makeSelectSpa(),
   activeAcks: makeSelectPendingAcks(),
   previousAcks: makeSelectPreviousAcks(),
 });
@@ -361,6 +354,7 @@ const mapStateToProps = createStructuredSelector({
 export const mapDispatchToProps = (dispatch) => ({
   onNewAckRequest: (vals) => dispatch(newAckRequest(vals)),
   onDisableAckRequest: (item) => dispatch(disableAckRequest(item)),
+  onGetRecipientsRequest: (item) => dispatch(getRecipientsRequest(item)),
 });
 
 const withAppPage = appPage(SpaAdmin);

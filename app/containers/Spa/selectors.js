@@ -4,6 +4,7 @@ import { STATUS } from './constants';
 
 const selectSpa = (state) => state.get('spa');
 const selectData = (state) => state.getIn(['spa', 'data']);
+const selectRecipientsById = (state, id) => state.getIn(['recipients', String(id)]);
 
 const makeSelectSpa = () => createSelector(
   selectSpa,
@@ -24,4 +25,5 @@ export {
   makeSelectSpa,
   makeSelectPendingAcks,
   makeSelectPreviousAcks,
+  selectRecipientsById,
 };

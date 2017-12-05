@@ -56,7 +56,7 @@ function generateRecipient() {
 
   return {
     [r.ID]: faker.random.uuid(),
-    [r.SUD]: faker.random.uuid(),
+    [r.SID]: faker.random.uuid(),
     [r.SAM]: faker.internet.userName(firstName, lastName),
     [r.FIRST_NAME]: firstName,
     [r.LAST_NAME]: lastName,

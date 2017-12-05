@@ -55,9 +55,20 @@ class List extends React.PureComponent {
   }
 
   componentDidMount() {
+    // bind onClick's to bloumn headers
     this.bindColumnClick();
   }
 
+  componentWillReceiveProps(nextProps) {
+    // if we recieve items when currently empty, update to new items
+    if (!this.props.items.length && nextProps.items.length) {
+      this.setState({ items: nextProps.items });
+    }
+  }
+
+  /**
+   * Binds the method for clicking on a column header to each column
+   */
   bindColumnClick = () => {
     const { columns } = this.state;
     const newColumns = columns.map((col) => ({
@@ -67,6 +78,11 @@ class List extends React.PureComponent {
     this.setState({ columns: newColumns });
   };
 
+  /**
+   * Handles filtering list items displayed based off value
+   *
+   * @param {string} value         - value to filter results by
+   */
   handleSearch = (value) => {
     const re = new RegExp(escapeRegExp(value), 'i');
     const items = this.props.items.filter((item) => (
@@ -75,6 +91,12 @@ class List extends React.PureComponent {
     this.setState({ items });
   }
 
+  /**
+   * Handles clicking on a column header
+   *
+   * @param {event} event         - click event on column header
+   * @param {object} column       - column clicked on
+   */
   handleColumnClick = (event, column) => {
     const { columns } = this.state;
     const selected = columns.findIndex((col) => col.key === column.key);
@@ -94,6 +116,12 @@ class List extends React.PureComponent {
     this.handleSort(newColumns, newColumns[selected].key);
   }
 
+  /**
+   * Handles sorting columns by the given sort order
+   *
+   * @param {object} columns      - columns of list
+   * @param {string} selectedKey  - key of selected column
+   */
   handleSort = (columns, selectedKey) => {
     const { items, sortOrder } = this.state;
     // move unsorted to end of list
@@ -122,6 +150,15 @@ class List extends React.PureComponent {
     this.setState({ items: newItems, sortOrder: newSortOrder });
   }
 
+  /**
+   * Renders the header row, displaying a tooltip if provided
+   * an arialLabel
+   *
+   * @param {object} props        - header props
+   * @param {func} defaultRender  - default render provided by DetailsList
+   *
+   * @return {JSX}                - column header
+   */
   renderHeader = (props, defaultRender) => (
     defaultRender({
       ...props,
@@ -133,6 +170,26 @@ class List extends React.PureComponent {
     })
   )
 
+  /**
+   * Renders columns in a custom format
+   *
+   * @param {object} item     - current item (row) of list
+   * @param {number} index    - index of current item
+   * @param {object} column   - column to render
+   *
+   * @return {string}         - content to render
+   */
+  renderItemColumn = (item, index, column) => {
+    let content = item[column.fieldName];
+
+    // convert arrays to csv strings
+    if (content.join) {
+      content = content.join(', ');
+    }
+
+    return String(content);
+  }
+
   render() {
     const { title, empty, ...list } = this.props;
     const { items, columns } = this.state;
@@ -142,6 +199,7 @@ class List extends React.PureComponent {
       items,
       columns,
       onRenderDetailsHeader: this.renderHeader,
+      onRenderItemColumn: this.renderItemColumn,
     };
 
     return (

@@ -84,8 +84,12 @@ export class SpaHome extends React.PureComponent {
   }
 
   render() {
-    const { pendingAcks, previousAcks } = this.props;
+    const { pendingAcks, previousAcks, Loading } = this.props;
     const { selectedItem, hasRead, hideModal } = this.state;
+
+    if (Loading) {
+      return Loading;
+    }
 
     const pendingAckProps = {
       items: pendingAcks.toJS(),
@@ -135,11 +139,12 @@ export class SpaHome extends React.PureComponent {
 }
 
 
-const { object } = PropTypes;
+const { object, node } = PropTypes;
 
 SpaHome.propTypes = {
   pendingAcks: object.isRequired,
   previousAcks: object.isRequired,
+  Loading: node,
 };
 
 const mapStateToProps = createStructuredSelector({

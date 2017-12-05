@@ -2,12 +2,15 @@
 
 exports[`<Header__Header /> should render correctly 1`] = `
 .c0 {
+  -webkit-flex: 1 60px;
+  -ms-flex: 1 60px;
+  flex: 1 60px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   padding: 5px 5px 15px 5px;
-  height: 60px;
+  min-height: 60px;
 }
 
 <div

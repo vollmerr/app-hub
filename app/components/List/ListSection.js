@@ -12,17 +12,12 @@ const ListSection = styled(Section) `
     ${theme.hub.headerHeight} - \
     ${(props) => props.margin || 0}px
   );
+  min-height: 400px;
   overflow: hidden;
 
   .ms-Viewport {
     overflow: auto;
-    height: calc(
-      ${(props) => props.vh || 100}vh - \
-      ${theme.hub.headerHeight} - \
-      ${theme.list.headerHeight} - \
-      ${(props) => props.margin || 0}px - \
-      15px
-    );
+    flex: 10 calc(100% - ${theme.list.headerHeight});
   }
 
   .ms-DetailsList {

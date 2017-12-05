@@ -114,6 +114,17 @@ describe('<List />', () => {
   });
 
 
+  describe('componentWillReceiveProps', () => {
+    it('should update `state.items` if empty and recieve non empty', () => {
+      const items = [{ id: 1, name: 'test 1' }];
+      wrapper.setProps({ items: [] });
+      wrapper.setProps({ items });
+      wrapper.update();
+      expect(wrapper.state('items')).toEqual(items);
+    });
+  });
+
+
   describe('handleSearch', () => {
     it('should filter the items based off input', () => {
       instance.handleSearch('');
@@ -235,6 +246,33 @@ describe('<List />', () => {
       // need to mount on parent (div) so you can dive in to find
       const actual = shallow(<div>{instance.renderHeader(props, defaultRender)}</div>);
       expect(actual.find(TooltipHost).length).toEqual(0);
+    });
+  });
+
+
+  describe('renderItemColumn', () => {
+    it('should render a column`s content as a string by default', () => {
+      const content = 'test content';
+      const item = {
+        testFieldName: content,
+      };
+      const column = {
+        fieldName: 'testFieldName',
+      };
+      const actual = instance.renderItemColumn(item, null, column);
+      expect(actual).toEqual(content);
+    });
+
+    it('should render a column`s content as a comma seperated string if it`s an array', () => {
+      const content = ['test', 'content'];
+      const item = {
+        testFieldName: content,
+      };
+      const column = {
+        fieldName: 'testFieldName',
+      };
+      const actual = instance.renderItemColumn(item, null, column);
+      expect(actual).toEqual(content.join(', '));
     });
   });
 });

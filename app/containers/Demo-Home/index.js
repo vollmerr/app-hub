@@ -22,8 +22,12 @@ export class DemoHome extends React.PureComponent {
   }
 
   render() {
-    const { user, exampleData, onExampleDataRequest } = this.props;
+    const { user, exampleData, onExampleDataRequest, Loading } = this.props;
     const { isScrolling } = this.state;
+
+    if (Loading) {
+      return Loading;
+    }
 
     return (
       <div>
@@ -53,12 +57,13 @@ export class DemoHome extends React.PureComponent {
 }
 
 
-const { func, object } = PropTypes;
+const { func, object, node } = PropTypes;
 
 DemoHome.propTypes = {
   onExampleDataRequest: func.isRequired,
   user: object.isRequired,
   exampleData: object,
+  Loading: node,
 };
 
 const mapStateToProps = createStructuredSelector({

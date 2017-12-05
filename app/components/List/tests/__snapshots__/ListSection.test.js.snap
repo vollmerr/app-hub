@@ -3,12 +3,15 @@
 exports[`<Items /> should render correctly with nothing passed 1`] = `
 .c0 {
   height: calc(100vh -     50px -     0px);
+  min-height: 400px;
   overflow: hidden;
 }
 
 .c0 .ms-Viewport {
   overflow: auto;
-  height: calc(100vh -       50px -       60px -       0px -       15px);
+  -webkit-flex: 10 calc(100% - 60px);
+  -ms-flex: 10 calc(100% - 60px);
+  flex: 10 calc(100% - 60px);
 }
 
 .c0 .ms-DetailsList {
@@ -28,12 +31,15 @@ exports[`<Items /> should render correctly with nothing passed 1`] = `
 exports[`<Items /> should render correctly with vh and margin passed 1`] = `
 .c0 {
   height: calc(100vh -     50px -     20px);
+  min-height: 400px;
   overflow: hidden;
 }
 
 .c0 .ms-Viewport {
   overflow: auto;
-  height: calc(100vh -       50px -       60px -       20px -       15px);
+  -webkit-flex: 10 calc(100% - 60px);
+  -ms-flex: 10 calc(100% - 60px);
+  flex: 10 calc(100% - 60px);
 }
 
 .c0 .ms-DetailsList {
@@ -55,12 +61,15 @@ exports[`<Items /> should render correctly with vh and margin passed 1`] = `
 exports[`<ListSection__ListSection /> should render correctly 1`] = `
 .c0 {
   height: calc(100vh -     50px -     0px);
+  min-height: 400px;
   overflow: hidden;
 }
 
 .c0 .ms-Viewport {
   overflow: auto;
-  height: calc(100vh -       50px -       60px -       0px -       15px);
+  -webkit-flex: 10 calc(100% - 60px);
+  -ms-flex: 10 calc(100% - 60px);
+  flex: 10 calc(100% - 60px);
 }
 
 .c0 .ms-DetailsList {

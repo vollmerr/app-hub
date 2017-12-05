@@ -4,12 +4,20 @@ import { testSaga } from 'redux-saga-test-plan';
 import { fromJS } from 'immutable';
 
 import requestWithToken from 'utils/requestWithToken';
-import spaSaga, { initData, newAck, disableAck, base } from '../saga';
+import spaSaga, {
+  initData,
+  newAck,
+  disableAck,
+  getRecipients,
+  base,
+} from '../saga';
 
 import {
   INIT_DATA_REQUEST,
   NEW_ACK_REQUEST,
   DISABLE_ACK_REQUEST,
+  GET_RECIPIENTS_REQUEST,
+  RECIPIENT,
   STATUS,
   ACK,
 } from '../constants';
@@ -22,6 +30,8 @@ import {
   newAckFailure,
   disableAckSuccess,
   disableAckFailure,
+  getRecipientsSuccess,
+  getRecipientsFailure,
 } from '../actions';
 
 const data = { data: 'test data', id: 2 };
@@ -33,8 +43,9 @@ let action;
 describe('spaSaga', () => {
   it(`should take the latest
       'INIT_DATA_REQUEST',
-      'NEW_ACK_REQUEST', and
-      'DISABLE_ACK_REQUEST'`, () => {
+      'NEW_ACK_REQUEST',
+      'DISABLE_ACK_REQUEST', and
+      'GET_RECIPIENTS_REQUEST'`, () => {
     testSaga(spaSaga)
       .next()
       .takeLatestEffect(INIT_DATA_REQUEST, initData)
@@ -42,6 +53,8 @@ describe('spaSaga', () => {
       .takeLatestEffect(NEW_ACK_REQUEST, newAck)
       .next()
       .takeLatestEffect(DISABLE_ACK_REQUEST, disableAck)
+      .next()
+      .takeLatestEffect(GET_RECIPIENTS_REQUEST, getRecipients)
       .finish()
       .isDone();
   });
@@ -128,6 +141,29 @@ describe('disableAck', () => {
     const errGen = disableAck(action);
     errGen.next();
     expect(errGen.throw(error).value).toEqual(put(disableAckFailure(error)));
+    expect(errGen.next()).toEqual({ done: true, value: undefined });
+  });
+});
+
+
+describe('getRecipients', () => {
+  it('should call the api and update the store with its results', () => {
+    action = { payload: data };
+    const url = `${base}/recipients?${RECIPIENT.ACK_ID}=${data.id}`;
+
+    testSaga(getRecipients, action)
+      .next()
+      .call(requestWithToken, url)
+      .next(data)
+      .put(getRecipientsSuccess(data))
+      .finish()
+      .isDone();
+  });
+
+  it('should handle errors', () => {
+    const errGen = getRecipients(action);
+    errGen.next();
+    expect(errGen.throw(error).value).toEqual(put(getRecipientsFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });
   });
 });

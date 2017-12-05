@@ -6,6 +6,8 @@ import {
   INIT_DATA_REQUEST,
   NEW_ACK_REQUEST,
   DISABLE_ACK_REQUEST,
+  GET_RECIPIENTS_REQUEST,
+  RECIPIENT,
   STATUS,
   ACK,
 } from './constants';
@@ -18,6 +20,8 @@ import {
   newAckFailure,
   disableAckSuccess,
   disableAckFailure,
+  getRecipientsSuccess,
+  getRecipientsFailure,
 } from './actions';
 
 export const base = API.SPA;
@@ -78,10 +82,27 @@ export function* disableAck(action) {
   }
 }
 
+/**
+ * Gets the users for an existing acknowledgment
+ *
+ * @param {object} action   - action that was dispatched, with immutable payload
+ */
+export function* getRecipients(action) {
+  try {
+    const id = action.payload.id;
+    const url = `${base}/recipients?${RECIPIENT.ACK_ID}=${id}`;
+    const data = yield call(requestWithToken, url);
+    yield put(getRecipientsSuccess(data));
+  } catch (error) {
+    yield put(getRecipientsFailure(error));
+  }
+}
+
 function* spaSaga() {
   yield takeLatest(INIT_DATA_REQUEST, initData);
   yield takeLatest(NEW_ACK_REQUEST, newAck);
   yield takeLatest(DISABLE_ACK_REQUEST, disableAck);
+  yield takeLatest(GET_RECIPIENTS_REQUEST, getRecipients);
 }
 
 export default spaSaga;

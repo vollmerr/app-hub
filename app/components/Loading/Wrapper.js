@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   margin-top: -${theme.hub.headerHeight};
 `;

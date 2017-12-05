@@ -47,8 +47,12 @@ export class DemoForm extends React.PureComponent {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props;
+    const { handleSubmit, pristine, reset, submitting, Loading } = this.props;
     const onSubmit = (vals) => alert(JSON.stringify(vals.toJS(), null, 2));
+
+    if (Loading) {
+      return Loading;
+    }
 
     return (
       // pass custom onSubmit to redux-forms handleSubmit. Use noValidate to turn off html5 validation
@@ -81,13 +85,14 @@ export class DemoForm extends React.PureComponent {
 }
 
 
-const { func, bool, string } = PropTypes;
+const { func, bool, string, node } = PropTypes;
 
 DemoForm.propTypes = {
   handleSubmit: func.isRequired,
   reset: func.isRequired,
   pristine: bool.isRequired,
   submitting: bool.isRequired,
+  Loading: node,
 };
 
 const withForm = reduxForm({

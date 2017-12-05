@@ -3,7 +3,10 @@ import { shallow } from 'enzyme';
 
 import { {{ properCase home }} } from '../index';
 
-const props = {};
+const props = {
+  Loading: null,
+};
+
 
 describe('<{{ properCase home }} />', () => {
   let wrapper;
@@ -14,5 +17,11 @@ describe('<{{ properCase home }} />', () => {
 
   it('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render the loading indicator if loading', () => {
+    const Loading = () => <div>test loading...</div>;
+    wrapper.setProps({ Loading: <Loading /> });
+    expect(wrapper.find(Loading).length).toEqual(1);
   });
 });

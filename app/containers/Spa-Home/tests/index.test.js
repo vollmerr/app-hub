@@ -25,6 +25,7 @@ const props = {
     id: 4,
     name: 'test4',
   }]),
+  Loading: null,
 };
 
 
@@ -39,6 +40,12 @@ describe('<SpaHome />', () => {
 
   it('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render the loading indicator if loading', () => {
+    const Loading = () => <div>test loading...</div>;
+    wrapper.setProps({ Loading: <Loading /> });
+    expect(wrapper.find(Loading).length).toEqual(1);
   });
 
   it('should render two sections with lists', () => {

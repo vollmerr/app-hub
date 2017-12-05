@@ -29,8 +29,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "title",
               "isResizable": true,
               "key": "title",
-              "maxWidth": 400,
-              "minWidth": 100,
+              "maxWidth": 300,
+              "minWidth": 150,
               "name": "Title",
             },
             Object {
@@ -38,8 +38,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "activeStartDate",
               "isResizable": true,
               "key": "activeStartDate",
-              "maxWidth": 400,
-              "minWidth": 100,
+              "maxWidth": 300,
+              "minWidth": 150,
               "name": "Start Date",
             },
             Object {
@@ -47,8 +47,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "activeEndDate",
               "isResizable": true,
               "key": "activeEndDate",
-              "maxWidth": 400,
-              "minWidth": 100,
+              "maxWidth": 300,
+              "minWidth": 150,
               "name": "Start Date",
             },
             Object {
@@ -56,8 +56,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "targetADGroup",
               "isResizable": true,
               "key": "targetADGroup",
-              "maxWidth": 400,
-              "minWidth": 100,
+              "maxWidth": 300,
+              "minWidth": 150,
               "name": "Target Group(s)",
             },
             Object {
@@ -65,8 +65,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "fileName",
               "isResizable": true,
               "key": "fileName",
-              "maxWidth": 400,
-              "minWidth": 100,
+              "maxWidth": 300,
+              "minWidth": 150,
               "name": "Attachment Name",
             },
           ]
@@ -93,7 +93,6 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
             },
           ]
         }
-        onRenderItemColumn={[Function]}
         selection={
           Selection {
             "_anchoredIndex": 0,
@@ -127,8 +126,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "title",
               "isResizable": true,
               "key": "title",
-              "maxWidth": 400,
-              "minWidth": 100,
+              "maxWidth": 300,
+              "minWidth": 150,
               "name": "Title",
             },
             Object {
@@ -136,8 +135,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "activeStartDate",
               "isResizable": true,
               "key": "activeStartDate",
-              "maxWidth": 400,
-              "minWidth": 100,
+              "maxWidth": 300,
+              "minWidth": 150,
               "name": "Start Date",
             },
             Object {
@@ -145,8 +144,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "activeEndDate",
               "isResizable": true,
               "key": "activeEndDate",
-              "maxWidth": 400,
-              "minWidth": 100,
+              "maxWidth": 300,
+              "minWidth": 150,
               "name": "Start Date",
             },
             Object {
@@ -154,8 +153,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "targetADGroup",
               "isResizable": true,
               "key": "targetADGroup",
-              "maxWidth": 400,
-              "minWidth": 100,
+              "maxWidth": 300,
+              "minWidth": 150,
               "name": "Target Group(s)",
             },
             Object {
@@ -163,8 +162,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "fileName",
               "isResizable": true,
               "key": "fileName",
-              "maxWidth": 400,
-              "minWidth": 100,
+              "maxWidth": 300,
+              "minWidth": 150,
               "name": "Attachment Name",
             },
           ]
@@ -188,7 +187,6 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
             },
           ]
         }
-        onRenderItemColumn={[Function]}
         selection={
           Selection {
             "_anchoredIndex": 0,
