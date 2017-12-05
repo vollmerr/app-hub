@@ -1,7 +1,19 @@
-const jwts = require('../mocks/jwt');
+const secret = require('../secret');
+const jwt = require('jsonwebtoken');
+
 global.jwt = {
-  valid: jwts.Dev[1].key,
-  expired: jwts.Dev[jwts.Dev.length - 2].key,
+  valid: jwt.sign({
+    sub: 'test valid jwt',
+    roles: ['Test Role'],
+    iat: 1512450434,
+    exp: 1912450434,
+  }, secret),
+  expired: jwt.sign({
+    sub: 'test expired jwt',
+    roles: ['Test Role'],
+    iat: 1512450434,
+    exp: 1512450435,
+  }, secret),
   none: '',
 };
 

@@ -35,7 +35,7 @@ const spa = fromJS({
 });
 
 const props = {
-  spa: fromJS(spa),
+  spa,
   activeAcks: fromJS(activeAcks),
   previousAcks: fromJS(previousAcks),
   onNewAckRequest: jest.fn(),

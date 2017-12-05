@@ -204,7 +204,7 @@ export class SpaAdmin extends React.PureComponent {
   handleSelectActive = (item) => {
     const { onGetRecipientsRequest, spa } = this.props;
     // call api if no entry for recipients stored
-    if (!selectRecipientsById(spa, item[ACK.ID])) {
+    if (!selectRecipientsById(spa, String(item[ACK.ID]))) {
       onGetRecipientsRequest(item);
     }
     this.handleShowReport();
@@ -217,7 +217,7 @@ export class SpaAdmin extends React.PureComponent {
     const { onGetRecipientsRequest, spa } = this.props;
 
     // call api if no entry for recipients stored
-    if (!selectRecipientsById(spa, item[ACK.ID])) {
+    if (!selectRecipientsById(spa, String(item[ACK.ID]))) {
       onGetRecipientsRequest(item);
     }
     this.handleShowReport();

@@ -3,7 +3,10 @@ coverage
 build
 node_modules
 stats.json
+
+# dev/mock data that changes often
 db.json
+jwt.json
 
 # Cruft
 .DS_Store

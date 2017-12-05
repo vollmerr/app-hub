@@ -1,6 +1,12 @@
 const faker = require('faker');
+const jwt = require('jsonwebtoken');
 
-// const secret = require('../secret');
+const secret = require('../../../internals/secret');
+
+const roles = [
+  'SPA Admin',
+  'SPA Guard',
+];
 
 const a = {
   ID: 'id',
@@ -30,15 +36,31 @@ const r = {
   ACK_DATE: 'AcknowledgmentDate',
 };
 
+function generateJwt(sid, firstName, lastName, userRoles) {
+  return jwt.sign({
+    name: `${firstName} ${lastName}`,
+    sub: sid,
+    roles: userRoles,
+    exp: Math.floor(Date.now() / 1000) + 100000,
+  }, secret);
+}
 
 function generateRecipient() {
   const firstName = faker.name.firstName();
   const lastName = faker.name.lastName();
+  const sid = faker.random.uuid();
 
   let firstReminder = '';
   let secondReminder = '';
   let finalReminder = '';
   let ackDate = '';
+
+  const userRoles = ['AppHub User'];
+  roles.forEach((role) => {
+    if (faker.random.boolean()) {
+      userRoles.push(role);
+    }
+  });
 
   if (faker.random.boolean()) {
     firstReminder = faker.date.future(1);
@@ -56,7 +78,7 @@ function generateRecipient() {
 
   return {
     [r.ID]: faker.random.uuid(),
-    [r.SID]: faker.random.uuid(),
+    [r.SID]: sid,
     [r.SAM]: faker.internet.userName(firstName, lastName),
     [r.FIRST_NAME]: firstName,
     [r.LAST_NAME]: lastName,
@@ -66,6 +88,10 @@ function generateRecipient() {
     [r.FINAL_REMINDER_DATE]: finalReminder,
     [r.ACK_ID]: faker.random.number({ min: 100, max: 110 }),
     [r.ACK_DATE]: ackDate,
+    token: {
+      key: generateJwt(sid, firstName, lastName, userRoles),
+      text: `${firstName} ${lastName} - ${userRoles.join(', ')}`,
+    },
   };
 }
 
@@ -73,8 +99,8 @@ function generateRecipient() {
 function generateAcknowledgment() {
   const targetGroups = Array
     .from(
-      { length: faker.random.number({ min: 1, max: 3 }) },
-      () => faker.random.number({ min: 1, max: 3 })
+    { length: faker.random.number({ min: 1, max: 3 }) },
+    () => faker.random.number({ min: 1, max: 3 })
     )
     .filter((x, i, arr) => i === arr.indexOf(x));
 

@@ -13,7 +13,7 @@ if (generate) {
   const router = jsonServer.router(path.join(__dirname, 'db.json'));
   const middlewares = jsonServer.defaults();
   const redirects = require('./routes.json');
-  const secret = require('./secret');
+  const secret = require('../../internals/secret');
 
   const host = 'localhost';
   const port = 3001;
