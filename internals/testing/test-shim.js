@@ -1,4 +1,4 @@
-const secret = require('../secret');
+const secret = require('../.secret');
 const jwt = require('jsonwebtoken');
 
 global.jwt = {

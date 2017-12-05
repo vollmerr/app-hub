@@ -1,7 +1,7 @@
 const faker = require('faker');
 const jwt = require('jsonwebtoken');
 
-const secret = require('../../../internals/secret');
+const secret = require('../../../internals/.secret');
 
 const roles = [
   'SPA Admin',
@@ -45,6 +45,8 @@ function generateJwt(sid, firstName, lastName, userRoles) {
   }, secret);
 }
 
+const jwts = [];
+
 function generateRecipient() {
   const firstName = faker.name.firstName();
   const lastName = faker.name.lastName();
@@ -60,6 +62,11 @@ function generateRecipient() {
     if (faker.random.boolean()) {
       userRoles.push(role);
     }
+  });
+
+  jwts.push({
+    key: generateJwt(sid, firstName, lastName, userRoles),
+    text: `${firstName} ${lastName} - ${userRoles.join(', ')}`,
   });
 
   if (faker.random.boolean()) {
@@ -88,10 +95,6 @@ function generateRecipient() {
     [r.FINAL_REMINDER_DATE]: finalReminder,
     [r.ACK_ID]: faker.random.number({ min: 100, max: 110 }),
     [r.ACK_DATE]: ackDate,
-    token: {
-      key: generateJwt(sid, firstName, lastName, userRoles),
-      text: `${firstName} ${lastName} - ${userRoles.join(', ')}`,
-    },
   };
 }
 
@@ -135,8 +138,18 @@ function generateAcknowledgments() {
   return acks;
 }
 
+const recipients = generateRecipients();
+const acknowledgments = generateAcknowledgments();
 
 module.exports = {
-  spaRecipients: generateRecipients(),
-  spaAcknowledgments: generateAcknowledgments(),
+  jwts,
+  name: 'spa',
+  keys: {
+    recipients,
+    acknowledgments,
+  },
+  routes: [
+    { '/spa': '/spa-acknowledgments' },
+    { '/spa/recipients\\?:target=:id': '/spa-recipients?:target=:id' },
+  ],
 };

@@ -5,14 +5,13 @@ node_modules
 stats.json
 
 # dev/mock data that changes often
-db.json
-jwt.json
+.db.json
+.jwt.json
+.routes.json
+.secret.js
 
 # Cruft
 .DS_Store
 npm-debug.log
 .idea
 package-lock.json
-
-# jwt secret
-secret.js

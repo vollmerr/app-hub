@@ -1,8 +1,0 @@
-{
-  "/spa": "/spaAcknowledgments",
-  "/spa/acknowledgments": "/spaAcknowledgments",
-  "/spa/acknowledgments/:id": "/spaAcknowledgments/:id",
-  "/spa/recipients": "/spaRecipients",
-  "/spa/recipients/:id": "/spaRecipients/:id",
-  "/spa/recipients\\?:target=:id": "/spaRecipients?:target=:id"
-}
