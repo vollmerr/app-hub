@@ -25,6 +25,15 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
         columns={
           Array [
             Object {
+              "ariaLabel": "ID of the Acknowledgment",
+              "fieldName": "id",
+              "isResizable": true,
+              "key": "id",
+              "maxWidth": 40,
+              "minWidth": 20,
+              "name": "ID",
+            },
+            Object {
               "ariaLabel": "Title of the acknowledgment",
               "fieldName": "title",
               "isResizable": true,
@@ -82,12 +91,12 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
         items={
           Array [
             Object {
-              "id": 1,
+              "id": "a",
               "status": 0,
               "title": "testPending1",
             },
             Object {
-              "id": 2,
+              "id": "b",
               "status": 0,
               "title": "testPending2",
             },
@@ -121,6 +130,15 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
       <List
         columns={
           Array [
+            Object {
+              "ariaLabel": "ID of the Acknowledgment",
+              "fieldName": "id",
+              "isResizable": true,
+              "key": "id",
+              "maxWidth": 40,
+              "minWidth": 20,
+              "name": "ID",
+            },
             Object {
               "ariaLabel": "Title of the acknowledgment",
               "fieldName": "title",
@@ -176,12 +194,12 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
         items={
           Array [
             Object {
-              "id": 3,
+              "id": "c",
               "status": undefined,
               "title": "testPrevious1",
             },
             Object {
-              "id": 4,
+              "id": "d",
               "status": 2,
               "title": "testPrevious2",
             },

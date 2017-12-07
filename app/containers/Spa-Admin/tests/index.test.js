@@ -4,10 +4,16 @@ import { fromJS } from 'immutable';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import { testMapDispatchToProps } from 'utils/testUtils';
-import { newAckRequest, disableAckRequest, getRecipientsRequest } from 'containers/Spa/actions';
-import { ACK, STATUS } from 'containers/Spa/constants';
-import { initialState } from 'containers/Spa/reducer';
 
+import {
+  getAdminDataRequest,
+  getAckRecipientsRequest,
+  newAckRequest,
+  disableAckRequest,
+} from 'containers/Spa/actions';
+
+import { ACK, STATUS, RECIPIENT } from 'containers/Spa/constants';
+import ListSection from 'components/List/ListSection';
 import { SpaAdmin, mapDispatchToProps } from '../index';
 import AdminNav from '../AdminNav';
 import NewAckForm from '../NewAckForm';
@@ -16,31 +22,35 @@ import Report from '../Report';
 
 const List = require.requireActual('components/List');
 
-const activeAcks = [
-  { [ACK.ID]: 1, [ACK.TITLE]: 'testPending1', [ACK.STATUS]: STATUS.ACTIVE },
-  { [ACK.ID]: 2, [ACK.TITLE]: 'testPending2', [ACK.STATUS]: STATUS.ACTIVE },
-];
-
-const previousAcks = [
-  { [ACK.ID]: 3, [ACK.TITLE]: 'testPrevious1', [ACK.STATUS]: STATUS.EXIPRED },
-  { [ACK.ID]: 4, [ACK.TITLE]: 'testPrevious2', [ACK.STATUS]: STATUS.DISABLED },
-];
-
-const spa = fromJS({
-  ...initialState,
-  recipients: {
-    1: [activeAcks[0], activeAcks[1]],
-    99: [activeAcks[0], previousAcks[0]],
+const recipients = fromJS({
+  byId: {
+    m: { [RECIPIENT.ID]: 'm', [RECIPIENT.ACK_ID]: 'a' },
+    p: { [RECIPIENT.ID]: 'p', [RECIPIENT.ACK_ID]: 'd' },
+    n: { [RECIPIENT.ID]: 'n', [RECIPIENT.ACK_ID]: 'a' },
   },
+  allIds: ['m', 'p', 'n'],
 });
 
+const activeAcks = fromJS([
+  { [ACK.ID]: 'a', [ACK.TITLE]: 'testPending1', [ACK.STATUS]: STATUS.ACTIVE },
+  { [ACK.ID]: 'b', [ACK.TITLE]: 'testPending2', [ACK.STATUS]: STATUS.ACTIVE },
+]);
+
+const previousAcks = fromJS([
+  { [ACK.ID]: 'c', [ACK.TITLE]: 'testPrevious1', [ACK.STATUS]: STATUS.EXIPRED },
+  { [ACK.ID]: 'd', [ACK.TITLE]: 'testPrevious2', [ACK.STATUS]: STATUS.DISABLED },
+]);
+
 const props = {
-  spa,
-  activeAcks: fromJS(activeAcks),
-  previousAcks: fromJS(previousAcks),
+  adminCached: false,
+  recipients,
+  adminAllIds: fromJS(['a', 'b', 'c', 'd']),
+  adminActiveAcks: activeAcks,
+  adminPreviousAcks: previousAcks,
+  onGetAdminDataRequest: jest.fn(),
+  onGetAckRecipientsRequest: jest.fn(),
   onNewAckRequest: jest.fn(),
   onDisableAckRequest: jest.fn(),
-  onGetRecipientsRequest: jest.fn(),
   Loading: null,
 };
 
@@ -92,12 +102,26 @@ describe('<SpaAdmin />', () => {
   });
 
 
+  describe('componentDidMount', () => {
+    it('should get the admin data if its not already in the redux store (adminCached)', () => {
+      expect(props.onGetAdminDataRequest).toHaveBeenCalled();
+    });
+
+    it('should not get the admin data if its already in the redux store (adminCached)', () => {
+      wrapper.setProps({ adminCached: true });
+      jest.resetAllMocks();
+      instance.componentDidMount();
+      expect(props.onGetAdminDataRequest).not.toHaveBeenCalled();
+    });
+  });
+
+
   describe('selectionActive', () => {
     it('should be an instance of `Selection`', () => {
       expect(instance.selectionActive).toBeInstanceOf(Selection);
     });
 
-    it('should call `handleSelectItem` when an item changes', () => {
+    it('should call Lists `handleSelectItem` when an item changes', () => {
       List.handleSelectItem = jest.fn();
       instance.selectionActive._onSelectionChanged(); // eslint-disable-line
       expect(List.handleSelectItem).toHaveBeenCalled();
@@ -110,7 +134,7 @@ describe('<SpaAdmin />', () => {
       expect(instance.selectionPrev).toBeInstanceOf(Selection);
     });
 
-    it('should call `handleSelectItem` when an item changes', () => {
+    it('should call Lists `handleSelectItem` when an item changes', () => {
       List.handleSelectItem = jest.fn();
       instance.selectionPrev._onSelectionChanged(); // eslint-disable-line
       expect(List.handleSelectItem).toHaveBeenCalled();
@@ -120,7 +144,7 @@ describe('<SpaAdmin />', () => {
 
   describe('New Acknowledgments', () => {
     describe('handleShowNew', () => {
-      it('should display the new acknowledgment modal', () => {
+      it('should render the new acknowledgment modal', () => {
         instance.handleShowNew();
         wrapper.update();
         expect(wrapper.find(NewAckForm).length).toEqual(1);
@@ -152,7 +176,7 @@ describe('<SpaAdmin />', () => {
     });
 
     describe('handleShowDisable', () => {
-      it('should display the disable modal', () => {
+      it('should render the disable modal', () => {
         instance.handleShowDisable();
         wrapper.update();
         expect(wrapper.find(DisableModal).prop('hidden')).toEqual(false);
@@ -190,7 +214,7 @@ describe('<SpaAdmin />', () => {
     });
 
     describe('handleShowReport', () => {
-      it('should display the report', () => {
+      it('should render the report', () => {
         instance.handleShowReport();
         wrapper.update();
         expect(wrapper.find(Report).length).toEqual(1);
@@ -258,51 +282,50 @@ describe('<SpaAdmin />', () => {
       });
     });
 
-    describe('handleSelectActive', () => {
-      it('should display the report', () => {
-        const item = { [ACK.ID]: 999, name: 'test item' };
+
+    describe('handleSelectItem', () => {
+      it('should render the report', () => {
+        const item = { [ACK.ID]: '999', name: 'test item' };
         instance.handleShowReport = jest.fn();
-        instance.handleSelectActive(item);
+        instance.handleSelectItem(item);
         expect(instance.handleShowReport).toHaveBeenCalled();
       });
 
-      it('should get the recipients from the api if no entry', () => {
-        const item = { [ACK.ID]: 999, name: 'test item' };
+      it('should get the recipients from the api if no entry in `adminAllIds`', () => {
+        const item = { [ACK.ID]: 'noExist', name: 'test item' };
         instance.handleShowReport = jest.fn();
-        instance.handleSelectActive(item);
-        expect(props.onGetRecipientsRequest).toHaveBeenCalledWith(item);
+        instance.handleSelectItem(item);
+        expect(props.onGetAckRecipientsRequest).toHaveBeenCalledWith(item);
       });
 
-      it('should not get the recipients from the api if an entry exists', () => {
-        const item = { [ACK.ID]: 1, name: 'test item' };
+      it('should not get the recipients from the api if an entry exists in `adminAllIds`', () => {
+        const item = { [ACK.ID]: 'c', name: 'test item' };
         instance.handleShowReport = jest.fn();
-        instance.handleSelectActive(item);
-        expect(props.onGetRecipientsRequest).not.toHaveBeenCalled();
+        instance.handleSelectItem(item);
+        expect(props.onGetAckRecipientsRequest).not.toHaveBeenCalled();
       });
     });
+
+
+    describe('handleSelectActive', () => {
+      it('should call `handleSelectItem` to select the item', () => {
+        const item = { [ACK.ID]: '999', name: 'test item' };
+        instance.handleSelectItem = jest.fn();
+        instance.handleSelectActive(item);
+        expect(instance.handleSelectItem).toHaveBeenCalledWith(item);
+      });
+    });
+
 
     describe('handleSelectPrevious', () => {
-      it('should display the report', () => {
-        const item = { [ACK.ID]: 999, name: 'test item' };
-        instance.handleShowReport = jest.fn();
+      it('should render the report', () => {
+        const item = { [ACK.ID]: '999', name: 'test item' };
+        instance.handleSelectItem = jest.fn();
         instance.handleSelectPrevious(item);
-        expect(instance.handleShowReport).toHaveBeenCalled();
-      });
-
-      it('should get the recipients from the api if no entry', () => {
-        const item = { [ACK.ID]: 999, name: 'test item' };
-        instance.handleShowReport = jest.fn();
-        instance.handleSelectPrevious(item);
-        expect(props.onGetRecipientsRequest).toHaveBeenCalledWith(item);
-      });
-
-      it('should not get the recipients from the api if an entry exists', () => {
-        const item = { [ACK.ID]: 1, name: 'test item' };
-        instance.handleShowReport = jest.fn();
-        instance.handleSelectPrevious(item);
-        expect(props.onGetRecipientsRequest).not.toHaveBeenCalled();
+        expect(instance.handleSelectItem).toHaveBeenCalledWith(item);
       });
     });
+
 
     describe('handleBack', () => {
       it('should hide the new acknowledgment form', () => {
@@ -320,20 +343,49 @@ describe('<SpaAdmin />', () => {
   });
 
 
-  describe('Rendering', () => {
-    describe('renderContent', () => {
-      xit('should have tests...', () => {
-        expect(1).toEqual(0);
-      });
+  describe('renderContent', () => {
+    it('should render a loading indicator only if there is one passed', () => {
+      const Loading = () => <div>Loading...</div>;
+      expect(wrapper.find(Loading).length).toEqual(0);
+      wrapper.setProps({ Loading: <Loading /> });
+      expect(wrapper.find(Loading).length).toEqual(1);
+    });
+
+    it('should render the new acknowledgment form only if it is not hidden', () => {
+      expect(wrapper.find(NewAckForm).length).toEqual(0);
+      wrapper.setState({ hideNewAck: false });
+      expect(wrapper.find(NewAckForm).length).toEqual(1);
+    });
+
+    it('should render the report only if it is not hidden and an item is selected', () => {
+      expect(wrapper.find(Report).length).toEqual(0);
+      wrapper.setState({ hideReport: false, selectedItem: { [ACK.ID]: 1 } });
+      expect(wrapper.find(Report).length).toEqual(1);
+    });
+
+    it('should render the disable modal only if the report is not hidden and an item is selected', () => {
+      expect(wrapper.find(DisableModal).length).toEqual(0);
+      wrapper.setState({ hideReport: false, selectedItem: { [ACK.ID]: 1 } });
+      expect(wrapper.find(DisableModal).length).toEqual(1);
+    });
+
+    it('should render two `ListSection`s (active and previous acknowledgments)', () => {
+      expect(wrapper.find(ListSection).length).toEqual(2);
+    });
+
+    it('should render two `List`s (active and previous acknowledgments)', () => {
+      // imported using require, so use .default
+      expect(wrapper.find(List.default).length).toEqual(2);
     });
   });
 
 
   describe('mapDispatchToProps', () => {
     const actions = {
+      getAdminDataRequest,
+      getAckRecipientsRequest,
       newAckRequest,
       disableAckRequest,
-      getRecipientsRequest,
     };
 
     testMapDispatchToProps(mapDispatchToProps, actions);
