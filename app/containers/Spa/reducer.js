@@ -23,6 +23,7 @@ export const initialState = {
     isCached: false, // determine if should fetch admin data
     acksActiveIds: [], // [admin page] ids for list of active 'acknowledgments'
     acksPreviousIds: [], // [admin page] ids for list of previous 'acknowledgments'
+    allIds: [],
   },
   recipients: { // list of recipients (for user and admin)
     byId: {},
@@ -99,15 +100,20 @@ export default handleActions({
 
   [GET_ACK_RECIPIENTS_SUCCESS]: (state, action) => {
     const { payload } = action;
+    // add ack id to list of ids in admin
+    const admin = {
+      allIds: state.getIn(['admin', 'allIds']).toSet().union(Set(payload.id)).toList(),
+    };
     // add entries to acks (could potentally already have some entries, so just add new)
     const recipients = mergeApi(state, 'recipients', payload.recipients, RECIPIENT.ID);
     // combine with current state
     return state.mergeDeep(fromJS({
+      admin,
       recipients,
     }));
   },
 
-  [DISABLE_ACK_SUCCESS]: (state, action) => {
+  [DISABLE_ACK_SUCCESS]: () => {
     // move to admin inactie
     // move for all recipients to previous
     // move for user to previous

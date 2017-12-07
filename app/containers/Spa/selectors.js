@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { STATUS, ACK, RECIPIENT } from './constants';
+import { RECIPIENT } from './constants';
 
 const selectSpa = (state) => state.get('spa');
 const selectUser = (state) => selectSpa(state).get('user');
@@ -11,7 +11,8 @@ const selectAcknowledgments = (state) => selectSpa(state).get('acknowledgments')
 const selectById = (state) => state.get('byId');
 const selectByAckId = (state, id) => selectById(state).filter((x) => String(x.get(RECIPIENT.ACK_ID)) === String(id));
 const selectAllIds = (state) => state.get('allIds');
-const selectIdExists = (state, id) => selectAllIds('allIds').includes(String(id));
+const selectIdExists = (state, id) => state.includes(String(id));
+const selectCached = (state) => state.get('isCached');
 
 
 const getSpa = () => createSelector(
@@ -23,7 +24,7 @@ const getSpa = () => createSelector(
 // selects if user data is cached
 const getUserCached = () => createSelector(
   selectUser,
-  (user) => user.get('isCached')
+  (user) => selectCached(user)
 );
 // selects array of users acknowlegments combined with recipient details based off type
 const getUserAcks = (type) => (
@@ -55,7 +56,11 @@ const getAdminAcks = (type) => (
 // selects if admin data is cached
 const getAdminCached = () => createSelector(
   selectAdmin,
-  (admin) => admin.get('isCached')
+  (admin) => selectCached(admin)
+);
+const getAdminAllIds = () => createSelector(
+  selectAdmin,
+  (admin) => selectAllIds(admin)
 );
 // selects array of users pending acknowlegments combined with recipient details
 const getAdminActiveAcks = () => createSelector(
@@ -84,6 +89,7 @@ export {
   getUserPreviousAcks,
   // admin
   getAdminCached,
+  getAdminAllIds,
   getAdminActiveAcks,
   getAdminPreviousAcks,
   // recipients

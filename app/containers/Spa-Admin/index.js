@@ -9,6 +9,7 @@ import appPage from 'containers/App-Container/appPage';
 import {
   getAdminCached,
   getRecipients,
+  getAdminAllIds,
   getAdminActiveAcks,
   getAdminPreviousAcks,
   selectByAckId,
@@ -218,12 +219,12 @@ export class SpaAdmin extends React.PureComponent {
    * Handles selecting an item from a list
    */
   handleSelectItem = (item) => {
-    const { onGetAckRecipientsRequest, recipients } = this.props;
+    const { onGetAckRecipientsRequest, adminAllIds } = this.props;
     // call api if no entry for recipients stored
-    // if (!selectAckExists(recipients, item[ACK.ID])) {
+    if (!selectIdExists(adminAllIds, item[ACK.ID])) {
       // console.log('onGetAckRecipientsRequest')
-    onGetAckRecipientsRequest(item);
-    // }
+      onGetAckRecipientsRequest(item);
+    }
     this.handleShowReport();
   }
 
@@ -356,6 +357,7 @@ const { object, func, node, bool } = PropTypes;
 SpaAdmin.propTypes = {
   adminCached: bool.isRequired,
   recipients: object.isRequired,
+  adminAllIds: object.isRequired,
   adminActiveAcks: object.isRequired,
   adminPreviousAcks: object.isRequired,
   onGetAdminDataRequest: func.isRequired,
@@ -370,6 +372,7 @@ const mapStateToProps = createStructuredSelector({
   recipients: getRecipients(),
   adminActiveAcks: getAdminActiveAcks(),
   adminPreviousAcks: getAdminPreviousAcks(),
+  adminAllIds: getAdminAllIds(),
 });
 
 export const mapDispatchToProps = (dispatch) => ({

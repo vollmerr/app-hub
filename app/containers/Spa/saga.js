@@ -59,7 +59,7 @@ export function* getAckRecipients(action) {
     const url = `${base}/acknowledgements/${id}/recipients`;
 
     const recipients = yield call(requestWithToken, url);
-    yield put(actions.getAckRecipientsSuccess({ recipients }));
+    yield put(actions.getAckRecipientsSuccess({ recipients, ackId: id }));
   } catch (error) {
     yield put(actions.getAckRecipientsFailure(error));
   }
