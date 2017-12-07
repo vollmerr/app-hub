@@ -22,7 +22,7 @@ export function validToken(token) {
     const { exp } = decode(token);
     const now = new Date().getTime().toString().substring(0, 10);
 
-    return exp > now;
+    return Number(exp) > Number(now);
   } catch (e) {
     return false;
   }

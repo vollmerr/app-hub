@@ -263,7 +263,7 @@ export class Report extends React.PureComponent {
     const pending = recipients[PENDING];
     const acknowledged = recipients[ACK];
     const pendingPercent = Math.round((pending.length / totalCount) * 100);
-    const acknowldgedPercent = Math.round((acknowledged.length / totalCount) * 100);
+    const acknowldgedPercent = 100 - pendingPercent;
 
 
     const listProps = {
