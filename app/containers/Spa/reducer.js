@@ -1,7 +1,7 @@
 import { fromJS, Set } from 'immutable';
 import { handleActions } from 'redux-actions';
 
-import { normalizeById } from 'utils/request';
+import { mergeById } from 'utils/request';
 
 import {
   GET_USER_DATA_SUCCESS,
@@ -35,15 +35,6 @@ export const initialState = {
   },
 };
 
-// TODO: MOVE TO COMMON!
-const mergeApi = (state, section, data, id) => {
-  const { byId, allIds } = normalizeById(data, id);
-
-  return {
-    byId: state.getIn([section, 'byId']).merge(fromJS(byId)),
-    allIds: state.getIn([section, 'allIds']).toSet().union(Set(allIds)).toList(),
-  };
-};
 
 export default handleActions({
   [GET_USER_DATA_SUCCESS]: (state, action) => {
@@ -63,8 +54,8 @@ export default handleActions({
       }
     });
     // add entries to recipients and acks (could potentally already have some entries, so just add new)
-    const recipients = mergeApi(state, 'recipients', payload.recipients, RECIPIENT.ID);
-    const acknowledgments = mergeApi(state, 'acknowledgments', payload.acknowledgments, ACK.ID);
+    const recipients = mergeById(state, 'recipients', payload.recipients, RECIPIENT.ID);
+    const acknowledgments = mergeById(state, 'acknowledgments', payload.acknowledgments, ACK.ID);
     // combine with current state
     return state.mergeDeep(fromJS({
       user,
@@ -90,7 +81,7 @@ export default handleActions({
       }
     });
     // add entries to acks (could potentally already have some entries, so just add new)
-    const acknowledgments = mergeApi(state, 'acknowledgments', payload.acknowledgments, ACK.ID);
+    const acknowledgments = mergeById(state, 'acknowledgments', payload.acknowledgments, ACK.ID);
     // combine with current state
     return state.mergeDeep(fromJS({
       admin,
@@ -105,7 +96,7 @@ export default handleActions({
       allIds: state.getIn(['admin', 'allIds']).toSet().union(Set(payload.id)).toList(),
     };
     // add entries to acks (could potentally already have some entries, so just add new)
-    const recipients = mergeApi(state, 'recipients', payload.recipients, RECIPIENT.ID);
+    const recipients = mergeById(state, 'recipients', payload.recipients, RECIPIENT.ID);
     // combine with current state
     return state.mergeDeep(fromJS({
       admin,

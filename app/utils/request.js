@@ -1,4 +1,5 @@
 import 'whatwg-fetch';
+import { fromJS, Set, Map } from 'immutable';
 
 
 /**
@@ -46,6 +47,26 @@ export const normalizeById = (arr, key = 'id') => {
   return { byId, allIds };
 };
 
+/**
+ * Maps an and merges array of objects into { byId: [], allIds: {} }
+ * Merges into an immutable existing byId and allIds
+ *
+ * @param {Map} state         - immutable state object to update
+ * @param {string} section    - section of immutable state to update
+ * @param {array} data        - data to map to byId/allIds
+ * @param {string} id         - id to use as key for iteration
+ *
+ * @return {Map} byId         - mapped and merged items by id
+ * @return {List} allIds      - ids of all objects, in order
+ */
+export const mergeById = (state, section, data, id = 'id') => {
+  const { byId, allIds } = normalizeById(data, id);
+
+  return Map({
+    byId: state.getIn([section, 'byId']).merge(fromJS(byId)),
+    allIds: state.getIn([section, 'allIds']).toSet().union(Set(allIds)).toList(),
+  });
+};
 
 /**
  * Parses the JSON returned by a network request
