@@ -14,7 +14,8 @@ export const base = API.SPA;
  */
 export function* getUserData() {
   try {
-    const sid = yield select(makeSelectUserSid());
+    const selector = makeSelectUserSid();
+    const sid = yield select(selector);
 
     const urls = {
       recipients: `${base}/recipients/${sid}`,

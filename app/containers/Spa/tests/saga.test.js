@@ -1,40 +1,24 @@
 /* eslint-disable redux-saga/yield-effects */
-import { put } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 import { fromJS } from 'immutable';
 
 import requestWithToken from 'utils/requestWithToken';
+import * as selectors from 'containers/AppHub/selectors';
+
 import spaSaga, {
-  initData,
+  getUserData,
+  getAdminData,
+  getAckRecipients,
   newAck,
   disableAck,
-  getRecipients,
   base,
 } from '../saga';
 
-import {
-  INIT_DATA_REQUEST,
-  NEW_ACK_REQUEST,
-  DISABLE_ACK_REQUEST,
-  GET_RECIPIENTS_REQUEST,
-  RECIPIENT,
-  STATUS,
-  ACK,
-} from '../constants';
+import * as C from '../constants';
+import * as actions from '../actions';
 
-import {
-  initDataRequest,
-  initDataSuccess,
-  initDataFailure,
-  newAckSuccess,
-  newAckFailure,
-  disableAckSuccess,
-  disableAckFailure,
-  getRecipientsSuccess,
-  getRecipientsFailure,
-} from '../actions';
-
-const data = { data: 'test data', id: 2 };
+const data = { recipients: ['1', '2'], acknowledgments: ['3', '4'], id: 1 };
 const error = { message: 'test error' };
 
 let action;
@@ -42,43 +26,102 @@ let action;
 
 describe('spaSaga', () => {
   it(`should take the latest
-      'INIT_DATA_REQUEST',
+      'GET_USER_DATA_REQUEST',
+      'GET_ADMIN_DATA_REQUEST',
+      'GET_ACK_RECIPIENTS_REQUEST',
       'NEW_ACK_REQUEST',
-      'DISABLE_ACK_REQUEST', and
-      'GET_RECIPIENTS_REQUEST'`, () => {
-    testSaga(spaSaga)
-      .next()
-      .takeLatestEffect(INIT_DATA_REQUEST, initData)
-      .next()
-      .takeLatestEffect(NEW_ACK_REQUEST, newAck)
-      .next()
-      .takeLatestEffect(DISABLE_ACK_REQUEST, disableAck)
-      .next()
-      .takeLatestEffect(GET_RECIPIENTS_REQUEST, getRecipients)
-      .finish()
-      .isDone();
-  });
+      'DISABLE_ACK_REQUEST''`,
+    () => {
+      testSaga(spaSaga)
+        .next()
+        .takeLatestEffect(C.GET_USER_DATA_REQUEST, getUserData)
+        .next()
+        .takeLatestEffect(C.GET_ADMIN_DATA_REQUEST, getAdminData)
+        .next()
+        .takeLatestEffect(C.GET_ACK_RECIPIENTS_REQUEST, getAckRecipients)
+        .next()
+        .takeLatestEffect(C.NEW_ACK_REQUEST, newAck)
+        .next()
+        .takeLatestEffect(C.DISABLE_ACK_REQUEST, disableAck)
+        .finish()
+        .isDone();
+    });
 });
 
 
-describe('initData', () => {
-  it('should call the api and update the store with its results', () => {
-    action = { payload: fromJS(data) };
-    const url = `${base}/`;
+describe('getUserData', () => {
+  it('should get the users sid, call the api, and update the store with its results', () => {
+    const sid = 99;
+    const urls = {
+      recipients: `${base}/recipients/${sid}`,
+      acknowledgments: `${base}/recipients/${sid}/acknowledgments`,
+    };
+    const selector = () => sid;
+    selectors.makeSelectUserSid = () => selector;
 
-    testSaga(initData)
+    testSaga(getUserData)
       .next()
-      .call(requestWithToken, url)
-      .next(data)
-      .put(initDataSuccess(data))
+      .select(selector)
+      .next(sid)
+      .all([
+        call(requestWithToken, urls.recipients),
+        call(requestWithToken, urls.acknowledgments),
+      ])
+      .next([data.recipients, data.acknowledgments])
+      .put(actions.getUserDataSuccess({ recipients: data.recipients, acknowledgments: data.acknowledgments }))
       .finish()
       .isDone();
   });
 
   it('should handle errors', () => {
-    const errGen = initData();
+    const errGen = getUserData();
     errGen.next();
-    expect(errGen.throw(error).value).toEqual(put(initDataFailure(error)));
+    expect(errGen.throw(error).value).toEqual(put(actions.getUserDataFailure(error)));
+    expect(errGen.next()).toEqual({ done: true, value: undefined });
+  });
+});
+
+
+describe('getAdminData', () => {
+  it('should call the api and update the store with its results', () => {
+    const url = `${base}/acknowledgments`;
+
+    testSaga(getAdminData)
+      .next()
+      .call(requestWithToken, url)
+      .next(data.acknowledgments)
+      .put(actions.getAdminDataSuccess({ acknowledgments: data.acknowledgments }))
+      .finish()
+      .isDone();
+  });
+
+  it('should handle errors', () => {
+    const errGen = getAdminData(action);
+    errGen.next();
+    expect(errGen.throw(error).value).toEqual(put(actions.getAdminDataFailure(error)));
+    expect(errGen.next()).toEqual({ done: true, value: undefined });
+  });
+});
+
+
+describe('getAckRecipients', () => {
+  it('should call the api and update the store with its results', () => {
+    action = { payload: { id: data.id } };
+    const url = `${base}/acknowledgements/${data.id}/recipients`;
+
+    testSaga(getAckRecipients, action)
+      .next()
+      .call(requestWithToken, url)
+      .next(data.recipients)
+      .put(actions.getAckRecipientsSuccess({ recipients: data.recipients, ackId: data.id }))
+      .finish()
+      .isDone();
+  });
+
+  it('should handle errors', () => {
+    const errGen = getAckRecipients(action);
+    errGen.next();
+    expect(errGen.throw(error).value).toEqual(put(actions.getAckRecipientsFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });
   });
 });
@@ -97,9 +140,7 @@ describe('newAck', () => {
       .next()
       .call(requestWithToken, url, options)
       .next(data)
-      .put(newAckSuccess(data))
-      .next()
-      .put(initDataRequest())
+      .put(actions.newAckSuccess(data))
       .finish()
       .isDone();
   });
@@ -107,7 +148,7 @@ describe('newAck', () => {
   it('should handle errors', () => {
     const errGen = newAck(action);
     errGen.next();
-    expect(errGen.throw(error).value).toEqual(put(newAckFailure(error)));
+    expect(errGen.throw(error).value).toEqual(put(actions.newAckFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });
   });
 });
@@ -121,8 +162,8 @@ describe('disableAck', () => {
       body: [
         {
           op: 'replace',
-          path: `/${ACK.STATUS}`,
-          value: STATUS.DISABLED, // TODO... DISBALED VALUE / STATUS IN GENERAL
+          path: `/${C.ACK.STATUS}`,
+          value: C.STATUS.DISABLED, // TODO... DISBALED VALUE / STATUS IN GENERAL
         },
       ],
     };
@@ -132,7 +173,7 @@ describe('disableAck', () => {
       .next()
       .call(requestWithToken, url, options)
       .next(data)
-      .put(disableAckSuccess(data))
+      .put(actions.disableAckSuccess(data))
       .finish()
       .isDone();
   });
@@ -140,30 +181,7 @@ describe('disableAck', () => {
   it('should handle errors', () => {
     const errGen = disableAck(action);
     errGen.next();
-    expect(errGen.throw(error).value).toEqual(put(disableAckFailure(error)));
-    expect(errGen.next()).toEqual({ done: true, value: undefined });
-  });
-});
-
-
-describe('getRecipients', () => {
-  it('should call the api and update the store with its results', () => {
-    action = { payload: data };
-    const url = `${base}/recipients?${RECIPIENT.ACK_ID}=${data.id}`;
-
-    testSaga(getRecipients, action)
-      .next()
-      .call(requestWithToken, url)
-      .next(data)
-      .put(getRecipientsSuccess(data))
-      .finish()
-      .isDone();
-  });
-
-  it('should handle errors', () => {
-    const errGen = getRecipients(action);
-    errGen.next();
-    expect(errGen.throw(error).value).toEqual(put(getRecipientsFailure(error)));
+    expect(errGen.throw(error).value).toEqual(put(actions.disableAckFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });
   });
 });
