@@ -29,6 +29,25 @@ export /* istanbul ignore next */ function downloadFile(file, name) {
 
 
 /**
+ * Maps an array of objects into { byId: [], allIds: {} }
+ *
+ * @param {array} arr       - array to normalize
+ * @param {string} key      - key to use identifier
+ *
+ * @return {object} byId    - mapped items by id
+ * @return {array} allIds   - ids of all objects, in order
+ */
+export const normalizeById = (arr, key = 'id') => {
+  const byId = arr.reduce((acc, cur) => {
+    acc[String(cur[key])] = cur;
+    return acc;
+  }, {});
+  const allIds = Object.keys(byId);
+  return { byId, allIds };
+};
+
+
+/**
  * Parses the JSON returned by a network request
  *
  * @param  {object} response A response from a network request
@@ -76,13 +95,3 @@ function request(url, options) {
 }
 
 export default request;
-
-// // map object into { byId: [], allIds: {} }
-// const normalizeById = (arr, key = 'id') => {
-//   const allIds = arr.reduce((acc, cur) => {
-//     acc[cur[key]] = cur;
-//     return acc;
-//   }, {});
-//   const byId = Object.keys(allIds);
-//   return { allIds, byId };
-// };

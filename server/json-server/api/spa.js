@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 
 const secret = require('../secret');
 
-const roles = [
+const userRoles = [
   'SPA Admin',
   'SPA Guard',
 ];
@@ -36,38 +36,47 @@ const r = {
   ACK_DATE: 'AcknowledgmentDate',
 };
 
-function generateJwt(sid, firstName, lastName, userRoles) {
+const jwts = [];
+function generateJwt(sid, firstName, lastName, roles) {
   return jwt.sign({
     name: `${firstName} ${lastName}`,
     sub: sid,
-    roles: userRoles,
+    roles,
     exp: Math.floor(Date.now() / 1000) + 100000,
   }, secret);
 }
 
-const jwts = [];
-
-function generateRecipient() {
+function generateUser() {
   const firstName = faker.name.firstName();
   const lastName = faker.name.lastName();
   const sid = faker.random.uuid();
+  const roles = ['AppHub User'];
+  // add some roles...
+  userRoles.forEach((role) => {
+    if (faker.random.boolean()) {
+      roles.push(role);
+    }
+  });
+  // create a jwt for user
+  jwts.push({
+    key: generateJwt(sid, firstName, lastName, roles),
+    text: `${firstName} ${lastName} - ${roles.join(', ')}`,
+  });
 
+  return {
+    [r.SID]: sid,
+    [r.SAM]: faker.internet.userName(firstName, lastName),
+    [r.FIRST_NAME]: firstName,
+    [r.LAST_NAME]: lastName,
+    [r.EMAIL]: faker.internet.email(firstName, lastName, 'state.ca.gov'),
+  };
+}
+
+function generateRecipient(user) {
   let firstReminder = '';
   let secondReminder = '';
   let finalReminder = '';
   let ackDate = '';
-
-  const userRoles = ['AppHub User'];
-  roles.forEach((role) => {
-    if (faker.random.boolean()) {
-      userRoles.push(role);
-    }
-  });
-
-  jwts.push({
-    key: generateJwt(sid, firstName, lastName, userRoles),
-    text: `${firstName} ${lastName} - ${userRoles.join(', ')}`,
-  });
 
   if (faker.random.boolean()) {
     firstReminder = faker.date.future(1);
@@ -84,17 +93,12 @@ function generateRecipient() {
   }
 
   return {
-    [r.ID]: faker.random.uuid(),
-    [r.SID]: sid,
-    [r.SAM]: faker.internet.userName(firstName, lastName),
-    [r.FIRST_NAME]: firstName,
-    [r.LAST_NAME]: lastName,
-    [r.EMAIL]: faker.internet.email(firstName, lastName, 'state.ca.gov'),
     [r.FIRST_REMINDER_DATE]: firstReminder,
     [r.SECOND_REMINDER_DATE]: secondReminder,
     [r.FINAL_REMINDER_DATE]: finalReminder,
     [r.ACK_ID]: faker.random.number({ min: 100, max: 110 }),
     [r.ACK_DATE]: ackDate,
+    ...user,
   };
 }
 
@@ -122,23 +126,47 @@ function generateAcknowledgment() {
   };
 }
 
-function generateRecipients() {
-  const acks = [];
-  for (let i = 0; i < 100; i += 1) {
-    acks.push(generateRecipient());
+function generateUsers() {
+  const users = [];
+  for (let i = 0; i < 20; i += 1) {
+    users.push(generateUser());
   }
-  return acks;
+  return users;
+}
+
+function generateRecipients(users) {
+  const recipients = [];
+  for (let i = 0; i < 100; i += 1) {
+    const user = users[i % 20];
+    const recipient = generateRecipient(user);
+    // if the user dosnt already have an acknowledgment with that id
+    if (!recipients.find((x) => (
+      x[r.ACK_ID] === recipient[r.ACK_ID] &&
+      x[r.SID] === recipient[r.SID]
+    ))) {
+      recipient[r.ID] = i;
+      // add to the pile...
+      recipients.push(recipient);
+    }
+  }
+  return recipients;
 }
 
 function generateAcknowledgments() {
   const acks = [];
   for (let i = 0; i < 100; i += 1) {
-    acks.push(generateAcknowledgment());
+    const ack = generateAcknowledgment();
+    if (!acks.find((x) => (
+      x[a.ID] === ack[a.ID]
+    ))) {
+      acks.push(ack);
+    }
   }
   return acks;
 }
 
-const recipients = generateRecipients();
+const users = generateUsers();
+const recipients = generateRecipients(users);
 const acknowledgments = generateAcknowledgments();
 
 module.exports = {
@@ -151,5 +179,7 @@ module.exports = {
   routes: [
     { '/spa': '/spa-acknowledgments' },
     { '/spa/recipients\\?:target=:id': '/spa-recipients?:target=:id' },
+    { '/spa/recipients/:id': '/spa-recipients?SID=:id' },
+    { '/spa/acknowledgements/:id/recipients': '/spa-recipients?ackId=:id' },
   ],
 };

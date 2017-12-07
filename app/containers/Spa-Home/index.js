@@ -6,9 +6,11 @@ import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList
 
 import appPage from 'containers/App-Container/appPage';
 import ListSection from 'components/List/ListSection';
-import { makeSelectPendingAcks, makeSelectPreviousAcks } from 'containers/Spa/selectors';
 import List, { handleSelectItem } from 'components/List';
-import { homePendingColumns, homePreviousColumns } from 'containers/Spa/columns';
+
+import { getUserPendingAcks, getUserPreviousAcks, getUserCached } from 'containers/Spa/selectors';
+import { getUserDataRequest } from 'containers/Spa/actions';
+import { userPendingColumns, userPreviousColumns } from 'containers/Spa/columns';
 
 import AckModal from './AckModal';
 
@@ -38,6 +40,14 @@ export class SpaHome extends React.PureComponent {
     this.selectionPrev = new Selection({
       onSelectionChanged: () => handleSelectItem(this, this.selectionPrev, this.handleDownloadFile),
     });
+  }
+
+  componentDidMount() {
+    const { userCached, onGetUserDataRequest } = this.props;
+
+    if (!userCached) {
+      onGetUserDataRequest();
+    }
   }
 
   /**
@@ -84,7 +94,7 @@ export class SpaHome extends React.PureComponent {
   }
 
   render() {
-    const { pendingAcks, previousAcks, Loading } = this.props;
+    const { userPendingAcks, userPreviousAcks, Loading } = this.props;
     const { selectedItem, hasRead, hideModal } = this.state;
 
     if (Loading) {
@@ -92,8 +102,8 @@ export class SpaHome extends React.PureComponent {
     }
 
     const pendingAckProps = {
-      items: pendingAcks.toJS(),
-      columns: homePendingColumns,
+      items: userPendingAcks.toJS(),
+      columns: userPendingColumns,
       title: 'Pending Acknowledgment',
       empty: {
         message: 'No Acknowledgments Pending Approval',
@@ -101,10 +111,9 @@ export class SpaHome extends React.PureComponent {
       selection: this.selectionActive,
       selectionMode: SelectionMode.none,
     };
-
     const previousAckProps = {
-      items: previousAcks.toJS(),
-      columns: homePreviousColumns,
+      items: userPreviousAcks.toJS(),
+      columns: userPreviousColumns,
       title: 'Previous Acknowledgments',
       empty: {
         message: 'No Previous Acknowledgments',
@@ -139,20 +148,25 @@ export class SpaHome extends React.PureComponent {
 }
 
 
-const { object, node } = PropTypes;
+const { object, node, func, bool } = PropTypes;
 
 SpaHome.propTypes = {
-  pendingAcks: object.isRequired,
-  previousAcks: object.isRequired,
+  userCached: bool.isRequired,
+  userPendingAcks: object.isRequired,
+  userPreviousAcks: object.isRequired,
+  onGetUserDataRequest: func.isRequired,
   Loading: node,
 };
 
 const mapStateToProps = createStructuredSelector({
-  pendingAcks: makeSelectPendingAcks(),
-  previousAcks: makeSelectPreviousAcks(),
+  userCached: getUserCached(),
+  userPendingAcks: getUserPendingAcks(),
+  userPreviousAcks: getUserPreviousAcks(),
 });
 
-const mapDispatchToProps = () => ({});
+export const mapDispatchToProps = (dispatch) => ({
+  onGetUserDataRequest: () => dispatch(getUserDataRequest()),
+});
 
 const withAppPage = appPage(SpaHome);
 

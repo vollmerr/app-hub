@@ -69,9 +69,9 @@ const makeSelectUser = () => createSelector(
   (substate) => substate.get('user')
 );
 
-const makeSelectUserSam = () => createSelector(
+const makeSelectUserSid = () => createSelector(
   selectAppHubDomain,
-  (substate) => substate.getIn(['user', 'sam'])
+  (substate) => substate.getIn(['user', 'sid'])
 );
 
 const makeSelectUserRoles = () => createSelector(
@@ -104,6 +104,6 @@ export {
   makeSelectAppMeta,
 
   makeSelectUser,
-  makeSelectUserSam,
+  makeSelectUserSid,
   makeSelectUserRoles,
 };

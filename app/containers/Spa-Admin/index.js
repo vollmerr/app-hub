@@ -7,13 +7,21 @@ import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList
 import appPage from 'containers/App-Container/appPage';
 
 import {
-  makeSelectSpa,
-  makeSelectPendingAcks,
-  makeSelectPreviousAcks,
-  selectRecipientsById,
+  getAdminCached,
+  getRecipients,
+  getAdminActiveAcks,
+  getAdminPreviousAcks,
+  selectByAckId,
+  selectIdExists,
 } from 'containers/Spa/selectors';
 
-import { newAckRequest, disableAckRequest, getRecipientsRequest } from 'containers/Spa/actions';
+import {
+  getAdminDataRequest,
+  getAckRecipientsRequest,
+  newAckRequest,
+  disableAckRequest,
+} from 'containers/Spa/actions';
+
 import { adminColumns } from 'containers/Spa/columns';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
@@ -53,6 +61,14 @@ export class SpaAdmin extends React.PureComponent {
     this.selectionPrev = new Selection({
       onSelectionChanged: () => handleSelectItem(this, this.selectionPrev, this.handleSelectPrevious),
     });
+  }
+
+  componentDidMount() {
+    const { adminCached, onGetAdminDataRequest } = this.props;
+    // load the data for admin if not cached (list of their acks)
+    if (!adminCached) {
+      onGetAdminDataRequest();
+    }
   }
 
   //
@@ -199,28 +215,30 @@ export class SpaAdmin extends React.PureComponent {
   }
 
   /**
+   * Handles selecting an item from a list
+   */
+  handleSelectItem = (item) => {
+    const { onGetAckRecipientsRequest, recipients } = this.props;
+    // call api if no entry for recipients stored
+    // if (!selectAckExists(recipients, item[ACK.ID])) {
+      // console.log('onGetAckRecipientsRequest')
+    onGetAckRecipientsRequest(item);
+    // }
+    this.handleShowReport();
+  }
+
+  /**
    * Callback for selecting an item from the active list
    */
   handleSelectActive = (item) => {
-    const { onGetRecipientsRequest, spa } = this.props;
-    // call api if no entry for recipients stored
-    if (!selectRecipientsById(spa, String(item[ACK.ID]))) {
-      onGetRecipientsRequest(item);
-    }
-    this.handleShowReport();
+    this.handleSelectItem(item);
   }
 
   /**
    * Callback for selecting an item from the previous list
    */
   handleSelectPrevious = (item) => {
-    const { onGetRecipientsRequest, spa } = this.props;
-
-    // call api if no entry for recipients stored
-    if (!selectRecipientsById(spa, String(item[ACK.ID]))) {
-      onGetRecipientsRequest(item);
-    }
-    this.handleShowReport();
+    this.handleSelectItem(item);
   }
 
   /**
@@ -241,7 +259,7 @@ export class SpaAdmin extends React.PureComponent {
    * @return {JSX}            - content to be rendered
    */
   renderContent = () => {
-    const { activeAcks, previousAcks, Loading, spa } = this.props;
+    const { adminActiveAcks, adminPreviousAcks, Loading, recipients } = this.props;
     const { selectedItem, hideDisable, hideNewAck, hideReport } = this.state;
 
     if (Loading) {
@@ -258,11 +276,11 @@ export class SpaAdmin extends React.PureComponent {
     }
     // render reporting
     if (!hideReport && selectedItem[ACK.ID]) {
-      const recipients = selectRecipientsById(spa, selectedItem[ACK.ID]);
+      const data = selectByAckId(recipients, selectedItem[ACK.ID]);
 
       const reportProps = {
         selectedItem,
-        data: recipients ? recipients.toJS() : [],
+        data: data.toList().toJS(),
         dataKey: RECIPIENT.ACK_DATE,
       };
 
@@ -282,7 +300,7 @@ export class SpaAdmin extends React.PureComponent {
     }
     // render lists of active and precious acknowledgments
     const activeProps = {
-      items: activeAcks.toJS(),
+      items: adminActiveAcks.toJS(),
       columns: adminColumns,
       title: 'Active Acknowledgments',
       empty: {
@@ -296,7 +314,7 @@ export class SpaAdmin extends React.PureComponent {
     };
 
     const previousProps = {
-      items: previousAcks.toJS(),
+      items: adminPreviousAcks.toJS(),
       columns: adminColumns,
       title: 'Previous Acknowledgments',
       empty: {
@@ -333,28 +351,32 @@ export class SpaAdmin extends React.PureComponent {
 }
 
 
-const { object, func, node } = PropTypes;
+const { object, func, node, bool } = PropTypes;
 
 SpaAdmin.propTypes = {
-  spa: object.isRequired,
-  activeAcks: object.isRequired,
-  previousAcks: object.isRequired,
+  adminCached: bool.isRequired,
+  recipients: object.isRequired,
+  adminActiveAcks: object.isRequired,
+  adminPreviousAcks: object.isRequired,
+  onGetAdminDataRequest: func.isRequired,
+  onGetAckRecipientsRequest: func.isRequired,
   onNewAckRequest: func.isRequired,
   onDisableAckRequest: func.isRequired,
-  onGetRecipientsRequest: func.isRequired,
   Loading: node,
 };
 
 const mapStateToProps = createStructuredSelector({
-  spa: makeSelectSpa(),
-  activeAcks: makeSelectPendingAcks(),
-  previousAcks: makeSelectPreviousAcks(),
+  adminCached: getAdminCached(),
+  recipients: getRecipients(),
+  adminActiveAcks: getAdminActiveAcks(),
+  adminPreviousAcks: getAdminPreviousAcks(),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
+  onGetAdminDataRequest: () => dispatch(getAdminDataRequest()),
+  onGetAckRecipientsRequest: (item) => dispatch(getAckRecipientsRequest(item)),
   onNewAckRequest: (vals) => dispatch(newAckRequest(vals)),
   onDisableAckRequest: (item) => dispatch(disableAckRequest(item)),
-  onGetRecipientsRequest: (item) => dispatch(getRecipientsRequest(item)),
 });
 
 const withAppPage = appPage(SpaAdmin);

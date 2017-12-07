@@ -18,7 +18,7 @@ import {
   makeSelectPanelSelected,
   makeSelectAppName,
   makeSelectAppRoutes,
-  makeSelectUserSam,
+  makeSelectUserSid,
 } from './selectors';
 
 import saga from './saga';
@@ -129,7 +129,7 @@ const mapStateToProps = createStructuredSelector({
   panelSelected: makeSelectPanelSelected(),
   appName: makeSelectAppName(),
   appRoutes: makeSelectAppRoutes(),
-  userName: makeSelectUserSam(),
+  userName: makeSelectUserSid(),
 });
 
 export function mapDispatchToProps(dispatch) {

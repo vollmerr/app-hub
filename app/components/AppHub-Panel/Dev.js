@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { authUser } from 'containers/AppHub/actions';
-import { makeSelectUserSam } from 'containers/AppHub/selectors';
+import { makeSelectUserSid } from 'containers/AppHub/selectors';
 import theme from 'utils/theme';
 
 import Wrapper from './Wrapper';
@@ -45,7 +45,7 @@ export class Dev extends React.PureComponent {
   }
 
   render() {
-    const { userSam } = this.props;
+    const { userSid } = this.props;
     const jwts = DEV.JWT; // eslint-disable-line
 
     return (
@@ -62,7 +62,7 @@ export class Dev extends React.PureComponent {
             <TextField
               disabled
               label={'Current User'}
-              value={userSam}
+              value={userSid}
             />
           </Field>
           {
@@ -88,12 +88,12 @@ const { func, string } = PropTypes;
 
 Dev.propTypes = {
   onAuthUser: func.isRequired,
-  userSam: string,
+  userSid: string,
   onClick: func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  userSam: makeSelectUserSam(),
+  userSid: makeSelectUserSid(),
 });
 
 export function mapDispatchToProps(dispatch) {

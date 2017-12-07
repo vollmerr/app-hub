@@ -19,6 +19,26 @@ if (generate) {
   const port = 3001;
 
   server.use(middlewares);
+
+  // custom routes that require some logic...
+  server.get('/spa/recipients/:id/acknowledgments', (req, res) => {
+    let ackIds = [];
+    let acks = [];
+    // get the list of users acks ids
+    ackIds = router.db
+      .get('spa-recipients')
+      .value()
+      .filter(x => x.SID === req.params.id)
+      .map(x => x.AcknowledgmentID);
+    // get the list of acks based off the users ack ids
+    acks = router.db
+      .get('spa-acknowledgments')
+      .value()
+      .filter(x => ackIds.includes(x.id));
+
+    res.jsonp(acks);
+  })
+
   server.use(jsonServer.rewriter(redirects));
   server.use(jsonServer.bodyParser);
 

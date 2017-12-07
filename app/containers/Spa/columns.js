@@ -62,15 +62,26 @@ const recipients = {
     ariaLabel: 'Date the recipient acknowledged the policy',
   },
 };
+// columns for admin page
+const admins = {
+  [ACK.ID]: {
+    label: 'ID',
+    required: true,
+    name: ACK.ID,
+    ariaLabel: 'ID of the Acknowledgment',
+    minWidth: 20,
+    maxWidth: 40,
+  },
+};
 
 export const reportPendingColumns = mapToColumns(recipients, [], [RECIPIENT.ACK_DATE]);
 export const reportAckColumns = mapToColumns(recipients);
 
-// Columns for admin page lists
+// Columns for admin lists
 const adminExcludes = [ACK.STATEMENT, ACK.DETAILS, ACK.FILE_CONTENT];
-export const adminColumns = mapToColumns(spaFields, [], adminExcludes);
-// columns for home page
-const homePendingIncludes = [ACK.TITLE, ACK.DATE_START, ACK.DATE_END];
-export const homePendingColumns = mapToColumns(spaFields, homePendingIncludes);
-const homePreviousIncludes = [...homePendingIncludes];
-export const homePreviousColumns = mapToColumns(spaFields, homePreviousIncludes);
+export const adminColumns = mapToColumns({ ...admins, ...spaFields }, [], adminExcludes);
+// columns for user lists
+const userPendingIncludes = [ACK.TITLE, ACK.DATE_START, ACK.DATE_END];
+export const userPendingColumns = mapToColumns(spaFields, userPendingIncludes);
+const userPreviousIncludes = [...userPendingIncludes];
+export const userPreviousColumns = mapToColumns(spaFields, userPreviousIncludes);

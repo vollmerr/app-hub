@@ -1,43 +1,73 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
+import { takeLatest, all, call, put, select } from 'redux-saga/effects';
 
 import requestWithToken from 'utils/requestWithToken';
+import { makeSelectUserSid } from 'containers/AppHub/selectors';
 
-import {
-  INIT_DATA_REQUEST,
-  NEW_ACK_REQUEST,
-  DISABLE_ACK_REQUEST,
-  GET_RECIPIENTS_REQUEST,
-  RECIPIENT,
-  STATUS,
-  ACK,
-} from './constants';
-
-import {
-  initDataRequest,
-  initDataSuccess,
-  initDataFailure,
-  newAckSuccess,
-  newAckFailure,
-  disableAckSuccess,
-  disableAckFailure,
-  getRecipientsSuccess,
-  getRecipientsFailure,
-} from './actions';
+import * as C from './constants';
+import * as actions from './actions';
 
 export const base = API.SPA;
 
-export function* initData() {
+
+/**
+ * GETs user data (recipients, acknowledgments)
+ */
+export function* getUserData() {
   try {
-    const url = `${base}/`; // TODO! STARTUP ROUTE!
-    const data = yield call(requestWithToken, url);
-    yield put(initDataSuccess(data));
+    const sid = yield select(makeSelectUserSid());
+
+    const urls = {
+      recipients: `${base}/recipients/${sid}`,
+      acknowledgments: `${base}/recipients/${sid}/acknowledgments`,
+    };
+
+    const [recipients, acknowledgments] = yield all([
+      call(requestWithToken, urls.recipients),
+      call(requestWithToken, urls.acknowledgments),
+    ]);
+
+    yield put(actions.getUserDataSuccess({ recipients, acknowledgments }));
   } catch (error) {
-    yield put(initDataFailure(error));
+    yield put(actions.getUserDataFailure(error));
   }
 }
 
+
 /**
- * Posts a new acknowledgment to the api
+ * GETs admin data (acknowledgments)
+ */
+export function* getAdminData() {
+  try {
+    const url = `${base}/acknowledgments`;
+
+    const acknowledgments = yield call(requestWithToken, url);
+    yield put(actions.getAdminDataSuccess({ acknowledgments }));
+  } catch (error) {
+    yield put(actions.getAdminDataFailure(error));
+  }
+}
+
+
+/**
+ * GETs the recipients for an existing acknowledgment
+ *
+ * @param {object} action   - action that was dispatched, with immutable payload
+ */
+export function* getAckRecipients(action) {
+  try {
+    const id = action.payload.id;
+    const url = `${base}/acknowledgements/${id}/recipients`;
+
+    const recipients = yield call(requestWithToken, url);
+    yield put(actions.getAckRecipientsSuccess({ recipients }));
+  } catch (error) {
+    yield put(actions.getAckRecipientsFailure(error));
+  }
+}
+
+
+/**
+ * POSTs a new acknowledgment to the api
  *
  * @param {object} action   - action that was dispatched, with immutable payload
  */
@@ -48,16 +78,17 @@ export function* newAck(action) {
       method: 'POST',
       body: action.payload.toJS(),
     };
+
     const data = yield call(requestWithToken, url, options);
-    yield put(newAckSuccess(data));
-    yield put(initDataRequest());
+    yield put(actions.newAckSuccess(data));
   } catch (error) {
-    yield put(newAckFailure(error));
+    yield put(actions.newAckFailure(error));
   }
 }
 
+
 /**
- * Disables an existing acknowledgment
+ * PATCHs an existing acknowledgment with disable
  *
  * @param {object} action   - action that was dispatched, with immutable payload
  */
@@ -70,39 +101,26 @@ export function* disableAck(action) {
       body: [
         {
           op: 'replace',
-          path: `/${ACK.STATUS}`,
-          value: STATUS.DISABLED, // TODO... DISBALED VALUE / STATUS IN GENERAL
+          path: `/${C.ACK.STATUS}`,
+          value: C.STATUS.DISABLED,
         },
       ],
     };
+
     const data = yield call(requestWithToken, url, options);
-    yield put(disableAckSuccess(data));
+    yield put(actions.disableAckSuccess(data));
   } catch (error) {
-    yield put(disableAckFailure(error));
+    yield put(actions.disableAckFailure(error));
   }
 }
 
-/**
- * Gets the users for an existing acknowledgment
- *
- * @param {object} action   - action that was dispatched, with immutable payload
- */
-export function* getRecipients(action) {
-  try {
-    const id = action.payload.id;
-    const url = `${base}/recipients?${RECIPIENT.ACK_ID}=${id}`;
-    const data = yield call(requestWithToken, url);
-    yield put(getRecipientsSuccess(data));
-  } catch (error) {
-    yield put(getRecipientsFailure(error));
-  }
-}
 
 function* spaSaga() {
-  yield takeLatest(INIT_DATA_REQUEST, initData);
-  yield takeLatest(NEW_ACK_REQUEST, newAck);
-  yield takeLatest(DISABLE_ACK_REQUEST, disableAck);
-  yield takeLatest(GET_RECIPIENTS_REQUEST, getRecipients);
+  yield takeLatest(C.GET_USER_DATA_REQUEST, getUserData);
+  yield takeLatest(C.GET_ADMIN_DATA_REQUEST, getAdminData);
+  yield takeLatest(C.GET_ACK_RECIPIENTS_REQUEST, getAckRecipients);
+  yield takeLatest(C.NEW_ACK_REQUEST, newAck);
+  yield takeLatest(C.DISABLE_ACK_REQUEST, disableAck);
 }
 
 export default spaSaga;

@@ -77,13 +77,13 @@ describe('AppHub actions', () => {
     });
 
     it('has a type of AUTH_USER_DONE', () => {
-      const sam = 'testSam';
+      const sid = 'testSid';
       const roles = ['role1', 'role2'];
       const expected = {
-        payload: { sam, roles },
+        payload: { sid, roles },
         type: AUTH_USER_DONE,
       };
-      expect(authUserDone({ sam, roles })).toEqual(expected);
+      expect(authUserDone({ sid, roles })).toEqual(expected);
     });
 
     it('has a type of AUTH_USER_DONE for errors', () => {

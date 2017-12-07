@@ -32,7 +32,7 @@ export class DemoHome extends React.PureComponent {
     return (
       <div>
         <p>in demo home......</p>
-        <p>Logged in as {user.get('sam')}</p>
+        <p>Logged in as {user.get('sid')}</p>
         <p>with permissions (BARS):</p>
         <ul>
           {

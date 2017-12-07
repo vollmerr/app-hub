@@ -27,7 +27,7 @@ export const initialState = {
     meta: {},
   },
   user: {
-    sam: '',
+    sid: '',
     roles: [],
   },
 };
@@ -56,7 +56,7 @@ export default handleActions({
   },
   // USER
   [AUTH_USER_DONE]: (state, action) => {
-    const { sam, roles, expire } = action.payload;
+    const { sid, roles, expire } = action.payload;
 
     if (action.error) {
       return state
@@ -67,7 +67,7 @@ export default handleActions({
     const rolesArray = typeof roles === 'string' ? [roles] : roles;
 
     return state
-      .setIn(['user', 'sam'], sam)
+      .setIn(['user', 'sid'], sid)
       .setIn(['user', 'roles'], fromJS(rolesArray))
       .setIn(['user', 'expire'], expire);
   },

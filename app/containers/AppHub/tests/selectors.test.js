@@ -11,7 +11,7 @@ import makeSelectAppHub, {
   makeSelectAppRoutes,
   makeSelectAppMeta,
   makeSelectUser,
-  makeSelectUserSam,
+  makeSelectUserSid,
   makeSelectUserRoles,
 } from '../selectors';
 
@@ -30,7 +30,7 @@ const state = {
       meta: { desc: 'test desc' },
     },
     user: {
-      sam: 'testUser',
+      sid: 'testUser',
       roles: ['super duper admin', 'best admin ever'],
     },
   },
@@ -115,9 +115,9 @@ describe('user selectors', () => {
     expect(selector(actual)).toEqual(expected);
   });
 
-  it('should select `sam`', () => {
-    const selector = makeSelectUserSam();
-    const expected = state.appHub.user.sam;
+  it('should select `sid`', () => {
+    const selector = makeSelectUserSid();
+    const expected = state.appHub.user.sid;
     expect(selector(actual)).toEqual(expected);
   });
 

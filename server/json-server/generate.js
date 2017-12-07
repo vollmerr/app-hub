@@ -5,7 +5,7 @@ const fs = require('fs');
 function mapRoute(api, name, key) {
   const routes = {};
   const route = `/${api}/${key}`;
-  routes[route] = name;
+  routes[route] = `/${name}`;
   routes[`${route}/:id`] = `/${name}/:id`;
   return routes;
 }
