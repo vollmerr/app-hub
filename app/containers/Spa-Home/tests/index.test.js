@@ -3,28 +3,32 @@ import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
+import { testMapDispatchToProps } from 'utils/testUtils';
+import { getUserDataRequest } from 'containers/Spa/actions';
 import ListSection from 'components/List/ListSection';
 
-import { SpaHome } from '../index';
+import { SpaHome, mapDispatchToProps } from '../index';
 import AckModal from '../AckModal';
 
 const List = require.requireActual('components/List');
 
 const props = {
-  pendingAcks: fromJS([{
+  userCached: false,
+  userPendingAcks: fromJS([{
     id: 1,
     name: 'test1',
   }, {
     id: 3,
     name: 'test3',
   }]),
-  previousAcks: fromJS([{
+  userPreviousAcks: fromJS([{
     id: 2,
     name: 'test2',
   }, {
     id: 4,
     name: 'test4',
   }]),
+  onGetUserDataRequest: jest.fn(),
   Loading: null,
 };
 
@@ -80,6 +84,20 @@ describe('<SpaHome />', () => {
       List.handleSelectItem = jest.fn();
       instance.selectionPrev._onSelectionChanged(); // eslint-disable-line
       expect(List.handleSelectItem).toHaveBeenCalled();
+    });
+  });
+
+
+  describe('componentDidMount', () => {
+    it('should load the user data if not cached', () => {
+      expect(props.onGetUserDataRequest).toHaveBeenCalled();
+    });
+
+    it('shoud not load the user data if it is cached', () => {
+      wrapper.setProps({ userCached: true });
+      jest.resetAllMocks();
+      instance.componentDidMount();
+      expect(props.onGetUserDataRequest).not.toHaveBeenCalled();
     });
   });
 
@@ -140,5 +158,14 @@ describe('<SpaHome />', () => {
       instance.handleCloseModal();
       expect(wrapper.state('hideModal')).toEqual(true);
     });
+  });
+
+
+  describe('mapDispatchToProps', () => {
+    const actions = {
+      getUserDataRequest,
+    };
+
+    testMapDispatchToProps(mapDispatchToProps, actions);
   });
 });
