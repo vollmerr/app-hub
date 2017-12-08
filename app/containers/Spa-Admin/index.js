@@ -27,11 +27,11 @@ import { adminColumns } from 'containers/Spa/columns';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
 import { ACK, STATUS, RECIPIENT } from 'containers/Spa/constants';
+import SpaReport from 'containers/Spa-Report';
 
 import AdminNav from './AdminNav';
 import NewAckForm from './NewAckForm';
 import DisableModal from './DisableModal';
-import Report from './Report';
 
 
 const halfHeight = {
@@ -294,7 +294,7 @@ export class SpaAdmin extends React.PureComponent {
 
       return (
         <div>
-          <Report {...reportProps} />
+          <SpaReport {...reportProps} />
           <DisableModal {...modalProps} />
         </div>
       );

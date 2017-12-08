@@ -200,6 +200,7 @@ class List extends React.PureComponent {
       columns,
       onRenderDetailsHeader: this.renderHeader,
       onRenderItemColumn: this.renderItemColumn,
+      componentRef: (ref) => { this.listRef = ref; },
     };
 
     return (

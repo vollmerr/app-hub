@@ -1,13 +1,13 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Report from '../Report';
+import SpaReport from '../index';
 
-describe('<Report />', () => {
+describe('<SpaReport />', () => {
   let wrapper;
   beforeEach(() => {
     jest.resetAllMocks();
-    wrapper = shallow(<Report />);
+    wrapper = shallow(<SpaReport />);
   });
 
   it('should render correctly', () => {
