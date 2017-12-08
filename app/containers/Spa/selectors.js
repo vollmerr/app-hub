@@ -9,7 +9,9 @@ const selectRecipients = (state) => selectSpa(state).get('recipients');
 const selectAcknowledgments = (state) => selectSpa(state).get('acknowledgments');
 
 const selectById = (state) => state.get('byId');
-const selectByAckId = (state, id) => selectById(state).filter((x) => String(x.get(RECIPIENT.ACK_ID)) === String(id));
+const selectByAckId = (state, id) => selectById(state).filter((x) => (
+  String(x.get(RECIPIENT.ACK_ID)) === String(id)
+));
 const selectAllIds = (state) => state.get('allIds');
 const selectIdExists = (state, id) => state.includes(String(id));
 const selectCached = (state) => state.get('isCached');
@@ -47,7 +49,7 @@ const getUserPreviousAcks = () => createSelector(
 );
 
 
-// selects array of users acknowlegments combined with recipient details based off type
+// selects List of users acknowlegments based off type
 const getAdminAcks = (type) => (
   (admin, acks) => admin.get(type).map((id) => (
     selectById(acks).get(id)
@@ -62,12 +64,12 @@ const getAdminAllIds = () => createSelector(
   selectAdmin,
   (admin) => selectAllIds(admin)
 );
-// selects array of users pending acknowlegments combined with recipient details
+// selects List of active acknowlegments
 const getAdminActiveAcks = () => createSelector(
   [selectAdmin, selectAcknowledgments],
   getAdminAcks('acksActiveIds')
 );
-// selects array of users previous acknowlegments combined with recipient details
+// selects List of previous acknowlegments
 const getAdminPreviousAcks = () => createSelector(
   [selectAdmin, selectAcknowledgments],
   getAdminAcks('acksPreviousIds')
