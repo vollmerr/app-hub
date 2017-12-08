@@ -42,7 +42,7 @@ function generateJwt(sid, firstName, lastName, roles) {
     name: `${firstName} ${lastName}`,
     sub: sid,
     roles,
-    exp: Math.floor(Date.now() / 100) + 100000,
+    exp: Math.floor(Date.now() / 1000) + 10000,
   }, secret);
 }
 
@@ -136,7 +136,7 @@ function generateUsers() {
 
 function generateRecipients(users) {
   const recipients = [];
-  for (let i = 0; i < 100; i += 1) {
+  for (let i = 0; i < 300; i += 1) {
     const user = users[i % 20];
     const recipient = generateRecipient(user);
     // if the user dosnt already have an acknowledgment with that id
@@ -154,7 +154,7 @@ function generateRecipients(users) {
 
 function generateAcknowledgments() {
   const acks = [];
-  for (let i = 0; i < 100; i += 1) {
+  for (let i = 0; i < 50; i += 1) {
     const ack = generateAcknowledgment();
     if (!acks.find((x) => (
       x[a.ID] === ack[a.ID]

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Report /> should render correctly 1`] = `
+<Report
+  animateFauxDOM={[Function]}
+  connectFauxDOM={[Function]}
+  drawFauxDOM={[Function]}
+  isAnimatingFauxDOM={[Function]}
+  stopAnimatingFauxDOM={[Function]}
+/>
+`;
