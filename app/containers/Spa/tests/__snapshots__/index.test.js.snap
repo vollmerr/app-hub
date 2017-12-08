@@ -2,7 +2,7 @@
 
 exports[`Spa Entry should render correctly 1`] = `
 <Wrapper__Wrapper>
-  <withReducer(withSaga(Connect(Spa))) />
+  <withReducer(withSaga(Spa)) />
   <App-Content__AppContent>
     <Router
       routes={
