@@ -19,6 +19,9 @@ exports[`<EmptyMessage /> should render correctly 1`] = `
 
 exports[`<EmptyMessage__Wrapper /> should render correctly 1`] = `
 .c0 {
+  -webkit-flex: 1 200px;
+  -ms-flex: 1 200px;
+  flex: 1 200px;
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-flexbox;

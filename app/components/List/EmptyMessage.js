@@ -5,6 +5,7 @@ import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
 
 export const Wrapper = styled.div`
+  flex: 1 200px;
   display: inline-flex;
   flex-direction: column;
   align-items: center;

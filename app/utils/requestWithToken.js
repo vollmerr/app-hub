@@ -59,11 +59,12 @@ export const DEFAULT_EXPIRE = 1000;
  * Checks local storage for token first
  */
 export function* authenticate(action, maxTries = 3) {
-  const token = localStorage.getItem('id_token');
   let expire = DEFAULT_EXPIRE; // try again in 1s by default
   let tries = 0;
   let error = new Error('Failed to authenticate');
   while (tries < maxTries) { // eslint-disable-line
+    const token = localStorage.getItem('id_token');
+    // if valid local token use that, otherwise get new token
     if (validToken(token)) {
       // update user in global appHub state
       expire = yield call(putToken, token);

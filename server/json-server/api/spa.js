@@ -42,7 +42,7 @@ function generateJwt(sid, firstName, lastName, roles) {
     name: `${firstName} ${lastName}`,
     sub: sid,
     roles,
-    exp: Math.floor(Date.now() / 1000) + 10000,
+    exp: Math.floor(Date.now() / 1000) + 1000000,
   }, secret);
 }
 
