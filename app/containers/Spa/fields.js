@@ -27,7 +27,7 @@ const spaFields = {
     component: FieldDate,
   },
   [ACK.DATE_END]: {
-    label: 'Start Date',
+    label: 'End Date',
     required: true,
     name: ACK.DATE_END,
     placeholder: 'Select the end date',

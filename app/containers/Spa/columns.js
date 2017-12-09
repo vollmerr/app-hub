@@ -25,8 +25,8 @@ export function mapToColumns(obj, include = [], exclude = []) {
       fieldName: obj[key].name,
       isResizable: true,
       ariaLabel: obj[key].ariaLabel,
-      minWidth: obj[key].minWidth || 150,
-      maxWidth: obj[key].maxWidth || 300,
+      minWidth: obj[key].minWidth || 100,
+      maxWidth: obj[key].maxWidth || 250,
     }));
 }
 
@@ -66,9 +66,8 @@ const recipients = {
 const admins = {
   [ACK.ID]: {
     label: 'ID',
-    required: true,
     name: ACK.ID,
-    ariaLabel: 'ID of the Acknowledgment',
+    ariaLabel: 'ID of the acknowledgment',
     minWidth: 20,
     maxWidth: 40,
   },
@@ -83,5 +82,17 @@ export const adminColumns = mapToColumns({ ...admins, ...spaFields }, [], adminE
 // columns for user lists
 const userPendingIncludes = [ACK.TITLE, ACK.DATE_START, ACK.DATE_END];
 export const userPendingColumns = mapToColumns(spaFields, userPendingIncludes);
-const userPreviousIncludes = [...userPendingIncludes];
-export const userPreviousColumns = mapToColumns(spaFields, userPreviousIncludes);
+
+const userPrevious = {
+  ...spaFields,
+  [RECIPIENT.ACK_DATE]: {
+    label: 'Acknowledgment Date',
+    name: RECIPIENT.ACK_DATE,
+    ariaLabel: 'Date policy was acknowledged',
+    minWidth: 150,
+    maxWidth: 200,
+  },
+};
+
+const userPreviousIncludes = [...userPendingIncludes, RECIPIENT.ACK_DATE];
+export const userPreviousColumns = mapToColumns(userPrevious, userPreviousIncludes);

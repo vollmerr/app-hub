@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { DetailsList } from 'office-ui-fabric-react/lib/DetailsList';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import orderBy from 'lodash/orderBy';
+import isEqual from 'lodash/isEqual';
 
 import { escapeRegExp } from 'utils/string';
 
@@ -60,8 +61,10 @@ class List extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    // if we recieve items when currently empty, update to new items
-    if (!this.props.items.length && nextProps.items.length) {
+    const { items } = this.state;
+
+    // different items, updae local ones (deep compare...)
+    if (!isEqual(items, nextProps.items)) {
       this.setState({ items: nextProps.items });
     }
   }
@@ -213,7 +216,7 @@ class List extends React.PureComponent {
         </Header>
 
         {
-          this.props.items.length ?
+          items.length ?
             <DetailsList {...listProps} /> :
             <EmptyMessage {...empty} />
         }

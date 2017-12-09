@@ -49,7 +49,7 @@ export const Color = styled.div`
   margin-right: 5px;
   width: 15px;
   height: 15px;
-  background: ${(props) => theme.chart.colors[props.index]};
+  background: ${(props) => props.color};
   border: 1px solid ${theme.themeDarker};
 `;
 
@@ -63,8 +63,8 @@ class PieChart extends React.PureComponent {
       <Wrapper>
         <Chart>{chart}</Chart>
         <Legend>
-          <Item><Color index={0} />Pending: {pending.count} ({pending.percent} %)</Item>
-          <Item><Color index={1} />Acknowldged: {acknowledged.count} ({acknowledged.percent} %)</Item>
+          <Item><Color color={pending.color} />Pending: {pending.count} ({pending.percent} %)</Item>
+          <Item><Color color={acknowledged.color} />Acknowldged: {acknowledged.count} ({acknowledged.percent} %)</Item>
         </Legend>
       </Wrapper>
     );

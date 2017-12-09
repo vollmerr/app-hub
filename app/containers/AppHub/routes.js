@@ -19,7 +19,7 @@ const routes = [
   // __APPS__
   {
     key: 'spa',
-    name: 'Spa',
+    name: 'SPA',
     path: '/spa',
     exact: false,
     component: Spa,

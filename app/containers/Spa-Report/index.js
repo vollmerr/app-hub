@@ -42,7 +42,6 @@ export class SpaReport extends React.PureComponent {
       data !== prevProps.data ||
       dataKey !== prevProps.dataKey
     ) {
-
       this.mapData(this.renderD3, 'update');
     }
   }
@@ -67,15 +66,15 @@ export class SpaReport extends React.PureComponent {
     }, () => cb && cb(type));
   }
 
-  handleClick = (data) => (d, i) => {
-    this.setState({ selectedKey: i });
+  handleClick = (d) => {
+    this.setState({ selectedKey: Number(d.data.key) });
   }
 
   renderD3 = (type) => {
     const { data, dataKey, connectFauxDOM, animateFauxDOM } = this.props;
     // data passed down
     const mappedData = d3.nest()
-      .key((d) => Boolean(d[dataKey]))
+      .key((d) => d[dataKey] ? ACK : PENDING)
       .rollup((v) => v.length)
       .entries(data);
     // attach to faux dom
@@ -112,9 +111,9 @@ export class SpaReport extends React.PureComponent {
       // add a path to each arc, with the color based off index
       g.append('path')
         .attr('d', arc)
-        .style('fill', (d, i) => color(i))
+        .style('fill', (d) => color(Number(d.data.key)))
         .each(function setAngle(d) { this.current = d; }) // store inital angle
-        .on('click', this.handleClick(mappedData));
+        .on('click', this.handleClick);
     } else { // UPDATING
       const svg = d3.select(faux).select('svg');
       // rejoin data
@@ -130,18 +129,18 @@ export class SpaReport extends React.PureComponent {
         .attr('class', 'arc')
         .append('path')
         .attr('d', arc)
-        .style('fill', (d, i) => color(i))
+        .style('fill', (d) => color(Number(d.data.key)))
         .each(function setAngle(d) { this.current = d; })  // store inital angles
-        .on('click', this.handleClick(mappedData));
+        .on('click', this.handleClick);
       // update exisitng paths
       g.select('path')
         .transition()
         .duration(500)
         .attrTween('d', arcTween)
-        .style('fill', (d, i) => color(i));
+        .style('fill', (d) => color(Number(d.data.key)));
 
       g.select('path')
-        .on('click', this.handleClick(mappedData));
+        .on('click', this.handleClick);
 
       // render update / animate
       animateFauxDOM(800);
@@ -172,10 +171,12 @@ export class SpaReport extends React.PureComponent {
       chart,
       stats: {
         pending: {
+          color: theme.chart.colors[PENDING],
           count: pending.length,
           percent: pendingPercent,
         },
         acknowledged: {
+          color: theme.chart.colors[ACK],
           count: acknowledged.length,
           percent: acknowldgedPercent,
         },
