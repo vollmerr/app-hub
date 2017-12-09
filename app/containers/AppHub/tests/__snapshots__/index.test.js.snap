@@ -50,7 +50,7 @@ exports[`<AppHubRoot /> should render correctly if authenticated 1`] = `
             "keywords": "SPA",
             "title": "SPA",
           },
-          "name": "Spa",
+          "name": "SPA",
           "path": "/spa",
         },
         Object {
@@ -116,7 +116,7 @@ exports[`<AppHubRoot /> should render correctly if authenticated 1`] = `
               "keywords": "SPA",
               "title": "SPA",
             },
-            "name": "Spa",
+            "name": "SPA",
             "path": "/spa",
           },
           Object {
@@ -188,7 +188,7 @@ exports[`<AppHubRoot /> should render correctly if not authenticated 1`] = `
             "keywords": "SPA",
             "title": "SPA",
           },
-          "name": "Spa",
+          "name": "SPA",
           "path": "/spa",
         },
         Object {

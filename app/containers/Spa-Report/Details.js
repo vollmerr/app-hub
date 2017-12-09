@@ -1,10 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import theme from 'utils/theme';
+import { ACK } from 'containers/Spa/constants';
+import spaFields from 'containers/Spa/fields';
 
-
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   flex: 1;
   margin: 5px;
   padding: 15px;
@@ -13,22 +15,61 @@ const Wrapper = styled.div`
 `;
 
 
-const Heading = styled.h3`
-  margin: 0;
+export const Heading = styled.h3`
+  margin: 0 5px 10px 5px;
 `;
 
 
+export const Item = styled.div`
+  display: inline-flex;
+  width: 100%;
+  padding: 5px;
+`;
+
+export const Key = styled.div`
+  flex: 1;
+`;
+
+
+export const Value = styled.div`
+  flex: 3;
+`;
+
+
+export const items = [
+  ACK.DATE_START,
+  ACK.DATE_END,
+  ACK.TARGET_GROUPS,
+  ACK.FILE_NAME,
+  ACK.STATEMENT,
+  ACK.DETAILS,
+];
+
 class Details extends React.PureComponent {
   render() {
-    const { title } = this.props;
+    const { selectedItem } = this.props;
 
     return (
       <Wrapper>
-        <Heading>{title}</Heading>
-        todo: details...
+        <Heading>{selectedItem[ACK.TITLE]}</Heading>
+        {
+          items.map((item) => (
+            <Item key={item}>
+              <Key>{spaFields[item].label}</Key>
+              <Value>{selectedItem[item]}</Value>
+            </Item>
+          ))
+        }
       </Wrapper>
     );
   }
 }
+
+
+const { object } = PropTypes;
+
+Details.propTypes = {
+  selectedItem: object.isRequired,
+};
 
 export default Details;

@@ -14,11 +14,12 @@ import {
 
 import { ACK, STATUS, RECIPIENT } from 'containers/Spa/constants';
 import ListSection from 'components/List/ListSection';
+import SpaReport from 'containers/Spa-Report';
+
 import { SpaAdmin, mapDispatchToProps } from '../index';
 import AdminNav from '../AdminNav';
 import NewAckForm from '../NewAckForm';
 import DisableModal from '../DisableModal';
-import Report from '../Report';
 
 const List = require.requireActual('components/List');
 
@@ -217,7 +218,7 @@ describe('<SpaAdmin />', () => {
       it('should render the report', () => {
         instance.handleShowReport();
         wrapper.update();
-        expect(wrapper.find(Report).length).toEqual(1);
+        expect(wrapper.find(SpaReport).length).toEqual(1);
       });
     });
 
@@ -226,7 +227,7 @@ describe('<SpaAdmin />', () => {
         wrapper.setState({ hideReport: false });
         instance.handleHideReport();
         wrapper.update();
-        expect(wrapper.find(Report).length).toEqual(0);
+        expect(wrapper.find(SpaReport).length).toEqual(0);
       });
     });
   });
@@ -358,9 +359,9 @@ describe('<SpaAdmin />', () => {
     });
 
     it('should render the report only if it is not hidden and an item is selected', () => {
-      expect(wrapper.find(Report).length).toEqual(0);
+      expect(wrapper.find(SpaReport).length).toEqual(0);
       wrapper.setState({ hideReport: false, selectedItem: { [ACK.ID]: 1 } });
-      expect(wrapper.find(Report).length).toEqual(1);
+      expect(wrapper.find(SpaReport).length).toEqual(1);
     });
 
     it('should render the disable modal only if the report is not hidden and an item is selected', () => {

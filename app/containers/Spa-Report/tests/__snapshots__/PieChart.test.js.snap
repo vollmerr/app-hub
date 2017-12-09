@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PieChart__Chart /> should render correctly 1`] = `
+.c0 .arc path {
+  stroke: #004578;
+  stroke-width: 1px;
+}
+
+.c0 .arc path:hover {
+  fill-opacity: 0.15;
+  cursor: pointer;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<PieChart__Color /> should render correctly 1`] = `
+.c0 {
+  display: inline-block;
+  margin-right: 5px;
+  width: 15px;
+  height: 15px;
+  background: ;
+  border: 1px solid #004578;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<PieChart__Item /> should render correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 5px;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<PieChart__Legend /> should render correctly 1`] = `
+.c0 {
+  margin: 5px;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<PieChart__Wrapper /> should render correctly 1`] = `
+.c0 {
+  -webkit-flex: 2 calc(400px + 60px);
+  -ms-flex: 2 calc(400px + 60px);
+  flex: 2 calc(400px + 60px);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 5px;
+  padding: 15px;
+  background: #ffffff;
+  box-shadow: 0 0 3px #eaeaea;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`PieChart should render correctly 1`] = `
+<PieChart__Wrapper>
+  <PieChart__Chart>
+    <ChartProp />
+  </PieChart__Chart>
+  <PieChart__Legend>
+    <PieChart__Item>
+      <PieChart__Color />
+      Pending: 
+      5
+       (
+      30
+       %)
+    </PieChart__Item>
+    <PieChart__Item>
+      <PieChart__Color />
+      Acknowldged: 
+      20
+       (
+      70
+       %)
+    </PieChart__Item>
+  </PieChart__Legend>
+</PieChart__Wrapper>
+`;

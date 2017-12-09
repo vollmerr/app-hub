@@ -25,7 +25,7 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
         columns={
           Array [
             Object {
-              "ariaLabel": "ID of the Acknowledgment",
+              "ariaLabel": "ID of the acknowledgment",
               "fieldName": "id",
               "isResizable": true,
               "key": "id",
@@ -38,8 +38,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "title",
               "isResizable": true,
               "key": "title",
-              "maxWidth": 300,
-              "minWidth": 150,
+              "maxWidth": 250,
+              "minWidth": 100,
               "name": "Title",
             },
             Object {
@@ -47,8 +47,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "activeStartDate",
               "isResizable": true,
               "key": "activeStartDate",
-              "maxWidth": 300,
-              "minWidth": 150,
+              "maxWidth": 250,
+              "minWidth": 100,
               "name": "Start Date",
             },
             Object {
@@ -56,17 +56,17 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "activeEndDate",
               "isResizable": true,
               "key": "activeEndDate",
-              "maxWidth": 300,
-              "minWidth": 150,
-              "name": "Start Date",
+              "maxWidth": 250,
+              "minWidth": 100,
+              "name": "End Date",
             },
             Object {
               "ariaLabel": "AD groups that must acknowledge the policy",
               "fieldName": "targetADGroup",
               "isResizable": true,
               "key": "targetADGroup",
-              "maxWidth": 300,
-              "minWidth": 150,
+              "maxWidth": 250,
+              "minWidth": 100,
               "name": "Target Group(s)",
             },
             Object {
@@ -74,8 +74,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "fileName",
               "isResizable": true,
               "key": "fileName",
-              "maxWidth": 300,
-              "minWidth": 150,
+              "maxWidth": 250,
+              "minWidth": 100,
               "name": "Attachment Name",
             },
           ]
@@ -131,7 +131,7 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
         columns={
           Array [
             Object {
-              "ariaLabel": "ID of the Acknowledgment",
+              "ariaLabel": "ID of the acknowledgment",
               "fieldName": "id",
               "isResizable": true,
               "key": "id",
@@ -144,8 +144,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "title",
               "isResizable": true,
               "key": "title",
-              "maxWidth": 300,
-              "minWidth": 150,
+              "maxWidth": 250,
+              "minWidth": 100,
               "name": "Title",
             },
             Object {
@@ -153,8 +153,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "activeStartDate",
               "isResizable": true,
               "key": "activeStartDate",
-              "maxWidth": 300,
-              "minWidth": 150,
+              "maxWidth": 250,
+              "minWidth": 100,
               "name": "Start Date",
             },
             Object {
@@ -162,17 +162,17 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "activeEndDate",
               "isResizable": true,
               "key": "activeEndDate",
-              "maxWidth": 300,
-              "minWidth": 150,
-              "name": "Start Date",
+              "maxWidth": 250,
+              "minWidth": 100,
+              "name": "End Date",
             },
             Object {
               "ariaLabel": "AD groups that must acknowledge the policy",
               "fieldName": "targetADGroup",
               "isResizable": true,
               "key": "targetADGroup",
-              "maxWidth": 300,
-              "minWidth": 150,
+              "maxWidth": 250,
+              "minWidth": 100,
               "name": "Target Group(s)",
             },
             Object {
@@ -180,8 +180,8 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "fieldName": "fileName",
               "isResizable": true,
               "key": "fileName",
-              "maxWidth": 300,
-              "minWidth": 150,
+              "maxWidth": 250,
+              "minWidth": 100,
               "name": "Attachment Name",
             },
           ]

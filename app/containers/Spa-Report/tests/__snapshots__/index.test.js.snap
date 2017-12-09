@@ -1,11 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Report /> should render correctly 1`] = `
-<Report
+exports[`<SpaReport /> should render correctly 1`] = `
+<SpaReport
   animateFauxDOM={[Function]}
+  chart={<ChartProp />}
   connectFauxDOM={[Function]}
+  data={Array []}
+  dataKey="test"
   drawFauxDOM={[Function]}
   isAnimatingFauxDOM={[Function]}
+  selectedItem={Object {}}
   stopAnimatingFauxDOM={[Function]}
 />
 `;

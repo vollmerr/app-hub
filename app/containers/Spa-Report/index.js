@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withFauxDOM } from 'react-faux-dom';
 import * as d3 from 'd3';
 import { SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
@@ -35,7 +36,7 @@ export class SpaReport extends React.PureComponent {
     this.mapData(this.renderD3, 'render');
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     const { data, dataKey } = this.props;
     // do not compare props.chart as it gets updated in updateD3()
     if (
@@ -145,7 +146,7 @@ export class SpaReport extends React.PureComponent {
       // render update / animate
       animateFauxDOM(800);
 
-      function arcTween(a) {
+      function arcTween(a) { // eslint-disable-line
         const i = d3.interpolate(this.current, a);
         this.current = i(0);
         return (t) => arc(i(t));
@@ -154,7 +155,7 @@ export class SpaReport extends React.PureComponent {
   }
 
   render() {
-    const { chart, data } = this.props;
+    const { chart, data, selectedItem } = this.props;
     const { recipients, selectedKey } = this.state;
     // build stats for chart lengend
     const totalCount = data.length || 1;
@@ -164,7 +165,7 @@ export class SpaReport extends React.PureComponent {
     const acknowldgedPercent = 100 - pendingPercent;
 
     const detailsProps = {
-      title: 'TODO: TITLE',
+      selectedItem,
     };
 
     const pieChartProps = {
@@ -206,5 +207,17 @@ export class SpaReport extends React.PureComponent {
     );
   }
 }
+
+
+const { object, array, func, string, node } = PropTypes;
+
+SpaReport.propTypes = {
+  chart: node,
+  data: array.isRequired,
+  dataKey: string.isRequired,
+  selectedItem: object.isRequired,
+  connectFauxDOM: func.isRequired,
+  animateFauxDOM: func.isRequired,
+};
 
 export default withFauxDOM(SpaReport);

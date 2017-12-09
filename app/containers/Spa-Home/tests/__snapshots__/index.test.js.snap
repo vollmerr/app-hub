@@ -13,8 +13,8 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "fieldName": "title",
             "isResizable": true,
             "key": "title",
-            "maxWidth": 300,
-            "minWidth": 150,
+            "maxWidth": 250,
+            "minWidth": 100,
             "name": "Title",
           },
           Object {
@@ -22,8 +22,8 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "fieldName": "activeStartDate",
             "isResizable": true,
             "key": "activeStartDate",
-            "maxWidth": 300,
-            "minWidth": 150,
+            "maxWidth": 250,
+            "minWidth": 100,
             "name": "Start Date",
           },
           Object {
@@ -31,9 +31,9 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "fieldName": "activeEndDate",
             "isResizable": true,
             "key": "activeEndDate",
-            "maxWidth": 300,
-            "minWidth": 150,
-            "name": "Start Date",
+            "maxWidth": 250,
+            "minWidth": 100,
+            "name": "End Date",
           },
         ]
       }
@@ -86,8 +86,8 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "fieldName": "title",
             "isResizable": true,
             "key": "title",
-            "maxWidth": 300,
-            "minWidth": 150,
+            "maxWidth": 250,
+            "minWidth": 100,
             "name": "Title",
           },
           Object {
@@ -95,8 +95,8 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "fieldName": "activeStartDate",
             "isResizable": true,
             "key": "activeStartDate",
-            "maxWidth": 300,
-            "minWidth": 150,
+            "maxWidth": 250,
+            "minWidth": 100,
             "name": "Start Date",
           },
           Object {
@@ -104,9 +104,18 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "fieldName": "activeEndDate",
             "isResizable": true,
             "key": "activeEndDate",
-            "maxWidth": 300,
+            "maxWidth": 250,
+            "minWidth": 100,
+            "name": "End Date",
+          },
+          Object {
+            "ariaLabel": "Date policy was acknowledged",
+            "fieldName": "AcknowledgmentDate",
+            "isResizable": true,
+            "key": "AcknowledgmentDate",
+            "maxWidth": 200,
             "minWidth": 150,
-            "name": "Start Date",
+            "name": "Acknowledgment Date",
           },
         ]
       }

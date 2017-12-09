@@ -26,7 +26,7 @@ export const Chart = styled.div`
   }
 
   .arc path:hover {
-    fill-opacity: 0.2;
+    fill-opacity: 0.15;
     cursor: pointer;
   }
 `;
@@ -72,10 +72,10 @@ class PieChart extends React.PureComponent {
 }
 
 
-const { object, shape, number } = PropTypes;
+const { node, shape, number } = PropTypes;
 
 PieChart.propTypes = {
-  chart: object,
+  chart: node,
   stats: shape({
     pending: shape({
       count: number,

@@ -115,12 +115,21 @@ describe('<List />', () => {
 
 
   describe('componentWillReceiveProps', () => {
-    it('should update `state.items` if empty and recieve non empty', () => {
-      const items = [{ id: 1, name: 'test 1' }];
+    it('should update `state.items` if the items have changed', () => {
       wrapper.setProps({ items: [] });
+      wrapper.update();
+      expect(wrapper.state('items')).toEqual([]);
+
+      const items = [{ id: 1, name: 'test 1' }];
       wrapper.setProps({ items });
       wrapper.update();
       expect(wrapper.state('items')).toEqual(items);
+    });
+
+    it('should not update `state.items` if the items have not changed', () => {
+      wrapper.setProps({ items: props.items });
+      wrapper.update();
+      expect(wrapper.state('items')).toEqual(props.items);
     });
   });
 

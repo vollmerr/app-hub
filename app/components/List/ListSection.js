@@ -17,7 +17,7 @@ const ListSection = styled(Section) `
 
   .ms-Viewport {
     overflow: auto;
-    flex: 10 calc(100% - ${theme.list.headerHeight});
+    flex: 10 100%;
   }
 
   .ms-DetailsList {

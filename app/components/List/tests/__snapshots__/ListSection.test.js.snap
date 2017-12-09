@@ -9,9 +9,9 @@ exports[`<Items /> should render correctly with nothing passed 1`] = `
 
 .c0 .ms-Viewport {
   overflow: auto;
-  -webkit-flex: 10 calc(100% - 60px);
-  -ms-flex: 10 calc(100% - 60px);
-  flex: 10 calc(100% - 60px);
+  -webkit-flex: 10 100%;
+  -ms-flex: 10 100%;
+  flex: 10 100%;
 }
 
 .c0 .ms-DetailsList {
@@ -37,9 +37,9 @@ exports[`<Items /> should render correctly with vh and margin passed 1`] = `
 
 .c0 .ms-Viewport {
   overflow: auto;
-  -webkit-flex: 10 calc(100% - 60px);
-  -ms-flex: 10 calc(100% - 60px);
-  flex: 10 calc(100% - 60px);
+  -webkit-flex: 10 100%;
+  -ms-flex: 10 100%;
+  flex: 10 100%;
 }
 
 .c0 .ms-DetailsList {
@@ -67,9 +67,9 @@ exports[`<ListSection__ListSection /> should render correctly 1`] = `
 
 .c0 .ms-Viewport {
   overflow: auto;
-  -webkit-flex: 10 calc(100% - 60px);
-  -ms-flex: 10 calc(100% - 60px);
-  flex: 10 calc(100% - 60px);
+  -webkit-flex: 10 100%;
+  -ms-flex: 10 100%;
+  flex: 10 100%;
 }
 
 .c0 .ms-DetailsList {
