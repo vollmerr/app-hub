@@ -23,13 +23,9 @@ npm install
 ```
 
 ### Build test data
-With the mock API running
 ```
-npm run start:api
+npm run build:api
 ```
-In '/server/json-server/server.js', change `const generate = 0;` to `const generate = 1;` and save the file.
-Revert it back to 0 once the mock data has been created.
-
 This will only ever have to be done once, unless changes are made to the mock api data format.
 The mock API will be available at [http://localhost:3001](http://localhost:3001).
 
