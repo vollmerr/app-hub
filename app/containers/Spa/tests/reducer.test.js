@@ -6,8 +6,11 @@ import spaReducer, { initialState } from '../reducer';
 import {
   GET_USER_DATA_SUCCESS,
   GET_ADMIN_DATA_SUCCESS,
+  GET_GROUPS_SUCCESS,
   GET_ACK_RECIPIENTS_SUCCESS,
+  NEW_ACK_SUCCESS,
   RECIPIENT,
+  GROUP,
   ACK,
   STATUS,
 } from '../constants';
@@ -26,6 +29,16 @@ const acknowledgments = [
   { [ACK.ID]: 'd', [ACK.TITLE]: 'title d', [ACK.STATUS]: STATUS.EXPIRED },
 ];
 
+const targets = [
+  { [GROUP.SID]: 'a', [GROUP.NAME]: 'name a' },
+  { [GROUP.SID]: 'b', [GROUP.NAME]: 'name b' },
+];
+
+const creators = [
+  { [GROUP.SID]: 'c', [GROUP.NAME]: 'name a' },
+  { [GROUP.SID]: 'd', [GROUP.NAME]: 'name d' },
+];
+
 const state = {
   user: {
     isCached: false,
@@ -37,6 +50,15 @@ const state = {
     acksActiveIds: ['999'],
     acksPreviousIds: ['123'],
     allIds: ['123', '999'],
+  },
+  groups: {
+    byId: {
+      m: { [GROUP.SID]: 'm', [GROUP.NAME]: 'name1' },
+      b: { [GROUP.SID]: 'b', [GROUP.NAME]: 'name2' },
+    },
+    creatorIds: ['m'],
+    targetIds: ['b'],
+    allIds: ['b', 'm'],
   },
   recipients: {
     byId: {
@@ -159,6 +181,43 @@ describe('spaReducer', () => {
   });
 
 
+  describe('GET_GROUPS_SUCCESS', () => {
+    beforeEach(() => {
+      const payload = { targets, creators };
+      action = { type: GET_GROUPS_SUCCESS, payload };
+    });
+
+    it('should set the `targetIds` as the ids of the target groups', () => {
+      expected = [targets[0][GROUP.SID], targets[1][GROUP.SID]];
+      expect(spaReducer(undefined, action).getIn(['groups', 'targetIds']).toJS()).toEqual(expected);
+    });
+
+    it('should set the `creatorIds` as the ids of the creator groups', () => {
+      expected = [creators[0][GROUP.SID], creators[1][GROUP.SID]];
+      expect(spaReducer(undefined, action).getIn(['groups', 'creatorIds']).toJS()).toEqual(expected);
+    });
+
+    it('should merge the target and creator groups with the existing `groups`', () => {
+      expected = {
+        byId: {
+          a: targets[0],
+          b: targets[1],
+          c: creators[0],
+          d: creators[1],
+        },
+        allIds: ['a', 'b', 'c', 'd'],
+      };
+      expect(spaReducer(undefined, action).get('groups').get('byId').toJS()).toEqual(expected.byId);
+      expect(spaReducer(undefined, action).get('groups').get('allIds').toJS()).toEqual(expected.allIds);
+
+      expected.byId = { ...state.groups.byId, ...expected.byId };
+      expected.allIds = [...state.groups.allIds, ...expected.allIds].filter((x, i, a) => i === a.indexOf(x));
+      expect(spaReducer(fromJS(state), action).get('groups').get('byId').toJS()).toEqual(expected.byId);
+      expect(spaReducer(fromJS(state), action).get('groups').get('allIds').toJS()).toEqual(expected.allIds);
+    });
+  });
+
+
   describe('GET_ACK_RECIPIENTS_SUCCESS', () => {
     beforeEach(() => {
       const payload = { recipients, id: recipients[0][RECIPIENT.ACK_ID] };
@@ -187,6 +246,35 @@ describe('spaReducer', () => {
       expected.byId = { ...state.recipients.byId, ...expected.byId };
       expected.allIds = [...state.recipients.allIds, ...expected.allIds];
       expect(spaReducer(fromJS(state), action).get('recipients').toJS()).toEqual(expected);
+    });
+  });
+
+
+  describe('NEW_ACK_SUCCESS', () => {
+    beforeEach(() => {
+      const payload = acknowledgments[0];
+      action = { type: NEW_ACK_SUCCESS, payload };
+    });
+
+    it('should merge the ack id with the admins `acksActiveIds`', () => {
+      expected = [acknowledgments[0][ACK.ID]];
+      expect(spaReducer(undefined, action).getIn(['admin', 'acksActiveIds']).toJS()).toEqual(expected);
+      expected = [...state.admin.acksActiveIds, acknowledgments[0][ACK.ID]];
+      expect(spaReducer(fromJS(state), action).getIn(['admin', 'acksActiveIds']).toJS()).toEqual(expected);
+    });
+
+    it('should merge the acknowledgment with the existing `acknowledgments`', () => {
+      expected = {
+        byId: {
+          a: acknowledgments[0],
+        },
+        allIds: ['a'],
+      };
+      expect(spaReducer(undefined, action).get('acknowledgments').toJS()).toEqual(expected);
+
+      expected.byId = { ...state.acknowledgments.byId, ...expected.byId };
+      expected.allIds = [...state.acknowledgments.allIds, ...expected.allIds];
+      expect(spaReducer(fromJS(state), action).get('acknowledgments').toJS()).toEqual(expected);
     });
   });
 });

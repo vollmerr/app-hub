@@ -7,12 +7,13 @@ import { testMapDispatchToProps } from 'utils/testUtils';
 
 import {
   getAdminDataRequest,
+  getGroupsRequest,
   getAckRecipientsRequest,
   newAckRequest,
   disableAckRequest,
 } from 'containers/Spa/actions';
 
-import { ACK, STATUS, RECIPIENT } from 'containers/Spa/constants';
+import { ACK, STATUS, RECIPIENT, GROUP } from 'containers/Spa/constants';
 import ListSection from 'components/List/ListSection';
 import SpaReport from 'containers/Spa-Report';
 
@@ -42,13 +43,22 @@ const previousAcks = fromJS([
   { [ACK.ID]: 'd', [ACK.TITLE]: 'testPrevious2', [ACK.STATUS]: STATUS.DISABLED },
 ]);
 
+const groups = fromJS({
+  byId: {
+    m: { [GROUP.SID]: 'm', [GROUP.NAME]: 'test 1' },
+  },
+  targetIds: ['m'],
+});
+
 const props = {
   adminCached: false,
   recipients,
+  groups,
   adminAllIds: fromJS(['a', 'b', 'c', 'd']),
   adminActiveAcks: activeAcks,
   adminPreviousAcks: previousAcks,
   onGetAdminDataRequest: jest.fn(),
+  onGetGroupsRequest: jest.fn(),
   onGetAckRecipientsRequest: jest.fn(),
   onNewAckRequest: jest.fn(),
   onDisableAckRequest: jest.fn(),
@@ -384,6 +394,7 @@ describe('<SpaAdmin />', () => {
   describe('mapDispatchToProps', () => {
     const actions = {
       getAdminDataRequest,
+      getGroupsRequest,
       getAckRecipientsRequest,
       newAckRequest,
       disableAckRequest,

@@ -5,7 +5,6 @@ import { reduxForm } from 'redux-form/immutable';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import styled from 'styled-components';
 
-import spaFields, { newAckForm } from 'containers/Spa/fields';
 import appPage from 'containers/App-Container/appPage';
 import { Form, FormButtons } from 'components/Form';
 import theme from 'utils/theme';
@@ -25,12 +24,12 @@ const FieldSection = styled.div`
 `;
 
 
-function mapSection(section) {
+function mapSection(fields, section) {
   return (
     <FieldSection>
       {
         section.map((name) => {
-          const { component: C, ...props } = spaFields[name];
+          const { component: C, ...props } = fields[name];
 
           return (
             <C {...props} key={name} />
@@ -52,16 +51,25 @@ export class NewAckForm extends React.PureComponent {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting, onSubmit } = this.props;
+    const {
+      title,
+      fields,
+      sections,
+      handleSubmit,
+      pristine,
+      reset,
+      submitting,
+      onSubmit,
+    } = this.props;
 
     return (
       // pass custom onSubmit to redux-forms handleSubmit.
       <Form onSubmit={handleSubmit(onSubmit)} margin={theme.app.subNavHeight}>
-        <h3>{newAckForm.title}</h3>
+        <h3>{title}</h3>
 
         <Fields>
-          {mapSection(newAckForm.sections.left)}
-          {mapSection(newAckForm.sections.right)}
+          {mapSection(fields, sections.left)}
+          {mapSection(fields, sections.right)}
         </Fields>
 
         <FormButtons>
@@ -83,9 +91,12 @@ export class NewAckForm extends React.PureComponent {
 }
 
 
-const { func, bool } = PropTypes;
+const { func, bool, string, object } = PropTypes;
 
 NewAckForm.propTypes = {
+  title: string.isRequired,
+  fields: object.isRequired,
+  sections: object.isRequired,
   handleSubmit: func.isRequired,
   reset: func.isRequired,
   pristine: bool.isRequired,

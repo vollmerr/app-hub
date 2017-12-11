@@ -26,6 +26,17 @@ describe('Picker', () => {
   });
 });
 
+
+describe('DatePicker.prototype', () => {
+  it('DatePicker.prototype.componentWillReceiveProps should stay the same, or be updated/tested if changed', () => {
+    expect(DatePicker.prototype.componentWillReceiveProps).toMatchSnapshot();
+  });
+  it('DatePicker.prototype._validateTextInput should stay the same, or be updated/tested if changed', () => {
+    expect(DatePicker.prototype._validateTextInput).toMatchSnapshot(); // eslint-disable-line
+  });
+});
+
+
 const props = {
   name: 'test name',
   meta: {

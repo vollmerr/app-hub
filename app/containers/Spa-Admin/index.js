@@ -9,6 +9,7 @@ import appPage from 'containers/App-Container/appPage';
 import {
   getAdminCached,
   getRecipients,
+  getGroups,
   getAdminAllIds,
   getAdminActiveAcks,
   getAdminPreviousAcks,
@@ -18,15 +19,17 @@ import {
 
 import {
   getAdminDataRequest,
+  getGroupsRequest,
   getAckRecipientsRequest,
   newAckRequest,
   disableAckRequest,
 } from 'containers/Spa/actions';
 
+import spaFields, { newAckForm } from 'containers/Spa/fields';
 import { adminColumns } from 'containers/Spa/columns';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
-import { ACK, STATUS, RECIPIENT } from 'containers/Spa/constants';
+import { ACK, STATUS, RECIPIENT, GROUP } from 'containers/Spa/constants';
 import SpaReport from 'containers/Spa-Report';
 
 import AdminNav from './AdminNav';
@@ -54,6 +57,7 @@ export class SpaAdmin extends React.PureComponent {
       hideNewAck: true,
       hideReport: true,
       selectedItem: {},
+      fields: spaFields,
     };
 
     this.selectionActive = new Selection({
@@ -65,10 +69,11 @@ export class SpaAdmin extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { adminCached, onGetAdminDataRequest } = this.props;
+    const { adminCached, onGetAdminDataRequest, onGetGroupsRequest } = this.props;
     // load the data for admin if not cached (list of their acks)
     if (!adminCached) {
       onGetAdminDataRequest();
+      onGetGroupsRequest();
     }
   }
 
@@ -80,7 +85,19 @@ export class SpaAdmin extends React.PureComponent {
    * Handles opening the form for creating a new acknowledgment
    */
   handleShowNew = () => {
-    this.setState({ hideNewAck: false });
+    const { groups } = this.props;
+    // map to { key, text } options as FieldSelect expects
+    const options = groups.get('targetIds').map((sid) => ({
+      key: String(sid),
+      text: groups.getIn(['byId', String(sid), GROUP.NAME]),
+    })).toJS();
+    // set target group options to ones pulled in from API (mapped above)
+    const fields = { ...this.state.fields };
+    fields[ACK.TARGET_GROUPS].options = options;
+    fields[ACK.DATE_START].minDate = new Date();
+    fields[ACK.DATE_END].minDate = new Date();
+    // update fields then show the form
+    this.setState({ fields }, () => this.setState({ hideNewAck: false }));
   }
 
   /**
@@ -97,6 +114,7 @@ export class SpaAdmin extends React.PureComponent {
     const { onNewAckRequest } = this.props;
 
     onNewAckRequest(values);
+    this.handleHideNew();
   }
 
   //
@@ -188,18 +206,19 @@ export class SpaAdmin extends React.PureComponent {
           onClick: this.handleBack,
         },
       );
-      // download report button
-      items.push(
-        {
-          key: 'download',
-          name: 'Download',
-          icon: 'down',
-          ariaLabel: 'Download Report',
-          onClick: this.handleDownload,
-        },
-      );
-      // showing report with current ack, add `Disable` button
+      // showing report with current ack
       if (!hideReport && selectedItem[ACK.STATUS] === STATUS.ACTIVE) {
+        // download report button
+        items.push(
+          {
+            key: 'download',
+            name: 'Download',
+            icon: 'down',
+            ariaLabel: 'Download Report',
+            onClick: this.handleDownload,
+          },
+        );
+        // add `Disable` button
         items.push(
           {
             key: 'disable',
@@ -261,7 +280,7 @@ export class SpaAdmin extends React.PureComponent {
    */
   renderContent = () => {
     const { adminActiveAcks, adminPreviousAcks, Loading, recipients } = this.props;
-    const { selectedItem, hideDisable, hideNewAck, hideReport } = this.state;
+    const { selectedItem, hideDisable, hideNewAck, hideReport, fields } = this.state;
 
     if (Loading) {
       return Loading;
@@ -270,6 +289,9 @@ export class SpaAdmin extends React.PureComponent {
     // render form for new acknowledgments
     if (!hideNewAck) {
       const newAckProps = {
+        fields,
+        title: newAckForm.title,
+        sections: newAckForm.sections,
         onSubmit: this.handleSubmitNew,
       };
 
@@ -357,10 +379,12 @@ const { object, func, node, bool } = PropTypes;
 SpaAdmin.propTypes = {
   adminCached: bool.isRequired,
   recipients: object.isRequired,
+  groups: object.isRequired,
   adminAllIds: object.isRequired,
   adminActiveAcks: object.isRequired,
   adminPreviousAcks: object.isRequired,
   onGetAdminDataRequest: func.isRequired,
+  onGetGroupsRequest: func.isRequired,
   onGetAckRecipientsRequest: func.isRequired,
   onNewAckRequest: func.isRequired,
   onDisableAckRequest: func.isRequired,
@@ -370,6 +394,7 @@ SpaAdmin.propTypes = {
 const mapStateToProps = createStructuredSelector({
   adminCached: getAdminCached(),
   recipients: getRecipients(),
+  groups: getGroups(),
   adminActiveAcks: getAdminActiveAcks(),
   adminPreviousAcks: getAdminPreviousAcks(),
   adminAllIds: getAdminAllIds(),
@@ -377,6 +402,7 @@ const mapStateToProps = createStructuredSelector({
 
 export const mapDispatchToProps = (dispatch) => ({
   onGetAdminDataRequest: () => dispatch(getAdminDataRequest()),
+  onGetGroupsRequest: () => dispatch(getGroupsRequest()),
   onGetAckRecipientsRequest: (item) => dispatch(getAckRecipientsRequest(item)),
   onNewAckRequest: (vals) => dispatch(newAckRequest(vals)),
   onDisableAckRequest: (item) => dispatch(disableAckRequest(item)),

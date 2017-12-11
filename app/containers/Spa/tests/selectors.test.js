@@ -15,6 +15,15 @@ const spa = {
     acksPreviousIds: ['y'],
     allIds: ['g', 'y'],
   },
+  groups: {
+    byId: {
+      1: { a: 1 },
+      2: { n: 4 },
+    },
+    creatorIds: ['1'],
+    targetIds: ['2'],
+    allIds: ['1', '2'],
+  },
   recipients: {
     byId: {
       abc: { [RECIPIENT.ID]: 'abc', [RECIPIENT.ACK_ID]: 'g' },
@@ -113,6 +122,14 @@ describe('getRecipients', () => {
   it('should select the `recipients`', () => {
     const selector = selectors.getRecipients();
     expect(selector(state)).toEqual(fromJS(spa.recipients));
+  });
+});
+
+
+describe('getGroups', () => {
+  it('should select the `groups`', () => {
+    const selector = selectors.getGroups();
+    expect(selector(state)).toEqual(fromJS(spa.groups));
   });
 });
 

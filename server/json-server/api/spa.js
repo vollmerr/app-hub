@@ -35,6 +35,15 @@ const r = {
   ACK_ID: 'AcknowledgmentID',
   ACK_DATE: 'AcknowledgmentDate',
 };
+// groups
+const g = {
+  NAME: 'name',
+  SID: 'sid',
+};
+const MIN_TARGET = 0;
+const MAX_TARGET = 3;
+const MIN_CREATOR = 1000;
+const MAX_CREATOR = 1003;
 
 const jwts = [];
 function generateJwt(sid, firstName, lastName, roles) {
@@ -106,8 +115,8 @@ function generateRecipient(user) {
 function generateAcknowledgment() {
   const targetGroups = Array
     .from(
-    { length: faker.random.number({ min: 1, max: 3 }) },
-    () => faker.random.number({ min: 1, max: 3 })
+    { length: faker.random.number({ min: MIN_TARGET, max: MAX_TARGET }) },
+    () => faker.random.number({ min: MIN_TARGET, max: MAX_TARGET })
     )
     .filter((x, i, arr) => i === arr.indexOf(x));
 
@@ -116,7 +125,7 @@ function generateAcknowledgment() {
     [a.TITLE]: faker.lorem.words(),
     [a.DATE_START]: faker.date.past(),
     [a.DATE_END]: faker.date.future(),
-    [a.CREATOR_GROUP]: faker.random.number({ min: 1000, max: 1003 }),
+    [a.CREATOR_GROUP]: faker.random.number({ min: MIN_CREATOR, max: MAX_CREATOR }),
     [a.TARGET_GROUPS]: targetGroups,
     [a.STATEMENT]: faker.lorem.sentences(),
     [a.DETAILS]: faker.lorem.paragraphs(),
@@ -126,6 +135,7 @@ function generateAcknowledgment() {
   };
 }
 
+
 function generateUsers() {
   const users = [];
   for (let i = 0; i < 20; i += 1) {
@@ -133,6 +143,7 @@ function generateUsers() {
   }
   return users;
 }
+
 
 function generateRecipients(users) {
   const recipients = [];
@@ -152,9 +163,10 @@ function generateRecipients(users) {
   return recipients;
 }
 
+
 function generateAcknowledgments() {
   const acks = [];
-  for (let i = 0; i < 50; i += 1) {
+  for (let i = 0; i < 300; i += 1) {
     const ack = generateAcknowledgment();
     if (!acks.find((x) => (
       x[a.ID] === ack[a.ID]
@@ -165,9 +177,24 @@ function generateAcknowledgments() {
   return acks;
 }
 
+
+function generateGroups(min, max) {
+  const groups = [];
+  for (let i = min; i <= max; i += 1) {
+    groups.push({
+      [g.NAME]: faker.lorem.words(),
+      [g.SID]: i,
+    });
+  }
+  return groups;
+}
+
+
 const users = generateUsers();
 const recipients = generateRecipients(users);
 const acknowledgments = generateAcknowledgments();
+const targetGroups = generateGroups(MIN_TARGET, MAX_TARGET);
+const creatorGroups = generateGroups(MIN_CREATOR, MAX_CREATOR);
 
 module.exports = {
   jwts,
@@ -175,11 +202,15 @@ module.exports = {
   keys: {
     recipients,
     acknowledgments,
+    targetGroups,
+    creatorGroups,
   },
   routes: [
     { '/spa': '/spa-acknowledgments' },
     { '/spa/recipients\\?:target=:id': '/spa-recipients?:target=:id' },
     { '/spa/recipients/:id': '/spa-recipients?SID=:id' },
     { '/spa/acknowledgements/:id/recipients': '/spa-recipients?ackId=:id' },
+    { '/spa/groups/targets': '/spa-targetGroups' },
+    { '/spa/groups/creators': '/spa-creatorGroups' },
   ],
 };

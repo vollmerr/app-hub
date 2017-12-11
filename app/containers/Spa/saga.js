@@ -50,6 +50,30 @@ export function* getAdminData() {
 
 
 /**
+ * GETs the lists of AD groups
+ *
+ * @param {object} action   - action that was dispatched, with immutable payload
+ */
+export function* getGroups() {
+  try {
+    const urls = {
+      targets: `${base}/groups/targets`,
+      creators: `${base}/groups/creators`,
+    };
+
+    const [targets, creators] = yield all([
+      call(requestWithToken, urls.targets),
+      call(requestWithToken, urls.creators),
+    ]);
+
+    yield put(actions.getGroupsSuccess({ targets, creators }));
+  } catch (error) {
+    yield put(actions.getGroupsFailure(error));
+  }
+}
+
+
+/**
  * GETs the recipients for an existing acknowledgment
  *
  * @param {object} action   - action that was dispatched, with immutable payload
@@ -60,7 +84,7 @@ export function* getAckRecipients(action) {
     const url = `${base}/acknowledgements/${id}/recipients`;
 
     const recipients = yield call(requestWithToken, url);
-    yield put(actions.getAckRecipientsSuccess({ recipients, ackId: id }));
+    yield put(actions.getAckRecipientsSuccess({ recipients, id }));
   } catch (error) {
     yield put(actions.getAckRecipientsFailure(error));
   }
@@ -119,6 +143,7 @@ export function* disableAck(action) {
 function* spaSaga() {
   yield takeLatest(C.GET_USER_DATA_REQUEST, getUserData);
   yield takeLatest(C.GET_ADMIN_DATA_REQUEST, getAdminData);
+  yield takeLatest(C.GET_GROUPS_REQUEST, getGroups);
   yield takeLatest(C.GET_ACK_RECIPIENTS_REQUEST, getAckRecipients);
   yield takeLatest(C.NEW_ACK_REQUEST, newAck);
   yield takeLatest(C.DISABLE_ACK_REQUEST, disableAck);

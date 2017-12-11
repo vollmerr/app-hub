@@ -3,11 +3,14 @@ import { shallow } from 'enzyme';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
 import { Form, FormButtons } from 'components/Form';
-import { newAckForm } from 'containers/Spa/fields';
+import spaFields, { newAckForm } from 'containers/Spa/fields';
 
 import { NewAckForm } from '../NewAckForm';
 
 const props = {
+  title: 'test title',
+  fields: spaFields,
+  sections: newAckForm.sections,
   handleSubmit: jest.fn(),
   reset: jest.fn(),
   pristine: false,
@@ -33,7 +36,7 @@ describe('<NewAckForm />', () => {
 
   it('should render a title (h3)', () => {
     expect(wrapper.find(Form).find('h3').length).toEqual(1);
-    expect(wrapper.find('h3').text()).toEqual(newAckForm.title);
+    expect(wrapper.find('h3').text()).toEqual(props.title);
   });
 
   it('should render a `FormButtons` section for action buttons', () => {

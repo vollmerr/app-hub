@@ -1,6 +1,7 @@
 import {
   isEmptyText,
   isEmptyDate,
+  isFutureDate,
   isEmptyChecks,
   isEmptyFile,
 } from '../validate';
@@ -34,6 +35,7 @@ describe('validate utils', () => {
     });
   });
 
+
   describe('isEmptyDate', () => {
     it('should return `Required` for empty values', () => {
       emptyVals.forEach((value) => {
@@ -53,6 +55,38 @@ describe('validate utils', () => {
       });
     });
   });
+
+
+  describe('isFutureDate', () => {
+    it('should return `A Future Date is Required` for valid past dates', () => {
+      const pastDates = [
+        new Date('12/12/1980'),
+        '01/02/2017',
+        '2007-10-18T07:00:00.000Z',
+      ];
+
+      pastDates.forEach((value) => {
+        expect(isFutureDate(value)).toEqual('A Future Date is Required');
+      });
+    });
+
+    it('should return `undefined` for future dates or invalid dates', () => {
+      const futureDates = [
+        '2047-10-18T07:00:00.000Z',
+        '12/27/2080',
+        new Date('12/12/2101'),
+      ];
+
+      futureDates.forEach((value) => {
+        expect(isFutureDate(value)).toEqual(undefined);
+      });
+
+      emptyVals.forEach((value) => {
+        expect(isFutureDate(value)).toEqual(undefined);
+      });
+    });
+  });
+
 
   describe('isEmptyChecks', () => {
     it('should return `Required` for empty check box group', () => {
@@ -74,6 +108,7 @@ describe('validate utils', () => {
       });
     });
   });
+
 
   describe('isEmptyFiles', () => {
     it('should return `Required` for empty check box group', () => {

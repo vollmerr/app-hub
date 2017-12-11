@@ -5,7 +5,7 @@ import ListSection from 'components/List/ListSection';
 import List from 'components/List';
 
 
-const Wrapper = styled(ListSection)`
+export const Wrapper = styled(ListSection)`
   flex: 1;
   margin: 5px;
 `;

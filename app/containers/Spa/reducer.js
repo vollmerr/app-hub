@@ -1,4 +1,4 @@
-import { fromJS, Set } from 'immutable';
+import { fromJS, Set, List } from 'immutable';
 import { handleActions } from 'redux-actions';
 
 import { mergeById } from 'utils/request';
@@ -6,10 +6,13 @@ import { mergeById } from 'utils/request';
 import {
   GET_USER_DATA_SUCCESS,
   GET_ADMIN_DATA_SUCCESS,
+  GET_GROUPS_SUCCESS,
   GET_ACK_RECIPIENTS_SUCCESS,
+  NEW_ACK_SUCCESS,
   DISABLE_ACK_SUCCESS,
   RECIPIENT,
   ACK,
+  GROUP,
   STATUS,
 } from './constants';
 
@@ -31,6 +34,12 @@ export const initialState = {
   },
   acknowledgments: { // list of acknowledgments (for user and admin)
     byId: {},
+    allIds: [],
+  },
+  groups: { // lists of AD groups
+    byId: {},
+    creatorIds: [],
+    targetIds: [],
     allIds: [],
   },
 };
@@ -66,6 +75,7 @@ export default handleActions({
     }));
   },
 
+
   [GET_ADMIN_DATA_SUCCESS]: (state, action) => {
     const { payload } = action;
     const admin = {
@@ -91,11 +101,27 @@ export default handleActions({
     }));
   },
 
+
+  [GET_GROUPS_SUCCESS]: (state, action) => {
+    const { payload: { targets, creators } } = action;
+    // set details and ids of all for lookup
+    let groups = mergeById(state, 'groups', [...targets, ...creators], GROUP.SID);
+    // set ids of each group
+    groups = groups.set('targetIds', List(targets.map((x) => String(x[GROUP.SID]))));
+    groups = groups.set('creatorIds', List(creators.map((x) => String(x[GROUP.SID]))));
+    // combine with current state
+    return state.mergeDeep(fromJS({
+      groups,
+    }));
+  },
+
+
   [GET_ACK_RECIPIENTS_SUCCESS]: (state, action) => {
     const { payload } = action;
     // add ack id to list of ids in admin
+    const id = Set([String(payload.id)]);
     const admin = {
-      allIds: state.getIn(['admin', 'allIds']).toSet().union(Set(payload.id)).toList(),
+      allIds: state.getIn(['admin', 'allIds']).toSet().union(id).toList(),
     };
     // add entries to acks (could potentally already have some entries, so just add new)
     const recipients = mergeById(state, 'recipients', payload.recipients, RECIPIENT.ID);
@@ -105,6 +131,21 @@ export default handleActions({
       recipients,
     }));
   },
+
+
+  [NEW_ACK_SUCCESS]: (state, action) => {
+    const { payload } = action;
+    // add to active ids for admin page (assumes all new acks are active...)
+    const admin = state.get('admin').set('acksActiveIds', state.getIn(['admin', 'acksActiveIds']).push(String(payload[ACK.ID])));
+    // add to acks for lookup
+    const acknowledgments = mergeById(state, 'acknowledgments', [payload], ACK.ID);
+    // combine with current state
+    return state.mergeDeep(fromJS({
+      admin,
+      acknowledgments,
+    }));
+  },
+
 
   [DISABLE_ACK_SUCCESS]: () => {
     // move to admin inactie

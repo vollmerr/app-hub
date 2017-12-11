@@ -1,5 +1,7 @@
 import { ACK } from 'containers/Spa/constants';
 
+import { isFutureDate } from 'utils/validate';
+
 import {
   FieldText,
   FieldDate,
@@ -25,6 +27,7 @@ const spaFields = {
     placeholder: 'Select the start date',
     ariaLabel: 'Date the acknowledgment takes effect',
     component: FieldDate,
+    validate: [isFutureDate],
   },
   [ACK.DATE_END]: {
     label: 'End Date',
@@ -33,6 +36,7 @@ const spaFields = {
     placeholder: 'Select the end date',
     ariaLabel: 'Date the acknowledgment expires',
     component: FieldDate,
+    validate: [isFutureDate],
   },
   [ACK.TARGET_GROUPS]: {
     label: 'Target Group(s)',
@@ -40,11 +44,7 @@ const spaFields = {
     name: ACK.TARGET_GROUPS,
     ariaLabel: 'AD groups that must acknowledge the policy',
     component: FieldChecks,
-    options: [
-      { key: 'group1', text: 'Group 1' },
-      { key: 'group2', text: 'Group 2' },
-      { key: 'group3', text: 'Group 3' },
-    ],
+    options: [],
   },
   [ACK.STATEMENT]: {
     label: 'Statement',

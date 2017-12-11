@@ -6,6 +6,10 @@ export const GET_USER_DATA_FAILURE = 'app/Spa/GET_USER_DATA_FAILURE';
 export const GET_ADMIN_DATA_REQUEST = 'app/Spa/GET_ADMIN_DATA_REQUEST';
 export const GET_ADMIN_DATA_SUCCESS = 'app/Spa/GET_ADMIN_DATA_SUCCESS';
 export const GET_ADMIN_DATA_FAILURE = 'app/Spa/GET_ADMIN_DATA_FAILURE';
+// GET AD GROUPS
+export const GET_GROUPS_REQUEST = 'app/Spa/GET_GROUPS_REQUEST';
+export const GET_GROUPS_SUCCESS = 'app/Spa/GET_GROUPS_SUCCESS';
+export const GET_GROUPS_FAILURE = 'app/Spa/GET_GROUPS_FAILURE';
 // GET LIST OF RECIPIENTS FOR EXISTSING ACK
 export const GET_ACK_RECIPIENTS_REQUEST = 'app/Spa/GET_ACK_RECIPIENTS_REQUEST';
 export const GET_ACK_RECIPIENTS_SUCCESS = 'app/Spa/GET_ACK_RECIPIENTS_SUCCESS';
@@ -57,6 +61,10 @@ export const RECIPIENT = {
   FINAL_REMINDER_DATE: 'FinalReminderDate',
   ACK_ID: 'AcknowledgmentID',
   ACK_DATE: 'AcknowledgmentDate',
+};
+export const GROUP = {
+  NAME: 'name',
+  SID: 'sid',
 };
 // all fields
 export const FIELDS = {

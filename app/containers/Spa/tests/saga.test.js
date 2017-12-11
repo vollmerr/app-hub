@@ -9,6 +9,7 @@ import * as selectors from 'containers/AppHub/selectors';
 import spaSaga, {
   getUserData,
   getAdminData,
+  getGroups,
   getAckRecipients,
   newAck,
   disableAck,
@@ -19,6 +20,7 @@ import * as C from '../constants';
 import * as actions from '../actions';
 
 const data = { recipients: ['1', '2'], acknowledgments: ['3', '4'], id: 1 };
+const groups = { targets: ['1', '2'], creators: ['13', '23'] };
 const error = { message: 'test error' };
 
 let action;
@@ -28,6 +30,7 @@ describe('spaSaga', () => {
   it(`should take the latest
       'GET_USER_DATA_REQUEST',
       'GET_ADMIN_DATA_REQUEST',
+      'GET_GROUPS_REQUEST',
       'GET_ACK_RECIPIENTS_REQUEST',
       'NEW_ACK_REQUEST',
       'DISABLE_ACK_REQUEST''`,
@@ -37,6 +40,8 @@ describe('spaSaga', () => {
         .takeLatestEffect(C.GET_USER_DATA_REQUEST, getUserData)
         .next()
         .takeLatestEffect(C.GET_ADMIN_DATA_REQUEST, getAdminData)
+        .next()
+        .takeLatestEffect(C.GET_GROUPS_REQUEST, getGroups)
         .next()
         .takeLatestEffect(C.GET_ACK_RECIPIENTS_REQUEST, getAckRecipients)
         .next()
@@ -104,6 +109,34 @@ describe('getAdminData', () => {
 });
 
 
+describe('getGroups', () => {
+  it('should call the api and update the store with its results', () => {
+    const urls = {
+      targets: `${base}/groups/targets`,
+      creators: `${base}/groups/creators`,
+    };
+
+    testSaga(getGroups)
+      .next()
+      .all([
+        call(requestWithToken, urls.targets),
+        call(requestWithToken, urls.creators),
+      ])
+      .next([groups.targets, groups.creators])
+      .put(actions.getGroupsSuccess({ targets: groups.targets, creators: groups.creators }))
+      .finish()
+      .isDone();
+  });
+
+  it('should handle errors', () => {
+    const errGen = getGroups(action);
+    errGen.next();
+    expect(errGen.throw(error).value).toEqual(put(actions.getGroupsFailure(error)));
+    expect(errGen.next()).toEqual({ done: true, value: undefined });
+  });
+});
+
+
 describe('getAckRecipients', () => {
   it('should call the api and update the store with its results', () => {
     action = { payload: { id: data.id } };
@@ -113,7 +146,7 @@ describe('getAckRecipients', () => {
       .next()
       .call(requestWithToken, url)
       .next(data.recipients)
-      .put(actions.getAckRecipientsSuccess({ recipients: data.recipients, ackId: data.id }))
+      .put(actions.getAckRecipientsSuccess({ recipients: data.recipients, id: data.id }))
       .finish()
       .isDone();
   });

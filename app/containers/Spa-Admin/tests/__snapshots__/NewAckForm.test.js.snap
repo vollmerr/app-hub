@@ -7,7 +7,7 @@ exports[`<NewAckForm /> should render correctly 1`] = `
   vh={100}
 >
   <h3>
-    New Policy Acknowledgment
+    test title
   </h3>
   <NewAckForm__Fields>
     <NewAckForm__FieldSection>
@@ -29,7 +29,11 @@ exports[`<NewAckForm /> should render correctly 1`] = `
         name="activeStartDate"
         placeholder="Select the start date"
         required={true}
-        validate={Array []}
+        validate={
+          Array [
+            [Function],
+          ]
+        }
       />
       <WrappedField
         ariaLabel="Date the acknowledgment expires"
@@ -39,7 +43,11 @@ exports[`<NewAckForm /> should render correctly 1`] = `
         name="activeEndDate"
         placeholder="Select the end date"
         required={true}
-        validate={Array []}
+        validate={
+          Array [
+            [Function],
+          ]
+        }
       />
       <WrappedField
         ariaLabel="AD groups that must acknowledge the policy"
@@ -47,22 +55,7 @@ exports[`<NewAckForm /> should render correctly 1`] = `
         key="targetADGroup"
         label="Target Group(s)"
         name="targetADGroup"
-        options={
-          Array [
-            Object {
-              "key": "group1",
-              "text": "Group 1",
-            },
-            Object {
-              "key": "group2",
-              "text": "Group 2",
-            },
-            Object {
-              "key": "group3",
-              "text": "Group 3",
-            },
-          ]
-        }
+        options={Array []}
         placeholder=""
         required={true}
         validate={Array []}

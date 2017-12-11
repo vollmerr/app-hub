@@ -10,6 +10,10 @@ export const getUserDataFailure = createAction(C.GET_USER_DATA_FAILURE);
 export const getAdminDataRequest = createAction(C.GET_ADMIN_DATA_REQUEST);
 export const getAdminDataSuccess = createAction(C.GET_ADMIN_DATA_SUCCESS);
 export const getAdminDataFailure = createAction(C.GET_ADMIN_DATA_FAILURE);
+// GET DATA FOR AN ADMIN
+export const getGroupsRequest = createAction(C.GET_GROUPS_REQUEST);
+export const getGroupsSuccess = createAction(C.GET_GROUPS_SUCCESS);
+export const getGroupsFailure = createAction(C.GET_GROUPS_FAILURE);
 // GET LIST OF RECIPIENTS FOR EXISTSING ACK
 export const getAckRecipientsRequest = createAction(C.GET_ACK_RECIPIENTS_REQUEST);
 export const getAckRecipientsSuccess = createAction(C.GET_ACK_RECIPIENTS_SUCCESS);

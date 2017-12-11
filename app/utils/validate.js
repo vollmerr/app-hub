@@ -11,6 +11,13 @@ export const isEmptyDate = (value) => (
     : undefined
 );
 
+export const isFutureDate = (value) => (
+  (!value || isNaN(new Date(value))) ||
+  (value && new Date(value) >= new Date())
+    ? undefined
+    : 'A Future Date is Required'
+);
+
 export const isEmptyChecks = (value) => (
   !value || typeof value !== 'object' || !value.length
     ? 'Required'
