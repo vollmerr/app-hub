@@ -9,6 +9,8 @@ import appPage from 'containers/App-Container/appPage';
 import { Form, FormButtons } from 'components/Form';
 import theme from 'utils/theme';
 
+import validate from './validate';
+
 
 const Fields = styled.div`
   display: flex;
@@ -106,6 +108,7 @@ NewAckForm.propTypes = {
 
 const withForm = reduxForm({
   form: 'spaAdmin',
+  validate,
 });
 
 const withAppPage = appPage(NewAckForm);

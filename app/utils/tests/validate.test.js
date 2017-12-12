@@ -58,7 +58,7 @@ describe('validate utils', () => {
 
 
   describe('isFutureDate', () => {
-    it('should return `A Future Date is Required` for valid past dates', () => {
+    it('should return `A future date is required` for valid past dates', () => {
       const pastDates = [
         new Date('12/12/1980'),
         '01/02/2017',
@@ -66,7 +66,7 @@ describe('validate utils', () => {
       ];
 
       pastDates.forEach((value) => {
-        expect(isFutureDate(value)).toEqual('A Future Date is Required');
+        expect(isFutureDate(value)).toEqual('A future date is required');
       });
     });
 
@@ -75,6 +75,7 @@ describe('validate utils', () => {
         '2047-10-18T07:00:00.000Z',
         '12/27/2080',
         new Date('12/12/2101'),
+        new Date(),
       ];
 
       futureDates.forEach((value) => {

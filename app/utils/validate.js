@@ -1,3 +1,5 @@
+import { dateWithoutTime } from 'utils/date';
+
 export const isEmptyText = (value) => (
   (typeof value !== 'string') ||
     value.match(/^\s*$/)
@@ -13,9 +15,9 @@ export const isEmptyDate = (value) => (
 
 export const isFutureDate = (value) => (
   (!value || isNaN(new Date(value))) ||
-  (value && new Date(value) >= new Date())
+  (value && dateWithoutTime(value) >= dateWithoutTime(new Date()))
     ? undefined
-    : 'A Future Date is Required'
+    : 'A future date is required'
 );
 
 export const isEmptyChecks = (value) => (
