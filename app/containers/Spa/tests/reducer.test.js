@@ -9,6 +9,7 @@ import {
   GET_GROUPS_SUCCESS,
   GET_ACK_RECIPIENTS_SUCCESS,
   NEW_ACK_SUCCESS,
+  DISABLE_ACK_SUCCESS,
   RECIPIENT,
   GROUP,
   ACK,
@@ -42,14 +43,14 @@ const creators = [
 const state = {
   user: {
     isCached: false,
-    recipientsPendingIds: ['999'],
-    recipientsPreviousIds: ['123'],
+    recipientsPendingIds: ['abc'],
+    recipientsPreviousIds: ['def'],
   },
   admin: {
     isCached: false,
-    acksActiveIds: ['999'],
-    acksPreviousIds: ['123'],
-    allIds: ['123', '999'],
+    acksActiveIds: ['g'],
+    acksPreviousIds: ['h'],
+    allIds: ['g', 'h'],
   },
   groups: {
     byId: {
@@ -62,15 +63,17 @@ const state = {
   },
   recipients: {
     byId: {
-      abc: { [RECIPIENT.ID]: 'abc', [RECIPIENT.ACK_ID]: '999' },
+      abc: { [RECIPIENT.ID]: 'abc', [RECIPIENT.ACK_ID]: 'g' },
+      def: { [RECIPIENT.ID]: 'def', [RECIPIENT.ACK_ID]: 'g' },
     },
-    allIds: ['abc'],
+    allIds: ['abc', 'def'],
   },
   acknowledgments: {
     byId: {
       g: { [ACK.ID]: 'g', [ACK.STATUS]: STATUS.ACTIVE },
+      h: { [ACK.ID]: 'h', [ACK.STATUS]: STATUS.EXPIRED },
     },
-    allIds: ['g'],
+    allIds: ['g', 'h'],
   },
 };
 
@@ -275,6 +278,45 @@ describe('spaReducer', () => {
       expected.byId = { ...state.acknowledgments.byId, ...expected.byId };
       expected.allIds = [...state.acknowledgments.allIds, ...expected.allIds];
       expect(spaReducer(fromJS(state), action).get('acknowledgments').toJS()).toEqual(expected);
+    });
+  });
+
+
+  describe('DISABLE_ACK_SUCCESS', () => {
+    beforeEach(() => {
+      const payload = state.acknowledgments.byId.g;
+      action = { type: DISABLE_ACK_SUCCESS, payload };
+    });
+
+    it('should update the acknowledgment`s status in the lookup', () => {
+      expected = { ...state.acknowledgments.byId.g, [ACK.STATUS]: STATUS.DISABLED };
+      expect(spaReducer(fromJS(state), action).getIn(['acknowledgments', 'byId', 'g']).toJS()).toEqual(expected);
+    });
+
+    it('should remove the acknowledgment id from admins active ids', () => {
+      expected = [];
+      expect(spaReducer(fromJS(state), action).getIn(['admin', 'acksActiveIds']).toJS()).toEqual([]);
+    });
+
+    it('should add the acknowledgment id to admins previous ids', () => {
+      expected = [...state.admin.acksPreviousIds, ...state.admin.acksActiveIds];
+      expect(spaReducer(fromJS(state), action).getIn(['admin', 'acksPreviousIds']).toJS()).toEqual(expected);
+    });
+
+    it('should remove the recipient id from the users active recipients if it exists', () => {
+      expected = [];
+      expect(spaReducer(fromJS(state), action).getIn(['user', 'recipientsPendingIds']).toJS()).toEqual(expected);
+    });
+
+    it('should add the recipient id to the users previous recipients if it was removed from their active', () => {
+      expected = [...state.user.recipientsPreviousIds, ...state.user.recipientsPendingIds];
+      expect(spaReducer(fromJS(state), action).getIn(['user', 'recipientsPreviousIds']).toJS()).toEqual(expected);
+    });
+
+    it('should not update the users pending or previous recipients if it is not in their active ids', () => {
+      action.payload = state.acknowledgments.byId.h;
+      expect(spaReducer(fromJS(state), action).getIn(['user', 'recipientsPendingIds']).toJS()).toEqual(state.user.recipientsPendingIds);
+      expect(spaReducer(fromJS(state), action).getIn(['user', 'recipientsPreviousIds']).toJS()).toEqual(state.user.recipientsPreviousIds);
     });
   });
 });

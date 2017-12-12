@@ -11,9 +11,9 @@ exports[`<DisableModal /> should render correctly 1`] = `
   }
   onDismiss={[Function]}
 >
-  <p>
-    Are you sure you want to disable test title?
-  </p>
+  <DisableModal__Warning>
+    WARNING: This is no going back! Are you sure you want to disable test title?
+  </DisableModal__Warning>
   <DialogFooter>
     <CustomizedPrimaryButton
       onClick={[Function]}
@@ -25,4 +25,14 @@ exports[`<DisableModal /> should render correctly 1`] = `
     />
   </DialogFooter>
 </WithResponsiveMode>
+`;
+
+exports[`<DisableModal__Warning /> should render correctly 1`] = `
+.c0 {
+  font-weight: bold;
+}
+
+<p
+  className="c0"
+/>
 `;

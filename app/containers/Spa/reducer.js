@@ -55,13 +55,13 @@ export default handleActions({
     };
     // populate pending and previous 'recipients' and 'acknowledgment' ids
     payload.recipients.forEach((recipient) => {
-      const id = recipient[RECIPIENT.ID];
+      const id = String(recipient[RECIPIENT.ID]);
       const ack = payload.acknowledgments.find((x) => x[ACK.ID] === recipient[RECIPIENT.ACK_ID]);
       // if the recipient has acknoweldged and acknowledgment is active
       if (recipient[RECIPIENT.ACK_DATE] || (ack && ack[ACK.STATUS] !== STATUS.ACTIVE)) {
-        user.recipientsPreviousIds.push(String(id));
+        user.recipientsPreviousIds.push(id);
       } else {
-        user.recipientsPendingIds.push(String(id));
+        user.recipientsPendingIds.push(id);
       }
     });
     // add entries to recipients and acks (could potentally already have some entries, so just add new)
@@ -85,11 +85,11 @@ export default handleActions({
     };
     // populate pending and previous 'recipients' and 'acknowledgment' ids
     payload.acknowledgments.forEach((ack) => {
-      const id = ack[ACK.ID];
+      const id = String(ack[ACK.ID]);
       if (ack[ACK.STATUS] === STATUS.ACTIVE) {
-        admin.acksActiveIds.push(String(id));
+        admin.acksActiveIds.push(id);
       } else {
-        admin.acksPreviousIds.push(String(id));
+        admin.acksPreviousIds.push(id);
       }
     });
     // add entries to acks (could potentally already have some entries, so just add new)
@@ -136,7 +136,12 @@ export default handleActions({
   [NEW_ACK_SUCCESS]: (state, action) => {
     const { payload } = action;
     // add to active ids for admin page (assumes all new acks are active...)
-    const admin = state.get('admin').set('acksActiveIds', state.getIn(['admin', 'acksActiveIds']).push(String(payload[ACK.ID])));
+    const newActiveIds = state
+      .getIn(['admin', 'acksActiveIds'])
+      .push(String(payload[ACK.ID]));
+    const admin = state
+      .get('admin')
+      .set('acksActiveIds', newActiveIds);
     // add to acks for lookup
     const acknowledgments = mergeById(state, 'acknowledgments', [payload], ACK.ID);
     // combine with current state
@@ -147,9 +152,34 @@ export default handleActions({
   },
 
 
-  [DISABLE_ACK_SUCCESS]: () => {
-    // move to admin inactie
-    // move for all recipients to previous
-    // move for user to previous
+  [DISABLE_ACK_SUCCESS]: (state, action) => {
+    const { payload } = action;
+    // id must be string
+    const ackId = String(payload[ACK.ID]);
+    let newState = state;
+    // update status in acknowledgments lookup
+    newState = newState
+      .setIn(['acknowledgments', 'byId', ackId, ACK.STATUS], STATUS.DISABLED);
+    // remove from admin active
+    newState = newState
+      .setIn(['admin', 'acksActiveIds'], state.getIn(['admin', 'acksActiveIds']).filter((id) => id !== ackId));
+    // add to admin inactive
+    newState = newState
+      .setIn(['admin', 'acksPreviousIds'], state.getIn(['admin', 'acksPreviousIds']).push(ackId));
+    // get the id of the users 'recipeint' object of the pending acknowledgment
+    const recipientId = state
+      .getIn(['user', 'recipientsPendingIds'])
+      .find((id) => String(state.getIn(['recipients', 'byId', String(id), RECIPIENT.ACK_ID])) === ackId);
+    // if the acknowledgement is in users active list
+    if (recipientId) {
+      // remove from user active
+      newState = newState
+        .setIn(['user', 'recipientsPendingIds'], state.getIn(['user', 'recipientsPendingIds']).filter((x) => x !== recipientId));
+      // add to user previous
+      newState = newState
+        .setIn(['user', 'recipientsPreviousIds'], state.getIn(['user', 'recipientsPreviousIds']).push(recipientId));
+    }
+    // gimme that new state
+    return newState;
   },
 }, fromJS(initialState));

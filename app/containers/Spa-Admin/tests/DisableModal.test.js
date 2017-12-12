@@ -3,9 +3,12 @@ import { shallow } from 'enzyme';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 
+import { testStyledComponent } from 'utils/testUtils';
 import { ACK } from 'containers/Spa/constants';
 
-import DisableModal from '../DisableModal';
+import DisableModal, { Warning } from '../DisableModal';
+
+testStyledComponent(Warning);
 
 const props = {
   item: {
@@ -16,6 +19,7 @@ const props = {
   onClose: jest.fn(),
   hideModal: false,
 };
+
 
 describe('<DisableModal />', () => {
   let wrapper;
@@ -30,6 +34,10 @@ describe('<DisableModal />', () => {
 
   it('should render a `Dialog`', () => {
     expect(wrapper.find(Dialog).length).toEqual(1);
+  });
+
+  it('should render some warning text', () => {
+    expect(wrapper.find(Warning).length).toEqual(1);
   });
 
   it('should render a `DialogFooter` to contain action buttons', () => {

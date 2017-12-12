@@ -9,6 +9,15 @@ exports[`<SpaHome /> should render correctly 1`] = `
       columns={
         Array [
           Object {
+            "ariaLabel": "ID of the acknowledgment",
+            "fieldName": "id",
+            "isResizable": true,
+            "key": "id",
+            "maxWidth": 40,
+            "minWidth": 20,
+            "name": "ID",
+          },
+          Object {
             "ariaLabel": "Title of the acknowledgment",
             "fieldName": "title",
             "isResizable": true,
@@ -82,6 +91,15 @@ exports[`<SpaHome /> should render correctly 1`] = `
     <List
       columns={
         Array [
+          Object {
+            "ariaLabel": "ID of the acknowledgment",
+            "fieldName": "id",
+            "isResizable": true,
+            "key": "id",
+            "maxWidth": 40,
+            "minWidth": 20,
+            "name": "ID",
+          },
           Object {
             "ariaLabel": "Title of the acknowledgment",
             "fieldName": "title",

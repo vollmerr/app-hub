@@ -256,7 +256,7 @@ describe('<SpaAdmin />', () => {
         expect(instance.handleShowNew).toHaveBeenCalled();
       });
 
-      it('should add a `disable` button that calls `handleShowDisable` onClick if showing the report and active item selected', () => {
+      it('should add a `disable` button that calls `handleShowDisable` onClick if showing the report with an active item selected', () => {
         instance.handleShowDisable = jest.fn();
         wrapper.setState({ selectedItem: state.selectedItem, hideReport: false });
         const items = instance.navItems();
@@ -266,6 +266,15 @@ describe('<SpaAdmin />', () => {
         // click on new button
         btns[0].onClick();
         expect(instance.handleShowDisable).toHaveBeenCalled();
+      });
+
+      it('should not add a `disable` button if showing the report with no active item selected', () => {
+        instance.handleShowDisable = jest.fn();
+        wrapper.setState({ selectedItem: { ...state.selectedItem, [ACK.STATUS]: STATUS.DISABLED }, hideReport: false });
+        const items = instance.navItems();
+        // find disable button, should be none
+        const btns = items.filter((item) => item.key === 'disable');
+        expect(btns.length).toEqual(0);
       });
 
       it('should add a `back` button that calls `handleHideNew` onClick if showing the report', () => {

@@ -142,8 +142,10 @@ export class SpaAdmin extends React.PureComponent {
     const { onDisableAckRequest } = this.props;
     const { selectedItem } = this.state;
 
-    this.handleHideDisable();
     onDisableAckRequest(selectedItem);
+    // set item to be disabled then hide the modal
+    this.setState({ selectedItem: { ...selectedItem, [ACK.STATUS]: STATUS.DISABLED } });
+    this.handleHideDisable();
   }
 
   //
@@ -206,9 +208,9 @@ export class SpaAdmin extends React.PureComponent {
           onClick: this.handleBack,
         },
       );
-      // showing report with current ack
-      if (!hideReport && selectedItem[ACK.STATUS] === STATUS.ACTIVE) {
-        // download report button
+      // showing report
+      if (!hideReport) {
+        // add `Download` report button
         items.push(
           {
             key: 'download',
@@ -218,16 +220,19 @@ export class SpaAdmin extends React.PureComponent {
             onClick: this.handleDownload,
           },
         );
-        // add `Disable` button
-        items.push(
-          {
-            key: 'disable',
-            name: 'Disable',
-            icon: 'Clear',
-            ariaLabel: 'Disable Exisiting Acknowledgment',
-            onClick: this.handleShowDisable,
-          }
-        );
+        // active acknowledgment
+        if (selectedItem[ACK.STATUS] === STATUS.ACTIVE) {
+          // add `Disable` button
+          items.push(
+            {
+              key: 'disable',
+              name: 'Disable',
+              icon: 'Clear',
+              ariaLabel: 'Disable Exisiting Acknowledgment',
+              onClick: this.handleShowDisable,
+            }
+          );
+        }
       }
     }
 

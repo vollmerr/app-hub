@@ -12,6 +12,13 @@ import {
 
 // Other lists lookup from this list
 const spaFields = {
+  [ACK.ID]: {
+    label: 'ID',
+    name: ACK.ID,
+    ariaLabel: 'ID of the acknowledgment',
+    minWidth: 20,
+    maxWidth: 40,
+  },
   [ACK.TITLE]: {
     label: 'Title',
     required: true,
