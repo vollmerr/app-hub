@@ -181,9 +181,9 @@ exports[`<SpaHome /> should render correctly 1`] = `
     hasRead={false}
     hideModal={true}
     item={Object {}}
-    onAck={[Function]}
     onClose={[Function]}
     onRead={[Function]}
+    onSubmit={[Function]}
   />
 </div>
 `;

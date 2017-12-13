@@ -66,6 +66,10 @@ export const GROUP = {
   NAME: 'name',
   SID: 'sid',
 };
+export const REPORT = {
+  PENDING: 0,
+  PREVIOUS: 1,
+};
 // all fields
 export const FIELDS = {
   ACK,

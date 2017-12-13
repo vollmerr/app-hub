@@ -70,7 +70,7 @@ export class SpaHome extends React.PureComponent {
   /**
    * Handles marking that the policy has been acknowledged
    */
-  handleAck = () => {
+  handleSubmitAck = () => {
     this.handleCloseModal();
   }
 
@@ -128,7 +128,7 @@ export class SpaHome extends React.PureComponent {
       item: selectedItem,
       onClose: this.handleCloseModal,
       onRead: this.handleRead,
-      onAck: this.handleAck,
+      onSubmit: this.handleSubmitAck,
     };
 
     return (

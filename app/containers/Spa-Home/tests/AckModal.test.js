@@ -13,7 +13,7 @@ const props = {
     [ACK.DETAILS]: 'test details',
     [ACK.STATEMENT]: 'test statement',
   },
-  onAck: jest.fn(),
+  onSubmit: jest.fn(),
   onRead: jest.fn(),
   onClose: jest.fn(),
   hasRead: false,
@@ -62,7 +62,7 @@ describe('<AckModal />', () => {
 
   it('should handle acknowledging when pressing the primary button if read', () => {
     wrapper.setProps({ hasRead: true });
-    expect(wrapper.find(PrimaryButton).prop('onClick')).toEqual(props.onAck);
+    expect(wrapper.find(PrimaryButton).prop('onClick')).toEqual(props.onSubmit);
     expect(wrapper.find(PrimaryButton).prop('text')).toEqual('Submit');
   });
 });

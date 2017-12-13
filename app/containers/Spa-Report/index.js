@@ -5,7 +5,7 @@ import * as d3 from 'd3';
 import { SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 
 import theme from 'utils/theme';
-import { RECIPIENT } from 'containers/Spa/constants';
+import { RECIPIENT, REPORT } from 'containers/Spa/constants';
 import { reportPendingColumns } from 'containers/Spa/columns';
 
 import Wrapper from './Wrapper';
@@ -15,8 +15,6 @@ import PieChart from './PieChart';
 import Recipients from './Recipients';
 
 
-const PENDING = 0;
-const ACK = 1;
 const titles = [
   'Pending Recipients',
   'Acknowledged Recipients',
@@ -27,7 +25,7 @@ export class SpaReport extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedKey: PENDING,
+      selectedKey: REPORT.PENDING,
       recipients: [[], []],
     };
   }
@@ -55,10 +53,10 @@ export class SpaReport extends React.PureComponent {
       // if acknowledged,
       if (recipient[RECIPIENT.ACK_DATE]) {
         // add to acknowledged list
-        recipients[ACK].push(recipient);
+        recipients[REPORT.PREVIOUS].push(recipient);
       } else {
         // add to not acknowledged list
-        recipients[PENDING].push(recipient);
+        recipients[REPORT.PENDING].push(recipient);
       }
     });
     // update with our new lists
@@ -68,14 +66,15 @@ export class SpaReport extends React.PureComponent {
   }
 
   handleClick = (d) => {
-    this.setState({ selectedKey: Number(d.data.key) });
+    const key = d.data ? d.data.key : d;
+    this.setState({ selectedKey: Number(key) });
   }
 
   renderD3 = (type) => {
     const { data, dataKey, connectFauxDOM, animateFauxDOM } = this.props;
     // data passed down
     const mappedData = d3.nest()
-      .key((d) => d[dataKey] ? ACK : PENDING)
+      .key((d) => d[dataKey] ? REPORT.PREVIOUS : REPORT.PENDING)
       .rollup((v) => v.length)
       .entries(data);
     // attach to faux dom
@@ -159,8 +158,8 @@ export class SpaReport extends React.PureComponent {
     const { recipients, selectedKey } = this.state;
     // build stats for chart lengend
     const totalCount = data.length || 1;
-    const pending = recipients[PENDING];
-    const acknowledged = recipients[ACK];
+    const pending = recipients[REPORT.PENDING];
+    const acknowledged = recipients[REPORT.PREVIOUS];
     const pendingPercent = Math.round((pending.length / totalCount) * 100);
     const acknowldgedPercent = 100 - pendingPercent;
 
@@ -172,16 +171,17 @@ export class SpaReport extends React.PureComponent {
       chart,
       stats: {
         pending: {
-          color: theme.chart.colors[PENDING],
+          color: theme.chart.colors[REPORT.PENDING],
           count: pending.length,
           percent: pendingPercent,
         },
         acknowledged: {
-          color: theme.chart.colors[ACK],
+          color: theme.chart.colors[REPORT.PREVIOUS],
           count: acknowledged.length,
           percent: acknowldgedPercent,
         },
       },
+      onClick: this.handleClick,
     };
 
     const recipientsProps = {

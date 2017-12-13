@@ -12,7 +12,7 @@ class AckModal extends React.PureComponent {
   render() {
     const {
       item,
-      onAck,
+      onSubmit,
       onRead,
       onClose,
       hasRead,
@@ -30,7 +30,7 @@ class AckModal extends React.PureComponent {
     };
 
     const primaryButtonProps = {
-      onClick: hasRead ? onAck : onRead,
+      onClick: hasRead ? onSubmit : onRead,
       text: hasRead ? 'Submit' : 'Read',
     };
 
@@ -59,7 +59,7 @@ AckModal.propTypes = {
     name: string,
     details: string,
   }),
-  onAck: func,
+  onSubmit: func,
   onRead: func,
   onClose: func,
   hasRead: bool,

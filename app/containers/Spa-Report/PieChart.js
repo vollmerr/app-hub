@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 
+import { REPORT } from 'containers/Spa/constants';
 import theme from 'utils/theme';
 
 
@@ -37,9 +39,8 @@ export const Legend = styled.div`
 `;
 
 
-export const Item = styled.div`
+export const Item = styled(ActionButton) `
   display:flex;
-  align-items: center;
   padding: 5px;
 `;
 
@@ -56,15 +57,15 @@ export const Color = styled.div`
 
 class PieChart extends React.PureComponent {
   render() {
-    const { chart, stats } = this.props;
+    const { chart, stats, onClick } = this.props;
     const { pending, acknowledged } = stats;
 
     return (
       <Wrapper>
         <Chart>{chart}</Chart>
         <Legend>
-          <Item><Color color={pending.color} />Pending: {pending.count} ({pending.percent} %)</Item>
-          <Item><Color color={acknowledged.color} />Acknowldged: {acknowledged.count} ({acknowledged.percent} %)</Item>
+          <Item onClick={() => onClick(REPORT.PENDING)}><Color color={pending.color} />Pending: {pending.count} ({pending.percent} %)</Item>
+          <Item onClick={() => onClick(REPORT.PREVIOUS)}><Color color={acknowledged.color} />Acknowldged: {acknowledged.count} ({acknowledged.percent} %)</Item>
         </Legend>
       </Wrapper>
     );
@@ -72,7 +73,7 @@ class PieChart extends React.PureComponent {
 }
 
 
-const { node, shape, number } = PropTypes;
+const { node, shape, number, func } = PropTypes;
 
 PieChart.propTypes = {
   chart: node,
@@ -86,6 +87,7 @@ PieChart.propTypes = {
       percent: number,
     }).isRequired,
   }),
+  onClick: func.isRequired,
 };
 
 

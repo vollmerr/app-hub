@@ -124,14 +124,14 @@ describe('<SpaHome />', () => {
   });
 
 
-  describe('handleAck', () => {
+  describe('handleSubmitAck', () => {
     xit('should update the API that the user has acknowledged', () => {
       // TODO
     });
 
     it('should close the modal', () => {
       instance.handleCloseModal = jest.fn();
-      instance.handleAck();
+      instance.handleSubmitAck();
       expect(instance.handleCloseModal).toHaveBeenCalled();
     });
   });

@@ -1,13 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { testStyledComponent } from 'utils/testUtils';
+import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 
+import { REPORT } from 'containers/Spa/constants';
 import PieChart, { Wrapper, Chart, Legend, Item, Color } from '../PieChart';
 
 testStyledComponent(Wrapper);
 testStyledComponent(Chart);
 testStyledComponent(Legend);
-testStyledComponent(Item);
+testStyledComponent(Item, ActionButton);
 testStyledComponent(Color); // TODO: test bg based off props
 
 const ChartProp = () => <div>test chart...</div>;
@@ -24,6 +26,7 @@ const props = {
       percent: 70,
     },
   },
+  onClick: jest.fn(),
 };
 
 
@@ -50,5 +53,15 @@ describe('PieChart', () => {
   it('should render two items in the legend for pending and acknowledged stats', () => {
     expect(wrapper.find(Item).length).toEqual(2);
     expect(wrapper.find(Color).length).toEqual(2);
+  });
+
+  it('should call the onClick when clicking the pending item in the legend', () => {
+    wrapper.find(Item).at(REPORT.PENDING).simulate('click');
+    expect(props.onClick).toHaveBeenCalledWith(REPORT.PENDING);
+  });
+
+  it('should call the onClick when clicking the previous item in the legend', () => {
+    wrapper.find(Item).at(REPORT.PREVIOUS).simulate('click');
+    expect(props.onClick).toHaveBeenCalledWith(REPORT.PREVIOUS);
   });
 });
