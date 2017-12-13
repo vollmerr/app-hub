@@ -71,6 +71,16 @@ exports[`Details should render correctly 1`] = `
     Test Title
   </Details__Heading>
   <Details__Item
+    key="status"
+  >
+    <Details__Key>
+      Status
+    </Details__Key>
+    <Details__Value>
+      Test status
+    </Details__Value>
+  </Details__Item>
+  <Details__Item
     key="activeStartDate"
   >
     <Details__Key>

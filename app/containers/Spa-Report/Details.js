@@ -37,6 +37,7 @@ export const Value = styled.div`
 
 
 export const items = [
+  ACK.STATUS,
   ACK.DATE_START,
   ACK.DATE_END,
   ACK.TARGET_GROUPS,

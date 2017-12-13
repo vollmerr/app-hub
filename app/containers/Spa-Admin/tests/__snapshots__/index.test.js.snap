@@ -70,6 +70,15 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "name": "Target Group(s)",
             },
             Object {
+              "ariaLabel": "Status of the acknowledgment",
+              "fieldName": "status",
+              "isResizable": true,
+              "key": "status",
+              "maxWidth": 40,
+              "minWidth": 30,
+              "name": "Status",
+            },
+            Object {
               "ariaLabel": "Name of the file that must be read before acknowledging",
               "fieldName": "fileName",
               "isResizable": true,
@@ -175,6 +184,15 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "maxWidth": 250,
               "minWidth": 100,
               "name": "Target Group(s)",
+            },
+            Object {
+              "ariaLabel": "Status of the acknowledgment",
+              "fieldName": "status",
+              "isResizable": true,
+              "key": "status",
+              "maxWidth": 40,
+              "minWidth": 30,
+              "name": "Status",
             },
             Object {
               "ariaLabel": "Name of the file that must be read before acknowledging",

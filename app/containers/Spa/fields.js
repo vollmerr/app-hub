@@ -53,6 +53,13 @@ const spaFields = {
     component: FieldChecks,
     options: [],
   },
+  [ACK.STATUS]: {
+    label: 'Status',
+    name: ACK.STATUS,
+    ariaLabel: 'Status of the acknowledgment',
+    minWidth: 30,
+    maxWidth: 40,
+  },
   [ACK.STATEMENT]: {
     label: 'Statement',
     required: true,
