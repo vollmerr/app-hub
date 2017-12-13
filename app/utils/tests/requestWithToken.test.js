@@ -28,7 +28,7 @@ const defaultOptions = {
   },
 };
 
-describe.only('requestWithToken', () => {
+describe('requestWithToken', () => {
   beforeEach(() => {
     window.localStorage = {};
     window.localStorage.getItem = () => global.jwt.valid;
