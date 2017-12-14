@@ -16,6 +16,7 @@ import AckModal from './AckModal';
 
 const halfHeight = {
   vh: 50,
+  margin: -2,
 };
 
 

@@ -8,7 +8,7 @@ import theme from 'utils/theme';
 
 
 export const Wrapper = styled.div`
-  flex: 2 calc(${theme.chart.height}px + 60px);
+  flex: 1;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;

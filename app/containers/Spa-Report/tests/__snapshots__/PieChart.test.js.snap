@@ -57,9 +57,9 @@ exports[`<PieChart__Legend /> should render correctly 1`] = `
 
 exports[`<PieChart__Wrapper /> should render correctly 1`] = `
 .c0 {
-  -webkit-flex: 2 calc(300px + 60px);
-  -ms-flex: 2 calc(300px + 60px);
-  flex: 2 calc(300px + 60px);
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

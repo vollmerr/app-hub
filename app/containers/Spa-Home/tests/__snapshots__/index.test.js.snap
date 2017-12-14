@@ -3,6 +3,7 @@
 exports[`<SpaHome /> should render correctly 1`] = `
 <div>
   <ListSection__ListSection
+    margin={-2}
     vh={50}
   >
     <List
@@ -86,6 +87,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
     />
   </ListSection__ListSection>
   <ListSection__ListSection
+    margin={-2}
     vh={50}
   >
     <List

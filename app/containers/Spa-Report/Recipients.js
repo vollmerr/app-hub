@@ -1,13 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import theme from 'utils/theme';
 import ListSection from 'components/List/ListSection';
 import List from 'components/List';
 
 
-export const Wrapper = styled(ListSection)`
+export const Wrapper = styled(ListSection) `
   flex: 1;
   margin: 5px;
+  height: auto;
+  max-height: calc(100vh - ${theme.app.subNavHeight} - 20px);
 `;
 
 const halfHeight = {

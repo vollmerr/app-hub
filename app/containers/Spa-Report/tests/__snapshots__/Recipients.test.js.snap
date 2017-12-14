@@ -23,6 +23,8 @@ exports[`<Recipients__Wrapper /> should render correctly 1`] = `
   -ms-flex: 1;
   flex: 1;
   margin: 5px;
+  height: auto;
+  max-height: calc(100vh - 40px - 20px);
 }
 
 <ListSection__ListSection
