@@ -6,6 +6,7 @@ import { createSelector } from 'reselect';
  */
 const selectAppHubDomain = (state) => state.get('appHub');
 
+const selectApp = (state) => selectAppHubDomain(state).get('app');
 
 /**
  * Other specific selectors
@@ -91,6 +92,7 @@ const makeSelectAppHub = () => createSelector(
 export default makeSelectAppHub;
 export {
   selectAppHubDomain,
+  selectApp,
 
   makeSelectView,
   makeSelectIsMobile,

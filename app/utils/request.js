@@ -68,6 +68,32 @@ export const mergeById = (state, section, data, id = 'id') => {
   });
 };
 
+
+/**
+ * Waits until passed component is finished loading
+ *
+ * @param {object} component   - component instance to wait for (pass `this`)
+ * @param {func} cb            - callback to call before resolving
+ *
+ * @return {Promise}           - resolves when component is not loading
+ */
+export function doneLoading(component, cb) {
+  return new Promise((resolve) => {
+    const checkLoading = () => {
+      if (!component.props.Loading) {
+        if (cb) {
+          cb();
+        }
+        resolve();
+      } else {
+        setTimeout(checkLoading, 100);
+      }
+    };
+    checkLoading();
+  });
+}
+
+
 /**
  * Parses the JSON returned by a network request
  *

@@ -23,6 +23,11 @@ exports[`<Items /> should render correctly with nothing passed 1`] = `
   cursor: pointer;
 }
 
+.c0 .ms-DetailsHeader-cellSizer:last-of-type {
+  width: 0;
+  margin: 0;
+}
+
 <Section__Section
   className="c0"
 />
@@ -49,6 +54,11 @@ exports[`<Items /> should render correctly with vh and margin passed 1`] = `
 .c0 .ms-DetailsRow-fields,
 .c0 .ms-DetailsHeader-cell {
   cursor: pointer;
+}
+
+.c0 .ms-DetailsHeader-cellSizer:last-of-type {
+  width: 0;
+  margin: 0;
 }
 
 <Section__Section
@@ -79,6 +89,11 @@ exports[`<ListSection__ListSection /> should render correctly 1`] = `
 .c0 .ms-DetailsRow-fields,
 .c0 .ms-DetailsHeader-cell {
   cursor: pointer;
+}
+
+.c0 .ms-DetailsHeader-cellSizer:last-of-type {
+  width: 0;
+  margin: 0;
 }
 
 <Section__Section

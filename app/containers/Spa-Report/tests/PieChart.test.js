@@ -27,6 +27,7 @@ const props = {
     },
   },
   onClick: jest.fn(),
+  hasData: true,
 };
 
 
@@ -39,6 +40,12 @@ describe('PieChart', () => {
 
   it('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render a no data indicator and no chart if there is no data', () => {
+    wrapper.setProps({ hasData: false });
+    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.find(Chart).length).toEqual(0);
   });
 
   it('should render the chart', () => {

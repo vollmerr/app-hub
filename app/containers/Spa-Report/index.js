@@ -70,87 +70,78 @@ export class SpaReport extends React.PureComponent {
     this.setState({ selectedKey: Number(key) });
   }
 
-  renderD3 = (type) => {
+  renderD3 = (mode) => {
     const { data, dataKey, connectFauxDOM, animateFauxDOM } = this.props;
-    // data passed down
+    // rendering mode
+    const render = mode === 'render';
+    const resize = mode === 'resize';
+    // d3 helpers
+    const width = theme.chart.width;
+    const height = theme.chart.height;
+    const outerRadius = (Math.min(width, height) / 2) - 10;
+    const innerRadius = 0;
+    const arc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius);
+    const pie = d3
+      .pie()
+      .value((d) => d.value)
+      .sort(null);
+    // define color scheme
+    const color = d3.scaleOrdinal()
+      .domain([0, 1])
+      .range(theme.chart.colors);
+    // map data based off length of lists
     const mappedData = d3.nest()
       .key((d) => d[dataKey] ? REPORT.PREVIOUS : REPORT.PENDING)
       .rollup((v) => v.length)
       .entries(data);
-    // attach to faux dom
+    // arc transitions, see https://bl.ocks.org/mbostock/1346410
+    // do not use arrow function here as scope is the path element
+    function arcTween(a) {
+      const i = d3.interpolate(this._current, a); // eslint-disable-line
+      this._current = i(0); // eslint-disable-line
+      return (t) => arc(i(t));
+    }
+    // create a faux div and store its virtual DOM in state.chart
     const faux = connectFauxDOM('div', 'chart');
-    // init some vars
-    const width = theme.chart.width;
-    const height = theme.chart.height;
-    const radius = Math.min(width, height) / 2;
-    // set color of chart
-    const color = d3.scaleOrdinal()
-      .domain([0, 1])
-      .range(theme.chart.colors);
-    // helper func for binding data as pie
-    const pie = d3.pie()
-      .sort(null)
-      .value((d) => d.value);
-    // helper func for setting path attribute as an arc
-    const arc = d3.arc()
-      .outerRadius(radius - 20)
-      .innerRadius(0);
-    // RENDERING
-    if (type === 'render') {
-      // set up a svg > g contianer with width and height
-      const svg = d3.select(faux).append('svg')
+
+    let svg;
+    if (render) {
+      svg = d3
+        .select(faux)
+        .append('svg')
         .attr('width', width)
         .attr('height', height)
         .append('g')
         .attr('transform', `translate(${width / 2}, ${height / 2})`);
-      // set up arcs with data
-      const g = svg.selectAll('.arc')
-        .data(pie(mappedData))
-        .enter().append('g')
-        .attr('class', 'arc');
-      // add a path to each arc, with the color based off index
-      g.append('path')
-        .attr('d', arc)
-        .style('fill', (d) => color(Number(d.data.key)))
-        .each(function setAngle(d) { this.current = d; }) // store inital angle
-        .on('click', this.handleClick);
-    } else { // UPDATING
-      const svg = d3.select(faux).select('svg');
-      // rejoin data
-      const g = svg.select('g')
-        .selectAll('.arc')
-        .data(pie(mappedData));
-      // remove old
-      g.exit()
-        .remove();
-      // add new
-      g.enter()
-        .append('g')
-        .attr('class', 'arc')
-        .append('path')
-        .attr('d', arc)
-        .style('fill', (d) => color(Number(d.data.key)))
-        .each(function setAngle(d) { this.current = d; })  // store inital angles
-        .on('click', this.handleClick);
-      // update exisitng paths
-      g.select('path')
-        .transition()
-        .duration(500)
-        .attrTween('d', arcTween)
-        .style('fill', (d) => color(Number(d.data.key)));
-
-      g.select('path')
-        .on('click', this.handleClick);
-
-      // render update / animate
-      animateFauxDOM(800);
-
-      function arcTween(a) { // eslint-disable-line
-        const i = d3.interpolate(this.current, a);
-        this.current = i(0);
-        return (t) => arc(i(t));
-      }
+    } else if (resize) {
+      svg = d3
+        .select(faux)
+        .select('svg')
+        .attr('width', width)
+        .attr('height', height)
+        .select('g')
+        .attr('transform', `translate(${width / 2}, ${height / 2})`);
+    } else {
+      svg = d3.select(faux).select('svg').select('g');
     }
+
+    const arcs = svg.selectAll('path').data(pie(mappedData));
+    arcs
+      .enter()
+      .append('path')
+      .style('fill', (d) => color(Number(d.data.key)))
+      .attr('d', arc)
+      .each(function (d) { // eslint-disable-line
+        // store the initial angles for transitions
+        // do not use arrow function here as scope is the path element
+        this._current = d; // eslint-disable-line
+      })
+      .on('click', this.handleClick);
+
+    arcs.exit().remove();
+
+    arcs.transition().attrTween('d', arcTween);
+    animateFauxDOM(800);
   }
 
   render() {
@@ -182,6 +173,7 @@ export class SpaReport extends React.PureComponent {
         },
       },
       onClick: this.handleClick,
+      hasData: Boolean(data.length),
     };
 
     const recipientsProps = {

@@ -28,6 +28,11 @@ const ListSection = styled(Section) `
   .ms-DetailsHeader-cell {
     cursor: pointer;
   }
+
+  .ms-DetailsHeader-cellSizer:last-of-type {
+    width: 0;
+    margin: 0;
+  }
 `;
 
 export default ListSection;

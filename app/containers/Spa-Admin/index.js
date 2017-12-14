@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
-import appPage from 'containers/App-Container/appPage';
 
 import {
   getAdminCached,
@@ -25,6 +24,8 @@ import {
   disableAckRequest,
 } from 'containers/Spa/actions';
 
+import { doneLoading } from 'utils/request';
+import appPage from 'containers/App-Container/appPage';
 import spaFields, { newAckForm } from 'containers/Spa/fields';
 import { adminColumns } from 'containers/Spa/columns';
 import ListSection from 'components/List/ListSection';
@@ -58,6 +59,7 @@ export class SpaAdmin extends React.PureComponent {
       hideReport: true,
       selectedItem: {},
       fields: spaFields,
+      reportData: [],
     };
 
     this.selectionActive = new Selection({
@@ -113,8 +115,8 @@ export class SpaAdmin extends React.PureComponent {
   handleSubmitNew = (values) => {
     const { onNewAckRequest } = this.props;
 
-    onNewAckRequest(values);
     this.handleHideNew();
+    onNewAckRequest(values);
   }
 
   //
@@ -138,14 +140,16 @@ export class SpaAdmin extends React.PureComponent {
   /**
    * Handles Submiting when disabling an acknowledgment
    */
-  handleSubmitDisable = () => {
+  handleSubmitDisable = async () => {
     const { onDisableAckRequest } = this.props;
     const { selectedItem } = this.state;
-
-    onDisableAckRequest(selectedItem);
-    // set item to be disabled then hide the modal
-    this.setState({ selectedItem: { ...selectedItem, [ACK.STATUS]: STATUS.DISABLED } });
+    // must hide the modal before api call to avoid flicker
     this.handleHideDisable();
+    await onDisableAckRequest(selectedItem);
+    // when done loading set item to be disabledl
+    await doneLoading(this, () => {
+      this.setState({ selectedItem: { ...selectedItem, [ACK.STATUS]: STATUS.DISABLED } });
+    });
   }
 
   //
@@ -163,7 +167,7 @@ export class SpaAdmin extends React.PureComponent {
    * Handles hiding the report screen
    */
   handleHideReport = () => {
-    this.setState({ hideReport: true });
+    this.setState({ hideReport: true, reportData: [] });
   }
 
   /**
@@ -242,14 +246,19 @@ export class SpaAdmin extends React.PureComponent {
   /**
    * Handles selecting an item from a list
    */
-  handleSelectItem = (item) => {
+  handleSelectItem = async (item) => {
     const { onGetAckRecipientsRequest, adminAllIds } = this.props;
+    // display the report (need to do before loading api so no flicker)
+    this.handleShowReport();
     // call api if no entry for recipients stored
     if (!selectIdExists(adminAllIds, item[ACK.ID])) {
-      // console.log('onGetAckRecipientsRequest')
-      onGetAckRecipientsRequest(item);
+      await onGetAckRecipientsRequest(item);
     }
-    this.handleShowReport();
+    // when done loading build data for report (all recipients of acknowledgment into an array)
+    await doneLoading(this, () => {
+      const reportData = selectByAckId(this.props.recipients, this.state.selectedItem[ACK.ID]).toList().toJS();
+      this.setState({ reportData });
+    });
   }
 
   /**
@@ -272,6 +281,7 @@ export class SpaAdmin extends React.PureComponent {
   handleBack = () => {
     this.handleHideNew();
     this.handleHideReport();
+    this.handleHideDisable();
   }
 
   //
@@ -284,13 +294,12 @@ export class SpaAdmin extends React.PureComponent {
    * @return {JSX}            - content to be rendered
    */
   renderContent = () => {
-    const { adminActiveAcks, adminPreviousAcks, Loading, recipients } = this.props;
-    const { selectedItem, hideDisable, hideNewAck, hideReport, fields } = this.state;
-
+    const { adminActiveAcks, adminPreviousAcks, Loading } = this.props;
+    const { selectedItem, hideDisable, hideNewAck, hideReport, fields, reportData } = this.state;
+    // if we got a loading compoennt just render that
     if (Loading) {
       return Loading;
     }
-
     // render form for new acknowledgments
     if (!hideNewAck) {
       const newAckProps = {
@@ -303,12 +312,10 @@ export class SpaAdmin extends React.PureComponent {
       return <NewAckForm {...newAckProps} />;
     }
     // render reporting
-    if (!hideReport && selectedItem[ACK.ID]) {
-      const data = selectByAckId(recipients, selectedItem[ACK.ID]);
-
+    if (!hideReport) {
       const reportProps = {
         selectedItem,
-        data: data.toList().toJS(),
+        data: reportData,
         dataKey: RECIPIENT.ACK_DATE,
       };
 

@@ -57,14 +57,14 @@ describe('appHubReducer', () => {
 
   it('handles CHANGE_APP_STATUS', () => {
     expected = expected
-      .setIn(['app', 'loading'], true)
+      .setIn(['app', 'loading'], 1)
       .setIn(['app', 'error'], null);
-    let action = { type: CHANGE_APP_STATUS, payload: { loading: true } };
+    let action = { type: CHANGE_APP_STATUS, payload: { loading: 1 } };
 
     expect(appHubReducer(undefined, action)).toEqual(expected);
 
     expected = expected
-      .setIn(['app', 'loading'], false)
+      .setIn(['app', 'loading'], 0)
       .setIn(['app', 'error'], 'test error');
     action = { type: CHANGE_APP_STATUS, payload: { error: 'test error' } };
     expect(appHubReducer(undefined, action)).toEqual(expected);
@@ -100,7 +100,7 @@ describe('appHubReducer', () => {
     const error = new Error('test error');
     expected = expected
       .setIn(['app', 'error'], error)
-      .setIn(['app', 'loading'], false);
+      .setIn(['app', 'loading'], initialState.app.loading - 1);
     const action = { type: AUTH_USER_DONE, payload: error, error: true };
 
     expect(appHubReducer(undefined, action)).toEqual(expected);

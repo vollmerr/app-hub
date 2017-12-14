@@ -35,21 +35,14 @@ describe('spaSaga', () => {
       'NEW_ACK_REQUEST',
       'DISABLE_ACK_REQUEST''`,
     () => {
-      testSaga(spaSaga)
-        .next()
-        .takeLatestEffect(C.GET_USER_DATA_REQUEST, getUserData)
-        .next()
-        .takeLatestEffect(C.GET_ADMIN_DATA_REQUEST, getAdminData)
-        .next()
-        .takeLatestEffect(C.GET_GROUPS_REQUEST, getGroups)
-        .next()
-        .takeLatestEffect(C.GET_ACK_RECIPIENTS_REQUEST, getAckRecipients)
-        .next()
-        .takeLatestEffect(C.NEW_ACK_REQUEST, newAck)
-        .next()
-        .takeLatestEffect(C.DISABLE_ACK_REQUEST, disableAck)
-        .finish()
-        .isDone();
+      testSaga(spaSaga).next()
+        .takeLatestEffect(C.GET_USER_DATA_REQUEST, getUserData).next()
+        .takeLatestEffect(C.GET_ADMIN_DATA_REQUEST, getAdminData).next()
+        .takeLatestEffect(C.GET_GROUPS_REQUEST, getGroups).next()
+        .takeLatestEffect(C.GET_ACK_RECIPIENTS_REQUEST, getAckRecipients).next()
+        .takeLatestEffect(C.NEW_ACK_REQUEST, newAck).next()
+        .takeLatestEffect(C.DISABLE_ACK_REQUEST, disableAck).next()
+        .finish().isDone();
     });
 });
 
@@ -64,18 +57,17 @@ describe('getUserData', () => {
     const selector = () => sid;
     selectors.makeSelectUserSid = () => selector;
 
-    testSaga(getUserData)
-      .next()
-      .select(selector)
-      .next(sid)
+    testSaga(getUserData).next()
+      .select(selector).next(sid)
       .all([
         call(requestWithToken, urls.recipients),
         call(requestWithToken, urls.acknowledgments),
-      ])
-      .next([data.recipients, data.acknowledgments])
-      .put(actions.getUserDataSuccess({ recipients: data.recipients, acknowledgments: data.acknowledgments }))
-      .finish()
-      .isDone();
+      ]).next([data.recipients, data.acknowledgments])
+      .put(actions.getUserDataSuccess({
+        recipients: data.recipients,
+        acknowledgments: data.acknowledgments,
+      })).next()
+      .finish().isDone();
   });
 
   it('should handle errors', () => {
@@ -91,13 +83,12 @@ describe('getAdminData', () => {
   it('should call the api and update the store with its results', () => {
     const url = `${base}/acknowledgments`;
 
-    testSaga(getAdminData)
-      .next()
-      .call(requestWithToken, url)
-      .next(data.acknowledgments)
-      .put(actions.getAdminDataSuccess({ acknowledgments: data.acknowledgments }))
-      .finish()
-      .isDone();
+    testSaga(getAdminData).next()
+      .call(requestWithToken, url).next(data.acknowledgments)
+      .put(actions.getAdminDataSuccess({
+        acknowledgments: data.acknowledgments,
+      })).next()
+      .finish().isDone();
   });
 
   it('should handle errors', () => {
@@ -116,16 +107,16 @@ describe('getGroups', () => {
       creators: `${base}/groups/creators`,
     };
 
-    testSaga(getGroups)
-      .next()
+    testSaga(getGroups).next()
       .all([
         call(requestWithToken, urls.targets),
         call(requestWithToken, urls.creators),
-      ])
-      .next([groups.targets, groups.creators])
-      .put(actions.getGroupsSuccess({ targets: groups.targets, creators: groups.creators }))
-      .finish()
-      .isDone();
+      ]).next([groups.targets, groups.creators])
+      .put(actions.getGroupsSuccess({
+        targets: groups.targets,
+        creators: groups.creators,
+      })).next()
+      .finish().isDone();
   });
 
   it('should handle errors', () => {
@@ -142,13 +133,13 @@ describe('getAckRecipients', () => {
     action = { payload: { id: data.id } };
     const url = `${base}/acknowledgements/${data.id}/recipients`;
 
-    testSaga(getAckRecipients, action)
-      .next()
-      .call(requestWithToken, url)
-      .next(data.recipients)
-      .put(actions.getAckRecipientsSuccess({ recipients: data.recipients, id: data.id }))
-      .finish()
-      .isDone();
+    testSaga(getAckRecipients, action).next()
+      .call(requestWithToken, url).next(data.recipients)
+      .put(actions.getAckRecipientsSuccess({
+        recipients: data.recipients,
+        id: data.id,
+      })).next()
+      .finish().isDone();
   });
 
   it('should handle errors', () => {
@@ -169,13 +160,10 @@ describe('newAck', () => {
     };
     const url = `${base}/acknowledgments`;
 
-    testSaga(newAck, action)
-      .next()
-      .call(requestWithToken, url, options)
-      .next(data)
-      .put(actions.newAckSuccess(data))
-      .finish()
-      .isDone();
+    testSaga(newAck, action).next()
+      .call(requestWithToken, url, options).next(data)
+      .put(actions.newAckSuccess(data)).next()
+      .finish().isDone();
   });
 
   it('should handle errors', () => {
@@ -202,13 +190,10 @@ describe('disableAck', () => {
     };
     const url = `${base}/acknowledgments/${data.id}`;
 
-    testSaga(disableAck, action)
-      .next()
-      .call(requestWithToken, url, options)
-      .next(data)
-      .put(actions.disableAckSuccess(data))
-      .finish()
-      .isDone();
+    testSaga(disableAck, action).next()
+      .call(requestWithToken, url, options).next(data)
+      .put(actions.disableAckSuccess(data)).next()
+      .finish().isDone();
   });
 
   it('should handle errors', () => {

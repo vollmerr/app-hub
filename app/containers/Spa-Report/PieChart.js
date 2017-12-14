@@ -22,12 +22,12 @@ export const Wrapper = styled.div`
 
 
 export const Chart = styled.div`
-  .arc path {
+  path {
     stroke: ${theme.themeDarker};
     stroke-width: 1px;
   }
 
-  .arc path:hover {
+  path:hover {
     fill-opacity: 0.15;
     cursor: pointer;
   }
@@ -57,8 +57,14 @@ export const Color = styled.div`
 
 class PieChart extends React.PureComponent {
   render() {
-    const { chart, stats, onClick } = this.props;
+    const { chart, stats, onClick, hasData } = this.props;
     const { pending, acknowledged } = stats;
+
+    if (!hasData) {
+      return (
+        <Wrapper>No Data</Wrapper>
+      );
+    }
 
     return (
       <Wrapper>
@@ -73,7 +79,7 @@ class PieChart extends React.PureComponent {
 }
 
 
-const { node, shape, number, func } = PropTypes;
+const { node, shape, number, func, bool } = PropTypes;
 
 PieChart.propTypes = {
   chart: node,
@@ -88,6 +94,7 @@ PieChart.propTypes = {
     }).isRequired,
   }),
   onClick: func.isRequired,
+  hasData: bool.isRequired,
 };
 
 

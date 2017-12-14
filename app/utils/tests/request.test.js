@@ -3,7 +3,7 @@
  */
 import { fromJS } from 'immutable';
 
-import request, { normalizeById, mergeById } from '../request';
+import request, { normalizeById, mergeById, doneLoading } from '../request';
 
 describe('request', () => {
   // Before each test, stub the fetch function
@@ -173,4 +173,40 @@ describe('mergeById', () => {
     });
     expect(mergeById(state, section, data).toJS()).toEqual(expected.toJS());
   });
+});
+
+
+describe('doneLoading', () => {
+  let component;
+  beforeEach(() => {
+    global.setTimeout = jest.fn(() => Promise.resolve());
+    component = {
+      props: {
+        Loading: false,
+      },
+    };
+  });
+
+  it('should resolve if the component is done loading', () => {
+    expect(doneLoading(component)).resolves.toEqual();
+    expect(global.setTimeout).not.toHaveBeenCalled();
+  });
+
+  it('should call the callback passed if the component is done loading', () => {
+    const cb = jest.fn();
+    doneLoading(component, cb);
+    expect(cb).toHaveBeenCalled();
+    expect(global.setTimeout).not.toHaveBeenCalled();
+  });
+
+  it('should wait until the component is done loading', () => {
+    component.props.Loading = true;
+    doneLoading(component).then(() => {
+      expect(global.setTimeout).toHaveBeenCalled();
+    });
+  });
+
+  // it('should timeout if the compoennt is still loading', () => {
+  //   expect(doneLoading)
+  // });
 });

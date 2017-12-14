@@ -22,7 +22,7 @@ export const initialState = {
   app: {
     name: '',
     error: null,
-    loading: false,
+    loading: 0,
     routes: [],
     meta: {},
   },
@@ -42,7 +42,7 @@ export default handleActions({
     const { name, routes, meta } = action.payload;
     return state
       .setIn(['app', 'error'], null)
-      .setIn(['app', 'loading'], false)
+      .setIn(['app', 'loading'], 0)
       .setIn(['app', 'name'], name)
       .setIn(['app', 'routes'], fromJS(routes))
       .setIn(['app', 'meta'], fromJS(meta));
@@ -52,7 +52,7 @@ export default handleActions({
 
     return state
       .setIn(['app', 'error'], error || null)
-      .setIn(['app', 'loading'], loading || false);
+      .setIn(['app', 'loading'], loading || 0);
   },
   // USER
   [AUTH_USER_DONE]: (state, action) => {
@@ -61,7 +61,7 @@ export default handleActions({
     if (action.error) {
       return state
         .setIn(['app', 'error'], fromJS(action.payload))
-        .setIn(['app', 'loading'], false);
+        .setIn(['app', 'loading'], state.getIn(['app', 'loading']) - 1);
     }
 
     const rolesArray = typeof roles === 'string' ? [roles] : roles;
