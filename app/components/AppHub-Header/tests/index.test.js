@@ -7,6 +7,7 @@ import {
   APP_NAV_PANEL,
   ALERTS_PANEL,
   DEV_PANEL,
+  MOCK_PANEL,
 } from 'containers/AppHub/constants';
 
 import AppHubHeader from '../index';
@@ -92,6 +93,17 @@ describe('<AppHubHeader />', () => {
       wrapper = shallow(<AppHubHeader {...props} />);
       testIfChecked(wrapper, panel);
       global.isDev = false; // reset to not dev mode for other tests.
+      expect(wrapper.find({ panel }).length).toEqual(1);
+    });
+
+    it('should render the Mock panel link if in mock mode', () => {
+      const panel = MOCK_PANEL;
+      expect(wrapper.find({ panel }).length).toEqual(0);
+
+      global.isMock = true;
+      wrapper = shallow(<AppHubHeader {...props} />);
+      testIfChecked(wrapper, panel);
+      global.isMock = false; // reset to not mock mode for other tests.
       expect(wrapper.find({ panel }).length).toEqual(1);
     });
 

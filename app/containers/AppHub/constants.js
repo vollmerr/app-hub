@@ -8,6 +8,7 @@ export const APPS_PANEL = 'app/AppHub/APPS_PANEL';
 export const APP_NAV_PANEL = 'app/AppHub/APP_NAV_PANEL';
 export const ALERTS_PANEL = 'app/AppHub/ALERTS_PANEL';
 export const DEV_PANEL = 'app/AppHub/DEV_PANEL';
+export const MOCK_PANEL = 'app/AppHub/MOCK_PANEL';
 // APP
 export const CHANGE_APP = 'app/AppHub/CHANGE_APP';
 export const CHANGE_APP_STATUS = 'app/AppHub/CHANGE_APP_STATUS';

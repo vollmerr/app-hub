@@ -7,6 +7,7 @@ import {
   APP_NAV_PANEL,
   ALERTS_PANEL,
   DEV_PANEL,
+  MOCK_PANEL,
 } from 'containers/AppHub/constants';
 
 import Panel from 'components/Panel';
@@ -16,6 +17,7 @@ import Help from '../Help';
 import Apps from '../Apps';
 import Alerts from '../Alerts';
 import Dev from '../Dev';
+import Mock from '../Mock';
 
 const props = {
   panel: HELP_PANEL,
@@ -52,6 +54,9 @@ describe('<AppHubPanel />', () => {
 
     wrapper.setProps({ panel: DEV_PANEL });
     expect(wrapper.find(Dev).length).toEqual(1);
+
+    wrapper.setProps({ panel: MOCK_PANEL });
+    expect(wrapper.find(Mock).length).toEqual(1);
 
     expect(wrapper.children().length).toEqual(1);
   });

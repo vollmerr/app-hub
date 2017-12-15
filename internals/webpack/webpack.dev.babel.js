@@ -12,7 +12,32 @@ const CircularDependencyPlugin = require('circular-dependency-plugin');
 const logger = require('../../server/logger');
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
 const dllPlugin = pkg.dllPlugin;
+
 const devJwts = require('../mocks/.jwt.json');
+const isDev = process.env.NODE_ENV === 'development';
+
+const globals = {
+  dev: {
+    API: JSON.stringify({
+      BARS: 'https://testbarsapi.technology.ca.gov/api/BadgeRequests',
+      ED: 'http://testapphubapi.technology.ca.gov/directory/employees',
+      JWT: 'https://testsec.api.technology.ca.gov/createToken',
+      SPA: 'https://testapphubapi.technology.ca.gov',
+    }),
+  },
+  mock: {
+    API: JSON.stringify({
+      BARS: 'https://testbarsapi.technology.ca.gov/api/BadgeRequests',
+      ED: 'http://testapphubapi.technology.ca.gov/directory/employees',
+      JWT: 'https://testsec.api.technology.ca.gov/createToken',
+      SPA: 'http://localhost:3001/spa',
+    }),
+    MOCK: JSON.stringify({
+      JWT: devJwts,
+    }),
+  },
+};
+
 
 const plugins = [
   new webpack.HotModuleReplacementPlugin(), // Tell webpack we want hot reloading
@@ -25,17 +50,7 @@ const plugins = [
     exclude: /a\.js|node_modules/, // exclude node_modules
     failOnError: false, // show a warning when there is a circular dependency
   }),
-  new webpack.DefinePlugin({
-    API: JSON.stringify({
-      BARS: 'https://testbarsapi.technology.ca.gov/api/BadgeRequests',
-      ED: 'http://testapphubapi.technology.ca.gov/directory/employees',
-      JWT: 'https://testsec.api.technology.ca.gov/createToken',
-      SPA: 'http://localhost:3001/spa',
-    }),
-    DEV: JSON.stringify({
-      JWT: devJwts,
-    }),
-  }),
+  new webpack.DefinePlugin(isDev ? globals.dev : globals.mock),
 ];
 
 if (dllPlugin) {

@@ -7,6 +7,7 @@ import {
   APP_NAV_PANEL,
   ALERTS_PANEL,
   DEV_PANEL,
+  MOCK_PANEL,
 } from 'containers/AppHub/constants';
 
 import Wrapper from './Wrapper';
@@ -18,6 +19,7 @@ import Line from './Line';
 import Link from './Link';
 
 global.isDev = process.env.NODE_ENV === 'development';
+global.isMock = process.env.NODE_ENV === 'MOCK';
 
 
 class Header extends React.PureComponent {
@@ -113,6 +115,18 @@ class Header extends React.PureComponent {
               panel={DEV_PANEL}
               onClick={onClick}
               checked={panel === DEV_PANEL && isOpen}
+            />
+          }
+          {
+            global.isMock &&
+            <Link
+              iconProps={{
+                iconName: 'settingsMenu',
+              }}
+              title={'Mock Panel'}
+              panel={MOCK_PANEL}
+              onClick={onClick}
+              checked={panel === MOCK_PANEL && isOpen}
             />
           }
           {

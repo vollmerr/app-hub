@@ -22,28 +22,38 @@ cd app-hub
 npm install
 ```
 
-### Build test data
+### Build mock data
 ```
-npm run build:api
+npm run mock:build
 ```
 This will only ever have to be done once, unless changes are made to the mock api data format.
 The mock API will be available at [http://localhost:3001](http://localhost:3001).
 
-### Start the project in Dev mode
+### Start the project in Mock mode
 Start the mock API
 ```
-npm run start:api
+npm run mock:api
 ```
 It will now be available at [http://localhost:3001](http://localhost:3001).
 If it is the first time running the mock API, see [Building test data](#building-test-data).
 
-In another terminal, start the application in dev mode
+In another terminal, start the application in mock mode
+```
+npm run mock
+```
+It will now be available at [http://localhost:3000](http://localhost:3000)
+
+For testing different mock users, select a token from the 'Mock Options' panel in the top right.
+
+
+### Start the project in Dev mode
 ```
 npm start
 ```
 It will now be available at [http://localhost:3000](http://localhost:3000)
 
-For testing different mock users, select a token from the 'Developer Options' panel in the top right.
+(TODO) For testing different dev users, select a token from the 'Developers Options' panel in the top right.
+
 
 ### Build the Project
 To build the project for production
@@ -62,6 +72,10 @@ To test only files that have changed
 ```
 npm run test:watch
 ```
+To test only files that have changed while running in mock mode
+```
+npm run mock:watch
+```
 To test only files that have changed while running in dev mode
 ```
 npm run start:watch
@@ -79,7 +93,7 @@ There are two forms of examples in this repo as follows:
 ### Demo App
 - located in app/containers/Demo*
 - ignored in tests/coverage, so no examples of those in there
-- run in dev mode to view
+- run in dev or mock mode to view
 
 ### Specfic examples
 - located in app/examples/*

@@ -10,12 +10,14 @@ import {
   APP_NAV_PANEL,
   ALERTS_PANEL,
   DEV_PANEL,
+  MOCK_PANEL,
 } from 'containers/AppHub/constants';
 
 import Help from './Help';
 import Apps from './Apps';
 import Alerts from './Alerts';
 import Dev from './Dev';
+import Mock from './Mock';
 
 const panels = {
   [HELP_PANEL]: Help,
@@ -23,6 +25,7 @@ const panels = {
   [APP_NAV_PANEL]: AppNav,
   [ALERTS_PANEL]: Alerts,
   [DEV_PANEL]: Dev,
+  [MOCK_PANEL]: Mock,
 };
 
 
