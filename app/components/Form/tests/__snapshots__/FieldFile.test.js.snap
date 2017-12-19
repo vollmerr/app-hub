@@ -90,6 +90,11 @@ exports[`FieldFile should render correctly 1`] = `
     </FieldFile__DropZone>
     <CustomizedDefaultButton
       disabled={false}
+      iconProps={
+        Object {
+          "iconName": "Attach",
+        }
+      }
       onClick={[Function]}
       primary={true}
       text="Attach File"

@@ -153,6 +153,9 @@ export class FieldFile extends React.Component {
       disabled,
       type: 'button',
       text: 'Attach File',
+      iconProps: {
+        iconName: 'Attach',
+      },
       onClick: () => { this.dropZoneRef.open(); },
     };
 

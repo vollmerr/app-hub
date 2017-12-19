@@ -219,7 +219,7 @@ export class SpaAdmin extends React.PureComponent {
           {
             key: 'download',
             name: 'Download',
-            icon: 'down',
+            icon: 'download',
             ariaLabel: 'Download Report',
             onClick: this.handleDownload,
           },

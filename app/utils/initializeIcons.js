@@ -23,7 +23,7 @@ const initializeIcons = () => {
       settingsMenu: '\uE035',
       appHubMenu: '\uE303',
       // __APPS__
-      Spa: 'TODO',
+      Spa: '\uE0A2',
       ED: '\uE417',
       Loading: '\uF8FD',
       Demo: '\uF8FD',
@@ -32,9 +32,12 @@ const initializeIcons = () => {
       COLD: '\uE408',
       BARS: '\uE259',
       // requried by office-ui
+      download: '\uF8F6',
+      Attach: '\uF8F7',
       chevrondown: '\uE088',
       chevronup: '\uE087',
       Search: '\uE039',
+      Cancel: '\uF8F8',
       Clear: '\uE353',
       CircleRing: '\uF8FE',
       StatusCircleCheckmark: '\uF8FF',
