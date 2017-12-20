@@ -120,3 +120,41 @@ exports[`<NewAckForm /> should render correctly 1`] = `
   </FormButtons__Buttons>
 </Form__Form>
 `;
+
+exports[`<NewAckForm__FieldSection /> should render correctly 1`] = `
+.c0 {
+  -webkit-flex: 100%;
+  -ms-flex: 100%;
+  flex: 100%;
+  padding-right: 15px;
+}
+
+@media (min-width: 768px) {
+  .c0 {
+    -webkit-flex: 50%;
+    -ms-flex: 50%;
+    flex: 50%;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<NewAckForm__Fields /> should render correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-right: -15px;
+}
+
+<div
+  className="c0"
+/>
+`;

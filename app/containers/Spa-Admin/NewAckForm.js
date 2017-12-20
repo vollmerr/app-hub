@@ -11,17 +11,20 @@ import theme from 'utils/theme';
 import validate from './validate';
 
 
-const Fields = styled.div`
+export const Fields = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin-right: -15px;
 `;
 
 // min-width = xs breakpoint - 2 * 15px margin (Content) - 2 * 15px padding (Form) - 15px margin (Form)
-const FieldSection = styled.div`
-  flex: 50%;
-  padding-right: 15px;
-  min-width: calc(${theme.breakpoints.xs}px - 75px);
+export const FieldSection = styled.div`
+  flex: 100%;
+  padding-right:15px;
+
+  @media (min-width: ${theme.breakpoints.md}px) {
+    flex: 50%;
+  }
 `;
 
 

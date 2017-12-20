@@ -2,10 +2,15 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
+import { testStyledComponent } from 'utils/testUtils';
 import { Form, FormButtons } from 'components/Form';
 import spaFields, { newAckForm } from 'containers/Spa/fields';
 
-import { NewAckForm } from '../NewAckForm';
+import { NewAckForm, Fields, FieldSection } from '../NewAckForm';
+
+testStyledComponent(Fields);
+testStyledComponent(FieldSection);
+
 
 const props = {
   title: 'test title',
