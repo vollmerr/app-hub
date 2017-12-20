@@ -31,9 +31,11 @@ const initializeIcons = () => {
       Apphub: '\uE300',
       COLD: '\uE408',
       BARS: '\uE259',
-      // requried by office-ui
+      // misc
+      email: '\uF8F5',
       download: '\uF8F6',
       Attach: '\uF8F7',
+      // requried by office-ui
       chevrondown: '\uE088',
       chevronup: '\uE087',
       Search: '\uE039',

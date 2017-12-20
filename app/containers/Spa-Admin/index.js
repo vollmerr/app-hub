@@ -276,7 +276,7 @@ export class SpaAdmin extends React.PureComponent {
             {
               key: 'email',
               name: 'Email',
-              icon: 'Clear', // TODO: ICON
+              icon: 'email', // TODO: ICON
               ariaLabel: 'Email acknowledgment recipients',
               onClick: this.handleShowEmail,
             }
