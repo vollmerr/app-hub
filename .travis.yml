@@ -4,7 +4,7 @@ node_js:
   - 8
 
 script:
-  - npm run build:api
+  - npm run mock:api
   - npm run test
   - npm run build
 
