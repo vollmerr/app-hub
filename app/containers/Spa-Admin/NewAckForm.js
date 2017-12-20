@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
 import { reduxForm } from 'redux-form/immutable';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import styled from 'styled-components';
@@ -106,13 +105,9 @@ NewAckForm.propTypes = {
   onSubmit: func.isRequired,
 };
 
-const withForm = reduxForm({
-  form: 'spaAdmin',
-  validate,
-});
-
 const withAppPage = appPage(NewAckForm);
 
-export default compose(
-  withForm,
-)(withAppPage);
+export default reduxForm({
+  form: 'spaAdmin',
+  validate,
+})(withAppPage);

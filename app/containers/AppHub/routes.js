@@ -51,7 +51,7 @@ const routes = [
 ];
 
 /* istanbul ignore next */
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV !== 'production') {
   routes.push({
     key: 'demo',
     name: 'Demo',

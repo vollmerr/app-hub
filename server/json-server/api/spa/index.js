@@ -1,7 +1,7 @@
 const faker = require('faker/locale/en');
 const jwt = require('jsonwebtoken');
 
-const secret = require('../secret');
+const secret = require('../../secret');
 
 const userRoles = [
   'SPA Admin',
@@ -207,8 +207,8 @@ module.exports = {
   },
   routes: [
     { '/spa': '/spa-acknowledgments' },
-    { '/spa/recipients\\?:target=:id': '/spa-recipients?:target=:id' },
     { '/spa/recipients/:id': '/spa-recipients?SID=:id' },
+    { '/spa/recipients/:id/acknowledge': '/spa-recipients?id=:id' },
     { '/spa/acknowledgements/:id/recipients': '/spa-recipients?ackId=:id' },
     { '/spa/groups/targets': '/spa-targetGroups' },
     { '/spa/groups/creators': '/spa-creatorGroups' },

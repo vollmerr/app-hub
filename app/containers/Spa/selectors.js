@@ -35,7 +35,7 @@ const getUserAcks = (type) => (
     const recipient = selectById(recipients).get(String(id));
     const ackId = String(recipient.get(RECIPIENT.ACK_ID));
     const ack = selectById(acks).get(ackId);
-    return recipient.mergeDeep(ack);
+    return recipient.mergeDeep(ack).set('id', String(id));
   })
 );
 // selects array of users pending acknowlegments combined with recipient details

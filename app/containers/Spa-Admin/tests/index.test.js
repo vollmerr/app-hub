@@ -21,8 +21,10 @@ import { SpaAdmin, mapDispatchToProps } from '../index';
 import AdminNav from '../AdminNav';
 import NewAckForm from '../NewAckForm';
 import DisableModal from '../DisableModal';
+import EmailModal from '../EmailModal';
 
 const List = require.requireActual('components/List');
+
 
 const recipients = fromJS({
   byId: {
@@ -218,6 +220,41 @@ describe('<SpaAdmin />', () => {
   });
 
 
+  describe('Email Recipients', () => {
+    beforeEach(() => {
+      // requires report to be visibale with selected item
+      wrapper.setState({ selectedItem: state.selectedItem, hideReport: false });
+    });
+
+    describe('handleShowDisable', () => {
+      it('should render the email modal', () => {
+        instance.handleShowEmail();
+        wrapper.update();
+        expect(wrapper.find(EmailModal).prop('hidden')).toEqual(false);
+      });
+    });
+
+    describe('handleHideEmail', () => {
+      it('should hide the email modal', () => {
+        wrapper.setState({ hideEmail: false });
+        instance.handleHideEmail();
+        wrapper.update();
+        expect(wrapper.find(EmailModal).prop('hidden')).toEqual(true);
+      });
+    });
+
+    xdescribe('handleSubmitEmail', () => {
+      it('should submit a request for emalling the message to the api', () => {
+        // TODO
+      });
+
+      it('should hide the disable modal', () => {
+        // TODO
+      });
+    });
+  });
+
+
   describe('Reporting', () => {
     beforeEach(() => {
       // requires selected item
@@ -256,24 +293,28 @@ describe('<SpaAdmin />', () => {
         expect(instance.handleShowNew).toHaveBeenCalled();
       });
 
-      it('should add a `disable` button that calls `handleShowDisable` onClick if showing the report with an active item selected', () => {
+      it('should add a `disable` and `email` button that calls `handleShowDisable` onClick if showing the report with an active item selected', () => {
         instance.handleShowDisable = jest.fn();
+        instance.handleShowEmail = jest.fn();
         wrapper.setState({ selectedItem: state.selectedItem, hideReport: false });
         const items = instance.navItems();
         // find disable button, should only be one
-        const btns = items.filter((item) => item.key === 'disable');
-        expect(btns.length).toEqual(1);
-        // click on new button
+        const btns = items.filter((item) => item.key === 'disable' || item.key === 'email');
+        expect(btns.length).toEqual(2);
+        // click on disable button
         btns[0].onClick();
         expect(instance.handleShowDisable).toHaveBeenCalled();
+        // click on email button
+        btns[1].onClick();
+        expect(instance.handleShowEmail).toHaveBeenCalled();
       });
 
-      it('should not add a `disable` button if showing the report with no active item selected', () => {
+      it('should not add a `disable` or `email` button if showing the report with no active item selected', () => {
         instance.handleShowDisable = jest.fn();
         wrapper.setState({ selectedItem: { ...state.selectedItem, [ACK.STATUS]: STATUS.DISABLED }, hideReport: false });
         const items = instance.navItems();
         // find disable button, should be none
-        const btns = items.filter((item) => item.key === 'disable');
+        const btns = items.filter((item) => item.key === 'disable' || item.key === 'email');
         expect(btns.length).toEqual(0);
       });
 
@@ -387,6 +428,12 @@ describe('<SpaAdmin />', () => {
       expect(wrapper.find(DisableModal).length).toEqual(0);
       wrapper.setState({ hideReport: false, selectedItem: { [ACK.ID]: 1 } });
       expect(wrapper.find(DisableModal).length).toEqual(1);
+    });
+
+    it('should render the email modal only if the report is not hidden and an item is selected', () => {
+      expect(wrapper.find(EmailModal).length).toEqual(0);
+      wrapper.setState({ hideReport: false, selectedItem: { [ACK.ID]: 1 } });
+      expect(wrapper.find(EmailModal).length).toEqual(1);
     });
 
     it('should render two `ListSection`s (active and previous acknowledgments)', () => {

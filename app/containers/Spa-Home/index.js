@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
+import { doneLoading } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
 
 import { getUserPendingAcks, getUserPreviousAcks, getUserCached } from 'containers/Spa/selectors';
-import { getUserDataRequest } from 'containers/Spa/actions';
+import { getUserDataRequest, readAckRequest } from 'containers/Spa/actions';
 import { userPendingColumns, userPreviousColumns } from 'containers/Spa/columns';
 
 import AckModal from './AckModal';
@@ -71,8 +72,12 @@ export class SpaHome extends React.PureComponent {
   /**
    * Handles marking that the policy has been acknowledged
    */
-  handleSubmitAck = () => {
-    this.handleCloseModal();
+  handleSubmitAck = async () => {
+    const { onReadAckRequest } = this.props;
+    const { selectedItem } = this.state;
+
+    await onReadAckRequest(selectedItem);
+    await doneLoading(this, this.handleCloseModal);
   }
 
   /**
@@ -167,6 +172,7 @@ const mapStateToProps = createStructuredSelector({
 
 export const mapDispatchToProps = (dispatch) => ({
   onGetUserDataRequest: () => dispatch(getUserDataRequest()),
+  onReadAckRequest: (item) => dispatch(readAckRequest(item)),
 });
 
 const withAppPage = appPage(SpaHome);

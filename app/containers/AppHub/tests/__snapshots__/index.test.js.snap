@@ -86,6 +86,31 @@ exports[`<AppHubRoot /> should render correctly if authenticated 1`] = `
           },
           "name": "ED",
         },
+        Object {
+          "component": [Function],
+          "exact": false,
+          "icon": "Demo",
+          "key": "demo",
+          "meta": Object {
+            "desc": "Demo Description",
+            "keywords": "Demo Keyword 1, Demo Keyword 2",
+            "title": "Demo Title",
+          },
+          "name": "Demo",
+          "path": "/demo",
+        },
+        Object {
+          "component": [Function],
+          "icon": "Loading",
+          "key": "loading",
+          "meta": Object {
+            "desc": "test...",
+            "keywords": "test, loading",
+            "title": "TEST LOADING",
+          },
+          "name": "Test App Loading",
+          "path": "/loading",
+        },
       ]
     }
   />
@@ -151,6 +176,31 @@ exports[`<AppHubRoot /> should render correctly if authenticated 1`] = `
               "title": "ED",
             },
             "name": "ED",
+          },
+          Object {
+            "component": [Function],
+            "exact": false,
+            "icon": "Demo",
+            "key": "demo",
+            "meta": Object {
+              "desc": "Demo Description",
+              "keywords": "Demo Keyword 1, Demo Keyword 2",
+              "title": "Demo Title",
+            },
+            "name": "Demo",
+            "path": "/demo",
+          },
+          Object {
+            "component": [Function],
+            "icon": "Loading",
+            "key": "loading",
+            "meta": Object {
+              "desc": "test...",
+              "keywords": "test, loading",
+              "title": "TEST LOADING",
+            },
+            "name": "Test App Loading",
+            "path": "/loading",
           },
         ]
       }
@@ -223,6 +273,31 @@ exports[`<AppHubRoot /> should render correctly if not authenticated 1`] = `
             "title": "ED",
           },
           "name": "ED",
+        },
+        Object {
+          "component": [Function],
+          "exact": false,
+          "icon": "Demo",
+          "key": "demo",
+          "meta": Object {
+            "desc": "Demo Description",
+            "keywords": "Demo Keyword 1, Demo Keyword 2",
+            "title": "Demo Title",
+          },
+          "name": "Demo",
+          "path": "/demo",
+        },
+        Object {
+          "component": [Function],
+          "icon": "Loading",
+          "key": "loading",
+          "meta": Object {
+            "desc": "test...",
+            "keywords": "test, loading",
+            "title": "TEST LOADING",
+          },
+          "name": "Test App Loading",
+          "path": "/loading",
         },
       ]
     }

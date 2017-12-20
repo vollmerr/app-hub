@@ -28,7 +28,7 @@ class DisableModal extends React.PureComponent {
       hidden,
       onDismiss: onClose,
       dialogContentProps: {
-        type: DialogType.normal,
+        type: DialogType.largeHeader,
         title: item[ACK.TITLE],
         subText: item[ACK.DETAILS],
       },

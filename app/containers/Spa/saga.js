@@ -141,6 +141,27 @@ export function* disableAck(action) {
 }
 
 
+/**
+ * PUT an existing acknowledgment as acknowledged/read
+ *
+ * @param {object} action   - action that was dispatched, with immutable payload
+ */
+export function* readAck(action) {
+  try {
+    const id = action.payload.id;
+    const url = `${base}/recipients/${id}/acknowledge`;
+    const options = {
+      method: 'POST',
+    };
+
+    const data = yield call(requestWithToken, url, options);
+    yield put(actions.readAckSuccess(data));
+  } catch (error) {
+    yield put(actions.readAckFailure(error));
+  }
+}
+
+
 function* spaSaga() {
   yield takeLatest(C.GET_USER_DATA_REQUEST, getUserData);
   yield takeLatest(C.GET_ADMIN_DATA_REQUEST, getAdminData);
@@ -148,6 +169,7 @@ function* spaSaga() {
   yield takeLatest(C.GET_ACK_RECIPIENTS_REQUEST, getAckRecipients);
   yield takeLatest(C.NEW_ACK_REQUEST, newAck);
   yield takeLatest(C.DISABLE_ACK_REQUEST, disableAck);
+  yield takeLatest(C.READ_ACK_REQUEST, readAck);
 }
 
 export default spaSaga;

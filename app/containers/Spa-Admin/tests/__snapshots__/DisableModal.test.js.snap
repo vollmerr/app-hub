@@ -6,7 +6,7 @@ exports[`<DisableModal /> should render correctly 1`] = `
     Object {
       "subText": "test details",
       "title": "test title",
-      "type": 0,
+      "type": 1,
     }
   }
   onDismiss={[Function]}

@@ -26,3 +26,7 @@ export const newAckFailure = createAction(C.NEW_ACK_FAILURE);
 export const disableAckRequest = createAction(C.DISABLE_ACK_REQUEST);
 export const disableAckSuccess = createAction(C.DISABLE_ACK_SUCCESS);
 export const disableAckFailure = createAction(C.DISABLE_ACK_FAILURE);
+// READ ACKNOWLEDGMENT
+export const readAckRequest = createAction(C.READ_ACK_REQUEST);
+export const readAckSuccess = createAction(C.READ_ACK_SUCCESS);
+export const readAckFailure = createAction(C.READ_ACK_FAILURE);

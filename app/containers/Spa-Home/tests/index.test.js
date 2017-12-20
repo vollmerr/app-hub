@@ -4,13 +4,17 @@ import { fromJS } from 'immutable';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import { testMapDispatchToProps } from 'utils/testUtils';
-import { getUserDataRequest } from 'containers/Spa/actions';
+import { getUserDataRequest, readAckRequest } from 'containers/Spa/actions';
 import ListSection from 'components/List/ListSection';
 
 import { SpaHome, mapDispatchToProps } from '../index';
 import AckModal from '../AckModal';
 
+import * as request from 'utils/request'; // eslint-disable-line
+request.doneLoading = jest.fn();
+
 const List = require.requireActual('components/List');
+
 
 const props = {
   userCached: false,
@@ -29,6 +33,7 @@ const props = {
     name: 'test4',
   }]),
   onGetUserDataRequest: jest.fn(),
+  onReadAckRequest: jest.fn(),
   Loading: null,
 };
 
@@ -125,14 +130,20 @@ describe('<SpaHome />', () => {
 
 
   describe('handleSubmitAck', () => {
-    xit('should update the API that the user has acknowledged', () => {
-      // TODO
+    let selectedItem;
+    beforeEach(() => {
+      selectedItem = { id: 'test', name: 'test name' };
+      wrapper.setState({ selectedItem });
     });
 
-    it('should close the modal', () => {
-      instance.handleCloseModal = jest.fn();
-      instance.handleSubmitAck();
-      expect(instance.handleCloseModal).toHaveBeenCalled();
+    it('should update the API that the user has acknowledged', async () => {
+      await instance.handleSubmitAck();
+      expect(props.onReadAckRequest).toHaveBeenCalledWith(selectedItem);
+    });
+
+    it('should close the modal when done loading', async () => {
+      await instance.handleSubmitAck();
+      expect(request.doneLoading).toHaveBeenCalledWith(instance, instance.handleCloseModal);
     });
   });
 
@@ -164,6 +175,7 @@ describe('<SpaHome />', () => {
   describe('mapDispatchToProps', () => {
     const actions = {
       getUserDataRequest,
+      readAckRequest,
     };
 
     testMapDispatchToProps(mapDispatchToProps, actions);

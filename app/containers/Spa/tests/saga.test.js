@@ -13,6 +13,7 @@ import spaSaga, {
   getAckRecipients,
   newAck,
   disableAck,
+  readAck,
   base,
 } from '../saga';
 
@@ -33,7 +34,8 @@ describe('spaSaga', () => {
       'GET_GROUPS_REQUEST',
       'GET_ACK_RECIPIENTS_REQUEST',
       'NEW_ACK_REQUEST',
-      'DISABLE_ACK_REQUEST''`,
+      'DISABLE_ACK_REQUEST',
+      'READ_ACK_REQUEST'`,
     () => {
       testSaga(spaSaga).next()
         .takeLatestEffect(C.GET_USER_DATA_REQUEST, getUserData).next()
@@ -42,6 +44,7 @@ describe('spaSaga', () => {
         .takeLatestEffect(C.GET_ACK_RECIPIENTS_REQUEST, getAckRecipients).next()
         .takeLatestEffect(C.NEW_ACK_REQUEST, newAck).next()
         .takeLatestEffect(C.DISABLE_ACK_REQUEST, disableAck).next()
+        .takeLatestEffect(C.READ_ACK_REQUEST, readAck).next()
         .finish().isDone();
     });
 });
@@ -200,6 +203,29 @@ describe('disableAck', () => {
     const errGen = disableAck(action);
     errGen.next();
     expect(errGen.throw(error).value).toEqual(put(actions.disableAckFailure(error)));
+    expect(errGen.next()).toEqual({ done: true, value: undefined });
+  });
+});
+
+
+describe('readAck', () => {
+  it('should call the api and update the store with its results', () => {
+    action = { payload: data };
+    const options = {
+      method: 'POST',
+    };
+    const url = `${base}/recipients/${data.id}/acknowledge`;
+
+    testSaga(readAck, action).next()
+      .call(requestWithToken, url, options).next(data)
+      .put(actions.readAckSuccess(data)).next()
+      .finish().isDone();
+  });
+
+  it('should handle errors', () => {
+    const errGen = readAck(action);
+    errGen.next();
+    expect(errGen.throw(error).value).toEqual(put(actions.readAckFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });
   });
 });

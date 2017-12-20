@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
-
 import {
   getAdminCached,
   getRecipients,
@@ -36,6 +35,7 @@ import SpaReport from 'containers/Spa-Report';
 import AdminNav from './AdminNav';
 import NewAckForm from './NewAckForm';
 import DisableModal from './DisableModal';
+import EmailModal from './EmailModal';
 
 
 const halfHeight = {
@@ -54,9 +54,10 @@ export class SpaAdmin extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      hideDisable: true,
       hideNewAck: true,
       hideReport: true,
+      hideDisable: true,
+      hideEmail: true,
       selectedItem: {},
       fields: spaFields,
       reportData: [],
@@ -120,11 +121,37 @@ export class SpaAdmin extends React.PureComponent {
   }
 
   //
+  // REPORTING FOR ACKNOWLEDGMENTS
+  //
+
+  /**
+   * Handles showing the report screen
+   */
+  handleShowReport = () => {
+    this.setState({ hideReport: false });
+  }
+
+  /**
+   * Handles hiding the report screen
+   */
+  handleHideReport = () => {
+    this.setState({ hideReport: true, reportData: [] });
+  }
+
+  /**
+   * Handles hiding the report screen
+   */
+  handleDownload = () => {
+    // TODO: download...
+  }
+
+
+  //
   // DISABLE ACKNOWLEDGMENTS
   //
 
   /**
-   * Handles disabling an exisiting acknowledgment
+   * Handles displaying the disable acknowledgement modal
    */
   handleShowDisable = () => {
     this.setState({ hideDisable: false });
@@ -153,28 +180,36 @@ export class SpaAdmin extends React.PureComponent {
   }
 
   //
-  // REPORTING FOR ACKNOWLEDGMENTS
+  // DISABLE ACKNOWLEDGMENTS
   //
 
   /**
-   * Handles showing the report screen
+   * Handles displaying the email recipients modal
    */
-  handleShowReport = () => {
-    this.setState({ hideReport: false });
+  handleShowEmail = () => {
+    this.setState({ hideEmail: false });
   }
 
   /**
-   * Handles hiding the report screen
+   * Handles canceling when emailing recipients
    */
-  handleHideReport = () => {
-    this.setState({ hideReport: true, reportData: [] });
+  handleHideEmail = () => {
+    this.setState({ hideEmail: true });
   }
 
   /**
-   * Handles hiding the report screen
+   * Handles Submiting when emailing recipients
    */
-  handleDownload = () => {
-    // TODO: download...
+  handleSubmitEmail = async () => {
+    // const { onDisableAckRequest } = this.props;
+    // const { selectedItem } = this.state;
+    // // must hide the modal before api call to avoid flicker
+    // this.handleHideDisable();
+    // await onDisableAckRequest(selectedItem);
+    // // when done loading set item to be disabledl
+    // await doneLoading(this, () => {
+    //   this.setState({ selectedItem: { ...selectedItem, [ACK.STATUS]: STATUS.DISABLED } });
+    // });
   }
 
   //
@@ -202,7 +237,7 @@ export class SpaAdmin extends React.PureComponent {
         },
       );
     } else {
-      // creating new acknowledgment, add `Back` button
+      // creating new acknowledgment or showing report, add `Back` button
       items.push(
         {
           key: 'back',
@@ -234,6 +269,16 @@ export class SpaAdmin extends React.PureComponent {
               icon: 'Clear',
               ariaLabel: 'Disable Exisiting Acknowledgment',
               onClick: this.handleShowDisable,
+            }
+          );
+          // add `Email` button
+          items.push(
+            {
+              key: 'email',
+              name: 'Email',
+              icon: 'Clear', // TODO: ICON
+              ariaLabel: 'Email acknowledgment recipients',
+              onClick: this.handleShowEmail,
             }
           );
         }
@@ -282,6 +327,7 @@ export class SpaAdmin extends React.PureComponent {
     this.handleHideNew();
     this.handleHideReport();
     this.handleHideDisable();
+    this.handleHideEmail();
   }
 
   //
@@ -295,7 +341,7 @@ export class SpaAdmin extends React.PureComponent {
    */
   renderContent = () => {
     const { adminActiveAcks, adminPreviousAcks, Loading } = this.props;
-    const { selectedItem, hideDisable, hideNewAck, hideReport, fields, reportData } = this.state;
+    const { selectedItem, hideDisable, hideEmail, hideNewAck, hideReport, fields, reportData } = this.state;
     // if we got a loading compoennt just render that
     if (Loading) {
       return Loading;
@@ -319,17 +365,26 @@ export class SpaAdmin extends React.PureComponent {
         dataKey: RECIPIENT.ACK_DATE,
       };
 
-      const modalProps = {
+      const disableProps = {
         hidden: hideDisable,
         item: selectedItem,
         onClose: this.handleHideDisable,
         onSubmit: this.handleSubmitDisable,
       };
 
+      const emailProps = {
+        hidden: hideEmail,
+        item: selectedItem,
+        recipients: reportData,
+        onClose: this.handleHideEmail,
+        onSubmit: this.handleSubmitEmail,
+      };
+
       return (
         <div>
           <SpaReport {...reportProps} />
-          <DisableModal {...modalProps} />
+          <DisableModal {...disableProps} />
+          <EmailModal {...emailProps} />
         </div>
       );
     }

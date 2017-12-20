@@ -11,7 +11,7 @@ import Field from './Field';
 import FieldError from './FieldError';
 
 
-export const Radios = styled(ChoiceGroup)`
+export const Radios = styled(ChoiceGroup) `
   .ms-ChoiceField {
     margin: 0;
   }
@@ -29,6 +29,13 @@ export class FieldRadios extends React.Component {
       selectedKey: this.props.input.value,
     };
   }
+
+  // componentDidMount() {
+  //   const { defaultSelectedKey, input } = this.props;
+  //   if (defaultSelectedKey && !input.value) {
+  //     this.handleChange(null, { key: defaultSelectedKey });
+  //   }
+  // }
 
   componentWillReceiveProps(nextProps) {
     const { input } = nextProps;

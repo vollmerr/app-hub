@@ -22,8 +22,10 @@ export class FieldText extends React.Component {
     this.setState({ value });
   }
 
-  handleChange = () => {
+  handleChange = (value) => {
     const { input } = this.props;
+
+    input.onChange(value);
     this.setState({ value: input.value || '' });
   }
 
@@ -36,7 +38,6 @@ export class FieldText extends React.Component {
 
     const { value } = this.state;
 
-    const { onChange } = input;
     const { touched, error } = meta;
     const errorMessage = touched && error ? error : '';
 
@@ -44,8 +45,7 @@ export class FieldText extends React.Component {
       ...props,
       value,
       errorMessage,
-      onBeforeChange: onChange,
-      onChanged: this.handleChange,
+      onBeforeChange: this.handleChange,
     };
 
     return (

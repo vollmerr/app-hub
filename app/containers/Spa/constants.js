@@ -18,10 +18,14 @@ export const GET_ACK_RECIPIENTS_FAILURE = 'app/Spa/GET_ACK_RECIPIENTS_FAILURE';
 export const NEW_ACK_REQUEST = 'app/Spa/NEW_ACK_REQUEST';
 export const NEW_ACK_SUCCESS = 'app/Spa/NEW_ACK_SUCCESS';
 export const NEW_ACK_FAILURE = 'app/Spa/NEW_ACK_FAILURE';
-// NEW ACKNOWLEDGMENT
+// DISABLE EXISITNG ACKNOWLEDGMENT
 export const DISABLE_ACK_REQUEST = 'app/Spa/DISABLE_ACK_REQUEST';
 export const DISABLE_ACK_SUCCESS = 'app/Spa/DISABLE_ACK_SUCCESS';
 export const DISABLE_ACK_FAILURE = 'app/Spa/DISABLE_ACK_FAILURE';
+// READ EXISITNG ACKNOWLEDGMENT
+export const READ_ACK_REQUEST = 'app/Spa/READ_ACK_REQUEST';
+export const READ_ACK_SUCCESS = 'app/Spa/READ_ACK_SUCCESS';
+export const READ_ACK_FAILURE = 'app/Spa/READ_ACK_FAILURE';
 // ROLES
 export const ROLES = {
   ADMIN: 'SPA Admin',
@@ -62,14 +66,23 @@ export const RECIPIENT = {
   ACK_ID: 'AcknowledgmentID',
   ACK_DATE: 'AcknowledgmentDate',
 };
+
 export const GROUP = {
   NAME: 'name',
   SID: 'sid',
 };
+
 export const REPORT = {
   PENDING: 0,
   PREVIOUS: 1,
 };
+
+export const EMAIL = {
+  ALL: 'all',
+  PENDING: 'pending',
+  PREVIOUS: 'previous',
+};
+
 // all fields
 export const FIELDS = {
   ACK,
