@@ -21,13 +21,13 @@ export const isFutureDate = (value) => (
 );
 
 export const isEmptyChecks = (value) => (
-  !value || typeof value !== 'object' || !value.length
+  !value || typeof value !== 'object' || !value.size
     ? 'Required'
     : undefined
 );
 
 export const isEmptyFile = (value) => (
-  !value || typeof value !== 'object' || !value.name
+  !value || typeof value !== 'object' || !value.get || !value.get('name')
     ? 'Required'
     : undefined
 );

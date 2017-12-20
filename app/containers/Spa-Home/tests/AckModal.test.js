@@ -5,7 +5,7 @@ import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 
 import { ACK } from 'containers/Spa/constants';
 
-import AckModal from '../AckModal';
+import { AckModal } from '../AckModal';
 
 const props = {
   item: {
@@ -13,11 +13,14 @@ const props = {
     [ACK.DETAILS]: 'test details',
     [ACK.STATEMENT]: 'test statement',
   },
+  reset: jest.fn(),
   onSubmit: jest.fn(),
   onRead: jest.fn(),
   onClose: jest.fn(),
+  hasAck: false,
   hasRead: false,
   hideModal: false,
+  handleSubmit: jest.fn(),
 };
 
 describe('<AckModal />', () => {
@@ -57,12 +60,18 @@ describe('<AckModal />', () => {
 
   it('should handle reading when pressing the primary button if not read', () => {
     expect(wrapper.find(PrimaryButton).prop('onClick')).toEqual(props.onRead);
-    expect(wrapper.find(PrimaryButton).prop('text')).toEqual('Read');
+    expect(wrapper.find(PrimaryButton).prop('text')).toEqual('Download');
   });
 
   it('should handle acknowledging when pressing the primary button if read', () => {
     wrapper.setProps({ hasRead: true });
     expect(wrapper.find(PrimaryButton).prop('onClick')).toEqual(props.onSubmit);
     expect(wrapper.find(PrimaryButton).prop('text')).toEqual('Submit');
+  });
+
+  it('should reset the form before closing (should be in parent component but wont work..)', () => {
+    wrapper.instance().handleClose();
+    expect(props.reset).toHaveBeenCalled();
+    expect(props.onClose).toHaveBeenCalled();
   });
 });

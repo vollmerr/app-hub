@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { fromJS } from 'immutable';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import 'jest-styled-components';
@@ -36,7 +37,7 @@ const props = {
     touched: false,
   },
   input: {
-    value: [],
+    value: fromJS([]),
     onBlur: jest.fn(),
     onFocus: jest.fn(),
     onChange: jest.fn(),
@@ -128,10 +129,10 @@ describe('FieldChecks', () => {
     it('should handle calling redux-form`s onChange', () => {
       // check
       instance.handleChange(null, true, key);
-      expect(props.input.onChange).toHaveBeenCalledWith([key]);
+      expect(props.input.onChange).toHaveBeenCalledWith(fromJS([key]));
       // uncheck
       instance.handleChange(null, false, key);
-      expect(props.input.onChange).toHaveBeenCalledWith([]);
+      expect(props.input.onChange).toHaveBeenCalledWith(fromJS([]));
     });
 
     it('should handle updating `options` in the state', () => {

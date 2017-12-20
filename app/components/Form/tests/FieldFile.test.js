@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { fromJS } from 'immutable';
 import Dropzone from 'react-dropzone';
 import { DefaultButton, IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Label } from 'office-ui-fabric-react/lib/Label';
@@ -14,6 +15,7 @@ import FieldError from '../FieldError';
 testStyledComponent(FilePicker);
 testStyledComponent(DropZone, Dropzone);
 testStyledComponent(FileName);
+
 
 describe('FilePicker', () => {
   let wrapper;
@@ -57,6 +59,7 @@ describe('FileName', () => {
   });
 });
 
+
 const props = {
   label: 'test label',
   name: 'test name',
@@ -77,6 +80,7 @@ const props = {
 
 const files = [{ name: 'file1' }, { name: 'otherFile' }];
 const file = files[0];
+
 
 describe('FieldFile', () => {
   let wrapper;
@@ -204,10 +208,10 @@ describe('FieldFile', () => {
     it('should handle calling redux-form`s onChange', () => {
       // acceptedFiles
       instance.onDrop(files, []);
-      expect(props.input.onChange).toHaveBeenCalledWith(file);
+      expect(props.input.onChange).toHaveBeenCalledWith(fromJS(file));
       // rejectedFiles
       instance.onDrop([], files);
-      expect(props.input.onChange).toHaveBeenCalledWith(file);
+      expect(props.input.onChange).toHaveBeenCalledWith(fromJS(file));
     });
 
     it('should handle updating `files` and `attachError` in the state', () => {

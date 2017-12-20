@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { fromJS } from 'immutable';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import styled from 'styled-components';
 import { Label } from 'office-ui-fabric-react/lib/Label';
@@ -49,7 +50,7 @@ export class FieldChecks extends React.Component {
       .filter((option) => option.checked)
       .map((option) => option.key);
     // update in redux store and state
-    input.onChange(checked);
+    input.onChange(fromJS(checked));
     this.setState({ options: newOptions });
   }
 
@@ -97,11 +98,11 @@ export class FieldChecks extends React.Component {
 }
 
 
-const { bool, string, arrayOf } = PropTypes;
+const { bool, string, object } = PropTypes;
 
 FieldChecks.propTypes = {
   meta: metaProp.isRequired,
-  input: inputProp(arrayOf(string)).isRequired,
+  input: inputProp(object).isRequired,
   label: string,
   required: bool,
   options: optionsProp.isRequired,

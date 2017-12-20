@@ -5,6 +5,7 @@ import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import { testMapDispatchToProps } from 'utils/testUtils';
 import { getUserDataRequest, readAckRequest } from 'containers/Spa/actions';
+import { ACK } from 'containers/Spa/constants';
 import ListSection from 'components/List/ListSection';
 
 import { SpaHome, mapDispatchToProps } from '../index';
@@ -155,8 +156,9 @@ describe('<SpaHome />', () => {
       expect(wrapper.state('hideModal')).toEqual(false);
     });
 
-    it('should reset the acknowledgment to not being read', () => {
-      wrapper.setState({ hasRead: true });
+    it('should reset the acknowledgment if there is an attachment', () => {
+      const selectedItem = { id: 'test', [ACK.FILE_NAME]: 'test name', [ACK.FILE_CONTENT]: 'content...' };
+      wrapper.setState({ hasRead: true, selectedItem });
       instance.handleOpenModal();
       expect(wrapper.state('hasRead')).toEqual(false);
     });

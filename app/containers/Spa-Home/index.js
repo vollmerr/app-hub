@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { getFormValues } from 'redux-form/immutable';
 import { createStructuredSelector } from 'reselect';
 import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import { doneLoading } from 'utils/request';
+import { ACK } from 'containers/Spa/constants';
 import appPage from 'containers/App-Container/appPage';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
@@ -84,8 +86,16 @@ export class SpaHome extends React.PureComponent {
    * Handles opening the modal / resetting its state
    */
   handleOpenModal = () => {
+    const { selectedItem } = this.state;
+
+    // if there is no file attached, same as already having downloaded it (hasRead)
+    const hasRead = !(
+      selectedItem[ACK.FILE_NAME] &&
+      selectedItem[ACK.FILE_CONTENT]
+    );
+
     this.setState({
-      hasRead: false,
+      hasRead,
       hideModal: false,
     });
   }
@@ -100,7 +110,7 @@ export class SpaHome extends React.PureComponent {
   }
 
   render() {
-    const { userPendingAcks, userPreviousAcks, Loading } = this.props;
+    const { userPendingAcks, userPreviousAcks, Loading, formValues } = this.props;
     const { selectedItem, hasRead, hideModal } = this.state;
 
     if (Loading) {
@@ -128,8 +138,10 @@ export class SpaHome extends React.PureComponent {
       selectionMode: SelectionMode.none,
     };
 
+    /* istanbul ignore next */
     const modalProps = {
       hasRead,
+      hasAck: Boolean(formValues && formValues.get('hasAck').size),
       hideModal,
       item: selectedItem,
       onClose: this.handleCloseModal,
@@ -162,12 +174,14 @@ SpaHome.propTypes = {
   userPreviousAcks: object.isRequired,
   onGetUserDataRequest: func.isRequired,
   Loading: node,
+  formValues: object,
 };
 
 const mapStateToProps = createStructuredSelector({
   userCached: getUserCached(),
   userPendingAcks: getUserPendingAcks(),
   userPreviousAcks: getUserPreviousAcks(),
+  formValues: getFormValues('spaHome'),
 });
 
 export const mapDispatchToProps = (dispatch) => ({

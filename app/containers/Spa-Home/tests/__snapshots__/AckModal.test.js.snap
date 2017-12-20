@@ -12,18 +12,36 @@ exports[`<AckModal /> should render correctly 1`] = `
   hidden={false}
   onDismiss={[Function]}
 >
-  <p>
-    test statement
-  </p>
-  <DialogFooter>
-    <CustomizedPrimaryButton
-      onClick={[Function]}
-      text="Read"
+  <form
+    noValidate={true}
+  >
+    <WrappedField
+      ariaLabel=""
+      disabled={true}
+      name="hasAck"
+      options={
+        Array [
+          Object {
+            "key": "ack",
+            "text": "test statement",
+          },
+        ]
+      }
+      placeholder=""
+      required={false}
+      validate={Array []}
     />
-    <CustomizedDefaultButton
-      onClick={[Function]}
-      text="Cancel"
-    />
-  </DialogFooter>
+    <DialogFooter>
+      <CustomizedPrimaryButton
+        disabled={false}
+        onClick={[Function]}
+        text="Download"
+      />
+      <CustomizedDefaultButton
+        onClick={[Function]}
+        text="Cancel"
+      />
+    </DialogFooter>
+  </form>
 </WithResponsiveMode>
 `;

@@ -70,7 +70,7 @@ export const reportAckColumns = mapToColumns(recipients);
 const adminExcludes = [ACK.STATEMENT, ACK.DETAILS, ACK.FILE_CONTENT];
 export const adminColumns = mapToColumns(spaFields, [], adminExcludes);
 // columns for user lists
-const userPendingIncludes = [ACK.ID, ACK.TITLE, ACK.DATE_START, ACK.DATE_END];
+const userPendingIncludes = [ACK.ID, ACK.TITLE, ACK.DATE_START, ACK.DATE_END, ACK.FILE_NAME];
 export const userPendingColumns = mapToColumns(spaFields, userPendingIncludes);
 
 const userPrevious = {
@@ -84,5 +84,5 @@ const userPrevious = {
   },
 };
 
-const userPreviousIncludes = [...userPendingIncludes, RECIPIENT.ACK_DATE];
+const userPreviousIncludes = [...userPendingIncludes, RECIPIENT.ACK_DATE, ACK.FILE_NAME];
 export const userPreviousColumns = mapToColumns(userPrevious, userPreviousIncludes);

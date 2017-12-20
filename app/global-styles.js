@@ -1,4 +1,5 @@
 import { injectGlobal } from 'styled-components';
+import theme from 'utils/theme';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
@@ -13,5 +14,17 @@ injectGlobal`
 
   * {
     transition: 0.1s ease;
+  }
+
+  .ms-Button * {
+    transition: none;
+  }
+
+  /* OFFICE UI DIALOG (requires classname to be passed, ignores styled compoents...) */
+  .ms-Dialog-main {
+    max-width: ${theme.breakpoints.xs - 30}px !important;
+    @media (min-width: ${theme.breakpoints.sm}px) {
+      max-width: ${theme.breakpoints.sm - 40}px !important;
+    }
   }
 `;

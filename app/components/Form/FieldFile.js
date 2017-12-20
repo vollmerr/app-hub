@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { fromJS } from 'immutable';
 import Dropzone from 'react-dropzone';
 import styled from 'styled-components';
 import { DefaultButton, IconButton } from 'office-ui-fabric-react/lib/Button';
@@ -82,7 +83,7 @@ export class FieldFile extends React.Component {
     const file = files[0];
 
     this.setState({ file, attachError });
-    input.onChange(file);
+    input.onChange(fromJS(file));
   }
 
   onClear = () => {
