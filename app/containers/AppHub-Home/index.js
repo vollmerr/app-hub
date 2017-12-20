@@ -18,6 +18,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  overflow: auto;
 `;
 
 export const Container = styled.div`
@@ -50,12 +51,11 @@ export const UpperSection = styled.div`
   flex-direction: column;
   flex: 1;
   background: ${theme.themeDarker};
-  min-height: 40%;
+  min-height: 300px;
 `;
 
 
 export const LowerSection = UpperSection.extend`
-  min-height: 60%;
   background: ${theme.neutralLight};
   padding: ${(props) => props.isMobile ? '0' : '15px'};
 `;

@@ -3,6 +3,7 @@
 exports[`<Items /> should render correctly with nothing passed 1`] = `
 .c0 {
   height: calc(100vh -     50px -     0px);
+  min-height: 300px;
   overflow: hidden;
 }
 
@@ -35,6 +36,7 @@ exports[`<Items /> should render correctly with nothing passed 1`] = `
 exports[`<Items /> should render correctly with vh and margin passed 1`] = `
 .c0 {
   height: calc(100vh -     50px -     20px);
+  min-height: 300px;
   overflow: hidden;
 }
 
@@ -69,6 +71,7 @@ exports[`<Items /> should render correctly with vh and margin passed 1`] = `
 exports[`<ListSection__ListSection /> should render correctly 1`] = `
 .c0 {
   height: calc(100vh -     50px -     0px);
+  min-height: 300px;
   overflow: hidden;
 }
 

@@ -12,6 +12,7 @@ const ListSection = styled(Section) `
     ${theme.hub.headerHeight} - \
     ${(props) => props.margin || 0}px
   );
+  min-height: 300px;
   overflow: hidden;
 
   .ms-Viewport {
