@@ -1,14 +1,10 @@
 coverage:
-  precision: 2
-  round: down
-  range: 70...100
-
+  parsers:
+    javascript:
+      enable_partials: yes
   status:
     project:
-      target: 70%
-    patch: false
-    changes: false
-
-comment:
-  layout: "header, diff"
-  behavior: default  # update if exists else create new
+      default:
+        target: "80%"
+    patch:
+      enabled: false
