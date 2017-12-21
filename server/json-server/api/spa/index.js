@@ -82,7 +82,7 @@ function generateAcknowledgment() {
   return {
     [C.ACK.ID]: faker.random.number({ min: C.MIN_ACK, max: C.MAX_ACK }),
     [C.ACK.TITLE]: faker.lorem.words(),
-    [C.ACK.STATUS]: faker.random.number({ min: 0, max: 3 }),
+    [C.ACK.STATUS]: faker.random.number({ min: C.MIN_STATUS, max: C.MAX_STATUS }),
     [C.ACK.START_DATE]: faker.date.past(),
     [C.ACK.END_DATE]: faker.date.future(),
     // CREATED_BY

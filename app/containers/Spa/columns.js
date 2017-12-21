@@ -1,3 +1,4 @@
+import { COL_TYPES } from 'containers/AppHub/constants';
 import { ACK, RECIPIENT } from 'containers/Spa/constants';
 
 import spaFields from './fields';
@@ -26,7 +27,8 @@ export function mapToColumns(obj, include = [], exclude = []) {
       isResizable: true,
       ariaLabel: obj[key].ariaLabel,
       minWidth: obj[key].minWidth || 100,
-      maxWidth: obj[key].maxWidth || 250,
+      maxWidth: obj[key].maxWidth || 200,
+      data: obj[key].data || {},
     }));
 }
 
@@ -60,6 +62,10 @@ const recipients = {
     label: 'Acknowledgment Date',
     name: RECIPIENT.ACK_DATE,
     ariaLabel: 'Date the recipient acknowledged the policy',
+    minWidth: 100,
+    data: {
+      type: COL_TYPES.DATE,
+    },
   },
 };
 
@@ -75,13 +81,7 @@ export const userPendingColumns = mapToColumns(spaFields, userPendingIncludes);
 
 const userPrevious = {
   ...spaFields,
-  [RECIPIENT.ACK_DATE]: {
-    label: 'Acknowledgment Date',
-    name: RECIPIENT.ACK_DATE,
-    ariaLabel: 'Date policy was acknowledged',
-    minWidth: 150,
-    maxWidth: 200,
-  },
+  ...recipients,
 };
 
 const userPreviousIncludes = [...userPendingIncludes, RECIPIENT.ACK_DATE, ACK.FILE_NAME];

@@ -145,7 +145,7 @@ export class SpaReport extends React.PureComponent {
   }
 
   render() {
-    const { chart, data, selectedItem } = this.props;
+    const { chart, data, selectedItem, enums } = this.props;
     const { recipients, selectedKey } = this.state;
     // build stats for chart lengend
     const totalCount = data.length || 1;
@@ -155,6 +155,7 @@ export class SpaReport extends React.PureComponent {
     const acknowldgedPercent = 100 - pendingPercent;
 
     const detailsProps = {
+      enums,
       selectedItem,
     };
 
@@ -201,10 +202,11 @@ export class SpaReport extends React.PureComponent {
 }
 
 
-const { object, array, func, string, node } = PropTypes;
+const { object, any, array, func, string, node } = PropTypes;
 
 SpaReport.propTypes = {
   chart: node,
+  enums: any,
   data: array.isRequired,
   dataKey: string.isRequired,
   selectedItem: object.isRequired,

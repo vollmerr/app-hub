@@ -1,5 +1,5 @@
-import { ACK } from 'containers/Spa/constants';
-
+import { COL_TYPES } from 'containers/AppHub/constants';
+import { ACK, STATUS, STATUS_CODES } from 'containers/Spa/constants';
 import { isFutureDate } from 'utils/validate';
 
 import {
@@ -35,6 +35,10 @@ const spaFields = {
     ariaLabel: 'Date the acknowledgment takes effect',
     component: FieldDate,
     validate: [isFutureDate],
+    maxWidth: 100,
+    data: {
+      type: COL_TYPES.DATE,
+    },
   },
   [ACK.END_DATE]: {
     label: 'End Date',
@@ -44,6 +48,10 @@ const spaFields = {
     ariaLabel: 'Date the acknowledgment expires',
     component: FieldDate,
     validate: [isFutureDate],
+    maxWidth: 100,
+    data: {
+      type: COL_TYPES.DATE,
+    },
   },
   [ACK.TARGET_GROUPS]: {
     label: 'Target Group(s)',
@@ -57,8 +65,7 @@ const spaFields = {
     label: 'Status',
     name: ACK.STATUS,
     ariaLabel: 'Status of the acknowledgment',
-    minWidth: 30,
-    maxWidth: 40,
+    maxWidth: 100,
   },
   [ACK.STATEMENT]: {
     label: 'Statement',

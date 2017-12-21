@@ -44,6 +44,24 @@ const halfHeight = {
 };
 
 
+// TODO: get passed, get from api...
+const targetGroups = {
+  0: 'Group 0 Name',
+  1: 'Group 1 Name',
+  2: 'Group 2 Name',
+  3: 'Group 3 Name',
+};
+const statusCodes = {
+  [STATUS.ACTIVE]: 'Active',
+  [STATUS.EXPIRED]: 'Expired',
+  [STATUS.DISABLED]: 'Disabled',
+};
+const enums = {
+  [ACK.TARGET_GROUPS]: targetGroups,
+  [ACK.STATUS]: statusCodes,
+};
+
+
 /**
  * Admin page of SPA
  *
@@ -360,6 +378,7 @@ export class SpaAdmin extends React.PureComponent {
     // render reporting
     if (!hideReport) {
       const reportProps = {
+        enums,
         selectedItem,
         data: reportData,
         dataKey: RECIPIENT.ACK_DATE,
@@ -390,6 +409,7 @@ export class SpaAdmin extends React.PureComponent {
     }
     // render lists of active and precious acknowledgments
     const activeProps = {
+      enums,
       items: adminActiveAcks.toJS(),
       columns: adminColumns,
       title: 'Active Acknowledgments',
@@ -404,6 +424,7 @@ export class SpaAdmin extends React.PureComponent {
     };
 
     const previousProps = {
+      enums,
       items: adminPreviousAcks.toJS(),
       columns: adminColumns,
       title: 'Previous Acknowledgments',

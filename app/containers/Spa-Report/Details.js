@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import theme from 'utils/theme';
-import { ACK } from 'containers/Spa/constants';
+import { renderItem } from 'utils/data';
+import { COL_TYPES } from 'containers/AppHub/constants';
+import { ACK, STATUS } from 'containers/Spa/constants';
 import spaFields from 'containers/Spa/fields';
 
 export const Wrapper = styled.div`
@@ -46,19 +48,41 @@ export const items = [
   ACK.STATEMENT,
   ACK.DETAILS,
 ];
+// TODO: COMMON
+// const renderItem = (name, selected, enums) => {
+//   let content = selected[name];
+//   // if non existent or not array of data, make into array
+//   if (!Array.isArray(content)) {
+//     content = [content];
+//   }
+//   // go through array of data, mapping each item absed off 'data' attributes
+//   content = content.map((item) => {
+//     // is enum mapping
+//     if (enums[name]) {
+//       return enums[name][item];
+//     }
+//     // is date
+//     if (spaFields[name].data && spaFields[name].data.type === COL_TYPES.DATE) {
+//       return isNaN(Date.parse(item)) ? '' : new Date(item).toISOString().substr(0, 10);
+//     }
+//     return item;
+//   });
+
+//   return content.join(', ');
+// };
 
 class Details extends React.PureComponent {
   render() {
-    const { selectedItem } = this.props;
+    const { selectedItem, enums } = this.props;
 
     return (
       <Wrapper>
         <Heading>{selectedItem[ACK.TITLE]}</Heading>
         {
-          items.map((item) => (
-            <Item key={item}>
-              <Key>{spaFields[item].label}</Key>
-              <Value>{selectedItem[item]}</Value>
+          items.map((name) => (
+            <Item key={name}>
+              <Key>{spaFields[name].label}</Key>
+              <Value>{renderItem(selectedItem, name, spaFields[name], enums)}</Value>
             </Item>
           ))
         }
@@ -71,6 +95,7 @@ class Details extends React.PureComponent {
 const { object } = PropTypes;
 
 Details.propTypes = {
+  enums: object,
   selectedItem: object.isRequired,
 };
 

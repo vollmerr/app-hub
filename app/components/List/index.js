@@ -6,6 +6,7 @@ import orderBy from 'lodash/orderBy';
 import isEqual from 'lodash/isEqual';
 
 import { escapeRegExp } from 'utils/string';
+import { renderItem } from 'utils/data';
 
 import Wrapper from './Wrapper';
 import Title from './Title';
@@ -182,14 +183,27 @@ class List extends React.PureComponent {
    * @return {string}         - content to render
    */
   renderItemColumn = (item, index, column) => {
-    let content = item[column.fieldName];
-
-    // convert arrays to csv strings
-    if (content.join) {
-      content = content.join(', ');
-    }
-
-    return String(content);
+    const { enums } = this.props;
+    // let content = item[column.fieldName];
+    // // convert all data to array for mapping over
+    // if (!Array.isArray(content)) {
+    //   content = [content];
+    // }
+    // // go through each item, mapping to the correct format
+    // content = content.map((x) => {
+    //   // is enum mapping
+    //   if (enums[column.fieldName]) {
+    //     return enums[column.fieldName][x];
+    //   }
+    //   // is date
+    //   if (column.data && column.data.type === 'DATE') {
+    //     return isNaN(Date.parse(x)) ? '' : new Date(x).toISOString().substr(0, 10);
+    //   }
+    //   return x;
+    // });
+    // // join them back as string seperated by commas
+    // return content.join(', ');
+    return renderItem(item, column.fieldName, column, enums);
   }
 
   render() {
@@ -236,6 +250,7 @@ List.propTypes = {
   ),
   checkboxVisibility: number,
   empty: any,
+  enums: any,
 };
 
 List.defaultProps = {
@@ -243,6 +258,7 @@ List.defaultProps = {
   empty: {
     message: 'No items',
   },
+  enums: {},
 };
 
 export default List;

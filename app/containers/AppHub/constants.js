@@ -21,3 +21,7 @@ export const AUTH_USER_DONE = 'app/AppHub/AUTH_USER_DONE';
 export const REQUEST = '_REQUEST';
 export const SUCCESS = '_SUCCESS';
 export const FAILURE = '_FAILURE';
+
+export const COL_TYPES = {
+  DATE: 'DATE',
+};

@@ -32,10 +32,18 @@ export const ROLES = {
   GUARD: 'SPA Guard',
 };
 // STATUS
+// TODO: PULL IN FROM API
 export const STATUS = {
   ACTIVE: 0,
   EXPIRED: 1,
   DISABLED: 2,
+};
+// CODES FOR STATUS
+// TODO: PULL IN FROM API
+export const STATUS_CODES = {
+  [STATUS.ACTIVE]: 'Active',
+  [STATUS.EXPIRED]: 'Expired',
+  [STATUS.DISABLED]: 'Disabled',
 };
 // DATA FIELDS
 // fields for acknowledgment

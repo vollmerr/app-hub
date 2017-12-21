@@ -37,10 +37,12 @@ module.exports = {
     NAME: 'name',
     SID: 'sid',
   },
-  MIN_TARGET: 0,
+  MIN_TARGET: 1,
   MAX_TARGET: 3,
   MIN_CREATOR: 1000,
   MAX_CREATOR: 1003,
   MIN_ACK: 100,
   MAX_ACK: 130,
+  MIN_STATUS: 0,
+  MAX_STATUS: 2,
 };
