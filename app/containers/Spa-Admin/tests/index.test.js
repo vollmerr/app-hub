@@ -56,7 +56,7 @@ const props = {
   adminCached: false,
   recipients,
   groups,
-  adminAllIds: fromJS(['a', 'b', 'c', 'd']),
+  adminCachedIds: fromJS(['a', 'b', 'c', 'd']),
   adminActiveAcks: activeAcks,
   adminPreviousAcks: previousAcks,
   onGetAdminDataRequest: jest.fn(),
@@ -352,14 +352,14 @@ describe('<SpaAdmin />', () => {
         expect(instance.handleShowReport).toHaveBeenCalled();
       });
 
-      it('should get the recipients from the api if no entry in `adminAllIds`', () => {
+      it('should get the recipients from the api if no entry in `adminCachedIds`', () => {
         const item = { [ACK.ID]: 'noExist', name: 'test item' };
         instance.handleShowReport = jest.fn();
         instance.handleSelectItem(item);
         expect(props.onGetAckRecipientsRequest).toHaveBeenCalledWith(item);
       });
 
-      it('should not get the recipients from the api if an entry exists in `adminAllIds`', () => {
+      it('should not get the recipients from the api if an entry exists in `adminCachedIds`', () => {
         const item = { [ACK.ID]: 'c', name: 'test item' };
         instance.handleShowReport = jest.fn();
         instance.handleSelectItem(item);

@@ -134,7 +134,7 @@ describe('getGroups', () => {
 describe('getAckRecipients', () => {
   it('should call the api and update the store with its results', () => {
     action = { payload: { id: data.id } };
-    const url = `${base}/acknowledgements/${data.id}/recipients`;
+    const url = `${base}/acknowledgments/${data.id}/recipients`;
 
     testSaga(getAckRecipients, action).next()
       .call(requestWithToken, url).next(data.recipients)

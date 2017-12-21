@@ -8,7 +8,7 @@ import {
   getAdminCached,
   getRecipients,
   getGroups,
-  getAdminAllIds,
+  getAdminCachedIds,
   getAdminActiveAcks,
   getAdminPreviousAcks,
   selectByAckId,
@@ -97,8 +97,8 @@ export class SpaAdmin extends React.PureComponent {
     // set target group options to ones pulled in from API (mapped above)
     const fields = { ...this.state.fields };
     fields[ACK.TARGET_GROUPS].options = options;
-    fields[ACK.DATE_START].minDate = new Date();
-    fields[ACK.DATE_END].minDate = new Date();
+    fields[ACK.START_DATE].minDate = new Date();
+    fields[ACK.END_DATE].minDate = new Date();
     // update fields then show the form
     this.setState({ fields }, () => this.setState({ hideNewAck: false }));
   }
@@ -151,7 +151,7 @@ export class SpaAdmin extends React.PureComponent {
   //
 
   /**
-   * Handles displaying the disable acknowledgement modal
+   * Handles displaying the disable acknowledgment modal
    */
   handleShowDisable = () => {
     this.setState({ hideDisable: false });
@@ -292,11 +292,11 @@ export class SpaAdmin extends React.PureComponent {
    * Handles selecting an item from a list
    */
   handleSelectItem = async (item) => {
-    const { onGetAckRecipientsRequest, adminAllIds } = this.props;
+    const { onGetAckRecipientsRequest, adminCachedIds } = this.props;
     // display the report (need to do before loading api so no flicker)
     this.handleShowReport();
     // call api if no entry for recipients stored
-    if (!selectIdExists(adminAllIds, item[ACK.ID])) {
+    if (!selectIdExists(adminCachedIds, item[ACK.ID])) {
       await onGetAckRecipientsRequest(item);
     }
     // when done loading build data for report (all recipients of acknowledgment into an array)
@@ -447,7 +447,7 @@ SpaAdmin.propTypes = {
   adminCached: bool.isRequired,
   recipients: object.isRequired,
   groups: object.isRequired,
-  adminAllIds: object.isRequired,
+  adminCachedIds: object.isRequired,
   adminActiveAcks: object.isRequired,
   adminPreviousAcks: object.isRequired,
   onGetAdminDataRequest: func.isRequired,
@@ -464,7 +464,7 @@ const mapStateToProps = createStructuredSelector({
   groups: getGroups(),
   adminActiveAcks: getAdminActiveAcks(),
   adminPreviousAcks: getAdminPreviousAcks(),
-  adminAllIds: getAdminAllIds(),
+  adminCachedIds: getAdminCachedIds(),
 });
 
 export const mapDispatchToProps = (dispatch) => ({

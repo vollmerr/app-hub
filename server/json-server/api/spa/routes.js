@@ -1,11 +1,13 @@
+const C = require('./constants');
+
 function spaRoutes(server, router) {
   server.use((req, res, next) => {
     if (req.method === 'POST') {
       if (req.url === '/spa-acknowledgments') {
         // set to active status
-        req.body.status = 0;
+        req.body[C.ACK.STATUS] = 0;
       } else if (/\/spa-recipients\?id=\d+/.test(req.url)) {
-        req.body.AcknowledgmentDate = new Date().toString();
+        req.body[C.RECIPIENT.ACK_DATE] = new Date().toString();
       }
     }
     // Continue to JSON Server router
@@ -19,13 +21,13 @@ function spaRoutes(server, router) {
     ackIds = router.db
       .get('spa-recipients')
       .value()
-      .filter((x) => x.SID === req.params.id)
-      .map((x) => x.AcknowledgmentID);
+      .filter((x) => x[C.RECIPIENT.SID] === req.params.id)
+      .map((x) => x[C.RECIPIENT.ACK_ID]);
     // get the list of acks based off the users ack ids
     acks = router.db
       .get('spa-acknowledgments')
       .value()
-      .filter((x) => ackIds.includes(x.id));
+      .filter((x) => ackIds.includes(x[C.ACK.ID]));
 
     res.jsonp(acks);
   });

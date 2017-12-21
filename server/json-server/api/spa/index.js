@@ -2,48 +2,7 @@ const faker = require('faker/locale/en');
 const jwt = require('jsonwebtoken');
 
 const secret = require('../../secret');
-
-const userRoles = [
-  'SPA Admin',
-  'SPA Guard',
-];
-
-const a = {
-  ID: 'id',
-  TITLE: 'title',
-  DATE_START: 'activeStartDate',
-  DATE_END: 'activeEndDate',
-  CREATOR_GROUP: 'creatorGroup',
-  TARGET_GROUPS: 'targetADGroup',
-  STATEMENT: 'ackStatement',
-  DETAILS: 'detailsText',
-  FILE_NAME: 'fileName',
-  FILE_CONTENT: 'fileContent',
-  STATUS: 'status',
-};
-// fields for recipient
-const r = {
-  ID: 'id',
-  SID: 'SID',
-  SAM: 'SamAccount',
-  FIRST_NAME: 'FirstName',
-  LAST_NAME: 'LastName',
-  EMAIL: 'Email',
-  FIRST_REMINDER_DATE: 'FirstReminderDate',
-  SECOND_REMINDER_DATE: 'SecondReminderDate',
-  FINAL_REMINDER_DATE: 'FinalReminderDate',
-  ACK_ID: 'AcknowledgmentID',
-  ACK_DATE: 'AcknowledgmentDate',
-};
-// groups
-const g = {
-  NAME: 'name',
-  SID: 'sid',
-};
-const MIN_TARGET = 0;
-const MAX_TARGET = 3;
-const MIN_CREATOR = 1000;
-const MAX_CREATOR = 1003;
+const C = require('./constants');
 
 const jwts = [];
 function generateJwt(sid, firstName, lastName, roles) {
@@ -61,7 +20,7 @@ function generateUser() {
   const sid = faker.random.uuid();
   const roles = ['AppHub User'];
   // add some roles...
-  userRoles.forEach((role) => {
+  C.ROLES.forEach((role) => {
     if (faker.random.boolean()) {
       roles.push(role);
     }
@@ -73,11 +32,11 @@ function generateUser() {
   });
 
   return {
-    [r.SID]: sid,
-    [r.SAM]: faker.internet.userName(firstName, lastName),
-    [r.FIRST_NAME]: firstName,
-    [r.LAST_NAME]: lastName,
-    [r.EMAIL]: faker.internet.email(firstName, lastName, 'state.ca.gov'),
+    [C.RECIPIENT.SID]: sid,
+    [C.RECIPIENT.SAM]: faker.internet.userName(firstName, lastName),
+    [C.RECIPIENT.FIRST_NAME]: firstName,
+    [C.RECIPIENT.LAST_NAME]: lastName,
+    [C.RECIPIENT.EMAIL]: faker.internet.email(firstName, lastName, 'state.ca.gov'),
   };
 }
 
@@ -102,11 +61,11 @@ function generateRecipient(user) {
   }
 
   return {
-    [r.FIRST_REMINDER_DATE]: firstReminder,
-    [r.SECOND_REMINDER_DATE]: secondReminder,
-    [r.FINAL_REMINDER_DATE]: finalReminder,
-    [r.ACK_ID]: faker.random.number({ min: 100, max: 110 }),
-    [r.ACK_DATE]: ackDate,
+    [C.RECIPIENT.FIRST_REMINDER_DATE]: firstReminder,
+    [C.RECIPIENT.SECOND_REMINDER_DATE]: secondReminder,
+    [C.RECIPIENT.FINAL_REMINDER_DATE]: finalReminder,
+    [C.RECIPIENT.ACK_ID]: faker.random.number({ min: C.MIN_ACK, max: C.MAX_ACK }),
+    [C.RECIPIENT.ACK_DATE]: ackDate,
     ...user,
   };
 }
@@ -115,23 +74,27 @@ function generateRecipient(user) {
 function generateAcknowledgment() {
   const targetGroups = Array
     .from(
-    { length: faker.random.number({ min: MIN_TARGET, max: MAX_TARGET }) },
-    () => faker.random.number({ min: MIN_TARGET, max: MAX_TARGET })
+    { length: faker.random.number({ min: C.MIN_TARGET, max: C.MAX_TARGET }) },
+    () => faker.random.number({ min: C.MIN_TARGET, max: C.MAX_TARGET })
     )
     .filter((x, i, arr) => i === arr.indexOf(x));
 
   return {
-    [a.ID]: faker.random.number({ min: 100, max: 110 }),
-    [a.TITLE]: faker.lorem.words(),
-    [a.DATE_START]: faker.date.past(),
-    [a.DATE_END]: faker.date.future(),
-    [a.CREATOR_GROUP]: faker.random.number({ min: MIN_CREATOR, max: MAX_CREATOR }),
-    [a.TARGET_GROUPS]: targetGroups,
-    [a.STATEMENT]: faker.lorem.sentences(),
-    [a.DETAILS]: faker.lorem.paragraphs(),
-    [a.FILE_NAME]: faker.system.fileName(),
-    [a.FILE_CONTENT]: faker.image.abstract(),
-    [a.STATUS]: faker.random.number({ min: 0, max: 3 }),
+    [C.ACK.ID]: faker.random.number({ min: C.MIN_ACK, max: C.MAX_ACK }),
+    [C.ACK.TITLE]: faker.lorem.words(),
+    [C.ACK.STATUS]: faker.random.number({ min: 0, max: 3 }),
+    [C.ACK.START_DATE]: faker.date.past(),
+    [C.ACK.END_DATE]: faker.date.future(),
+    // CREATED_BY
+    // CREATED_DATE
+    [C.ACK.CREATOR_GROUP]: faker.random.number({ min: C.MIN_CREATOR, max: C.MAX_CREATOR }),
+    [C.ACK.TARGET_GROUPS]: targetGroups,
+    [C.ACK.DETAILS]: faker.lorem.paragraphs(),
+    [C.ACK.STATEMENT]: faker.lorem.sentences(),
+    [C.ACK.FILE_NAME]: faker.system.fileName(),
+    [C.ACK.FILE_CONTENT]: faker.image.abstract(),
+    // UPDATED_BY
+    // UPDATED_DATE
   };
 }
 
@@ -147,15 +110,15 @@ function generateUsers() {
 
 function generateRecipients(users) {
   const recipients = [];
-  for (let i = 0; i < 300; i += 1) {
+  for (let i = 0; i < 500; i += 1) {
     const user = users[i % 20];
     const recipient = generateRecipient(user);
     // if the user dosnt already have an acknowledgment with that id
     if (!recipients.find((x) => (
-      x[r.ACK_ID] === recipient[r.ACK_ID] &&
-      x[r.SID] === recipient[r.SID]
+      x[C.RECIPIENT.ACK_ID] === recipient[C.RECIPIENT.ACK_ID] &&
+      x[C.RECIPIENT.SID] === recipient[C.RECIPIENT.SID]
     ))) {
-      recipient[r.ID] = i;
+      recipient[C.RECIPIENT.ID] = i;
       // add to the pile...
       recipients.push(recipient);
     }
@@ -169,7 +132,7 @@ function generateAcknowledgments() {
   for (let i = 0; i < 300; i += 1) {
     const ack = generateAcknowledgment();
     if (!acks.find((x) => (
-      x[a.ID] === ack[a.ID]
+      x[C.ACK.ID] === ack[C.ACK.ID]
     ))) {
       acks.push(ack);
     }
@@ -182,8 +145,8 @@ function generateGroups(min, max) {
   const groups = [];
   for (let i = min; i <= max; i += 1) {
     groups.push({
-      [g.NAME]: faker.lorem.words(),
-      [g.SID]: i,
+      [C.GROUP.NAME]: faker.lorem.words(),
+      [C.GROUP.SID]: i,
     });
   }
   return groups;
@@ -193,8 +156,8 @@ function generateGroups(min, max) {
 const users = generateUsers();
 const recipients = generateRecipients(users);
 const acknowledgments = generateAcknowledgments();
-const targetGroups = generateGroups(MIN_TARGET, MAX_TARGET);
-const creatorGroups = generateGroups(MIN_CREATOR, MAX_CREATOR);
+const targetGroups = generateGroups(C.MIN_TARGET, C.MAX_TARGET);
+const creatorGroups = generateGroups(C.MIN_CREATOR, C.MAX_CREATOR);
 
 module.exports = {
   jwts,
@@ -207,9 +170,8 @@ module.exports = {
   },
   routes: [
     { '/spa': '/spa-acknowledgments' },
-    { '/spa/recipients/:id': '/spa-recipients?SID=:id' },
-    { '/spa/recipients/:id/acknowledge': '/spa-recipients?id=:id' },
-    { '/spa/acknowledgements/:id/recipients': '/spa-recipients?ackId=:id' },
+    { '/spa/recipients/:id': `/spa-recipients?${C.RECIPIENT.SID}=:id` },
+    { '/spa/acknowledgments/:id/recipients': `/spa-recipients?${C.RECIPIENT.ACK_ID}=:id` },
     { '/spa/groups/targets': '/spa-targetGroups' },
     { '/spa/groups/creators': '/spa-creatorGroups' },
   ],

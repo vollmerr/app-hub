@@ -26,7 +26,7 @@ export const initialState = {
     isCached: false, // determine if should fetch admin data
     acksActiveIds: [], // [admin page] ids for list of active 'acknowledgments'
     acksPreviousIds: [], // [admin page] ids for list of previous 'acknowledgments'
-    allIds: [],
+    cachedIds: [],
   },
   recipients: { // list of recipients (for user and admin)
     byId: {},
@@ -121,7 +121,7 @@ export default handleActions({
     // add ack id to list of ids in admin
     const id = Set([String(payload.id)]);
     const admin = {
-      allIds: state.getIn(['admin', 'allIds']).toSet().union(id).toList(),
+      cachedIds: state.getIn(['admin', 'cachedIds']).toSet().union(id).toList(),
     };
     // add entries to acks (could potentally already have some entries, so just add new)
     const recipients = mergeById(state, 'recipients', payload.recipients, RECIPIENT.ID);
@@ -170,7 +170,7 @@ export default handleActions({
     const recipientId = state
       .getIn(['user', 'recipientsPendingIds'])
       .find((id) => String(state.getIn(['recipients', 'byId', String(id), RECIPIENT.ACK_ID])) === ackId);
-    // if the acknowledgement is in users active list
+    // if the acknowledgment is in users active list
     if (recipientId) {
       // remove from user active
       newState = newState

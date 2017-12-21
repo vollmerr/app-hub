@@ -44,18 +44,18 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
             },
             Object {
               "ariaLabel": "Date the acknowledgment takes effect",
-              "fieldName": "activeStartDate",
+              "fieldName": "startDate",
               "isResizable": true,
-              "key": "activeStartDate",
+              "key": "startDate",
               "maxWidth": 250,
               "minWidth": 100,
               "name": "Start Date",
             },
             Object {
               "ariaLabel": "Date the acknowledgment expires",
-              "fieldName": "activeEndDate",
+              "fieldName": "endDate",
               "isResizable": true,
-              "key": "activeEndDate",
+              "key": "endDate",
               "maxWidth": 250,
               "minWidth": 100,
               "name": "End Date",
@@ -71,9 +71,9 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
             },
             Object {
               "ariaLabel": "Status of the acknowledgment",
-              "fieldName": "status",
+              "fieldName": "acknowledgmentStatusID",
               "isResizable": true,
-              "key": "status",
+              "key": "acknowledgmentStatusID",
               "maxWidth": 40,
               "minWidth": 30,
               "name": "Status",
@@ -100,13 +100,13 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
         items={
           Array [
             Object {
+              "acknowledgmentStatusID": 0,
               "id": "a",
-              "status": 0,
               "title": "testPending1",
             },
             Object {
+              "acknowledgmentStatusID": 0,
               "id": "b",
-              "status": 0,
               "title": "testPending2",
             },
           ]
@@ -160,18 +160,18 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
             },
             Object {
               "ariaLabel": "Date the acknowledgment takes effect",
-              "fieldName": "activeStartDate",
+              "fieldName": "startDate",
               "isResizable": true,
-              "key": "activeStartDate",
+              "key": "startDate",
               "maxWidth": 250,
               "minWidth": 100,
               "name": "Start Date",
             },
             Object {
               "ariaLabel": "Date the acknowledgment expires",
-              "fieldName": "activeEndDate",
+              "fieldName": "endDate",
               "isResizable": true,
-              "key": "activeEndDate",
+              "key": "endDate",
               "maxWidth": 250,
               "minWidth": 100,
               "name": "End Date",
@@ -187,9 +187,9 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
             },
             Object {
               "ariaLabel": "Status of the acknowledgment",
-              "fieldName": "status",
+              "fieldName": "acknowledgmentStatusID",
               "isResizable": true,
-              "key": "status",
+              "key": "acknowledgmentStatusID",
               "maxWidth": 40,
               "minWidth": 30,
               "name": "Status",
@@ -213,13 +213,13 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
         items={
           Array [
             Object {
+              "acknowledgmentStatusID": undefined,
               "id": "c",
-              "status": undefined,
               "title": "testPrevious1",
             },
             Object {
+              "acknowledgmentStatusID": 2,
               "id": "d",
-              "status": 2,
               "title": "testPrevious2",
             },
           ]

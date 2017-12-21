@@ -82,7 +82,7 @@ export function* getGroups() {
 export function* getAckRecipients(action) {
   try {
     const id = action.payload.id;
-    const url = `${base}/acknowledgements/${id}/recipients`;
+    const url = `${base}/acknowledgments/${id}/recipients`;
 
     const recipients = yield call(requestWithToken, url);
     yield put(actions.getAckRecipientsSuccess({ recipients, id }));

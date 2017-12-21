@@ -13,7 +13,7 @@ const spa = {
     isCached: false,
     acksActiveIds: ['g'],
     acksPreviousIds: ['y'],
-    allIds: ['g', 'y'],
+    cachedIds: ['y'],
   },
   groups: {
     byId: {
@@ -90,10 +90,10 @@ describe('Spa selectors', () => {
       });
     });
 
-    describe('getAdminAllIds', () => {
+    describe('getAdminCachedIds', () => {
       it('should select all ack ids from admin', () => {
-        const selector = selectors.getAdminAllIds();
-        expect(selector(state)).toEqual(fromJS(spa.admin.allIds));
+        const selector = selectors.getAdminCachedIds();
+        expect(selector(state)).toEqual(fromJS(spa.admin.cachedIds));
       });
     });
 

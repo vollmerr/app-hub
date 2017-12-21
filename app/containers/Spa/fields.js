@@ -27,19 +27,19 @@ const spaFields = {
     ariaLabel: 'Title of the acknowledgment',
     component: FieldText,
   },
-  [ACK.DATE_START]: {
+  [ACK.START_DATE]: {
     label: 'Start Date',
     required: true,
-    name: ACK.DATE_START,
+    name: ACK.START_DATE,
     placeholder: 'Select the start date',
     ariaLabel: 'Date the acknowledgment takes effect',
     component: FieldDate,
     validate: [isFutureDate],
   },
-  [ACK.DATE_END]: {
+  [ACK.END_DATE]: {
     label: 'End Date',
     required: true,
-    name: ACK.DATE_END,
+    name: ACK.END_DATE,
     placeholder: 'Select the end date',
     ariaLabel: 'Date the acknowledgment expires',
     component: FieldDate,
@@ -102,8 +102,8 @@ export const newAckForm = {
   sections: {
     left: [
       ACK.TITLE,
-      ACK.DATE_START,
-      ACK.DATE_END,
+      ACK.START_DATE,
+      ACK.END_DATE,
       ACK.TARGET_GROUPS,
     ],
     right: [

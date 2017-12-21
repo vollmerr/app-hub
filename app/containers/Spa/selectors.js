@@ -13,7 +13,6 @@ const selectById = (state) => state.get('byId');
 const selectByAckId = (state, id) => selectById(state).filter((x) => (
   String(x.get(RECIPIENT.ACK_ID)) === String(id)
 ));
-const selectAllIds = (state) => state.get('allIds');
 const selectIdExists = (state, id) => state.includes(String(id));
 const selectCached = (state) => state.get('isCached');
 
@@ -61,9 +60,9 @@ const getAdminCached = () => createSelector(
   selectAdmin,
   (admin) => selectCached(admin)
 );
-const getAdminAllIds = () => createSelector(
+const getAdminCachedIds = () => createSelector(
   selectAdmin,
-  (admin) => selectAllIds(admin)
+  (admin) => admin.get('cachedIds')
 );
 // selects List of active acknowlegments
 const getAdminActiveAcks = () => createSelector(
@@ -100,7 +99,7 @@ export {
   getUserPreviousAcks,
   // admin
   getAdminCached,
-  getAdminAllIds,
+  getAdminCachedIds,
   getAdminActiveAcks,
   getAdminPreviousAcks,
   // recipients

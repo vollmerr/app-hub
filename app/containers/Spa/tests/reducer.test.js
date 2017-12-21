@@ -50,7 +50,7 @@ const state = {
     isCached: false,
     acksActiveIds: ['g'],
     acksPreviousIds: ['h'],
-    allIds: ['g', 'h'],
+    cachedIds: ['h'],
   },
   groups: {
     byId: {
@@ -227,11 +227,11 @@ describe('spaReducer', () => {
       action = { type: GET_ACK_RECIPIENTS_SUCCESS, payload };
     });
 
-    it('should merge the ack id with the admins `allIds` for caching', () => {
+    it('should merge the ack id with the admins `cachedIds` for caching', () => {
       expected = [recipients[0][RECIPIENT.ACK_ID]];
-      expect(spaReducer(undefined, action).getIn(['admin', 'allIds']).toJS()).toEqual(expected);
-      expected = [...state.admin.allIds, recipients[0][RECIPIENT.ACK_ID]];
-      expect(spaReducer(fromJS(state), action).getIn(['admin', 'allIds']).toJS()).toEqual(expected);
+      expect(spaReducer(undefined, action).getIn(['admin', 'cachedIds']).toJS()).toEqual(expected);
+      expected = [...state.admin.cachedIds, recipients[0][RECIPIENT.ACK_ID]];
+      expect(spaReducer(fromJS(state), action).getIn(['admin', 'cachedIds']).toJS()).toEqual(expected);
     });
 
     it('should merge the `recipients` with the existing ones', () => {

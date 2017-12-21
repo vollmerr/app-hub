@@ -62,7 +62,6 @@ class List extends React.PureComponent {
 
   componentWillReceiveProps(nextProps) {
     const { items } = this.state;
-
     // different items, updae local ones (deep compare...)
     if (!isEqual(items, nextProps.items)) {
       this.setState({ items: nextProps.items });

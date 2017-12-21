@@ -4,9 +4,9 @@ import { ACK } from 'containers/Spa/constants';
 const validate = (vals) => {
   const errors = {};
   // check end date after start
-  if (vals.get(ACK.DATE_START) && vals.get(ACK.DATE_END)) {
-    if (new Date(vals.get(ACK.DATE_START)) > new Date(vals.get(ACK.DATE_END))) {
-      errors[ACK.DATE_END] = '"End Date" must be after "Start Date"';
+  if (vals.get(ACK.START_DATE) && vals.get(ACK.END_DATE)) {
+    if (new Date(vals.get(ACK.START_DATE)) > new Date(vals.get(ACK.END_DATE))) {
+      errors[ACK.END_DATE] = '"End Date" must be after "Start Date"';
     }
   }
   // check if name but no attachment

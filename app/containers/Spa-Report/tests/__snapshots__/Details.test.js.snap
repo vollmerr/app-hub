@@ -72,33 +72,33 @@ exports[`Details should render correctly 1`] = `
     Test Title
   </Details__Heading>
   <Details__Item
-    key="status"
+    key="acknowledgmentStatusID"
   >
     <Details__Key>
       Status
     </Details__Key>
     <Details__Value>
-      Test status
+      Test acknowledgmentStatusID
     </Details__Value>
   </Details__Item>
   <Details__Item
-    key="activeStartDate"
+    key="startDate"
   >
     <Details__Key>
       Start Date
     </Details__Key>
     <Details__Value>
-      Test activeStartDate
+      Test startDate
     </Details__Value>
   </Details__Item>
   <Details__Item
-    key="activeEndDate"
+    key="endDate"
   >
     <Details__Key>
       End Date
     </Details__Key>
     <Details__Value>
-      Test activeEndDate
+      Test endDate
     </Details__Value>
   </Details__Item>
   <Details__Item
@@ -122,23 +122,23 @@ exports[`Details should render correctly 1`] = `
     </Details__Value>
   </Details__Item>
   <Details__Item
-    key="ackStatement"
+    key="statement"
   >
     <Details__Key>
       Statement
     </Details__Key>
     <Details__Value>
-      Test ackStatement
+      Test statement
     </Details__Value>
   </Details__Item>
   <Details__Item
-    key="detailsText"
+    key="details"
   >
     <Details__Key>
       Details
     </Details__Key>
     <Details__Value>
-      Test detailsText
+      Test details
     </Details__Value>
   </Details__Item>
 </Details__Wrapper>
