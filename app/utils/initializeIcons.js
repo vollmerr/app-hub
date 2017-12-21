@@ -36,6 +36,7 @@ const initializeIcons = () => {
       download: '\uF8F6',
       Attach: '\uF8F7',
       // requried by office-ui
+      more: '\uF8F4',
       chevrondown: '\uE088',
       chevronup: '\uE087',
       Search: '\uE039',

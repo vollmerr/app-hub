@@ -22,9 +22,9 @@ injectGlobal`
 
   /* OFFICE UI DIALOG (requires classname to be passed, ignores styled compoents...) */
   .ms-Dialog-main {
-    max-width: ${theme.breakpoints.xs - 30}px !important;
+    min-width: ${theme.breakpoints.xs - 90}px !important;
     @media (min-width: ${theme.breakpoints.sm}px) {
-      max-width: ${theme.breakpoints.sm - 40}px !important;
+      min-width: ${theme.breakpoints.sm - 90}px !important;
     }
   }
 `;
