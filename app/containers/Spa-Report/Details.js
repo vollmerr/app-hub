@@ -4,8 +4,7 @@ import styled from 'styled-components';
 
 import theme from 'utils/theme';
 import { renderItem } from 'utils/data';
-import { COL_TYPES } from 'containers/AppHub/constants';
-import { ACK, STATUS } from 'containers/Spa/constants';
+import { ACK } from 'containers/Spa/constants';
 import spaFields from 'containers/Spa/fields';
 
 export const Wrapper = styled.div`
@@ -48,28 +47,6 @@ export const items = [
   ACK.STATEMENT,
   ACK.DETAILS,
 ];
-// TODO: COMMON
-// const renderItem = (name, selected, enums) => {
-//   let content = selected[name];
-//   // if non existent or not array of data, make into array
-//   if (!Array.isArray(content)) {
-//     content = [content];
-//   }
-//   // go through array of data, mapping each item absed off 'data' attributes
-//   content = content.map((item) => {
-//     // is enum mapping
-//     if (enums[name]) {
-//       return enums[name][item];
-//     }
-//     // is date
-//     if (spaFields[name].data && spaFields[name].data.type === COL_TYPES.DATE) {
-//       return isNaN(Date.parse(item)) ? '' : new Date(item).toISOString().substr(0, 10);
-//     }
-//     return item;
-//   });
-
-//   return content.join(', ');
-// };
 
 class Details extends React.PureComponent {
   render() {

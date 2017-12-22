@@ -1,5 +1,5 @@
 import { COL_TYPES } from 'containers/AppHub/constants';
-import { ACK, STATUS, STATUS_CODES } from 'containers/Spa/constants';
+import { ACK } from 'containers/Spa/constants';
 import { isFutureDate } from 'utils/validate';
 
 import {

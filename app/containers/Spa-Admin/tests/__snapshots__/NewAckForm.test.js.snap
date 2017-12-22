@@ -23,9 +23,15 @@ exports[`<NewAckForm /> should render correctly 1`] = `
       />
       <WrappedField
         ariaLabel="Date the acknowledgment takes effect"
+        data={
+          Object {
+            "type": "DATE",
+          }
+        }
         disabled={false}
         key="startDate"
         label="Start Date"
+        maxWidth={100}
         name="startDate"
         placeholder="Select the start date"
         required={true}
@@ -37,9 +43,15 @@ exports[`<NewAckForm /> should render correctly 1`] = `
       />
       <WrappedField
         ariaLabel="Date the acknowledgment expires"
+        data={
+          Object {
+            "type": "DATE",
+          }
+        }
         disabled={false}
         key="endDate"
         label="End Date"
+        maxWidth={100}
         name="endDate"
         placeholder="Select the end date"
         required={true}

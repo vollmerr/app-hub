@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
+import json2csv from 'json2csv';
 
 import {
   getAdminCached,
@@ -23,10 +24,10 @@ import {
   disableAckRequest,
 } from 'containers/Spa/actions';
 
-import { doneLoading } from 'utils/request';
+import { doneLoading, downloadFile } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
 import spaFields, { newAckForm } from 'containers/Spa/fields';
-import { adminColumns } from 'containers/Spa/columns';
+import { adminColumns, recipients } from 'containers/Spa/columns';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
 import { ACK, STATUS, RECIPIENT, GROUP } from 'containers/Spa/constants';
@@ -157,12 +158,27 @@ export class SpaAdmin extends React.PureComponent {
   }
 
   /**
-   * Handles hiding the report screen
+   * Handles downloading the report as a csv
    */
   handleDownload = () => {
-    // TODO: download...
-  }
+    const { selectedItem } = this.state;
+    const fields = [
+      RECIPIENT.SAM,
+      RECIPIENT.FIRST_NAME,
+      RECIPIENT.LAST_NAME,
+      RECIPIENT.EMAIL,
+      RECIPIENT.ACK_DATE,
+      RECIPIENT.FIRST_REMINDER_DATE,
+      RECIPIENT.SECOND_REMINDER_DATE,
+      RECIPIENT.FINAL_REMINDER_DATE,
+    ];
+    const fieldNames = fields.map((x) => recipients[x].label);
+    const csv = json2csv({ data: this.state.reportData, newLine: '\r\n', fields, fieldNames });
+    const name = `${selectedItem[ACK.TITLE]} Report ${new Date().toISOString()}.csv`;
+    const type = 'data:text/csv;charset=utf-8;';
 
+    downloadFile(csv, name, type);
+  }
 
   //
   // DISABLE ACKNOWLEDGMENTS
@@ -198,7 +214,7 @@ export class SpaAdmin extends React.PureComponent {
   }
 
   //
-  // DISABLE ACKNOWLEDGMENTS
+  // EMAIL RECIPIENTS
   //
 
   /**

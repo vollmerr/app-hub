@@ -33,7 +33,7 @@ export function mapToColumns(obj, include = [], exclude = []) {
 }
 
 // columns for report page
-const recipients = {
+export const recipients = {
   [RECIPIENT.FIRST_NAME]: {
     label: 'First Name',
     name: RECIPIENT.FIRST_NAME,
@@ -62,6 +62,33 @@ const recipients = {
     label: 'Acknowledgment Date',
     name: RECIPIENT.ACK_DATE,
     ariaLabel: 'Date the recipient acknowledged the policy',
+    minWidth: 100,
+    data: {
+      type: COL_TYPES.DATE,
+    },
+  },
+  [RECIPIENT.FIRST_REMINDER_DATE]: {
+    label: 'First Reminder Date',
+    name: RECIPIENT.FIRST_REMINDER_DATE,
+    ariaLabel: 'Date of recipients first acknowledgment reminder',
+    minWidth: 100,
+    data: {
+      type: COL_TYPES.DATE,
+    },
+  },
+  [RECIPIENT.SECOND_REMINDER_DATE]: {
+    label: 'Second Reminder Date',
+    name: RECIPIENT.SECOND_REMINDER_DATE,
+    ariaLabel: 'Date of recipients second acknowledgment reminder',
+    minWidth: 100,
+    data: {
+      type: COL_TYPES.DATE,
+    },
+  },
+  [RECIPIENT.FINAL_REMINDER_DATE]: {
+    label: 'Final Reminder Date',
+    name: RECIPIENT.FINAL_REMINDER_DATE,
+    ariaLabel: 'Date of recipients final acknowledgment reminder',
     minWidth: 100,
     data: {
       type: COL_TYPES.DATE,

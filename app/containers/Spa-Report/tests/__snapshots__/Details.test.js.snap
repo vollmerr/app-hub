@@ -87,9 +87,7 @@ exports[`Details should render correctly 1`] = `
     <Details__Key>
       Start Date
     </Details__Key>
-    <Details__Value>
-      Test startDate
-    </Details__Value>
+    <Details__Value />
   </Details__Item>
   <Details__Item
     key="endDate"
@@ -97,9 +95,7 @@ exports[`Details should render correctly 1`] = `
     <Details__Key>
       End Date
     </Details__Key>
-    <Details__Value>
-      Test endDate
-    </Details__Value>
+    <Details__Value />
   </Details__Item>
   <Details__Item
     key="targetADGroup"

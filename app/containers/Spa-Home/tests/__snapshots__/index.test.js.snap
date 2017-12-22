@@ -11,6 +11,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
         Array [
           Object {
             "ariaLabel": "ID of the acknowledgment",
+            "data": Object {},
             "fieldName": "id",
             "isResizable": true,
             "key": "id",
@@ -20,37 +21,45 @@ exports[`<SpaHome /> should render correctly 1`] = `
           },
           Object {
             "ariaLabel": "Title of the acknowledgment",
+            "data": Object {},
             "fieldName": "title",
             "isResizable": true,
             "key": "title",
-            "maxWidth": 250,
+            "maxWidth": 200,
             "minWidth": 100,
             "name": "Title",
           },
           Object {
             "ariaLabel": "Date the acknowledgment takes effect",
+            "data": Object {
+              "type": "DATE",
+            },
             "fieldName": "startDate",
             "isResizable": true,
             "key": "startDate",
-            "maxWidth": 250,
+            "maxWidth": 100,
             "minWidth": 100,
             "name": "Start Date",
           },
           Object {
             "ariaLabel": "Date the acknowledgment expires",
+            "data": Object {
+              "type": "DATE",
+            },
             "fieldName": "endDate",
             "isResizable": true,
             "key": "endDate",
-            "maxWidth": 250,
+            "maxWidth": 100,
             "minWidth": 100,
             "name": "End Date",
           },
           Object {
             "ariaLabel": "Name of the file that must be read before acknowledging",
+            "data": Object {},
             "fieldName": "fileName",
             "isResizable": true,
             "key": "fileName",
-            "maxWidth": 250,
+            "maxWidth": 200,
             "minWidth": 100,
             "name": "Attachment Name",
           },
@@ -61,6 +70,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
           "message": "No Acknowledgments Pending Approval",
         }
       }
+      enums={Object {}}
       items={
         Array [
           Object {
@@ -104,6 +114,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
         Array [
           Object {
             "ariaLabel": "ID of the acknowledgment",
+            "data": Object {},
             "fieldName": "id",
             "isResizable": true,
             "key": "id",
@@ -113,47 +124,58 @@ exports[`<SpaHome /> should render correctly 1`] = `
           },
           Object {
             "ariaLabel": "Title of the acknowledgment",
+            "data": Object {},
             "fieldName": "title",
             "isResizable": true,
             "key": "title",
-            "maxWidth": 250,
+            "maxWidth": 200,
             "minWidth": 100,
             "name": "Title",
           },
           Object {
             "ariaLabel": "Date the acknowledgment takes effect",
+            "data": Object {
+              "type": "DATE",
+            },
             "fieldName": "startDate",
             "isResizable": true,
             "key": "startDate",
-            "maxWidth": 250,
+            "maxWidth": 100,
             "minWidth": 100,
             "name": "Start Date",
           },
           Object {
             "ariaLabel": "Date the acknowledgment expires",
+            "data": Object {
+              "type": "DATE",
+            },
             "fieldName": "endDate",
             "isResizable": true,
             "key": "endDate",
-            "maxWidth": 250,
+            "maxWidth": 100,
             "minWidth": 100,
             "name": "End Date",
           },
           Object {
             "ariaLabel": "Name of the file that must be read before acknowledging",
+            "data": Object {},
             "fieldName": "fileName",
             "isResizable": true,
             "key": "fileName",
-            "maxWidth": 250,
+            "maxWidth": 200,
             "minWidth": 100,
             "name": "Attachment Name",
           },
           Object {
-            "ariaLabel": "Date policy was acknowledged",
+            "ariaLabel": "Date the recipient acknowledged the policy",
+            "data": Object {
+              "type": "DATE",
+            },
             "fieldName": "acknowledgmentDate",
             "isResizable": true,
             "key": "acknowledgmentDate",
             "maxWidth": 200,
-            "minWidth": 150,
+            "minWidth": 100,
             "name": "Acknowledgment Date",
           },
         ]
@@ -163,6 +185,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
           "message": "No Previous Acknowledgments",
         }
       }
+      enums={Object {}}
       items={
         Array [
           Object {

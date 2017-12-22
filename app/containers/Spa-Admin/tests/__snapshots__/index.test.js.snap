@@ -26,6 +26,7 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
           Array [
             Object {
               "ariaLabel": "ID of the acknowledgment",
+              "data": Object {},
               "fieldName": "id",
               "isResizable": true,
               "key": "id",
@@ -35,55 +36,65 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
             },
             Object {
               "ariaLabel": "Title of the acknowledgment",
+              "data": Object {},
               "fieldName": "title",
               "isResizable": true,
               "key": "title",
-              "maxWidth": 250,
+              "maxWidth": 200,
               "minWidth": 100,
               "name": "Title",
             },
             Object {
               "ariaLabel": "Date the acknowledgment takes effect",
+              "data": Object {
+                "type": "DATE",
+              },
               "fieldName": "startDate",
               "isResizable": true,
               "key": "startDate",
-              "maxWidth": 250,
+              "maxWidth": 100,
               "minWidth": 100,
               "name": "Start Date",
             },
             Object {
               "ariaLabel": "Date the acknowledgment expires",
+              "data": Object {
+                "type": "DATE",
+              },
               "fieldName": "endDate",
               "isResizable": true,
               "key": "endDate",
-              "maxWidth": 250,
+              "maxWidth": 100,
               "minWidth": 100,
               "name": "End Date",
             },
             Object {
               "ariaLabel": "AD groups that must acknowledge the policy",
+              "data": Object {},
               "fieldName": "targetADGroup",
               "isResizable": true,
               "key": "targetADGroup",
-              "maxWidth": 250,
+              "maxWidth": 200,
               "minWidth": 100,
               "name": "Target Group(s)",
             },
             Object {
               "ariaLabel": "Status of the acknowledgment",
+              "data": Object {},
               "fieldName": "acknowledgmentStatusID",
               "isResizable": true,
               "key": "acknowledgmentStatusID",
-              "maxWidth": 40,
-              "minWidth": 30,
+              "maxWidth": 100,
+              "minWidth": 100,
               "name": "Status",
             },
             Object {
               "ariaLabel": "Name of the file that must be read before acknowledging",
+              "data": Object {},
               "fieldName": "fileName",
               "isResizable": true,
               "key": "fileName",
-              "maxWidth": 250,
+              "maxWidth": 200,
               "minWidth": 100,
               "name": "Attachment Name",
             },
@@ -95,6 +106,21 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
             "buttonText": "Create New",
             "message": "No Active Acknowledgments",
             "onClick": [Function],
+          }
+        }
+        enums={
+          Object {
+            "acknowledgmentStatusID": Object {
+              "0": "Active",
+              "1": "Expired",
+              "2": "Disabled",
+            },
+            "targetADGroup": Object {
+              "0": "Group 0 Name",
+              "1": "Group 1 Name",
+              "2": "Group 2 Name",
+              "3": "Group 3 Name",
+            },
           }
         }
         items={
@@ -142,6 +168,7 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
           Array [
             Object {
               "ariaLabel": "ID of the acknowledgment",
+              "data": Object {},
               "fieldName": "id",
               "isResizable": true,
               "key": "id",
@@ -151,55 +178,65 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
             },
             Object {
               "ariaLabel": "Title of the acknowledgment",
+              "data": Object {},
               "fieldName": "title",
               "isResizable": true,
               "key": "title",
-              "maxWidth": 250,
+              "maxWidth": 200,
               "minWidth": 100,
               "name": "Title",
             },
             Object {
               "ariaLabel": "Date the acknowledgment takes effect",
+              "data": Object {
+                "type": "DATE",
+              },
               "fieldName": "startDate",
               "isResizable": true,
               "key": "startDate",
-              "maxWidth": 250,
+              "maxWidth": 100,
               "minWidth": 100,
               "name": "Start Date",
             },
             Object {
               "ariaLabel": "Date the acknowledgment expires",
+              "data": Object {
+                "type": "DATE",
+              },
               "fieldName": "endDate",
               "isResizable": true,
               "key": "endDate",
-              "maxWidth": 250,
+              "maxWidth": 100,
               "minWidth": 100,
               "name": "End Date",
             },
             Object {
               "ariaLabel": "AD groups that must acknowledge the policy",
+              "data": Object {},
               "fieldName": "targetADGroup",
               "isResizable": true,
               "key": "targetADGroup",
-              "maxWidth": 250,
+              "maxWidth": 200,
               "minWidth": 100,
               "name": "Target Group(s)",
             },
             Object {
               "ariaLabel": "Status of the acknowledgment",
+              "data": Object {},
               "fieldName": "acknowledgmentStatusID",
               "isResizable": true,
               "key": "acknowledgmentStatusID",
-              "maxWidth": 40,
-              "minWidth": 30,
+              "maxWidth": 100,
+              "minWidth": 100,
               "name": "Status",
             },
             Object {
               "ariaLabel": "Name of the file that must be read before acknowledging",
+              "data": Object {},
               "fieldName": "fileName",
               "isResizable": true,
               "key": "fileName",
-              "maxWidth": 250,
+              "maxWidth": 200,
               "minWidth": 100,
               "name": "Attachment Name",
             },
@@ -208,6 +245,21 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
         empty={
           Object {
             "message": "No Previous Acknowledgments",
+          }
+        }
+        enums={
+          Object {
+            "acknowledgmentStatusID": Object {
+              "0": "Active",
+              "1": "Expired",
+              "2": "Disabled",
+            },
+            "targetADGroup": Object {
+              "0": "Group 0 Name",
+              "1": "Group 1 Name",
+              "2": "Group 2 Name",
+              "3": "Group 3 Name",
+            },
           }
         }
         items={

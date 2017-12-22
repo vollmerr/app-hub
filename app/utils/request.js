@@ -8,11 +8,11 @@ import { fromJS, Set, Map } from 'immutable';
  * @param  {object} file    - File to download
  * @param  {string} name    - Name to save file as
  */
-export /* istanbul ignore next */ function downloadFile(file, name) {
+export /* istanbul ignore next */ function downloadFile(file, name, type = 'octet/stream') {
   // make into blob and save
   const a = document.createElement('a');
   const data = [file];
-  const blob = new Blob(data, { type: 'octet/stream' });
+  const blob = new Blob(data, { type });
 
   document.body.appendChild(a);
   // IE...

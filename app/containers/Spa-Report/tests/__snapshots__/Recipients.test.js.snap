@@ -12,6 +12,7 @@ exports[`<Recipients /> should render correctly 1`] = `
         "message": "No items",
       }
     }
+    enums={Object {}}
     items={Array []}
   />
 </Recipients__Wrapper>
