@@ -202,7 +202,7 @@ class List extends React.PureComponent {
       value: searchValue,
       onChange: this.handleSearch,
     };
-console.log('rending')
+
     return (
       <Wrapper>
         <Header>

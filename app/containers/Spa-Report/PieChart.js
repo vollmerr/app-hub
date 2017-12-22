@@ -69,6 +69,7 @@ class PieChart extends React.PureComponent {
       data !== prevProps.data ||
       dataKey !== prevProps.dataKey
     ) {
+      console.log('rendering REPORT')
       this.renderD3('update');
     }
   }
@@ -150,7 +151,7 @@ class PieChart extends React.PureComponent {
     arcs.exit().remove();
 
     arcs.transition().attrTween('d', arcTween);
-    animateFauxDOM(800);
+    animateFauxDOM(200);
   }
 
   render() {
@@ -176,7 +177,7 @@ class PieChart extends React.PureComponent {
 }
 
 
-const { node, shape, number, func, bool } = PropTypes;
+const { node, shape, number, func, bool, array, string } = PropTypes;
 
 PieChart.propTypes = {
   chart: node,
@@ -192,6 +193,8 @@ PieChart.propTypes = {
   }),
   onClick: func.isRequired,
   hasData: bool.isRequired,
+  data: array.isRequired,
+  dataKey: string.isRequired,
   connectFauxDOM: func.isRequired,
   animateFauxDOM: func.isRequired,
 };
