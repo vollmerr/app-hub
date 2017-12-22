@@ -21,6 +21,18 @@ export function appPage(Component) {
       userRoles: PropTypes.object.isRequired,
     };
 
+    constructor(props) {
+      super(props);
+      this.state = {
+        isMounting: true,
+      };
+    }
+
+    componentDidMount() {
+      // do not show component wrapped until done mounting...
+      this.setState({ isMounting: false }); // eslint-disable-line
+    }
+
     componentWillReceiveProps(nextProps) {
       const { app, userRoles } = this.props;
       // if there are different routes (is empty when component loads, so check here)
@@ -53,6 +65,8 @@ export function appPage(Component) {
 
     render() {
       const { app } = this.props;
+      const { isMounting } = this.state;
+
       const routes = app.get('routes');
       const homeRoute = routes.find((route) => (
         route.get('key').match(/Home/))
@@ -64,7 +78,7 @@ export function appPage(Component) {
       }
 
       let Loading = null;
-      if (app.get('loading')) {
+      if (app.get('loading') || isMounting) {
         Loading = <LoadingMessage />;
       }
 

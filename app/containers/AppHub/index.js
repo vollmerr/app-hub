@@ -11,10 +11,12 @@ import LoadingMessage from 'components/Loading/LoadingMessage';
 import AppHub from './AppHub';
 import routes from './routes';
 
+
 export const Wrapper = styled(Fabric) `
   height: 100%;
   overflow: hidden;
 `;
+
 
 export const Content = styled.div`
   height: calc(100% - ${theme.hub.headerHeight});
@@ -43,7 +45,7 @@ export class AppHubRoot extends React.PureComponent {
       clearTimeout(this.tokenTimer);
       this.setState({ isAuthenticated: true });
     } else {
-      this.tokenTimer = setTimeout(this.handleDisplayRoutes, 100);
+      this.tokenTimer = setTimeout(this.handleDisplayRoutes, 10);
     }
   }
 
@@ -52,7 +54,7 @@ export class AppHubRoot extends React.PureComponent {
 
     return (
       <Wrapper>
-        <AppHub onDisplayRoutes={this.handleDisplayRoutes} routes={routes} />
+        <AppHub routes={routes} />
         {
           isAuthenticated ?
             <Content>

@@ -51,35 +51,29 @@ class List extends React.PureComponent {
     super(props);
     this.state = {
       items: props.items,
-      columns: props.columns,
+      columns: this.bindColumnClick(props.columns),
       sortOrder: props.columns.map((col) => col.key),
+      searchValue: '',
     };
-  }
-
-  componentDidMount() {
-    // bind onClick's to bloumn headers
-    this.bindColumnClick();
   }
 
   componentWillReceiveProps(nextProps) {
     const { items } = this.state;
     // different items, updae local ones (deep compare...)
     if (!isEqual(items, nextProps.items)) {
-      this.setState({ items: nextProps.items });
+      this.setState({ items: nextProps.items, searchValue: '' });
     }
   }
 
   /**
    * Binds the method for clicking on a column header to each column
    */
-  bindColumnClick = () => {
-    const { columns } = this.state;
-    const newColumns = columns.map((col) => ({
+  bindColumnClick = (columns) => (
+    columns.map((col) => ({
       ...col,
       ...!col.notSortable && { onColumnClick: this.handleColumnClick },
-    }));
-    this.setState({ columns: newColumns });
-  };
+    }))
+  );
 
   /**
    * Handles filtering list items displayed based off value
@@ -91,7 +85,7 @@ class List extends React.PureComponent {
     const items = this.props.items.filter((item) => (
       Object.values(item).some((x) => re.test(x))
     ));
-    this.setState({ items });
+    this.setState({ items, searchValue: value });
   }
 
   /**
@@ -184,31 +178,12 @@ class List extends React.PureComponent {
    */
   renderItemColumn = (item, index, column) => {
     const { enums } = this.props;
-    // let content = item[column.fieldName];
-    // // convert all data to array for mapping over
-    // if (!Array.isArray(content)) {
-    //   content = [content];
-    // }
-    // // go through each item, mapping to the correct format
-    // content = content.map((x) => {
-    //   // is enum mapping
-    //   if (enums[column.fieldName]) {
-    //     return enums[column.fieldName][x];
-    //   }
-    //   // is date
-    //   if (column.data && column.data.type === 'DATE') {
-    //     return isNaN(Date.parse(x)) ? '' : new Date(x).toISOString().substr(0, 10);
-    //   }
-    //   return x;
-    // });
-    // // join them back as string seperated by commas
-    // return content.join(', ');
     return renderItem(item, column.fieldName, column, enums);
   }
 
   render() {
     const { title, empty, ...list } = this.props;
-    const { items, columns } = this.state;
+    const { items, columns, searchValue } = this.state;
 
     const listProps = {
       ...list,
@@ -218,11 +193,16 @@ class List extends React.PureComponent {
       onRenderItemColumn: this.renderItemColumn,
     };
 
+    const searchProps = {
+      value: searchValue,
+      onChange: this.handleSearch,
+    };
+
     return (
       <Wrapper>
         <Header>
           <Title>{title}</Title>
-          <Search onChange={this.handleSearch} />
+          <Search {...searchProps} />
         </Header>
 
         {
