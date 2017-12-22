@@ -61,7 +61,12 @@ class List extends React.PureComponent {
     const { items } = this.state;
     // different items, updae local ones (deep compare...)
     if (!isEqual(items, nextProps.items)) {
-      this.setState({ items: nextProps.items, searchValue: '' });
+      this.setState({
+        items: nextProps.items,
+        columns: this.bindColumnClick(nextProps.columns),
+        sortOrder: nextProps.columns.map((col) => col.key),
+        searchValue: '',
+      });
     }
   }
 
@@ -197,7 +202,7 @@ class List extends React.PureComponent {
       value: searchValue,
       onChange: this.handleSearch,
     };
-
+console.log('rending')
     return (
       <Wrapper>
         <Header>
