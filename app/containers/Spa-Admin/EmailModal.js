@@ -94,7 +94,6 @@ export class EmailModal extends React.PureComponent {
 
     const recipientsProps = {
       name: 'recipients',
-      label: 'Recipients',
       options: [
         { key: EMAIL.ALL, text: 'All Recipients' },
         { key: EMAIL.PENDING, text: 'Pending Acknowledment' },
