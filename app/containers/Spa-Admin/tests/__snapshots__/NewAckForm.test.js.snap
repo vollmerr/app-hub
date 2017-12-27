@@ -78,20 +78,20 @@ exports[`<NewAckForm /> should render correctly 1`] = `
         ariaLabel="Statement that will be placed under the details of the acknowledgment"
         disabled={false}
         key="statement"
-        label="Statement"
+        label="Acknowledgment Statement"
         name="statement"
         placeholder="Enter the acknowledgment statement"
         required={true}
         validate={Array []}
       />
       <WrappedField
-        ariaLabel="Details of the acknowledgment"
+        ariaLabel="Description of the acknowledgment"
         disabled={false}
         key="details"
-        label="Details"
+        label="Description"
         multiline={true}
         name="details"
-        placeholder="Enter acknowledgment details"
+        placeholder="Enter acknowledgment description"
         required={true}
         validate={Array []}
       />

@@ -121,7 +121,7 @@ exports[`Details should render correctly 1`] = `
     key="statement"
   >
     <Details__Key>
-      Statement
+      Acknowledgment Statement
     </Details__Key>
     <Details__Value>
       Test statement
@@ -131,7 +131,7 @@ exports[`Details should render correctly 1`] = `
     key="details"
   >
     <Details__Key>
-      Details
+      Description
     </Details__Key>
     <Details__Value>
       Test details

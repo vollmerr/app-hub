@@ -68,7 +68,7 @@ const spaFields = {
     maxWidth: 100,
   },
   [ACK.STATEMENT]: {
-    label: 'Statement',
+    label: 'Acknowledgment Statement',
     required: true,
     name: ACK.STATEMENT,
     placeholder: 'Enter the acknowledgment statement',
@@ -76,12 +76,12 @@ const spaFields = {
     component: FieldText,
   },
   [ACK.DETAILS]: {
-    label: 'Details',
+    label: 'Description',
     required: true,
     multiline: true,
     name: ACK.DETAILS,
-    placeholder: 'Enter acknowledgment details',
-    ariaLabel: 'Details of the acknowledgment',
+    placeholder: 'Enter acknowledgment description',
+    ariaLabel: 'Description of the acknowledgment',
     component: FieldText,
   },
   [ACK.FILE_NAME]: {
