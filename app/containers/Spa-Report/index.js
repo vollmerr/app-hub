@@ -4,7 +4,7 @@ import { SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 
 import theme from 'utils/theme';
 import { RECIPIENT, REPORT } from 'containers/Spa/constants';
-import { reportPendingColumns } from 'containers/Spa/columns';
+import { reportColumns } from 'containers/Spa/columns';
 
 import Wrapper from './Wrapper';
 import Section from './Section';
@@ -104,7 +104,7 @@ export class SpaReport extends React.PureComponent {
 
     const recipientsProps = {
       items: recipients[selectedKey],
-      columns: reportPendingColumns,
+      columns: reportColumns[selectedKey],
       title: titles[selectedKey],
       empty: {
         message: 'No Recipients',

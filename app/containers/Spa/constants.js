@@ -83,6 +83,8 @@ export const RECIPIENT = {
   FIRST_NAME: 'firstName',
   LAST_NAME: 'lastName',
   EMAIL: 'email',
+  MANAGER_SID: 'managerSid',
+  MANAGER_NAME: 'managerName',
   FIRST_REMINDER_DATE: 'firstReminderDate',
   SECOND_REMINDER_DATE: 'secondReminderDate',
   FINAL_REMINDER_DATE: 'finalReminderDate',

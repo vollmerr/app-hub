@@ -1,5 +1,5 @@
 import { COL_TYPES } from 'containers/AppHub/constants';
-import { ACK, RECIPIENT } from 'containers/Spa/constants';
+import { ACK, RECIPIENT, REPORT } from 'containers/Spa/constants';
 
 import spaFields from './fields';
 
@@ -56,13 +56,19 @@ export const recipients = {
     label: 'Email',
     name: RECIPIENT.EMAIL,
     ariaLabel: 'Email of the recipient',
-    minWidth: 200,
+    minWidth: 100,
+  },
+  [RECIPIENT.MANAGER_NAME]: {
+    label: 'Manager',
+    name: RECIPIENT.MANAGER_NAME,
+    ariaLabel: 'Full name of the recipients manager',
+    minWidth: 100,
   },
   [RECIPIENT.ACK_DATE]: {
     label: 'Acknowledgment Date',
     name: RECIPIENT.ACK_DATE,
     ariaLabel: 'Date the recipient acknowledged the policy',
-    minWidth: 100,
+    minWidth: 150,
     data: {
       type: COL_TYPES.DATE,
     },
@@ -96,8 +102,17 @@ export const recipients = {
   },
 };
 
-export const reportPendingColumns = mapToColumns(recipients, [], [RECIPIENT.ACK_DATE]);
-export const reportAckColumns = mapToColumns(recipients);
+const reportFields = [
+  RECIPIENT.FIRST_NAME,
+  RECIPIENT.LAST_NAME,
+  RECIPIENT.EMAIL,
+  RECIPIENT.MANAGER_NAME,
+  RECIPIENT.ACK_DATE,
+];
+export const reportColumns = {
+  [REPORT.PENDING]: mapToColumns(recipients, reportFields, [RECIPIENT.ACK_DATE]),
+  [REPORT.PREVIOUS]: mapToColumns(recipients, reportFields),
+};
 
 // Columns for admin lists
 const adminExcludes = [ACK.STATEMENT, ACK.DETAILS, ACK.FILE_CONTENT];

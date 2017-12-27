@@ -19,6 +19,7 @@ function generateUser() {
   const lastName = faker.name.lastName();
   const sid = faker.random.uuid();
   const roles = ['AppHub User'];
+  const managerSid = faker.random.number({ min: 0, max: 4 });
   // add some roles...
   C.ROLES.forEach((role) => {
     if (faker.random.boolean()) {
@@ -37,6 +38,8 @@ function generateUser() {
     [C.RECIPIENT.FIRST_NAME]: firstName,
     [C.RECIPIENT.LAST_NAME]: lastName,
     [C.RECIPIENT.EMAIL]: faker.internet.email(firstName, lastName, 'state.ca.gov'),
+    [C.RECIPIENT.MANAGER_SID]: managerSid,
+    [C.RECIPIENT.MANAGER_NAME]: `Manager Name ${managerSid}`,
   };
 }
 
