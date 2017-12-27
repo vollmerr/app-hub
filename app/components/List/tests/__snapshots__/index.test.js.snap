@@ -8,6 +8,7 @@ exports[`<List /> should render correctly 1`] = `
     </Title__Title>
     <Search__Search
       onChange={[Function]}
+      value=""
     />
   </Header__Header>
   <WithViewportComponent

@@ -30,7 +30,7 @@ import spaFields, { newAckForm } from 'containers/Spa/fields';
 import { adminColumns, recipients } from 'containers/Spa/columns';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
-import { ACK, STATUS, RECIPIENT, GROUP } from 'containers/Spa/constants';
+import { ACK, STATUS, RECIPIENT, GROUP, STATUS_CODES, TARGET_GROUPS } from 'containers/Spa/constants';
 import SpaReport from 'containers/Spa-Report';
 
 import AdminNav from './AdminNav';
@@ -42,24 +42,6 @@ import EmailModal from './EmailModal';
 const halfHeight = {
   vh: 50,
   margin: 18, // section margin (15) + 3 due to being in div (margin outside div)
-};
-
-
-// TODO: get passed, get from api...
-const targetGroups = {
-  0: 'Group 0 Name',
-  1: 'Group 1 Name',
-  2: 'Group 2 Name',
-  3: 'Group 3 Name',
-};
-const statusCodes = {
-  [STATUS.ACTIVE]: 'Active',
-  [STATUS.EXPIRED]: 'Expired',
-  [STATUS.DISABLED]: 'Disabled',
-};
-const enums = {
-  [ACK.TARGET_GROUPS]: targetGroups,
-  [ACK.STATUS]: statusCodes,
 };
 
 
@@ -376,6 +358,10 @@ export class SpaAdmin extends React.PureComponent {
   renderContent = () => {
     const { adminActiveAcks, adminPreviousAcks, Loading } = this.props;
     const { selectedItem, hideDisable, hideEmail, hideNewAck, hideReport, fields, reportData } = this.state;
+    const enums = {
+      [ACK.TARGET_GROUPS]: TARGET_GROUPS,
+      [ACK.STATUS]: STATUS_CODES,
+    };
     // if we got a loading compoennt just render that
     if (Loading) {
       return Loading;

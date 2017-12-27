@@ -34,16 +34,27 @@ export const ROLES = {
 // STATUS
 // TODO: PULL IN FROM API
 export const STATUS = {
-  ACTIVE: 0,
-  EXPIRED: 1,
-  DISABLED: 2,
+  PENDING: 0,
+  ACTIVE: 1,
+  EXPIRED: 2,
+  DISABLED: 3,
+  CANCELED: 4,
 };
 // CODES FOR STATUS
 // TODO: PULL IN FROM API
 export const STATUS_CODES = {
+  [STATUS.PENDING]: 'Pending',
   [STATUS.ACTIVE]: 'Active',
   [STATUS.EXPIRED]: 'Expired',
   [STATUS.DISABLED]: 'Disabled',
+  [STATUS.CANCELED]: 'Canceled',
+};
+// TODO: PULL IN FROM API
+export const TARGET_GROUPS = {
+  0: 'Group 0 Name',
+  1: 'Group 1 Name',
+  2: 'Group 2 Name',
+  3: 'Group 3 Name',
 };
 // DATA FIELDS
 // fields for acknowledgment

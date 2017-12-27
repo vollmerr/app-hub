@@ -44,5 +44,5 @@ module.exports = {
   MIN_ACK: 100,
   MAX_ACK: 130,
   MIN_STATUS: 0,
-  MAX_STATUS: 2,
+  MAX_STATUS: 4,
 };

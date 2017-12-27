@@ -24,7 +24,6 @@ exports[`<AppHub__Wrapper /> should render correctly 1`] = `
 exports[`<AppHubRoot /> should render correctly if authenticated 1`] = `
 <AppHub__Wrapper>
   <withSaga(Connect(AppHub))
-    onDisplayRoutes={[Function]}
     routes={
       Array [
         Object {
@@ -212,7 +211,6 @@ exports[`<AppHubRoot /> should render correctly if authenticated 1`] = `
 exports[`<AppHubRoot /> should render correctly if not authenticated 1`] = `
 <AppHub__Wrapper>
   <withSaga(Connect(AppHub))
-    onDisplayRoutes={[Function]}
     routes={
       Array [
         Object {

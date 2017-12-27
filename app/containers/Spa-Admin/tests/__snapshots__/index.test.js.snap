@@ -111,9 +111,11 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
         enums={
           Object {
             "acknowledgmentStatusID": Object {
-              "0": "Active",
-              "1": "Expired",
-              "2": "Disabled",
+              "0": "Pending",
+              "1": "Active",
+              "2": "Expired",
+              "3": "Disabled",
+              "4": "Canceled",
             },
             "targetADGroup": Object {
               "0": "Group 0 Name",
@@ -126,12 +128,12 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
         items={
           Array [
             Object {
-              "acknowledgmentStatusID": 0,
+              "acknowledgmentStatusID": 1,
               "id": "a",
               "title": "testPending1",
             },
             Object {
-              "acknowledgmentStatusID": 0,
+              "acknowledgmentStatusID": 1,
               "id": "b",
               "title": "testPending2",
             },
@@ -250,9 +252,11 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
         enums={
           Object {
             "acknowledgmentStatusID": Object {
-              "0": "Active",
-              "1": "Expired",
-              "2": "Disabled",
+              "0": "Pending",
+              "1": "Active",
+              "2": "Expired",
+              "3": "Disabled",
+              "4": "Canceled",
             },
             "targetADGroup": Object {
               "0": "Group 0 Name",
@@ -270,7 +274,7 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
               "title": "testPrevious1",
             },
             Object {
-              "acknowledgmentStatusID": 2,
+              "acknowledgmentStatusID": 3,
               "id": "d",
               "title": "testPrevious2",
             },

@@ -4,7 +4,7 @@ import { testStyledComponent } from 'utils/testUtils';
 import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 
 import { REPORT } from 'containers/Spa/constants';
-import PieChart, { Wrapper, Chart, Legend, Item, Color } from '../PieChart';
+import { PieChart, Wrapper, Chart, Legend, Item, Color } from '../PieChart';
 
 testStyledComponent(Wrapper);
 testStyledComponent(Chart);
@@ -28,6 +28,10 @@ const props = {
   },
   onClick: jest.fn(),
   hasData: true,
+  data: [],
+  dataKey: 'key',
+  connectFauxDOM: jest.fn(),
+  animateFauxDOM: jest.fn(),
 };
 
 

@@ -57,11 +57,14 @@ export default handleActions({
     payload.recipients.forEach((recipient) => {
       const id = String(recipient[RECIPIENT.ID]);
       const ack = payload.acknowledgments.find((x) => x[ACK.ID] === recipient[RECIPIENT.ACK_ID]);
-      // if the recipient has acknoweldged and acknowledgment is active
-      if (recipient[RECIPIENT.ACK_DATE] || (ack && ack[ACK.STATUS] !== STATUS.ACTIVE)) {
-        user.recipientsPreviousIds.push(id);
-      } else {
-        user.recipientsPendingIds.push(id);
+      // only add recipients that are not pending and exist...
+      if (ack && ack[ACK.STATUS] !== STATUS.PENDING) {
+        // if the recipient has acknoweldged and acknowledgment is active
+        if (recipient[RECIPIENT.ACK_DATE] || (ack && ack[ACK.STATUS] !== STATUS.ACTIVE)) {
+          user.recipientsPreviousIds.push(id);
+        } else {
+          user.recipientsPendingIds.push(id);
+        }
       }
     });
     // add entries to recipients and acks (could potentally already have some entries, so just add new)
@@ -86,7 +89,8 @@ export default handleActions({
     // populate pending and previous 'recipients' and 'acknowledgment' ids
     payload.acknowledgments.forEach((ack) => {
       const id = String(ack[ACK.ID]);
-      if (ack[ACK.STATUS] === STATUS.ACTIVE) {
+      // add active and pending to 'active' list
+      if (ack[ACK.STATUS] === STATUS.ACTIVE || ack[ACK.STATUS] === STATUS.PENDING) {
         admin.acksActiveIds.push(id);
       } else {
         admin.acksPreviousIds.push(id);

@@ -57,7 +57,7 @@ export const Color = styled.div`
 `;
 
 
-class PieChart extends React.PureComponent {
+export class PieChart extends React.PureComponent {
   componentDidMount() {
     this.renderD3('render');
   }
@@ -69,7 +69,6 @@ class PieChart extends React.PureComponent {
       data !== prevProps.data ||
       dataKey !== prevProps.dataKey
     ) {
-      console.log('rendering REPORT')
       this.renderD3('update');
     }
   }

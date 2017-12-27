@@ -21,13 +21,15 @@ const recipients = [
   { [RECIPIENT.ID]: '1', [RECIPIENT.ACK_ID]: 'b', [RECIPIENT.SID]: '222', [RECIPIENT.ACK_DATE]: '12/02/2019' },
   { [RECIPIENT.ID]: '2', [RECIPIENT.ACK_ID]: 'c', [RECIPIENT.SID]: '111', [RECIPIENT.ACK_DATE]: '10/12/2013' },
   { [RECIPIENT.ID]: '3', [RECIPIENT.ACK_ID]: 'd', [RECIPIENT.SID]: '222', [RECIPIENT.ACK_DATE]: null },
+  { [RECIPIENT.ID]: '4', [RECIPIENT.ACK_ID]: 'e', [RECIPIENT.SID]: '222', [RECIPIENT.ACK_DATE]: null },
 ];
 
 const acknowledgments = [
-  { [ACK.ID]: 'a', [ACK.TITLE]: 'title a', [ACK.STATUS]: STATUS.ACTIVE },
+  { [ACK.ID]: 'a', [ACK.TITLE]: 'title a', [ACK.STATUS]: STATUS.PENDING },
   { [ACK.ID]: 'b', [ACK.TITLE]: 'title b', [ACK.STATUS]: STATUS.ACTIVE },
   { [ACK.ID]: 'c', [ACK.TITLE]: 'title c', [ACK.STATUS]: STATUS.DISABLED },
   { [ACK.ID]: 'd', [ACK.TITLE]: 'title d', [ACK.STATUS]: STATUS.EXPIRED },
+  { [ACK.ID]: 'e', [ACK.TITLE]: 'title e', [ACK.STATUS]: STATUS.CANCELED },
 ];
 
 const targets = [
@@ -100,12 +102,17 @@ describe('spaReducer', () => {
     });
 
     it('should set the `user` with pending recipient ids', () => {
-      expected = fromJS([recipients[0][RECIPIENT.ID]]);
+      expected = fromJS([]);
       expect(spaReducer(undefined, action).getIn(['user', 'recipientsPendingIds'])).toEqual(expected);
     });
 
     it('should set the `user` with previous recipient ids', () => {
-      expected = fromJS([recipients[1][RECIPIENT.ID], recipients[2][RECIPIENT.ID], recipients[3][RECIPIENT.ID]]);
+      expected = fromJS([
+        recipients[1][RECIPIENT.ID],
+        recipients[2][RECIPIENT.ID],
+        recipients[3][RECIPIENT.ID],
+        recipients[4][RECIPIENT.ID],
+      ]);
       expect(spaReducer(undefined, action).getIn(['user', 'recipientsPreviousIds'])).toEqual(expected);
     });
 
@@ -116,8 +123,9 @@ describe('spaReducer', () => {
           1: recipients[1],
           2: recipients[2],
           3: recipients[3],
+          4: recipients[4],
         },
-        allIds: ['0', '1', '2', '3'],
+        allIds: ['0', '1', '2', '3', '4'],
       };
       expect(spaReducer(undefined, action).get('recipients').toJS()).toEqual(expected);
 
@@ -133,8 +141,9 @@ describe('spaReducer', () => {
           b: acknowledgments[1],
           c: acknowledgments[2],
           d: acknowledgments[3],
+          e: acknowledgments[4],
         },
-        allIds: ['a', 'b', 'c', 'd'],
+        allIds: ['a', 'b', 'c', 'd', 'e'],
       };
       expect(spaReducer(undefined, action).get('acknowledgments').toJS()).toEqual(expected);
 
@@ -161,7 +170,11 @@ describe('spaReducer', () => {
     });
 
     it('should set the `admin` with previous acknowledgment ids', () => {
-      expected = fromJS([acknowledgments[2][ACK.ID], acknowledgments[3][ACK.ID]]);
+      expected = fromJS([
+        acknowledgments[2][ACK.ID],
+        acknowledgments[3][ACK.ID],
+        acknowledgments[4][ACK.ID],
+      ]);
       expect(spaReducer(undefined, action).getIn(['admin', 'acksPreviousIds'])).toEqual(expected);
     });
 
@@ -172,8 +185,9 @@ describe('spaReducer', () => {
           b: acknowledgments[1],
           c: acknowledgments[2],
           d: acknowledgments[3],
+          e: acknowledgments[4],
         },
-        allIds: ['a', 'b', 'c', 'd'],
+        allIds: ['a', 'b', 'c', 'd', 'e'],
       };
       expect(spaReducer(undefined, action).get('acknowledgments').toJS()).toEqual(expected);
 
@@ -241,8 +255,9 @@ describe('spaReducer', () => {
           1: recipients[1],
           2: recipients[2],
           3: recipients[3],
+          4: recipients[4],
         },
-        allIds: ['0', '1', '2', '3'],
+        allIds: ['0', '1', '2', '3', '4'],
       };
       expect(spaReducer(undefined, action).get('recipients').toJS()).toEqual(expected);
 
