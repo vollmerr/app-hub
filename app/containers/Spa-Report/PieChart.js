@@ -44,7 +44,7 @@ export const Item = styled(ActionButton) `
   display:flex;
   padding: 5px;
   ${(props) => props.checked && css`
-    box-shadow: 0 0 3px ${theme.secondary};
+    box-shadow: 0 0 5px ${theme.themeDarker};
   `}
 `;
 
