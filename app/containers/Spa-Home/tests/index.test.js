@@ -13,6 +13,7 @@ import AckModal from '../AckModal';
 
 import * as request from 'utils/request'; // eslint-disable-line
 request.doneLoading = jest.fn();
+request.downloadFile = jest.fn();
 
 const List = require.requireActual('components/List');
 
