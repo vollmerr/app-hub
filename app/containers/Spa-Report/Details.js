@@ -8,11 +8,12 @@ import { ACK } from 'containers/Spa/constants';
 import spaFields from 'containers/Spa/fields';
 
 export const Wrapper = styled.div`
-  flex: 1;
+  flex: 2 0 50vh;
   margin: 5px;
   padding: 15px;
   background: ${theme.white};
   box-shadow: 0 0 3px ${theme.neutralLight};
+  overflow: auto;
 `;
 
 

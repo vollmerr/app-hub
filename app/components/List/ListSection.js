@@ -16,7 +16,7 @@ const ListSection = styled(Section) `
   overflow: hidden;
 
   .ms-Viewport {
-    overflow: auto;
+    overflow: overlay;
     flex: 10 100%;
   }
 

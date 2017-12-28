@@ -30,6 +30,7 @@ const props = {
   hasData: true,
   data: [],
   dataKey: 'key',
+  selectedKey: 0,
   connectFauxDOM: jest.fn(),
   animateFauxDOM: jest.fn(),
 };

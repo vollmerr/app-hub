@@ -8,7 +8,7 @@ exports[`<Items /> should render correctly with nothing passed 1`] = `
 }
 
 .c0 .ms-Viewport {
-  overflow: auto;
+  overflow: overlay;
   -webkit-flex: 10 100%;
   -ms-flex: 10 100%;
   flex: 10 100%;
@@ -41,7 +41,7 @@ exports[`<Items /> should render correctly with vh and margin passed 1`] = `
 }
 
 .c0 .ms-Viewport {
-  overflow: auto;
+  overflow: overlay;
   -webkit-flex: 10 100%;
   -ms-flex: 10 100%;
   flex: 10 100%;
@@ -76,7 +76,7 @@ exports[`<ListSection__ListSection /> should render correctly 1`] = `
 }
 
 .c0 .ms-Viewport {
-  overflow: auto;
+  overflow: overlay;
   -webkit-flex: 10 100%;
   -ms-flex: 10 100%;
   flex: 10 100%;

@@ -86,6 +86,7 @@ export class SpaReport extends React.PureComponent {
     const pieChartProps = {
       data,
       dataKey,
+      selectedKey,
       stats: {
         pending: {
           color: theme.chart.colors[REPORT.PENDING],

@@ -17,8 +17,8 @@ export default {
     headerHeight: '60px',
   },
   chart: {
-    width: 300,
-    height: 300,
+    width: 260,
+    height: 260,
     detailsWidth: 200,
     colors: [DefaultPalette.themePrimary, DefaultPalette.themeDarker],
   },

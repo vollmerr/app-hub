@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withFauxDOM } from 'react-faux-dom';
 import * as d3 from 'd3';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 
 import { REPORT } from 'containers/Spa/constants';
@@ -10,14 +10,13 @@ import theme from 'utils/theme';
 
 
 export const Wrapper = styled.div`
-  flex: 1;
+  flex: 1 0 auto;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-content: center;
   align-items: center;
   margin: 5px;
-  padding: 15px;
   background: ${theme.white};
   box-shadow: 0 0 3px ${theme.neutralLight};
 `;
@@ -44,6 +43,9 @@ export const Legend = styled.div`
 export const Item = styled(ActionButton) `
   display:flex;
   padding: 5px;
+  ${(props) => props.checked && css`
+    box-shadow: 0 0 3px ${theme.secondary};
+  `}
 `;
 
 
@@ -154,7 +156,14 @@ export class PieChart extends React.PureComponent {
   }
 
   render() {
-    const { chart, stats, onClick, hasData } = this.props;
+    const {
+      chart,
+      stats,
+      onClick,
+      hasData,
+      selectedKey,
+     } = this.props;
+
     const { pending, acknowledged } = stats;
 
     if (!hasData) {
@@ -163,12 +172,25 @@ export class PieChart extends React.PureComponent {
       );
     }
 
+    const pendingText = `Pending: ${pending.count} (${pending.percent} %)`;
+    const ackText = `Acknowldged: ${acknowledged.count} (${acknowledged.percent} %)`;
+
+    const pendingItem = {
+      onClick: () => onClick(REPORT.PENDING),
+      checked: selectedKey === REPORT.PENDING,
+    };
+
+    const ackItem = {
+      onClick: () => onClick(REPORT.PREVIOUS),
+      checked: selectedKey === REPORT.PREVIOUS,
+    };
+
     return (
       <Wrapper>
         <Chart>{chart}</Chart>
         <Legend>
-          <Item onClick={() => onClick(REPORT.PENDING)}><Color color={pending.color} />Pending: {pending.count} ({pending.percent} %)</Item>
-          <Item onClick={() => onClick(REPORT.PREVIOUS)}><Color color={acknowledged.color} />Acknowldged: {acknowledged.count} ({acknowledged.percent} %)</Item>
+          <Item {...pendingItem}><Color color={pending.color} />{pendingText}</Item>
+          <Item {...ackItem}><Color color={acknowledged.color} />{ackText}</Item>
         </Legend>
       </Wrapper>
     );
@@ -190,6 +212,7 @@ PieChart.propTypes = {
       percent: number,
     }).isRequired,
   }),
+  selectedKey: number.isRequired,
   onClick: func.isRequired,
   hasData: bool.isRequired,
   data: array.isRequired,

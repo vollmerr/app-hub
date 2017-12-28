@@ -57,9 +57,9 @@ exports[`<PieChart__Legend /> should render correctly 1`] = `
 
 exports[`<PieChart__Wrapper /> should render correctly 1`] = `
 .c0 {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -78,7 +78,6 @@ exports[`<PieChart__Wrapper /> should render correctly 1`] = `
   -ms-flex-align: center;
   align-items: center;
   margin: 5px;
-  padding: 15px;
   background: #ffffff;
   box-shadow: 0 0 3px #eaeaea;
 }
@@ -101,24 +100,18 @@ exports[`PieChart should render correctly 1`] = `
   </PieChart__Chart>
   <PieChart__Legend>
     <PieChart__Item
+      checked={true}
       onClick={[Function]}
     >
       <PieChart__Color />
-      Pending: 
-      5
-       (
-      30
-       %)
+      Pending: 5 (30 %)
     </PieChart__Item>
     <PieChart__Item
+      checked={false}
       onClick={[Function]}
     >
       <PieChart__Color />
-      Acknowldged: 
-      20
-       (
-      70
-       %)
+      Acknowldged: 20 (70 %)
     </PieChart__Item>
   </PieChart__Legend>
 </PieChart__Wrapper>

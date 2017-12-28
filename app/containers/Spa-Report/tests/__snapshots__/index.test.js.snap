@@ -11,6 +11,7 @@ exports[`<SpaReport /> should render correctly 1`] = `
       dataKey="test"
       hasData={false}
       onClick={[Function]}
+      selectedKey={0}
       stats={
         Object {
           "acknowledged": Object {
