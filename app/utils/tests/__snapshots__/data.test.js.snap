@@ -1,5 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`formatItems should format all items correctly 1`] = `
+Array [
+  Object {
+    "arr": "a, b",
+    "date": "",
+    "enum": "test 1",
+  },
+  Object {
+    "arr": "",
+    "date": "2001-01-02",
+    "enum": "test 1",
+  },
+  Object {
+    "arr": "c",
+    "date": "2017-10-01",
+    "enum": "",
+  },
+]
+`;
+
 exports[`mapToColumns should map the object to the correct format for office-ui-fabric-react DetailsList\`s 1`] = `
 Array [
   Object {

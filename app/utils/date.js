@@ -1,8 +1,6 @@
-export const dateWithoutTime = (date) => {
+export const formattedDate = (date) => {
   if (date && !isNaN(new Date(date))) {
-    const d = new Date(date);
-    d.setHours(0, 0, 0, 0);
-    return d;
+    return new Date(date).toISOString().substr(0, 10);
   }
-  return undefined;
+  return '';
 };

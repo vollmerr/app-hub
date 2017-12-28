@@ -25,7 +25,7 @@ import {
 } from 'containers/Spa/actions';
 
 import { formatItems } from 'utils/data';
-import { dateWithoutTime } from 'utils/date';
+import { formattedDate } from 'utils/date';
 import { doneLoading, downloadFile } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
 import { acknowledgment, recipient, newAckForm, adminColumns } from 'containers/Spa/data';
@@ -153,7 +153,7 @@ export class SpaAdmin extends React.PureComponent {
     const fields = Object.keys(recipient);
     const fieldNames = fields.map((x) => recipient[x].label);
     const csv = json2csv({ data: this.state.formattedData, newLine: '\r\n', fields, fieldNames });
-    const name = `${selectedItem[ACK.TITLE]} Report ${dateWithoutTime(new Date())}.csv`;
+    const name = `${selectedItem[ACK.TITLE]} Report ${formattedDate(new Date())}.csv`;
     const type = 'data:text/csv;charset=utf-8;';
 
     downloadFile(csv, name, type);

@@ -1,4 +1,4 @@
-import { dateWithoutTime } from 'utils/date';
+import { formattedDate } from 'utils/date';
 
 export const isEmptyText = (value) => (
   (typeof value !== 'string') ||
@@ -15,7 +15,7 @@ export const isEmptyDate = (value) => (
 
 export const isFutureDate = (value) => (
   (!value || isNaN(new Date(value))) ||
-  (value && dateWithoutTime(value) >= dateWithoutTime(new Date()))
+  (value && formattedDate(value) >= formattedDate(new Date()))
     ? undefined
     : 'A future date is required'
 );

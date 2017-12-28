@@ -1,17 +1,15 @@
-import { dateWithoutTime } from '../date';
+import { formattedDate } from '../date';
 
 describe('date utils', () => {
-  describe('dateWithoutTime', () => {
-    it('should return a date with zeroed out time', () => {
-      const date = dateWithoutTime(new Date());
-      expect(date.getHours()).toEqual(0);
-      expect(date.getMinutes()).toEqual(0);
-      expect(date.getSeconds()).toEqual(0);
+  describe('formattedDate', () => {
+    it('should return a formatted date', () => {
+      const date = formattedDate(new Date('12/02/1987'));
+      expect(date).toEqual('1987-12-02');
     });
 
-    it('should be undefined if not a valid date', () => {
-      const date = dateWithoutTime('abc');
-      expect(date).toEqual(undefined);
+    it('should be an empty string if not a valid date', () => {
+      const date = formattedDate('abc');
+      expect(date).toEqual('');
     });
   });
 });

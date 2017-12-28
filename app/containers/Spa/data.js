@@ -1,6 +1,5 @@
-import { COL_TYPES } from 'containers/AppHub/constants';
 import { ACK, RECIPIENT, REPORT } from 'containers/Spa/constants';
-import { mapToColumns } from 'utils/data';
+import { types, mapToColumns } from 'utils/data';
 import { isFutureDate } from 'utils/validate';
 
 import {
@@ -43,7 +42,7 @@ export const acknowledgment = {
     validate: [isFutureDate],
     maxWidth: 100,
     data: {
-      type: COL_TYPES.DATE,
+      type: types.date,
     },
   },
   [ACK.END_DATE]: {
@@ -56,7 +55,7 @@ export const acknowledgment = {
     validate: [isFutureDate],
     maxWidth: 100,
     data: {
-      type: COL_TYPES.DATE,
+      type: types.date,
     },
   },
   [ACK.CREATOR_GROUP]: {
@@ -165,7 +164,7 @@ export const recipient = {
     ariaLabel: 'Date the recipient acknowledged the policy',
     minWidth: 150,
     data: {
-      type: COL_TYPES.DATE,
+      type: types.date,
     },
   },
   [RECIPIENT.FIRST_REMINDER_DATE]: {
@@ -173,7 +172,7 @@ export const recipient = {
     name: RECIPIENT.FIRST_REMINDER_DATE,
     ariaLabel: 'Date of recipients first acknowledgment reminder',
     data: {
-      type: COL_TYPES.DATE,
+      type: types.date,
     },
   },
   [RECIPIENT.SECOND_REMINDER_DATE]: {
@@ -181,7 +180,7 @@ export const recipient = {
     name: RECIPIENT.SECOND_REMINDER_DATE,
     ariaLabel: 'Date of recipients second acknowledgment reminder',
     data: {
-      type: COL_TYPES.DATE,
+      type: types.date,
     },
   },
   [RECIPIENT.FINAL_REMINDER_DATE]: {
@@ -189,7 +188,7 @@ export const recipient = {
     name: RECIPIENT.FINAL_REMINDER_DATE,
     ariaLabel: 'Date of recipients final acknowledgment reminder',
     data: {
-      type: COL_TYPES.DATE,
+      type: types.date,
     },
   },
 };

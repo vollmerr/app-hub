@@ -42,7 +42,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
           Object {
             "ariaLabel": "Date the acknowledgment takes effect",
             "data": Object {
-              "type": "DATE",
+              "type": "date",
             },
             "fieldName": "startDate",
             "isResizable": true,
@@ -54,7 +54,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
           Object {
             "ariaLabel": "Date the acknowledgment expires",
             "data": Object {
-              "type": "DATE",
+              "type": "date",
             },
             "fieldName": "endDate",
             "isResizable": true,
@@ -171,7 +171,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
           Object {
             "ariaLabel": "Date the acknowledgment takes effect",
             "data": Object {
-              "type": "DATE",
+              "type": "date",
             },
             "fieldName": "startDate",
             "isResizable": true,
@@ -183,7 +183,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
           Object {
             "ariaLabel": "Date the acknowledgment expires",
             "data": Object {
-              "type": "DATE",
+              "type": "date",
             },
             "fieldName": "endDate",
             "isResizable": true,
@@ -195,7 +195,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
           Object {
             "ariaLabel": "Date the recipient acknowledged the policy",
             "data": Object {
-              "type": "DATE",
+              "type": "date",
             },
             "fieldName": "acknowledgmentDate",
             "isResizable": true,

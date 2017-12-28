@@ -25,7 +25,7 @@ exports[`<NewAckForm /> should render correctly 1`] = `
         ariaLabel="Date the acknowledgment takes effect"
         data={
           Object {
-            "type": "DATE",
+            "type": "date",
           }
         }
         disabled={false}
@@ -45,7 +45,7 @@ exports[`<NewAckForm /> should render correctly 1`] = `
         ariaLabel="Date the acknowledgment expires"
         data={
           Object {
-            "type": "DATE",
+            "type": "date",
           }
         }
         disabled={false}

@@ -1,3 +1,7 @@
+export const types = {
+  date: 'date',
+};
+
 /**
  * Formats an item object to the correct format
  * for rendering
@@ -22,7 +26,7 @@ export function formatItem(item, name, field, enums = {}) {
       return enums[name][x];
     }
     // is date
-    if (field.data && field.data.type === 'DATE') {
+    if (field.data && field.data.type === types.date) {
       return isNaN(Date.parse(x)) ? '' : new Date(x).toISOString().substr(0, 10);
     }
     return x;
