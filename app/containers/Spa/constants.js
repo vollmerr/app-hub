@@ -85,11 +85,11 @@ export const RECIPIENT = {
   EMAIL: 'email',
   MANAGER_SID: 'managerSid',
   MANAGER_NAME: 'managerName',
+  ACK_ID: 'acknowledgmentID',
+  ACK_DATE: 'acknowledgmentDate',
   FIRST_REMINDER_DATE: 'firstReminderDate',
   SECOND_REMINDER_DATE: 'secondReminderDate',
   FINAL_REMINDER_DATE: 'finalReminderDate',
-  ACK_ID: 'acknowledgmentID',
-  ACK_DATE: 'acknowledgmentDate',
 };
 
 export const GROUP = {

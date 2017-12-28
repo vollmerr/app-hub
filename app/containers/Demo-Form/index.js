@@ -14,7 +14,7 @@ import theme from 'utils/theme';
 import { isEmptyText } from 'utils/validate';
 
 import Section from './Section';
-import fields from './fields';
+import fields from './data';
 import validate from './validate';
 
 

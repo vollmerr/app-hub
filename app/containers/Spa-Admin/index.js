@@ -24,10 +24,11 @@ import {
   disableAckRequest,
 } from 'containers/Spa/actions';
 
+import { formatItems } from 'utils/data';
+import { dateWithoutTime } from 'utils/date';
 import { doneLoading, downloadFile } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
-import spaFields, { newAckForm } from 'containers/Spa/fields';
-import { adminColumns, recipients } from 'containers/Spa/columns';
+import { acknowledgment, recipient, newAckForm, adminColumns } from 'containers/Spa/data';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
 import { ACK, STATUS, RECIPIENT, GROUP, STATUS_CODES, TARGET_GROUPS } from 'containers/Spa/constants';
@@ -44,6 +45,11 @@ const halfHeight = {
   margin: 18, // section margin (15) + 3 due to being in div (margin outside div)
 };
 
+// TODO: PULL ENUMS FROM API!
+const enums = {
+  [ACK.TARGET_GROUPS]: TARGET_GROUPS,
+  [ACK.STATUS]: STATUS_CODES,
+};
 
 /**
  * Admin page of SPA
@@ -60,8 +66,8 @@ export class SpaAdmin extends React.PureComponent {
       hideDisable: true,
       hideEmail: true,
       selectedItem: {},
-      fields: spaFields,
-      reportData: [],
+      fields: acknowledgment,
+      formattedData: [],
     };
 
     this.selectionActive = new Selection({
@@ -136,7 +142,7 @@ export class SpaAdmin extends React.PureComponent {
    * Handles hiding the report screen
    */
   handleHideReport = () => {
-    this.setState({ hideReport: true, reportData: [] });
+    this.setState({ hideReport: true, formattedData: [] });
   }
 
   /**
@@ -144,19 +150,10 @@ export class SpaAdmin extends React.PureComponent {
    */
   handleDownload = () => {
     const { selectedItem } = this.state;
-    const fields = [
-      RECIPIENT.SAM,
-      RECIPIENT.FIRST_NAME,
-      RECIPIENT.LAST_NAME,
-      RECIPIENT.EMAIL,
-      RECIPIENT.ACK_DATE,
-      RECIPIENT.FIRST_REMINDER_DATE,
-      RECIPIENT.SECOND_REMINDER_DATE,
-      RECIPIENT.FINAL_REMINDER_DATE,
-    ];
-    const fieldNames = fields.map((x) => recipients[x].label);
-    const csv = json2csv({ data: this.state.reportData, newLine: '\r\n', fields, fieldNames });
-    const name = `${selectedItem[ACK.TITLE]} Report ${new Date().toISOString()}.csv`;
+    const fields = Object.keys(recipient);
+    const fieldNames = fields.map((x) => recipient[x].label);
+    const csv = json2csv({ data: this.state.formattedData, newLine: '\r\n', fields, fieldNames });
+    const name = `${selectedItem[ACK.TITLE]} Report ${dateWithoutTime(new Date())}.csv`;
     const type = 'data:text/csv;charset=utf-8;';
 
     downloadFile(csv, name, type);
@@ -317,8 +314,9 @@ export class SpaAdmin extends React.PureComponent {
     }
     // when done loading build data for report (all recipients of acknowledgment into an array)
     await doneLoading(this, () => {
-      const reportData = selectByAckId(this.props.recipients, this.state.selectedItem[ACK.ID]).toList().toJS();
-      this.setState({ reportData });
+      const data = selectByAckId(this.props.recipients, this.state.selectedItem[ACK.ID]).toList().toJS();
+      const formattedData = formatItems(data, recipient, enums);
+      this.setState({ formattedData });
     });
   }
 
@@ -357,11 +355,7 @@ export class SpaAdmin extends React.PureComponent {
    */
   renderContent = () => {
     const { adminActiveAcks, adminPreviousAcks, Loading } = this.props;
-    const { selectedItem, hideDisable, hideEmail, hideNewAck, hideReport, fields, reportData } = this.state;
-    const enums = {
-      [ACK.TARGET_GROUPS]: TARGET_GROUPS,
-      [ACK.STATUS]: STATUS_CODES,
-    };
+    const { selectedItem, hideDisable, hideEmail, hideNewAck, hideReport, fields, formattedData } = this.state;
     // if we got a loading compoennt just render that
     if (Loading) {
       return Loading;
@@ -382,7 +376,7 @@ export class SpaAdmin extends React.PureComponent {
       const reportProps = {
         enums,
         selectedItem,
-        data: reportData,
+        data: formattedData,
         dataKey: RECIPIENT.ACK_DATE,
       };
 
@@ -396,7 +390,7 @@ export class SpaAdmin extends React.PureComponent {
       const emailProps = {
         hidden: hideEmail,
         item: selectedItem,
-        recipients: reportData,
+        recipients: formattedData,
         onClose: this.handleHideEmail,
         onSubmit: this.handleSubmitEmail,
       };

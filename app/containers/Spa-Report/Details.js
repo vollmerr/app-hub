@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import theme from 'utils/theme';
-import { renderItem } from 'utils/data';
+import { formatItem } from 'utils/data';
 import { ACK } from 'containers/Spa/constants';
-import spaFields from 'containers/Spa/fields';
+import { acknowledgment } from 'containers/Spa/data';
 
 export const Wrapper = styled.div`
   flex: 2 0 50vh;
@@ -59,8 +59,8 @@ class Details extends React.PureComponent {
         {
           items.map((name) => (
             <Item key={name}>
-              <Key>{spaFields[name].label}</Key>
-              <Value>{renderItem(selectedItem, name, spaFields[name], enums)}</Value>
+              <Key>{acknowledgment[name].label}</Key>
+              <Value>{formatItem(selectedItem, name, acknowledgment[name], enums)}</Value>
             </Item>
           ))
         }

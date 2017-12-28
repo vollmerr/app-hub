@@ -4,7 +4,7 @@ import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
 import { testStyledComponent } from 'utils/testUtils';
 import { Form, FormButtons } from 'components/Form';
-import spaFields, { newAckForm } from 'containers/Spa/fields';
+import { acknowledgment, newAckForm } from 'containers/Spa/data';
 
 import { NewAckForm, Fields, FieldSection } from '../NewAckForm';
 
@@ -14,7 +14,7 @@ testStyledComponent(FieldSection);
 
 const props = {
   title: 'test title',
-  fields: spaFields,
+  fields: acknowledgment,
   sections: newAckForm.sections,
   handleSubmit: jest.fn(),
   reset: jest.fn(),

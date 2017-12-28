@@ -6,14 +6,14 @@ import { createStructuredSelector } from 'reselect';
 import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import { doneLoading } from 'utils/request';
-import { ACK } from 'containers/Spa/constants';
+import { ACK, TARGET_GROUPS, STATUS_CODES } from 'containers/Spa/constants';
 import appPage from 'containers/App-Container/appPage';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
 
 import { getUserPendingAcks, getUserPreviousAcks, getUserCached } from 'containers/Spa/selectors';
 import { getUserDataRequest, readAckRequest } from 'containers/Spa/actions';
-import { userPendingColumns, userPreviousColumns } from 'containers/Spa/columns';
+import { homeColumns } from 'containers/Spa/data';
 
 import AckModal from './AckModal';
 
@@ -22,6 +22,11 @@ const halfHeight = {
   margin: -2,
 };
 
+// TODO: PULL ENUMS FROM API!
+const enums = {
+  [ACK.TARGET_GROUPS]: TARGET_GROUPS,
+  [ACK.STATUS]: STATUS_CODES,
+};
 
 /**
  * Home page of SPA
@@ -118,8 +123,9 @@ export class SpaHome extends React.PureComponent {
     }
 
     const pendingAckProps = {
+      enums,
       items: userPendingAcks.toJS(),
-      columns: userPendingColumns,
+      columns: homeColumns.pending,
       title: 'Pending Acknowledgment',
       empty: {
         message: 'No Acknowledgments Pending Approval',
@@ -128,8 +134,9 @@ export class SpaHome extends React.PureComponent {
       selectionMode: SelectionMode.none,
     };
     const previousAckProps = {
+      enums,
       items: userPreviousAcks.toJS(),
-      columns: userPreviousColumns,
+      columns: homeColumns.previous,
       title: 'Previous Acknowledgments',
       empty: {
         message: 'No Previous Acknowledgments',

@@ -6,7 +6,7 @@ import orderBy from 'lodash/orderBy';
 import isEqual from 'lodash/isEqual';
 
 import { escapeRegExp } from 'utils/string';
-import { renderItem } from 'utils/data';
+import { formatItem } from 'utils/data';
 
 import Wrapper from './Wrapper';
 import Title from './Title';
@@ -183,7 +183,7 @@ class List extends React.PureComponent {
    */
   renderItemColumn = (item, index, column) => {
     const { enums } = this.props;
-    return renderItem(item, column.fieldName, column, enums);
+    return formatItem(item, column.fieldName, column, enums);
   }
 
   render() {

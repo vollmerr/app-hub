@@ -4,7 +4,7 @@ import { SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 
 import theme from 'utils/theme';
 import { RECIPIENT, REPORT } from 'containers/Spa/constants';
-import { reportColumns } from 'containers/Spa/columns';
+import { reportColumns } from 'containers/Spa/data';
 
 import Wrapper from './Wrapper';
 import Section from './Section';

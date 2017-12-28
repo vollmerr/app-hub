@@ -1,4 +1,4 @@
-import { mapToColumns } from '../columns';
+import { mapToColumns } from '../data';
 
 const toMap = {
   a: { name: 'testName1', label: 'testLabel1', otherStuff: 'testing...' },

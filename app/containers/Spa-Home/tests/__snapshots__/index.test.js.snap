@@ -30,6 +30,16 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "name": "Title",
           },
           Object {
+            "ariaLabel": "Status of the acknowledgment",
+            "data": Object {},
+            "fieldName": "acknowledgmentStatusID",
+            "isResizable": true,
+            "key": "acknowledgmentStatusID",
+            "maxWidth": 100,
+            "minWidth": 100,
+            "name": "Status",
+          },
+          Object {
             "ariaLabel": "Date the acknowledgment takes effect",
             "data": Object {
               "type": "DATE",
@@ -70,7 +80,23 @@ exports[`<SpaHome /> should render correctly 1`] = `
           "message": "No Acknowledgments Pending Approval",
         }
       }
-      enums={Object {}}
+      enums={
+        Object {
+          "acknowledgmentStatusID": Object {
+            "0": "Pending",
+            "1": "Active",
+            "2": "Expired",
+            "3": "Disabled",
+            "4": "Canceled",
+          },
+          "targetADGroup": Object {
+            "0": "Group 0 Name",
+            "1": "Group 1 Name",
+            "2": "Group 2 Name",
+            "3": "Group 3 Name",
+          },
+        }
+      }
       items={
         Array [
           Object {
@@ -133,6 +159,16 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "name": "Title",
           },
           Object {
+            "ariaLabel": "Status of the acknowledgment",
+            "data": Object {},
+            "fieldName": "acknowledgmentStatusID",
+            "isResizable": true,
+            "key": "acknowledgmentStatusID",
+            "maxWidth": 100,
+            "minWidth": 100,
+            "name": "Status",
+          },
+          Object {
             "ariaLabel": "Date the acknowledgment takes effect",
             "data": Object {
               "type": "DATE",
@@ -157,16 +193,6 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "name": "End Date",
           },
           Object {
-            "ariaLabel": "Name of the file that must be read before acknowledging",
-            "data": Object {},
-            "fieldName": "fileName",
-            "isResizable": true,
-            "key": "fileName",
-            "maxWidth": 200,
-            "minWidth": 100,
-            "name": "Attachment Name",
-          },
-          Object {
             "ariaLabel": "Date the recipient acknowledged the policy",
             "data": Object {
               "type": "DATE",
@@ -178,6 +204,16 @@ exports[`<SpaHome /> should render correctly 1`] = `
             "minWidth": 150,
             "name": "Acknowledgment Date",
           },
+          Object {
+            "ariaLabel": "Name of the file that must be read before acknowledging",
+            "data": Object {},
+            "fieldName": "fileName",
+            "isResizable": true,
+            "key": "fileName",
+            "maxWidth": 200,
+            "minWidth": 100,
+            "name": "Attachment Name",
+          },
         ]
       }
       empty={
@@ -185,7 +221,23 @@ exports[`<SpaHome /> should render correctly 1`] = `
           "message": "No Previous Acknowledgments",
         }
       }
-      enums={Object {}}
+      enums={
+        Object {
+          "acknowledgmentStatusID": Object {
+            "0": "Pending",
+            "1": "Active",
+            "2": "Expired",
+            "3": "Disabled",
+            "4": "Canceled",
+          },
+          "targetADGroup": Object {
+            "0": "Group 0 Name",
+            "1": "Group 1 Name",
+            "2": "Group 2 Name",
+            "3": "Group 3 Name",
+          },
+        }
+      }
       items={
         Array [
           Object {
