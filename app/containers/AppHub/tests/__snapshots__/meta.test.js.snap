@@ -32,6 +32,11 @@ Object {
     "keywords": "test, loading",
     "title": "TEST LOADING",
   },
+  "paas": Object {
+    "desc": "tracking, access, authorization",
+    "keywords": "tracking, access, authorization",
+    "title": "PAAS",
+  },
   "spa": Object {
     "desc": "Security Policy Acknowledgement",
     "keywords": "SPA",

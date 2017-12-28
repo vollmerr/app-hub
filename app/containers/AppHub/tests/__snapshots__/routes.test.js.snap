@@ -18,6 +18,19 @@ Array [
   Object {
     "component": [Function],
     "exact": false,
+    "icon": "Paas",
+    "key": "paas",
+    "meta": Object {
+      "desc": "tracking, access, authorization",
+      "keywords": "tracking, access, authorization",
+      "title": "PAAS",
+    },
+    "name": "Paas",
+    "path": "/paas",
+  },
+  Object {
+    "component": [Function],
+    "exact": false,
     "icon": "Spa",
     "key": "spa",
     "meta": Object {
@@ -91,6 +104,19 @@ Array [
 
 exports[`routes should be in the correct format in development 2`] = `
 Array [
+  Object {
+    "component": [Function],
+    "exact": false,
+    "icon": "Paas",
+    "key": "paas",
+    "meta": Object {
+      "desc": "tracking, access, authorization",
+      "keywords": "tracking, access, authorization",
+      "title": "PAAS",
+    },
+    "name": "Paas",
+    "path": "/paas",
+  },
   Object {
     "component": [Function],
     "exact": false,

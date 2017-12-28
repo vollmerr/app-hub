@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes should be in the correct format 1`] = `
+Array [
+  Object {
+    "component": [Function],
+    "exact": true,
+    "key": "paasHome",
+    "name": "Home",
+    "path": "/paas/home",
+  },
+]
+`;
