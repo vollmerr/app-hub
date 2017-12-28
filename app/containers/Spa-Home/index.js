@@ -5,7 +5,7 @@ import { getFormValues } from 'redux-form/immutable';
 import { createStructuredSelector } from 'reselect';
 import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
-import { doneLoading } from 'utils/request';
+import { doneLoading, downloadFile } from 'utils/request';
 import { ACK, TARGET_GROUPS, STATUS_CODES } from 'containers/Spa/constants';
 import appPage from 'containers/App-Container/appPage';
 import ListSection from 'components/List/ListSection';
@@ -63,7 +63,9 @@ export class SpaHome extends React.PureComponent {
    * Handles downloading a file for reading
    */
   handleDownloadFile = () => {
-    // TODO
+    const name = this.state[ACK.FILE_NAME];
+    const content = this.state[ACK.FILE_CONTENT];
+    downloadFile(content, name);
   }
 
   /**
