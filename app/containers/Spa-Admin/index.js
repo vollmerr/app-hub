@@ -187,9 +187,8 @@ export class SpaAdmin extends React.PureComponent {
     this.handleHideDisable();
     await onDisableAckRequest(selectedItem);
     // when done loading set item to be disabledl
-    await doneLoading(this, () => {
-      this.setState({ selectedItem: { ...selectedItem, [ACK.STATUS]: STATUS.DISABLED } });
-    });
+    await doneLoading(this);
+    this.setState({ selectedItem: { ...selectedItem, [ACK.STATUS]: STATUS.DISABLED } });
   }
 
   //
@@ -272,8 +271,19 @@ export class SpaAdmin extends React.PureComponent {
             onClick: this.handleDownload,
           },
         );
-        // active acknowledgment
-        if (selectedItem[ACK.STATUS] === STATUS.ACTIVE) {
+        // pending acknowledgment
+        if (selectedItem[ACK.STATUS] === STATUS.PENDING) {
+          // add `Cancel` button
+          items.push(
+            {
+              key: 'cancel',
+              name: 'Cancel',
+              icon: 'Clear',
+              ariaLabel: 'Cancel Pending Acknowledgment',
+              onClick: this.handleShowDisable,
+            }
+          );
+        } else if (selectedItem[ACK.STATUS] === STATUS.ACTIVE) {
           // add `Disable` button
           items.push(
             {
@@ -313,11 +323,10 @@ export class SpaAdmin extends React.PureComponent {
       await onGetAckRecipientsRequest(item);
     }
     // when done loading build data for report (all recipients of acknowledgment into an array)
-    await doneLoading(this, () => {
-      const data = selectByAckId(this.props.recipients, this.state.selectedItem[ACK.ID]).toList().toJS();
-      const formattedData = formatItems(data, recipient, enums);
-      this.setState({ formattedData });
-    });
+    await doneLoading(this);
+    const data = selectByAckId(this.props.recipients, this.state.selectedItem[ACK.ID]).toList().toJS();
+    const formattedData = formatItems(data, recipient, enums);
+    this.setState({ formattedData });
   }
 
   /**
@@ -381,6 +390,7 @@ export class SpaAdmin extends React.PureComponent {
       };
 
       const disableProps = {
+        type: selectedItem[ACK.STATUS] === STATUS.PENDING ? 'cancel' : 'disable',
         hidden: hideDisable,
         item: selectedItem,
         onClose: this.handleHideDisable,

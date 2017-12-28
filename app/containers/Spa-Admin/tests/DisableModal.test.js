@@ -11,6 +11,7 @@ import DisableModal, { Warning } from '../DisableModal';
 testStyledComponent(Warning);
 
 const props = {
+  type: 'test type',
   item: {
     [ACK.TITLE]: 'test title',
     [ACK.DETAILS]: 'test details',

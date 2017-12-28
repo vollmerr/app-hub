@@ -17,11 +17,11 @@ import {
 } from '../constants';
 
 const recipients = [
-  { [RECIPIENT.ID]: '0', [RECIPIENT.ACK_ID]: 'a', [RECIPIENT.SID]: '111', [RECIPIENT.ACK_DATE]: null },
+  { [RECIPIENT.ID]: '0', [RECIPIENT.ACK_ID]: 'b', [RECIPIENT.SID]: '111', [RECIPIENT.ACK_DATE]: null },
   { [RECIPIENT.ID]: '1', [RECIPIENT.ACK_ID]: 'b', [RECIPIENT.SID]: '222', [RECIPIENT.ACK_DATE]: '12/02/2019' },
   { [RECIPIENT.ID]: '2', [RECIPIENT.ACK_ID]: 'c', [RECIPIENT.SID]: '111', [RECIPIENT.ACK_DATE]: '10/12/2013' },
   { [RECIPIENT.ID]: '3', [RECIPIENT.ACK_ID]: 'd', [RECIPIENT.SID]: '222', [RECIPIENT.ACK_DATE]: null },
-  { [RECIPIENT.ID]: '4', [RECIPIENT.ACK_ID]: 'e', [RECIPIENT.SID]: '222', [RECIPIENT.ACK_DATE]: null },
+  { [RECIPIENT.ID]: '4', [RECIPIENT.ACK_ID]: 'a', [RECIPIENT.SID]: '222', [RECIPIENT.ACK_DATE]: null },
 ];
 
 const acknowledgments = [
@@ -102,7 +102,7 @@ describe('spaReducer', () => {
     });
 
     it('should set the `user` with pending recipient ids', () => {
-      expected = fromJS([]);
+      expected = fromJS([recipients[0][RECIPIENT.ID]]);
       expect(spaReducer(undefined, action).getIn(['user', 'recipientsPendingIds'])).toEqual(expected);
     });
 
@@ -111,7 +111,6 @@ describe('spaReducer', () => {
         recipients[1][RECIPIENT.ID],
         recipients[2][RECIPIENT.ID],
         recipients[3][RECIPIENT.ID],
-        recipients[4][RECIPIENT.ID],
       ]);
       expect(spaReducer(undefined, action).getIn(['user', 'recipientsPreviousIds'])).toEqual(expected);
     });

@@ -18,6 +18,7 @@ export const Warning = styled.p`
 class DisableModal extends React.PureComponent {
   render() {
     const {
+      type,
       item,
       hidden,
       onClose,
@@ -28,9 +29,8 @@ class DisableModal extends React.PureComponent {
       hidden,
       onDismiss: onClose,
       dialogContentProps: {
-        type: DialogType.largeHeader,
+        type: DialogType.normal,
         title: item[ACK.TITLE],
-        subText: item[ACK.DETAILS],
       },
     };
 
@@ -44,7 +44,7 @@ class DisableModal extends React.PureComponent {
       text: 'Cancel',
     };
 
-    const warningText = `WARNING: This is no going back! Are you sure you want to disable ${item[ACK.TITLE]}?`;
+    const warningText = `WARNING: This is no going back! Are you sure you want to ${type} ${item[ACK.TITLE]}?`;
 
     return (
       <Dialog {...dialogProps}>
@@ -62,6 +62,7 @@ class DisableModal extends React.PureComponent {
 const { bool, func, string, shape } = PropTypes;
 
 DisableModal.propTypes = {
+  type: string,
   item: shape({
     name: string,
     details: string,
