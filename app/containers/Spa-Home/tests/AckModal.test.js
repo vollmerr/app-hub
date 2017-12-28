@@ -4,8 +4,13 @@ import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button'
 import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 
 import { ACK } from 'containers/Spa/constants';
+import { FieldChecks } from 'components/Form';
+import { testStyledComponent } from 'utils/testUtils';
 
-import { AckModal } from '../AckModal';
+import { AckModal, FieldChecksTop } from '../AckModal';
+
+testStyledComponent(FieldChecksTop, FieldChecks);
+
 
 const props = {
   item: {

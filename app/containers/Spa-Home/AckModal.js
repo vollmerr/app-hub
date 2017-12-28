@@ -1,11 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { reduxForm } from 'redux-form/immutable';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
 
 import { FieldChecks } from 'components/Form';
 import { ACK } from 'containers/Spa/constants';
+
+
+export const FieldChecksTop = styled(FieldChecks) `
+  .ms-Checkbox-checkbox {
+    margin-top: 4px;
+    align-self: flex-start;
+  }
+`;
+
 
 /**
  * Modal for reading and acknowledging a policy
@@ -62,7 +72,7 @@ export class AckModal extends React.PureComponent {
     return (
       <Dialog {...dialogProps}>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <FieldChecks {...checkboxProps} />
+          <FieldChecksTop {...checkboxProps} />
 
           <DialogFooter>
             <PrimaryButton {...primaryButtonProps} />

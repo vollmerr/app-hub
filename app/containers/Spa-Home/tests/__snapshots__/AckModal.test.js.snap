@@ -15,8 +15,7 @@ exports[`<AckModal /> should render correctly 1`] = `
   <form
     noValidate={true}
   >
-    <WrappedField
-      ariaLabel=""
+    <AckModal__FieldChecksTop
       disabled={true}
       name="hasAck"
       options={
@@ -27,9 +26,6 @@ exports[`<AckModal /> should render correctly 1`] = `
           },
         ]
       }
-      placeholder=""
-      required={false}
-      validate={Array []}
     />
     <DialogFooter>
       <CustomizedPrimaryButton
@@ -44,4 +40,21 @@ exports[`<AckModal /> should render correctly 1`] = `
     </DialogFooter>
   </form>
 </WithResponsiveMode>
+`;
+
+exports[`<AckModal__FieldChecksTop /> should render correctly 1`] = `
+.c0 .ms-Checkbox-checkbox {
+  margin-top: 4px;
+  -ms-flex-item-align: flex-start;
+  align-self: flex-start;
+}
+
+<WrappedField
+  ariaLabel=""
+  className="c0"
+  disabled={false}
+  placeholder=""
+  required={false}
+  validate={Array []}
+/>
 `;
