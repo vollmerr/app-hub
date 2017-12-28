@@ -28,7 +28,7 @@ import { formatItems } from 'utils/data';
 import { formattedDate } from 'utils/date';
 import { doneLoading, downloadFile } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
-import { acknowledgment, recipient, newAckForm, adminColumns } from 'containers/Spa/data';
+import { acknowledgment, recipient, newAckForm, adminColumns, adminCsv } from 'containers/Spa/data';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
 import { ACK, STATUS, RECIPIENT, GROUP, STATUS_CODES, TARGET_GROUPS } from 'containers/Spa/constants';
@@ -150,9 +150,7 @@ export class SpaAdmin extends React.PureComponent {
    */
   handleDownload = () => {
     const { selectedItem } = this.state;
-    const fields = Object.keys(recipient);
-    const fieldNames = fields.map((x) => recipient[x].label);
-    const csv = json2csv({ data: this.state.formattedData, newLine: '\r\n', fields, fieldNames });
+    const csv = json2csv({ data: this.state.formattedData, newLine: '\r\n', ...adminCsv });
     const name = `${selectedItem[ACK.TITLE]} Report ${formattedDate(new Date())}.csv`;
     const type = 'data:text/csv;charset=utf-8;';
 
@@ -261,17 +259,20 @@ export class SpaAdmin extends React.PureComponent {
       );
       // showing report
       if (!hideReport) {
-        // add `Download` report button
-        items.push(
-          {
-            key: 'download',
-            name: 'Download',
-            icon: 'download',
-            ariaLabel: 'Download Report',
-            onClick: this.handleDownload,
-          },
-        );
-        // pending acknowledgment
+        // not in pending status
+        if (selectedItem[ACK.STATUS] !== STATUS.PENDING) {
+          // add `Download` report button
+          items.push(
+            {
+              key: 'download',
+              name: 'Download',
+              icon: 'download',
+              ariaLabel: 'Download Report',
+              onClick: this.handleDownload,
+            },
+          );
+        }
+        // pending status
         if (selectedItem[ACK.STATUS] === STATUS.PENDING) {
           // add `Cancel` button
           items.push(

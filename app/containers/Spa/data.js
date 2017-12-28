@@ -266,3 +266,20 @@ export const reportColumns = {
   [REPORT.PENDING]: mapToColumns(fields, reportFields, reportExcludes),
   [REPORT.PREVIOUS]: mapToColumns(fields, reportFields),
 };
+
+// CSV FILE
+const adminCsvFields = [
+  RECIPIENT.FIRST_NAME,
+  RECIPIENT.LAST_NAME,
+  RECIPIENT.EMAIL,
+  RECIPIENT.MANAGER_NAME,
+  RECIPIENT.ACK_DATE,
+  RECIPIENT.FIRST_REMINDER_DATE,
+  RECIPIENT.SECOND_REMINDER_DATE,
+  RECIPIENT.FINAL_REMINDER_DATE,
+];
+
+export const adminCsv = {
+  fields: adminCsvFields,
+  fieldNames: adminCsvFields.map((x) => recipient[x].label),
+};
