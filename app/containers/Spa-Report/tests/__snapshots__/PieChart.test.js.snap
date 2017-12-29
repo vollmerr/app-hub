@@ -37,7 +37,7 @@ exports[`<PieChart__Item /> should render correctly 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  padding: 5px;
+  padding: 5px 10px;
 }
 
 <CustomizedActionButton
