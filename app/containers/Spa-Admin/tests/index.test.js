@@ -53,6 +53,9 @@ const groups = fromJS({
 });
 
 const props = {
+  enums: fromJS({
+    [ACK.TARGET_GROUPS]: {},
+  }),
   adminCached: false,
   recipients,
   groups,

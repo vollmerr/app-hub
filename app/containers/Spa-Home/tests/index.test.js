@@ -19,6 +19,9 @@ const List = require.requireActual('components/List');
 
 
 const props = {
+  enums: fromJS({
+    [ACK.TARGET_GROUPS]: {},
+  }),
   userCached: false,
   userPendingAcks: fromJS([{
     id: 1,

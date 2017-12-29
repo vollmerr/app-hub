@@ -5,7 +5,7 @@ exports[`<Paas /> should render correctly 1`] = `
   app={
     Object {
       "meta": Object {
-        "desc": "tracking, access, authorization",
+        "desc": "Personal Authorization Access System",
         "keywords": "tracking, access, authorization",
         "title": "PAAS",
       },

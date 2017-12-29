@@ -8,6 +8,7 @@ const selectAdmin = (state) => selectSpa(state).get('admin');
 const selectRecipients = (state) => selectSpa(state).get('recipients');
 const selectAcknowledgments = (state) => selectSpa(state).get('acknowledgments');
 const selectGroups = (state) => selectSpa(state).get('groups');
+const selectEnums = (state) => selectSpa(state).get('enums');
 
 const selectById = (state) => state.get('byId');
 const selectByAckId = (state, id) => selectById(state).filter((x) => (
@@ -90,6 +91,13 @@ const getGroups = () => createSelector(
 );
 
 
+// enums
+const getEnums = () => createSelector(
+  selectEnums,
+  (enums) => enums
+);
+
+
 export {
   // spa
   getSpa,
@@ -106,6 +114,8 @@ export {
   getRecipients,
   // groups
   getGroups,
+  // enums
+  getEnums,
   // util selectors
   selectById,
   selectByAckId,

@@ -33,7 +33,7 @@ Object {
     "title": "TEST LOADING",
   },
   "paas": Object {
-    "desc": "tracking, access, authorization",
+    "desc": "Personal Authorization Access System",
     "keywords": "tracking, access, authorization",
     "title": "PAAS",
   },

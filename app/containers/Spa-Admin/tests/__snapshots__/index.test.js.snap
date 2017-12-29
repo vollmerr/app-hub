@@ -100,19 +100,7 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
         }
         enums={
           Object {
-            "acknowledgmentStatusID": Object {
-              "0": "Pending",
-              "1": "Active",
-              "2": "Expired",
-              "3": "Disabled",
-              "4": "Canceled",
-            },
-            "targetADGroup": Object {
-              "0": "Group 0 Name",
-              "1": "Group 1 Name",
-              "2": "Group 2 Name",
-              "3": "Group 3 Name",
-            },
+            "targetADGroup": Object {},
           }
         }
         items={
@@ -231,19 +219,7 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
         }
         enums={
           Object {
-            "acknowledgmentStatusID": Object {
-              "0": "Pending",
-              "1": "Active",
-              "2": "Expired",
-              "3": "Disabled",
-              "4": "Canceled",
-            },
-            "targetADGroup": Object {
-              "0": "Group 0 Name",
-              "1": "Group 1 Name",
-              "2": "Group 2 Name",
-              "3": "Group 3 Name",
-            },
+            "targetADGroup": Object {},
           }
         }
         items={

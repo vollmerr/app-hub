@@ -21,11 +21,11 @@ Array [
     "icon": "Paas",
     "key": "paas",
     "meta": Object {
-      "desc": "tracking, access, authorization",
+      "desc": "Personal Authorization Access System",
       "keywords": "tracking, access, authorization",
       "title": "PAAS",
     },
-    "name": "Paas",
+    "name": "PAAS",
     "path": "/paas",
   },
   Object {
@@ -110,11 +110,11 @@ Array [
     "icon": "Paas",
     "key": "paas",
     "meta": Object {
-      "desc": "tracking, access, authorization",
+      "desc": "Personal Authorization Access System",
       "keywords": "tracking, access, authorization",
       "title": "PAAS",
     },
-    "name": "Paas",
+    "name": "PAAS",
     "path": "/paas",
   },
   Object {

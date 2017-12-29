@@ -63,6 +63,9 @@ const state = {
     targetIds: ['b'],
     allIds: ['b', 'm'],
   },
+  enums: {
+    [ACK.TARGET_GROUPS]: {},
+  },
   recipients: {
     byId: {
       abc: { [RECIPIENT.ID]: 'abc', [RECIPIENT.ACK_ID]: 'g' },
