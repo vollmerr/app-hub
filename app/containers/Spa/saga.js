@@ -81,7 +81,7 @@ export function* getGroups() {
  */
 export function* getAckRecipients(action) {
   try {
-    const id = action.payload.id;
+    const id = action.payload[C.ACK.ID];
     const url = `${base}/acknowledgments/${id}/recipients`;
 
     const recipients = yield call(requestWithToken, url);
@@ -120,7 +120,7 @@ export function* newAck(action) {
  */
 export function* disableAck(action) {
   try {
-    const id = action.payload.id;
+    const id = action.payload[C.ACK.ID];
     const url = `${base}/acknowledgments/${id}`;
     const options = {
       method: 'PATCH',
@@ -148,7 +148,7 @@ export function* disableAck(action) {
  */
 export function* readAck(action) {
   try {
-    const id = action.payload.id;
+    const id = action.payload[C.RECIPIENT.ID];
     const url = `${base}/recipients/${id}/acknowledge`;
     const options = {
       method: 'POST',
