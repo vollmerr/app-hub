@@ -115,7 +115,7 @@ describe('validate utils', () => {
 
   describe('isEmptyFiles', () => {
     it('should return `Required` for empty check box group', () => {
-      const values = [...emptyVals, { name: 'test1' }, 'test value'];
+      const values = [...emptyVals, { x: 'test1' }, 'test value'];
 
       values.forEach((value) => {
         expect(isEmptyFile(value)).toEqual('Required');
@@ -124,8 +124,8 @@ describe('validate utils', () => {
 
     it('should return `undefined` for non empty files with a `name`', () => {
       const values = [
-        fromJS({ name: 'test1' }),
-        fromJS({ key: 1, name: '213' }),
+        { name: 'test1' },
+        { key: 1, name: '213' },
       ];
 
       values.forEach((value) => {
