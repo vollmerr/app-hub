@@ -1,7 +1,91 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PaasHome /> should render correctly 1`] = `
-<div>
-  PLACHOLDER
-</div>
+<Form__Form
+  margin="0px"
+  noValidate={true}
+  vh={100}
+>
+  <List
+    columns={
+      Array [
+        Object {
+          "fieldName": "fullName",
+          "key": "fullName",
+          "name": "Full Name",
+        },
+        Object {
+          "fieldName": "app1",
+          "key": "app1",
+          "name": "App 1",
+          "onRender": [Function],
+          "requried": true,
+        },
+        Object {
+          "fieldName": "app2",
+          "key": "app2",
+          "name": "App 2",
+          "onRender": [Function],
+        },
+        Object {
+          "fieldName": "app3",
+          "key": "app3",
+          "name": "App 3",
+          "onRender": [Function],
+        },
+        Object {
+          "fieldName": "app4",
+          "key": "app4",
+          "name": "App 4",
+          "onRender": [Function],
+        },
+      ]
+    }
+    empty={
+      Object {
+        "message": "No items",
+      }
+    }
+    enums={Object {}}
+    items={
+      Array [
+        Object {
+          "app1": 1,
+          "app2": 0,
+          "app3": 2,
+          "app4": 0,
+          "fullName": "fullName 1",
+          "sid": "sid 1",
+        },
+        Object {
+          "app1": 1,
+          "app2": 1,
+          "app3": 1,
+          "app4": 1,
+          "fullName": "fullName 2",
+          "sid": "sid 2",
+        },
+        Object {
+          "app1": 2,
+          "app2": 2,
+          "app3": 2,
+          "app4": 0,
+          "fullName": "fullName 3",
+          "sid": "sid 3",
+        },
+      ]
+    }
+    selectionMode={0}
+    title="Authorizations"
+  />
+  <FormButtons
+    disabled={false}
+    reset={[Function]}
+  >
+    <CustomizedDefaultButton
+      primary={true}
+      text="Authorize All"
+    />
+  </FormButtons>
+</Form__Form>
 `;

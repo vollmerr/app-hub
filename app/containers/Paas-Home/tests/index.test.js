@@ -4,6 +4,10 @@ import { shallow } from 'enzyme';
 import { PaasHome } from '../index';
 
 const props = {
+  handleSubmit: jest.fn(),
+  pristine: false,
+  reset: jest.fn(),
+  submitting: false,
   Loading: null,
 };
 
