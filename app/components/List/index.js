@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DetailsList } from 'office-ui-fabric-react/lib/DetailsList';
+import { DetailsList, SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import orderBy from 'lodash/orderBy';
 import isEqual from 'lodash/isEqual';
@@ -234,6 +234,7 @@ List.propTypes = {
     }),
   ),
   checkboxVisibility: number,
+  selectionMode: number,
   empty: any,
   enums: any,
 };
@@ -244,6 +245,7 @@ List.defaultProps = {
     message: 'No items',
   },
   enums: {},
+  selectionMode: SelectionMode.none,
 };
 
 export default List;

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
+import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 import json2csv from 'json2csv';
 
 import {
@@ -441,7 +441,6 @@ export class SpaAdmin extends React.PureComponent {
         buttonIcon: 'plus',
       },
       selection: this.selectionActive,
-      selectionMode: SelectionMode.none,
     };
 
     const previousProps = {
@@ -453,7 +452,6 @@ export class SpaAdmin extends React.PureComponent {
         message: 'No Previous Acknowledgments',
       },
       selection: this.selectionPrev,
-      selectionMode: SelectionMode.none,
     };
 
     return (

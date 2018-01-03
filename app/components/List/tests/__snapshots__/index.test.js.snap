@@ -60,6 +60,7 @@ exports[`<List /> should render correctly 1`] = `
     }
     onRenderDetailsHeader={[Function]}
     onRenderItemColumn={[Function]}
+    selectionMode={0}
   />
 </Wrapper__Wrapper>
 `;

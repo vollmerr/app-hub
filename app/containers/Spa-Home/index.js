@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getFormValues } from 'redux-form/immutable';
 import { createStructuredSelector } from 'reselect';
-import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
+import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import { doneLoading, downloadFile } from 'utils/request';
 import { ACK } from 'containers/Spa/constants';
@@ -134,7 +134,6 @@ export class SpaHome extends React.PureComponent {
         message: 'No Acknowledgments Pending Approval',
       },
       selection: this.selectionActive,
-      selectionMode: SelectionMode.none,
     };
     const previousAckProps = {
       enums: enums.toJS(),
@@ -145,7 +144,6 @@ export class SpaHome extends React.PureComponent {
         message: 'No Previous Acknowledgments',
       },
       selection: this.selectionPrev,
-      selectionMode: SelectionMode.none,
     };
 
     /* istanbul ignore next */
