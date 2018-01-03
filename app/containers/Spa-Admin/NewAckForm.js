@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { reduxForm } from 'redux-form/immutable';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import styled from 'styled-components';
 
 import appPage from 'containers/App-Container/appPage';
@@ -66,6 +65,11 @@ export class NewAckForm extends React.PureComponent {
       onSubmit,
     } = this.props;
 
+    const buttonProps = {
+      reset,
+      disabled: pristine || submitting,
+    };
+
     return (
       // pass custom onSubmit to redux-forms handleSubmit.
       <Form onSubmit={handleSubmit(onSubmit)} margin={theme.app.subNavHeight}>
@@ -76,19 +80,7 @@ export class NewAckForm extends React.PureComponent {
           {mapSection(fields, sections.right)}
         </Fields>
 
-        <FormButtons>
-          <DefaultButton
-            primary
-            type={'submit'}
-            disabled={pristine || submitting}
-            text={'Submit'}
-          />
-          <DefaultButton
-            disabled={pristine || submitting}
-            text={'Clear'}
-            onClick={reset}
-          />
-        </FormButtons>
+        <FormButtons {...buttonProps} />
       </Form>
     );
   }
