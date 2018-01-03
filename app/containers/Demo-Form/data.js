@@ -5,6 +5,7 @@ import {
   FieldRadios,
   FieldChecks,
   FieldFile,
+  FieldToggle,
 } from 'components/Form';
 
 import { normalizeNumber } from './normalize';
@@ -30,7 +31,15 @@ export default {
    * const from above used for consistency (in the first value).
    * Would nomrally be placed under bySection, but above for readability of example
    */
-  allSections: [SECTION_TEXT, 'select', 'dates', 'radios', 'checks', 'file'],
+  allSections: [
+    SECTION_TEXT,
+    'select',
+    'dates',
+    'radios',
+    'checks',
+    'file',
+    'toggle',
+  ],
   // allSections: ['checks'],
   /**
    * All sections of form (unordered)
@@ -264,6 +273,30 @@ export default {
         },
       },
       allNames: ['fileDefault', 'fileRequired', 'fileDisabled'],
+    },
+    toggle: {
+      title: 'Toggle',
+      byName: {
+        toggleDefault: {
+          label: 'Default Toggle',
+          name: 'toggleDefault',
+          component: FieldToggle,
+        },
+        toggleRequired: {
+          required: true,
+          label: 'Required Toggle',
+          name: 'toggleRequired',
+          component: FieldToggle,
+        },
+        toggleDisabled: {
+          required: true, // required for testing purposes (should render as not required due to being disabled)
+          disabled: true,
+          label: 'Disabled Toggle',
+          name: 'toggleDisabled',
+          component: FieldToggle,
+        },
+      },
+      allNames: ['toggleDefault', 'toggleRequired', 'toggleDisabled'],
     },
   },
 };
