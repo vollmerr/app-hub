@@ -11,6 +11,7 @@ import appPage from 'containers/App-Container/appPage';
 import List from 'components/List';
 import { Form, FormButtons, FieldToggle } from 'components/Form';
 import { getAuthorizations, getAuthorizationList, selectById, selectAllIds } from 'containers/Paas/selectors';
+import { APPROVAL } from 'containers/Paas/constants';
 
 import validate from './validate';
 
@@ -50,7 +51,7 @@ export class PaasHome extends React.PureComponent {
     const { change, authorizations } = this.props;
     selectAllIds(authorizations).forEach((id) => {
       apps.forEach((app) => {
-        change(`${id}[${app}]`, 1);
+        change(`${id}[${app}]`, APPROVAL.APPROVE);
       });
     });
   }
@@ -77,7 +78,7 @@ export class PaasHome extends React.PureComponent {
     const listProps = {
       items: authorizationList.toJS(),
       columns,
-      title: 'Authorizations',
+      title: 'Access Authorizations',
     };
 
     const buttonProps = {
