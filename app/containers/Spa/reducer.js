@@ -2,6 +2,7 @@ import { fromJS, Set, List } from 'immutable';
 import { handleActions } from 'redux-actions';
 
 import { mergeById } from 'utils/request';
+import { formattedDate } from 'utils/date';
 
 import * as C from './constants';
 
@@ -198,7 +199,7 @@ export default handleActions({
       .setIn(['user', 'recipientsPreviousIds'], state.getIn(['user', 'recipientsPreviousIds']).push(id));
     // update date acknowledged in lookup table
     newState = newState
-      .setIn(['recipients', 'byId', id, C.RECIPIENT.ACK_DATE], new Date().toISOString());
+      .setIn(['recipients', 'byId', id, C.RECIPIENT.ACK_DATE], formattedDate(new Date()));
     // gimme that new state
     return newState;
   },

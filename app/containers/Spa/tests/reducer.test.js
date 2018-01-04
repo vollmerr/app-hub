@@ -1,6 +1,8 @@
 
 import { fromJS } from 'immutable';
 
+import { formattedDate } from 'utils/date';
+
 import spaReducer, { initialState } from '../reducer';
 import * as C from '../constants';
 
@@ -345,7 +347,7 @@ describe('spaReducer', () => {
     });
 
     it('should update the acknowledgment date for the recipient', () => {
-      expect(actual.getIn(['recipients', 'byId', 'abc', C.RECIPIENT.ACK_DATE])).toEqual(new Date().toISOString());
+      expect(actual.getIn(['recipients', 'byId', 'abc', C.RECIPIENT.ACK_DATE])).toEqual(formattedDate(new Date()));
     });
   });
 });
