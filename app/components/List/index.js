@@ -41,11 +41,18 @@ export const handleSelectItem = (component, selection, callback) => {
   }
   // set that item as selected, do callback if one is actually selected
   component.setState({ selectedItem: item }, () => (
-    callback && item.id ? callback(item) : null
+    callback && Object.keys(item).length ? callback(item) : null
   ));
 };
 
 
+/**
+ * List for displaying table-like data. Extends office-ui-fabric-react's
+ * DetailsList, adding sorting, filtering, search box, title, an empty
+ * message, and formatted item rendering.
+ *
+ * @return {JSX}          - List of data or empty message
+ */
 class List extends React.PureComponent {
   constructor(props) {
     super(props);
