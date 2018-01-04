@@ -7,7 +7,7 @@ function spaRoutes(server, router) {
         // set to active status
         req.body[C.ACK.STATUS] = 0;
       } else if (/\/spa-recipients\?id=\d+/.test(req.url)) {
-        req.body[C.RECIPIENT.ACK_DATE] = new Date().toString();
+        req.body[C.RECIPIENT.ACK_DATE] = new Date().toISOString();
       }
     }
     // Continue to JSON Server router

@@ -184,4 +184,22 @@ export default handleActions({
     // gimme that new state
     return newState;
   },
+
+
+  [C.READ_ACK_SUCCESS]: (state, action) => {
+    const { payload } = action;
+    const id = payload[C.RECIPIENT.ID];
+    let newState = state;
+    // remove from user active
+    newState = newState
+      .setIn(['user', 'recipientsPendingIds'], state.getIn(['user', 'recipientsPendingIds']).filter((x) => x !== id));
+    // add to user previous
+    newState = newState
+      .setIn(['user', 'recipientsPreviousIds'], state.getIn(['user', 'recipientsPreviousIds']).push(id));
+    // update date acknowledged in lookup table
+    newState = newState
+      .setIn(['recipients', 'byId', id, C.RECIPIENT.ACK_DATE], new Date().toISOString());
+    // gimme that new state
+    return newState;
+  },
 }, fromJS(initialState));

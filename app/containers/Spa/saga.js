@@ -155,8 +155,8 @@ export function* readAck(action) {
       method: 'POST',
     };
 
-    const data = yield call(requestWithToken, url, options);
-    yield put(actions.readAckSuccess(data));
+    yield call(requestWithToken, url, options);
+    yield put(actions.readAckSuccess(action.payload));
   } catch (error) {
     yield put(actions.readAckFailure(error));
   }
