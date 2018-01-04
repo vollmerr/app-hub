@@ -11,12 +11,23 @@ const apps = {
 // cross field validation for form
 const validate = (vals) => {
   const errors = {};
-
+  // go though all values
   vals.forEach((v, k) => {
     errors[k] = {};
+    let value;
+    const values = {};
+    // for each app
     Object.keys(apps).forEach((app) => {
-      errors[k][app] = isNull(vals.getIn([k, app]));
+      value = isNull(vals.getIn([k, app]));
+      // if it has an error add
+      if (value) {
+        values[app] = value;
+      }
     });
+    // if all errors leave alone (means row hasnt been touched)
+    if (Object.keys(values).length !== Object.keys(apps).length) {
+      errors[k] = values;
+    }
   });
 
   return errors;

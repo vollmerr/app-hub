@@ -10,29 +10,39 @@ import theme from 'utils/theme';
 import Field from './Field';
 
 
-const TriToggle = styled(Toggle) `
-  ${(props) => props.required && css`
-    label::after {
+const StyledToggle = styled(Toggle) `
+  /* Is Requried */
+  ${(props) => props.required && !props.disabled && css`
+    > label::after {
       content: " *";
       color: ${theme.redDark};
       padding-right: 12px;
     }
   `}
-
-  ${(props) => props.errorMessage && css`
+  /* Required with Null state / neither toggled nor untoggled */
+  ${(props) => props.warning && isNull(props.checked) && css`
     button {
-      border-color: ${theme.redDark};
+      background: ${theme.warning};
+      border-color: ${theme.yellow};
     }
   `}
-
+  /* Null state / neither toggled nor untoggled */
   ${(props) => isNull(props.checked) && css`
-    button {
-      background: transparent;
-      border-color: ${theme.neutralTertiary};
+    button + label {
+      visibility: hidden;
+    }
 
+    button {
       > * {
         visibility: hidden;
       }
+    }
+  `}
+  /* Has Error */
+  ${(props) => props.errorMessage && css`
+    button {
+      background: ${theme.error};
+      border-color: ${theme.redDark};
     }
   `}
 `;
@@ -42,36 +52,46 @@ export class FieldToggle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      checked: this.props.input.value,
+      checked: this.getChecked(this.props.input.value),
+      errorMessage: '',
     };
   }
 
   componentWillReceiveProps(nextProps) {
-    const { input } = nextProps;
+    const { input, meta } = nextProps;
+    const { touched, error } = meta;
+    const errorMessage = touched && error ? error : '';
+    const checked = this.getChecked(input.value);
 
-    if (isNaN(input.value)) {
-      this.setState({ checked: undefined });
+    this.setState({ checked });
+    // update error if given one
+    if (errorMessage !== this.state.errorMessage) {
+      this.setState({ errorMessage }, this.forceUpdate);
     }
+  }
+
+  getChecked = (value) => {
+    if (isNull(value)) {
+      return this.props.isNullable ? undefined : 0;
+    }
+    return Number(value);
   }
 
   handleChange = (value) => {
     const { input } = this.props;
+    const checked = this.getChecked(value);
 
-    input.onChange(Number(value));
-    this.setState({ checked: Boolean(value) });
+    input.onChange(checked);
+    this.setState({ checked });
   }
 
   render() {
     const {
-      meta,
       input,
       ...props
     } = this.props;
 
-    const { checked } = this.state;
-
-    const { touched, error } = meta;
-    const errorMessage = touched && error ? error : '';
+    const { checked, errorMessage } = this.state;
 
     const toggleProps = {
       ...props,
@@ -81,17 +101,18 @@ export class FieldToggle extends React.Component {
     };
 
     return (
-      <TriToggle {...toggleProps} />
+      <StyledToggle {...toggleProps} />
     );
   }
 }
 
 
-const { number } = PropTypes;
+const { number, bool } = PropTypes;
 
 FieldToggle.propTypes = {
   meta: metaProp.isRequired,
   input: inputProp(number).isRequired,
+  isNullable: bool,
 };
 
 export default Field(FieldToggle, isNull);

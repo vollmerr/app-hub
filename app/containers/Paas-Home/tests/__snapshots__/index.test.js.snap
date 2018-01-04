@@ -6,6 +6,12 @@ exports[`<PaasHome /> should render correctly 1`] = `
   noValidate={true}
   vh={100}
 >
+  <MessageBar
+    isMultiline={true}
+    messageBarType={5}
+  >
+    There are 2 employees that require authorizations. Select 'Yes' or 'No' for each application.
+  </MessageBar>
   <List
     columns={
       Array [
@@ -50,28 +56,12 @@ exports[`<PaasHome /> should render correctly 1`] = `
     items={
       Array [
         Object {
-          "app1": 1,
-          "app2": 0,
-          "app3": 2,
-          "app4": 0,
-          "fullName": "fullName 1",
-          "sid": "sid 1",
+          "sid": "sid1",
+          "text": "text 1",
         },
         Object {
-          "app1": 1,
-          "app2": 1,
-          "app3": 1,
-          "app4": 1,
-          "fullName": "fullName 2",
-          "sid": "sid 2",
-        },
-        Object {
-          "app1": 2,
-          "app2": 2,
-          "app3": 2,
-          "app4": 0,
-          "fullName": "fullName 3",
-          "sid": "sid 3",
+          "sid": "sid2",
+          "text": "text 2",
         },
       ]
     }

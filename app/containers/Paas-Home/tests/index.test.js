@@ -1,14 +1,24 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { fromJS } from 'immutable';
 
 import { PaasHome } from '../index';
 
 const props = {
-  handleSubmit: jest.fn(),
-  pristine: false,
-  reset: jest.fn(),
-  submitting: false,
+  authorizationList: fromJS([
+    { sid: 'sid1', text: 'text 1' },
+    { sid: 'sid2', text: 'text 2' },
+  ]),
+  authorizations: fromJS({
+    sid1: { sid: 'sid1', text: 'text 1' },
+    sid2: { sid: 'sid2', text: 'text 2' },
+  }),
   Loading: null,
+  pristine: false,
+  submitting: false,
+  reset: jest.fn(),
+  handleSubmit: jest.fn(),
+  initialize: jest.fn(),
 };
 
 
