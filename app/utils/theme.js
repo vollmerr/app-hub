@@ -3,6 +3,8 @@ import { DefaultPalette } from 'office-ui-fabric-react/lib/Styling';
 
 export default {
   ...DefaultPalette,
+  warning: '#fff4ce',
+  error: '#fde7e9',
   hub: {
     headerHeight: '50px',
     panelWidth: '360px',

@@ -42,7 +42,7 @@ export const Legend = styled.div`
 
 export const Item = styled(ActionButton) `
   display:flex;
-  padding: 5px;
+  padding: 5px 10px;
   ${(props) => props.checked && css`
     box-shadow: 0 0 5px ${theme.themeDarker};
   `}

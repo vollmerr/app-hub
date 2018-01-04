@@ -117,19 +117,10 @@ exports[`<NewAckForm /> should render correctly 1`] = `
       />
     </NewAckForm__FieldSection>
   </NewAckForm__Fields>
-  <FormButtons__Buttons>
-    <CustomizedDefaultButton
-      disabled={false}
-      primary={true}
-      text="Submit"
-      type="submit"
-    />
-    <CustomizedDefaultButton
-      disabled={false}
-      onClick={[Function]}
-      text="Clear"
-    />
-  </FormButtons__Buttons>
+  <FormButtons
+    disabled={false}
+    reset={[Function]}
+  />
 </Form__Form>
 `;
 

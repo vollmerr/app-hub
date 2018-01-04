@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { DetailsList } from 'office-ui-fabric-react/lib/DetailsList';
+import { DetailsList, SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import orderBy from 'lodash/orderBy';
 import isEqual from 'lodash/isEqual';
@@ -41,11 +41,18 @@ export const handleSelectItem = (component, selection, callback) => {
   }
   // set that item as selected, do callback if one is actually selected
   component.setState({ selectedItem: item }, () => (
-    callback && item.id ? callback(item) : null
+    callback && Object.keys(item).length ? callback(item) : null
   ));
 };
 
 
+/**
+ * List for displaying table-like data. Extends office-ui-fabric-react's
+ * DetailsList, adding sorting, filtering, search box, title, an empty
+ * message, and formatted item rendering.
+ *
+ * @return {JSX}          - List of data or empty message
+ */
 class List extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -234,6 +241,7 @@ List.propTypes = {
     }),
   ),
   checkboxVisibility: number,
+  selectionMode: number,
   empty: any,
   enums: any,
 };
@@ -244,6 +252,7 @@ List.defaultProps = {
     message: 'No items',
   },
   enums: {},
+  selectionMode: SelectionMode.none,
 };
 
 export default List;

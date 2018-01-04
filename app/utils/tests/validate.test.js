@@ -6,6 +6,7 @@ import {
   isFutureDate,
   isEmptyChecks,
   isEmptyFile,
+  isNull,
 } from '../validate';
 
 const emptyVals = [
@@ -115,7 +116,7 @@ describe('validate utils', () => {
 
   describe('isEmptyFiles', () => {
     it('should return `Required` for empty check box group', () => {
-      const values = [...emptyVals, { name: 'test1' }, 'test value'];
+      const values = [...emptyVals, { x: 'test1' }, 'test value'];
 
       values.forEach((value) => {
         expect(isEmptyFile(value)).toEqual('Required');
@@ -124,12 +125,36 @@ describe('validate utils', () => {
 
     it('should return `undefined` for non empty files with a `name`', () => {
       const values = [
-        fromJS({ name: 'test1' }),
-        fromJS({ key: 1, name: '213' }),
+        { name: 'test1' },
+        { key: 1, name: '213' },
       ];
 
       values.forEach((value) => {
         expect(isEmptyFile(value)).toEqual(undefined);
+      });
+    });
+  });
+
+
+  describe('isNull', () => {
+    it('should return `Required` for undefined or null', () => {
+      const values = [undefined, null];
+
+      values.forEach((value) => {
+        expect(isNull(value)).toEqual('Required');
+      });
+    });
+
+    it('should return `undefined` for anything but undefined or null ', () => {
+      const values = [
+        { name: 'test1' },
+        0,
+        [],
+        'test...',
+      ];
+
+      values.forEach((value) => {
+        expect(isNull(value)).toEqual(undefined);
       });
     });
   });

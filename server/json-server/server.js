@@ -12,6 +12,7 @@ const redirects = require('./.routes.json');
 const secret = require('./secret');
 
 const spaRoutes = require('./api/spa/routes');
+const paasRoutes = require('./api/paas/routes');
 
 const host = 'localhost';
 const port = 3001;
@@ -21,6 +22,7 @@ server.use(jsonServer.rewriter(redirects));
 server.use(jsonServer.bodyParser);
 
 spaRoutes(server, router);
+paasRoutes(server, router);
 
 // handle patching in correct format
 // http://jsonpatch.com/

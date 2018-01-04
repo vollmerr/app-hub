@@ -1,11 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<FormButtons__Button /> should render correctly 1`] = `
+.c0 {
+  margin-left: 10px;
+}
+
+<CustomizedDefaultButton
+  className="c0"
+/>
+`;
+
 exports[`<FormButtons__Buttons /> should render correctly 1`] = `
 .c0 {
   padding-top: 15px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-between;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: space-between;
+  justify-content: space-between;
 }
 
 <div
   className="c0"
 />
+`;
+
+exports[`FormButtons should render correctly 1`] = `
+<FormButtons__Buttons>
+  <div>
+    <Child />
+  </div>
+  <div>
+    <FormButtons__Button
+      disabled={false}
+      primary={true}
+      text="Submit"
+      type="submit"
+    />
+    <FormButtons__Button
+      disabled={false}
+      onClick={[Function]}
+      text="Clear"
+    />
+  </div>
+</FormButtons__Buttons>
 `;

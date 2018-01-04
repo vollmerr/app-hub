@@ -1,4 +1,5 @@
 import AppHubHome from 'containers/AppHub-Home';
+import Paas from 'containers/Paas/Loadable';
 import Spa from 'containers/Spa/Loadable';
 import Demo from 'containers/Demo/Loadable';
 import Loading from 'components/Loading/TestPage';
@@ -17,6 +18,15 @@ const routes = [
     meta: meta.apphub,
   },
   // __APPS__
+  {
+    key: 'paas',
+    name: 'PAAS',
+    path: '/paas',
+    exact: false,
+    component: Paas,
+    icon: 'Paas',
+    meta: meta.paas,
+  },
   {
     key: 'spa',
     name: 'SPA',

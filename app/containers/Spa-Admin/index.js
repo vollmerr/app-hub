@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { SelectionMode, Selection } from 'office-ui-fabric-react/lib/DetailsList';
+import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 import json2csv from 'json2csv';
 
 import {
+  getEnums,
   getAdminCached,
   getRecipients,
   getGroups,
@@ -31,7 +32,7 @@ import appPage from 'containers/App-Container/appPage';
 import { acknowledgment, recipient, newAckForm, adminColumns, adminCsv } from 'containers/Spa/data';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
-import { ACK, STATUS, RECIPIENT, GROUP, STATUS_CODES, TARGET_GROUPS } from 'containers/Spa/constants';
+import { ACK, STATUS, RECIPIENT, GROUP } from 'containers/Spa/constants';
 import SpaReport from 'containers/Spa-Report';
 
 import AdminNav from './AdminNav';
@@ -45,11 +46,6 @@ const halfHeight = {
   margin: 18, // section margin (15) + 3 due to being in div (margin outside div)
 };
 
-// TODO: PULL ENUMS FROM API!
-const enums = {
-  [ACK.TARGET_GROUPS]: TARGET_GROUPS,
-  [ACK.STATUS]: STATUS_CODES,
-};
 
 /**
  * Admin page of SPA
@@ -124,7 +120,7 @@ export class SpaAdmin extends React.PureComponent {
     const { onNewAckRequest } = this.props;
 
     this.handleHideNew();
-    onNewAckRequest(values);
+    onNewAckRequest(values.toJS());
   }
 
   //
@@ -181,12 +177,13 @@ export class SpaAdmin extends React.PureComponent {
   handleSubmitDisable = async () => {
     const { onDisableAckRequest } = this.props;
     const { selectedItem } = this.state;
+    const status = selectedItem[ACK.STATUS] === STATUS.PENDING ? STATUS.CANCELED : STATUS.DISABLED;
     // must hide the modal before api call to avoid flicker
     this.handleHideDisable();
     await onDisableAckRequest(selectedItem);
-    // when done loading set item to be disabledl
+    // when done loading set item to be disabled or canceled
     await doneLoading(this);
-    this.setState({ selectedItem: { ...selectedItem, [ACK.STATUS]: STATUS.DISABLED } });
+    this.setState({ selectedItem: { ...selectedItem, [ACK.STATUS]: status } });
   }
 
   //
@@ -316,7 +313,7 @@ export class SpaAdmin extends React.PureComponent {
    * Handles selecting an item from a list
    */
   handleSelectItem = async (item) => {
-    const { onGetAckRecipientsRequest, adminCachedIds } = this.props;
+    const { onGetAckRecipientsRequest, adminCachedIds, enums } = this.props;
     // display the report (need to do before loading api so no flicker)
     this.handleShowReport();
     // call api if no entry for recipients stored
@@ -326,7 +323,7 @@ export class SpaAdmin extends React.PureComponent {
     // when done loading build data for report (all recipients of acknowledgment into an array)
     await doneLoading(this);
     const data = selectByAckId(this.props.recipients, this.state.selectedItem[ACK.ID]).toList().toJS();
-    const formattedData = formatItems(data, recipient, enums);
+    const formattedData = formatItems(data, recipient, enums.toJS());
     this.setState({ formattedData });
   }
 
@@ -364,12 +361,28 @@ export class SpaAdmin extends React.PureComponent {
    * @return {JSX}            - content to be rendered
    */
   renderContent = () => {
-    const { adminActiveAcks, adminPreviousAcks, Loading } = this.props;
-    const { selectedItem, hideDisable, hideEmail, hideNewAck, hideReport, fields, formattedData } = this.state;
+    const {
+      enums,
+      Loading,
+      adminActiveAcks,
+      adminPreviousAcks,
+    } = this.props;
+
+    const {
+      fields,
+      hideDisable,
+      hideEmail,
+      hideNewAck,
+      hideReport,
+      selectedItem,
+      formattedData,
+     } = this.state;
+
     // if we got a loading compoennt just render that
     if (Loading) {
       return Loading;
     }
+
     // render form for new acknowledgments
     if (!hideNewAck) {
       const newAckProps = {
@@ -381,10 +394,11 @@ export class SpaAdmin extends React.PureComponent {
 
       return <NewAckForm {...newAckProps} />;
     }
+
     // render reporting
     if (!hideReport) {
       const reportProps = {
-        enums,
+        enums: enums.toJS(),
         selectedItem,
         data: formattedData,
         dataKey: RECIPIENT.ACK_DATE,
@@ -414,9 +428,10 @@ export class SpaAdmin extends React.PureComponent {
         </div>
       );
     }
+
     // render lists of active and precious acknowledgments
     const activeProps = {
-      enums,
+      enums: enums.toJS(),
       items: adminActiveAcks.toJS(),
       columns: adminColumns,
       title: 'Active Acknowledgments',
@@ -427,11 +442,10 @@ export class SpaAdmin extends React.PureComponent {
         buttonIcon: 'plus',
       },
       selection: this.selectionActive,
-      selectionMode: SelectionMode.none,
     };
 
     const previousProps = {
-      enums,
+      enums: enums.toJS(),
       items: adminPreviousAcks.toJS(),
       columns: adminColumns,
       title: 'Previous Acknowledgments',
@@ -439,7 +453,6 @@ export class SpaAdmin extends React.PureComponent {
         message: 'No Previous Acknowledgments',
       },
       selection: this.selectionPrev,
-      selectionMode: SelectionMode.none,
     };
 
     return (
@@ -472,6 +485,7 @@ export class SpaAdmin extends React.PureComponent {
 const { object, func, node, bool } = PropTypes;
 
 SpaAdmin.propTypes = {
+  enums: object.isRequired,
   adminCached: bool.isRequired,
   recipients: object.isRequired,
   groups: object.isRequired,
@@ -487,6 +501,7 @@ SpaAdmin.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  enums: getEnums(),
   adminCached: getAdminCached(),
   recipients: getRecipients(),
   groups: getGroups(),

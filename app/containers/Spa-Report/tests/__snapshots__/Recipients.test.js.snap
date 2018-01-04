@@ -14,6 +14,7 @@ exports[`<Recipients /> should render correctly 1`] = `
     }
     enums={Object {}}
     items={Array []}
+    selectionMode={0}
   />
 </Recipients__Wrapper>
 `;

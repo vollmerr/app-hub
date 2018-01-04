@@ -53,7 +53,7 @@ export function* getAdminData() {
 /**
  * GETs the lists of AD groups
  *
- * @param {object} action   - action that was dispatched, with immutable payload
+ * @param {object} action   - action that was dispatched
  */
 export function* getGroups() {
   try {
@@ -77,11 +77,11 @@ export function* getGroups() {
 /**
  * GETs the recipients for an existing acknowledgment
  *
- * @param {object} action   - action that was dispatched, with immutable payload
+ * @param {object} action   - action that was dispatched
  */
 export function* getAckRecipients(action) {
   try {
-    const id = action.payload.id;
+    const id = action.payload[C.ACK.ID];
     const url = `${base}/acknowledgments/${id}/recipients`;
 
     const recipients = yield call(requestWithToken, url);
@@ -95,14 +95,14 @@ export function* getAckRecipients(action) {
 /**
  * POSTs a new acknowledgment to the api
  *
- * @param {object} action   - action that was dispatched, with immutable payload
+ * @param {object} action   - action that was dispatched
  */
 export function* newAck(action) {
   try {
     const url = `${base}/acknowledgments`;
     const options = {
       method: 'POST',
-      body: action.payload.toJS(),
+      body: action.payload,
     };
 
     const data = yield call(requestWithToken, url, options);
@@ -116,19 +116,21 @@ export function* newAck(action) {
 /**
  * PATCHs an existing acknowledgment with disable
  *
- * @param {object} action   - action that was dispatched, with immutable payload
+ * @param {object} action   - action that was dispatched
  */
 export function* disableAck(action) {
   try {
-    const id = action.payload.id;
+    const id = action.payload[C.ACK.ID];
+    // TODO: API SHOULD HANDLE SETTING DISABLED OR CANCELED.........
+    const value = action.payload[C.ACK.STATUS] === C.STATUS.PENDING ? C.STATUS.CANCELED : C.STATUS.DISABLED;
     const url = `${base}/acknowledgments/${id}`;
     const options = {
       method: 'PATCH',
       body: [
         {
+          value,
           op: 'replace',
           path: `/${C.ACK.STATUS}`,
-          value: C.STATUS.DISABLED,
         },
       ],
     };
@@ -144,18 +146,18 @@ export function* disableAck(action) {
 /**
  * PUT an existing acknowledgment as acknowledged/read
  *
- * @param {object} action   - action that was dispatched, with immutable payload
+ * @param {object} action   - action that was dispatched
  */
 export function* readAck(action) {
   try {
-    const id = action.payload.id;
+    const id = action.payload[C.RECIPIENT.ID];
     const url = `${base}/recipients/${id}/acknowledge`;
     const options = {
       method: 'POST',
     };
 
-    const data = yield call(requestWithToken, url, options);
-    yield put(actions.readAckSuccess(data));
+    yield call(requestWithToken, url, options);
+    yield put(actions.readAckSuccess(action.payload));
   } catch (error) {
     yield put(actions.readAckFailure(error));
   }

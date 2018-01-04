@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Paas /> should render correctly 1`] = `
+<Connect(AppContainer)
+  app={
+    Object {
+      "meta": Object {
+        "desc": "Personal Authorization Access System",
+        "keywords": "tracking, access, authorization",
+        "title": "PAAS",
+      },
+      "name": "test name",
+      "routes": Array [
+        Object {
+          "component": [Function],
+          "exact": true,
+          "key": "paasHome",
+          "name": "Home",
+          "path": "/paas/home",
+        },
+      ],
+    }
+  }
+/>
+`;

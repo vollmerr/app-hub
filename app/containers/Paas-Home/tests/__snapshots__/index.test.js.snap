@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PaasHome /> should render correctly 1`] = `
+<Form__Form
+  margin="0px"
+  noValidate={true}
+  vh={100}
+>
+  <MessageBar
+    isMultiline={true}
+    messageBarType={5}
+  >
+    There are 2 employees that require authorizations. Select 'Yes' or 'No' for each application.
+  </MessageBar>
+  <List
+    columns={
+      Array [
+        Object {
+          "fieldName": "fullName",
+          "key": "fullName",
+          "name": "Full Name",
+        },
+        Object {
+          "fieldName": "app1",
+          "key": "app1",
+          "name": "App 1",
+          "onRender": [Function],
+          "requried": true,
+        },
+        Object {
+          "fieldName": "app2",
+          "key": "app2",
+          "name": "App 2",
+          "onRender": [Function],
+        },
+        Object {
+          "fieldName": "app3",
+          "key": "app3",
+          "name": "App 3",
+          "onRender": [Function],
+        },
+        Object {
+          "fieldName": "app4",
+          "key": "app4",
+          "name": "App 4",
+          "onRender": [Function],
+        },
+      ]
+    }
+    empty={
+      Object {
+        "message": "No items",
+      }
+    }
+    enums={Object {}}
+    items={
+      Array [
+        Object {
+          "sid": "sid1",
+          "text": "text 1",
+        },
+        Object {
+          "sid": "sid2",
+          "text": "text 2",
+        },
+      ]
+    }
+    selectionMode={0}
+    title="Authorizations"
+  />
+  <FormButtons
+    disabled={false}
+    reset={[Function]}
+  >
+    <CustomizedDefaultButton
+      primary={true}
+      text="Authorize All"
+    />
+  </FormButtons>
+</Form__Form>
+`;

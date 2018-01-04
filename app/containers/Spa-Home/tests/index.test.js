@@ -13,11 +13,15 @@ import AckModal from '../AckModal';
 
 import * as request from 'utils/request'; // eslint-disable-line
 request.doneLoading = jest.fn();
+request.downloadFile = jest.fn();
 
 const List = require.requireActual('components/List');
 
 
 const props = {
+  enums: fromJS({
+    [ACK.TARGET_GROUPS]: {},
+  }),
   userCached: false,
   userPendingAcks: fromJS([{
     id: 1,

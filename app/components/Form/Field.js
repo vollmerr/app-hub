@@ -39,7 +39,7 @@ function Field(WrappedComponent, requiredFunc = null) {
         toValidate = [...validate];
         newPlaceholder = placeholder;
 
-        if (required) {
+        if (required && requiredFunc) {
           toValidate.push(requiredFunc);
         }
       }

@@ -1,7 +1,6 @@
 /* eslint-disable redux-saga/yield-effects */
 import { put, call } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import { fromJS } from 'immutable';
 
 import requestWithToken from 'utils/requestWithToken';
 import * as selectors from 'containers/AppHub/selectors';
@@ -156,7 +155,7 @@ describe('getAckRecipients', () => {
 
 describe('newAck', () => {
   it('should call the api, update the store with its results, then get the updated acknowledgments', () => {
-    action = { payload: fromJS(data) };
+    action = { payload: data };
     const options = {
       method: 'POST',
       body: data,
@@ -187,7 +186,7 @@ describe('disableAck', () => {
         {
           op: 'replace',
           path: `/${C.ACK.STATUS}`,
-          value: C.STATUS.DISABLED, // TODO... DISBALED VALUE / STATUS IN GENERAL
+          value: C.STATUS.DISABLED,
         },
       ],
     };

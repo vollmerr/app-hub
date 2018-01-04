@@ -27,7 +27,13 @@ export const isEmptyChecks = (value) => (
 );
 
 export const isEmptyFile = (value) => (
-  !value || typeof value !== 'object' || !value.get || !value.get('name')
+  !value || typeof value !== 'object' || !value.name
+    ? 'Required'
+    : undefined
+);
+
+export const isNull = (value) => (
+  value === undefined || value === null
     ? 'Required'
     : undefined
 );
