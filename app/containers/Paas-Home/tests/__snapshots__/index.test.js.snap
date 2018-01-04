@@ -73,6 +73,7 @@ exports[`<PaasHome /> should render correctly 1`] = `
     reset={[Function]}
   >
     <CustomizedDefaultButton
+      onClick={[Function]}
       primary={true}
       text="Authorize All"
     />

@@ -10,7 +10,7 @@ import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBa
 import appPage from 'containers/App-Container/appPage';
 import List from 'components/List';
 import { Form, FormButtons, FieldToggle } from 'components/Form';
-import { getAuthorizations, getAuthorizationList, selectById } from 'containers/Paas/selectors';
+import { getAuthorizations, getAuthorizationList, selectById, selectAllIds } from 'containers/Paas/selectors';
 
 import validate from './validate';
 
@@ -38,12 +38,21 @@ const columns = [
 ];
 
 const onSubmit = (vals) => console.log('submitting: ', vals.toJS());
-
+const apps = ['app1', 'app2', 'app3', 'app4']; // TODO: API CALL.........
 
 export class PaasHome extends React.PureComponent {
   componentDidMount() {
     const { initialize, authorizations } = this.props;
     initialize(selectById(authorizations));
+  }
+
+  handleAuthorizeAll = () => {
+    const { change, authorizations } = this.props;
+    selectAllIds(authorizations).forEach((id) => {
+      apps.forEach((app) => {
+        change(`${id}[${app}]`, 1);
+      });
+    });
   }
 
   render() {
@@ -86,6 +95,7 @@ export class PaasHome extends React.PureComponent {
           <DefaultButton
             primary
             text={'Authorize All'}
+            onClick={this.handleAuthorizeAll}
           />
         </FormButtons>
       </Form>
@@ -103,6 +113,7 @@ PaasHome.propTypes = {
   pristine: bool.isRequired,
   submitting: bool.isRequired,
   reset: func.isRequired,
+  change: func.isRequired,
   handleSubmit: func.isRequired,
   initialize: func.isRequired,
 };
