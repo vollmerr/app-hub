@@ -41,7 +41,7 @@ const activeAcks = fromJS([
 ]);
 
 const previousAcks = fromJS([
-  { [ACK.ID]: 'c', [ACK.TITLE]: 'testPrevious1', [ACK.STATUS]: STATUS.EXIPRED },
+  { [ACK.ID]: 'c', [ACK.TITLE]: 'testPrevious1', [ACK.STATUS]: STATUS.EXPIRED },
   { [ACK.ID]: 'd', [ACK.TITLE]: 'testPrevious2', [ACK.STATUS]: STATUS.DISABLED },
 ]);
 
@@ -177,9 +177,9 @@ describe('<SpaAdmin />', () => {
     });
 
     describe('handleSubmitNew', () => {
-      it('should dispatch a new acknowledgment to the api', () => {
+      it('should dispatch a new acknowledgment to the api with plain JS', () => {
         instance.handleSubmitNew(previousAcks);
-        expect(props.onNewAckRequest).toHaveBeenCalledWith(previousAcks);
+        expect(props.onNewAckRequest).toHaveBeenCalledWith(previousAcks.toJS());
       });
     });
   });

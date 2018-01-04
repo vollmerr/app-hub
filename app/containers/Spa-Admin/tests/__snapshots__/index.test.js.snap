@@ -225,7 +225,7 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
         items={
           Array [
             Object {
-              "acknowledgmentStatusID": undefined,
+              "acknowledgmentStatusID": 2,
               "id": "c",
               "title": "testPrevious1",
             },

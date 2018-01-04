@@ -120,7 +120,7 @@ export class SpaAdmin extends React.PureComponent {
     const { onNewAckRequest } = this.props;
 
     this.handleHideNew();
-    onNewAckRequest(values);
+    onNewAckRequest(values.toJS());
   }
 
   //

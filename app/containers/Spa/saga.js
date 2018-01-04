@@ -53,7 +53,7 @@ export function* getAdminData() {
 /**
  * GETs the lists of AD groups
  *
- * @param {object} action   - action that was dispatched, with immutable payload
+ * @param {object} action   - action that was dispatched
  */
 export function* getGroups() {
   try {
@@ -77,7 +77,7 @@ export function* getGroups() {
 /**
  * GETs the recipients for an existing acknowledgment
  *
- * @param {object} action   - action that was dispatched, with immutable payload
+ * @param {object} action   - action that was dispatched
  */
 export function* getAckRecipients(action) {
   try {
@@ -95,14 +95,14 @@ export function* getAckRecipients(action) {
 /**
  * POSTs a new acknowledgment to the api
  *
- * @param {object} action   - action that was dispatched, with immutable payload
+ * @param {object} action   - action that was dispatched
  */
 export function* newAck(action) {
   try {
     const url = `${base}/acknowledgments`;
     const options = {
       method: 'POST',
-      body: action.payload.toJS(),
+      body: action.payload,
     };
 
     const data = yield call(requestWithToken, url, options);
@@ -116,7 +116,7 @@ export function* newAck(action) {
 /**
  * PATCHs an existing acknowledgment with disable
  *
- * @param {object} action   - action that was dispatched, with immutable payload
+ * @param {object} action   - action that was dispatched
  */
 export function* disableAck(action) {
   try {
@@ -145,7 +145,7 @@ export function* disableAck(action) {
 /**
  * PUT an existing acknowledgment as acknowledged/read
  *
- * @param {object} action   - action that was dispatched, with immutable payload
+ * @param {object} action   - action that was dispatched
  */
 export function* readAck(action) {
   try {
