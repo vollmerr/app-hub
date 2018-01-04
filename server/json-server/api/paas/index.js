@@ -1,1 +1,5 @@
-module.exports = {};
+module.exports = {
+  name: 'paas',
+  keys: {},
+  routes: [],
+};

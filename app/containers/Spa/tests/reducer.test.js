@@ -300,14 +300,14 @@ describe('spaReducer', () => {
 
 
   describe('DISABLE_ACK_SUCCESS', () => {
+    let payload;
     beforeEach(() => {
-      const payload = state.acknowledgments.byId.g;
+      payload = { ...state.acknowledgments.byId.g, [ACK.STATUS]: STATUS.DISABLED };
       action = { type: DISABLE_ACK_SUCCESS, payload };
     });
 
     it('should update the acknowledgment`s status in the lookup', () => {
-      expected = { ...state.acknowledgments.byId.g, [ACK.STATUS]: STATUS.DISABLED };
-      expect(spaReducer(fromJS(state), action).getIn(['acknowledgments', 'byId', 'g']).toJS()).toEqual(expected);
+      expect(spaReducer(fromJS(state), action).getIn(['acknowledgments', 'byId', 'g']).toJS()).toEqual(payload);
     });
 
     it('should remove the acknowledgment id from admins active ids', () => {

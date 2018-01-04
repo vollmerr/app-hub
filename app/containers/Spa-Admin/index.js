@@ -177,12 +177,13 @@ export class SpaAdmin extends React.PureComponent {
   handleSubmitDisable = async () => {
     const { onDisableAckRequest } = this.props;
     const { selectedItem } = this.state;
+    const status = selectedItem[ACK.STATUS] === STATUS.PENDING ? STATUS.CANCELED : STATUS.DISABLED;
     // must hide the modal before api call to avoid flicker
     this.handleHideDisable();
     await onDisableAckRequest(selectedItem);
-    // when done loading set item to be disabledl
+    // when done loading set item to be disabled or canceled
     await doneLoading(this);
-    this.setState({ selectedItem: { ...selectedItem, [ACK.STATUS]: STATUS.DISABLED } });
+    this.setState({ selectedItem: { ...selectedItem, [ACK.STATUS]: status } });
   }
 
   //

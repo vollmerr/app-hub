@@ -161,7 +161,7 @@ export default handleActions({
     let newState = state;
     // update status in acknowledgments lookup
     newState = newState
-      .setIn(['acknowledgments', 'byId', ackId, C.ACK.STATUS], C.STATUS.DISABLED);
+      .setIn(['acknowledgments', 'byId', ackId, C.ACK.STATUS], payload[C.ACK.STATUS]);
     // remove from admin active
     newState = newState
       .setIn(['admin', 'acksActiveIds'], state.getIn(['admin', 'acksActiveIds']).filter((id) => id !== ackId));

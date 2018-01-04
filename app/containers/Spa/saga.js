@@ -121,14 +121,15 @@ export function* newAck(action) {
 export function* disableAck(action) {
   try {
     const id = action.payload[C.ACK.ID];
+    const value = action.payload[C.ACK.STATUS] === C.STATUS.PENDING ? C.STATUS.CANCELED : C.STATUS.DISABLED;
     const url = `${base}/acknowledgments/${id}`;
     const options = {
       method: 'PATCH',
       body: [
         {
+          value,
           op: 'replace',
           path: `/${C.ACK.STATUS}`,
-          value: C.STATUS.DISABLED,
         },
       ],
     };
