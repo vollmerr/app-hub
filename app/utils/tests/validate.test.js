@@ -6,6 +6,7 @@ import {
   isFutureDate,
   isEmptyChecks,
   isEmptyFile,
+  isNull,
 } from '../validate';
 
 const emptyVals = [
@@ -130,6 +131,30 @@ describe('validate utils', () => {
 
       values.forEach((value) => {
         expect(isEmptyFile(value)).toEqual(undefined);
+      });
+    });
+  });
+
+
+  describe('isNull', () => {
+    it('should return `Required` for undefined or null', () => {
+      const values = [undefined, null];
+
+      values.forEach((value) => {
+        expect(isNull(value)).toEqual('Required');
+      });
+    });
+
+    it('should return `undefined` for anything but undefined or null ', () => {
+      const values = [
+        { name: 'test1' },
+        0,
+        [],
+        'test...',
+      ];
+
+      values.forEach((value) => {
+        expect(isNull(value)).toEqual(undefined);
       });
     });
   });

@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable';
 
 import * as selectors from '../selectors';
-import { ACK, RECIPIENT, STATUS } from '../constants';
+import * as C from '../constants';
 
 const spa = {
   user: {
@@ -26,18 +26,22 @@ const spa = {
   },
   recipients: {
     byId: {
-      abc: { [RECIPIENT.ID]: 'abc', [RECIPIENT.ACK_ID]: 'g' },
-      def: { [RECIPIENT.ID]: 'def', [RECIPIENT.ACK_ID]: 'x' },
+      abc: { [C.RECIPIENT.ID]: 'abc', [C.RECIPIENT.ACK_ID]: 'g' },
+      def: { [C.RECIPIENT.ID]: 'def', [C.RECIPIENT.ACK_ID]: 'x' },
     },
     allIds: ['abc', '123'],
   },
   acknowledgments: {
     byId: {
-      g: { [ACK.ID]: 'g', [ACK.STATUS]: STATUS.ACTIVE },
-      x: { [ACK.ID]: 'x', [ACK.STATUS]: STATUS.EXPIRED },
-      y: { [ACK.ID]: 'y', [ACK.STATUS]: STATUS.DISABLED },
+      g: { [C.ACK.ID]: 'g', [C.ACK.STATUS]: C.STATUS.ACTIVE },
+      x: { [C.ACK.ID]: 'x', [C.ACK.STATUS]: C.STATUS.EXPIRED },
+      y: { [C.ACK.ID]: 'y', [C.ACK.STATUS]: C.STATUS.DISABLED },
     },
     allIds: ['g', 'x', 'y'],
+  },
+  enums: {
+    [C.ACK.TARGET_GROUPS]: {},
+    [C.ACK.STATUS]: C.STATUS_CODES,
   },
 };
 
@@ -131,6 +135,14 @@ describe('Spa selectors', () => {
     it('should select the `groups`', () => {
       const selector = selectors.getGroups();
       expect(selector(state)).toEqual(fromJS(spa.groups));
+    });
+  });
+
+
+  describe('getEnums', () => {
+    it('should select the `groups`', () => {
+      const selector = selectors.getEnums();
+      expect(selector(state)).toEqual(fromJS(spa.enums));
     });
   });
 

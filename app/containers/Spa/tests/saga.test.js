@@ -186,7 +186,7 @@ describe('disableAck', () => {
         {
           op: 'replace',
           path: `/${C.ACK.STATUS}`,
-          value: C.STATUS.DISABLED, // TODO... DISBALED VALUE / STATUS IN GENERAL
+          value: C.STATUS.DISABLED,
         },
       ],
     };
