@@ -92,37 +92,50 @@ describe('appPage', () => {
 
 
   describe('componentWillReceiveProps', () => {
-    it('should update as normal when non route props change', () => {
-      newProps.app = newProps.app.set('loading', true);
-      expect(instance.componentWillReceiveProps(newProps)).toEqual(true);
-      expect(history.push).not.toHaveBeenCalled();
+    beforeEach(() => {
+      instance.authorizeRoute = jest.fn();
     });
 
-    it('should update as normal if going to a valid route with no permissions needed', () => {
+    it('should not check for route authorization when non `routes` props change', () => {
+      newProps.app = newProps.app.set('loading', true);
+      instance.componentWillReceiveProps(newProps);
+      expect(instance.authorizeRoute).not.toHaveBeenCalled();
+    });
+
+    it('should check for route authorization when `routes` props change', () => {
+      newProps.app = newProps.app.set('routes', fromJS([{ key: 'key3', path: '/test3' }]));
+      instance.componentWillReceiveProps(newProps);
+      expect(instance.authorizeRoute).toHaveBeenCalledWith(newProps.app);
+    });
+  });
+
+
+  describe('authorizeRoute', () => {
+    it('should not redirect if going to a valid route with no permissions needed', () => {
       newProps.app = newProps.app.set('routes', fromJS([{ key: 'key3', path: '/test3' }]));
       history.location.pathname = '/test3';
-      expect(instance.componentWillReceiveProps(newProps)).toEqual(true);
+      instance.componentWillReceiveProps(newProps);
       expect(history.push).not.toHaveBeenCalled();
     });
 
-    it('should update as normal if going to a valid route user has permissions for', () => {
+    it('should not redirect if going to a valid route user has permissions for', () => {
       newProps.app = newProps.app.set('routes', fromJS([{ key: 'key3', path: '/test3', roles: [userRoles[0]] }]));
       history.location.pathname = '/test3';
-      expect(instance.componentWillReceiveProps(newProps)).toEqual(true);
+      instance.componentWillReceiveProps(newProps);
       expect(history.push).not.toHaveBeenCalled();
     });
 
     it('should redirect to the app home if going to a route user doesnt have permissions for', () => {
       newProps.app = newProps.app.set('routes', fromJS([routes[0], { key: 'key3', path: '/test3', roles: ['otherRole'] }]));
       history.location.pathname = '/test3';
-      expect(instance.componentWillReceiveProps(newProps)).toEqual(false);
+      instance.componentWillReceiveProps(newProps);
       expect(history.push).toHaveBeenCalledWith(routes[0].path);
     });
 
     it('should redirect to the AppHub home if going to a route user doesnt have permissions for and no app home route', () => {
       newProps.app = newProps.app.set('routes', fromJS([{ key: 'key3', path: '/test3', roles: ['otherRole'] }]));
       history.location.pathname = '/test3';
-      expect(instance.componentWillReceiveProps(newProps)).toEqual(false);
+      instance.componentWillReceiveProps(newProps);
       expect(history.push).toHaveBeenCalledWith('/');
     });
   });

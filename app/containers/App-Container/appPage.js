@@ -8,7 +8,7 @@ import ErrorMessage from 'components/Loading/ErrorMessage';
 import LoadingMessage from 'components/Loading/LoadingMessage';
 import Content from 'components/App-Content/Content';
 import { makeSelectApp, makeSelectUserRoles } from 'containers/AppHub/selectors';
-
+import { unauthorizedRoute } from 'utils/validate';
 
 export function appPage(Component) {
   return class extends React.PureComponent {
@@ -31,36 +31,41 @@ export function appPage(Component) {
     componentDidMount() {
       // do not show component wrapped until done mounting...
       this.setState({ isMounting: false }); // eslint-disable-line
+      this.authorizeRoute(this.props.app);
     }
 
     componentWillReceiveProps(nextProps) {
-      const { app, userRoles } = this.props;
+      const { app } = this.props;
       // if there are different routes (is empty when component loads, so check here)
       if (nextProps.app.get('routes') !== app.get('routes')) {
-        // get index of current route
-        const currentRoute = nextProps.app
-          .get('routes')
-          .find((route) => (
-            route.get('path') === history.location.pathname)
-          );
-        // route found, that has permissions set
-        if (currentRoute && currentRoute.get('roles')) {
-          // not authorized for route
-          if (!currentRoute.get('roles').some((role) => userRoles.includes(role))) {
-            // get home route for app
-            const homeRoute = nextProps.app
-              .get('routes')
-              .find((route) => (
-                route.get('key').match(/Home/))
-              );
-            // push to home of app
-            history.push(homeRoute ? homeRoute.get('path') : '/');
-            // dont update
-            return false;
-          }
+        this.authorizeRoute(nextProps.app);
+      }
+    }
+
+    authorizeRoute = (app) => {
+      const { userRoles } = this.props;
+      // get index of current route
+      const currentRoute = app
+        .get('routes')
+        .find((route) => (
+          route.get('path') === history.location.pathname)
+        );
+      // route found, that has permissions set
+      if (currentRoute && currentRoute.get('roles')) {
+        // not authorized for route
+        if (unauthorizedRoute(currentRoute, userRoles)) {
+          // get home route for app
+          const homeRoute = app
+            .get('routes')
+            .find((route) => route.get('key').match(/Home/));
+          // if not valid app home, redirect to apphub home
+          const redirectRoute = unauthorizedRoute(homeRoute, userRoles) ?
+            '/' :
+            homeRoute.get('path');
+          // push to home of app
+          history.push(redirectRoute);
         }
       }
-      return nextProps !== this.props;
     }
 
     render() {
