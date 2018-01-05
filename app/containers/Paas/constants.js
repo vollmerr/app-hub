@@ -1,6 +1,6 @@
-export const INIT_DATA_REQUEST = 'app/Paas/INIT_DATA_REQUEST';
-export const INIT_DATA_SUCCESS = 'app/Paas/INIT_DATA_SUCCESS';
-export const INIT_DATA_FAILURE = 'app/Paas/INIT_DATA_FAILURE';
+export const GET_MANAGER_DATA_REQUEST = 'app/Paas/GET_MANAGER_DATA_REQUEST';
+export const GET_MANAGER_DATA_SUCCESS = 'app/Paas/GET_MANAGER_DATA_SUCCESS';
+export const GET_MANAGER_DATA_FAILURE = 'app/Paas/GET_MANAGER_DATA_FAILURE';
 // ROLES
 export const ROLES = {
   MANAGER: 'PAAS Manager',

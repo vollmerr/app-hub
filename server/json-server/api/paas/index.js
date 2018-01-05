@@ -56,7 +56,7 @@ function generateAuthorization(manager) {
 
 function generateMgrAuthorizations() {
   const managers = [];
-  for (let i = 0; i < 20; i += 1) {
+  for (let i = 0; i < 5; i += 1) {
     managers.push(generateAuthorization());
   }
   return managers;
