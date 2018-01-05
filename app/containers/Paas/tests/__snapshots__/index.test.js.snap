@@ -2,7 +2,7 @@
 
 exports[`Paas Entry should render correctly 1`] = `
 <Wrapper__Wrapper>
-  <withReducer(withSaga(Connect(Paas))) />
+  <withReducer(withSaga(Paas)) />
   <App-Content__AppContent>
     <Router
       routes={
@@ -13,6 +13,21 @@ exports[`Paas Entry should render correctly 1`] = `
             "key": "paasHome",
             "name": "Home",
             "path": "/paas/home",
+            "roles": Array [
+              "PAAS Manager",
+            ],
+          },
+          Object {
+            "component": [Function],
+            "exact": true,
+            "key": "paasReport",
+            "name": "Report",
+            "path": "/paas/report",
+            "roles": Array [
+              "PAAS Manager",
+              "PAAS HR Admin",
+              "PAAS Security Admin",
+            ],
           },
         ]
       }
