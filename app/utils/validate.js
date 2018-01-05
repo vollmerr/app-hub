@@ -15,7 +15,7 @@ export const isEmptyDate = (value) => (
 
 export const isFutureDate = (value) => (
   (!value || isNaN(new Date(value))) ||
-  (value && formattedDate(value) >= formattedDate(new Date()))
+    (value && formattedDate(value) >= formattedDate(new Date()))
     ? undefined
     : 'A future date is required'
 );
@@ -36,4 +36,11 @@ export const isNull = (value) => (
   value === undefined || value === null
     ? 'Required'
     : undefined
+);
+
+export const unauthorizedRoute = (route, roles = []) => (
+  !route || Boolean(
+    route.get('roles') &&
+    !route.get('roles').some((role) => roles.includes(role))
+  )
 );
