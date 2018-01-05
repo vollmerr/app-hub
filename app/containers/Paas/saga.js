@@ -1,21 +1,27 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 
 import requestWithToken from 'utils/requestWithToken';
-import { INIT_DATA_REQUEST } from './constants';
-import { initDataSuccess, initDataFailure } from './actions';
+import * as C from './constants';
+import * as actions from './actions';
 
 
-export function* paasWorker() {
+export const base = API.PAAS;
+
+
+export function* getManagerData() {
   try {
-    const data = yield call(requestWithToken, 'TODO');
-    yield put(initDataSuccess(data));
+    const url = `${base}`;
+    const data = yield call(requestWithToken, url);
+    yield put(actions.getManagerDataSuccess(data));
   } catch (error) {
-    yield put(initDataFailure(error));
+    yield put(actions.getManagerDataFailure(error));
   }
 }
 
+
 function* paasSaga() {
-  yield takeEvery(INIT_DATA_REQUEST, paasWorker);
+  yield takeEvery(C.GET_MANAGER_DATA_REQUEST, getManagerData);
 }
+
 
 export default paasSaga;

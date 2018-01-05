@@ -1,42 +1,35 @@
-import {
-  initDataRequest,
-  initDataSuccess,
-  initDataFailure,
-} from '../actions';
+import * as actions from '../actions';
+import * as C from '../constants';
 
-import {
-  INIT_DATA_REQUEST,
-  INIT_DATA_SUCCESS,
-  INIT_DATA_FAILURE,
-} from '../constants';
 
 const payload = {
   data: 'test data',
 };
 
+
 describe('Paas actions', () => {
   describe('initial data Action', () => {
-    it('has a type of INIT_DATA_REQUEST', () => {
+    it('has a type of `GET_MANAGER_DATA_REQUEST`', () => {
       const expected = {
-        type: INIT_DATA_REQUEST,
+        type: C.GET_MANAGER_DATA_REQUEST,
       };
-      expect(initDataRequest()).toEqual(expected);
+      expect(actions.getManagerDataRequest()).toEqual(expected);
     });
 
-    it('has a type of INIT_DATA_SUCCESS', () => {
+    it('has a type of `GET_MANAGER_DATA_SUCCESS`', () => {
       const expected = {
         payload,
-        type: INIT_DATA_SUCCESS,
+        type: C.GET_MANAGER_DATA_SUCCESS,
       };
-      expect(initDataSuccess(payload)).toEqual(expected);
+      expect(actions.getManagerDataSuccess(payload)).toEqual(expected);
     });
 
-    it('has a type of INIT_DATA_FAILURE', () => {
+    it('has a type of `GET_MANAGER_DATA_FAILURE`', () => {
       const expected = {
         payload,
-        type: INIT_DATA_FAILURE,
+        type: C.GET_MANAGER_DATA_FAILURE,
       };
-      expect(initDataFailure(payload)).toEqual(expected);
+      expect(actions.getManagerDataFailure(payload)).toEqual(expected);
     });
   });
 });

@@ -62,7 +62,7 @@ export class FieldToggle extends React.Component {
     const { touched, error } = meta;
     const errorMessage = touched && error ? error : '';
     const checked = this.getChecked(input.value);
-
+    // update local checked value
     this.setState({ checked });
     // update error if given one
     if (errorMessage !== this.state.errorMessage) {
@@ -70,19 +70,32 @@ export class FieldToggle extends React.Component {
     }
   }
 
+  /**
+   * Gets the checked value, changes null/undefned values
+   * to 0 if not nullable
+   *
+   * @param {number|bool} value     - value of if toggle is checked
+   *
+   * @return {number}               - number representation of if checked
+   */
   getChecked = (value) => {
+    // defaults for null value
     if (isNull(value)) {
       return this.props.isNullable ? undefined : 0;
     }
     return Number(value);
   }
 
+  /**
+   * Handles if the toggle value has changed
+   * Updates local state and redux form
+   *
+   * @param {bool} value    - value of if toggle is checked
+   */
   handleChange = (value) => {
     const { input } = this.props;
     const checked = this.getChecked(value);
-
     input.onChange(checked);
-    this.setState({ checked });
   }
 
   render() {

@@ -6,75 +6,107 @@ exports[`<PaasHome /> should render correctly 1`] = `
   noValidate={true}
   vh={100}
 >
-  <MessageBar
-    isMultiline={true}
-    messageBarType={5}
+  <FormList__FormList
+    margin={120}
   >
-    There are 2 employees that require authorizations. Select 'Yes' or 'No' for each application.
-  </MessageBar>
-  <List
-    columns={
-      Array [
-        Object {
-          "fieldName": "fullName",
-          "key": "fullName",
-          "name": "Full Name",
-        },
-        Object {
-          "fieldName": "app1",
-          "key": "app1",
-          "name": "App 1",
-          "onRender": [Function],
-          "requried": true,
-        },
-        Object {
-          "fieldName": "app2",
-          "key": "app2",
-          "name": "App 2",
-          "onRender": [Function],
-        },
-        Object {
-          "fieldName": "app3",
-          "key": "app3",
-          "name": "App 3",
-          "onRender": [Function],
-        },
-        Object {
-          "fieldName": "app4",
-          "key": "app4",
-          "name": "App 4",
-          "onRender": [Function],
-        },
-      ]
-    }
-    empty={
-      Object {
-        "message": "No items",
+    <List
+      columns={
+        Array [
+          Object {
+            "fieldName": "firstName",
+            "key": "firstName",
+            "name": "First Name",
+          },
+          Object {
+            "fieldName": "lastName",
+            "key": "lastName",
+            "name": "Last Name",
+          },
+          Object {
+            "fieldName": "app1",
+            "key": "app1",
+            "name": "App 1",
+            "onRender": [Function],
+            "requried": true,
+          },
+          Object {
+            "fieldName": "app2",
+            "key": "app2",
+            "name": "App 2",
+            "onRender": [Function],
+          },
+          Object {
+            "fieldName": "app3",
+            "key": "app3",
+            "name": "App 3",
+            "onRender": [Function],
+          },
+          Object {
+            "fieldName": "app4",
+            "key": "app4",
+            "name": "App 4",
+            "onRender": [Function],
+          },
+        ]
       }
-    }
-    enums={Object {}}
-    items={
-      Array [
+      empty={
         Object {
-          "sid": "sid1",
-          "text": "text 1",
-        },
-        Object {
-          "sid": "sid2",
-          "text": "text 2",
-        },
-      ]
-    }
-    selectionMode={0}
-    title="Authorizations"
-  />
+          "message": "No items",
+        }
+      }
+      enums={Object {}}
+      items={
+        Array [
+          Object {
+            "sid": "sid1",
+            "text": "text 1",
+          },
+          Object {
+            "sid": "sid2",
+            "text": "text 2",
+          },
+        ]
+      }
+      selectionMode={0}
+      title="Access Authorizations"
+    />
+  </FormList__FormList>
   <FormButtons
     disabled={false}
     reset={[Function]}
   >
     <CustomizedDefaultButton
+      iconProps={
+        Object {
+          "iconName": "approve",
+        }
+      }
+      menuProps={
+        Object {
+          "items": Array [
+            Object {
+              "icon": "approve",
+              "key": "authorizeAll",
+              "name": "Authorize All",
+              "onClick": [Function],
+            },
+            Object {
+              "icon": "deny",
+              "key": "denyNew",
+              "name": "Deny All New",
+            },
+            Object {
+              "icon": "deny",
+              "key": "denyAll",
+              "name": "Deny All",
+            },
+          ],
+        }
+      }
+      onClick={[Function]}
       primary={true}
-      text="Authorize All"
+      split={true}
+      text="Authorize All New"
     />
   </FormButtons>
 </Form__Form>

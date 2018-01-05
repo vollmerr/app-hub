@@ -5,13 +5,17 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { reduxForm } from 'redux-form/immutable';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
-import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+// import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 
+import { doneLoading } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
 import List from 'components/List';
 import { Form, FormButtons, FieldToggle } from 'components/Form';
-import { getAuthorizations, getAuthorizationList, selectById } from 'containers/Paas/selectors';
+import { getAuthorizations, getAuthorizationList, selectById, selectAllIds } from 'containers/Paas/selectors';
+import { APPROVAL } from 'containers/Paas/constants';
+import * as actions from 'containers/Paas/actions';
 
+import FormList from './FormList';
 import validate from './validate';
 
 
@@ -30,7 +34,8 @@ const renderToggle = (item, index, column) => {
 };
 
 const columns = [
-  { key: 'fullName', fieldName: 'fullName', name: 'Full Name' },
+  { key: 'firstName', fieldName: 'firstName', name: 'First Name' },
+  { key: 'lastName', fieldName: 'lastName', name: 'Last Name' },
   { key: 'app1', fieldName: 'app1', name: 'App 1', requried: true, onRender: renderToggle },
   { key: 'app2', fieldName: 'app2', name: 'App 2', onRender: renderToggle },
   { key: 'app3', fieldName: 'app3', name: 'App 3', onRender: renderToggle },
@@ -38,12 +43,36 @@ const columns = [
 ];
 
 const onSubmit = (vals) => console.log('submitting: ', vals.toJS());
-
+const apps = ['app1', 'app2', 'app3', 'app4']; // TODO: API CALL.........
+const listHeight = {
+  margin: 120, // space for buttom buttons
+};
 
 export class PaasHome extends React.PureComponent {
-  componentDidMount() {
-    const { initialize, authorizations } = this.props;
-    initialize(selectById(authorizations));
+  async componentDidMount() {
+    const { initialize, onGetManagerDataRequest } = this.props;
+    // TODO: CACHING....
+    await onGetManagerDataRequest();
+    await doneLoading(this);
+    initialize(selectById(this.props.authorizations));
+  }
+
+  handleAuthorizeNew = () => {
+    const { change, authorizations } = this.props;
+    selectAllIds(authorizations).forEach((id) => { // TODO: TRACK NEW IDS???/
+      apps.forEach((app) => {
+        change(`${id}[${app}]`, APPROVAL.APPROVE);
+      });
+    });
+  }
+
+  handleAuthorizeAll = () => {
+    const { change, authorizations } = this.props;
+    selectAllIds(authorizations).forEach((id) => {
+      apps.forEach((app) => {
+        change(`${id}[${app}]`, APPROVAL.APPROVE);
+      });
+    });
   }
 
   render() {
@@ -60,15 +89,15 @@ export class PaasHome extends React.PureComponent {
       return Loading;
     }
 
-    const messageProps = {
-      messageBarType: MessageBarType.warning,
-      children: `There are ${2} employees that require authorizations. Select 'Yes' or 'No' for each application.`,
-    };
+    // const messageProps = {
+    //   messageBarType: MessageBarType.warning,
+    //   children: `There are ${2} employees that require authorizations. Select 'Yes' or 'No' for each application.`,
+    // };
 
     const listProps = {
       items: authorizationList.toJS(),
       columns,
-      title: 'Authorizations',
+      title: 'Access Authorizations',
     };
 
     const buttonProps = {
@@ -78,14 +107,39 @@ export class PaasHome extends React.PureComponent {
 
     return (
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <MessageBar {...messageProps} />
+        {/* <MessageBar {...messageProps} /> */}
 
-        <List {...listProps} />
+        <FormList {...listHeight}>
+          <List {...listProps} />
+        </FormList>
 
         <FormButtons {...buttonProps}>
           <DefaultButton
             primary
-            text={'Authorize All'}
+            split
+            text={'Authorize All New'}
+            onClick={this.handleAuthorizeNew}
+            iconProps={{ iconName: 'approve' }}
+            menuProps={{
+              items: [
+                {
+                  key: 'authorizeAll',
+                  name: 'Authorize All',
+                  icon: 'approve',
+                  onClick: this.handleAuthorizeAll,
+                },
+                {
+                  key: 'denyNew',
+                  name: 'Deny All New',
+                  icon: 'deny',
+                },
+                {
+                  key: 'denyAll',
+                  name: 'Deny All',
+                  icon: 'deny',
+                },
+              ],
+            }}
           />
         </FormButtons>
       </Form>
@@ -103,8 +157,9 @@ PaasHome.propTypes = {
   pristine: bool.isRequired,
   submitting: bool.isRequired,
   reset: func.isRequired,
+  change: func.isRequired,
   handleSubmit: func.isRequired,
-  initialize: func.isRequired,
+  initialize: func.isRequired, // eslint-disable-line
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -112,7 +167,9 @@ const mapStateToProps = createStructuredSelector({
   authorizations: getAuthorizations(),
 });
 
-export const mapDispatchToProps = () => ({});
+export const mapDispatchToProps = (dispatch) => ({
+  onGetManagerDataRequest: () => dispatch(actions.getManagerDataRequest()),
+});
 
 const withForm = reduxForm({
   form: 'paas',
