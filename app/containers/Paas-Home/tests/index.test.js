@@ -2,7 +2,10 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import { PaasHome } from '../index';
+import { testMapDispatchToProps } from 'utils/testUtils';
+import { getManagerDataRequest } from 'containers/Paas/actions';
+
+import { PaasHome, mapDispatchToProps } from '../index';
 
 
 const authorizationList = [
@@ -19,6 +22,7 @@ const authorizations = {
 };
 
 const props = {
+  onGetManagerDataRequest: jest.fn(),
   authorizationList: fromJS(authorizationList),
   authorizations: fromJS(authorizations),
   Loading: null,
@@ -58,5 +62,13 @@ describe('<PaasHome />', () => {
       expect(props.change).toHaveBeenCalledWith(`${authorizations.allIds[0]}[${apps[3]}]`, 1);
       expect(props.change).toHaveBeenCalledWith(`${authorizations.allIds[1]}[${apps[0]}]`, 1);
     });
+  });
+
+  describe('mapDispatchToProps', () => {
+    const actions = {
+      getManagerDataRequest,
+    };
+
+    testMapDispatchToProps(mapDispatchToProps, actions);
   });
 });
