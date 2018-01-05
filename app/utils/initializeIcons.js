@@ -36,6 +36,8 @@ const initializeIcons = () => {
       email: '\uF8F5',
       download: '\uF8F6',
       Attach: '\uF8F7',
+      deny: '\uF8F2',
+      approve: '\uF8F3',
       // requried by office-ui
       more: '\uF8F4',
       chevrondown: '\uE088',

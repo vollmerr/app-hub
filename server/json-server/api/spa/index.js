@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const secret = require('../../secret');
 const C = require('./constants');
 
+
 const jwts = [];
 function generateJwt(sid, firstName, lastName, roles) {
   return jwt.sign({
@@ -13,6 +14,7 @@ function generateJwt(sid, firstName, lastName, roles) {
     exp: Math.floor(Date.now() / 1000) + 1000000,
   }, secret);
 }
+
 
 function generateUser() {
   const firstName = faker.name.firstName();
@@ -42,6 +44,7 @@ function generateUser() {
     [C.RECIPIENT.MANAGER_NAME]: `Manager Name ${managerSid}`,
   };
 }
+
 
 function generateRecipient(user) {
   let firstReminder = '';
@@ -161,6 +164,7 @@ const recipients = generateRecipients(users);
 const acknowledgments = generateAcknowledgments();
 const targetGroups = generateGroups(C.MIN_TARGET, C.MAX_TARGET);
 const creatorGroups = generateGroups(C.MIN_CREATOR, C.MAX_CREATOR);
+
 
 module.exports = {
   jwts,

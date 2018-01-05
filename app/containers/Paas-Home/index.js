@@ -47,6 +47,15 @@ export class PaasHome extends React.PureComponent {
     initialize(selectById(authorizations));
   }
 
+  handleAuthorizeNew = () => {
+    const { change, authorizations } = this.props;
+    selectAllIds(authorizations).forEach((id) => { // TODO: TRACK NEW IDS???/
+      apps.forEach((app) => {
+        change(`${id}[${app}]`, APPROVAL.APPROVE);
+      });
+    });
+  }
+
   handleAuthorizeAll = () => {
     const { change, authorizations } = this.props;
     selectAllIds(authorizations).forEach((id) => {
@@ -95,8 +104,30 @@ export class PaasHome extends React.PureComponent {
         <FormButtons {...buttonProps}>
           <DefaultButton
             primary
-            text={'Authorize All'}
-            onClick={this.handleAuthorizeAll}
+            split
+            text={'Authorize All New'}
+            onClick={this.handleAuthorizeNew}
+            iconProps={{ iconName: 'approve' }}
+            menuProps={{
+              items: [
+                {
+                  key: 'authorizeAll',
+                  name: 'Authorize All',
+                  icon: 'approve',
+                  onClick: this.handleAuthorizeAll,
+                },
+                {
+                  key: 'denyNew',
+                  name: 'Deny All New',
+                  icon: 'deny',
+                },
+                {
+                  key: 'denyAll',
+                  name: 'Deny All',
+                  icon: 'deny',
+                },
+              ],
+            }}
           />
         </FormButtons>
       </Form>
