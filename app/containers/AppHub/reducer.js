@@ -1,22 +1,18 @@
 import { fromJS } from 'immutable';
 import { handleActions } from 'redux-actions';
 
-import {
-  CHANGE_MOBILE,
-  CHANGE_PANEL_OPEN,
-  CHANGE_PANEL_SELECTED,
-  APPS_PANEL,
-  CHANGE_APP,
-  CHANGE_APP_STATUS,
-  AUTH_USER_DONE,
-} from './constants';
+import { unauthorizedRoute } from 'utils/validate';
+
+import allRoutes from './routes';
+import * as C from './constants';
+
 
 export const initialState = {
   view: {
     isMobile: false,
     panel: {
       isOpen: false,
-      selected: APPS_PANEL, // cannot be null/undefined or get error
+      selected: C.APPS_PANEL, // cannot be null/undefined or get error
     },
   },
   app: {
@@ -29,16 +25,18 @@ export const initialState = {
   user: {
     sid: '',
     roles: [],
+    routes: [],
   },
 };
 
+
 export default handleActions({
   // VIEW
-  [CHANGE_MOBILE]: (state, action) => state.setIn(['view', 'isMobile'], action.payload),
-  [CHANGE_PANEL_OPEN]: (state, action) => state.setIn(['view', 'panel', 'isOpen'], action.payload),
-  [CHANGE_PANEL_SELECTED]: (state, action) => state.setIn(['view', 'panel', 'selected'], action.payload),
+  [C.CHANGE_MOBILE]: (state, action) => state.setIn(['view', 'isMobile'], action.payload),
+  [C.CHANGE_PANEL_OPEN]: (state, action) => state.setIn(['view', 'panel', 'isOpen'], action.payload),
+  [C.CHANGE_PANEL_SELECTED]: (state, action) => state.setIn(['view', 'panel', 'selected'], action.payload),
   // APP
-  [CHANGE_APP]: (state, action) => {
+  [C.CHANGE_APP]: (state, action) => {
     const { name, routes, meta } = action.payload;
     return state
       .setIn(['app', 'error'], null)
@@ -47,7 +45,7 @@ export default handleActions({
       .setIn(['app', 'routes'], fromJS(routes))
       .setIn(['app', 'meta'], fromJS(meta));
   },
-  [CHANGE_APP_STATUS]: (state, action) => {
+  [C.CHANGE_APP_STATUS]: (state, action) => {
     const { error, loading } = action.payload;
 
     return state
@@ -55,7 +53,7 @@ export default handleActions({
       .setIn(['app', 'loading'], loading || 0);
   },
   // USER
-  [AUTH_USER_DONE]: (state, action) => {
+  [C.AUTH_USER_DONE]: (state, action) => {
     const { sid, roles, expire } = action.payload;
 
     if (action.error) {
@@ -65,10 +63,12 @@ export default handleActions({
     }
 
     const rolesArray = typeof roles === 'string' ? [roles] : roles;
+    const validRoutes = allRoutes.filter((route) => !unauthorizedRoute(route, rolesArray));
 
     return state
       .setIn(['user', 'sid'], sid)
       .setIn(['user', 'roles'], fromJS(rolesArray))
-      .setIn(['user', 'expire'], expire);
+      .setIn(['user', 'expire'], expire)
+      .setIn(['user', 'routes'], fromJS(validRoutes));
   },
 }, fromJS(initialState));

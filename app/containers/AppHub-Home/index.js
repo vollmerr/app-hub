@@ -5,10 +5,9 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import styled from 'styled-components';
 
-import { routesProp } from 'utils/propTypes';
 import { escapeRegExp } from 'utils/string';
 import theme from 'utils/theme';
-import { makeSelectIsMobile } from 'containers/AppHub/selectors';
+import { makeSelectIsMobile, getUserRoutes } from 'containers/AppHub/selectors';
 
 import Apps from './Apps';
 import Search from './Search';
@@ -65,7 +64,7 @@ export class AppHubHome extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      appRoutes: this.props.routes,
+      appRoutes: this.props.userRoutes.toJS(),
     };
   }
 
@@ -73,15 +72,14 @@ export class AppHubHome extends React.PureComponent {
    * Filters list of apps being displayed
    */
   handleChangeSearch = (value) => {
-    const { routes } = this.props;
+    const { userRoutes } = this.props;
     const re = new RegExp(escapeRegExp(value), 'i');
 
-    const appRoutes = routes.filter((route) => {
-      const { title, desc, keywords } = route.meta;
-      const meta = `${title} ${desc} ${keywords}`;
-
-      return meta.match(re);
-    });
+    const appRoutes = userRoutes.filter((route) => {
+      const { title, desc, keywords } = route.get('meta').toJS();
+      const toFilter = `${title} ${desc} ${keywords} ${route.get('name')}`;
+      return toFilter.match(re);
+    }).toJS();
 
     this.setState({ appRoutes });
   }
@@ -107,15 +105,16 @@ export class AppHubHome extends React.PureComponent {
 }
 
 
-const { bool } = PropTypes;
+const { bool, object } = PropTypes;
 
 AppHubHome.propTypes = {
   isMobile: bool.isRequired,
-  routes: routesProp.isRequired,
+  userRoutes: object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   isMobile: makeSelectIsMobile(),
+  userRoutes: getUserRoutes(),
 });
 
 const withConnect = connect(mapStateToProps);

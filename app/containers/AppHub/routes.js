@@ -4,6 +4,8 @@ import Spa from 'containers/Spa/Loadable';
 import Demo from 'containers/Demo/Loadable';
 import Loading from 'components/Loading/TestPage';
 
+import * as PAAS from 'containers/Paas/constants';
+
 import { meta } from './meta';
 
 const routes = [
@@ -26,6 +28,7 @@ const routes = [
     component: Paas,
     icon: 'Paas',
     meta: meta.paas,
+    roles: Object.values(PAAS.ROLES),
   },
   {
     key: 'spa',

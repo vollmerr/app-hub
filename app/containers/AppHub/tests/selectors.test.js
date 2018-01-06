@@ -13,6 +13,7 @@ import makeSelectAppHub, {
   makeSelectUser,
   makeSelectUserSid,
   makeSelectUserRoles,
+  getUserRoutes,
 } from '../selectors';
 
 const state = {
@@ -32,6 +33,7 @@ const state = {
     user: {
       sid: 'testUser',
       roles: ['super duper admin', 'best admin ever'],
+      routes: [{ name: 'route1' }],
     },
   },
 };
@@ -126,6 +128,12 @@ describe('AppHub selectors', () => {
     it('should select `roles`', () => {
       const selector = makeSelectUserRoles();
       const expected = fromJS(state.appHub.user.roles);
+      expect(selector(actual)).toEqual(expected);
+    });
+
+    it('should select `routes`', () => {
+      const selector = getUserRoutes();
+      const expected = fromJS(state.appHub.user.routes);
       expect(selector(actual)).toEqual(expected);
     });
   });

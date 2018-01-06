@@ -21,7 +21,7 @@ const props = {
   userName: 'test name',
   appName: 'test app name',
   appRoutes: fromJS([{ name: 'approute1', key: 'testHome', path: '/testpath' }, { name: 'approute2', key: '2', path: '/testpath2' }]),
-  routes: [{ name: 'route1', key: 'testHome', path: '/testpath' }, { name: 'route2', key: '2', path: '/testpath2' }],
+  userRoutes: fromJS([{ name: 'route1', key: 'testHome', path: '/testpath' }, { name: 'route2', key: '2', path: '/testpath2' }]),
 };
 
 
@@ -44,7 +44,7 @@ describe('<AppHub />', () => {
   });
 
   it('should set the appPath as the home path of the app', () => {
-    expect(wrapper.find(AppHubHeader).prop('appPath')).toEqual(props.routes[0].path);
+    expect(wrapper.find(AppHubHeader).prop('appPath')).toEqual(props.userRoutes.get(0).get('path'));
   });
 
   it('should not set an appPath if no `appRoutes`', () => {

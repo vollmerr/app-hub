@@ -7,7 +7,6 @@ import { Helmet } from 'react-helmet';
 
 import AppHubHeader from 'components/AppHub-Header';
 import AppHubPanel from 'components/AppHub-Panel';
-import { routesProp } from 'utils/propTypes';
 import theme from 'utils/theme';
 
 import injectSaga from 'utils/injectSaga';
@@ -19,6 +18,7 @@ import {
   makeSelectAppName,
   makeSelectAppRoutes,
   makeSelectUserSid,
+  getUserRoutes,
 } from './selectors';
 
 import saga from './saga';
@@ -43,6 +43,9 @@ export class AppHub extends React.PureComponent {
     window.removeEventListener('resize', this.handleResize);
   }
 
+  /**
+   * Handles window resizing, determines if is mobile or desktop view
+   */
   handleResize = () => {
     const { onChangeMobile, onChangePanelOpen, isMobile } = this.props;
     const mobile = window.innerWidth <= theme.breakpoints.lg;
@@ -53,6 +56,9 @@ export class AppHub extends React.PureComponent {
     }
   }
 
+  /**
+   * Handles clicking on a panel from the header, determines if should open or close
+   */
   handlePanelClick = (panel) => {
     const { onChangePanelOpen, onChangePanelSelected, panelSelected, panelIsOpen } = this.props;
     const selected = panel || panelSelected; // errors if null, so set a default
@@ -70,7 +76,7 @@ export class AppHub extends React.PureComponent {
   }
 
   render() {
-    const { isMobile, panelSelected, panelIsOpen, appName, appRoutes, routes, userName } = this.props;
+    const { isMobile, panelSelected, panelIsOpen, appName, appRoutes, userName, userRoutes } = this.props;
     const appPath = appRoutes.isEmpty() ? '' : appRoutes.find((route) => route.get('key').match(/Home/)).get('path');
 
     const headerProps = {
@@ -85,7 +91,7 @@ export class AppHub extends React.PureComponent {
 
     const panelProps = {
       isMobile,
-      routes,
+      routes: userRoutes.toJS(),
       appRoutes: appRoutes.toJS(),
       panel: panelSelected,
       isOpen: panelIsOpen,
@@ -117,10 +123,10 @@ AppHub.propTypes = {
   isMobile: bool.isRequired,
   panelIsOpen: bool.isRequired,
   panelSelected: string.isRequired,
-  userName: string.isRequired,
   appName: string.isRequired,
   appRoutes: object.isRequired,
-  routes: routesProp.isRequired,
+  userName: string.isRequired,
+  userRoutes: object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -130,6 +136,7 @@ const mapStateToProps = createStructuredSelector({
   appName: makeSelectAppName(),
   appRoutes: makeSelectAppRoutes(),
   userName: makeSelectUserSid(),
+  userRoutes: getUserRoutes(),
 });
 
 export function mapDispatchToProps(dispatch) {

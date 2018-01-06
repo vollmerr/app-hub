@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { fromJS } from 'immutable';
 import 'jest-styled-components';
 
 import { testStyledComponent } from 'utils/testUtils';
@@ -20,14 +21,14 @@ describe('<LowerSection />', () => {
   expect(wrapper).toMatchSnapshot();
 });
 
-const routes = [
+const userRoutes = fromJS([
   { key: '1', exact: true, path: 'path1', component: () => <div>1</div>, meta: { title: 'test 1' } },
-  { key: '2', exact: false, path: 'path2', component: () => <div>2</div>, meta: { title: 'test 3' } },
+  { key: '2', exact: false, path: 'path2', component: () => <div>2</div>, meta: { title: 'test 3' }, roles: ['role1'] },
   { key: '3', href: 'testHref', meta: { title: 'test 1' } },
-];
+]);
 
 const props = {
-  routes,
+  userRoutes,
   isMobile: false,
 };
 
@@ -76,9 +77,9 @@ describe('<AppHubHome />', () => {
   describe('handleChangeSearch', () => {
     it('should update `appRoutes` based off the inputed value', () => {
       instance.handleChangeSearch('1');
-      expect(wrapper.state('appRoutes')).toEqual([routes[0], routes[2]]);
+      expect(wrapper.state('appRoutes')).toEqual([userRoutes.get(0).toJS(), userRoutes.get(2).toJS()]);
       instance.handleChangeSearch('3');
-      expect(wrapper.state('appRoutes')).toEqual([routes[1]]);
+      expect(wrapper.state('appRoutes')).toEqual([userRoutes.get(1).toJS()]);
       instance.handleChangeSearch('123');
       expect(wrapper.state('appRoutes')).toEqual([]);
     });

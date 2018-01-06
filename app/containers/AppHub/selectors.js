@@ -80,6 +80,11 @@ const makeSelectUserRoles = () => createSelector(
   (substate) => substate.getIn(['user', 'roles'])
 );
 
+export const getUserRoutes = () => createSelector(
+  selectAppHubDomain,
+  (substate) => substate.getIn(['user', 'routes'])
+);
+
 /**
  * Default selector used by AppHub
  */
