@@ -248,8 +248,7 @@ exports[`<SpaHome /> should render correctly 1`] = `
       title="Previous Acknowledgments"
     />
   </ListSection__ListSection>
-  <ReduxForm
-    hasAck={false}
+  <AckModal
     hasRead={false}
     hideModal={true}
     item={Object {}}

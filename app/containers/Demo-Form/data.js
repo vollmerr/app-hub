@@ -90,7 +90,7 @@ export default {
           label: 'Normalized Numbers (####-###)',
           name: 'textNormalized',
           placeholder: 'Enter numbers...',
-          normalize: normalizeNumber,
+          parse: normalizeNumber,
           component: FieldText,
         },
       },
@@ -284,14 +284,6 @@ export default {
           offText: 'Off Text',
           component: FieldToggle,
         },
-        toggleRequired: {
-          required: true,
-          label: 'Required Toggle',
-          name: 'toggleRequired',
-          onText: 'On Text',
-          offText: 'Off Text',
-          component: FieldToggle,
-        },
         toggleDisabled: {
           required: true, // required for testing purposes (should render as not required due to being disabled)
           disabled: true,
@@ -318,8 +310,18 @@ export default {
           offText: 'Off Text',
           component: FieldToggle,
         },
+        toggleRequired: {
+          warning: true,
+          required: true,
+          isNullable: true,
+          label: 'Nullable Toggle Required',
+          name: 'toggleRequired',
+          onText: 'On Text',
+          offText: 'Off Text',
+          component: FieldToggle,
+        },
       },
-      allNames: ['toggleDefault', 'toggleRequired', 'toggleDisabled', 'toggleNullable', 'toggleWarning'],
+      allNames: ['toggleDefault', 'toggleDisabled', 'toggleNullable', 'toggleWarning', 'toggleRequired'],
     },
   },
 };

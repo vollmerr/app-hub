@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { fromJS } from 'immutable';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import styled from 'styled-components';
 import { Label } from 'office-ui-fabric-react/lib/Label';
@@ -23,6 +22,8 @@ export const Check = styled(Checkbox)`
 
 
 export class FieldChecks extends React.Component {
+  static format = (value) => value || [];
+
   constructor(props) {
     super(props);
     this.state = {
@@ -33,7 +34,7 @@ export class FieldChecks extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { input, options } = nextProps;
     // when redux form resets, reset the options to not checked
-    if (!input.value) {
+    if (isEmptyChecks(input.value)) {
       const newOptions = options.map((option) => ({ ...option, checked: false }));
       this.setState({ options: newOptions });
     }
@@ -50,7 +51,7 @@ export class FieldChecks extends React.Component {
       .filter((option) => option.checked)
       .map((option) => option.key);
     // update in redux store and state
-    input.onChange(fromJS(checked));
+    input.onChange(checked);
     this.setState({ options: newOptions });
   }
 
@@ -98,11 +99,11 @@ export class FieldChecks extends React.Component {
 }
 
 
-const { bool, string, object } = PropTypes;
+const { bool, string, array } = PropTypes;
 
 FieldChecks.propTypes = {
   meta: metaProp.isRequired,
-  input: inputProp(object).isRequired,
+  input: inputProp(array).isRequired,
   label: string,
   required: bool,
   options: optionsProp.isRequired,

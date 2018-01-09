@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { fromJS } from 'immutable';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { Label } from 'office-ui-fabric-react/lib/Label';
 import 'jest-styled-components';
@@ -11,7 +10,9 @@ import Default, { FieldChecks, Check } from '../FieldChecks';
 import { FieldChecks as Index } from '../index';
 import FieldError from '../FieldError';
 
+
 testStyledComponent(Check, Checkbox);
+
 
 describe('Check', () => {
   let wrapper;
@@ -29,6 +30,7 @@ describe('Check', () => {
   });
 });
 
+
 const props = {
   label: 'test label',
   name: 'test name',
@@ -37,7 +39,7 @@ const props = {
     touched: false,
   },
   input: {
-    value: fromJS([]),
+    value: [],
     onBlur: jest.fn(),
     onFocus: jest.fn(),
     onChange: jest.fn(),
@@ -48,6 +50,7 @@ const props = {
     { key: 'key3', text: 'text 3' },
   ],
 };
+
 
 describe('FieldChecks', () => {
   let wrapper;
@@ -106,14 +109,8 @@ describe('FieldChecks', () => {
       let options = [...props.options];
       options[2].checked = true;
       wrapper.setState({ options });
-      // set an input value, should not change options
-      let input = { ...props.input, value: 'test value' };
-      instance.componentWillReceiveProps({ ...props, input });
-      expect(wrapper.state('options')).toEqual(options);
-      // simulate clearing form (no input.value), should make all `checked: false`
       options = options.map((option) => ({ ...option, checked: false }));
-      input = { ...props.input, value: undefined };
-      instance.componentWillReceiveProps({ ...props, input });
+      instance.componentWillReceiveProps({ ...props, input: { ...props.input, value: undefined } });
       expect(wrapper.state('options')).toEqual(options);
     });
   });
@@ -129,10 +126,10 @@ describe('FieldChecks', () => {
     it('should handle calling redux-form`s onChange', () => {
       // check
       instance.handleChange(null, true, key);
-      expect(props.input.onChange).toHaveBeenCalledWith(fromJS([key]));
+      expect(props.input.onChange).toHaveBeenCalledWith([key]);
       // uncheck
       instance.handleChange(null, false, key);
-      expect(props.input.onChange).toHaveBeenCalledWith(fromJS([]));
+      expect(props.input.onChange).toHaveBeenCalledWith([]);
     });
 
     it('should handle updating `options` in the state', () => {

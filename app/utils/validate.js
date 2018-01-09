@@ -21,7 +21,7 @@ export const isFutureDate = (value) => (
 );
 
 export const isEmptyChecks = (value) => (
-  !value || typeof value !== 'object' || !value.size
+  !value || !Array.isArray(value) || !value.length
     ? 'Required'
     : undefined
 );

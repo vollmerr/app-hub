@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getFormValues } from 'redux-form/immutable';
 import { createStructuredSelector } from 'reselect';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
@@ -118,7 +117,7 @@ export class SpaHome extends React.PureComponent {
   }
 
   render() {
-    const { enums, userPendingAcks, userPreviousAcks, Loading, formValues } = this.props;
+    const { enums, userPendingAcks, userPreviousAcks, Loading } = this.props;
     const { selectedItem, hasRead, hideModal } = this.state;
 
     if (Loading) {
@@ -149,7 +148,6 @@ export class SpaHome extends React.PureComponent {
     /* istanbul ignore next */
     const modalProps = {
       hasRead,
-      hasAck: Boolean(formValues && formValues.get('hasAck').size),
       hideModal,
       item: selectedItem,
       onClose: this.handleCloseModal,
@@ -183,7 +181,6 @@ SpaHome.propTypes = {
   userPreviousAcks: object.isRequired,
   onGetUserDataRequest: func.isRequired,
   Loading: node,
-  formValues: object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -191,7 +188,6 @@ const mapStateToProps = createStructuredSelector({
   userCached: getUserCached(),
   userPendingAcks: getUserPendingAcks(),
   userPreviousAcks: getUserPreviousAcks(),
-  formValues: getFormValues('spaHome'),
 });
 
 export const mapDispatchToProps = (dispatch) => ({

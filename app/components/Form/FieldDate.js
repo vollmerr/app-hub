@@ -66,6 +66,8 @@ export const Picker = styled(DatePicker)`
 
 
 export class FieldDate extends React.Component {
+  static format = (value) => value ? new Date(value) : undefined;
+
   handleChange = (date) => {
     const { input } = this.props;
     input.onChange(date);

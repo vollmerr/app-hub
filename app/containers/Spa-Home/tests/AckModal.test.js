@@ -2,12 +2,14 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { Dialog, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
+import { Form } from 'react-final-form';
 
 import { ACK } from 'containers/Spa/constants';
 import { FieldChecks } from 'components/Form';
 import { testStyledComponent } from 'utils/testUtils';
 
 import { AckModal, FieldChecksTop } from '../AckModal';
+
 
 testStyledComponent(FieldChecksTop, FieldChecks);
 
@@ -18,21 +20,26 @@ const props = {
     [ACK.DETAILS]: 'test details',
     [ACK.STATEMENT]: 'test statement',
   },
-  reset: jest.fn(),
   onSubmit: jest.fn(),
   onRead: jest.fn(),
   onClose: jest.fn(),
-  hasAck: false,
   hasRead: false,
   hideModal: false,
+};
+
+const formProps = {
+  values: props.item,
   handleSubmit: jest.fn(),
 };
 
+
 describe('<AckModal />', () => {
   let wrapper;
+  let instance;
   beforeEach(() => {
     jest.resetAllMocks();
     wrapper = shallow(<AckModal {...props} />);
+    instance = wrapper.instance();
   });
 
   it('should render correctly', () => {
@@ -44,8 +51,8 @@ describe('<AckModal />', () => {
     expect(wrapper.find(Dialog).prop('hidden')).toEqual(false);
   });
 
-  it('should render a `DialogFooter`', () => {
-    expect(wrapper.find(Dialog).find(DialogFooter).length).toEqual(1);
+  it('should render a `Form`', () => {
+    expect(wrapper.find(Form).length).toEqual(1);
   });
 
   it('should hide the model when `hideModal`', () => {
@@ -53,30 +60,55 @@ describe('<AckModal />', () => {
     expect(wrapper.find(Dialog).prop('hidden')).toEqual(true);
   });
 
-  it('should render a primary action button in the footer', () => {
-    const button = wrapper.find(Dialog).find(DialogFooter).find(PrimaryButton);
-    expect(button.length).toEqual(1);
+
+  describe('handleClose', () => {
+    it('should handle closing the modal', () => {
+      instance.handleClose();
+      expect(props.onClose).toHaveBeenCalled();
+    });
   });
 
-  it('should render a secondary action button in the footer', () => {
-    const button = wrapper.find(Dialog).find(DialogFooter).find(DefaultButton);
-    expect(button.length).toEqual(1);
-  });
 
-  it('should handle reading when pressing the primary button if not read', () => {
-    expect(wrapper.find(PrimaryButton).prop('onClick')).toEqual(props.onRead);
-    expect(wrapper.find(PrimaryButton).prop('text')).toEqual('Download');
-  });
+  describe('renderForm', () => {
+    let form;
+    beforeEach(() => {
+      const C = () => instance.renderForm(formProps);
+      form = shallow(<C />);
+    });
 
-  it('should handle acknowledging when pressing the primary button if read', () => {
-    wrapper.setProps({ hasRead: true });
-    expect(wrapper.find(PrimaryButton).prop('onClick')).toEqual(props.onSubmit);
-    expect(wrapper.find(PrimaryButton).prop('text')).toEqual('Submit');
-  });
+    it('should render a form', () => {
+      expect(form.find('form').length).toEqual(1);
+    });
 
-  it('should reset the form before closing (should be in parent component but wont work..)', () => {
-    wrapper.instance().handleClose();
-    expect(props.reset).toHaveBeenCalled();
-    expect(props.onClose).toHaveBeenCalled();
+    it('should render a checkbox', () => {
+      expect(form.find(FieldChecksTop).length).toEqual(1);
+    });
+
+    it('should render a `DialogFooter`', () => {
+      expect(form.find(DialogFooter).length).toEqual(1);
+    });
+
+    it('should render a primary action button in the footer', () => {
+      const button = form.find(DialogFooter).find(PrimaryButton);
+      expect(button.length).toEqual(1);
+    });
+
+    it('should render a secondary action button in the footer', () => {
+      const button = form.find(DialogFooter).find(DefaultButton);
+      expect(button.length).toEqual(1);
+    });
+
+    it('should handle reading when pressing the primary button if not read', () => {
+      expect(form.find(PrimaryButton).prop('onClick')).toEqual(props.onRead);
+      expect(form.find(PrimaryButton).prop('text')).toEqual('Download');
+    });
+
+    it('should handle acknowledging when pressing the primary button if read', () => {
+      wrapper.setProps({ hasRead: true });
+      const C = () => instance.renderForm(formProps);
+      form = shallow(<C />);
+      expect(form.find(PrimaryButton).prop('onClick')).toEqual(props.onSubmit);
+      expect(form.find(PrimaryButton).prop('text')).toEqual('Submit');
+    });
   });
 });

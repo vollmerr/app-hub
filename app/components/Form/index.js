@@ -6,5 +6,5 @@ export { default as FieldRadios } from './FieldRadios';
 export { default as FieldSelect } from './FieldSelect';
 export { default as FieldText } from './FieldText';
 export { default as FieldToggle } from './FieldToggle';
-export { default as Form } from './Form';
+export { default as StyledForm } from './StyledForm';
 export { default as FormButtons } from './FormButtons';

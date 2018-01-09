@@ -6,7 +6,6 @@ import { combineReducers } from 'redux-immutable';
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import appHubReducer from 'containers/AppHub/reducer';
-import { reducer as form } from 'redux-form/immutable';
 /*
  * routeReducer
  *
@@ -40,7 +39,6 @@ function routeReducer(state = routeInitialState, action) {
  */
 export default function createReducer(injectedReducers) {
   return combineReducers({
-    form, // all forms are mounted under this
     route: routeReducer,
     appHub: appHubReducer, // our global reducer
     ...injectedReducers,

@@ -1,8 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Field as ReduxField } from 'redux-form/immutable';
+import { Field as ReactField } from 'react-final-form';
+
 
 const { bool, string, arrayOf, func } = PropTypes;
+
+export const composeValidators = (...validators) => (value) => (
+  validators.reduce((error, validator) => error || validator(value), undefined)
+);
+
+export const format = (component) => (value) => (
+  component.format ? component.format(value) : value || ''
+);
 
 
 function Field(WrappedComponent, requiredFunc = null) {
@@ -50,15 +59,15 @@ function Field(WrappedComponent, requiredFunc = null) {
         ...props,
         disabled,
         required: isRequired,
-        validate: toValidate,
+        validate: composeValidators(...toValidate),
         placeholder: newPlaceholder,
         'aria-label': ariaLabel,
         component: WrappedComponent,
-        format: (value) => (value === '' ? [] : value), // to stop warnings for array types (appears to work for text types...)
+        format: format(WrappedComponent),
       };
 
       return (
-        <ReduxField {...fieldProps} />
+        <ReactField {...fieldProps} />
       );
     }
   };

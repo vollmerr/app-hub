@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm } from 'redux-form/immutable';
 import styled from 'styled-components';
+import { Form } from 'react-final-form';
 
 import appPage from 'containers/App-Container/appPage';
-import { Form, FormButtons } from 'components/Form';
+import { StyledForm, FormButtons } from 'components/Form';
 import theme from 'utils/theme';
 
 import validate from './validate';
@@ -48,21 +48,16 @@ function mapSection(fields, section) {
  * Form for new acknowledgments, available only to admins
  */
 export class NewAckForm extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
+  renderForm = ({
+    reset,
+    pristine,
+    submitting,
+    handleSubmit,
+  }) => {
     const {
       title,
       fields,
       sections,
-      handleSubmit,
-      pristine,
-      reset,
-      submitting,
-      onSubmit,
     } = this.props;
 
     const buttonProps = {
@@ -71,8 +66,7 @@ export class NewAckForm extends React.PureComponent {
     };
 
     return (
-      // pass custom onSubmit to redux-forms handleSubmit.
-      <Form onSubmit={handleSubmit(onSubmit)} margin={theme.app.subNavHeight}>
+      <StyledForm onSubmit={handleSubmit} margin={theme.app.subNavHeight}>
         <h3>{title}</h3>
 
         <Fields>
@@ -81,28 +75,31 @@ export class NewAckForm extends React.PureComponent {
         </Fields>
 
         <FormButtons {...buttonProps} />
-      </Form>
+      </StyledForm>
     );
+  }
+
+  render() {
+    const { onSubmit } = this.props;
+
+    const formProps = {
+      onSubmit,
+      validate,
+      render: this.renderForm,
+    };
+
+    return <Form {...formProps} />;
   }
 }
 
 
-const { func, bool, string, object } = PropTypes;
+const { func, string, object } = PropTypes;
 
 NewAckForm.propTypes = {
   title: string.isRequired,
   fields: object.isRequired,
   sections: object.isRequired,
-  handleSubmit: func.isRequired,
-  reset: func.isRequired,
-  pristine: bool.isRequired,
-  submitting: bool.isRequired,
   onSubmit: func.isRequired,
 };
 
-const withAppPage = appPage(NewAckForm);
-
-export default reduxForm({
-  form: 'spaAdmin',
-  validate,
-})(withAppPage);
+export default appPage(NewAckForm);

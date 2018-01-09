@@ -3,16 +3,16 @@ import { shallow } from 'enzyme';
 import { testStyledComponent } from 'utils/testUtils';
 import 'jest-styled-components';
 
-import Form from '../Form';
+import StyledForm from '../StyledForm';
 
 
-testStyledComponent(Form);
+testStyledComponent(StyledForm);
 
 
-describe('<Form />', () => {
+describe('<StyledForm />', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<Form />);
+    wrapper = shallow(<StyledForm />);
   });
 
   it('should render correctly with vh and margin passed', () => {

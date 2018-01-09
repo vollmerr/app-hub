@@ -12,33 +12,11 @@ exports[`<AckModal /> should render correctly 1`] = `
   hidden={false}
   onDismiss={[Function]}
 >
-  <form
-    noValidate={true}
-  >
-    <AckModal__FieldChecksTop
-      disabled={true}
-      name="hasAck"
-      options={
-        Array [
-          Object {
-            "key": "ack",
-            "text": "test statement",
-          },
-        ]
-      }
-    />
-    <DialogFooter>
-      <CustomizedPrimaryButton
-        disabled={false}
-        onClick={[Function]}
-        text="Download"
-      />
-      <CustomizedDefaultButton
-        onClick={[Function]}
-        text="Cancel"
-      />
-    </DialogFooter>
-  </form>
+  <ReactFinalForm(3.0.0)(2.1.0)
+    hasRead={false}
+    onSubmit={[Function]}
+    render={[Function]}
+  />
 </WithResponsiveMode>
 `;
 

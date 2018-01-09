@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { reduxForm } from 'redux-form/immutable';
 import { DefaultButton, PrimaryButton } from 'office-ui-fabric-react/lib/Button';
 import { Dialog, DialogType, DialogFooter } from 'office-ui-fabric-react/lib/Dialog';
+import { Form } from 'react-final-form';
 
 import { FieldChecks } from 'components/Form';
 import { ACK } from 'containers/Spa/constants';
+import { isEmptyChecks } from 'utils/validate';
 
 
 export const FieldChecksTop = styled(FieldChecks) `
@@ -22,33 +23,17 @@ export const FieldChecksTop = styled(FieldChecks) `
  */
 export class AckModal extends React.PureComponent {
   handleClose = () => {
-    const { reset, onClose } = this.props;
-    // reset the form when closing then call the close passed
-    // for some reason will not work if called in parent...
-    reset();
+    const { onClose } = this.props;
     onClose();
   }
 
-  render() {
+  renderForm = ({ handleSubmit, values }) => {
     const {
       item,
       onSubmit,
       onRead,
-      hasAck,
       hasRead,
-      hideModal,
-      handleSubmit,
     } = this.props;
-
-    const dialogProps = {
-      hidden: hideModal,
-      onDismiss: this.handleClose,
-      dialogContentProps: {
-        type: DialogType.largeHeader,
-        title: item[ACK.TITLE],
-        subText: item[ACK.DETAILS],
-      },
-    };
 
     const checkboxProps = {
       name: 'hasAck',
@@ -61,7 +46,7 @@ export class AckModal extends React.PureComponent {
     const primaryButtonProps = {
       onClick: hasRead ? onSubmit : onRead,
       text: hasRead ? 'Submit' : 'Download',
-      disabled: hasRead && !hasAck,
+      disabled: hasRead && isEmptyChecks(values.hasAck),
     };
 
     const cancelButtonProps = {
@@ -70,15 +55,44 @@ export class AckModal extends React.PureComponent {
     };
 
     return (
-      <Dialog {...dialogProps}>
-        <form onSubmit={handleSubmit(onSubmit)} noValidate>
-          <FieldChecksTop {...checkboxProps} />
+      <form onSubmit={handleSubmit} noValidate>
+        <FieldChecksTop {...checkboxProps} />
 
-          <DialogFooter>
-            <PrimaryButton {...primaryButtonProps} />
-            <DefaultButton {...cancelButtonProps} />
-          </DialogFooter>
-        </form>
+        <DialogFooter>
+          <PrimaryButton {...primaryButtonProps} />
+          <DefaultButton {...cancelButtonProps} />
+        </DialogFooter>
+      </form>
+    );
+  }
+
+  render() {
+    const {
+      item,
+      hasRead,
+      onSubmit,
+      hideModal,
+    } = this.props;
+
+    const dialogProps = {
+      hidden: hideModal,
+      onDismiss: this.handleClose,
+      dialogContentProps: {
+        type: DialogType.largeHeader,
+        title: item[ACK.TITLE],
+        subText: item[ACK.DETAILS],
+      },
+    };
+
+    const formProps = {
+      hasRead,
+      onSubmit,
+      render: this.renderForm,
+    };
+
+    return (
+      <Dialog {...dialogProps}>
+        <Form {...formProps} />
       </Dialog>
     );
   }
@@ -92,16 +106,11 @@ AckModal.propTypes = {
     name: string,
     details: string,
   }).isRequired,
-  reset: func.isRequired,
   onSubmit: func.isRequired,
   onRead: func.isRequired,
   onClose: func.isRequired,
-  hasAck: bool,
   hasRead: bool.isRequired,
   hideModal: bool.isRequired,
-  handleSubmit: func.isRequired,
 };
 
-export default reduxForm({
-  form: 'spaHome',
-})(AckModal);
+export default AckModal;

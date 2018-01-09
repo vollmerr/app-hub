@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Field as ReduxField } from 'redux-form/immutable';
+import { Field as ReactField } from 'react-final-form';
 
-import Field from '../Field';
+import Field, { composeValidators, format } from '../Field';
 import { Field as Index } from '../index';
+
 
 const WrappedComponent = () => <input type={'text'} />;
 const requiredFunc = jest.fn();
@@ -14,6 +15,36 @@ const props = {
   disabled: false,
   validate: [],
 };
+
+
+describe('composeValidators', () => {
+  it('should return a function that reduces the validators to the first error', () => {
+    const validators = [jest.fn(() => 'error message 1'), jest.fn(() => 'error message 2')];
+    expect(composeValidators(...validators)('test')).toEqual('error message 1');
+  });
+
+  it('should  return a function that reduces the validators to undefined if no errors', () => {
+    const validators = [jest.fn(() => undefined), jest.fn(() => undefined)];
+    expect(composeValidators(...validators)('test')).toEqual(undefined);
+  });
+});
+
+
+describe('format', () => {
+  it('should return a function that formats based off the `format` property', () => {
+    const component = { format: (x) => x.toUpperCase() };
+    expect(format(component)('test')).toEqual('TEST');
+  });
+
+  it('should the value if no format provided', () => {
+    expect(format({})('test')).toEqual('test');
+  });
+
+  it('should be a empty string if no format provided and no value', () => {
+    expect(format({})()).toEqual('');
+  });
+});
+
 
 describe('Field', () => {
   let Hoc;
@@ -33,45 +64,37 @@ describe('Field', () => {
   });
 
   it('should render a redux-form Field with the passed component', () => {
-    expect(wrapper.find(ReduxField).length).toEqual(1);
-    expect(wrapper.find(ReduxField).prop('component')).toEqual(WrappedComponent);
+    expect(wrapper.find(ReactField).length).toEqual(1);
+    expect(wrapper.find(ReactField).prop('component')).toEqual(WrappedComponent);
   });
 
   it('should be required if not disabled', () => {
     wrapper.setProps({ required: true });
-    expect(wrapper.find(ReduxField).prop('required')).toEqual(true);
-    expect(wrapper.find(ReduxField).prop('validate')).toEqual([requiredFunc]);
+    expect(wrapper.find(ReactField).prop('required')).toEqual(true);
   });
 
   it('should be not be required if disabled', () => {
     wrapper.setProps({ required: true, disabled: true });
-    expect(wrapper.find(ReduxField).prop('required')).toEqual(false);
-    expect(wrapper.find(ReduxField).prop('validate')).toEqual([]);
+    expect(wrapper.find(ReactField).prop('required')).toEqual(false);
   });
 
-  it('should pass addtional validation if not disabled', () => {
-    const validate = [jest.fn(), jest.fn()];
-    wrapper.setProps({ validate });
-    expect(wrapper.find(ReduxField).prop('validate')).toEqual(validate);
+  // it('should pass addtional validation if not disabled', () => {
+  //   const validate = [jest.fn(), jest.fn()];
+  //   wrapper.setProps({ validate });
+  //   expect(wrapper.find(ReactField).prop('validate')).toEqual(validate);
 
-    wrapper.setProps({ required: true });
-    expect(wrapper.find(ReduxField).prop('validate')).toEqual([...validate, requiredFunc]);
-  });
+  //   wrapper.setProps({ required: true });
+  //   expect(wrapper.find(ReactField).prop('validate')).toEqual([...validate, requiredFunc]);
+  // });
 
-  it('should not pass addtional validation if disabled', () => {
-    const validate = [jest.fn(), jest.fn()];
-    wrapper.setProps({ disabled: true, validate });
-    expect(wrapper.find(ReduxField).prop('validate')).toEqual([]);
+  // it('should not pass addtional validation if disabled', () => {
+  //   const validate = [jest.fn(), jest.fn()];
+  //   wrapper.setProps({ disabled: true, validate });
+  //   expect(wrapper.find(ReactField).prop('validate')).toEqual([]);
 
-    wrapper.setProps({ required: true });
-    expect(wrapper.find(ReduxField).prop('validate')).toEqual([]);
-  });
-
-  it('should format empty strings correctly', () => {
-    const value = 'test value';
-    expect(wrapper.find(ReduxField).prop('format')('')).toEqual([]);
-    expect(wrapper.find(ReduxField).prop('format')(value)).toEqual(value);
-  });
+  //   wrapper.setProps({ required: true });
+  //   expect(wrapper.find(ReactField).prop('validate')).toEqual([]);
+  // });
 
   it('should be exported in the index', () => {
     expect(Field).toBe(Index);

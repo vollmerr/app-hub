@@ -1,24 +1,18 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { toJS } from 'immutable'
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-import { reduxForm } from 'redux-form/immutable';
 import styled from 'styled-components';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { Form } from 'react-final-form';
 
 import appPage from 'containers/App-Container/appPage';
 import theme from 'utils/theme';
-import { isEmptyText } from 'utils/validate';
 
 import Section from './Section';
 import fields from './data';
 import validate from './validate';
 
 
-const Form = styled.form`
+const StyledForm = styled.form`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
@@ -47,61 +41,50 @@ export class DemoForm extends React.PureComponent {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting, Loading } = this.props;
-    const onSubmit = (vals) => alert(JSON.stringify(vals.toJS(), null, 2));
+    const { Loading } = this.props;
+    const onSubmit = (vals) => alert(JSON.stringify(vals, null, 2));
 
     if (Loading) {
       return Loading;
     }
 
     return (
-      // pass custom onSubmit to redux-forms handleSubmit. Use noValidate to turn off html5 validation
-      <Form onSubmit={handleSubmit(onSubmit)} noValidate>
-        {
-          // go through each section in the form in order specified
-          fields.allSections.map((sectionName) => (
-            // when mapping/looping a unique 'key' is required by react.
-            // look up the section by name and pass all its values to 'Section'
-            <Section key={sectionName} {...fields.bySection[sectionName]} />
-          ))
-        }
+      <Form
+        onSubmit={onSubmit}
+        validate={validate}
+        render={({ handleSubmit, reset, submitting, pristine }) => (
+          <StyledForm onSubmit={handleSubmit}>
+            {
+              fields.allSections.map((sectionName) => (
+                <Section key={sectionName} {...fields.bySection[sectionName]} />
+              ))
+            }
 
-        <Buttons>
-          <DefaultButton
-            primary
-            type={'submit'}
-            disabled={pristine || submitting}
-            text={'Submit'}
-          />
-          <DefaultButton
-            disabled={pristine || submitting}
-            text={'Clear'}
-            onClick={reset}
-          />
-        </Buttons>
-      </Form>
+            <Buttons>
+              <DefaultButton
+                primary
+                type={'submit'}
+                disabled={pristine || submitting}
+                text={'Submit'}
+              />
+              <DefaultButton
+                disabled={pristine || submitting}
+                text={'Clear'}
+                onClick={reset}
+              />
+            </Buttons>
+          </StyledForm>
+        )}
+      />
     );
   }
 }
 
 
-const { func, bool, string, node } = PropTypes;
+const { node } = PropTypes;
 
 DemoForm.propTypes = {
-  handleSubmit: func.isRequired,
-  reset: func.isRequired,
-  pristine: bool.isRequired,
-  submitting: bool.isRequired,
   Loading: node,
 };
 
-const withForm = reduxForm({
-  form: 'demo', // name of form (in redux store as 'form.demo')
-  validate, // form wide validation (such as if this field is filled out this one must also be)
-});
-
-const withAppPage = appPage(DemoForm);
-
-export default compose(
-  withForm,
-)(withAppPage);
+export default appPage(DemoForm);

@@ -29,7 +29,6 @@ const props = {
   pristine: false,
   submitting: false,
   reset: jest.fn(),
-  change: jest.fn(),
   handleSubmit: jest.fn(),
   initialize: jest.fn(),
 };
@@ -58,9 +57,10 @@ describe('<PaasHome />', () => {
 
   describe('handleAuthorizeAll', () => {
     it('should dispatch `change` for all authorizations', () => {
-      instance.handleAuthorizeAll();
-      expect(props.change).toHaveBeenCalledWith(`${authorizations.allIds[0]}[${apps[3]}]`, 1);
-      expect(props.change).toHaveBeenCalledWith(`${authorizations.allIds[1]}[${apps[0]}]`, 1);
+      const change = jest.fn();
+      instance.handleAuthorizeAll(change)();
+      expect(change).toHaveBeenCalledWith(`${authorizations.allIds[0]}[${apps[3]}]`, 1);
+      expect(change).toHaveBeenCalledWith(`${authorizations.allIds[1]}[${apps[0]}]`, 1);
     });
   });
 

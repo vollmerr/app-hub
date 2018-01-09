@@ -1,8 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Form } from 'react-final-form';
 
 import { testStyledComponent } from 'utils/testUtils';
-import { Form, FormButtons } from 'components/Form';
+import { StyledForm, FormButtons } from 'components/Form';
 import { acknowledgment, newAckForm } from 'containers/Spa/data';
 
 import { NewAckForm, Fields, FieldSection } from '../NewAckForm';
@@ -15,11 +16,14 @@ const props = {
   title: 'test title',
   fields: acknowledgment,
   sections: newAckForm.sections,
-  handleSubmit: jest.fn(),
+  onSubmit: jest.fn(),
+};
+
+const formProps = {
   reset: jest.fn(),
   pristine: false,
   submitting: false,
-  onSubmit: jest.fn(),
+  handleSubmit: jest.fn(),
 };
 
 
@@ -38,22 +42,30 @@ describe('<NewAckForm />', () => {
     expect(wrapper.find(Form).length).toEqual(1);
   });
 
-  it('should render a title (h3)', () => {
-    expect(wrapper.find(Form).find('h3').length).toEqual(1);
-    expect(wrapper.find('h3').text()).toEqual(props.title);
-  });
 
-  it('should render a `FormButtons` section for action buttons', () => {
-    expect(wrapper.find(Form).find(FormButtons).length).toEqual(1);
-  });
+  describe('renderForm', () => {
+    let form;
+    beforeEach(() => {
+      const C = () => wrapper.instance().renderForm(formProps);
+      form = shallow(<C />);
+    });
 
-  it('should render all the fields', () => {
-    const len = newAckForm.sections.left.length + newAckForm.sections.right.length;
-    expect(wrapper.find('WrappedField').length).toEqual(len);
-  });
+    it('should render a `StlyedForm`', () => {
+      expect(form.find(StyledForm).length).toEqual(1);
+    });
 
-  it('should call onSubmit with redux-form`s handleSubmit when submitting the form', () => {
-    wrapper.find(Form).simulate('submit');
-    expect(props.handleSubmit).toHaveBeenCalledWith(props.onSubmit);
+    it('should render a title (h3)', () => {
+      expect(form.find('h3').length).toEqual(1);
+      expect(form.find('h3').text()).toEqual(props.title);
+    });
+
+    it('should render all the fields', () => {
+      const len = newAckForm.sections.left.length + newAckForm.sections.right.length;
+      expect(form.find('WrappedField').length).toEqual(len);
+    });
+
+    it('should render a `FormButtons` section for action buttons', () => {
+      expect(form.find(FormButtons).length).toEqual(1);
+    });
   });
 });

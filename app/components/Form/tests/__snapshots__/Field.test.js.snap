@@ -7,8 +7,9 @@ exports[`Field should render the returned component correctly 1`] = `
   disabled={false}
   format={[Function]}
   name="test input"
+  parse={[Function]}
   placeholder=""
   required={false}
-  validate={Array []}
+  validate={[Function]}
 />
 `;

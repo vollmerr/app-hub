@@ -95,7 +95,7 @@ describe('validate utils', () => {
 
   describe('isEmptyChecks', () => {
     it('should return `Required` for empty check box group', () => {
-      const values = [...emptyVals, ['sdfs'], 'test value'];
+      const values = [...emptyVals, 'test value'];
 
       values.forEach((value) => {
         expect(isEmptyChecks(value)).toEqual('Required');
@@ -104,8 +104,8 @@ describe('validate utils', () => {
 
     it('should return `undefined` for non empty check box group', () => {
       const values = [
-        fromJS(['sdfs']),
-        fromJS([{ key: 1, a: '213' }, { key: 2, b: 'asd' }]),
+        ['sdfs'],
+        [{ key: 1, a: '213' }, { key: 2, b: 'asd' }],
       ];
 
       values.forEach((value) => {
