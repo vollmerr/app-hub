@@ -1,19 +1,10 @@
 const faker = require('faker/locale/en');
-const jwt = require('jsonwebtoken');
 
-const secret = require('../../.secret');
+const generateJwt = require('../sec');
 const C = require('./constants');
 
 
 const jwts = [];
-function generateJwt(sid, firstName, lastName, roles) {
-  return jwt.sign({
-    name: `${firstName} ${lastName}`,
-    sub: sid,
-    roles,
-    exp: Math.floor(Date.now() / 1000) + 1000000,
-  }, secret);
-}
 
 
 function generateUser() {

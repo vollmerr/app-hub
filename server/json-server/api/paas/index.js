@@ -1,26 +1,16 @@
 const faker = require('faker/locale/en');
-const jwt = require('jsonwebtoken');
 
-const secret = require('../../.secret');
+const generateJwt = require('../sec');
 const C = require('./constants');
 
 
 const jwts = [];
-function generateJwt(sid, firstName, lastName, roles) {
-  return jwt.sign({
-    name: `${firstName} ${lastName}`,
-    sub: faker.internet.email(firstName, lastName),
-    sid,
-    roles,
-    exp: Math.floor(Date.now() / 1000) + 1000000,
-    iat: Math.floor(Date.now() / 1000),
-  }, secret);
-}
 // TEST USERS FOR DEV API
 jwts.push({
   key: generateJwt('S-1-5-21-695811389-1873965473-9522986-6116', 'Van', 'Vo', ['AppHub User', ...Object.values(C.ROLES)]),
   text: 'VAN VO - PAAS Manager',
 });
+
 
 function generateAuthorization(manager) {
   const firstName = faker.name.firstName();
@@ -46,16 +36,17 @@ function generateAuthorization(manager) {
   });
 
   return {
+    [C.AUTH.ID]: faker.random.uuid(),
     [C.AUTH.SID]: sid,
-    // [C.AUTH.SAM]: faker.internet.userName(firstName, lastName),
-    [C.AUTH.FIRST_NAME]: firstName,
-    [C.AUTH.LAST_NAME]: lastName,
+    [C.AUTH.FULL_NAME]: `${firstName} ${lastName}`,
     [C.AUTH.EMAIL]: faker.internet.email(firstName, lastName, 'state.ca.gov'),
     [C.AUTH.POS_NUMBER]: faker.random.uuid(),
     [C.AUTH.MANAGER_SID]: managerSid,
     [C.AUTH.MANAGER_NAME]: `Manager Name ${managerSid}`,
     [C.AUTH.STATUS]: faker.random.arrayElement(Object.values(C.APPROVAL)),
     [C.AUTH.LAST_MODIFIED]: faker.date.past(),
+    [C.AUTH.LAST_APPROVED]: faker.date.past(),
+    [C.AUTH.DATE_CREATED]: faker.date.past(),
   };
 }
 

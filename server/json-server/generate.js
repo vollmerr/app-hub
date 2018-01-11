@@ -22,6 +22,10 @@ fs.readdir(path.join(__dirname, 'api'), (err, files) => {
   const routes = {};
   // for each api in ./api
   files.forEach((file, index) => {
+    // skip security api...
+    if (file === 'sec') {
+      return;
+    }
     // get the api file
     const api = require(path.join(__dirname, `api/${file}`));
     // prepend the routes with the apps name (ex: spa-recipients)
