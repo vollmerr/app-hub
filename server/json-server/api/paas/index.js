@@ -1,7 +1,7 @@
 const faker = require('faker/locale/en');
 const jwt = require('jsonwebtoken');
 
-const secret = require('../../secret');
+const secret = require('../../.secret');
 const C = require('./constants');
 
 
@@ -9,12 +9,18 @@ const jwts = [];
 function generateJwt(sid, firstName, lastName, roles) {
   return jwt.sign({
     name: `${firstName} ${lastName}`,
-    sub: sid,
+    sub: faker.internet.email(firstName, lastName),
+    sid,
     roles,
     exp: Math.floor(Date.now() / 1000) + 1000000,
+    iat: Math.floor(Date.now() / 1000),
   }, secret);
 }
-
+// TEST USERS FOR DEV API
+jwts.push({
+  key: generateJwt('S-1-5-21-695811389-1873965473-9522986-6116', 'Van', 'Vo', ['AppHub User', ...Object.values(C.ROLES)]),
+  text: 'VAN VO - PAAS Manager',
+});
 
 function generateAuthorization(manager) {
   const firstName = faker.name.firstName();

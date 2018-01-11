@@ -9,7 +9,7 @@ const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, '.db.json'));
 const middlewares = jsonServer.defaults();
 const redirects = require('./.routes.json');
-const secret = require('./secret');
+const secret = require('./.secret');
 
 const spaRoutes = require('./api/spa/routes');
 const paasRoutes = require('./api/paas/routes');

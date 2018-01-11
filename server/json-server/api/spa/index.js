@@ -1,7 +1,7 @@
 const faker = require('faker/locale/en');
 const jwt = require('jsonwebtoken');
 
-const secret = require('../../secret');
+const secret = require('../../.secret');
 const C = require('./constants');
 
 

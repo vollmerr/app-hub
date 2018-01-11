@@ -1,15 +1,17 @@
-const secret = require('../../server/json-server/secret');
+const secret = require('../../server/json-server/.secret');
 const jwt = require('jsonwebtoken');
 
 global.jwt = {
   valid: jwt.sign({
-    sub: 'test valid jwt',
+    sub: 'valid sam',
+    sid: 'valid sid',
     roles: ['Test Role'],
     iat: 1512450434,
     exp: 1912450434,
   }, secret),
   expired: jwt.sign({
-    sub: 'test expired jwt',
+    sub: 'valid sam, but exipired',
+    sid: 'valid sid',
     roles: ['Test Role'],
     iat: 1512450434,
     exp: 1512450435,

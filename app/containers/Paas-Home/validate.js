@@ -12,13 +12,13 @@ const apps = {
 const validate = (vals) => {
   const errors = {};
   // go though all values
-  vals.forEach((v, k) => {
+  Object.keys(vals).forEach((k) => {
     errors[k] = {};
     let value;
     const values = {};
     // for each app
     Object.keys(apps).forEach((app) => {
-      value = isNull(vals.getIn([k, app]));
+      value = isNull(vals[k][app]);
       // if it has an error add
       if (value) {
         values[app] = value;

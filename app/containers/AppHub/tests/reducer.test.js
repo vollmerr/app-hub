@@ -66,28 +66,32 @@ describe('appHubReducer', () => {
 
   it('handles `AUTH_USER_DONE`', () => {
     const sid = 'testSid';
+    const sam = 'testSam';
     const roles = ['role1', 'role2'];
     const expire = 1234;
     expected = expected
+      .setIn(['user', 'sam'], sam)
       .setIn(['user', 'sid'], sid)
       .setIn(['user', 'roles'], fromJS(roles))
       .setIn(['user', 'expire'], expire)
       .setIn(['user', 'routes'], fromJS(allRoutes.filter((x) => !x.roles)));
-    const action = { type: C.AUTH_USER_DONE, payload: { sid, roles, expire } };
+    const action = { type: C.AUTH_USER_DONE, payload: { sam, sid, roles, expire } };
 
     expect(appHubReducer(undefined, action)).toEqual(expected);
   });
 
   it('handles `AUTH_USER_DONE` when strings passed (single value not in array)', () => {
     const sid = 'testSid';
+    const sam = 'testSam';
     const roles = ['role1'];
     const expire = 1234;
     expected = expected
+      .setIn(['user', 'sam'], sam)
       .setIn(['user', 'sid'], sid)
       .setIn(['user', 'roles'], fromJS(roles))
       .setIn(['user', 'expire'], expire)
       .setIn(['user', 'routes'], fromJS(allRoutes.filter((x) => !x.roles)));
-    const action = { type: C.AUTH_USER_DONE, payload: { sid, roles: roles[0], expire } };
+    const action = { type: C.AUTH_USER_DONE, payload: { sam, sid, roles: roles[0], expire } };
 
     expect(appHubReducer(undefined, action)).toEqual(expected);
   });

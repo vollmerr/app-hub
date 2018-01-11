@@ -124,12 +124,12 @@ describe('authenticate', () => {
 describe('putToken', () => {
   it('should decode the jwt token, dispatch success, then return the exipre time', () => {
     const token = global.jwt.valid;
-    const { sub, roles, exp, iat } = decode(token);
-    const sid = sub;
+    const { sub, sid, roles, exp, iat } = decode(token);
+    const sam = sub;
     const expire = (exp - iat) * 1000;
 
     return expectSaga(putToken, token)
-      .put(authUserDone({ sid, roles, expire }))
+      .put(authUserDone({ sam, sid, roles, expire }))
       .returns(expire)
       .run();
   });

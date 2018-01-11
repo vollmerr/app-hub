@@ -1,13 +1,13 @@
-import { ACK, RECIPIENT, REPORT } from 'containers/Spa/constants';
 import { types, mapToColumns } from 'utils/data';
 import { isFutureDate } from 'utils/validate';
-
 import {
   FieldText,
   FieldDate,
   FieldChecks,
   FieldFile,
 } from 'components/Form';
+
+import { ACK, RECIPIENT, REPORT } from './constants';
 
 
 export const acknowledgment = {

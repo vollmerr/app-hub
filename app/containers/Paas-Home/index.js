@@ -11,44 +11,43 @@ import appPage from 'containers/App-Container/appPage';
 import List from 'components/List';
 import { StyledForm, FormButtons, FieldToggle } from 'components/Form';
 import { getAuthorizations, getAuthorizationList, selectById, selectAllIds } from 'containers/Paas/selectors';
-import { APPROVAL } from 'containers/Paas/constants';
+import { APPROVAL, APPS } from 'containers/Paas/constants';
+import { homeColumns } from 'containers/Paas/data';
 import * as actions from 'containers/Paas/actions';
 
 import FormList from './FormList';
 import validate from './validate';
 
+// TODO: MOVE COMMON RENDER UTIL
+const onRenders = {
+  renderToggle: (item, index, column) => {
+    const toggleProps = {
+      name: `${item.sid}[${column.key}]`,
+      onText: 'Yes',
+      offText: 'No',
+      isNullable: true,
+      warning: true,
+    };
 
-const renderToggle = (item, index, column) => {
-  const toggleProps = {
-    name: `${item.sid}[${column.key}]`,
-    onText: 'Yes',
-    offText: 'No',
-    isNullable: true,
-    warning: true,
-  };
-
-  return (
-    <FieldToggle {...toggleProps} />
-  );
+    return (
+      <FieldToggle {...toggleProps} />
+    );
+  },
 };
 
-const columns = [
-  { key: 'firstName', fieldName: 'firstName', name: 'First Name' },
-  { key: 'lastName', fieldName: 'lastName', name: 'Last Name' },
-  { key: 'app1', fieldName: 'app1', name: 'App 1', requried: true, onRender: renderToggle },
-  { key: 'app2', fieldName: 'app2', name: 'App 2', onRender: renderToggle },
-  { key: 'app3', fieldName: 'app3', name: 'App 3', onRender: renderToggle },
-  { key: 'app4', fieldName: 'app4', name: 'App 4', onRender: renderToggle },
-];
-
 const onSubmit = (vals) => console.log('submitting: ', vals);
-const apps = ['app1', 'app2', 'app3', 'app4']; // TODO: API CALL.........
 const listHeight = {
   margin: 120, // space for buttom buttons
 };
 
 export class PaasHome extends React.PureComponent {
-  state = { initialize: {} }
+  state = {
+    initialize: {},
+    columns: homeColumns.map((col) => ({
+      ...col,
+      onRender: onRenders[col.data && col.data.render],
+    })),
+  };
 
   componentDidMount() {
     this.initalizeForm();
@@ -62,30 +61,31 @@ export class PaasHome extends React.PureComponent {
     this.setState({ initialize: selectById(this.props.authorizations) });
   }
 
-  handleAuthorizeNew = (change) => () => {
+  handleAuthorizeAll = (change) => () => {
     const { authorizations } = this.props;
-    selectAllIds(authorizations).forEach((id) => { // TODO: TRACK NEW IDS???/
-      apps.forEach((app) => {
+    selectAllIds(authorizations).forEach((id) => {
+      Object.values(APPS).forEach((app) => {
         change(`${id}[${app}]`, APPROVAL.APPROVE);
       });
     });
   }
 
-  handleAuthorizeAll = (change) => () => {
+  handleDenyAll = (change) => () => {
     const { authorizations } = this.props;
-    selectAllIds(authorizations).forEach((id) => {
-      apps.forEach((app) => {
-        change(`${id}[${app}]`, APPROVAL.APPROVE);
+    selectAllIds(authorizations).forEach((id) => { // TODO: TRACK NEW IDS???/
+      Object.values(APPS).forEach((app) => {
+        change(`${id}[${app}]`, APPROVAL.DENY);
       });
     });
   }
 
   renderForm = ({ handleSubmit, reset, submitting, pristine, change }) => {
     const { authorizationList } = this.props;
+    const { columns } = this.state;
 
     const listProps = {
-      items: authorizationList.toJS(),
       columns,
+      items: authorizationList.toJS(),
       title: 'Access Authorizations',
     };
 
@@ -103,22 +103,11 @@ export class PaasHome extends React.PureComponent {
           <DefaultButton
             primary
             split
-            text={'Authorize All New'}
-            onClick={this.handleAuthorizeNew(change)}
+            text={'Authorize All'}
+            onClick={this.handleAuthorizeAll(change)}
             iconProps={{ iconName: 'approve' }}
             menuProps={{
               items: [
-                {
-                  key: 'authorizeAll',
-                  name: 'Authorize All',
-                  icon: 'approve',
-                  onClick: this.handleAuthorizeAll(change),
-                },
-                {
-                  key: 'denyNew',
-                  name: 'Deny All New',
-                  icon: 'deny',
-                },
                 {
                   key: 'denyAll',
                   name: 'Deny All',
