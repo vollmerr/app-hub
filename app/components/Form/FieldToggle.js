@@ -49,7 +49,7 @@ const StyledToggle = styled(Toggle) `
 
 
 export class FieldToggle extends React.Component {
-  static format = (value) => isNaN(Number(value)) ? undefined : Number(value);
+  static format = (value) => isNaN(Number(value)) || value === null ? undefined : Number(value);
 
   constructor(props) {
     super(props);
@@ -59,10 +59,6 @@ export class FieldToggle extends React.Component {
     };
   }
 
-  componentWillMount() {
-    this.handleChange(this.props.input.value);
-  }
-
   componentWillReceiveProps(nextProps) {
     const { input, meta } = nextProps;
     const { touched, error } = meta;
@@ -70,7 +66,6 @@ export class FieldToggle extends React.Component {
     const checked = this.getChecked(input.value);
     // update local checked value
     this.setState({ checked });
-    this.handleChange(checked);
     // update error if given one
     if (errorMessage !== this.state.errorMessage) {
       this.setState({ errorMessage }, this.forceUpdate);

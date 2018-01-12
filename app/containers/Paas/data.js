@@ -1,6 +1,6 @@
 import { types, mapToColumns } from 'utils/data';
 
-import { AUTH, APPS } from './constants';
+import { AUTH, APPS, BUTTONS } from './constants';
 
 
 export const authorization = {
@@ -18,15 +18,15 @@ export const authorization = {
     label: 'Full Name',
     name: AUTH.FULL_NAME,
     ariaLabel: 'Full Name of the Employee',
-    minWidth: 150,
-    maxWidth: 550,
+    minWidth: 100,
+    maxWidth: 250,
+    isSortedDescending: true,
   },
   [AUTH.EMAIL]: {
     label: 'Email',
     name: AUTH.EMAIL,
     ariaLabel: 'Date the acknowledgment takes effect',
   },
-
   [AUTH.POS_NUMBER]: {
     label: 'Position Number',
     name: AUTH.POS_NUMBER,
@@ -75,40 +75,60 @@ export const authorization = {
     label: 'App 1 Name',
     name: APPS.APP_1,
     ariaLabel: 'App 1 AriaLabel',
-    minWidth: 100,
+    minWidth: 80,
     maxWidth: 150,
     data: {
-      render: 'renderToggle',
+      render: 'authorizationToggle',
     },
   },
   [APPS.APP_2]: {
     label: 'App 2 Name',
     name: APPS.APP_2,
     ariaLabel: 'App 2 AriaLabel',
-    minWidth: 100,
+    minWidth: 80,
     maxWidth: 150,
     data: {
-      render: 'renderToggle',
+      render: 'authorizationToggle',
     },
   },
   [APPS.APP_3]: {
     label: 'App 3 Name',
     name: APPS.APP_3,
     ariaLabel: 'App 3 AriaLabel',
-    minWidth: 100,
+    minWidth: 80,
     maxWidth: 150,
     data: {
-      render: 'renderToggle',
+      render: 'authorizationToggle',
     },
   },
   [APPS.APP_4]: {
     label: 'App 4 Name',
     name: APPS.APP_4,
     ariaLabel: 'App 4 AriaLabel',
-    minWidth: 100,
+    minWidth: 80,
     maxWidth: 150,
     data: {
-      render: 'renderToggle',
+      render: 'authorizationToggle',
+    },
+  },
+  [BUTTONS.APPROVE]: {
+    name: BUTTONS.APPROVE,
+    ariaLabel: 'Authorizes all applciations for a given user',
+    minWidth: 120,
+    maxWidth: 120,
+    notSortable: true,
+    data: {
+      render: 'approvalButton',
+    },
+  },
+  [BUTTONS.DENY]: {
+    name: BUTTONS.DENY,
+    ariaLabel: 'Denies all applciations for a given user',
+    minWidth: 120,
+    maxWidth: 120,
+    notSortable: true,
+    data: {
+      render: 'denyButton',
     },
   },
 };
@@ -116,6 +136,8 @@ export const authorization = {
 
 const homeFields = [
   AUTH.FULL_NAME,
+  BUTTONS.APPROVE,
+  BUTTONS.DENY,
   APPS.APP_1,
   APPS.APP_2,
   APPS.APP_3,

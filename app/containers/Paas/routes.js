@@ -10,8 +10,16 @@ export const base = '/paas';
 export default [
   {
     key: 'paasHome', // default route must be first and end with 'Home' for key
-    name: 'Home',
-    path: `${base}/home`,
+    name: 'Current Staff',
+    path: `${base}/current`,
+    exact: true,
+    component: PaasHome,
+    roles: [ROLES.MANAGER],
+  },
+  {
+    key: 'paasPrevious',
+    name: 'Previous Staff',
+    path: `${base}/previous`,
     exact: true,
     component: PaasHome,
     roles: [ROLES.MANAGER],

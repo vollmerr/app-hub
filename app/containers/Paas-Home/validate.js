@@ -10,27 +10,26 @@ const apps = {
 
 // cross field validation for form
 const validate = (vals) => {
-  const errors = {};
+  const allErrors = {};
   // go though all values
-  Object.keys(vals).forEach((k) => {
-    errors[k] = {};
-    let value;
-    const values = {};
+  Object.keys(vals).forEach((sid) => {
+    let error;
+    const errors = {};
     // for each app
     Object.keys(apps).forEach((app) => {
-      value = isNull(vals[k][app]);
+      error = isNull(vals[sid][app]);
       // if it has an error add
-      if (value) {
-        values[app] = value;
+      if (error) {
+        errors[app] = error;
       }
     });
-    // if all errors leave alone (means row hasnt been touched)
-    if (Object.keys(values).length !== Object.keys(apps).length) {
-      errors[k] = values;
+    // add if have errors and have touched (if eq number of apps means not touched..)
+    if (Object.keys(errors).length && (Object.keys(errors).length !== Object.keys(apps).length)) {
+      allErrors[sid] = errors;
     }
   });
 
-  return errors;
+  return allErrors;
 };
 
 export default validate;

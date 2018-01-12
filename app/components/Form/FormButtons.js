@@ -28,7 +28,7 @@ export class FormButtons extends React.Component {
 
     const clearProps = {
       disabled,
-      text: 'Clear',
+      text: 'Reset',
       onClick: reset,
     };
 

@@ -83,5 +83,7 @@ export function mapToColumns(obj, include = [], exclude = []) {
       minWidth: obj[key].minWidth || 100,
       maxWidth: obj[key].maxWidth || 200,
       data: obj[key].data || {},
+      notSortable: obj[key].notSortable || false,
+      isSortedDescending: obj[key] || undefined,
     }));
 }

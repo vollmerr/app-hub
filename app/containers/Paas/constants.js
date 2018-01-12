@@ -34,3 +34,7 @@ export const APPS = {
   APP_3: 'app3',
   APP_4: 'app4',
 };
+export const BUTTONS = {
+  APPROVE: 'approveButton',
+  DENY: 'denyButton',
+};

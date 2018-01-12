@@ -64,6 +64,16 @@ class List extends React.PureComponent {
     };
   }
 
+  componentDidMount() {
+    const { sortBy } = this.props;
+    if (sortBy) {
+      sortBy.forEach((x) => {
+        const column = this.state.columns.find((col) => col.key === x);
+        this.handleColumnClick(null, column);
+      });
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     const { items } = this.props;
     // different items, updae local ones (deep compare...)
