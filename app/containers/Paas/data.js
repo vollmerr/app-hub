@@ -112,20 +112,22 @@ export const authorization = {
     },
   },
   [BUTTONS.APPROVE]: {
+    label: 'Authorize All',
     name: BUTTONS.APPROVE,
-    ariaLabel: 'Authorizes all applciations for a given user',
-    minWidth: 120,
-    maxWidth: 120,
+    ariaLabel: 'Authorizes all applications for a given user',
+    minWidth: 80,
+    maxWidth: 80,
     notSortable: true,
     data: {
       render: 'approvalButton',
     },
   },
   [BUTTONS.DENY]: {
+    label: 'Deny All',
     name: BUTTONS.DENY,
-    ariaLabel: 'Denies all applciations for a given user',
-    minWidth: 120,
-    maxWidth: 120,
+    ariaLabel: 'Denies all applications for a given user',
+    minWidth: 100,
+    maxWidth: 100,
     notSortable: true,
     data: {
       render: 'denyButton',
@@ -133,6 +135,14 @@ export const authorization = {
   },
 };
 
+
+export const homeFieldsApi = [
+  AUTH.SID,
+  APPS.APP_1,
+  APPS.APP_2,
+  APPS.APP_3,
+  APPS.APP_4,
+];
 
 const homeFields = [
   AUTH.FULL_NAME,

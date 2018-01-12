@@ -254,6 +254,7 @@ List.propTypes = {
   selectionMode: number,
   empty: any,
   enums: any,
+  sortBy: arrayOf(string),
 };
 
 List.defaultProps = {

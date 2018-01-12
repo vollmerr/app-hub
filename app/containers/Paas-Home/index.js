@@ -6,6 +6,8 @@ import { createStructuredSelector } from 'reselect';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { Form } from 'react-final-form';
 // import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
+import isEqual from 'lodash/isEqual';
+import pick from 'lodash/pick';
 
 import { doneLoading } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
@@ -13,7 +15,7 @@ import List from 'components/List';
 import { StyledForm, FormButtons, FieldToggle } from 'components/Form';
 import { getAuthorizations, getAuthorizationList, selectById } from 'containers/Paas/selectors';
 import { AUTH, APPROVAL, APPS } from 'containers/Paas/constants';
-import { homeColumns } from 'containers/Paas/data';
+import { homeColumns, homeFieldsApi } from 'containers/Paas/data';
 import * as actions from 'containers/Paas/actions';
 
 import FormList from './FormList';
@@ -30,6 +32,7 @@ export class PaasHome extends React.PureComponent {
     super(props);
     this.state = {
       initialValues: {},
+      changedValues: {},
       columns: this.buildColumns(homeColumns),
     };
     this.form = {};
@@ -51,7 +54,8 @@ export class PaasHome extends React.PureComponent {
     // TODO: CACHING....
     await onGetManagerDataRequest();
     await doneLoading(this);
-    this.setState({ initialValues: selectById(this.props.authorizations).toJS() });
+    const initialValues = selectById(this.props.authorizations).toJS();
+    this.setState({ initialValues });
   }
 
   handleAuthorizeAll = (sid) => () => {
@@ -72,8 +76,18 @@ export class PaasHome extends React.PureComponent {
     });
   }
 
-  handleSubmit = (vals, x) => {
-    console.log(x, x.getRegisteredFields())
+  handleSubmit = (values) => {
+    const { onUpdateUsersRequest } = this.props;
+    const { initialValues } = this.state;
+    const apiValues = [];
+
+    Object.keys(values).forEach((k) => {
+      if (!isEqual(initialValues[k], values[k])) {
+        apiValues.push(pick(values[k], homeFieldsApi));
+      }
+    });
+
+    onUpdateUsersRequest(apiValues);
   }
 
   renderColumn = (column) => {
@@ -117,7 +131,7 @@ export class PaasHome extends React.PureComponent {
     const listProps = {
       columns,
       items: authorizationList.toJS(),
-      title: 'Access Authorizations',
+      title: 'Current Staff Authorizations',
       sortBy: [AUTH.FULL_NAME],
     };
 
@@ -170,9 +184,11 @@ export class PaasHome extends React.PureComponent {
 }
 
 
-const { object, node } = PropTypes;
+const { object, node, func } = PropTypes;
 
 PaasHome.propTypes = {
+  onGetManagerDataRequest: func.isRequired,
+  onUpdateUsersRequest: func.isRequired,
   authorizationList: object.isRequired,
   authorizations: object.isRequired,
   Loading: node,
@@ -185,6 +201,7 @@ const mapStateToProps = createStructuredSelector({
 
 export const mapDispatchToProps = (dispatch) => ({
   onGetManagerDataRequest: () => dispatch(actions.getManagerDataRequest()),
+  onUpdateUsersRequest: (users) => dispatch(actions.updateUsersRequest(users)),
 });
 
 const withAppPage = appPage(PaasHome);

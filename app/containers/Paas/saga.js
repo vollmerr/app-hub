@@ -19,8 +19,25 @@ export function* getManagerData() {
 }
 
 
+export function* updateUsers(action) {
+  try {
+    const url = `${base}`;
+    const options = {
+      method: 'POST',
+      body: action.payload,
+    };
+    console.log('about to call api with', options, action)
+    const data = yield call(requestWithToken, url, options);
+    yield put(actions.updateUsersSuccess(data));
+  } catch (error) {
+    yield put(actions.updateUsersFailure(error));
+  }
+}
+
+
 function* paasSaga() {
   yield takeEvery(C.GET_MANAGER_DATA_REQUEST, getManagerData);
+  yield takeEvery(C.UPDATE_USERS_REQUEST, updateUsers);
 }
 
 
