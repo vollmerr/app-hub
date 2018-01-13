@@ -178,8 +178,9 @@ describe('<SpaAdmin />', () => {
 
     describe('handleSubmitNew', () => {
       it('should dispatch a new acknowledgment to the api with plain JS', () => {
-        instance.handleSubmitNew(previousAcks);
-        expect(props.onNewAckRequest).toHaveBeenCalledWith(previousAcks.toJS());
+        const newAcks = previousAcks.toJS();
+        instance.handleSubmitNew(newAcks);
+        expect(props.onNewAckRequest).toHaveBeenCalledWith(newAcks);
       });
     });
   });

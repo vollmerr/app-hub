@@ -2,9 +2,15 @@
 
 exports[`<PaasHome /> should render correctly 1`] = `
 <ReactFinalForm(3.0.0)(2.1.0)
-  initialize={Object {}}
+  initialValues={Object {}}
   onSubmit={[Function]}
   render={[Function]}
+  subscription={
+    Object {
+      "pristine": true,
+      "submitting": true,
+    }
+  }
   validate={[Function]}
 />
 `;

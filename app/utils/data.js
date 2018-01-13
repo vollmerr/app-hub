@@ -84,6 +84,6 @@ export function mapToColumns(obj, include = [], exclude = []) {
       maxWidth: obj[key].maxWidth || 200,
       data: obj[key].data || {},
       notSortable: obj[key].notSortable || false,
-      isSortedDescending: obj[key] || undefined,
+      isSortedDescending: obj[key].isSortedDescending || undefined,
     }));
 }

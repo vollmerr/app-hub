@@ -75,11 +75,9 @@ export class PaasHome extends React.PureComponent {
    * @param {string} sid   - sid of user to deny all
    */
   handleAuthorizeAll = (sid) => () => {
-    const { batch, change } = this.form;
+    const { batch } = this.form;
     batch(() => {
-      Object.values(APPS).forEach((app) => {
-        change(`${sid}[${app}]`, APPROVAL.APPROVE);
-      });
+      this.changeAllApps(sid, APPROVAL.APPROVE);
     });
   }
 
@@ -89,11 +87,19 @@ export class PaasHome extends React.PureComponent {
    * @param {string} sid   - sid of user to deny all
    */
   handleDenyAll = (sid) => () => {
-    const { batch, change } = this.form;
+    const { batch } = this.form;
     batch(() => {
-      Object.values(APPS).forEach((app) => {
-        change(`${sid}[${app}]`, APPROVAL.DENY);
-      });
+      this.changeAllApps(sid, APPROVAL.DENY);
+    });
+  }
+
+  /**
+   * Changes all apps for a user
+   */
+  changeAllApps = (sid, type) => {
+    const { change } = this.form;
+    Object.values(APPS).forEach((app) => {
+      change(`${sid}[${app}]`, type);
     });
   }
 
@@ -225,10 +231,10 @@ export class PaasHome extends React.PureComponent {
 const { object, node, func } = PropTypes;
 
 PaasHome.propTypes = {
-  onGetManagerDataRequest: func.isRequired,
+  onGetManagerDataRequest: func.isRequired, // eslint-disable-line
   onUpdateUsersRequest: func.isRequired,
   authorizationList: object.isRequired,
-  authorizations: object.isRequired,
+  authorizations: object.isRequired, // eslint-disable-line
   Loading: node,
 };
 

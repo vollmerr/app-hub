@@ -15,8 +15,18 @@ exports[`<Paas /> should render correctly 1`] = `
           "component": [Function],
           "exact": true,
           "key": "paasHome",
-          "name": "Home",
-          "path": "/paas/home",
+          "name": "Current Staff",
+          "path": "/paas/current",
+          "roles": Array [
+            "PAAS Manager",
+          ],
+        },
+        Object {
+          "component": [Function],
+          "exact": true,
+          "key": "paasPrevious",
+          "name": "Previous Staff",
+          "path": "/paas/previous",
           "roles": Array [
             "PAAS Manager",
           ],

@@ -43,7 +43,7 @@ exports[`FormButtons should render correctly 1`] = `
     <FormButtons__Button
       disabled={false}
       onClick={[Function]}
-      text="Clear"
+      text="Reset"
     />
   </div>
 </FormButtons__Buttons>
