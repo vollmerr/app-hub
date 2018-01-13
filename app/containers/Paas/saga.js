@@ -1,3 +1,4 @@
+// import { delay } from 'redux-saga';
 import { takeEvery, call, put } from 'redux-saga/effects';
 
 import requestWithToken from 'utils/requestWithToken';
@@ -26,9 +27,9 @@ export function* updateUsers(action) {
       method: 'POST',
       body: action.payload,
     };
-    console.log('about to call api with', options, action)
-    const data = yield call(requestWithToken, url, options);
-    yield put(actions.updateUsersSuccess(data));
+
+    yield call(requestWithToken, url, options);
+    yield put(actions.updateUsersSuccess(action.payload));
   } catch (error) {
     yield put(actions.updateUsersFailure(error));
   }

@@ -38,10 +38,20 @@ export class PaasHome extends React.PureComponent {
     this.form = {};
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    const { onGetManagerDataRequest } = this.props;
+    // TODO: CACHING....
+    await onGetManagerDataRequest();
     this.initalizeForm();
   }
 
+  /**
+   * Binds columns with a custom render function
+   *
+   * @param {array} columns   - column objects to bind to
+   *
+   * @return {array}          - columns with onRender bound
+   */
   buildColumns = (columns) => (
     columns.map((col) => ({
       ...col,
@@ -49,15 +59,21 @@ export class PaasHome extends React.PureComponent {
     }))
   )
 
+  /**
+   * Initalizez the form with values
+   * Clicking 'Reset' will revert back to this state
+   */
   initalizeForm = async () => {
-    const { onGetManagerDataRequest } = this.props;
-    // TODO: CACHING....
-    await onGetManagerDataRequest();
     await doneLoading(this);
     const initialValues = selectById(this.props.authorizations).toJS();
     this.setState({ initialValues });
   }
 
+  /**
+   * Handles updating the form to authroize all apps for user by sid
+   *
+   * @param {string} sid   - sid of user to deny all
+   */
   handleAuthorizeAll = (sid) => () => {
     const { batch, change } = this.form;
     batch(() => {
@@ -67,6 +83,11 @@ export class PaasHome extends React.PureComponent {
     });
   }
 
+  /**
+   * Handles updating the form to deny all apps for user by sid
+   *
+   * @param {string} sid   - sid of user to deny all
+   */
   handleDenyAll = (sid) => () => {
     const { batch, change } = this.form;
     batch(() => {
@@ -76,20 +97,34 @@ export class PaasHome extends React.PureComponent {
     });
   }
 
-  handleSubmit = (values) => {
+  /**
+   * Handles submitting a request to the api with form values
+   *
+   * @param {object} values   - form values
+   */
+  handleSubmit = async (values) => {
     const { onUpdateUsersRequest } = this.props;
     const { initialValues } = this.state;
-    const apiValues = [];
+    const users = [];
 
     Object.keys(values).forEach((k) => {
       if (!isEqual(initialValues[k], values[k])) {
-        apiValues.push(pick(values[k], homeFieldsApi));
+        users.push(pick(values[k], homeFieldsApi));
       }
     });
 
-    onUpdateUsersRequest(apiValues);
+    await onUpdateUsersRequest(users);
+    this.initalizeForm();
   }
 
+  /**
+   * Renders a List column in a custom format
+   * based off data.render prop
+   *
+   * @param {object} column   - column to render
+   *
+   * @return {JSX}            - custom rendering of column
+   */
   renderColumn = (column) => {
     if (column.data && column.data.render) {
       const onRenders = {
@@ -124,6 +159,9 @@ export class PaasHome extends React.PureComponent {
     return undefined;
   }
 
+  /**
+   * Renders the form
+   */
   renderForm = ({ handleSubmit, reset, submitting, pristine, change, batch }) => {
     const { authorizationList } = this.props;
     const { columns } = this.state;

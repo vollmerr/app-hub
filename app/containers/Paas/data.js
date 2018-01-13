@@ -126,8 +126,8 @@ export const authorization = {
     label: 'Deny All',
     name: BUTTONS.DENY,
     ariaLabel: 'Denies all applications for a given user',
-    minWidth: 100,
-    maxWidth: 100,
+    minWidth: 80,
+    maxWidth: 80,
     notSortable: true,
     data: {
       render: 'denyButton',
@@ -146,12 +146,12 @@ export const homeFieldsApi = [
 
 const homeFields = [
   AUTH.FULL_NAME,
-  BUTTONS.APPROVE,
-  BUTTONS.DENY,
   APPS.APP_1,
   APPS.APP_2,
   APPS.APP_3,
   APPS.APP_4,
+  BUTTONS.APPROVE,
+  BUTTONS.DENY,
 ];
 
 export const homeColumns = mapToColumns(authorization, homeFields);

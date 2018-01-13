@@ -30,13 +30,15 @@ export default handleActions({
   },
 
   [C.UPDATE_USERS_SUCCESS]: (state, action) => {
-    console.log('TODO: update store on update user success...')
-    return state;
-    // const { payload } = action;
-    // const authorizations = mergeById(state, 'authorizations', payload, C.AUTH.SID);
-    // // combine with current state
-    // return state.mergeDeep(fromJS({
-    //   authorizations,
-    // }));
+    const { payload } = action;
+    let newState = state;
+    // for each user
+    payload.forEach((user) => {
+      // merge the updated data
+      newState = newState
+        .mergeIn(['authorizations', 'byId', user[C.AUTH.SID]], fromJS(user));
+    });
+    // gimme that new state
+    return newState;
   },
 }, fromJS(initialState));
