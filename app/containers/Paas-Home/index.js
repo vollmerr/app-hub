@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import { Form } from 'react-final-form';
 // import { MessageBar, MessageBarType } from 'office-ui-fabric-react/lib/MessageBar';
 import isEqual from 'lodash/isEqual';
@@ -20,6 +19,7 @@ import * as actions from 'containers/Paas/actions';
 
 import FormList from './FormList';
 import validate from './validate';
+import { ApproveButton, DenyButton } from './Buttons';
 
 
 const listHeight = {
@@ -148,13 +148,15 @@ export class PaasHome extends React.PureComponent {
           );
         },
         approvalButton: (item) => (
-          <DefaultButton
+          <ApproveButton
+            text={'All'}
             onClick={this.handleAuthorizeAll(item[AUTH.SID])}
             iconProps={{ iconName: 'approve' }}
           />
         ),
         denyButton: (item) => (
-          <DefaultButton
+          <DenyButton
+            text={'All'}
             onClick={this.handleDenyAll(item[AUTH.SID])}
             iconProps={{ iconName: 'deny' }}
           />

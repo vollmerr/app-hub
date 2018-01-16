@@ -112,22 +112,20 @@ export const authorization = {
     },
   },
   [BUTTONS.APPROVE]: {
-    label: 'Authorize All',
     name: BUTTONS.APPROVE,
-    ariaLabel: 'Authorizes all applications for a given user',
-    minWidth: 80,
-    maxWidth: 80,
+    ariaLabel: 'Authorize all applications for a given user',
+    minWidth: 60,
+    maxWidth: 60,
     notSortable: true,
     data: {
       render: 'approvalButton',
     },
   },
   [BUTTONS.DENY]: {
-    label: 'Deny All',
     name: BUTTONS.DENY,
-    ariaLabel: 'Denies all applications for a given user',
-    minWidth: 80,
-    maxWidth: 80,
+    ariaLabel: 'Deny all applications for a given user',
+    minWidth: 60,
+    maxWidth: 60,
     notSortable: true,
     data: {
       render: 'denyButton',

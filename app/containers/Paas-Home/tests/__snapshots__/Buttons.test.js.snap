@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Buttons__ApproveButton /> should render correctly 1`] = `
+.c0 i {
+  color: #107c10;
+}
+
+<CustomizedActionButton
+  className="c0"
+/>
+`;
+
+exports[`<Buttons__DenyButton /> should render correctly 1`] = `
+.c0 i {
+  color: #e81123;
+}
+
+<CustomizedActionButton
+  className="c0"
+/>
+`;
