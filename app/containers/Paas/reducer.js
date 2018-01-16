@@ -12,8 +12,8 @@ export const initialState = {
     allIds: [],
   },
   manager: {
-    newIds: [],
     currentIds: [],
+    previousIds: [],
     allIds: [],
   },
 };
@@ -22,9 +22,25 @@ export const initialState = {
 export default handleActions({
   [C.GET_MANAGER_DATA_SUCCESS]: (state, action) => {
     const { payload } = action;
-    const authorizations = mergeById(state, 'authorizations', payload, C.AUTH.SID);
+    const authorizations = mergeById(state, 'authorizations', payload, C.AUTH.ID);
+    const manager = {
+      currentIds: [],
+      previousIds: [],
+      allIds: [],
+    };
+    // map out manager ids by past and current
+    payload.forEach((auth) => {
+      const id = auth[C.AUTH.ID];
+      manager.allIds.push(id);
+      if (auth[C.AUTH.STATUS] === C.STATUS.ACTIVE) {
+        manager.currentIds.push(id);
+      } else {
+        manager.previousIds.push(id);
+      }
+    });
     // combine with current state
     return state.mergeDeep(fromJS({
+      manager,
       authorizations,
     }));
   },
@@ -36,7 +52,7 @@ export default handleActions({
     payload.forEach((user) => {
       // merge the updated data
       newState = newState
-        .mergeIn(['authorizations', 'byId', user[C.AUTH.SID]], fromJS(user));
+        .mergeIn(['authorizations', 'byId', user[C.AUTH.ID]], fromJS(user));
     });
     // gimme that new state
     return newState;

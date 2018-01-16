@@ -12,9 +12,9 @@ import { doneLoading } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
 import List from 'components/List';
 import { StyledForm, FormButtons, FieldToggle } from 'components/Form';
-import { getAuthorizations, getAuthorizationList, selectById } from 'containers/Paas/selectors';
 import { AUTH, APPROVAL, APPS } from 'containers/Paas/constants';
-import { homeColumns, homeFieldsApi } from 'containers/Paas/data';
+import { currentColumns, currentFieldsApi } from 'containers/Paas/data';
+import * as selectors from 'containers/Paas/selectors';
 import * as actions from 'containers/Paas/actions';
 
 import FormList from './FormList';
@@ -27,13 +27,13 @@ const listHeight = {
 };
 
 
-export class PaasHome extends React.PureComponent {
+export class PaasCurrent extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       initialValues: {},
       changedValues: {},
-      columns: this.buildColumns(homeColumns),
+      columns: this.buildColumns(currentColumns),
     };
     this.form = {};
   }
@@ -65,41 +65,41 @@ export class PaasHome extends React.PureComponent {
    */
   initalizeForm = async () => {
     await doneLoading(this);
-    const initialValues = selectById(this.props.authorizations).toJS();
+    const initialValues = this.props.authorizations.toJS();
     this.setState({ initialValues });
   }
 
   /**
-   * Handles updating the form to authroize all apps for user by sid
+   * Handles updating the form to authroize all apps for user by id
    *
-   * @param {string} sid   - sid of user to deny all
+   * @param {string} id   - id of user to deny all
    */
-  handleAuthorizeAll = (sid) => () => {
+  handleAuthorizeAll = (id) => () => {
     const { batch } = this.form;
     batch(() => {
-      this.changeAllApps(sid, APPROVAL.APPROVE);
+      this.changeAllApps(id, APPROVAL.APPROVE);
     });
   }
 
   /**
-   * Handles updating the form to deny all apps for user by sid
+   * Handles updating the form to deny all apps for user by id
    *
-   * @param {string} sid   - sid of user to deny all
+   * @param {string} id   - id of user to deny all
    */
-  handleDenyAll = (sid) => () => {
+  handleDenyAll = (id) => () => {
     const { batch } = this.form;
     batch(() => {
-      this.changeAllApps(sid, APPROVAL.DENY);
+      this.changeAllApps(id, APPROVAL.DENY);
     });
   }
 
   /**
    * Changes all apps for a user
    */
-  changeAllApps = (sid, type) => {
+  changeAllApps = (id, type) => {
     const { change } = this.form;
     Object.values(APPS).forEach((app) => {
-      change(`${sid}[${app}]`, type);
+      change(`${id}[${app}]`, type);
     });
   }
 
@@ -115,7 +115,7 @@ export class PaasHome extends React.PureComponent {
 
     Object.keys(values).forEach((k) => {
       if (!isEqual(initialValues[k], values[k])) {
-        users.push(pick(values[k], homeFieldsApi));
+        users.push(pick(values[k], currentFieldsApi));
       }
     });
 
@@ -136,7 +136,7 @@ export class PaasHome extends React.PureComponent {
       const onRenders = {
         authorizationToggle: (item) => {
           const toggleProps = {
-            name: `${item.sid}[${column.key}]`,
+            name: `${item[AUTH.ID]}[${column.key}]`,
             onText: 'Yes',
             offText: 'No',
             isNullable: true,
@@ -150,14 +150,14 @@ export class PaasHome extends React.PureComponent {
         approvalButton: (item) => (
           <ApproveButton
             text={'All'}
-            onClick={this.handleAuthorizeAll(item[AUTH.SID])}
+            onClick={this.handleAuthorizeAll(item[AUTH.ID])}
             iconProps={{ iconName: 'approve' }}
           />
         ),
         denyButton: (item) => (
           <DenyButton
             text={'All'}
-            onClick={this.handleDenyAll(item[AUTH.SID])}
+            onClick={this.handleDenyAll(item[AUTH.ID])}
             iconProps={{ iconName: 'deny' }}
           />
         ),
@@ -232,7 +232,7 @@ export class PaasHome extends React.PureComponent {
 
 const { object, node, func } = PropTypes;
 
-PaasHome.propTypes = {
+PaasCurrent.propTypes = {
   onGetManagerDataRequest: func.isRequired, // eslint-disable-line
   onUpdateUsersRequest: func.isRequired,
   authorizationList: object.isRequired,
@@ -241,8 +241,8 @@ PaasHome.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  authorizationList: getAuthorizationList(),
-  authorizations: getAuthorizations(),
+  authorizationList: selectors.getManagerAuthsList('currentIds'),
+  authorizations: selectors.getManagerAuths('currentIds'),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -250,7 +250,7 @@ export const mapDispatchToProps = (dispatch) => ({
   onUpdateUsersRequest: (users) => dispatch(actions.updateUsersRequest(users)),
 });
 
-const withAppPage = appPage(PaasHome);
+const withAppPage = appPage(PaasCurrent);
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(

@@ -1,5 +1,5 @@
-import PaasHome from 'containers/Paas-Home';
-
+import PaasCurrent from 'containers/Paas-Current';
+import PaasPrevious from 'containers/Paas-Previous';
 import PaasReport from 'containers/Paas-Report';
 
 import { ROLES } from './constants';
@@ -13,7 +13,7 @@ export default [
     name: 'Current Staff',
     path: `${base}/current`,
     exact: true,
-    component: PaasHome,
+    component: PaasCurrent,
     roles: [ROLES.MANAGER],
   },
   {
@@ -21,7 +21,7 @@ export default [
     name: 'Previous Staff',
     path: `${base}/previous`,
     exact: true,
-    component: PaasHome,
+    component: PaasPrevious,
     roles: [ROLES.MANAGER],
   },
   {

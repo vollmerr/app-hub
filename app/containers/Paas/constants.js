@@ -31,6 +31,11 @@ export const AUTH = {
   LAST_APPROVED: 'lastApproved',
   DATE_CREATED: 'created',
 };
+// AUTH STATUS
+export const STATUS = {
+  ACTIVE: 'active',
+  INACTIVE: 'inactive',
+};
 // APP TO AUTHORIZE
 export const APPS = {
   APP_1: 'app1',

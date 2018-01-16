@@ -134,7 +134,8 @@ export const authorization = {
 };
 
 
-export const homeFieldsApi = [
+export const currentFieldsApi = [
+  AUTH.ID,
   AUTH.SID,
   APPS.APP_1,
   APPS.APP_2,
@@ -142,7 +143,7 @@ export const homeFieldsApi = [
   APPS.APP_4,
 ];
 
-const homeFields = [
+const currentFields = [
   AUTH.FULL_NAME,
   APPS.APP_1,
   APPS.APP_2,
@@ -152,4 +153,15 @@ const homeFields = [
   BUTTONS.DENY,
 ];
 
-export const homeColumns = mapToColumns(authorization, homeFields);
+const previousFields = [
+  AUTH.FULL_NAME,
+  APPS.APP_1,
+  APPS.APP_2,
+  APPS.APP_3,
+  APPS.APP_4,
+  AUTH.LAST_APPROVED,
+  AUTH.LAST_MODIFIED,
+];
+
+export const currentColumns = mapToColumns(authorization, currentFields);
+export const previousColumns = mapToColumns(authorization, previousFields);

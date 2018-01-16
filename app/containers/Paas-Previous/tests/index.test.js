@@ -5,10 +5,9 @@ import { fromJS } from 'immutable';
 import { testMapDispatchToProps } from 'utils/testUtils';
 import {
   getManagerDataRequest,
-  updateUsersRequest,
 } from 'containers/Paas/actions';
 
-import { PaasHome, mapDispatchToProps } from '../index';
+import { PaasPrevious, mapDispatchToProps } from '../index';
 
 
 const authorizationList = [
@@ -32,20 +31,14 @@ const props = {
   Loading: null,
 };
 
-const form = {
-  batch: jest.fn(),
-  change: jest.fn(),
-};
 
-
-describe('<PaasHome />', () => {
+describe('<PaasPrevious />', () => {
   let wrapper;
   let instance;
   beforeEach(() => {
     jest.resetAllMocks();
-    wrapper = shallow(<PaasHome {...props} />);
+    wrapper = shallow(<PaasPrevious {...props} />);
     instance = wrapper.instance();
-    instance.form = form;
   });
 
   it('should render correctly', () => {
@@ -90,42 +83,6 @@ describe('<PaasHome />', () => {
     // });
   });
 
-
-  describe('handleAuthorizeAll', () => {
-    // it('should dispatch `change` for all authorizations in a batch', () => {
-    //   const sid = '123';
-    //   instance.handleAuthorizeAll(sid)();
-    //   expect(change).toHaveBeenCalledWith(`${authorizations.allIds[0]}[${apps[3]}]`, 1);
-    //   expect(change).toHaveBeenCalledWith(`${authorizations.allIds[1]}[${apps[0]}]`, 1);
-    // });
-  });
-
-
-  describe('handleDenyAll', () => {
-    // it('should dispatch `change` for all authorizations', () => {
-    //   const change = jest.fn();
-    //   instance.handleAuthorizeAll(change)();
-    //   expect(change).toHaveBeenCalledWith(`${authorizations.allIds[0]}[${apps[3]}]`, 1);
-    //   expect(change).toHaveBeenCalledWith(`${authorizations.allIds[1]}[${apps[0]}]`, 1);
-    // });
-  });
-
-  describe('changeAllApps', () => {
-
-  });
-
-
-  describe('handleSubmit', () => {
-    it('should dispatch `change` for all authorizations', async () => {
-      instance.initalizeForm = jest.fn();
-      const values = [{ sid: '123', text: 'test' }]; // TODO: better test.... (picks off 'text', add other 'homeFields'....)
-      await instance.handleSubmit(values);
-      expect(props.onUpdateUsersRequest).toHaveBeenCalledWith([{ sid: '123' }]);
-      expect(instance.initalizeForm).toHaveBeenCalled();
-    });
-  });
-
-
   describe('renderColumn', () => {
     // TODO !
   });
@@ -134,7 +91,6 @@ describe('<PaasHome />', () => {
   describe('mapDispatchToProps', () => {
     const actions = {
       getManagerDataRequest,
-      updateUsersRequest,
     };
 
     testMapDispatchToProps(mapDispatchToProps, actions);

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PaasHome /> should render correctly 1`] = `
+exports[`<PaasCurrent /> should render correctly 1`] = `
 <ReactFinalForm(3.0.0)(2.1.0)
   initialValues={Object {}}
   onSubmit={[Function]}

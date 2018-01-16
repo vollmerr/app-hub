@@ -15,6 +15,10 @@ exports[`<Wrapper__Wrapper /> should render correctly 1`] = `
   background: #ffffff;
 }
 
+.c0 * {
+  color: #333333;
+}
+
 <div
   className="c0"
 />
