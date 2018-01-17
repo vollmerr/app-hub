@@ -241,8 +241,8 @@ PaasCurrent.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  authorizationList: selectors.getManagerAuthsList('currentIds'),
-  authorizations: selectors.getManagerAuths('currentIds'),
+  authorizationList: selectors.getManagerAuthsList('current'),
+  authorizations: selectors.getManagerAuths('current'),
 });
 
 export const mapDispatchToProps = (dispatch) => ({

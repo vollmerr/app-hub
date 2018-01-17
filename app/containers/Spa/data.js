@@ -251,7 +251,7 @@ const reportFields = [
   RECIPIENT.MANAGER_NAME,
   RECIPIENT.ACK_DATE,
 ];
-const reportExcludes = [
+const reportPendingExcludes = [
   RECIPIENT.ACK_DATE,
 ];
 
@@ -263,7 +263,7 @@ export const homeColumns = {
 export const adminColumns = mapToColumns(fields, adminFields);
 
 export const reportColumns = {
-  [REPORT.PENDING]: mapToColumns(fields, reportFields, reportExcludes),
+  [REPORT.PENDING]: mapToColumns(fields, reportFields, reportPendingExcludes),
   [REPORT.PREVIOUS]: mapToColumns(fields, reportFields),
 };
 

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Recipients /> should render correctly 1`] = `
+<Recipients__Wrapper
+  margin={18}
+  vh={50}
+>
+  <List
+    columns={Array []}
+    empty={
+      Object {
+        "message": "No items",
+      }
+    }
+    enums={Object {}}
+    items={Array []}
+    selectionMode={0}
+  />
+</Recipients__Wrapper>
+`;
+
+exports[`<Recipients__Wrapper /> should render correctly 1`] = `
+.c0 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin: 5px;
+  height: auto;
+  max-height: calc(100vh - 40px - 20px);
+}
+
+<ListSection__ListSection
+  className="c0"
+/>
+`;

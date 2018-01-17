@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SpaReport /> should render correctly 1`] = `
+<Wrapper__Wrapper>
+  <Section__Section>
+    <Details
+      selectedItem={Object {}}
+    />
+    <WithFauxDOM(PieChart)
+      data={Array []}
+      dataKey="test"
+      hasData={false}
+      onClick={[Function]}
+      selectedKey={0}
+      stats={
+        Object {
+          "acknowledged": Object {
+            "color": "#004578",
+            "count": 0,
+            "percent": 100,
+          },
+          "pending": Object {
+            "color": "#0078d7",
+            "count": 0,
+            "percent": 0,
+          },
+        }
+      }
+    />
+  </Section__Section>
+  <Section__Section>
+    <Recipients
+      columns={
+        Array [
+          Object {
+            "ariaLabel": "First name of the recipient",
+            "data": Object {},
+            "fieldName": "firstName",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "firstName",
+            "maxWidth": 100,
+            "minWidth": 100,
+            "name": "First Name",
+            "notSortable": false,
+          },
+          Object {
+            "ariaLabel": "Last name of the recipient",
+            "data": Object {},
+            "fieldName": "lastName",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "lastName",
+            "maxWidth": 100,
+            "minWidth": 100,
+            "name": "Last Name",
+            "notSortable": false,
+          },
+          Object {
+            "ariaLabel": "Email of the recipient",
+            "data": Object {},
+            "fieldName": "email",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "email",
+            "maxWidth": 200,
+            "minWidth": 100,
+            "name": "Email",
+            "notSortable": false,
+          },
+          Object {
+            "ariaLabel": "Full name of the recipients manager",
+            "data": Object {},
+            "fieldName": "managerName",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "managerName",
+            "maxWidth": 200,
+            "minWidth": 100,
+            "name": "Manager",
+            "notSortable": false,
+          },
+        ]
+      }
+      empty={
+        Object {
+          "message": "No Recipients",
+        }
+      }
+      items={Array []}
+      selectionMode={0}
+      title="Pending Recipients"
+    />
+  </Section__Section>
+</Wrapper__Wrapper>
+`;

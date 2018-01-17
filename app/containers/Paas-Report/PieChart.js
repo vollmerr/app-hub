@@ -65,12 +65,10 @@ export class PieChart extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { data, dataKey } = this.props;
+    const { data } = this.props;
     // do not compare props.chart as it gets updated in updateD3()
-    if (
-      data !== prevProps.data ||
-      dataKey !== prevProps.dataKey
-    ) {
+    // TODO: deep equal
+    if (data !== prevProps.data) {
       this.renderD3('update');
     }
   }
@@ -78,7 +76,6 @@ export class PieChart extends React.PureComponent {
   renderD3 = (mode) => {
     const {
       data,
-      dataKey,
       onClick,
       connectFauxDOM,
       animateFauxDOM,
@@ -87,6 +84,7 @@ export class PieChart extends React.PureComponent {
     const render = mode === 'render';
     const resize = mode === 'resize';
     // d3 helpers
+    // TODO: pass width/height as props
     const width = theme.chart.width;
     const height = theme.chart.height;
     const outerRadius = (Math.min(width, height) / 2) - 10;
@@ -100,12 +98,11 @@ export class PieChart extends React.PureComponent {
     const color = d3.scaleOrdinal()
       .domain([0, 1])
       .range(theme.chart.colors);
-    // map data based off length of lists
-    const mappedData = d3.nest()
-      .key((d) => d[dataKey] ? REPORT.PREVIOUS : REPORT.PENDING)
-      .rollup((v) => v.length)
-      .entries(data);
-      console.log('mappedData; ', mappedData)
+    // map data based off length of lists -> MAPPED IN PARENT - TODO: REMOVE / clean
+    // const mappedData = d3.nest()
+    //   .key((d) => d[dataKey] ? REPORT.PREVIOUS : REPORT.PENDING)
+    //   .rollup((v) => v.length)
+    //   .entries(data);
     // arc transitions, see https://bl.ocks.org/mbostock/1346410
     // do not use arrow function here as scope is the path element
     function arcTween(a) {
@@ -137,7 +134,9 @@ export class PieChart extends React.PureComponent {
       svg = d3.select(faux).select('svg').select('g');
     }
 
-    const arcs = svg.selectAll('path').data(pie(mappedData));
+    // const arcs = svg.selectAll('path').data(pie(mappedData));
+    const arcs = svg.selectAll('path').data(pie(data));
+
     arcs
       .enter()
       .append('path')

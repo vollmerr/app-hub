@@ -213,6 +213,7 @@ class List extends React.PureComponent {
       columns,
       onRenderDetailsHeader: this.renderHeader,
       onRenderItemColumn: this.renderItemColumn,
+      onShouldVirtualize: () => false,
     };
 
     const searchProps = {

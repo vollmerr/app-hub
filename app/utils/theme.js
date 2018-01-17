@@ -22,7 +22,11 @@ export default {
     width: 260,
     height: 260,
     detailsWidth: 200,
-    colors: [DefaultPalette.themePrimary, DefaultPalette.themeDarker],
+    colors: [
+      DefaultPalette.themePrimary,
+      DefaultPalette.themeDarker,
+      DefaultPalette.themeLight,
+    ],
   },
   zIndex: { // https://v4-alpha.getbootstrap.com/layout/overview/#z-index
     overlay: 1040,

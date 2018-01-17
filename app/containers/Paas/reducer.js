@@ -16,6 +16,11 @@ export const initialState = {
     previousIds: [],
     allIds: [],
   },
+  report: {
+    deniedIds: [],
+    approvedIds: [],
+    pendingIds: [],
+  },
 };
 
 
@@ -41,6 +46,32 @@ export default handleActions({
     // combine with current state
     return state.mergeDeep(fromJS({
       manager,
+      authorizations,
+    }));
+  },
+
+  [C.GET_REPORT_DATA_SUCCESS]: (state, action) => {
+    const { payload } = action;
+    const authorizations = mergeById(state, 'authorizations', payload, C.AUTH.ID);
+    const report = {
+      deniedIds: [],
+      approvedIds: [],
+      pendingIds: [],
+    };
+    // map out ids based off if approved, denied, or pending
+    payload.forEach((auth) => {
+      const id = auth[C.AUTH.ID];
+      if (C.APP_LIST.every((app) => auth[app] === C.APPROVAL.APPROVE)) {
+        report.approvedIds.push(id);
+      } else if (C.APP_LIST.some((app) => auth[app] === C.APPROVAL.DENY)) {
+        report.deniedIds.push(id);
+      } else {
+        report.pendingIds.push(id);
+      }
+    });
+    // combine with current state
+    return state.mergeDeep(fromJS({
+      report,
       authorizations,
     }));
   },

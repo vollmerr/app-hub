@@ -5,6 +5,7 @@ import { createSelector } from 'reselect';
 const selectPaasDomain = (state) => state.get('paas');
 const selectAuthorizations = (state) => selectPaasDomain(state).get('authorizations');
 const selectManager = (state) => selectPaasDomain(state).get('manager');
+const selectReport = (state) => selectPaasDomain(state).get('report');
 
 export const selectById = (state) => state.get('byId');
 export const selectAllIds = (state) => state.get('allIds');
@@ -37,7 +38,7 @@ export const getManagerAuths = (type) => createSelector(
   [selectManager, selectAuthorizations],
   (manager, auths) => {
     const authsById = selectById(auths);
-    const managerIds = manager.get(type);
+    const managerIds = manager.get(`${type}Ids`);
     const managerAuths = {};
     // for each auth id in manager[type] make an entry by looking up the authorization
     managerIds.forEach((id) => {
@@ -51,7 +52,16 @@ export const getManagerAuthsList = (type) => createSelector(
   [selectManager, selectAuthorizations],
   (manager, auths) => {
     const authsById = selectById(auths);
-    return manager.get(type).map((id) => authsById.get(id));
+    return manager.get(`${type}Ids`).map((id) => authsById.get(id));
+  }
+);
+
+
+export const getReportAuths = (type) => createSelector(
+  [selectReport, selectAuthorizations],
+  (report, auths) => {
+    const authsById = selectById(auths);
+    return report.get(`${type}Ids`).map((id) => authsById.get(id));
   }
 );
 

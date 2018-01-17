@@ -1,6 +1,6 @@
 import { types, mapToColumns } from 'utils/data';
 
-import { AUTH, APPS, BUTTONS } from './constants';
+import { AUTH, APPS, APP_LIST, REPORT, BUTTONS } from './constants';
 
 
 export const authorization = {
@@ -111,6 +111,10 @@ export const authorization = {
       render: 'authorizationToggle',
     },
   },
+};
+
+
+const buttons = {
   [BUTTONS.APPROVE]: {
     name: BUTTONS.APPROVE,
     ariaLabel: 'Authorize all applications for a given user',
@@ -133,35 +137,36 @@ export const authorization = {
   },
 };
 
-
 export const currentFieldsApi = [
   AUTH.ID,
   AUTH.SID,
-  APPS.APP_1,
-  APPS.APP_2,
-  APPS.APP_3,
-  APPS.APP_4,
+  ...APP_LIST,
 ];
 
 const currentFields = [
   AUTH.FULL_NAME,
-  APPS.APP_1,
-  APPS.APP_2,
-  APPS.APP_3,
-  APPS.APP_4,
-  BUTTONS.APPROVE,
-  BUTTONS.DENY,
+  ...APP_LIST,
+  ...BUTTONS,
 ];
 
 const previousFields = [
   AUTH.FULL_NAME,
-  APPS.APP_1,
-  APPS.APP_2,
-  APPS.APP_3,
-  APPS.APP_4,
+  ...APP_LIST,
   AUTH.LAST_APPROVED,
-  AUTH.LAST_MODIFIED,
 ];
 
-export const currentColumns = mapToColumns(authorization, currentFields);
+export const currentColumns = mapToColumns({ ...authorization, ...buttons }, currentFields);
 export const previousColumns = mapToColumns(authorization, previousFields);
+
+
+const reportFields = [
+  AUTH.FULL_NAME,
+  AUTH.MANAGER_NAME,
+  AUTH.LAST_APPROVED,
+];
+
+export const reportColumns = {
+  [REPORT.APPROVED]: mapToColumns(authorization, reportFields),
+  [REPORT.DENIED]: mapToColumns(authorization, reportFields),
+  [REPORT.PENDING]: mapToColumns(authorization, reportFields),
+};

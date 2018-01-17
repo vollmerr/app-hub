@@ -13,10 +13,10 @@ import PieChart from './PieChart';
 import Recipients from './Recipients';
 
 
-const titles = [
-  'Pending Recipients',
-  'Acknowledged Recipients',
-];
+const titles = {
+  [REPORT.PENDING]: 'Pending Recipients',
+  [REPORT.PREVIOUS]: 'Acknowledged Recipients',
+};
 
 
 export class SpaReport extends React.PureComponent {

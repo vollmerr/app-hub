@@ -80,7 +80,6 @@ export class PaasPrevious extends React.PureComponent {
             onText: 'Yes',
             offText: 'No',
             isNullable: true,
-            disabled: true,
           };
 
           return (
@@ -147,8 +146,8 @@ PaasPrevious.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  authorizationList: selectors.getManagerAuthsList('previousIds'),
-  authorizations: selectors.getManagerAuths('previousIds'),
+  authorizationList: selectors.getManagerAuthsList('previous'),
+  authorizations: selectors.getManagerAuths('previous'),
 });
 
 export const mapDispatchToProps = (dispatch) => ({

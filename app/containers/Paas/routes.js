@@ -30,6 +30,6 @@ export default [
     path: `${base}/report`,
     exact: true,
     component: PaasReport,
-    roles: [ROLES.MANAGER, ROLES.HR_ADMIN, ROLES.SECURITY_ADMIN],
+    roles: [ROLES.MANAGER, ROLES.REPORTS],
   },
 ];

@@ -20,6 +20,18 @@ export function* getManagerData() {
 }
 
 
+export function* getReportData() {
+  try {
+    const url = `${base}/reports`;
+    const data = yield call(requestWithToken, url);
+    console.log('data:   ', data)
+    yield put(actions.getReportDataSuccess(data));
+  } catch (error) {
+    yield put(actions.getReportDataFailure(error));
+  }
+}
+
+
 export function* updateUsers(action) {
   try {
     const url = `${base}`;
@@ -38,6 +50,7 @@ export function* updateUsers(action) {
 
 function* paasSaga() {
   yield takeEvery(C.GET_MANAGER_DATA_REQUEST, getManagerData);
+  yield takeEvery(C.GET_REPORT_DATA_REQUEST, getReportData);
   yield takeEvery(C.UPDATE_USERS_REQUEST, updateUsers);
 }
 

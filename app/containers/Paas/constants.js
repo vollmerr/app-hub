@@ -1,6 +1,11 @@
 export const GET_MANAGER_DATA_REQUEST = 'app/Paas/GET_MANAGER_DATA_REQUEST';
 export const GET_MANAGER_DATA_SUCCESS = 'app/Paas/GET_MANAGER_DATA_SUCCESS';
 export const GET_MANAGER_DATA_FAILURE = 'app/Paas/GET_MANAGER_DATA_FAILURE';
+
+export const GET_REPORT_DATA_REQUEST = 'app/Paas/GET_REPORT_DATA_REQUEST';
+export const GET_REPORT_DATA_SUCCESS = 'app/Paas/GET_REPORT_DATA_SUCCESS';
+export const GET_REPORT_DATA_FAILURE = 'app/Paas/GET_REPORT_DATA_FAILURE';
+
 export const UPDATE_USERS_REQUEST = 'app/Paas/UPDATE_USERS_REQUEST';
 export const UPDATE_USERS_SUCCESS = 'app/Paas/UPDATE_USERS_SUCCESS';
 export const UPDATE_USERS_FAILURE = 'app/Paas/UPDATE_USERS_FAILURE';
@@ -8,8 +13,7 @@ export const UPDATE_USERS_FAILURE = 'app/Paas/UPDATE_USERS_FAILURE';
 // ROLES
 export const ROLES = {
   MANAGER: 'PAAS Manager',
-  HR_ADMIN: 'PAAS HR Admin',
-  SECURITY_ADMIN: 'PAAS Security Admin',
+  REPORTS: 'PAAS Reports',
 };
 // APPROVAL CODES
 export const APPROVAL = {
@@ -43,7 +47,13 @@ export const APPS = {
   APP_3: 'app3',
   APP_4: 'app4',
 };
+export const APP_LIST = Object.values(APPS);
 export const BUTTONS = {
   APPROVE: 'approveButton',
   DENY: 'denyButton',
+};
+export const REPORT = {
+  APPROVED: 0,
+  DENIED: 1,
+  PENDING: 2,
 };
