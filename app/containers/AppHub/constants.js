@@ -25,3 +25,6 @@ export const FAILURE = '_FAILURE';
 export const COL_TYPES = {
   DATE: 'DATE',
 };
+
+// D3
+export const INCREMENT_RENDER_COUNT = 'app/AppHub/INCREMENT_RENDER_COUNT';

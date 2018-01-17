@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { CheckboxVisibility } from 'office-ui-fabric-react/lib/DetailsList';
 
 import appPage from 'containers/App-Container/appPage';
 import Content from 'components/App-Content/Content';
 import List from 'components/List';
 import ListSection from 'components/List/ListSection';
+
 
 const aBunch = 5;
 const aBunchOfRows = (x) => Array(aBunch).fill(0).reduce((o, v, i) => Object.assign(o, { [`col${i}`]: `row ${i}${x}` }, {}));
@@ -44,6 +43,7 @@ const oneThird = {
   margin: -15,
 };
 
+
 export class DemoLists extends React.PureComponent {
   render() {
     return (
@@ -63,18 +63,4 @@ export class DemoLists extends React.PureComponent {
 }
 
 
-const { func } = PropTypes;
-
-DemoLists.propTypes = {
-  dispatch: func.isRequired,
-};
-
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-const withAppPage = appPage(DemoLists);
-
-export default connect(null, mapDispatchToProps)(withAppPage);
+export default appPage(DemoLists);

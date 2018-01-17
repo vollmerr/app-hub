@@ -24,6 +24,7 @@ export class SpaReport extends React.PureComponent {
     super(props);
     this.state = {
       selectedKey: REPORT.PENDING,
+      data: [],
       recipients: [[], []],
     };
   }
@@ -59,6 +60,10 @@ export class SpaReport extends React.PureComponent {
     });
     // update with our new lists
     this.setState({
+      data: [
+        { key: REPORT.PENDING, value: recipients[REPORT.PENDING].length },
+        { key: REPORT.PREVIOUS, value: recipients[REPORT.PREVIOUS].length },
+      ],
       recipients,
     });
   }
@@ -69,13 +74,13 @@ export class SpaReport extends React.PureComponent {
   }
 
   render() {
-    const { data, dataKey, selectedItem, enums } = this.props;
-    const { recipients, selectedKey } = this.state;
+    const { dataKey, selectedItem, enums } = this.props;
+    const { data, recipients, selectedKey } = this.state;
     // build stats for chart lengend
-    const totalCount = data.length || 1;
-    const pending = recipients[REPORT.PENDING];
-    const acknowledged = recipients[REPORT.PREVIOUS];
-    const pendingPercent = Math.round((pending.length / totalCount) * 100);
+    const pendingCount = recipients[REPORT.PENDING].length;
+    const acknowledgedCount = recipients[REPORT.PREVIOUS].length;
+    const totalCount = pendingCount + acknowledgedCount || 1;
+    const pendingPercent = Math.round((pendingCount / totalCount) * 100);
     const acknowldgedPercent = 100 - pendingPercent;
 
     const detailsProps = {
@@ -89,18 +94,16 @@ export class SpaReport extends React.PureComponent {
       selectedKey,
       stats: {
         pending: {
-          color: theme.chart.colors[REPORT.PENDING],
-          count: pending.length,
+          count: pendingCount,
           percent: pendingPercent,
         },
         acknowledged: {
-          color: theme.chart.colors[REPORT.PREVIOUS],
-          count: acknowledged.length,
+          count: acknowledgedCount,
           percent: acknowldgedPercent,
         },
       },
       onClick: this.handleClick,
-      hasData: Boolean(data.length),
+      hasData: Boolean(data.some((x) => x.value)),
     };
 
     const recipientsProps = {

@@ -1,6 +1,8 @@
 import DemoHome from 'containers/Demo-Home';
 import DemoLists from 'containers/Demo-Lists';
 import DemoForm from 'containers/Demo-Form';
+import DemoD3 from 'containers/Demo-D3';
+
 
 export const base = '/demo';
 
@@ -25,5 +27,12 @@ export default [
     path: `${base}/form`,
     exact: true,
     component: DemoForm,
+  },
+  {
+    key: 'd3',
+    name: 'Example D3',
+    path: `${base}/d3`,
+    exact: true,
+    component: DemoD3,
   },
 ];
