@@ -29,7 +29,6 @@ export const READ_ACK_FAILURE = 'app/Spa/READ_ACK_FAILURE';
 // ROLES
 export const ROLES = {
   ADMIN: 'SPA Admin',
-  GUARD: 'SPA Guard',
 };
 // STATUS
 // TODO: PULL IN FROM API

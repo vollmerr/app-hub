@@ -37,15 +37,14 @@ export function* putToken(token) {
   try {
     const {
       sub: sam,
-      sid,
-      roles,
       exp,
       iat,
+      ...rest
     } = decode(token);
 
     const expire = (exp - iat) * 1000; // convert from ms to s
 
-    yield put(authUserDone({ sam, sid, roles, expire }));
+    yield put(authUserDone({ sam, expire, ...rest }));
     return expire;
   } catch (error) {
     throw new Error(error);

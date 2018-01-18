@@ -17,45 +17,45 @@ export const Wrapper = styled.div`
 `;
 
 
-export const Heading = styled.h3`
-  margin: 0 5px 10px 5px;
-`;
+// export const Heading = styled.h3`
+//   margin: 0 5px 10px 5px;
+// `;
 
 
-export const Item = styled.div`
-  display: inline-flex;
-  width: 100%;
-  padding: 5px;
-`;
+// export const Item = styled.div`
+//   display: inline-flex;
+//   width: 100%;
+//   padding: 5px;
+// `;
 
-export const Key = styled.div`
-  flex: 1;
-  padding-right: 10px;
-`;
-
-
-export const Value = styled.div`
-  flex: 3;
-`;
+// export const Key = styled.div`
+//   flex: 1;
+//   padding-right: 10px;
+// `;
 
 
-export const items = [
-  ACK.STATUS,
-  ACK.START_DATE,
-  ACK.END_DATE,
-  ACK.TARGET_GROUPS,
-  ACK.FILE_NAME,
-  ACK.STATEMENT,
-  ACK.DETAILS,
-];
+// export const Value = styled.div`
+//   flex: 3;
+// `;
 
-class Details extends React.PureComponent {
+
+// export const items = [
+//   ACK.STATUS,
+//   ACK.START_DATE,
+//   ACK.END_DATE,
+//   ACK.TARGET_GROUPS,
+//   ACK.FILE_NAME,
+//   ACK.STATEMENT,
+//   ACK.DETAILS,
+// ];
+
+class Filters extends React.PureComponent {
   render() {
-    const { selectedItem, enums } = this.props;
+    // const { selectedItem, enums } = this.props;
 
     return (
       <Wrapper>
-        <Heading>{selectedItem[ACK.TITLE]}</Heading>
+        {/* <Heading>{selectedItem[ACK.TITLE]}</Heading>
         {
           items.map((name) => (
             <Item key={name}>
@@ -63,7 +63,8 @@ class Details extends React.PureComponent {
               <Value>{formatItem(selectedItem, name, acknowledgment[name], enums)}</Value>
             </Item>
           ))
-        }
+        } */}
+        filters go here....
       </Wrapper>
     );
   }
@@ -72,9 +73,8 @@ class Details extends React.PureComponent {
 
 const { object } = PropTypes;
 
-Details.propTypes = {
-  enums: object,
-  selectedItem: object.isRequired,
+Filters.propTypes = {
+
 };
 
-export default Details;
+export default Filters;

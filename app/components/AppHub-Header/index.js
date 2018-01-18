@@ -35,7 +35,7 @@ class Header extends React.PureComponent {
       alerts,
     } = this.props;
 
-    const initials = userName ? userName.split(/[. ]/, 2).map((x) => x[0].toUpperCase()).join('') : '';
+    const initials = userName ? userName.split(/[,. ]/, 2).map((x) => x[0].toUpperCase()).join('') : '';
     const hasAlerts = alerts && alerts.length;
 
     return (

@@ -21,6 +21,7 @@ const LOADING = 'loading...';
 export const Wrapper = styled.div`
   display:flex;
   align-items: center;
+  justify-content: center;
   flex-flow: row wrap;
 
   path {

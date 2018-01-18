@@ -23,6 +23,7 @@ export const initialState = {
     meta: {},
   },
   user: {
+    name: '',
     sam: '',
     sid: '',
     roles: [],
@@ -55,7 +56,7 @@ export default handleActions({
   },
   // USER
   [C.AUTH_USER_DONE]: (state, action) => {
-    const { sam, sid, roles, expire } = action.payload;
+    const { name, sam, sid, roles, expire } = action.payload;
 
     if (action.error) {
       return state
@@ -67,6 +68,7 @@ export default handleActions({
     const validRoutes = allRoutes.filter((route) => !unauthorizedRoute(route, rolesArray));
 
     return state
+      .setIn(['user', 'name'], name)
       .setIn(['user', 'sam'], sam)
       .setIn(['user', 'sid'], sid)
       .setIn(['user', 'roles'], fromJS(rolesArray))

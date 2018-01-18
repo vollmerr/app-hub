@@ -75,6 +75,11 @@ const makeSelectUserSid = () => createSelector(
   (substate) => substate.getIn(['user', 'sid'])
 );
 
+export const getUserName = () => createSelector(
+  selectAppHubDomain,
+  (substate) => substate.getIn(['user', 'name'])
+);
+
 const makeSelectUserRoles = () => createSelector(
   selectAppHubDomain,
   (substate) => substate.getIn(['user', 'roles'])

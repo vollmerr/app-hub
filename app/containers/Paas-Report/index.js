@@ -4,17 +4,16 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 
-import theme from 'utils/theme';
 import { doneLoading } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
-import { APPS, APPROVAL, REPORT } from 'containers/Paas/constants';
+import { REPORT } from 'containers/Paas/constants';
 import { reportColumns } from 'containers/Paas/data';
 import * as selectors from 'containers/Paas/selectors';
 import * as actions from 'containers/Paas/actions';
 
 import Wrapper from './Wrapper';
 import Section from './Section';
-import Details from './Details';
+import Filters from './Filters';
 import PieChart from './PieChart';
 import Authorizations from './Authorizations';
 
@@ -90,31 +89,28 @@ export class PaasReport extends React.PureComponent {
     const deniedPercent = Math.round((authorizations[REPORT.DENIED].length / totalCount) * 100);
     const pendingPercent = 100 - approvedPercent - deniedPercent;
 
-    // const detailsProps = {
-    //   enums,
-    //   selectedItem,
-    // };
+    const filtersProps = {
+      // enums,
+      // selectedItem,
+    };
 
     const pieChartProps = {
       data: [
-        {key: REPORT.APPROVED, value: authorizations[REPORT.APPROVED].length},
-        {key: REPORT.DENIED, value: authorizations[REPORT.DENIED].length},
-        {key: REPORT.PENDING, value: authorizations[REPORT.PENDING].length},
+        { key: REPORT.APPROVED, value: authorizations[REPORT.APPROVED].length },
+        { key: REPORT.DENIED, value: authorizations[REPORT.DENIED].length },
+        { key: REPORT.PENDING, value: authorizations[REPORT.PENDING].length },
       ],
       selectedKey,
       stats: {
         approved: {
-          color: theme.chart.colors[REPORT.APPROVED],
           count: authorizations[REPORT.APPROVED].length,
           percent: approvedPercent,
         },
         denied: {
-          color: theme.chart.colors[REPORT.DENIED],
           count: authorizations[REPORT.DENIED].length,
           percent: deniedPercent,
         },
         pending: {
-          color: theme.chart.colors[REPORT.PENDING],
           count: authorizations[REPORT.PENDING].length,
           percent: pendingPercent,
         },
@@ -136,7 +132,7 @@ export class PaasReport extends React.PureComponent {
     return (
       <Wrapper>
         <Section>
-          {/* <Details {...detailsProps} /> */}
+          <Filters {...filtersProps} />
           <PieChart {...pieChartProps} />
         </Section>
         <Section>

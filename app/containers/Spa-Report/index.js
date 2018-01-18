@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 
-import theme from 'utils/theme';
 import { RECIPIENT, REPORT } from 'containers/Spa/constants';
 import { reportColumns } from 'containers/Spa/data';
 

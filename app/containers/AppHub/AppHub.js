@@ -11,15 +11,7 @@ import theme from 'utils/theme';
 
 import injectSaga from 'utils/injectSaga';
 
-import {
-  makeSelectIsMobile,
-  makeSelectPanelIsOpen,
-  makeSelectPanelSelected,
-  makeSelectAppName,
-  makeSelectAppRoutes,
-  makeSelectUserSid,
-  getUserRoutes,
-} from './selectors';
+import * as selectors from './selectors';
 
 import saga from './saga';
 import { changeMobile, changePanelOpen, changePanelSelected, authUser } from './actions';
@@ -130,13 +122,13 @@ AppHub.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  isMobile: makeSelectIsMobile(),
-  panelIsOpen: makeSelectPanelIsOpen(),
-  panelSelected: makeSelectPanelSelected(),
-  appName: makeSelectAppName(),
-  appRoutes: makeSelectAppRoutes(),
-  userName: makeSelectUserSid(),
-  userRoutes: getUserRoutes(),
+  isMobile: selectors.makeSelectIsMobile(),
+  panelIsOpen: selectors.makeSelectPanelIsOpen(),
+  panelSelected: selectors.makeSelectPanelSelected(),
+  appName: selectors.makeSelectAppName(),
+  appRoutes: selectors.makeSelectAppRoutes(),
+  userName: selectors.getUserName(),
+  userRoutes: selectors.getUserRoutes(),
 });
 
 export function mapDispatchToProps(dispatch) {
