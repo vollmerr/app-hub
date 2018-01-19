@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 
-const secret = require('../../.secret');
+const secretFile = process.env.CI ? 'secret' : '.secret';
+const secret = require(`../../${secretFile}`);
 
 
 function generateJwt(sid, firstName, lastName, roles) {

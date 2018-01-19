@@ -1,4 +1,5 @@
-const secret = require('../../server/json-server/.secret');
+const secretFile = process.env.CI ? 'secret' : '.secret';
+const secret = require(`../../server/json-server/${secretFile}`);
 const jwt = require('jsonwebtoken');
 
 global.jwt = {
