@@ -48,25 +48,17 @@ const spa = {
 const state = fromJS({ spa });
 
 describe('Spa selectors', () => {
-  describe('getSpa', () => {
-    it('should select the `spa` state', () => {
-      const selector = selectors.getSpa();
-      expect(selector(state)).toEqual(fromJS(spa));
-    });
-  });
-
-
   describe('user selectors', () => {
-    describe('getUserCached', () => {
+    describe('getUserIsCached', () => {
       it('should select if the user data is cached', () => {
-        const selector = selectors.getUserCached();
+        const selector = selectors.getUserIsCached();
         expect(selector(state)).toEqual(spa.user.isCached);
       });
     });
 
-    describe('getUserPendingAcks', () => {
+    describe('getUserPendingList', () => {
       it('should select a List of pending acks combined with recipient details', () => {
-        const selector = selectors.getUserPendingAcks();
+        const selector = selectors.getUserPendingList();
         const expected = fromJS([
           { ...spa.recipients.byId.abc, ...spa.acknowledgments.byId.g, id: 'abc' }, // recipients id
         ]);
@@ -74,9 +66,9 @@ describe('Spa selectors', () => {
       });
     });
 
-    describe('getUserPreviousAcks', () => {
+    describe('getUserPreviousList', () => {
       it('should select a List of previous acks combined with recipient details', () => {
-        const selector = selectors.getUserPreviousAcks();
+        const selector = selectors.getUserPreviousList();
         const expected = fromJS([
           { ...spa.recipients.byId.def, ...spa.acknowledgments.byId.x, id: 'def' }, // recipients id
         ]);
@@ -87,9 +79,9 @@ describe('Spa selectors', () => {
 
 
   describe('admin selectors', () => {
-    describe('getUserCached', () => {
+    describe('getAdminIsCached', () => {
       it('should select if the admin data is cached', () => {
-        const selector = selectors.getAdminCached();
+        const selector = selectors.getAdminIsCached();
         expect(selector(state)).toEqual(spa.admin.isCached);
       });
     });
@@ -97,13 +89,14 @@ describe('Spa selectors', () => {
     describe('getAdminCachedIds', () => {
       it('should select all ack ids from admin', () => {
         const selector = selectors.getAdminCachedIds();
-        expect(selector(state)).toEqual(fromJS(spa.admin.cachedIds));
+        const expected = fromJS(spa.admin.cachedIds);
+        expect(selector(state)).toEqual(expected);
       });
     });
 
-    describe('getAdminActiveAcks', () => {
+    describe('getAdminActiveList', () => {
       it('should a List of active acks', () => {
-        const selector = selectors.getAdminActiveAcks();
+        const selector = selectors.getAdminActiveList();
         const expected = fromJS([
           spa.acknowledgments.byId.g,
         ]);
@@ -111,9 +104,9 @@ describe('Spa selectors', () => {
       });
     });
 
-    describe('getAdminPreviousAcks', () => {
+    describe('getAdminPreviousList', () => {
       it('should a List of active acks', () => {
-        const selector = selectors.getAdminPreviousAcks();
+        const selector = selectors.getAdminPreviousList();
         const expected = fromJS([
           spa.acknowledgments.byId.y,
         ]);
@@ -122,19 +115,31 @@ describe('Spa selectors', () => {
     });
   });
 
-
-  describe('getRecipients', () => {
-    it('should select the `recipients`', () => {
-      const selector = selectors.getRecipients();
-      expect(selector(state)).toEqual(fromJS(spa.recipients));
+  describe('recipients', () => {
+    describe('getRecipientsById', () => {
+      it('should select `recipients.byId`', () => {
+        const selector = selectors.getRecipientsById();
+        const expected = fromJS(spa.recipients.byId);
+        expect(selector(state)).toEqual(expected);
+      });
     });
   });
 
+  describe('groups', () => {
+    describe('getGroupsById', () => {
+      it('should select the `groups.byId`', () => {
+        const selector = selectors.getGroupsById();
+        const expected = fromJS(spa.groups.byId);
+        expect(selector(state)).toEqual(expected);
+      });
+    });
 
-  describe('getGroups', () => {
-    it('should select the `groups`', () => {
-      const selector = selectors.getGroups();
-      expect(selector(state)).toEqual(fromJS(spa.groups));
+    describe('getTargetGroupIds', () => {
+      it('should select the `groups.targetIds`', () => {
+        const selector = selectors.getTargetGroupIds();
+        const expected = fromJS(spa.groups.targetIds);
+        expect(selector(state)).toEqual(expected);
+      });
     });
   });
 
@@ -143,38 +148,6 @@ describe('Spa selectors', () => {
     it('should select the `groups`', () => {
       const selector = selectors.getEnums();
       expect(selector(state)).toEqual(fromJS(spa.enums));
-    });
-  });
-
-
-  describe('selectById', () => {
-    it('should select the `byId` section of state', () => {
-      const actual = selectors.selectById(state.getIn(['spa', 'recipients']));
-      const expected = state.getIn(['spa', 'recipients', 'byId']);
-      expect(actual).toEqual(expected);
-    });
-  });
-
-  describe('selectByAckId', () => {
-    it('should filter recipients by an acknowledgment id', () => {
-      const id = 'g';
-      const actual = selectors.selectByAckId(state.getIn(['spa', 'recipients']), id);
-      const expected = fromJS({ abc: spa.recipients.byId.abc });
-      expect(actual).toEqual(expected);
-    });
-  });
-
-  describe('selectIdExists', () => {
-    it('should return true if the value exists in the state', () => {
-      const id = 'g';
-      const actual = selectors.selectIdExists(state.getIn(['spa', 'acknowledgments', 'allIds']), id);
-      expect(actual).toEqual(true);
-    });
-
-    it('should return false if the value does not exist in the state', () => {
-      const id = 'g';
-      const actual = selectors.selectIdExists(state.getIn(['spa', 'recipients', 'allIds']), id);
-      expect(actual).toEqual(false);
     });
   });
 });

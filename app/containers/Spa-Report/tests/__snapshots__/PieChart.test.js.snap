@@ -1,60 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PieChart__Chart /> should render correctly 1`] = `
-.c0 path {
-  stroke: #004578;
-  stroke-width: 1px;
-}
-
-.c0 path:hover {
-  fill-opacity: 0.15;
-  cursor: pointer;
-}
-
-<div
-  className="c0"
-/>
-`;
-
-exports[`<PieChart__Color /> should render correctly 1`] = `
-.c0 {
-  display: inline-block;
-  margin-right: 5px;
-  width: 15px;
-  height: 15px;
-  background: ;
-  border: 1px solid #004578;
-}
-
-<div
-  className="c0"
-/>
-`;
-
-exports[`<PieChart__Item /> should render correctly 1`] = `
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 5px 10px;
-}
-
-<CustomizedActionButton
-  className="c0"
-/>
-`;
-
-exports[`<PieChart__Legend /> should render correctly 1`] = `
-.c0 {
-  margin: 5px;
-}
-
-<div
-  className="c0"
-/>
-`;
-
 exports[`<PieChart__Wrapper /> should render correctly 1`] = `
 .c0 {
   -webkit-flex: 1 0 auto;
@@ -95,24 +40,41 @@ exports[`PieChart should render a no data indicator and no chart if there is no 
 
 exports[`PieChart should render correctly 1`] = `
 <PieChart__Wrapper>
-  <PieChart__Chart>
-    <ChartProp />
-  </PieChart__Chart>
-  <PieChart__Legend>
-    <PieChart__Item
-      checked={true}
-      onClick={[Function]}
-    >
-      <PieChart__Color />
-      Pending: 5 (30 %)
-    </PieChart__Item>
-    <PieChart__Item
-      checked={false}
-      onClick={[Function]}
-    >
-      <PieChart__Color />
-      Acknowldged: 20 (70 %)
-    </PieChart__Item>
-  </PieChart__Legend>
+  <WithFauxDOM(WithD3Renderer)
+    data={Array []}
+    hasData={true}
+    height={300}
+    legend={
+      Array [
+        Object {
+          "checked": true,
+          "key": 0,
+          "onClick": [Function],
+          "text": "Pending: 5 (30 %)",
+        },
+        Object {
+          "checked": false,
+          "key": 1,
+          "onClick": [Function],
+          "text": "Acknowldged: 20 (70 %)",
+        },
+      ]
+    }
+    onClick={[Function]}
+    selectedKey={0}
+    stats={
+      Object {
+        "acknowledged": Object {
+          "count": 20,
+          "percent": 70,
+        },
+        "pending": Object {
+          "count": 5,
+          "percent": 30,
+        },
+      }
+    }
+    width={300}
+  />
 </PieChart__Wrapper>
 `;

@@ -1,11 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import theme from 'utils/theme';
-import { formatItem } from 'utils/data';
-import { ACK } from 'containers/Spa/constants';
-import { acknowledgment } from 'containers/Spa/data';
+
 
 export const Wrapper = styled.div`
   flex: 2 0 50vh;
@@ -71,7 +69,7 @@ class Filters extends React.PureComponent {
 }
 
 
-const { object } = PropTypes;
+// const { object } = PropTypes;
 
 Filters.propTypes = {
 

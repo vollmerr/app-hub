@@ -1,32 +1,68 @@
 import { fromJS } from 'immutable';
-import makeSelectPaas, {
-  selectPaasDomain,
-  makeSelectPaasData,
-} from '../selectors';
+import * as selectors from '../selectors';
 
-const data = { a: 'test data' };
-const paas = { data };
+const a = { id: 'a', key: 'test a' };
+const b = { id: 'b', key: 'test b' };
+const c = { id: 'c', key: 'test c' };
+
+const paas = {
+  authorizations: {
+    byId: { a, b, c },
+    allIds: ['a', 'b', 'c'],
+  },
+  manager: {
+    currentIds: ['b'],
+    previousIds: ['a'],
+    allIds: ['a', 'b'],
+  },
+  report: {
+    deniedIds: ['a'],
+    approvedIds: ['b'],
+    pendingIds: ['c'],
+  },
+};
+
 const state = fromJS({
   paas,
   otherStuff: { b: 'other stuff' },
 });
 
-describe('makeSelectPaas', () => {
-  const selector = makeSelectPaas();
-  it('should select the Paas state as plain JS', () => {
-    expect(selector(state)).toEqual(paas);
+describe('getAuthorizations', () => {
+  const selector = selectors.getAuthorizations();
+  it('should select the `authorizations` section of state', () => {
+    const expected = fromJS(paas.authorizations);
+    expect(selector(state)).toEqual(expected);
   });
 });
 
-describe('selectPaasDomain', () => {
-  it('should select the paas state', () => {
-    expect(selectPaasDomain(state).toJS()).toEqual(paas);
+describe('getAuthorizationList', () => {
+  const selector = selectors.getAuthorizationList();
+  it('should make a List of `authorizations` based off `allIds`', () => {
+    const expected = fromJS([a, b, c]);
+    expect(selector(state)).toEqual(expected);
   });
 });
 
-describe('makeSelectData', () => {
-  const selector = makeSelectPaasData();
-  it('should select data from state', () => {
-    expect(selector(state).toJS()).toEqual(paas.data);
+describe('getManagerById', () => {
+  const selector = selectors.getManagerById('current');
+  it('should make a Map of a mangers `authorizations` based off the type passed in', () => {
+    const expected = fromJS({ b });
+    expect(selector(state)).toEqual(expected);
+  });
+});
+
+describe('getManagerList', () => {
+  const selector = selectors.getManagerList('previous');
+  it('should make a List of a mangers `authorizations` based off the type passed in', () => {
+    const expected = fromJS([a]);
+    expect(selector(state)).toEqual(expected);
+  });
+});
+
+describe('getReportList', () => {
+  const selector = selectors.getReportList('denied');
+  it('should make a List of `report` `authorizations` based off the type passed in', () => {
+    const expected = fromJS([a]);
+    expect(selector(state)).toEqual(expected);
   });
 });

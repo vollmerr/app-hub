@@ -1,4 +1,4 @@
-import { types, formatItem, formatItems, mapToColumns } from '../data';
+import { types, formatItem, formatList, mapToColumns } from '../data';
 import { formattedDate } from '../date';
 
 
@@ -41,12 +41,12 @@ describe('formatItem', () => {
   });
 });
 
-describe('formatItems', () => {
+describe('formatList', () => {
   it('should format all items correctly', () => {
-    const formattedItems = formatItems(items, fields, enums);
+    const formattedList = formatList(items, fields, enums);
 
-    expect(formattedItems).toMatchSnapshot();
-    expect(formattedItems.every((item) => (
+    expect(formattedList).toMatchSnapshot();
+    expect(formattedList.every((item) => (
       Object.values(item).every((v) => typeof v === 'string')
     ))).toEqual(true);
   });

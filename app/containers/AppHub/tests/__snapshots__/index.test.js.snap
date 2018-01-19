@@ -53,8 +53,7 @@ exports[`<AppHubRoot /> should render correctly if authenticated 1`] = `
           "path": "/paas",
           "roles": Array [
             "PAAS Manager",
-            "PAAS HR Admin",
-            "PAAS Security Admin",
+            "PAAS Reports",
           ],
         },
         Object {
@@ -162,8 +161,7 @@ exports[`<AppHubRoot /> should render correctly if authenticated 1`] = `
             "path": "/paas",
             "roles": Array [
               "PAAS Manager",
-              "PAAS HR Admin",
-              "PAAS Security Admin",
+              "PAAS Reports",
             ],
           },
           Object {
@@ -276,8 +274,7 @@ exports[`<AppHubRoot /> should render correctly if not authenticated 1`] = `
           "path": "/paas",
           "roles": Array [
             "PAAS Manager",
-            "PAAS HR Admin",
-            "PAAS Security Admin",
+            "PAAS Reports",
           ],
         },
         Object {

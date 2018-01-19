@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { fromJS } from 'immutable';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import { testMapDispatchToProps } from 'utils/testUtils';
@@ -26,42 +25,39 @@ import EmailModal from '../EmailModal';
 const List = require.requireActual('components/List');
 
 
-const recipients = fromJS({
-  byId: {
-    m: { [RECIPIENT.ID]: 'm', [RECIPIENT.ACK_ID]: 'a' },
-    p: { [RECIPIENT.ID]: 'p', [RECIPIENT.ACK_ID]: 'd' },
-    n: { [RECIPIENT.ID]: 'n', [RECIPIENT.ACK_ID]: 'a' },
-  },
-  allIds: ['m', 'p', 'n'],
-});
+const recipientsById = {
+  m: { [RECIPIENT.ID]: 'm', [RECIPIENT.ACK_ID]: 'a' },
+  p: { [RECIPIENT.ID]: 'p', [RECIPIENT.ACK_ID]: 'd' },
+  n: { [RECIPIENT.ID]: 'n', [RECIPIENT.ACK_ID]: 'a' },
+};
 
-const activeAcks = fromJS([
+const adminActiveList = [
   { [ACK.ID]: 'a', [ACK.TITLE]: 'testPending1', [ACK.STATUS]: STATUS.ACTIVE },
   { [ACK.ID]: 'b', [ACK.TITLE]: 'testPending2', [ACK.STATUS]: STATUS.ACTIVE },
-]);
+];
 
-const previousAcks = fromJS([
+const adminPreviousList = [
   { [ACK.ID]: 'c', [ACK.TITLE]: 'testPrevious1', [ACK.STATUS]: STATUS.EXPIRED },
   { [ACK.ID]: 'd', [ACK.TITLE]: 'testPrevious2', [ACK.STATUS]: STATUS.DISABLED },
-]);
+];
 
-const groups = fromJS({
-  byId: {
-    m: { [GROUP.SID]: 'm', [GROUP.NAME]: 'test 1' },
-  },
-  targetIds: ['m'],
-});
+const groupsById = {
+  m: { [GROUP.SID]: 'm', [GROUP.NAME]: 'test 1' },
+};
+
+const targetGroupIds = ['m'];
 
 const props = {
-  enums: fromJS({
+  enums: {
     [ACK.TARGET_GROUPS]: {},
-  }),
-  adminCached: false,
-  recipients,
-  groups,
-  adminCachedIds: fromJS(['a', 'b', 'c', 'd']),
-  adminActiveAcks: activeAcks,
-  adminPreviousAcks: previousAcks,
+  },
+  adminIsCached: false,
+  recipientsById,
+  groupsById,
+  targetGroupIds,
+  adminActiveList,
+  adminPreviousList,
+  adminCachedIds: ['a', 'b', 'c', 'd'],
   onGetAdminDataRequest: jest.fn(),
   onGetGroupsRequest: jest.fn(),
   onGetAckRecipientsRequest: jest.fn(),
@@ -119,12 +115,12 @@ describe('<SpaAdmin />', () => {
 
 
   describe('componentDidMount', () => {
-    it('should get the admin data if its not already in the redux store (adminCached)', () => {
+    it('should get the admin data if its not already in the redux store (adminIsCached)', () => {
       expect(props.onGetAdminDataRequest).toHaveBeenCalled();
     });
 
-    it('should not get the admin data if its already in the redux store (adminCached)', () => {
-      wrapper.setProps({ adminCached: true });
+    it('should not get the admin data if its already in the redux store (adminIsCached)', () => {
+      wrapper.setProps({ adminIsCached: true });
       jest.resetAllMocks();
       instance.componentDidMount();
       expect(props.onGetAdminDataRequest).not.toHaveBeenCalled();
@@ -178,7 +174,7 @@ describe('<SpaAdmin />', () => {
 
     describe('handleSubmitNew', () => {
       it('should dispatch a new acknowledgment to the api with plain JS', () => {
-        const newAcks = previousAcks.toJS();
+        const newAcks = adminPreviousList;
         instance.handleSubmitNew(newAcks);
         expect(props.onNewAckRequest).toHaveBeenCalledWith(newAcks);
       });
@@ -285,10 +281,10 @@ describe('<SpaAdmin />', () => {
 
 
   describe('Navigation', () => {
-    describe('navItems', () => {
+    describe('navList', () => {
       it('should add a `new` button that calls `handleShowNew` onClick', () => {
         instance.handleShowNew = jest.fn();
-        const items = instance.navItems();
+        const items = instance.navList();
         // find new button, should only be one
         const btns = items.filter((item) => item.key === 'new');
         expect(btns.length).toEqual(1);
@@ -301,7 +297,7 @@ describe('<SpaAdmin />', () => {
         instance.handleShowDisable = jest.fn();
         instance.handleShowEmail = jest.fn();
         wrapper.setState({ selectedItem: state.selectedItem, hideReport: false });
-        const items = instance.navItems();
+        const items = instance.navList();
         // find disable button, should only be one
         const btns = items.filter((item) => item.key === 'disable' || item.key === 'email');
         expect(btns.length).toEqual(2);
@@ -316,7 +312,7 @@ describe('<SpaAdmin />', () => {
       it('should not add a `disable` or `email` button if showing the report with no active item selected', () => {
         instance.handleShowDisable = jest.fn();
         wrapper.setState({ selectedItem: { ...state.selectedItem, [ACK.STATUS]: STATUS.DISABLED }, hideReport: false });
-        const items = instance.navItems();
+        const items = instance.navList();
         // find disable button, should be none
         const btns = items.filter((item) => item.key === 'disable' || item.key === 'email');
         expect(btns.length).toEqual(0);
@@ -325,7 +321,7 @@ describe('<SpaAdmin />', () => {
       it('should add a `back` button that calls `handleHideNew` onClick if showing the report', () => {
         instance.handleHideNew = jest.fn();
         wrapper.setState({ hideReport: false });
-        const items = instance.navItems();
+        const items = instance.navList();
         // find disable button, should only be one
         const btns = items.filter((item) => item.key === 'back');
         expect(btns.length).toEqual(1);
@@ -337,7 +333,7 @@ describe('<SpaAdmin />', () => {
       it('should add a `back` button that calls `handleHideNew` onClick if showing the new acknowledgment form', () => {
         instance.handleHideNew = jest.fn();
         wrapper.setState({ hideNewAck: false });
-        const items = instance.navItems();
+        const items = instance.navList();
         // find disable button, should only be one
         const btns = items.filter((item) => item.key === 'back');
         expect(btns.length).toEqual(1);

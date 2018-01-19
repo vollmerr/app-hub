@@ -2,6 +2,7 @@ import { createSelector } from 'reselect';
 
 import { RECIPIENT } from './constants';
 
+
 const selectSpa = (state) => state.get('spa');
 const selectUser = (state) => selectSpa(state).get('user');
 const selectAdmin = (state) => selectSpa(state).get('admin');
@@ -11,26 +12,16 @@ const selectGroups = (state) => selectSpa(state).get('groups');
 const selectEnums = (state) => selectSpa(state).get('enums');
 
 const selectById = (state) => state.get('byId');
-const selectByAckId = (state, id) => selectById(state).filter((x) => (
-  String(x.get(RECIPIENT.ACK_ID)) === String(id)
-));
-const selectIdExists = (state, id) => state.includes(String(id));
 const selectCached = (state) => state.get('isCached');
 
 
-const getSpa = () => createSelector(
-  selectSpa,
-  (substate) => substate
-);
-
-
 // selects if user data is cached
-const getUserCached = () => createSelector(
+export const getUserIsCached = () => createSelector(
   selectUser,
   (user) => selectCached(user)
 );
 // selects array of users acknowlegments combined with recipient details based off type
-const getUserAcks = (type) => (
+const getUserList = (type) => (
   (user, recipients, acks) => user.get(type).map((id) => {
     const recipient = selectById(recipients).get(String(id));
     const ackId = String(recipient.get(RECIPIENT.ACK_ID));
@@ -39,85 +30,64 @@ const getUserAcks = (type) => (
   })
 );
 // selects array of users pending acknowlegments combined with recipient details
-const getUserPendingAcks = () => createSelector(
+export const getUserPendingList = () => createSelector(
   [selectUser, selectRecipients, selectAcknowledgments],
-  getUserAcks('recipientsPendingIds')
+  getUserList('recipientsPendingIds')
 );
 // selects array of users previous acknowlegments combined with recipient details
-const getUserPreviousAcks = () => createSelector(
+export const getUserPreviousList = () => createSelector(
   [selectUser, selectRecipients, selectAcknowledgments],
-  getUserAcks('recipientsPreviousIds')
+  getUserList('recipientsPreviousIds')
 );
 
 
+// selects if admin data is cached
+export const getAdminIsCached = () => createSelector(
+  selectAdmin,
+  (admin) => selectCached(admin)
+);
+export const getAdminCachedIds = () => createSelector(
+  selectAdmin,
+  (admin) => admin.get('cachedIds')
+);
 // selects List of users acknowlegments based off type
-const getAdminAcks = (type) => (
+const getAdminList = (type) => (
   (admin, acks) => admin.get(type).map((id) => (
     selectById(acks).get(id)
   ))
 );
-// selects if admin data is cached
-const getAdminCached = () => createSelector(
-  selectAdmin,
-  (admin) => selectCached(admin)
-);
-const getAdminCachedIds = () => createSelector(
-  selectAdmin,
-  (admin) => admin.get('cachedIds')
-);
 // selects List of active acknowlegments
-const getAdminActiveAcks = () => createSelector(
+export const getAdminActiveList = () => createSelector(
   [selectAdmin, selectAcknowledgments],
-  getAdminAcks('acksActiveIds')
+  getAdminList('acksActiveIds')
 );
 // selects List of previous acknowlegments
-const getAdminPreviousAcks = () => createSelector(
+export const getAdminPreviousList = () => createSelector(
   [selectAdmin, selectAcknowledgments],
-  getAdminAcks('acksPreviousIds')
+  getAdminList('acksPreviousIds')
 );
 
 
-// selects 'recipients'
-const getRecipients = () => createSelector(
+// selects 'recipients.byId'
+export const getRecipientsById = () => createSelector(
   selectRecipients,
-  (recipients) => recipients
+  (recipients) => selectById(recipients)
 );
 
 
 // groups
-const getGroups = () => createSelector(
+export const getGroupsById = () => createSelector(
   selectGroups,
-  (groups) => groups
+  (groups) => selectById(groups)
+);
+export const getTargetGroupIds = () => createSelector(
+  selectGroups,
+  (groups) => groups.get('targetIds')
 );
 
 
 // enums
-const getEnums = () => createSelector(
+export const getEnums = () => createSelector(
   selectEnums,
   (enums) => enums
 );
-
-
-export {
-  // spa
-  getSpa,
-  // user
-  getUserCached,
-  getUserPendingAcks,
-  getUserPreviousAcks,
-  // admin
-  getAdminCached,
-  getAdminCachedIds,
-  getAdminActiveAcks,
-  getAdminPreviousAcks,
-  // recipients
-  getRecipients,
-  // groups
-  getGroups,
-  // enums
-  getEnums,
-  // util selectors
-  selectById,
-  selectByAckId,
-  selectIdExists,
-};

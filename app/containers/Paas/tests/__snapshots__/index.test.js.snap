@@ -35,8 +35,7 @@ exports[`Paas Entry should render correctly 1`] = `
             "path": "/paas/report",
             "roles": Array [
               "PAAS Manager",
-              "PAAS HR Admin",
-              "PAAS Security Admin",
+              "PAAS Reports",
             ],
           },
         ]

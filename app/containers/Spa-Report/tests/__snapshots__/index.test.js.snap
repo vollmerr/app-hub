@@ -6,8 +6,19 @@ exports[`<SpaReport /> should render correctly 1`] = `
     <Details
       selectedItem={Object {}}
     />
-    <WithFauxDOM(PieChart)
-      data={Array []}
+    <Connect(PieChart)
+      data={
+        Array [
+          Object {
+            "key": 0,
+            "value": 0,
+          },
+          Object {
+            "key": 1,
+            "value": 0,
+          },
+        ]
+      }
       dataKey="test"
       hasData={false}
       onClick={[Function]}
@@ -15,12 +26,10 @@ exports[`<SpaReport /> should render correctly 1`] = `
       stats={
         Object {
           "acknowledged": Object {
-            "color": "#004578",
             "count": 0,
             "percent": 100,
           },
           "pending": Object {
-            "color": "#0078d7",
             "count": 0,
             "percent": 0,
           },

@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Buttons__ApproveButton /> should render correctly 1`] = `
+.c0 {
+  height: 30px;
+}
+
 .c0 i {
   color: #107c10;
 }
@@ -11,6 +15,10 @@ exports[`<Buttons__ApproveButton /> should render correctly 1`] = `
 `;
 
 exports[`<Buttons__DenyButton /> should render correctly 1`] = `
+.c0 {
+  height: 30px;
+}
+
 .c0 i {
   color: #e81123;
 }

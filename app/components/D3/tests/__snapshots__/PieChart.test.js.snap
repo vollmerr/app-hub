@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PieChart__Legend /> should render correctly 1`] = `
+.c0 {
+  margin: 5px;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<PieChart__LegendItem /> should render correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px 10px;
+}
+
+.c0:before {
+  content: '';
+  width: 15px;
+  height: 15px;
+  border: 1px solid #004578;
+  background: ;
+}
+
+<CustomizedActionButton
+  className="c0"
+/>
+`;
+
+exports[`<PieChart__Wrapper /> should render correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+}
+
+.c0 path {
+  stroke: #004578;
+  stroke-width: 1px;
+}
+
+.c0 path:hover {
+  fill-opacity: 0.15;
+  cursor: pointer;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`FieldText should render correctly 1`] = `
+<PieChart__Wrapper
+  height={20}
+  width={10}
+>
+  <Chart />
+  <PieChart__Legend>
+    <PieChart__LegendItem
+      data-key={0}
+      key="0"
+      text="test1"
+    />
+    <PieChart__LegendItem
+      data-key={1}
+      key="1"
+      text="test2"
+    />
+  </PieChart__Legend>
+</PieChart__Wrapper>
+`;

@@ -1,76 +1,68 @@
 import { createSelector } from 'reselect';
 
 
-/**
- * Direct selector to the appHub state domain
- */
-const selectAppHubDomain = (state) => state.get('appHub');
-
-const selectApp = (state) => selectAppHubDomain(state).get('app');
-
-/**
- * Other specific selectors
- */
+export const selectAppHubDomain = (state) => state.get('appHub');
+export const selectApp = (state) => selectAppHubDomain(state).get('app');
 
  // VIEW
-const makeSelectView = () => createSelector(
+export const makeSelectView = () => createSelector(
   selectAppHubDomain,
   (substate) => substate.get('view')
 );
 
-const makeSelectIsMobile = () => createSelector(
+export const makeSelectIsMobile = () => createSelector(
   selectAppHubDomain,
   (substate) => substate.getIn(['view', 'isMobile'])
 );
 
-const makeSelectPanel = () => createSelector(
+export const makeSelectPanel = () => createSelector(
   selectAppHubDomain,
   (substate) => substate.getIn(['view', 'panel'])
 );
 
-const makeSelectPanelIsOpen = () => createSelector(
+export const makeSelectPanelIsOpen = () => createSelector(
   selectAppHubDomain,
   (substate) => substate.getIn(['view', 'panel', 'isOpen'])
 );
 
-const makeSelectPanelSelected = () => createSelector(
+export const makeSelectPanelSelected = () => createSelector(
   selectAppHubDomain,
   (substate) => substate.getIn(['view', 'panel', 'selected'])
 );
 
 // APP
-const makeSelectAppDomain = () => createSelector(
+export const makeSelectAppDomain = () => createSelector(
   selectAppHubDomain,
   (substate) => substate.get('app')
 );
 
-const makeSelectApp = () => createSelector(
+export const makeSelectApp = () => createSelector(
   makeSelectAppDomain(),
   (substate) => substate
 );
 
-const makeSelectAppName = () => createSelector(
+export const makeSelectAppName = () => createSelector(
   makeSelectAppDomain(),
   (substate) => substate.get('name')
 );
 
-const makeSelectAppRoutes = () => createSelector(
+export const makeSelectAppRoutes = () => createSelector(
   makeSelectAppDomain(),
   (substate) => substate.get('routes')
 );
 
-const makeSelectAppMeta = () => createSelector(
+export const makeSelectAppMeta = () => createSelector(
   makeSelectAppDomain(),
   (substate) => substate.get('meta')
 );
 
 // USER
-const makeSelectUser = () => createSelector(
+export const makeSelectUser = () => createSelector(
   selectAppHubDomain,
   (substate) => substate.get('user')
 );
 
-const makeSelectUserSid = () => createSelector(
+export const makeSelectUserSid = () => createSelector(
   selectAppHubDomain,
   (substate) => substate.getIn(['user', 'sid'])
 );
@@ -80,7 +72,7 @@ export const getUserName = () => createSelector(
   (substate) => substate.getIn(['user', 'name'])
 );
 
-const makeSelectUserRoles = () => createSelector(
+export const makeSelectUserRoles = () => createSelector(
   selectAppHubDomain,
   (substate) => substate.getIn(['user', 'roles'])
 );
@@ -90,32 +82,3 @@ export const getUserRoutes = () => createSelector(
   (substate) => substate.getIn(['user', 'routes'])
 );
 
-/**
- * Default selector used by AppHub
- */
-
-const makeSelectAppHub = () => createSelector(
-  selectAppHubDomain,
-  (substate) => substate.toJS()
-);
-
-export default makeSelectAppHub;
-export {
-  selectAppHubDomain,
-  selectApp,
-
-  makeSelectView,
-  makeSelectIsMobile,
-  makeSelectPanel,
-  makeSelectPanelIsOpen,
-  makeSelectPanelSelected,
-
-  makeSelectApp,
-  makeSelectAppName,
-  makeSelectAppRoutes,
-  makeSelectAppMeta,
-
-  makeSelectUser,
-  makeSelectUserSid,
-  makeSelectUserRoles,
-};

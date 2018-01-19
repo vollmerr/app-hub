@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { fromJS } from 'immutable';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import { testMapDispatchToProps } from 'utils/testUtils';
@@ -19,24 +18,24 @@ const List = require.requireActual('components/List');
 
 
 const props = {
-  enums: fromJS({
+  enums: {
     [ACK.TARGET_GROUPS]: {},
-  }),
-  userCached: false,
-  userPendingAcks: fromJS([{
+  },
+  userIsCached: false,
+  userPendingList: [{
     id: 1,
     name: 'test1',
   }, {
     id: 3,
     name: 'test3',
-  }]),
-  userPreviousAcks: fromJS([{
+  }],
+  userPreviousList: [{
     id: 2,
     name: 'test2',
   }, {
     id: 4,
     name: 'test4',
-  }]),
+  }],
   onGetUserDataRequest: jest.fn(),
   onReadAckRequest: jest.fn(),
   Loading: null,
@@ -104,7 +103,7 @@ describe('<SpaHome />', () => {
     });
 
     it('shoud not load the user data if it is cached', () => {
-      wrapper.setProps({ userCached: true });
+      wrapper.setProps({ userIsCached: true });
       jest.resetAllMocks();
       instance.componentDidMount();
       expect(props.onGetUserDataRequest).not.toHaveBeenCalled();

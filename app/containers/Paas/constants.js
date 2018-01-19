@@ -39,6 +39,7 @@ export const AUTH = {
 export const STATUS = {
   ACTIVE: 'active',
   INACTIVE: 'inactive',
+  NO_MANAGER: 'noManager',
 };
 // APP TO AUTHORIZE
 export const APPS = {

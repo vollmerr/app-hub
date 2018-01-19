@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`formatItems should format all items correctly 1`] = `
+exports[`formatList should format all items correctly 1`] = `
 Array [
   Object {
     "arr": "a, b",

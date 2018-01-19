@@ -97,7 +97,7 @@ PieChart.propTypes = {
   data: array.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   incrementRenderCount(mode) {
     dispatch(incrementRenderCount('demo-piechart', mode));
   },

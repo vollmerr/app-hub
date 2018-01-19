@@ -45,17 +45,17 @@ export function formatItem(item, name, field, enums = {}) {
  *
  * @return {array}          - formatted items as objects of strings
  */
-export function formatItems(items, fields, enums) {
-  const formattedItems = [];
+export function formatList(items, fields, enums) {
+  const formattedList = [];
 
   items.forEach((item, i) => {
-    formattedItems[i] = {};
+    formattedList[i] = {};
     Object.keys(item).forEach((k) => {
-      formattedItems[i][k] = formatItem(item, k, fields[k], enums);
+      formattedList[i][k] = formatItem(item, k, fields[k], enums);
     });
   });
 
-  return formattedItems;
+  return formattedList;
 }
 
 /**

@@ -1,31 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 import json2csv from 'json2csv';
 
-import {
-  getEnums,
-  getAdminCached,
-  getRecipients,
-  getGroups,
-  getAdminCachedIds,
-  getAdminActiveAcks,
-  getAdminPreviousAcks,
-  selectByAckId,
-  selectIdExists,
-} from 'containers/Spa/selectors';
+import * as selectors from 'containers/Spa/selectors';
+import * as actions from 'containers/Spa/actions';
 
-import {
-  getAdminDataRequest,
-  getGroupsRequest,
-  getAckRecipientsRequest,
-  newAckRequest,
-  disableAckRequest,
-} from 'containers/Spa/actions';
-
-import { formatItems } from 'utils/data';
+import toJS from 'hocs/toJS';
+import { formatList } from 'utils/data';
 import { formattedDate } from 'utils/date';
 import { doneLoading, downloadFile } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
@@ -75,9 +60,9 @@ export class SpaAdmin extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { adminCached, onGetAdminDataRequest, onGetGroupsRequest } = this.props;
+    const { adminIsCached, onGetAdminDataRequest, onGetGroupsRequest } = this.props;
     // load the data for admin if not cached (list of their acks)
-    if (!adminCached) {
+    if (!adminIsCached) {
       onGetAdminDataRequest();
       onGetGroupsRequest();
     }
@@ -91,12 +76,12 @@ export class SpaAdmin extends React.PureComponent {
    * Handles opening the form for creating a new acknowledgment
    */
   handleShowNew = () => {
-    const { groups } = this.props;
+    const { targetGroupIds, groupsById } = this.props;
     // map to { key, text } options as FieldSelect expects
-    const options = groups.get('targetIds').map((sid) => ({
-      key: String(sid),
-      text: groups.getIn(['byId', String(sid), GROUP.NAME]),
-    })).toJS();
+    const options = targetGroupIds.map((id) => ({
+      key: id,
+      text: groupsById[id][GROUP.NAME],
+    }));
     // set target group options to ones pulled in from API (mapped above)
     const fields = { ...this.state.fields };
     fields[ACK.TARGET_GROUPS].options = options;
@@ -228,7 +213,7 @@ export class SpaAdmin extends React.PureComponent {
    *
    * @return {array} items    - items to use as buttons
    */
-  navItems = () => {
+  navList = () => {
     const { hideNewAck, hideReport, selectedItem } = this.state;
     const items = [];
 
@@ -317,13 +302,14 @@ export class SpaAdmin extends React.PureComponent {
     // display the report (need to do before loading api so no flicker)
     this.handleShowReport();
     // call api if no entry for recipients stored
-    if (!selectIdExists(adminCachedIds, item[ACK.ID])) {
+    if (!adminCachedIds.includes(item[ACK.ID])) {
       await onGetAckRecipientsRequest(item);
     }
     // when done loading build data for report (all recipients of acknowledgment into an array)
     await doneLoading(this);
-    const data = selectByAckId(this.props.recipients, this.state.selectedItem[ACK.ID]).toList().toJS();
-    const formattedData = formatItems(data, recipient, enums.toJS());
+    const id = this.state.selectedItem[ACK.ID];
+    const data = Object.values(this.props.recipientsById).filter((x) => x[RECIPIENT.ACK_ID] === id);
+    const formattedData = formatList(data, recipient, enums);
     this.setState({ formattedData });
   }
 
@@ -364,8 +350,8 @@ export class SpaAdmin extends React.PureComponent {
     const {
       enums,
       Loading,
-      adminActiveAcks,
-      adminPreviousAcks,
+      adminActiveList,
+      adminPreviousList,
     } = this.props;
 
     const {
@@ -398,7 +384,7 @@ export class SpaAdmin extends React.PureComponent {
     // render reporting
     if (!hideReport) {
       const reportProps = {
-        enums: enums.toJS(),
+        enums,
         selectedItem,
         data: formattedData,
         dataKey: RECIPIENT.ACK_DATE,
@@ -431,8 +417,8 @@ export class SpaAdmin extends React.PureComponent {
 
     // render lists of active and precious acknowledgments
     const activeProps = {
-      enums: enums.toJS(),
-      items: adminActiveAcks.toJS(),
+      enums,
+      items: adminActiveList,
       columns: adminColumns,
       title: 'Active Acknowledgments',
       empty: {
@@ -445,8 +431,8 @@ export class SpaAdmin extends React.PureComponent {
     };
 
     const previousProps = {
-      enums: enums.toJS(),
-      items: adminPreviousAcks.toJS(),
+      enums,
+      items: adminPreviousList,
       columns: adminColumns,
       title: 'Previous Acknowledgments',
       empty: {
@@ -473,7 +459,7 @@ export class SpaAdmin extends React.PureComponent {
       <div>
         <AdminNav
           isSearchBoxVisible={false}
-          items={this.navItems()}
+          items={this.navList()}
         />
         {this.renderContent()}
       </div>
@@ -482,16 +468,17 @@ export class SpaAdmin extends React.PureComponent {
 }
 
 
-const { object, func, node, bool } = PropTypes;
+const { object, func, node, bool, array } = PropTypes;
 
 SpaAdmin.propTypes = {
   enums: object.isRequired,
-  adminCached: bool.isRequired,
-  recipients: object.isRequired,
-  groups: object.isRequired,
-  adminCachedIds: object.isRequired,
-  adminActiveAcks: object.isRequired,
-  adminPreviousAcks: object.isRequired,
+  adminIsCached: bool.isRequired,
+  recipientsById: object.isRequired,
+  groupsById: object.isRequired,
+  targetGroupIds: array.isRequired,
+  adminActiveList: array.isRequired,
+  adminPreviousList: array.isRequired,
+  adminCachedIds: array.isRequired,
   onGetAdminDataRequest: func.isRequired,
   onGetGroupsRequest: func.isRequired,
   onGetAckRecipientsRequest: func.isRequired,
@@ -501,23 +488,26 @@ SpaAdmin.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  enums: getEnums(),
-  adminCached: getAdminCached(),
-  recipients: getRecipients(),
-  groups: getGroups(),
-  adminActiveAcks: getAdminActiveAcks(),
-  adminPreviousAcks: getAdminPreviousAcks(),
-  adminCachedIds: getAdminCachedIds(),
+  enums: selectors.getEnums(),
+  adminIsCached: selectors.getAdminIsCached(),
+  recipientsById: selectors.getRecipientsById(),
+  groupsById: selectors.getGroupsById(),
+  targetGroupIds: selectors.getTargetGroupIds(),
+  adminActiveList: selectors.getAdminActiveList(),
+  adminPreviousList: selectors.getAdminPreviousList(),
+  adminCachedIds: selectors.getAdminCachedIds(),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
-  onGetAdminDataRequest: () => dispatch(getAdminDataRequest()),
-  onGetGroupsRequest: () => dispatch(getGroupsRequest()),
-  onGetAckRecipientsRequest: (item) => dispatch(getAckRecipientsRequest(item)),
-  onNewAckRequest: (vals) => dispatch(newAckRequest(vals)),
-  onDisableAckRequest: (item) => dispatch(disableAckRequest(item)),
+  onGetAdminDataRequest: () => dispatch(actions.getAdminDataRequest()),
+  onGetGroupsRequest: () => dispatch(actions.getGroupsRequest()),
+  onGetAckRecipientsRequest: (item) => dispatch(actions.getAckRecipientsRequest(item)),
+  onNewAckRequest: (vals) => dispatch(actions.newAckRequest(vals)),
+  onDisableAckRequest: (item) => dispatch(actions.disableAckRequest(item)),
 });
 
-const withAppPage = appPage(SpaAdmin);
-
-export default connect(mapStateToProps, mapDispatchToProps)(withAppPage);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  appPage,
+  toJS,
+)(SpaAdmin);

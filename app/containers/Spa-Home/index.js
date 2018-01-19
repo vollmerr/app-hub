@@ -1,22 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
+import toJS from 'hocs/toJS';
 import { doneLoading, downloadFile } from 'utils/request';
 import { ACK } from 'containers/Spa/constants';
 import appPage from 'containers/App-Container/appPage';
 import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
 
-import {
-  getEnums,
-  getUserCached,
-  getUserPendingAcks,
-  getUserPreviousAcks,
-} from 'containers/Spa/selectors';
-
+import * as selectors from 'containers/Spa/selectors';
 import { getUserDataRequest, readAckRequest } from 'containers/Spa/actions';
 import { homeColumns } from 'containers/Spa/data';
 
@@ -52,9 +48,9 @@ export class SpaHome extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { userCached, onGetUserDataRequest } = this.props;
+    const { userIsCached, onGetUserDataRequest } = this.props;
 
-    if (!userCached) {
+    if (!userIsCached) {
       onGetUserDataRequest();
     }
   }
@@ -117,7 +113,7 @@ export class SpaHome extends React.PureComponent {
   }
 
   render() {
-    const { enums, userPendingAcks, userPreviousAcks, Loading } = this.props;
+    const { enums, userPendingList, userPreviousList, Loading } = this.props;
     const { selectedItem, hasRead, hideModal } = this.state;
 
     if (Loading) {
@@ -125,8 +121,8 @@ export class SpaHome extends React.PureComponent {
     }
 
     const pendingAckProps = {
-      enums: enums.toJS(),
-      items: userPendingAcks.toJS(),
+      enums,
+      items: userPendingList,
       columns: homeColumns.pending,
       title: 'Pending Acknowledgment',
       empty: {
@@ -135,8 +131,8 @@ export class SpaHome extends React.PureComponent {
       selection: this.selectionActive,
     };
     const previousAckProps = {
-      enums: enums.toJS(),
-      items: userPreviousAcks.toJS(),
+      enums,
+      items: userPreviousList,
       columns: homeColumns.previous,
       title: 'Previous Acknowledgments',
       empty: {
@@ -172,22 +168,22 @@ export class SpaHome extends React.PureComponent {
 }
 
 
-const { object, node, func, bool } = PropTypes;
+const { object, node, func, bool, array } = PropTypes;
 
 SpaHome.propTypes = {
   enums: object.isRequired,
-  userCached: bool.isRequired,
-  userPendingAcks: object.isRequired,
-  userPreviousAcks: object.isRequired,
+  userIsCached: bool.isRequired,
+  userPendingList: array.isRequired,
+  userPreviousList: array.isRequired,
   onGetUserDataRequest: func.isRequired,
   Loading: node,
 };
 
 const mapStateToProps = createStructuredSelector({
-  enums: getEnums(),
-  userCached: getUserCached(),
-  userPendingAcks: getUserPendingAcks(),
-  userPreviousAcks: getUserPreviousAcks(),
+  enums: selectors.getEnums(),
+  userIsCached: selectors.getUserIsCached(),
+  userPendingList: selectors.getUserPendingList(),
+  userPreviousList: selectors.getUserPreviousList(),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
@@ -195,6 +191,8 @@ export const mapDispatchToProps = (dispatch) => ({
   onReadAckRequest: (item) => dispatch(readAckRequest(item)),
 });
 
-const withAppPage = appPage(SpaHome);
-
-export default connect(mapStateToProps, mapDispatchToProps)(withAppPage);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  appPage,
+  toJS,
+)(SpaHome);

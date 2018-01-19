@@ -29,8 +29,7 @@ Array [
     "path": "/paas",
     "roles": Array [
       "PAAS Manager",
-      "PAAS HR Admin",
-      "PAAS Security Admin",
+      "PAAS Reports",
     ],
   },
   Object {
@@ -123,8 +122,7 @@ Array [
     "path": "/paas",
     "roles": Array [
       "PAAS Manager",
-      "PAAS HR Admin",
-      "PAAS Security Admin",
+      "PAAS Reports",
     ],
   },
   Object {

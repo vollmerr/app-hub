@@ -1,99 +1,94 @@
 
-import {
-  changeMobile,
-  changePanelOpen,
-  changePanelSelected,
-  changeApp,
-  changeAppStatus,
-  authUser,
-  authUserDone,
-} from '../actions';
-
-import {
-  CHANGE_MOBILE,
-  CHANGE_PANEL_OPEN,
-  CHANGE_PANEL_SELECTED,
-  CHANGE_APP,
-  CHANGE_APP_STATUS,
-  AUTH_USER,
-  AUTH_USER_DONE,
-} from '../constants';
+import * as actions from '../actions';
+import * as C from '../constants';
 
 describe('AppHub actions', () => {
   describe('view actions', () => {
-    it('has a type of CHANGE_MOBILE', () => {
+    it('has a type of `CHANGE_MOBILE`', () => {
       const expected = {
-        type: CHANGE_MOBILE,
+        type: C.CHANGE_MOBILE,
       };
-      expect(changeMobile(true)).toEqual({ ...expected, payload: true });
-      expect(changeMobile(false)).toEqual({ ...expected, payload: false });
+      expect(actions.changeMobile(true)).toEqual({ ...expected, payload: true });
+      expect(actions.changeMobile(false)).toEqual({ ...expected, payload: false });
     });
 
-    it('has a type of CHANGE_PANEL_OPEN', () => {
+    it('has a type of `CHANGE_PANEL_OPEN`', () => {
       const expected = {
-        type: CHANGE_PANEL_OPEN,
+        type: C.CHANGE_PANEL_OPEN,
       };
-      expect(changePanelOpen(true)).toEqual({ ...expected, payload: true });
-      expect(changePanelOpen(false)).toEqual({ ...expected, payload: false });
+      expect(actions.changePanelOpen(true)).toEqual({ ...expected, payload: true });
+      expect(actions.changePanelOpen(false)).toEqual({ ...expected, payload: false });
     });
 
-    it('has a type of CHANGE_PANEL_SELECTED', () => {
+    it('has a type of `CHANGE_PANEL_SELECTED`', () => {
       const expected = {
-        type: CHANGE_PANEL_SELECTED,
+        type: C.CHANGE_PANEL_SELECTED,
       };
-      expect(changePanelSelected('panel1')).toEqual({ ...expected, payload: 'panel1' });
-      expect(changePanelSelected('panel2')).toEqual({ ...expected, payload: 'panel2' });
+      expect(actions.changePanelSelected('panel1')).toEqual({ ...expected, payload: 'panel1' });
+      expect(actions.changePanelSelected('panel2')).toEqual({ ...expected, payload: 'panel2' });
     });
   });
 
   describe('app actions', () => {
-    it('has a type of CHANGE_APP', () => {
+    it('has a type of `CHANGE_APP`', () => {
       const routes = [{ name: 'route 1', key: 1 }, { name: 'route 2', key: 2 }];
       const meta = { desc: 'test' };
       const expected = {
         payload: { meta, routes },
-        type: CHANGE_APP,
+        type: C.CHANGE_APP,
       };
-      expect(changeApp({ routes, meta })).toEqual(expected);
+      expect(actions.changeApp({ routes, meta })).toEqual(expected);
     });
 
-    it('has a type of CHANGE_APP_STATUS', () => {
+    it('has a type of `CHANGE_APP_STATUS`', () => {
       const loading = true;
       const error = 'test error';
       const expected = {
         payload: { error, loading },
-        type: CHANGE_APP_STATUS,
+        type: C.CHANGE_APP_STATUS,
       };
-      expect(changeAppStatus({ loading, error })).toEqual(expected);
+      expect(actions.changeAppStatus({ loading, error })).toEqual(expected);
     });
   });
 
   describe('user authenication actions', () => {
-    it('has a type of AUTH_USER', () => {
+    it('has a type of `AUTH_USER`', () => {
       const expected = {
-        type: AUTH_USER,
+        type: C.AUTH_USER,
       };
-      expect(authUser()).toEqual(expected);
+      expect(actions.authUser()).toEqual(expected);
     });
 
-    it('has a type of AUTH_USER_DONE', () => {
+    it('has a type of `AUTH_USER_DONE`', () => {
       const sid = 'testSid';
       const roles = ['role1', 'role2'];
       const expected = {
         payload: { sid, roles },
-        type: AUTH_USER_DONE,
+        type: C.AUTH_USER_DONE,
       };
-      expect(authUserDone({ sid, roles })).toEqual(expected);
+      expect(actions.authUserDone({ sid, roles })).toEqual(expected);
     });
 
-    it('has a type of AUTH_USER_DONE for errors', () => {
+    it('has a type of `AUTH_USER_DONE` for errors', () => {
       const error = new Error('test error');
       const expected = {
-        type: AUTH_USER_DONE,
+        type: C.AUTH_USER_DONE,
         error: true,
         payload: error,
       };
-      expect(authUserDone(error)).toEqual(expected);
+      expect(actions.authUserDone(error)).toEqual(expected);
+    });
+  });
+
+  describe('render count (for d3)', () => {
+    it('has a type of `INCREMENT_RENDER_COUNT`', () => {
+      const component = 'test component';
+      const mode = 'update';
+      const expected = {
+        type: C.INCREMENT_RENDER_COUNT,
+        payload: { component, mode },
+      };
+      expect(actions.incrementRenderCount(component, mode)).toEqual(expected);
     });
   });
 });

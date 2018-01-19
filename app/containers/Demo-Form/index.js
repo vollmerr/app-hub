@@ -42,7 +42,7 @@ export class DemoForm extends React.PureComponent {
 
   render() {
     const { Loading } = this.props;
-    const onSubmit = (vals) => alert(JSON.stringify(vals, null, 2));
+    const onSubmit = (vals) => alert(JSON.stringify(vals, null, 2)); // eslint-disable-line
 
     if (Loading) {
       return Loading;

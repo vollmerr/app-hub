@@ -1,95 +1,99 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<SpaReport /> should render correctly 1`] = `
+exports[`<PaasReport /> should render correctly 1`] = `
 <Wrapper__Wrapper>
   <Section__Section>
-    <Details
-      selectedItem={Object {}}
-    />
-    <WithFauxDOM(PieChart)
-      data={Array []}
-      dataKey="test"
+    <Filters />
+    <Connect(PieChart)
+      data={
+        Array [
+          Object {
+            "key": 0,
+            "value": 0,
+          },
+          Object {
+            "key": 1,
+            "value": 0,
+          },
+          Object {
+            "key": 2,
+            "value": 0,
+          },
+        ]
+      }
       hasData={false}
       onClick={[Function]}
-      selectedKey={0}
+      selectedKey={2}
       stats={
         Object {
-          "acknowledged": Object {
-            "color": "#004578",
-            "count": 0,
-            "percent": 100,
-          },
-          "pending": Object {
-            "color": "#0078d7",
+          "approved": Object {
             "count": 0,
             "percent": 0,
+          },
+          "denied": Object {
+            "count": 0,
+            "percent": 0,
+          },
+          "pending": Object {
+            "count": 0,
+            "percent": 100,
           },
         }
       }
     />
   </Section__Section>
   <Section__Section>
-    <Recipients
+    <Authorizations
       columns={
         Array [
           Object {
-            "ariaLabel": "First name of the recipient",
+            "ariaLabel": "Full Name of the Employee",
             "data": Object {},
-            "fieldName": "firstName",
+            "fieldName": "fullName",
             "isResizable": true,
-            "isSortedDescending": undefined,
-            "key": "firstName",
-            "maxWidth": 100,
+            "isSortedDescending": true,
+            "key": "fullName",
+            "maxWidth": 250,
             "minWidth": 100,
-            "name": "First Name",
+            "name": "Full Name",
             "notSortable": false,
           },
           Object {
-            "ariaLabel": "Last name of the recipient",
+            "ariaLabel": "Full Name of the Employee's Manager",
             "data": Object {},
-            "fieldName": "lastName",
+            "fieldName": "managerFullName",
             "isResizable": true,
             "isSortedDescending": undefined,
-            "key": "lastName",
-            "maxWidth": 100,
-            "minWidth": 100,
-            "name": "Last Name",
-            "notSortable": false,
-          },
-          Object {
-            "ariaLabel": "Email of the recipient",
-            "data": Object {},
-            "fieldName": "email",
-            "isResizable": true,
-            "isSortedDescending": undefined,
-            "key": "email",
+            "key": "managerFullName",
             "maxWidth": 200,
             "minWidth": 100,
-            "name": "Email",
+            "name": "Manager Name",
             "notSortable": false,
           },
           Object {
-            "ariaLabel": "Full name of the recipients manager",
-            "data": Object {},
-            "fieldName": "managerName",
+            "ariaLabel": "Date the Authorization was last approved",
+            "data": Object {
+              "type": "date",
+            },
+            "fieldName": "lastApproved",
             "isResizable": true,
             "isSortedDescending": undefined,
-            "key": "managerName",
+            "key": "lastApproved",
             "maxWidth": 200,
             "minWidth": 100,
-            "name": "Manager",
+            "name": "Last Approved",
             "notSortable": false,
           },
         ]
       }
       empty={
         Object {
-          "message": "No Recipients",
+          "message": "No Authorizations",
         }
       }
       items={Array []}
       selectionMode={0}
-      title="Pending Recipients"
+      title="Pending Authorizations"
     />
   </Section__Section>
 </Wrapper__Wrapper>

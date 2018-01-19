@@ -140,7 +140,7 @@ export class PieChart extends React.Component {
       .append('path')
       .style('fill', (d) => color(d.data.key))
       .attr('d', arc)
-      .each(function (d) {
+      .each(function (d) { // eslint-disable-line
         // store the initial angles for transitions
         // do not use arrow function here as scope is the path element
         this.current = d;

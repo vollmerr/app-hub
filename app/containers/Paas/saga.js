@@ -24,7 +24,6 @@ export function* getReportData() {
   try {
     const url = `${base}/reports`;
     const data = yield call(requestWithToken, url);
-    console.log('data:   ', data)
     yield put(actions.getReportDataSuccess(data));
   } catch (error) {
     yield put(actions.getReportDataFailure(error));

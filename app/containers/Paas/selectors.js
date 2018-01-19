@@ -10,17 +10,6 @@ const selectReport = (state) => selectPaasDomain(state).get('report');
 export const selectById = (state) => state.get('byId');
 export const selectAllIds = (state) => state.get('allIds');
 
-const makeSelectPaasData = () => createSelector(
-  selectPaasDomain,
-  (substate) => substate.get('data')
-);
-
-const makeSelectPaas = () => createSelector(
-  selectPaasDomain,
-  (substate) => substate.toJS()
-);
-
-
 export const getAuthorizations = () => createSelector(
   selectAuthorizations,
   (auths) => auths,
@@ -33,8 +22,7 @@ export const getAuthorizationList = () => createSelector(
   ))
 );
 
-
-export const getManagerAuths = (type) => createSelector(
+export const getManagerById = (type) => createSelector(
   [selectManager, selectAuthorizations],
   (manager, auths) => {
     const authsById = selectById(auths);
@@ -48,7 +36,7 @@ export const getManagerAuths = (type) => createSelector(
   }
 );
 
-export const getManagerAuthsList = (type) => createSelector(
+export const getManagerList = (type) => createSelector(
   [selectManager, selectAuthorizations],
   (manager, auths) => {
     const authsById = selectById(auths);
@@ -56,18 +44,10 @@ export const getManagerAuthsList = (type) => createSelector(
   }
 );
 
-
-export const getReportAuths = (type) => createSelector(
+export const getReportList = (type) => createSelector(
   [selectReport, selectAuthorizations],
   (report, auths) => {
     const authsById = selectById(auths);
     return report.get(`${type}Ids`).map((id) => authsById.get(id));
   }
 );
-
-
-export default makeSelectPaas;
-export {
-  selectPaasDomain,
-  makeSelectPaasData,
-};

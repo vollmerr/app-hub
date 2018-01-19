@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 
+import toJS from 'hocs/toJS';
 import { doneLoading } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
 import { REPORT } from 'containers/Paas/constants';
@@ -42,11 +44,9 @@ export class PaasReport extends React.PureComponent {
   async componentDidMount() {
     const { onGetReportDataRequest } = this.props;
     // TODO caching!
-    console.time('componentDidMount');
     onGetReportDataRequest();
     await doneLoading(this);
     this.mapData();
-    console.timeEnd('componentDidMount');
   }
 
   // componentDidUpdate(prevProps) {
@@ -61,15 +61,15 @@ export class PaasReport extends React.PureComponent {
   // }
 
   mapData = () => {
-    const { allAuths, approvedAuths, deniedAuths, pendingAuths } = this.props;
+    const { allList, approvedList, deniedList, pendingList } = this.props;
     // TODO: filtering goes here, such as select app then filter by that app, etc
     // update with our new lists
     this.setState({
       authorizations: {
-        all: allAuths.toJS(),
-        [REPORT.APPROVED]: approvedAuths.toJS(),
-        [REPORT.DENIED]: deniedAuths.toJS(),
-        [REPORT.PENDING]: pendingAuths.toJS(),
+        all: allList,
+        [REPORT.APPROVED]: approvedList,
+        [REPORT.DENIED]: deniedList,
+        [REPORT.PENDING]: pendingList,
       },
     });
   }
@@ -144,27 +144,31 @@ export class PaasReport extends React.PureComponent {
 }
 
 
-const { object, any, array, string, func } = PropTypes;
+const { array, func } = PropTypes;
 
 PaasReport.propTypes = {
-  // enums: any,
-  // data: array.isRequired,
-  // dataKey: string.isRequired,
-  // selectedItem: object.isRequired,
+  allList: array.isRequired,
+  approvedList: array.isRequired,
+  deniedList: array.isRequired,
+  pendingList: array.isRequired,
   onGetReportDataRequest: func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  allAuths: selectors.getAuthorizationList(),
-  approvedAuths: selectors.getReportAuths('approved'),
-  deniedAuths: selectors.getReportAuths('denied'),
-  pendingAuths: selectors.getReportAuths('pending'),
+  allList: selectors.getAuthorizationList(),
+  approvedList: selectors.getReportList('approved'),
+  deniedList: selectors.getReportList('denied'),
+  pendingList: selectors.getReportList('pending'),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
   onGetReportDataRequest: () => dispatch(actions.getReportDataRequest()),
 });
 
-const withAppPage = appPage(PaasReport);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export default connect(mapStateToProps, mapDispatchToProps)(withAppPage);
+export default compose(
+  withConnect,
+  appPage,
+  toJS,
+)(PaasReport);

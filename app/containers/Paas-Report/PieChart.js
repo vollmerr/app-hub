@@ -88,11 +88,15 @@ const { shape, number, func, bool, array } = PropTypes;
 
 PieChart.propTypes = {
   stats: shape({
-    pending: shape({
+    approved: shape({
       count: number,
       percent: number,
     }).isRequired,
-    acknowledged: shape({
+    denied: shape({
+      count: number,
+      percent: number,
+    }).isRequired,
+    pending: shape({
       count: number,
       percent: number,
     }).isRequired,
@@ -103,7 +107,7 @@ PieChart.propTypes = {
   data: array.isRequired,
 };
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   incrementRenderCount(mode) {
     dispatch(incrementRenderCount('demo-piechart', mode));
   },

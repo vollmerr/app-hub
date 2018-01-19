@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Form } from 'react-final-form';
 
+import toJS from 'hocs/toJS';
 import { doneLoading } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
 import List from 'components/List';
@@ -58,7 +59,7 @@ export class PaasPrevious extends React.PureComponent {
    */
   initalizeForm = async () => {
     await doneLoading(this);
-    const initialValues = this.props.authorizations.toJS();
+    const initialValues = this.props.managerById;
     this.setState({ initialValues });
   }
 
@@ -96,12 +97,12 @@ export class PaasPrevious extends React.PureComponent {
    * Renders the form
    */
   renderForm = ({ handleSubmit }) => {
-    const { authorizationList } = this.props;
+    const { managerList } = this.props;
     const { columns } = this.state;
 
     const listProps = {
       columns,
-      items: authorizationList.toJS(),
+      items: managerList,
       title: 'Previous Staff Authorizations',
       sortBy: [AUTH.FULL_NAME],
     };
@@ -136,27 +137,28 @@ export class PaasPrevious extends React.PureComponent {
 }
 
 
-const { object, node, func } = PropTypes;
+const { object, array, node, func } = PropTypes;
 
 PaasPrevious.propTypes = {
   onGetManagerDataRequest: func.isRequired, // eslint-disable-line
-  authorizationList: object.isRequired,
-  authorizations: object.isRequired, // eslint-disable-line
+  managerList: array.isRequired,
+  managerById: object.isRequired, // eslint-disable-line
   Loading: node,
 };
 
 const mapStateToProps = createStructuredSelector({
-  authorizationList: selectors.getManagerAuthsList('previous'),
-  authorizations: selectors.getManagerAuths('previous'),
+  managerList: selectors.getManagerList('previous'),
+  managerById: selectors.getManagerById('previous'),
 });
 
 export const mapDispatchToProps = (dispatch) => ({
   onGetManagerDataRequest: () => dispatch(actions.getManagerDataRequest()),
 });
 
-const withAppPage = appPage(PaasPrevious);
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(
   withConnect,
-)(withAppPage);
+  appPage,
+  toJS,
+)(PaasPrevious);

@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`toJS should be a HOC that returns a new component 1`] = `
+<div>
+  <WrappedComponent
+    immutable={
+      Object {
+        "array": Array [
+          "test 1",
+          "test 2",
+        ],
+        "bool": false,
+        "obj": Object {
+          "a": Object {
+            "b": "c",
+          },
+          "n": Array [
+            1,
+            2,
+            3,
+          ],
+        },
+      }
+    }
+    plain={
+      Object {
+        "array": Array [
+          "test 1",
+          "test 2",
+        ],
+        "bool": false,
+        "obj": Object {
+          "a": Object {
+            "b": "c",
+          },
+          "n": Array [
+            1,
+            2,
+            3,
+          ],
+        },
+      }
+    }
+  />
+</div>
+`;
