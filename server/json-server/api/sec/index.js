@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const secretFile = process.env.CI ? 'secret' : '.secret';
+const secretFile = process.env.CI ? '.secret.tmp' : '.secret';
 const secret = require(`../../${secretFile}`);
 
 
