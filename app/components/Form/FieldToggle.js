@@ -10,10 +10,25 @@ import theme from 'utils/theme';
 import Field from './Field';
 
 
-const StyledToggle = styled(Toggle) `
+export const StyledToggle = styled(Toggle) `
+  /* read only, keep original styling... (set disabled to make not change and readOnly for style) */
+  ${(props) => props.readOnly && css`
+    .ms-Toggle-background {
+      background: ${props.checked ? theme.themePrimary : theme.white};
+    }
+
+    .ms-Toggle-thumb {
+      background: ${props.checked ? theme.white : theme.neutralPrimary};
+      border-color: ${props.checked ? 'transparent' : theme.neutralPrimary};
+    }
+
+    .ms-Label {
+      color: ${theme.neutralPrimary};
+    }
+  `}
   /* Is Requried */
   ${(props) => props.required && !props.disabled && css`
-    > label::after {
+    > .ms-Label::after {
       content: " *";
       color: ${theme.redDark};
       padding-right: 12px;
@@ -21,18 +36,18 @@ const StyledToggle = styled(Toggle) `
   `}
   /* Required with Null state / neither toggled nor untoggled */
   ${(props) => props.warning && isNull(props.checked) && css`
-    button {
+    .ms-Toggle-background {
       background: ${theme.warning};
       border-color: ${theme.yellow};
     }
   `}
   /* Null state / neither toggled nor untoggled */
   ${(props) => isNull(props.checked) && css`
-    button + label {
+    .ms-Toggle-background + .ms-Label {
       visibility: hidden;
     }
 
-    button {
+    .ms-Toggle-background {
       > * {
         visibility: hidden;
       }
@@ -40,7 +55,7 @@ const StyledToggle = styled(Toggle) `
   `}
   /* Has Error */
   ${(props) => props.errorMessage && css`
-    button {
+    .ms-Toggle-background {
       background: ${theme.error};
       border-color: ${theme.redDark};
     }

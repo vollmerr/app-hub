@@ -22,7 +22,11 @@ const props = {
     },
     pending: {
       count: 10,
-      percent: 20,
+      percent: 15,
+    },
+    noManager: {
+      count: 8,
+      percent: 5,
     },
   },
   selectedKey: 0,

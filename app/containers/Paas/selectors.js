@@ -15,6 +15,11 @@ export const getAuthorizations = () => createSelector(
   (auths) => auths,
 );
 
+export const getAuthorizationsById = () => createSelector(
+  selectAuthorizations,
+  (auths) => selectById(auths)
+);
+
 export const getAuthorizationItems = () => createSelector(
   selectAuthorizations,
   (auths) => selectAllIds(auths).map((authId) => (

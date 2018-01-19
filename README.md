@@ -27,7 +27,6 @@ npm install
 npm run mock:build
 ```
 This will only ever have to be done once, unless changes are made to the mock api data format.
-The mock API will be available at [http://localhost:3001](http://localhost:3001).
 
 ### Start the project in Mock mode
 Start the mock API
@@ -45,15 +44,13 @@ It will now be available at [http://localhost:3000](http://localhost:3000)
 
 For testing different mock users, select a token from the 'Mock Options' panel in the top right.
 
-
 ### Start the project in Dev mode
 ```
 npm start
 ```
 It will now be available at [http://localhost:3000](http://localhost:3000)
 
-(TODO) For testing different dev users, select a token from the 'Developers Options' panel in the top right.
-
+For testing different dev users, select a token from the 'Developers Options' panel in the top right.
 
 ### Build the Project
 To build the project for production

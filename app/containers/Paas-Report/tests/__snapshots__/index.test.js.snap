@@ -19,6 +19,10 @@ exports[`<PaasReport /> should render correctly 1`] = `
             "key": 2,
             "value": 0,
           },
+          Object {
+            "key": 3,
+            "value": 0,
+          },
         ]
       }
       hasData={false}
@@ -34,15 +38,21 @@ exports[`<PaasReport /> should render correctly 1`] = `
             "count": 0,
             "percent": 0,
           },
-          "pending": Object {
+          "noManager": Object {
             "count": 0,
             "percent": 100,
+          },
+          "pending": Object {
+            "count": 0,
+            "percent": 0,
           },
         }
       }
     />
   </Section__Section>
-  <Section__Section>
+  <Section__Section
+    flex={2}
+  >
     <Authorizations
       columns={
         Array [
@@ -57,6 +67,67 @@ exports[`<PaasReport /> should render correctly 1`] = `
             "minWidth": 100,
             "name": "Full Name",
             "notSortable": false,
+            "onRender": undefined,
+          },
+          Object {
+            "ariaLabel": "App 1 AriaLabel",
+            "data": Object {
+              "render": "authorizationToggle",
+            },
+            "fieldName": "app1",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "app1",
+            "maxWidth": 150,
+            "minWidth": 80,
+            "name": "App 1 Name",
+            "notSortable": false,
+            "onRender": [Function],
+          },
+          Object {
+            "ariaLabel": "App 2 AriaLabel",
+            "data": Object {
+              "render": "authorizationToggle",
+            },
+            "fieldName": "app2",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "app2",
+            "maxWidth": 150,
+            "minWidth": 80,
+            "name": "App 2 Name",
+            "notSortable": false,
+            "onRender": [Function],
+          },
+          Object {
+            "ariaLabel": "App 3 AriaLabel",
+            "data": Object {
+              "render": "authorizationToggle",
+            },
+            "fieldName": "app3",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "app3",
+            "maxWidth": 150,
+            "minWidth": 80,
+            "name": "App 3 Name",
+            "notSortable": false,
+            "onRender": [Function],
+          },
+          Object {
+            "ariaLabel": "App 4 AriaLabel",
+            "data": Object {
+              "render": "authorizationToggle",
+            },
+            "fieldName": "app4",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "app4",
+            "maxWidth": 150,
+            "minWidth": 80,
+            "name": "App 4 Name",
+            "notSortable": false,
+            "onRender": [Function],
           },
           Object {
             "ariaLabel": "Full Name of the Employee's Manager",
@@ -69,9 +140,10 @@ exports[`<PaasReport /> should render correctly 1`] = `
             "minWidth": 100,
             "name": "Manager Name",
             "notSortable": false,
+            "onRender": undefined,
           },
           Object {
-            "ariaLabel": "Date the Authorization was last approved",
+            "ariaLabel": "Date of last Authorization denial or approval",
             "data": Object {
               "type": "date",
             },
@@ -81,11 +153,13 @@ exports[`<PaasReport /> should render correctly 1`] = `
             "key": "lastApproved",
             "maxWidth": 200,
             "minWidth": 100,
-            "name": "Last Approved",
+            "name": "Date Authorized",
             "notSortable": false,
+            "onRender": undefined,
           },
         ]
       }
+      compact={true}
       empty={
         Object {
           "message": "No Authorizations",

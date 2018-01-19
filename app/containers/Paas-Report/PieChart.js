@@ -24,8 +24,8 @@ export const Wrapper = styled.div`
 
 
 const measurements = {
-  width: 300,
-  height: 300,
+  width: 240,
+  height: 240,
 };
 
 
@@ -39,7 +39,7 @@ export class PieChart extends React.PureComponent {
       selectedKey,
      } = this.props;
 
-    const { approved, denied, pending } = stats;
+    const { approved, denied, pending, noManager } = stats;
 
     if (!hasData) {
       return (
@@ -66,6 +66,12 @@ export class PieChart extends React.PureComponent {
         onClick: () => onClick(REPORT.PENDING),
         checked: selectedKey === REPORT.PENDING,
       },
+      {
+        key: REPORT.NO_MANAGER,
+        text: `No Manager: ${noManager.count} (${noManager.percent} %)`,
+        onClick: () => onClick(REPORT.NO_MANAGER),
+        checked: selectedKey === REPORT.NO_MANAGER,
+      },
     ];
 
     const chartProps = {
@@ -86,20 +92,17 @@ export class PieChart extends React.PureComponent {
 
 const { shape, number, func, bool, array } = PropTypes;
 
+const stat = shape({
+  count: number,
+  percent: number,
+}).isRequired;
+
 PieChart.propTypes = {
   stats: shape({
-    approved: shape({
-      count: number,
-      percent: number,
-    }).isRequired,
-    denied: shape({
-      count: number,
-      percent: number,
-    }).isRequired,
-    pending: shape({
-      count: number,
-      percent: number,
-    }).isRequired,
+    approved: stat,
+    denied: stat,
+    pending: stat,
+    noManager: stat,
   }),
   selectedKey: number.isRequired,
   onClick: func.isRequired,
@@ -109,7 +112,7 @@ PieChart.propTypes = {
 
 export const mapDispatchToProps = (dispatch) => ({
   incrementRenderCount(mode) {
-    dispatch(incrementRenderCount('demo-piechart', mode));
+    dispatch(incrementRenderCount('paas-piechart', mode));
   },
 });
 

@@ -11,6 +11,9 @@ Array [
     "roles": Array [
       "PAAS Manager",
     ],
+    "rolesRedirect": Object {
+      "PAAS Reports": "paasReport",
+    },
   },
   Object {
     "component": [Function],
@@ -29,7 +32,6 @@ Array [
     "name": "Report",
     "path": "/paas/report",
     "roles": Array [
-      "PAAS Manager",
       "PAAS Reports",
     ],
   },

@@ -57,4 +57,5 @@ export const REPORT = {
   APPROVED: 0,
   DENIED: 1,
   PENDING: 2,
+  NO_MANAGER: 3,
 };

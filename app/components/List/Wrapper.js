@@ -9,7 +9,8 @@ const Wrapper = styled.div`
   height: 100%;
   padding: 10px;
   background: ${theme.white};
-  * {
+
+  .ms-DetailsRow-cell {
     color: ${theme.neutralPrimary};
   }
 `;

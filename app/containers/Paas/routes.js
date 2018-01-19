@@ -15,6 +15,9 @@ export default [
     exact: true,
     component: PaasCurrent,
     roles: [ROLES.MANAGER],
+    rolesRedirect: {
+      [ROLES.REPORTS]: 'paasReport',
+    },
   },
   {
     key: 'paasPrevious',
@@ -30,6 +33,6 @@ export default [
     path: `${base}/report`,
     exact: true,
     component: PaasReport,
-    roles: [ROLES.MANAGER, ROLES.REPORTS],
+    roles: [ROLES.REPORTS],
   },
 ];

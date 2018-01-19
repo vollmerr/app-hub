@@ -15,7 +15,7 @@ exports[`<Wrapper__Wrapper /> should render correctly 1`] = `
   background: #ffffff;
 }
 
-.c0 * {
+.c0 .ms-DetailsRow-cell {
   color: #333333;
 }
 

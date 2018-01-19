@@ -10,7 +10,7 @@ const ListSection = styled(Section) `
   height: calc(
     ${(props) => props.vh || 100}vh - \
     ${theme.hub.headerHeight} - \
-    ${(props) => props.margin || 0}px
+    ${(props) => props.margin || 30}px
   );
   min-height: 300px;
   overflow: hidden;

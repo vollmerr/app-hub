@@ -2,9 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { testMapDispatchToProps } from 'utils/testUtils';
-import {
-  getManagerDataRequest,
-} from 'containers/Paas/actions';
+import { getManagerDataRequest } from 'containers/Paas/actions';
 
 import { PaasPrevious, mapDispatchToProps } from '../index';
 
@@ -48,11 +46,9 @@ describe('<PaasPrevious />', () => {
 
 
   describe('componentDidMount', () => {
-    it('should dispatch `onGetManagerDataRequest` then initalize the form', async () => {
-      instance.initalizeForm = jest.fn();
+    it('should dispatch `onGetManagerDataRequest`', async () => {
       await instance.componentDidMount();
       expect(props.onGetManagerDataRequest).toHaveBeenCalled();
-      expect(instance.initalizeForm).toHaveBeenCalled();
     });
   });
 
@@ -71,12 +67,6 @@ describe('<PaasPrevious />', () => {
     });
   });
 
-
-  describe('initalizeForm', () => {
-    // it('should dispatch `change` for all authorizations', () => {
-
-    // });
-  });
 
   describe('renderColumn', () => {
     // TODO !

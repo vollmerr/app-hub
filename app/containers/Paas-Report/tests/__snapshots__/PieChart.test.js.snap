@@ -43,7 +43,7 @@ exports[`PieChart should render correctly 1`] = `
   <WithFauxDOM(WithD3Renderer)
     data={Array []}
     hasData={true}
-    height={300}
+    height={240}
     legend={
       Array [
         Object {
@@ -62,7 +62,13 @@ exports[`PieChart should render correctly 1`] = `
           "checked": false,
           "key": 2,
           "onClick": [Function],
-          "text": "Pending: 10 (20 %)",
+          "text": "Pending: 10 (15 %)",
+        },
+        Object {
+          "checked": false,
+          "key": 3,
+          "onClick": [Function],
+          "text": "No Manager: 8 (5 %)",
         },
       ]
     }
@@ -78,13 +84,17 @@ exports[`PieChart should render correctly 1`] = `
           "count": 30,
           "percent": 70,
         },
+        "noManager": Object {
+          "count": 8,
+          "percent": 5,
+        },
         "pending": Object {
           "count": 10,
-          "percent": 20,
+          "percent": 15,
         },
       }
     }
-    width={300}
+    width={240}
   />
 </PieChart__Wrapper>
 `;

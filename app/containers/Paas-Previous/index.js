@@ -3,31 +3,21 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Form } from 'react-final-form';
 
 import toJS from 'hocs/toJS';
-import { doneLoading } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
 import List from 'components/List';
-import { StyledForm, FieldToggle } from 'components/Form';
+import ListSection from 'components/List/ListSection';
+import { StyledToggle } from 'components/Form/FieldToggle';
 import { AUTH } from 'containers/Paas/constants';
 import { previousColumns } from 'containers/Paas/data';
 import * as selectors from 'containers/Paas/selectors';
 import * as actions from 'containers/Paas/actions';
 
-import FormList from './FormList';
-
-
-const listHeight = {
-  margin: 120, // space for buttom buttons
-};
-
-
 export class PaasPrevious extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      initialValues: {},
       columns: this.buildColumns(previousColumns),
     };
   }
@@ -36,7 +26,6 @@ export class PaasPrevious extends React.PureComponent {
     const { onGetManagerDataRequest } = this.props;
     // TODO: CACHING....
     await onGetManagerDataRequest();
-    this.initalizeForm();
   }
 
   /**
@@ -52,16 +41,6 @@ export class PaasPrevious extends React.PureComponent {
       onRender: this.renderColumn(col),
     }))
   )
-
-  /**
-   * Initalizez the form with values
-   * Clicking 'Reset' will revert back to this state
-   */
-  initalizeForm = async () => {
-    await doneLoading(this);
-    const initialValues = this.props.managerById;
-    this.setState({ initialValues });
-  }
 
 
   /**
@@ -81,10 +60,13 @@ export class PaasPrevious extends React.PureComponent {
             onText: 'Yes',
             offText: 'No',
             isNullable: true,
+            warning: true,
+            disabled: true,
+            readOnly: true,
           };
 
           return (
-            <FieldToggle {...toggleProps} />
+            <StyledToggle {...toggleProps} />
           );
         },
       };
@@ -93,12 +75,14 @@ export class PaasPrevious extends React.PureComponent {
     return undefined;
   }
 
-  /**
-   * Renders the form
-   */
-  renderForm = ({ handleSubmit }) => {
-    const { managerItems } = this.props;
+
+  render() {
+    const { Loading, managerItems } = this.props;
     const { columns } = this.state;
+
+    if (Loading) {
+      return Loading;
+    }
 
     const listProps = {
       columns,
@@ -108,30 +92,9 @@ export class PaasPrevious extends React.PureComponent {
     };
 
     return (
-      <StyledForm onSubmit={handleSubmit}>
-        <FormList {...listHeight}>
-          <List {...listProps} />
-        </FormList>
-      </StyledForm>
-    );
-  }
-
-  render() {
-    const { Loading } = this.props;
-    const { initialValues } = this.state;
-
-    if (Loading) {
-      return Loading;
-    }
-
-    const formProps = {
-      initialValues,
-      render: this.renderForm,
-      onSubmit: () => {},
-    };
-
-    return (
-      <Form {...formProps} />
+      <ListSection>
+        <List {...listProps} />
+      </ListSection>
     );
   }
 }

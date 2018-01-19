@@ -8,6 +8,7 @@ const items = [
   { key: 'one', text: 'item 1' },
   { key: 'two', text: 'item 2' },
   { key: 'three', text: 'item 3' },
+  { key: 'four', text: 'item 4' },
 ];
 
 const props = {
@@ -15,6 +16,7 @@ const props = {
   approvedItems: [items[0]],
   deniedItems: [items[1]],
   pendingItems: [items[2]],
+  noManagerItems: [items[3]],
   onGetReportDataRequest: jest.fn(),
 };
 

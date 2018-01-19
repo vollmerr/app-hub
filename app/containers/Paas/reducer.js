@@ -20,6 +20,7 @@ export const initialState = {
     deniedIds: [],
     approvedIds: [],
     pendingIds: [],
+    noManagerIds: [],
   },
 };
 
@@ -57,11 +58,14 @@ export default handleActions({
       deniedIds: [],
       approvedIds: [],
       pendingIds: [],
+      noManagerIds: [],
     };
     // map out ids based off if approved, denied, or pending
     payload.forEach((auth) => {
       const id = auth[C.AUTH.ID];
-      if (C.APP_LIST.every((app) => auth[app] === C.APPROVAL.APPROVE)) {
+      if (auth[C.AUTH.STATUS] === C.STATUS.NO_MANAGER) {
+        report.noManagerIds.push(id);
+      } else if (C.APP_LIST.every((app) => auth[app] === C.APPROVAL.APPROVE)) {
         report.approvedIds.push(id);
       } else if (C.APP_LIST.some((app) => auth[app] === C.APPROVAL.DENY)) {
         report.deniedIds.push(id);

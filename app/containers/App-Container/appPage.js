@@ -54,10 +54,22 @@ export function appPage(Component) {
       if (currentRoute && currentRoute.get('roles')) {
         // not authorized for route
         if (unauthorizedRoute(currentRoute, userRoles)) {
+          let key = /Home/;
+          // // check for redirects for specific roles
+          const rolesRedirect = currentRoute.get('rolesRedirect');
+          if (rolesRedirect) {
+            // for all users roles
+            userRoles.forEach((role) => {
+              // if there is a redirect, set that as the key
+              if (rolesRedirect.get(role)) {
+                key = rolesRedirect.get(role);
+              }
+            });
+          }
           // get home route for app
           const homeRoute = app
             .get('routes')
-            .find((route) => route.get('key').match(/Home/));
+            .find((route) => route.get('key').match(key));
           // if not valid app home, redirect to apphub home
           const redirectRoute = unauthorizedRoute(homeRoute, userRoles) ?
             '/' :

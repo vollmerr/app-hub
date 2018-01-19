@@ -8,10 +8,11 @@ import { SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 import toJS from 'hocs/toJS';
 import { doneLoading } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
-import { REPORT } from 'containers/Paas/constants';
 import { reportColumns } from 'containers/Paas/data';
 import * as selectors from 'containers/Paas/selectors';
 import * as actions from 'containers/Paas/actions';
+import * as C from 'containers/Paas/constants';
+import { StyledToggle } from 'components/Form/FieldToggle';
 
 import Wrapper from './Wrapper';
 import Section from './Section';
@@ -21,9 +22,10 @@ import Authorizations from './Authorizations';
 
 
 const titles = {
-  [REPORT.APPROVED]: 'Approved Authorizations',
-  [REPORT.DENIED]: 'Denied Authorizations',
-  [REPORT.PENDING]: 'Pending Authorizations',
+  [C.REPORT.APPROVED]: 'Approved Authorizations',
+  [C.REPORT.DENIED]: 'Denied Authorizations',
+  [C.REPORT.PENDING]: 'Pending Authorizations',
+  [C.REPORT.NO_MANAGER]: 'No Manager Listed',
 };
 
 
@@ -31,12 +33,13 @@ export class PaasReport extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      selectedKey: REPORT.PENDING,
+      selectedKey: C.REPORT.PENDING,
       authorizations: {
         all: [],
-        [REPORT.APPROVED]: [],
-        [REPORT.DENIED]: [],
-        [REPORT.PENDING]: [],
+        [C.REPORT.APPROVED]: [],
+        [C.REPORT.DENIED]: [],
+        [C.REPORT.PENDING]: [],
+        [C.REPORT.NO_MANAGER]: [],
       },
     };
   }
@@ -49,27 +52,31 @@ export class PaasReport extends React.PureComponent {
     this.mapData();
   }
 
-  // componentDidUpdate(prevProps) {
-  //   const { data, dataKey } = this.props;
-  //   // do not compare props.chart as it gets updated in updateD3()
-  //   if (
-  //     data !== prevProps.data ||
-  //     dataKey !== prevProps.dataKey
-  //   ) {
-  //     this.mapData();
-  //   }
-  // }
+  /**
+   * Binds columns with a custom render function
+   *
+   * @param {array} columns   - column objects to bind to
+   *
+   * @return {array}          - columns with onRender bound
+   */
+  buildColumns = (columns) => (
+    columns.map((col) => ({
+      ...col,
+      onRender: this.renderColumn(col),
+    }))
+  )
 
   mapData = () => {
-    const { allItems, approvedItems, deniedItems, pendingItems } = this.props;
+    const { allItems, approvedItems, deniedItems, pendingItems, noManagerItems } = this.props;
     // TODO: filtering goes here, such as select app then filter by that app, etc
     // update with our new lists
     this.setState({
       authorizations: {
         all: allItems,
-        [REPORT.APPROVED]: approvedItems,
-        [REPORT.DENIED]: deniedItems,
-        [REPORT.PENDING]: pendingItems,
+        [C.REPORT.APPROVED]: approvedItems,
+        [C.REPORT.DENIED]: deniedItems,
+        [C.REPORT.PENDING]: pendingItems,
+        [C.REPORT.NO_MANAGER]: noManagerItems,
       },
     });
   }
@@ -79,15 +86,47 @@ export class PaasReport extends React.PureComponent {
     this.setState({ selectedKey: Number(key) });
   }
 
+  /**
+   * Renders a List column in a custom format
+   * based off data.render prop
+   *
+   * @param {object} column   - column to render
+   *
+   * @return {JSX}            - custom rendering of column
+   */
+  renderColumn = (column) => {
+    if (column.data && column.data.render) {
+      const onRenders = {
+        authorizationToggle: (item) => {
+          const toggleProps = {
+            checked: item[column.key],
+            onText: 'Yes',
+            offText: 'No',
+            isNullable: true,
+            warning: true,
+            disabled: true,
+            readOnly: true,
+          };
+
+          return (
+            <StyledToggle {...toggleProps} />
+          );
+        },
+      };
+      return onRenders[column.data.render];
+    }
+    return undefined;
+  }
+
   render() {
-    // const { data, dataKey, selectedItem, enums } = this.props;
     const { authorizations, selectedKey } = this.state;
     // build stats for chart lengend
     const totalCount = authorizations.all.length || 1;
     // percents for lists
-    const approvedPercent = Math.round((authorizations[REPORT.APPROVED].length / totalCount) * 100);
-    const deniedPercent = Math.round((authorizations[REPORT.DENIED].length / totalCount) * 100);
-    const pendingPercent = 100 - approvedPercent - deniedPercent;
+    const approvedPercent = Math.round((authorizations[C.REPORT.APPROVED].length / totalCount) * 100);
+    const deniedPercent = Math.round((authorizations[C.REPORT.DENIED].length / totalCount) * 100);
+    const pendingPercent = Math.round((authorizations[C.REPORT.PENDING].length / totalCount) * 100);
+    const noManagerPercent = 100 - approvedPercent - deniedPercent - pendingPercent;
 
     const filtersProps = {
       // enums,
@@ -96,23 +135,28 @@ export class PaasReport extends React.PureComponent {
 
     const pieChartProps = {
       data: [
-        { key: REPORT.APPROVED, value: authorizations[REPORT.APPROVED].length },
-        { key: REPORT.DENIED, value: authorizations[REPORT.DENIED].length },
-        { key: REPORT.PENDING, value: authorizations[REPORT.PENDING].length },
+        { key: C.REPORT.APPROVED, value: authorizations[C.REPORT.APPROVED].length },
+        { key: C.REPORT.DENIED, value: authorizations[C.REPORT.DENIED].length },
+        { key: C.REPORT.PENDING, value: authorizations[C.REPORT.PENDING].length },
+        { key: C.REPORT.NO_MANAGER, value: authorizations[C.REPORT.NO_MANAGER].length },
       ],
       selectedKey,
       stats: {
         approved: {
-          count: authorizations[REPORT.APPROVED].length,
+          count: authorizations[C.REPORT.APPROVED].length,
           percent: approvedPercent,
         },
         denied: {
-          count: authorizations[REPORT.DENIED].length,
+          count: authorizations[C.REPORT.DENIED].length,
           percent: deniedPercent,
         },
         pending: {
-          count: authorizations[REPORT.PENDING].length,
+          count: authorizations[C.REPORT.PENDING].length,
           percent: pendingPercent,
+        },
+        noManager: {
+          count: authorizations[C.REPORT.NO_MANAGER].length,
+          percent: noManagerPercent,
         },
       },
       onClick: this.handleClick,
@@ -121,12 +165,13 @@ export class PaasReport extends React.PureComponent {
 
     const authorizationsProps = {
       items: authorizations[selectedKey],
-      columns: reportColumns[selectedKey],
+      columns: this.buildColumns(reportColumns[selectedKey]),
       title: titles[selectedKey],
       empty: {
         message: 'No Authorizations',
       },
       selectionMode: SelectionMode.none,
+      compact: true,
     };
 
     return (
@@ -135,7 +180,7 @@ export class PaasReport extends React.PureComponent {
           <Filters {...filtersProps} />
           <PieChart {...pieChartProps} />
         </Section>
-        <Section>
+        <Section flex={2}>
           <Authorizations {...authorizationsProps} />
         </Section>
       </Wrapper>
@@ -151,14 +196,17 @@ PaasReport.propTypes = {
   approvedItems: array.isRequired,
   deniedItems: array.isRequired,
   pendingItems: array.isRequired,
-  onGetReportDataRequest: func.isRequired,
+  noManagerItems: array.isRequired,
+  onGetReportDataRequest: func.isRequired, // eslint-disable-line
 };
 
 const mapStateToProps = createStructuredSelector({
+  allById: selectors.getAuthorizationsById(),
   allItems: selectors.getAuthorizationItems(),
   approvedItems: selectors.getReportItems('approved'),
   deniedItems: selectors.getReportItems('denied'),
   pendingItems: selectors.getReportItems('pending'),
+  noManagerItems: selectors.getReportItems('noManager'),
 });
 
 export const mapDispatchToProps = (dispatch) => ({

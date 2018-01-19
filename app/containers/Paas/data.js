@@ -56,9 +56,9 @@ export const authorization = {
     },
   },
   [AUTH.LAST_APPROVED]: {
-    label: 'Last Approved',
+    label: 'Date Authorized',
     name: AUTH.LAST_APPROVED,
-    ariaLabel: 'Date the Authorization was last approved',
+    ariaLabel: 'Date of last Authorization denial or approval',
     data: {
       type: types.date,
     },
@@ -162,6 +162,7 @@ export const previousColumns = mapToColumns(authorization, previousFields);
 
 const reportFields = [
   AUTH.FULL_NAME,
+  ...APP_LIST,
   AUTH.MANAGER_NAME,
   AUTH.LAST_APPROVED,
 ];
@@ -170,4 +171,5 @@ export const reportColumns = {
   [REPORT.APPROVED]: mapToColumns(authorization, reportFields),
   [REPORT.DENIED]: mapToColumns(authorization, reportFields),
   [REPORT.PENDING]: mapToColumns(authorization, reportFields),
+  [REPORT.NO_MANAGER]: mapToColumns(authorization, reportFields),
 };
