@@ -35,8 +35,8 @@ describe('getAuthorizations', () => {
   });
 });
 
-describe('getAuthorizationList', () => {
-  const selector = selectors.getAuthorizationList();
+describe('getAuthorizationItems', () => {
+  const selector = selectors.getAuthorizationItems();
   it('should make a List of `authorizations` based off `allIds`', () => {
     const expected = fromJS([a, b, c]);
     expect(selector(state)).toEqual(expected);
@@ -51,16 +51,16 @@ describe('getManagerById', () => {
   });
 });
 
-describe('getManagerList', () => {
-  const selector = selectors.getManagerList('previous');
+describe('getManagerItems', () => {
+  const selector = selectors.getManagerItems('previous');
   it('should make a List of a mangers `authorizations` based off the type passed in', () => {
     const expected = fromJS([a]);
     expect(selector(state)).toEqual(expected);
   });
 });
 
-describe('getReportList', () => {
-  const selector = selectors.getReportList('denied');
+describe('getReportItems', () => {
+  const selector = selectors.getReportItems('denied');
   it('should make a List of `report` `authorizations` based off the type passed in', () => {
     const expected = fromJS([a]);
     expect(selector(state)).toEqual(expected);

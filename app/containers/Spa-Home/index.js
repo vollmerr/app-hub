@@ -113,7 +113,7 @@ export class SpaHome extends React.PureComponent {
   }
 
   render() {
-    const { enums, userPendingList, userPreviousList, Loading } = this.props;
+    const { enums, userPendingItems, userPreviousItems, Loading } = this.props;
     const { selectedItem, hasRead, hideModal } = this.state;
 
     if (Loading) {
@@ -122,7 +122,7 @@ export class SpaHome extends React.PureComponent {
 
     const pendingAckProps = {
       enums,
-      items: userPendingList,
+      items: userPendingItems,
       columns: homeColumns.pending,
       title: 'Pending Acknowledgment',
       empty: {
@@ -132,7 +132,7 @@ export class SpaHome extends React.PureComponent {
     };
     const previousAckProps = {
       enums,
-      items: userPreviousList,
+      items: userPreviousItems,
       columns: homeColumns.previous,
       title: 'Previous Acknowledgments',
       empty: {
@@ -173,8 +173,8 @@ const { object, node, func, bool, array } = PropTypes;
 SpaHome.propTypes = {
   enums: object.isRequired,
   userIsCached: bool.isRequired,
-  userPendingList: array.isRequired,
-  userPreviousList: array.isRequired,
+  userPendingItems: array.isRequired,
+  userPreviousItems: array.isRequired,
   onGetUserDataRequest: func.isRequired,
   Loading: node,
 };
@@ -182,8 +182,8 @@ SpaHome.propTypes = {
 const mapStateToProps = createStructuredSelector({
   enums: selectors.getEnums(),
   userIsCached: selectors.getUserIsCached(),
-  userPendingList: selectors.getUserPendingList(),
-  userPreviousList: selectors.getUserPreviousList(),
+  userPendingItems: selectors.getUserPendingItems(),
+  userPreviousItems: selectors.getUserPreviousItems(),
 });
 
 export const mapDispatchToProps = (dispatch) => ({

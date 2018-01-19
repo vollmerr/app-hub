@@ -56,9 +56,9 @@ describe('Spa selectors', () => {
       });
     });
 
-    describe('getUserPendingList', () => {
+    describe('getUserPendingItems', () => {
       it('should select a List of pending acks combined with recipient details', () => {
-        const selector = selectors.getUserPendingList();
+        const selector = selectors.getUserPendingItems();
         const expected = fromJS([
           { ...spa.recipients.byId.abc, ...spa.acknowledgments.byId.g, id: 'abc' }, // recipients id
         ]);
@@ -66,9 +66,9 @@ describe('Spa selectors', () => {
       });
     });
 
-    describe('getUserPreviousList', () => {
+    describe('getUserPreviousItems', () => {
       it('should select a List of previous acks combined with recipient details', () => {
-        const selector = selectors.getUserPreviousList();
+        const selector = selectors.getUserPreviousItems();
         const expected = fromJS([
           { ...spa.recipients.byId.def, ...spa.acknowledgments.byId.x, id: 'def' }, // recipients id
         ]);
@@ -94,9 +94,9 @@ describe('Spa selectors', () => {
       });
     });
 
-    describe('getAdminActiveList', () => {
+    describe('getAdminActiveItems', () => {
       it('should a List of active acks', () => {
-        const selector = selectors.getAdminActiveList();
+        const selector = selectors.getAdminActiveItems();
         const expected = fromJS([
           spa.acknowledgments.byId.g,
         ]);
@@ -104,9 +104,9 @@ describe('Spa selectors', () => {
       });
     });
 
-    describe('getAdminPreviousList', () => {
+    describe('getAdminPreviousItems', () => {
       it('should a List of active acks', () => {
-        const selector = selectors.getAdminPreviousList();
+        const selector = selectors.getAdminPreviousItems();
         const expected = fromJS([
           spa.acknowledgments.byId.y,
         ]);

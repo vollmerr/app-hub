@@ -11,10 +11,10 @@ const items = [
 ];
 
 const props = {
-  allList: items,
-  approvedList: [items[0]],
-  deniedList: [items[1]],
-  pendingList: [items[2]],
+  allItems: items,
+  approvedItems: [items[0]],
+  deniedItems: [items[1]],
+  pendingItems: [items[2]],
   onGetReportDataRequest: jest.fn(),
 };
 

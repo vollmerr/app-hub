@@ -97,12 +97,12 @@ export class PaasPrevious extends React.PureComponent {
    * Renders the form
    */
   renderForm = ({ handleSubmit }) => {
-    const { managerList } = this.props;
+    const { managerItems } = this.props;
     const { columns } = this.state;
 
     const listProps = {
       columns,
-      items: managerList,
+      items: managerItems,
       title: 'Previous Staff Authorizations',
       sortBy: [AUTH.FULL_NAME],
     };
@@ -141,13 +141,13 @@ const { object, array, node, func } = PropTypes;
 
 PaasPrevious.propTypes = {
   onGetManagerDataRequest: func.isRequired, // eslint-disable-line
-  managerList: array.isRequired,
+  managerItems: array.isRequired,
   managerById: object.isRequired, // eslint-disable-line
   Loading: node,
 };
 
 const mapStateToProps = createStructuredSelector({
-  managerList: selectors.getManagerList('previous'),
+  managerItems: selectors.getManagerItems('previous'),
   managerById: selectors.getManagerById('previous'),
 });
 

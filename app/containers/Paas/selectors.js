@@ -15,7 +15,7 @@ export const getAuthorizations = () => createSelector(
   (auths) => auths,
 );
 
-export const getAuthorizationList = () => createSelector(
+export const getAuthorizationItems = () => createSelector(
   selectAuthorizations,
   (auths) => selectAllIds(auths).map((authId) => (
     selectById(auths).get(authId)
@@ -36,7 +36,7 @@ export const getManagerById = (type) => createSelector(
   }
 );
 
-export const getManagerList = (type) => createSelector(
+export const getManagerItems = (type) => createSelector(
   [selectManager, selectAuthorizations],
   (manager, auths) => {
     const authsById = selectById(auths);
@@ -44,7 +44,7 @@ export const getManagerList = (type) => createSelector(
   }
 );
 
-export const getReportList = (type) => createSelector(
+export const getReportItems = (type) => createSelector(
   [selectReport, selectAuthorizations],
   (report, auths) => {
     const authsById = selectById(auths);

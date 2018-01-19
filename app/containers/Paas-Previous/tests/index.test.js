@@ -9,18 +9,18 @@ import {
 import { PaasPrevious, mapDispatchToProps } from '../index';
 
 
-const managerList = [
+const managerItems = [
   { sid: 'sid1', text: 'text 1' },
   { sid: 'sid2', text: 'text 2' },
 ];
 
 const managerById = {
-  [managerList[0].sid]: managerList[0],
-  [managerList[1].sid]: managerList[1],
+  [managerItems[0].sid]: managerItems[0],
+  [managerItems[1].sid]: managerItems[1],
 };
 
 const props = {
-  managerList,
+  managerItems,
   managerById,
   onGetManagerDataRequest: jest.fn(),
   Loading: null,

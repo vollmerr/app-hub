@@ -31,12 +31,12 @@ const recipientsById = {
   n: { [RECIPIENT.ID]: 'n', [RECIPIENT.ACK_ID]: 'a' },
 };
 
-const adminActiveList = [
+const adminActiveItems = [
   { [ACK.ID]: 'a', [ACK.TITLE]: 'testPending1', [ACK.STATUS]: STATUS.ACTIVE },
   { [ACK.ID]: 'b', [ACK.TITLE]: 'testPending2', [ACK.STATUS]: STATUS.ACTIVE },
 ];
 
-const adminPreviousList = [
+const adminPreviousItems = [
   { [ACK.ID]: 'c', [ACK.TITLE]: 'testPrevious1', [ACK.STATUS]: STATUS.EXPIRED },
   { [ACK.ID]: 'd', [ACK.TITLE]: 'testPrevious2', [ACK.STATUS]: STATUS.DISABLED },
 ];
@@ -55,8 +55,8 @@ const props = {
   recipientsById,
   groupsById,
   targetGroupIds,
-  adminActiveList,
-  adminPreviousList,
+  adminActiveItems,
+  adminPreviousItems,
   adminCachedIds: ['a', 'b', 'c', 'd'],
   onGetAdminDataRequest: jest.fn(),
   onGetGroupsRequest: jest.fn(),
@@ -174,7 +174,7 @@ describe('<SpaAdmin />', () => {
 
     describe('handleSubmitNew', () => {
       it('should dispatch a new acknowledgment to the api with plain JS', () => {
-        const newAcks = adminPreviousList;
+        const newAcks = adminPreviousItems;
         instance.handleSubmitNew(newAcks);
         expect(props.onNewAckRequest).toHaveBeenCalledWith(newAcks);
       });

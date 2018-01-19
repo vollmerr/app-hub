@@ -350,8 +350,8 @@ export class SpaAdmin extends React.PureComponent {
     const {
       enums,
       Loading,
-      adminActiveList,
-      adminPreviousList,
+      adminActiveItems,
+      adminPreviousItems,
     } = this.props;
 
     const {
@@ -418,7 +418,7 @@ export class SpaAdmin extends React.PureComponent {
     // render lists of active and precious acknowledgments
     const activeProps = {
       enums,
-      items: adminActiveList,
+      items: adminActiveItems,
       columns: adminColumns,
       title: 'Active Acknowledgments',
       empty: {
@@ -432,7 +432,7 @@ export class SpaAdmin extends React.PureComponent {
 
     const previousProps = {
       enums,
-      items: adminPreviousList,
+      items: adminPreviousItems,
       columns: adminColumns,
       title: 'Previous Acknowledgments',
       empty: {
@@ -476,8 +476,8 @@ SpaAdmin.propTypes = {
   recipientsById: object.isRequired,
   groupsById: object.isRequired,
   targetGroupIds: array.isRequired,
-  adminActiveList: array.isRequired,
-  adminPreviousList: array.isRequired,
+  adminActiveItems: array.isRequired,
+  adminPreviousItems: array.isRequired,
   adminCachedIds: array.isRequired,
   onGetAdminDataRequest: func.isRequired,
   onGetGroupsRequest: func.isRequired,
@@ -493,8 +493,8 @@ const mapStateToProps = createStructuredSelector({
   recipientsById: selectors.getRecipientsById(),
   groupsById: selectors.getGroupsById(),
   targetGroupIds: selectors.getTargetGroupIds(),
-  adminActiveList: selectors.getAdminActiveList(),
-  adminPreviousList: selectors.getAdminPreviousList(),
+  adminActiveItems: selectors.getAdminActiveItems(),
+  adminPreviousItems: selectors.getAdminPreviousItems(),
   adminCachedIds: selectors.getAdminCachedIds(),
 });
 

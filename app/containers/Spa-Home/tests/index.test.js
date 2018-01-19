@@ -22,14 +22,14 @@ const props = {
     [ACK.TARGET_GROUPS]: {},
   },
   userIsCached: false,
-  userPendingList: [{
+  userPendingItems: [{
     id: 1,
     name: 'test1',
   }, {
     id: 3,
     name: 'test3',
   }],
-  userPreviousList: [{
+  userPreviousItems: [{
     id: 2,
     name: 'test2',
   }, {

@@ -61,15 +61,15 @@ export class PaasReport extends React.PureComponent {
   // }
 
   mapData = () => {
-    const { allList, approvedList, deniedList, pendingList } = this.props;
+    const { allItems, approvedItems, deniedItems, pendingItems } = this.props;
     // TODO: filtering goes here, such as select app then filter by that app, etc
     // update with our new lists
     this.setState({
       authorizations: {
-        all: allList,
-        [REPORT.APPROVED]: approvedList,
-        [REPORT.DENIED]: deniedList,
-        [REPORT.PENDING]: pendingList,
+        all: allItems,
+        [REPORT.APPROVED]: approvedItems,
+        [REPORT.DENIED]: deniedItems,
+        [REPORT.PENDING]: pendingItems,
       },
     });
   }
@@ -147,18 +147,18 @@ export class PaasReport extends React.PureComponent {
 const { array, func } = PropTypes;
 
 PaasReport.propTypes = {
-  allList: array.isRequired,
-  approvedList: array.isRequired,
-  deniedList: array.isRequired,
-  pendingList: array.isRequired,
+  allItems: array.isRequired,
+  approvedItems: array.isRequired,
+  deniedItems: array.isRequired,
+  pendingItems: array.isRequired,
   onGetReportDataRequest: func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
-  allList: selectors.getAuthorizationList(),
-  approvedList: selectors.getReportList('approved'),
-  deniedList: selectors.getReportList('denied'),
-  pendingList: selectors.getReportList('pending'),
+  allItems: selectors.getAuthorizationItems(),
+  approvedItems: selectors.getReportItems('approved'),
+  deniedItems: selectors.getReportItems('denied'),
+  pendingItems: selectors.getReportItems('pending'),
 });
 
 export const mapDispatchToProps = (dispatch) => ({

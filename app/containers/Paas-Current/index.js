@@ -172,12 +172,12 @@ export class PaasCurrent extends React.PureComponent {
    * Renders the form
    */
   renderForm = ({ handleSubmit, reset, submitting, pristine, change, batch }) => {
-    const { managerList } = this.props;
+    const { managerItems } = this.props;
     const { columns } = this.state;
 
     const listProps = {
       columns,
-      items: managerList,
+      items: managerItems,
       title: 'Current Staff Authorizations',
       sortBy: [AUTH.FULL_NAME],
     };
@@ -234,7 +234,7 @@ export class PaasCurrent extends React.PureComponent {
 const { object, node, func, array } = PropTypes;
 
 PaasCurrent.propTypes = {
-  managerList: array.isRequired,
+  managerItems: array.isRequired,
   managerById: object.isRequired, // eslint-disable-line
   onGetManagerDataRequest: func.isRequired, // eslint-disable-line
   onUpdateUsersRequest: func.isRequired,
@@ -242,7 +242,7 @@ PaasCurrent.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  managerList: selectors.getManagerList('current'),
+  managerItems: selectors.getManagerItems('current'),
   managerById: selectors.getManagerById('current'),
 });
 

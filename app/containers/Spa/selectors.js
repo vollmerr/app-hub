@@ -21,7 +21,7 @@ export const getUserIsCached = () => createSelector(
   (user) => selectCached(user)
 );
 // selects array of users acknowlegments combined with recipient details based off type
-const getUserList = (type) => (
+const getUserItems = (type) => (
   (user, recipients, acks) => user.get(type).map((id) => {
     const recipient = selectById(recipients).get(String(id));
     const ackId = String(recipient.get(RECIPIENT.ACK_ID));
@@ -30,14 +30,14 @@ const getUserList = (type) => (
   })
 );
 // selects array of users pending acknowlegments combined with recipient details
-export const getUserPendingList = () => createSelector(
+export const getUserPendingItems = () => createSelector(
   [selectUser, selectRecipients, selectAcknowledgments],
-  getUserList('recipientsPendingIds')
+  getUserItems('recipientsPendingIds')
 );
 // selects array of users previous acknowlegments combined with recipient details
-export const getUserPreviousList = () => createSelector(
+export const getUserPreviousItems = () => createSelector(
   [selectUser, selectRecipients, selectAcknowledgments],
-  getUserList('recipientsPreviousIds')
+  getUserItems('recipientsPreviousIds')
 );
 
 
@@ -51,20 +51,20 @@ export const getAdminCachedIds = () => createSelector(
   (admin) => admin.get('cachedIds')
 );
 // selects List of users acknowlegments based off type
-const getAdminList = (type) => (
+const getAdminItems = (type) => (
   (admin, acks) => admin.get(type).map((id) => (
     selectById(acks).get(id)
   ))
 );
 // selects List of active acknowlegments
-export const getAdminActiveList = () => createSelector(
+export const getAdminActiveItems = () => createSelector(
   [selectAdmin, selectAcknowledgments],
-  getAdminList('acksActiveIds')
+  getAdminItems('acksActiveIds')
 );
 // selects List of previous acknowlegments
-export const getAdminPreviousList = () => createSelector(
+export const getAdminPreviousItems = () => createSelector(
   [selectAdmin, selectAcknowledgments],
-  getAdminList('acksPreviousIds')
+  getAdminItems('acksPreviousIds')
 );
 
 
