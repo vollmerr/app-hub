@@ -34,6 +34,7 @@ export const AUTH = {
   LAST_MODIFIED: 'lastUpdated',
   LAST_APPROVED: 'lastApproved',
   DATE_CREATED: 'created',
+  AUTH_YEAR: 'authYear',
 };
 // AUTH STATUS
 export const STATUS = {

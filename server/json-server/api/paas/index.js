@@ -17,8 +17,25 @@ function generateAuthorization(manager) {
   const lastName = faker.name.lastName();
   const sid = faker.random.uuid();
   const roles = ['AppHub User'];
-  const managerSid = manager ? manager[C.AUTH.SID] : faker.random.number({ min: 0, max: 4 });
+  const date = new Date(faker.date.past(10));
+  const status = faker.random.arrayElement(Object.values(C.STATUS));
+  // set manager details
+  let managerSid = '';
+  let managerName = '';
+  // ignore noMnaager status employees
+  if (status !== C.STATUS.NO_MANAGER) {
+    if (manager) {
+      // manager provided, use their details
+      managerSid = manager[C.AUTH.SID];
+      managerName = manager[C.AUTH.FULL_NAME];
+    } else {
+      // make fake manager details
+      managerSid = faker.random.number({ min: 0, max: C.NUM_MANAGERS });
+      managerName = `Manager (${managerSid})`;
+    }
+  }
   // add some roles...
+  // if they dont have a manager, just make them one...
   if (!manager) {
     roles.push(C.ROLES.MANAGER);
   }
@@ -34,6 +51,17 @@ function generateAuthorization(manager) {
     key: generateJwt(sid, firstName, lastName, roles),
     text: `${firstName} ${lastName} - ${roles.join(', ')}`,
   });
+  // add app auths
+  let possibleApps = [C.APPROVAL.NONE];
+  if (status !== C.STATUS.NO_MANAGER) {
+    if (faker.random.boolean()) {
+      possibleApps = [C.APPROVAL.APPROVE, C.APPROVAL.DENY];
+    }
+  }
+  const apps = Object.values(C.APPS).reduce((rest, app) => ({
+    ...rest,
+    [app]: faker.random.arrayElement(possibleApps),
+  }), {});
 
   return {
     [C.AUTH.ID]: faker.random.uuid(),
@@ -42,18 +70,20 @@ function generateAuthorization(manager) {
     [C.AUTH.EMAIL]: faker.internet.email(firstName, lastName, 'state.ca.gov'),
     [C.AUTH.POS_NUMBER]: faker.random.uuid(),
     [C.AUTH.MANAGER_SID]: managerSid,
-    [C.AUTH.MANAGER_NAME]: `Manager Name ${managerSid}`,
-    [C.AUTH.STATUS]: faker.random.arrayElement(Object.values(C.APPROVAL)),
-    [C.AUTH.LAST_MODIFIED]: faker.date.past(),
-    [C.AUTH.LAST_APPROVED]: faker.date.past(),
-    [C.AUTH.DATE_CREATED]: faker.date.past(),
+    [C.AUTH.MANAGER_NAME]: managerName,
+    [C.AUTH.STATUS]: status,
+    [C.AUTH.LAST_MODIFIED]: faker.date.past(1, date),
+    [C.AUTH.LAST_APPROVED]: faker.date.past(1, date),
+    [C.AUTH.DATE_CREATED]: faker.date.past(1, date),
+    [C.AUTH.AUTH_YEAR]: date.getFullYear(),
+    ...apps
   };
 }
 
 
 function generateMgrAuthorizations() {
   const managers = [];
-  for (let i = 0; i < 50; i += 1) {
+  for (let i = 0; i < C.NUM_MANAGERS; i += 1) {
     managers.push(generateAuthorization());
   }
   return managers;
@@ -63,7 +93,7 @@ function generateMgrAuthorizations() {
 function generateEmployeeAuthorizations(managers) {
   const employees = [];
   managers.forEach((manager) => {
-    const numEmployees = faker.random.number({ min: 1, max: 10 });
+    const numEmployees = faker.random.number({ min: 1, max: C.NUM_EMPLOYEES });
     for (let i = 0; i < numEmployees; i += 1) {
       employees.push(generateAuthorization(manager));
     }

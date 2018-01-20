@@ -1,6 +1,7 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Dropdown } from 'office-ui-fabric-react/lib/Dropdown';
 
 import theme from 'utils/theme';
 
@@ -62,7 +63,14 @@ class Filters extends React.PureComponent {
             </Item>
           ))
         } */}
-        filters go here....
+        <Dropdown
+          options={[
+            { key: '2017', text: '2017' },
+            { key: '2016', text: '2016' },
+            { key: '2015', text: '2015' },
+            { key: '2014', text: '2014' },
+          ]}
+        />
       </Wrapper>
     );
   }

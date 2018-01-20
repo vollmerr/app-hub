@@ -4,9 +4,14 @@ module.exports = {
     REPORTS: 'PAAS Reports',
   },
   APPROVAL: {
-    NONE: undefined,
+    NONE: null,
     DENY: 0,
     APPROVE: 1,
+  },
+  STATUS: {
+    ACTIVE: 'active',
+    INACTIVE: 'inactive',
+    NO_MANAGER: 'noManager',
   },
   AUTH: {
     ID: '_id',
@@ -20,6 +25,7 @@ module.exports = {
     LAST_MODIFIED: 'lastUpdated',
     LAST_APPROVED: 'lastApproved',
     DATE_CREATED: 'created',
+    AUTH_YEAR: 'authYear',
   },
   APPS: {
     APP_1: 'app1',
@@ -27,8 +33,6 @@ module.exports = {
     APP_3: 'app3',
     APP_4: 'app4',
   },
-  STATUS: {
-    MIN: 0,
-    MAX: 1,
-  },
+  NUM_MANAGERS: 200,
+  NUM_EMPLOYEES: 20,
 };

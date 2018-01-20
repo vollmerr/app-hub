@@ -19,7 +19,7 @@ export const authorization = {
     name: AUTH.FULL_NAME,
     ariaLabel: 'Full Name of the Employee',
     minWidth: 100,
-    maxWidth: 250,
+    maxWidth: 150,
     isSortedDescending: true,
   },
   [AUTH.EMAIL]: {
@@ -76,7 +76,7 @@ export const authorization = {
     name: APPS.APP_1,
     ariaLabel: 'App 1 AriaLabel',
     minWidth: 80,
-    maxWidth: 150,
+    maxWidth: 100,
     data: {
       render: 'authorizationToggle',
     },
@@ -86,7 +86,7 @@ export const authorization = {
     name: APPS.APP_2,
     ariaLabel: 'App 2 AriaLabel',
     minWidth: 80,
-    maxWidth: 150,
+    maxWidth: 100,
     data: {
       render: 'authorizationToggle',
     },
@@ -96,7 +96,7 @@ export const authorization = {
     name: APPS.APP_3,
     ariaLabel: 'App 3 AriaLabel',
     minWidth: 80,
-    maxWidth: 150,
+    maxWidth: 100,
     data: {
       render: 'authorizationToggle',
     },
@@ -106,7 +106,7 @@ export const authorization = {
     name: APPS.APP_4,
     ariaLabel: 'App 4 AriaLabel',
     minWidth: 80,
-    maxWidth: 150,
+    maxWidth: 100,
     data: {
       render: 'authorizationToggle',
     },
