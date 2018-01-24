@@ -17,271 +17,273 @@ exports[`<SpaAdmin /> should render correctly 1`] = `
     }
   />
   <div>
-    <ListSection__ListSection
-      margin={18}
-      vh={50}
-    >
-      <List
-        columns={
-          Array [
-            Object {
-              "ariaLabel": "ID of the acknowledgment",
-              "data": Object {},
-              "fieldName": "id",
-              "isResizable": true,
-              "isSortedDescending": undefined,
-              "key": "id",
-              "maxWidth": 40,
-              "minWidth": 20,
-              "name": "ID",
-              "notSortable": false,
-            },
-            Object {
-              "ariaLabel": "Title of the acknowledgment",
-              "data": Object {},
-              "fieldName": "title",
-              "isResizable": true,
-              "isSortedDescending": undefined,
-              "key": "title",
-              "maxWidth": 200,
-              "minWidth": 100,
-              "name": "Title",
-              "notSortable": false,
-            },
-            Object {
-              "ariaLabel": "Status of the acknowledgment",
-              "data": Object {},
-              "fieldName": "acknowledgmentStatusID",
-              "isResizable": true,
-              "isSortedDescending": undefined,
-              "key": "acknowledgmentStatusID",
-              "maxWidth": 100,
-              "minWidth": 100,
-              "name": "Status",
-              "notSortable": false,
-            },
-            Object {
-              "ariaLabel": "Date the acknowledgment takes effect",
-              "data": Object {
-                "type": "date",
-              },
-              "fieldName": "startDate",
-              "isResizable": true,
-              "isSortedDescending": undefined,
-              "key": "startDate",
-              "maxWidth": 100,
-              "minWidth": 100,
-              "name": "Start Date",
-              "notSortable": false,
-            },
-            Object {
-              "ariaLabel": "Date the acknowledgment expires",
-              "data": Object {
-                "type": "date",
-              },
-              "fieldName": "endDate",
-              "isResizable": true,
-              "isSortedDescending": undefined,
-              "key": "endDate",
-              "maxWidth": 100,
-              "minWidth": 100,
-              "name": "End Date",
-              "notSortable": false,
-            },
-            Object {
-              "ariaLabel": "Name of the file that must be read before acknowledging",
-              "data": Object {},
-              "fieldName": "fileName",
-              "isResizable": true,
-              "isSortedDescending": undefined,
-              "key": "fileName",
-              "maxWidth": 200,
-              "minWidth": 100,
-              "name": "Attachment Name",
-              "notSortable": false,
-            },
-          ]
-        }
-        empty={
+    <List
+      columns={
+        Array [
           Object {
-            "buttonIcon": "plus",
-            "buttonText": "Create New",
-            "message": "No Active Acknowledgments",
-            "onClick": [Function],
-          }
-        }
-        enums={
+            "ariaLabel": "ID of the acknowledgment",
+            "data": Object {},
+            "fieldName": "id",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "id",
+            "maxWidth": 40,
+            "minWidth": 20,
+            "name": "ID",
+            "notSortable": false,
+          },
           Object {
-            "targetADGroup": Object {},
-          }
-        }
-        items={
-          Array [
-            Object {
-              "acknowledgmentStatusID": 1,
-              "id": "a",
-              "title": "testPending1",
-            },
-            Object {
-              "acknowledgmentStatusID": 1,
-              "id": "b",
-              "title": "testPending2",
-            },
-          ]
-        }
-        selection={
-          Selection {
-            "_anchoredIndex": 0,
-            "_canSelectItem": [Function],
-            "_changeEventSuppressionCount": 0,
-            "_exemptedCount": 0,
-            "_exemptedIndices": Object {},
-            "_getKey": [Function],
-            "_isModal": false,
-            "_items": Array [],
-            "_keyToIndexMap": Object {},
-            "_onSelectionChanged": [Function],
-            "_selectedItems": null,
-            "_unselectableCount": 0,
-            "_unselectableIndices": Object {},
-            "mode": 2,
-          }
-        }
-        selectionMode={0}
-        title="Active Acknowledgments"
-      />
-    </ListSection__ListSection>
-    <ListSection__ListSection
-      margin={18}
-      vh={50}
-    >
-      <List
-        columns={
-          Array [
-            Object {
-              "ariaLabel": "ID of the acknowledgment",
-              "data": Object {},
-              "fieldName": "id",
-              "isResizable": true,
-              "isSortedDescending": undefined,
-              "key": "id",
-              "maxWidth": 40,
-              "minWidth": 20,
-              "name": "ID",
-              "notSortable": false,
-            },
-            Object {
-              "ariaLabel": "Title of the acknowledgment",
-              "data": Object {},
-              "fieldName": "title",
-              "isResizable": true,
-              "isSortedDescending": undefined,
-              "key": "title",
-              "maxWidth": 200,
-              "minWidth": 100,
-              "name": "Title",
-              "notSortable": false,
-            },
-            Object {
-              "ariaLabel": "Status of the acknowledgment",
-              "data": Object {},
-              "fieldName": "acknowledgmentStatusID",
-              "isResizable": true,
-              "isSortedDescending": undefined,
-              "key": "acknowledgmentStatusID",
-              "maxWidth": 100,
-              "minWidth": 100,
-              "name": "Status",
-              "notSortable": false,
-            },
-            Object {
-              "ariaLabel": "Date the acknowledgment takes effect",
-              "data": Object {
-                "type": "date",
-              },
-              "fieldName": "startDate",
-              "isResizable": true,
-              "isSortedDescending": undefined,
-              "key": "startDate",
-              "maxWidth": 100,
-              "minWidth": 100,
-              "name": "Start Date",
-              "notSortable": false,
-            },
-            Object {
-              "ariaLabel": "Date the acknowledgment expires",
-              "data": Object {
-                "type": "date",
-              },
-              "fieldName": "endDate",
-              "isResizable": true,
-              "isSortedDescending": undefined,
-              "key": "endDate",
-              "maxWidth": 100,
-              "minWidth": 100,
-              "name": "End Date",
-              "notSortable": false,
-            },
-            Object {
-              "ariaLabel": "Name of the file that must be read before acknowledging",
-              "data": Object {},
-              "fieldName": "fileName",
-              "isResizable": true,
-              "isSortedDescending": undefined,
-              "key": "fileName",
-              "maxWidth": 200,
-              "minWidth": 100,
-              "name": "Attachment Name",
-              "notSortable": false,
-            },
-          ]
-        }
-        empty={
+            "ariaLabel": "Title of the acknowledgment",
+            "data": Object {},
+            "fieldName": "title",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "title",
+            "maxWidth": 200,
+            "minWidth": 100,
+            "name": "Title",
+            "notSortable": false,
+          },
           Object {
-            "message": "No Previous Acknowledgments",
-          }
-        }
-        enums={
+            "ariaLabel": "Status of the acknowledgment",
+            "data": Object {},
+            "fieldName": "acknowledgmentStatusID",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "acknowledgmentStatusID",
+            "maxWidth": 100,
+            "minWidth": 100,
+            "name": "Status",
+            "notSortable": false,
+          },
           Object {
-            "targetADGroup": Object {},
-          }
-        }
-        items={
-          Array [
-            Object {
-              "acknowledgmentStatusID": 2,
-              "id": "c",
-              "title": "testPrevious1",
+            "ariaLabel": "Date the acknowledgment takes effect",
+            "data": Object {
+              "type": "date",
             },
-            Object {
-              "acknowledgmentStatusID": 3,
-              "id": "d",
-              "title": "testPrevious2",
+            "fieldName": "startDate",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "startDate",
+            "maxWidth": 100,
+            "minWidth": 100,
+            "name": "Start Date",
+            "notSortable": false,
+          },
+          Object {
+            "ariaLabel": "Date the acknowledgment expires",
+            "data": Object {
+              "type": "date",
             },
-          ]
+            "fieldName": "endDate",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "endDate",
+            "maxWidth": 100,
+            "minWidth": 100,
+            "name": "End Date",
+            "notSortable": false,
+          },
+          Object {
+            "ariaLabel": "Name of the file that must be read before acknowledging",
+            "data": Object {},
+            "fieldName": "fileName",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "fileName",
+            "maxWidth": 200,
+            "minWidth": 100,
+            "name": "Attachment Name",
+            "notSortable": false,
+          },
+        ]
+      }
+      empty={
+        Object {
+          "buttonIcon": "plus",
+          "buttonText": "Create New",
+          "message": "No Active Acknowledgments",
+          "onClick": [Function],
         }
-        selection={
-          Selection {
-            "_anchoredIndex": 0,
-            "_canSelectItem": [Function],
-            "_changeEventSuppressionCount": 0,
-            "_exemptedCount": 0,
-            "_exemptedIndices": Object {},
-            "_getKey": [Function],
-            "_isModal": false,
-            "_items": Array [],
-            "_keyToIndexMap": Object {},
-            "_onSelectionChanged": [Function],
-            "_selectedItems": null,
-            "_unselectableCount": 0,
-            "_unselectableIndices": Object {},
-            "mode": 2,
-          }
+      }
+      enums={
+        Object {
+          "targetADGroup": Object {},
         }
-        selectionMode={0}
-        title="Previous Acknowledgments"
-      />
-    </ListSection__ListSection>
+      }
+      items={
+        Array [
+          Object {
+            "acknowledgmentStatusID": 1,
+            "id": "a",
+            "title": "testPending1",
+          },
+          Object {
+            "acknowledgmentStatusID": 1,
+            "id": "b",
+            "title": "testPending2",
+          },
+        ]
+      }
+      selection={
+        Selection {
+          "_anchoredIndex": 0,
+          "_canSelectItem": [Function],
+          "_changeEventSuppressionCount": 0,
+          "_exemptedCount": 0,
+          "_exemptedIndices": Object {},
+          "_getKey": [Function],
+          "_isModal": false,
+          "_items": Array [],
+          "_keyToIndexMap": Object {},
+          "_onSelectionChanged": [Function],
+          "_selectedItems": null,
+          "_unselectableCount": 0,
+          "_unselectableIndices": Object {},
+          "mode": 2,
+        }
+      }
+      selectionMode={0}
+      style={
+        Object {
+          "count": 2,
+          "padding": 50,
+        }
+      }
+      title="Active Acknowledgments"
+    />
+    <List
+      columns={
+        Array [
+          Object {
+            "ariaLabel": "ID of the acknowledgment",
+            "data": Object {},
+            "fieldName": "id",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "id",
+            "maxWidth": 40,
+            "minWidth": 20,
+            "name": "ID",
+            "notSortable": false,
+          },
+          Object {
+            "ariaLabel": "Title of the acknowledgment",
+            "data": Object {},
+            "fieldName": "title",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "title",
+            "maxWidth": 200,
+            "minWidth": 100,
+            "name": "Title",
+            "notSortable": false,
+          },
+          Object {
+            "ariaLabel": "Status of the acknowledgment",
+            "data": Object {},
+            "fieldName": "acknowledgmentStatusID",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "acknowledgmentStatusID",
+            "maxWidth": 100,
+            "minWidth": 100,
+            "name": "Status",
+            "notSortable": false,
+          },
+          Object {
+            "ariaLabel": "Date the acknowledgment takes effect",
+            "data": Object {
+              "type": "date",
+            },
+            "fieldName": "startDate",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "startDate",
+            "maxWidth": 100,
+            "minWidth": 100,
+            "name": "Start Date",
+            "notSortable": false,
+          },
+          Object {
+            "ariaLabel": "Date the acknowledgment expires",
+            "data": Object {
+              "type": "date",
+            },
+            "fieldName": "endDate",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "endDate",
+            "maxWidth": 100,
+            "minWidth": 100,
+            "name": "End Date",
+            "notSortable": false,
+          },
+          Object {
+            "ariaLabel": "Name of the file that must be read before acknowledging",
+            "data": Object {},
+            "fieldName": "fileName",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "fileName",
+            "maxWidth": 200,
+            "minWidth": 100,
+            "name": "Attachment Name",
+            "notSortable": false,
+          },
+        ]
+      }
+      empty={
+        Object {
+          "message": "No Previous Acknowledgments",
+        }
+      }
+      enums={
+        Object {
+          "targetADGroup": Object {},
+        }
+      }
+      items={
+        Array [
+          Object {
+            "acknowledgmentStatusID": 2,
+            "id": "c",
+            "title": "testPrevious1",
+          },
+          Object {
+            "acknowledgmentStatusID": 3,
+            "id": "d",
+            "title": "testPrevious2",
+          },
+        ]
+      }
+      selection={
+        Selection {
+          "_anchoredIndex": 0,
+          "_canSelectItem": [Function],
+          "_changeEventSuppressionCount": 0,
+          "_exemptedCount": 0,
+          "_exemptedIndices": Object {},
+          "_getKey": [Function],
+          "_isModal": false,
+          "_items": Array [],
+          "_keyToIndexMap": Object {},
+          "_onSelectionChanged": [Function],
+          "_selectedItems": null,
+          "_unselectableCount": 0,
+          "_unselectableIndices": Object {},
+          "mode": 2,
+        }
+      }
+      selectionMode={0}
+      style={
+        Object {
+          "count": 2,
+          "padding": 50,
+        }
+      }
+      title="Previous Acknowledgments"
+    />
   </div>
 </div>
 `;

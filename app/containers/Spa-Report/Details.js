@@ -2,17 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import theme from 'utils/theme';
+import Section from 'components/App-Content/Section';
 import { formatItem } from 'utils/data';
 import { ACK } from 'containers/Spa/constants';
 import { acknowledgment } from 'containers/Spa/data';
+import theme from 'utils/theme';
 
-export const Wrapper = styled.div`
-  flex: 2 0 50vh;
-  margin: 5px;
-  padding: 15px;
-  background: ${theme.white};
-  box-shadow: 0 0 3px ${theme.neutralLight};
+
+export const Wrapper = Section.extend`
+  flex: 2 0 250px;
+  margin: ${theme.hub.padding / 2}px;
   overflow: auto;
 `;
 
@@ -27,6 +26,7 @@ export const Item = styled.div`
   width: 100%;
   padding: 5px;
 `;
+
 
 export const Key = styled.div`
   flex: 1;
@@ -48,6 +48,7 @@ export const items = [
   ACK.STATEMENT,
   ACK.DETAILS,
 ];
+
 
 class Details extends React.PureComponent {
   render() {
@@ -76,5 +77,6 @@ Details.propTypes = {
   enums: object,
   selectedItem: object.isRequired,
 };
+
 
 export default Details;

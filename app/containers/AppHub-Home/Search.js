@@ -8,7 +8,7 @@ import theme from 'utils/theme';
 
 export const Wrapper = styled.div`
   width: 100%;
-  max-width: calc(${theme.hub.numApps} * ${theme.hub.tileSize} + ${(theme.hub.numApps - 1) * 2} * 3px);
+  max-width: calc(${theme.hub.numApps} * ${theme.hub.tileSize}px + ${(theme.hub.numApps - 1) * 2} * 3px);
   background: ${theme.white};
 `;
 

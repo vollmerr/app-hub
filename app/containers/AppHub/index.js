@@ -19,7 +19,7 @@ export const Wrapper = styled(Fabric) `
 
 
 export const Content = styled.div`
-  height: calc(100% - ${theme.hub.headerHeight});
+  height: calc(100% - ${theme.hub.headerHeight}px);
 `;
 
 

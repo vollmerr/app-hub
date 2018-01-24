@@ -8,7 +8,7 @@ import Item from './Item';
 
 export const Name = styled.span`
   color: ${theme.themeLighterAlt};
-  line-height: ${theme.hub.headerHeight};
+  line-height: ${theme.hub.headerHeight}px;
   display: inline-block;
   font-family: "SegoeUI-SemiLight-final","Segoe UI SemiLight","Segoe UI WPC Semilight","Segoe UI",Segoe,Tahoma,Helvetica,Arial,sans-serif;
   font-size: 18px;
@@ -16,8 +16,8 @@ export const Name = styled.span`
 `;
 
 export const Initials = styled.div`
-  width: calc(${theme.hub.headerHeight} - 10px);
-  height: calc(${theme.hub.headerHeight} - 10px);
+  width: calc(${theme.hub.headerHeight}px - 10px);
+  height: calc(${theme.hub.headerHeight}px - 10px);
   color: ${theme.themeLighterAlt};
   background: ${theme.themePrimary};
   border-radius: 50%;

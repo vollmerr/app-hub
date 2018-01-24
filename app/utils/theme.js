@@ -6,17 +6,21 @@ export default {
   warning: '#fff4ce',
   error: '#fde7e9',
   hub: {
-    headerHeight: '50px',
-    panelWidth: '360px',
-    tileSize: '102px',
+    padding: 10,
+    headerHeight: 50,
+    panelWidth: 360,
+    tileSize: 102,
     numApps: 6,
   },
   app: {
-    navWidth: '225px',
-    subNavHeight: '40px',
+    navWidth: 225,
+    subNavHeight: 40,
   },
   list: {
-    headerHeight: '60px',
+    headerHeight: 50,
+  },
+  form: {
+    buttonsHeight: 52,
   },
   chart: {
     width: 260,

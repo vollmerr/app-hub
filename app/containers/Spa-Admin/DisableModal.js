@@ -44,7 +44,7 @@ class DisableModal extends React.PureComponent {
       text: 'Cancel',
     };
 
-    const warningText = `WARNING: This is no going back! Are you sure you want to ${type} ${item[ACK.TITLE]}?`;
+    const warningText = `WARNING: There is no going back! Are you sure you want to ${type} ${item[ACK.TITLE]}?`;
 
     return (
       <Dialog {...dialogProps}>

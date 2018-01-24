@@ -7,12 +7,12 @@ import { createStructuredSelector } from 'reselect';
 import toJS from 'hocs/toJS';
 import appPage from 'containers/App-Container/appPage';
 import List from 'components/List';
-import ListSection from 'components/List/ListSection';
 import { StyledToggle } from 'components/Form/FieldToggle';
 import { AUTH } from 'containers/Paas/constants';
 import { previousColumns } from 'containers/Paas/data';
 import * as selectors from 'containers/Paas/selectors';
 import * as actions from 'containers/Paas/actions';
+
 
 export class PaasPrevious extends React.PureComponent {
   constructor(props) {
@@ -92,9 +92,7 @@ export class PaasPrevious extends React.PureComponent {
     };
 
     return (
-      <ListSection>
-        <List {...listProps} />
-      </ListSection>
+      <List {...listProps} />
     );
   }
 }

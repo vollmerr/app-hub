@@ -15,8 +15,8 @@ export const ButtonStyled = styled(CommandButton) `
   vertical-align: middle;
   border-width: 0;
   padding: 0 ${(props) => props.padding || '0'};
-  min-width: ${theme.hub.headerHeight};
-  height: ${theme.hub.headerHeight};
+  min-width: ${theme.hub.headerHeight}px;
+  height: ${theme.hub.headerHeight}px;
   box-sizing: border-box;
   text-align: center;
   line-height: normal;

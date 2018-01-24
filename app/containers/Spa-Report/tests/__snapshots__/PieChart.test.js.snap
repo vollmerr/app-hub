@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PieChart__Wrapper /> should render correctly 1`] = `
+exports[`<styled.div /> should render correctly 1`] = `
 .c0 {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
+  padding: 10px;
+  background: #ffffff;
+  box-shadow: 0 0 3px #eaeaea;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -23,8 +23,6 @@ exports[`<PieChart__Wrapper /> should render correctly 1`] = `
   -ms-flex-align: center;
   align-items: center;
   margin: 5px;
-  background: #ffffff;
-  box-shadow: 0 0 3px #eaeaea;
 }
 
 <div
@@ -33,17 +31,17 @@ exports[`<PieChart__Wrapper /> should render correctly 1`] = `
 `;
 
 exports[`PieChart should render a no data indicator and no chart if there is no data 1`] = `
-<PieChart__Wrapper>
+<styled.div>
   No Data
-</PieChart__Wrapper>
+</styled.div>
 `;
 
 exports[`PieChart should render correctly 1`] = `
-<PieChart__Wrapper>
+<styled.div>
   <WithFauxDOM(WithD3Renderer)
     data={Array []}
     hasData={true}
-    height={300}
+    height={260}
     legend={
       Array [
         Object {
@@ -74,7 +72,7 @@ exports[`PieChart should render correctly 1`] = `
         },
       }
     }
-    width={300}
+    width={260}
   />
-</PieChart__Wrapper>
+</styled.div>
 `;

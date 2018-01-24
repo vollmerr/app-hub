@@ -9,7 +9,7 @@ const focusStyle = (props) => `
 const Item = styled.div`
   display: flex;
   align-items: center;
-  height: ${theme.hub.headerHeight};
+  height: ${theme.hub.headerHeight}px;
 
   ${(props) => props.isLink &&
     `&:hover,

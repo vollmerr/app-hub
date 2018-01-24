@@ -1,125 +1,124 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PaasPrevious /> should render correctly 1`] = `
-<ListSection__ListSection>
-  <List
-    columns={
-      Array [
-        Object {
-          "ariaLabel": "Full Name of the Employee",
-          "data": Object {},
-          "fieldName": "fullName",
-          "isResizable": true,
-          "isSortedDescending": true,
-          "key": "fullName",
-          "maxWidth": 250,
-          "minWidth": 100,
-          "name": "Full Name",
-          "notSortable": false,
-          "onRender": undefined,
-        },
-        Object {
-          "ariaLabel": "App 1 AriaLabel",
-          "data": Object {
-            "render": "authorizationToggle",
-          },
-          "fieldName": "app1",
-          "isResizable": true,
-          "isSortedDescending": undefined,
-          "key": "app1",
-          "maxWidth": 150,
-          "minWidth": 80,
-          "name": "App 1 Name",
-          "notSortable": false,
-          "onRender": [Function],
-        },
-        Object {
-          "ariaLabel": "App 2 AriaLabel",
-          "data": Object {
-            "render": "authorizationToggle",
-          },
-          "fieldName": "app2",
-          "isResizable": true,
-          "isSortedDescending": undefined,
-          "key": "app2",
-          "maxWidth": 150,
-          "minWidth": 80,
-          "name": "App 2 Name",
-          "notSortable": false,
-          "onRender": [Function],
-        },
-        Object {
-          "ariaLabel": "App 3 AriaLabel",
-          "data": Object {
-            "render": "authorizationToggle",
-          },
-          "fieldName": "app3",
-          "isResizable": true,
-          "isSortedDescending": undefined,
-          "key": "app3",
-          "maxWidth": 150,
-          "minWidth": 80,
-          "name": "App 3 Name",
-          "notSortable": false,
-          "onRender": [Function],
-        },
-        Object {
-          "ariaLabel": "App 4 AriaLabel",
-          "data": Object {
-            "render": "authorizationToggle",
-          },
-          "fieldName": "app4",
-          "isResizable": true,
-          "isSortedDescending": undefined,
-          "key": "app4",
-          "maxWidth": 150,
-          "minWidth": 80,
-          "name": "App 4 Name",
-          "notSortable": false,
-          "onRender": [Function],
-        },
-        Object {
-          "ariaLabel": "Date of last Authorization denial or approval",
-          "data": Object {
-            "type": "date",
-          },
-          "fieldName": "lastApproved",
-          "isResizable": true,
-          "isSortedDescending": undefined,
-          "key": "lastApproved",
-          "maxWidth": 200,
-          "minWidth": 100,
-          "name": "Date Authorized",
-          "notSortable": false,
-          "onRender": undefined,
-        },
-      ]
-    }
-    empty={
+<List
+  columns={
+    Array [
       Object {
-        "message": "No items",
-      }
-    }
-    enums={Object {}}
-    items={
-      Array [
-        Object {
-          "sid": "sid1",
-          "text": "text 1",
+        "ariaLabel": "Full Name of the Employee",
+        "data": Object {},
+        "fieldName": "fullName",
+        "isResizable": true,
+        "isSortedDescending": true,
+        "key": "fullName",
+        "maxWidth": 150,
+        "minWidth": 100,
+        "name": "Full Name",
+        "notSortable": false,
+        "onRender": undefined,
+      },
+      Object {
+        "ariaLabel": "App 1 AriaLabel",
+        "data": Object {
+          "render": "authorizationToggle",
         },
-        Object {
-          "sid": "sid2",
-          "text": "text 2",
+        "fieldName": "app1",
+        "isResizable": true,
+        "isSortedDescending": undefined,
+        "key": "app1",
+        "maxWidth": 100,
+        "minWidth": 80,
+        "name": "App 1 Name",
+        "notSortable": false,
+        "onRender": [Function],
+      },
+      Object {
+        "ariaLabel": "App 2 AriaLabel",
+        "data": Object {
+          "render": "authorizationToggle",
         },
-      ]
+        "fieldName": "app2",
+        "isResizable": true,
+        "isSortedDescending": undefined,
+        "key": "app2",
+        "maxWidth": 100,
+        "minWidth": 80,
+        "name": "App 2 Name",
+        "notSortable": false,
+        "onRender": [Function],
+      },
+      Object {
+        "ariaLabel": "App 3 AriaLabel",
+        "data": Object {
+          "render": "authorizationToggle",
+        },
+        "fieldName": "app3",
+        "isResizable": true,
+        "isSortedDescending": undefined,
+        "key": "app3",
+        "maxWidth": 100,
+        "minWidth": 80,
+        "name": "App 3 Name",
+        "notSortable": false,
+        "onRender": [Function],
+      },
+      Object {
+        "ariaLabel": "App 4 AriaLabel",
+        "data": Object {
+          "render": "authorizationToggle",
+        },
+        "fieldName": "app4",
+        "isResizable": true,
+        "isSortedDescending": undefined,
+        "key": "app4",
+        "maxWidth": 100,
+        "minWidth": 80,
+        "name": "App 4 Name",
+        "notSortable": false,
+        "onRender": [Function],
+      },
+      Object {
+        "ariaLabel": "Date of last Authorization denial or approval",
+        "data": Object {
+          "type": "date",
+        },
+        "fieldName": "lastApproved",
+        "isResizable": true,
+        "isSortedDescending": undefined,
+        "key": "lastApproved",
+        "maxWidth": 200,
+        "minWidth": 100,
+        "name": "Date Authorized",
+        "notSortable": false,
+        "onRender": undefined,
+      },
+    ]
+  }
+  empty={
+    Object {
+      "message": "No items",
     }
-    selectionMode={0}
-    sortBy={
-      Array [
-        "fullName",
-      ]
-    }
-    title="Previous Staff Authorizations"
-  />
-</ListSection__ListSection>
+  }
+  enums={Object {}}
+  items={
+    Array [
+      Object {
+        "sid": "sid1",
+        "text": "text 1",
+      },
+      Object {
+        "sid": "sid2",
+        "text": "text 2",
+      },
+    ]
+  }
+  selectionMode={0}
+  sortBy={
+    Array [
+      "fullName",
+    ]
+  }
+  style={Object {}}
+  title="Previous Staff Authorizations"
+/>
 `;

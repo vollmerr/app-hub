@@ -7,7 +7,7 @@ import theme from 'utils/theme';
 
 
 export const Wrapper = styled.div`
-  max-width: calc(${theme.hub.numApps} * ${theme.hub.tileSize} + ${(theme.hub.numApps) * 2} * 3px);
+  max-width: calc(${theme.hub.numApps} * ${theme.hub.tileSize}px + ${(theme.hub.numApps) * 2} * 3px);
   display: flex;
   flex-flow: row wrap;
   align-items: center;

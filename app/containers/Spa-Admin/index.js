@@ -10,12 +10,12 @@ import * as selectors from 'containers/Spa/selectors';
 import * as actions from 'containers/Spa/actions';
 
 import toJS from 'hocs/toJS';
+import theme from 'utils/theme';
 import { formatList } from 'utils/data';
 import { formattedDate } from 'utils/date';
 import { doneLoading, downloadFile } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
 import { acknowledgment, recipient, newAckForm, adminColumns, adminCsv } from 'containers/Spa/data';
-import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
 import { ACK, STATUS, RECIPIENT, GROUP } from 'containers/Spa/constants';
 import SpaReport from 'containers/Spa-Report';
@@ -26,9 +26,9 @@ import DisableModal from './DisableModal';
 import EmailModal from './EmailModal';
 
 
-const halfHeight = {
-  vh: 50,
-  margin: 18, // section margin (15) + 3 due to being in div (margin outside div)
+const style = {
+  count: 2,
+  padding: theme.hub.padding + theme.app.subNavHeight,
 };
 
 
@@ -418,6 +418,7 @@ export class SpaAdmin extends React.PureComponent {
     // render lists of active and precious acknowledgments
     const activeProps = {
       enums,
+      style,
       items: adminActiveItems,
       columns: adminColumns,
       title: 'Active Acknowledgments',
@@ -432,6 +433,7 @@ export class SpaAdmin extends React.PureComponent {
 
     const previousProps = {
       enums,
+      style,
       items: adminPreviousItems,
       columns: adminColumns,
       title: 'Previous Acknowledgments',
@@ -443,13 +445,8 @@ export class SpaAdmin extends React.PureComponent {
 
     return (
       <div>
-        <ListSection {...halfHeight}>
-          <List {...activeProps} />
-        </ListSection>
-
-        <ListSection {...halfHeight}>
-          <List {...previousProps} />
-        </ListSection>
+        <List {...activeProps} />
+        <List {...previousProps} />
       </div>
     );
   }

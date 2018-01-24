@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<List /> should render correctly 1`] = `
-<Wrapper__Wrapper>
+<Wrapper__Wrapper
+  count={1}
+  padding={10}
+>
   <Header__Header>
     <Title__Title>
       test title
@@ -11,56 +14,58 @@ exports[`<List /> should render correctly 1`] = `
       value=""
     />
   </Header__Header>
-  <WithViewportComponent
-    columns={
-      Array [
-        Object {
-          "ariaLabel": "test aria label",
-          "fieldName": "name",
-          "key": "name",
-          "name": "name",
-          "onColumnClick": [Function],
-        },
-        Object {
-          "fieldName": "test",
-          "key": "test",
-          "name": "test",
-          "notSortable": true,
-        },
-        Object {
-          "fieldName": "other",
-          "key": "other",
-          "name": "other",
-          "onColumnClick": [Function],
-        },
-      ]
-    }
-    enums={Object {}}
-    items={
-      Array [
-        Object {
-          "id": 1,
-          "name": "name 2",
-          "other": "1989/22/08",
-          "test": 1,
-        },
-        Object {
-          "id": 2,
-          "name": "name 1",
-          "other": "2001/11/01",
-          "test": 7,
-        },
-        Object {
-          "id": 3,
-          "name": "stuff",
-          "other": "2000/12/01",
-          "test": 1,
-        },
-      ]
-    }
-    onRenderDetailsHeader={[Function]}
-    onRenderItemColumn={[Function]}
-    selectionMode={0}
-  />
+  <ScrollablePane>
+    <WithViewportComponent
+      columns={
+        Array [
+          Object {
+            "ariaLabel": "test aria label",
+            "fieldName": "name",
+            "key": "name",
+            "name": "name",
+            "onColumnClick": [Function],
+          },
+          Object {
+            "fieldName": "test",
+            "key": "test",
+            "name": "test",
+            "notSortable": true,
+          },
+          Object {
+            "fieldName": "other",
+            "key": "other",
+            "name": "other",
+            "onColumnClick": [Function],
+          },
+        ]
+      }
+      enums={Object {}}
+      items={
+        Array [
+          Object {
+            "id": 1,
+            "name": "name 2",
+            "other": "1989/22/08",
+            "test": 1,
+          },
+          Object {
+            "id": 2,
+            "name": "name 1",
+            "other": "2001/11/01",
+            "test": 7,
+          },
+          Object {
+            "id": 3,
+            "name": "stuff",
+            "other": "2000/12/01",
+            "test": 1,
+          },
+        ]
+      }
+      onRenderDetailsHeader={[Function]}
+      onRenderItemColumn={[Function]}
+      selectionMode={0}
+    />
+  </ScrollablePane>
 </Wrapper__Wrapper>
 `;

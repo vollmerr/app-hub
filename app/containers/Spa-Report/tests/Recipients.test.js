@@ -2,12 +2,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { testStyledComponent } from 'utils/testUtils';
 
-import ListSection from 'components/List/ListSection';
 import List from 'components/List';
 
-import Recipients, { Wrapper } from '../Recipients';
+import Recipients, { StyledList } from '../Recipients';
 
-testStyledComponent(Wrapper, ListSection);
+
+testStyledComponent(StyledList, List);
+
 
 const props = {
   columns: [],
@@ -24,9 +25,5 @@ describe('<Recipients />', () => {
 
   it('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
-  });
-
-  it('shoudl render a List', () => {
-    expect(wrapper.find(List).length).toEqual(1);
   });
 });

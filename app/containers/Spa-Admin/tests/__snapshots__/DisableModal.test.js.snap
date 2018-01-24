@@ -11,7 +11,7 @@ exports[`<DisableModal /> should render correctly 1`] = `
   onDismiss={[Function]}
 >
   <DisableModal__Warning>
-    WARNING: This is no going back! Are you sure you want to test type test title?
+    WARNING: There is no going back! Are you sure you want to test type test title?
   </DisableModal__Warning>
   <DialogFooter>
     <CustomizedPrimaryButton

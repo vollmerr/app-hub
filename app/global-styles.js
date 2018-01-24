@@ -12,14 +12,6 @@ injectGlobal`
     padding: 0;
   }
 
-  * {
-    transition: 0.1s ease;
-  }
-
-  .ms-Button * {
-    transition: none;
-  }
-
   /* OFFICE UI DIALOG (requires classname to be passed, ignores styled compoents...) */
   .ms-Dialog-main {
     min-width: ${theme.breakpoints.xs - 90}px !important;

@@ -5,7 +5,7 @@ import theme from 'utils/theme';
 
 const Overlay = styled(OfficeOverlay) `
   &.ms-Overlay {
-    top: ${theme.hub.headerHeight};
+    top: ${theme.hub.headerHeight}px;
     z-index: ${theme.zIndex.overlay};
   }
 `;

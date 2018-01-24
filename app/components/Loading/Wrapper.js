@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   align-items: center;
   height: 100vh;
   width: 100%;
-  margin-top: -${theme.hub.headerHeight};
+  margin-top: -${theme.hub.headerHeight}px;
 `;
 
 export default Wrapper;

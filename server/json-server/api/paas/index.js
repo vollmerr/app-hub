@@ -76,7 +76,7 @@ function generateAuthorization(manager) {
     [C.AUTH.LAST_APPROVED]: faker.date.past(1, date),
     [C.AUTH.DATE_CREATED]: faker.date.past(1, date),
     [C.AUTH.AUTH_YEAR]: date.getFullYear(),
-    ...apps
+    ...apps,
   };
 }
 

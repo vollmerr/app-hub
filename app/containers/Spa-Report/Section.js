@@ -8,7 +8,7 @@ const Section = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  min-height: 100%;
+  min-height: 300px;
 
   @media (min-width: ${theme.breakpoints.sm}px) {
     min-width: ${theme.breakpoints.sm - 40}px;

@@ -13,7 +13,7 @@ exports[`<Section__Section /> should render correctly 1`] = `
   -ms-flex-direction: column;
   flex-direction: column;
   width: 100%;
-  min-height: 100%;
+  min-height: 300px;
 }
 
 @media (min-width: 576px) {

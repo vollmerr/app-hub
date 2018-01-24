@@ -64,6 +64,7 @@ class Filters extends React.PureComponent {
           ))
         } */}
         <Dropdown
+          label={'Report Year'}
           options={[
             { key: '2017', text: '2017' },
             { key: '2016', text: '2016' },

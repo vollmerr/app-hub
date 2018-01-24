@@ -2,16 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import theme from 'utils/theme';
+import AppSection from 'components/App-Content/Section';
 
 
-const Wrapper = styled.div`
+const Wrapper = styled(AppSection)`
   flex: 30%;
-  min-width: ${theme.breakpoints.xs}px;
-  padding: 15px;
+  min-width: 300px;
   margin: 5px;
-  background: ${theme.white};
-  box-shadow: 0 0 3px ${theme.neutralLight};
 `;
 
 

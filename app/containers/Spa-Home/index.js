@@ -9,7 +9,6 @@ import toJS from 'hocs/toJS';
 import { doneLoading, downloadFile } from 'utils/request';
 import { ACK } from 'containers/Spa/constants';
 import appPage from 'containers/App-Container/appPage';
-import ListSection from 'components/List/ListSection';
 import List, { handleSelectItem } from 'components/List';
 
 import * as selectors from 'containers/Spa/selectors';
@@ -18,9 +17,9 @@ import { homeColumns } from 'containers/Spa/data';
 
 import AckModal from './AckModal';
 
-const halfHeight = {
-  vh: 50,
-  margin: -2,
+
+const style = {
+  count: 2,
 };
 
 
@@ -122,6 +121,7 @@ export class SpaHome extends React.PureComponent {
 
     const pendingAckProps = {
       enums,
+      style,
       items: userPendingItems,
       columns: homeColumns.pending,
       title: 'Pending Acknowledgment',
@@ -132,6 +132,7 @@ export class SpaHome extends React.PureComponent {
     };
     const previousAckProps = {
       enums,
+      style,
       items: userPreviousItems,
       columns: homeColumns.previous,
       title: 'Previous Acknowledgments',
@@ -153,14 +154,8 @@ export class SpaHome extends React.PureComponent {
 
     return (
       <div>
-        <ListSection {...halfHeight}>
-          <List {...pendingAckProps} />
-        </ListSection>
-
-        <ListSection {...halfHeight}>
-          <List {...previousAckProps} />
-        </ListSection>
-
+        <List {...pendingAckProps} />
+        <List {...previousAckProps} />
         <AckModal {...modalProps} />
       </div>
     );

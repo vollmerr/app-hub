@@ -8,7 +8,6 @@ exports[`<Wrapper /> should be hidden in mobile view 1`] = `
   flex: 0 0 225px;
   background: #eaeaea;
   height: 100vh;
-  overflow-y: auto;
 }
 
 <div
@@ -24,7 +23,6 @@ exports[`<Wrapper /> should be visible in desktop view 1`] = `
   flex: 0 0 225px;
   background: #eaeaea;
   height: 100vh;
-  overflow-y: auto;
 }
 
 <div
@@ -40,7 +38,6 @@ exports[`<Wrapper__Wrapper /> should render correctly 1`] = `
   flex: 0 0 225px;
   background: #eaeaea;
   height: 100vh;
-  overflow-y: auto;
 }
 
 <div

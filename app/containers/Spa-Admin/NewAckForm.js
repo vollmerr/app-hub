@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Form } from 'react-final-form';
 
 import appPage from 'containers/App-Container/appPage';
-import { StyledForm, FormButtons } from 'components/Form';
+import { FormSection, FormButtons } from 'components/Form';
 import theme from 'utils/theme';
 
 import validate from './validate';
@@ -15,6 +15,7 @@ export const Fields = styled.div`
   flex-wrap: wrap;
   margin-right: -15px;
 `;
+
 
 // min-width = xs breakpoint - 2 * 15px margin (Content) - 2 * 15px padding (Form) - 15px margin (Form)
 export const FieldSection = styled.div`
@@ -44,6 +45,11 @@ function mapSection(fields, section) {
 }
 
 
+const style = {
+  padding: theme.hub.padding + theme.app.subNavHeight,
+};
+
+
 /**
  * Form for new acknowledgments, available only to admins
  */
@@ -60,13 +66,18 @@ export class NewAckForm extends React.PureComponent {
       sections,
     } = this.props;
 
+    const formProps = {
+      onSubmit: handleSubmit,
+      ...style,
+    };
+
     const buttonProps = {
       reset,
       disabled: pristine || submitting,
     };
 
     return (
-      <StyledForm onSubmit={handleSubmit} margin={theme.app.subNavHeight}>
+      <FormSection {...formProps}>
         <h3>{title}</h3>
 
         <Fields>
@@ -75,7 +86,7 @@ export class NewAckForm extends React.PureComponent {
         </Fields>
 
         <FormButtons {...buttonProps} />
-      </StyledForm>
+      </FormSection>
     );
   }
 
@@ -101,5 +112,6 @@ NewAckForm.propTypes = {
   sections: object.isRequired,
   onSubmit: func.isRequired,
 };
+
 
 export default appPage(NewAckForm);

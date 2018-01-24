@@ -16,7 +16,7 @@ const StyledForm = styled.form`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
-  margin: 15px 0;
+  margin: 5px 0;
 `;
 
 
@@ -27,10 +27,6 @@ const Buttons = styled.div`
   margin: 5px;
   padding: 25px;
   background: ${theme.white};
-
-  * {
-    transition: none;
-  }
 `;
 
 

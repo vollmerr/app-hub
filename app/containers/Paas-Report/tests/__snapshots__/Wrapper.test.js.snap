@@ -9,9 +9,9 @@ exports[`<Wrapper__Wrapper /> should render correctly 1`] = `
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  min-height: calc(100vh - 50px - 40px - 20px);
-  margin: 10px 0;
   width: 100%;
+  padding: 5px;
+  min-height: calc(100vh -     50px);
 }
 
 <div

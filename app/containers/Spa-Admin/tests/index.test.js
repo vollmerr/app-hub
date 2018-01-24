@@ -13,7 +13,6 @@ import {
 } from 'containers/Spa/actions';
 
 import { ACK, STATUS, RECIPIENT, GROUP } from 'containers/Spa/constants';
-import ListSection from 'components/List/ListSection';
 import SpaReport from 'containers/Spa-Report';
 
 import { SpaAdmin, mapDispatchToProps } from '../index';
@@ -434,10 +433,6 @@ describe('<SpaAdmin />', () => {
       expect(wrapper.find(EmailModal).length).toEqual(0);
       wrapper.setState({ hideReport: false, selectedItem: { [ACK.ID]: 1 } });
       expect(wrapper.find(EmailModal).length).toEqual(1);
-    });
-
-    it('should render two `ListSection`s (active and previous acknowledgments)', () => {
-      expect(wrapper.find(ListSection).length).toEqual(2);
     });
 
     it('should render two `List`s (active and previous acknowledgments)', () => {

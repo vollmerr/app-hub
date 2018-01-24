@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { DetailsList, SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
+import { Sticky } from 'office-ui-fabric-react/lib/Sticky';
+import { ScrollablePane } from 'office-ui-fabric-react/lib/ScrollablePane';
 import orderBy from 'lodash/orderBy';
 import isEqual from 'lodash/isEqual';
 
@@ -179,14 +181,18 @@ class List extends React.PureComponent {
    * @return {JSX}                - column header
    */
   renderHeader = (props, defaultRender) => (
-    defaultRender({
-      ...props,
-      onRenderColumnHeaderTooltip: (tooltipHostProps) => (
-        tooltipHostProps.content ?
-          <TooltipHost {...tooltipHostProps} /> :
-          <div>{tooltipHostProps.children}</div>
-      ),
-    })
+    <Sticky>
+      {
+        defaultRender({
+          ...props,
+          onRenderColumnHeaderTooltip: (tooltipHostProps) => (
+            tooltipHostProps.content ?
+              <TooltipHost {...tooltipHostProps} /> :
+              <span>{tooltipHostProps.children}</span>
+          ),
+        })
+      }
+    </Sticky>
   )
 
   /**
@@ -204,8 +210,13 @@ class List extends React.PureComponent {
   }
 
   render() {
-    const { title, empty, ...list } = this.props;
+    const { title, empty, style, className, ...list } = this.props;
     const { items, columns, searchValue } = this.state;
+
+    const wrapperProps = {
+      className,
+      ...style,
+    };
 
     const listProps = {
       ...list,
@@ -221,24 +232,26 @@ class List extends React.PureComponent {
     };
 
     return (
-      <Wrapper>
+      <Wrapper {...wrapperProps}>
         <Header>
           <Title>{title}</Title>
           <Search {...searchProps} />
         </Header>
 
-        {
-          items.length ?
-            <DetailsList {...listProps} /> :
-            <EmptyMessage {...empty} />
-        }
+        <ScrollablePane>
+          {
+            items.length ?
+              <DetailsList {...listProps} /> :
+              <EmptyMessage {...empty} />
+          }
+        </ScrollablePane>
       </Wrapper>
     );
   }
 }
 
 
-const { string, number, arrayOf, shape, any } = PropTypes;
+const { string, number, arrayOf, shape, any, object } = PropTypes;
 
 List.propTypes = {
   title: string,
@@ -250,15 +263,18 @@ List.propTypes = {
       fieldName: string,
     }),
   ),
+  style: object,
   checkboxVisibility: number,
   selectionMode: number,
   empty: any,
   enums: any,
+  className: string,
   sortBy: arrayOf(string),
 };
 
 List.defaultProps = {
   items: [],
+  style: {},
   empty: {
     message: 'No items',
   },

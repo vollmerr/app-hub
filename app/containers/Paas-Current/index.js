@@ -11,8 +11,7 @@ import pick from 'lodash/pick';
 import toJS from 'hocs/toJS';
 import { doneLoading } from 'utils/request';
 import appPage from 'containers/App-Container/appPage';
-import List from 'components/List';
-import { StyledForm, FormButtons, FieldToggle } from 'components/Form';
+import { FormSection, FormButtons, FieldToggle } from 'components/Form';
 import { AUTH, APPROVAL, APPS } from 'containers/Paas/constants';
 import { currentColumns, currentFieldsApi } from 'containers/Paas/data';
 import * as selectors from 'containers/Paas/selectors';
@@ -21,11 +20,6 @@ import * as actions from 'containers/Paas/actions';
 import FormList from './FormList';
 import validate from './validate';
 import { ApproveButton, DenyButton } from './Buttons';
-
-
-const listHeight = {
-  margin: 120, // space for buttom buttons
-};
 
 
 export class PaasCurrent extends React.PureComponent {
@@ -192,19 +186,15 @@ export class PaasCurrent extends React.PureComponent {
     this.form.batch = batch;
 
     return (
-      <StyledForm onSubmit={handleSubmit}>
+      <FormSection onSubmit={handleSubmit}>
         {/* <MessageBar
           messageBarType={MessageBarType.severeWarning}
         >
           Warning - There are one or more authornizatrions neeeded
         </MessageBar> */}
-
-        <FormList {...listHeight}>
-          <List {...listProps} />
-        </FormList>
-
+        <FormList {...listProps} />
         <FormButtons {...buttonProps} />
-      </StyledForm>
+      </FormSection>
     );
   }
 

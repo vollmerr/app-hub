@@ -1,32 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import theme from 'utils/theme';
-import ListSection from 'components/List/ListSection';
 import List from 'components/List';
+import theme from 'utils/theme';
 
 
-export const Wrapper = styled(ListSection) `
-  flex: 1;
-  margin: 5px;
-  height: auto;
-  max-height: calc(100vh - ${theme.app.subNavHeight} - 20px);
+export const StyledList = styled(List)`
+  margin: ${theme.hub.padding / 2}px;
 `;
 
-const halfHeight = {
-  vh: 50,
-  margin: 18, // section margin (15) + 3 due to being in div (margin outside div)
+
+const style = {
+  padding: theme.app.subNavHeight + theme.hub.padding,
 };
 
 
 class Recipients extends React.PureComponent {
   render() {
     return (
-      <Wrapper {...halfHeight}>
-        <List {...this.props} />
-      </Wrapper>
+      <StyledList {...this.props} style={style} />
     );
   }
 }
+
 
 export default Recipients;

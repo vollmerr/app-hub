@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
+import theme from 'utils/theme';
+
 
 export const Buttons = styled.div`
-  padding-top: 15px;
+  padding: ${theme.hub.padding}px;
   display: flex;
   justify-content: space-between;
+  height: ${theme.form.buttonsHeight}px;
 `;
 
 export const Button = styled(DefaultButton)`
-  margin-left: 10px;
+  margin-left: ${theme.hub.padding}px;
 `;
 
 

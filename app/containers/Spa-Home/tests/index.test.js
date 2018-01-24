@@ -5,7 +5,6 @@ import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 import { testMapDispatchToProps } from 'utils/testUtils';
 import { getUserDataRequest, readAckRequest } from 'containers/Spa/actions';
 import { ACK } from 'containers/Spa/constants';
-import ListSection from 'components/List/ListSection';
 
 import { SpaHome, mapDispatchToProps } from '../index';
 import AckModal from '../AckModal';
@@ -61,8 +60,7 @@ describe('<SpaHome />', () => {
     expect(wrapper.find(Loading).length).toEqual(1);
   });
 
-  it('should render two sections with lists', () => {
-    expect(wrapper.find(ListSection).length).toEqual(2);
+  it('should render two `List`s', () => {
     expect(wrapper.find(List.default).length).toEqual(2);
   });
 

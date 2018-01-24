@@ -1,31 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 
 import { connect } from 'react-redux';
 
+import Section from 'components/App-Content/Section';
 import { REPORT } from 'containers/Spa/constants';
 import { PieChart as Chart } from 'components/D3';
 import { incrementRenderCount } from 'containers/AppHub/actions';
 import theme from 'utils/theme';
 
 
-export const Wrapper = styled.div`
-  flex: 1 0 auto;
+export const Wrapper = Section.extend`
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-content: center;
   align-items: center;
-  margin: 5px;
-  background: ${theme.white};
-  box-shadow: 0 0 3px ${theme.neutralLight};
+  margin: ${theme.hub.padding / 2}px;
 `;
 
 
 const measurements = {
-  width: 300,
-  height: 300,
+  width: theme.chart.width,
+  height: theme.chart.height,
 };
 
 

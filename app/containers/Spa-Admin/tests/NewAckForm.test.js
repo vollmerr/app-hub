@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { Form } from 'react-final-form';
 
 import { testStyledComponent } from 'utils/testUtils';
-import { StyledForm, FormButtons } from 'components/Form';
+import { FormSection, FormButtons } from 'components/Form';
 import { acknowledgment, newAckForm } from 'containers/Spa/data';
 
 import { NewAckForm, Fields, FieldSection } from '../NewAckForm';
@@ -50,8 +50,8 @@ describe('<NewAckForm />', () => {
       form = shallow(<C />);
     });
 
-    it('should render a `StlyedForm`', () => {
-      expect(form.find(StyledForm).length).toEqual(1);
+    it('should render a `FormSection`', () => {
+      expect(form.find(FormSection).length).toEqual(1);
     });
 
     it('should render a title (h3)', () => {
