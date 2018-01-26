@@ -18,7 +18,7 @@ exports[`<PaasPrevious /> should render correctly 1`] = `
         "onRender": undefined,
       },
       Object {
-        "ariaLabel": "App 1 AriaLabel",
+        "ariaLabel": "PeopleSoft Authorization",
         "data": Object {
           "render": "authorizationToggle",
         },
@@ -28,12 +28,12 @@ exports[`<PaasPrevious /> should render correctly 1`] = `
         "key": "app1",
         "maxWidth": 100,
         "minWidth": 80,
-        "name": "App 1 Name",
+        "name": "PeopleSoft",
         "notSortable": false,
         "onRender": [Function],
       },
       Object {
-        "ariaLabel": "App 2 AriaLabel",
+        "ariaLabel": "Remedy Authorization",
         "data": Object {
           "render": "authorizationToggle",
         },
@@ -43,12 +43,12 @@ exports[`<PaasPrevious /> should render correctly 1`] = `
         "key": "app2",
         "maxWidth": 100,
         "minWidth": 80,
-        "name": "App 2 Name",
+        "name": "Remedy",
         "notSortable": false,
         "onRender": [Function],
       },
       Object {
-        "ariaLabel": "App 3 AriaLabel",
+        "ariaLabel": "Email Authorization",
         "data": Object {
           "render": "authorizationToggle",
         },
@@ -58,12 +58,12 @@ exports[`<PaasPrevious /> should render correctly 1`] = `
         "key": "app3",
         "maxWidth": 100,
         "minWidth": 80,
-        "name": "App 3 Name",
+        "name": "Email",
         "notSortable": false,
         "onRender": [Function],
       },
       Object {
-        "ariaLabel": "App 4 AriaLabel",
+        "ariaLabel": "Storage Authorization",
         "data": Object {
           "render": "authorizationToggle",
         },
@@ -73,7 +73,7 @@ exports[`<PaasPrevious /> should render correctly 1`] = `
         "key": "app4",
         "maxWidth": 100,
         "minWidth": 80,
-        "name": "App 4 Name",
+        "name": "Storage",
         "notSortable": false,
         "onRender": [Function],
       },

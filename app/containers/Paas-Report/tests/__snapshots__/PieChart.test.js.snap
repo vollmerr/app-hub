@@ -2,9 +2,9 @@
 
 exports[`<PieChart__Wrapper /> should render correctly 1`] = `
 .c0 {
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
+  -webkit-flex: 2 0 auto;
+  -ms-flex: 2 0 auto;
+  flex: 2 0 auto;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
