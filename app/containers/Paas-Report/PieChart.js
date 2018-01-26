@@ -11,7 +11,7 @@ import theme from 'utils/theme';
 
 
 export const Wrapper = styled.div`
-  flex: 1 0 auto;
+  flex: 2 0 auto;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;

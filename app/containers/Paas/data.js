@@ -71,10 +71,18 @@ export const authorization = {
       type: types.date,
     },
   },
+  [AUTH.AUTH_YEAR]: {
+    label: 'Authorization Year',
+    name: AUTH.AUTH_YEAR,
+    ariaLabel: 'Year the Authorization is for',
+    data: {
+      type: types.date,
+    },
+  },
   [APPS.APP_1]: {
-    label: 'App 1 Name',
+    label: 'PeopleSoft',
     name: APPS.APP_1,
-    ariaLabel: 'App 1 AriaLabel',
+    ariaLabel: 'PeopleSoft Authorization',
     minWidth: 80,
     maxWidth: 100,
     data: {
@@ -82,9 +90,9 @@ export const authorization = {
     },
   },
   [APPS.APP_2]: {
-    label: 'App 2 Name',
+    label: 'Remedy',
     name: APPS.APP_2,
-    ariaLabel: 'App 2 AriaLabel',
+    ariaLabel: 'Remedy Authorization',
     minWidth: 80,
     maxWidth: 100,
     data: {
@@ -92,9 +100,9 @@ export const authorization = {
     },
   },
   [APPS.APP_3]: {
-    label: 'App 3 Name',
+    label: 'Email',
     name: APPS.APP_3,
-    ariaLabel: 'App 3 AriaLabel',
+    ariaLabel: 'Email Authorization',
     minWidth: 80,
     maxWidth: 100,
     data: {
@@ -102,9 +110,9 @@ export const authorization = {
     },
   },
   [APPS.APP_4]: {
-    label: 'App 4 Name',
+    label: 'Storage',
     name: APPS.APP_4,
-    ariaLabel: 'App 4 AriaLabel',
+    ariaLabel: 'Storage Authorization',
     minWidth: 80,
     maxWidth: 100,
     data: {
@@ -136,6 +144,7 @@ const buttons = {
     },
   },
 };
+
 
 export const currentFieldsApi = [
   AUTH.ID,
@@ -172,4 +181,16 @@ export const reportColumns = {
   [REPORT.DENIED]: mapToColumns(authorization, reportFields),
   [REPORT.PENDING]: mapToColumns(authorization, reportFields),
   [REPORT.NO_MANAGER]: mapToColumns(authorization, reportFields),
+};
+
+
+// CSV FILE
+const reportCsvFields = [
+  ...reportFields,
+  AUTH.AUTH_YEAR,
+];
+
+export const reportCsv = {
+  fields: reportCsvFields,
+  fieldNames: reportCsvFields.map((x) => authorization[x].label),
 };

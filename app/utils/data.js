@@ -26,7 +26,7 @@ export function formatItem(item, name, field, enums = {}) {
       return enums[name][x];
     }
     // is date
-    if (field.data && field.data.type === types.date) {
+    if (field && field.data && field.data.type === types.date) {
       return isNaN(Date.parse(x)) ? '' : new Date(x).toISOString().substr(0, 10);
     }
     return x;
@@ -47,14 +47,12 @@ export function formatItem(item, name, field, enums = {}) {
  */
 export function formatList(items, fields, enums) {
   const formattedList = [];
-
   items.forEach((item, i) => {
     formattedList[i] = {};
     Object.keys(item).forEach((k) => {
       formattedList[i][k] = formatItem(item, k, fields[k], enums);
     });
   });
-
   return formattedList;
 }
 

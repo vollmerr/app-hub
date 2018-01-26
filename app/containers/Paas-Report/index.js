@@ -13,6 +13,7 @@ import * as selectors from 'containers/Paas/selectors';
 import * as actions from 'containers/Paas/actions';
 import * as C from 'containers/Paas/constants';
 import { StyledToggle } from 'components/Form/FieldToggle';
+import LoadingMessage from 'components/Loading/LoadingMessage';
 
 import Wrapper from './Wrapper';
 import Section from './Section';
@@ -33,6 +34,8 @@ export class PaasReport extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
+      isLoading: true,
+      filters: {},
       selectedKey: C.REPORT.PENDING,
       authorizations: {
         all: [],
@@ -46,7 +49,6 @@ export class PaasReport extends React.PureComponent {
 
   async componentDidMount() {
     const { onGetReportDataRequest } = this.props;
-    // TODO caching!
     onGetReportDataRequest();
     await doneLoading(this);
     this.mapData();
@@ -66,24 +68,45 @@ export class PaasReport extends React.PureComponent {
     }))
   )
 
+  filterItems = (items) => {
+    const { filters } = this.state;
+    // have atleast one filter that is not set to all
+    if (Object.values(filters).some((x) => x !== 'ALL')) {
+      const filterKeys = Object.keys(filters);
+      // get only items that fulfill atleast one filter
+      return items.filter((item) => (
+        filterKeys.some((key) => (
+          item[key] === filters[key]
+        ))
+      ));
+    }
+    // no filters applied, return em all...
+    return items;
+  }
+
   mapData = () => {
     const { allItems, approvedItems, deniedItems, pendingItems, noManagerItems } = this.props;
-    // TODO: filtering goes here, such as select app then filter by that app, etc
+    // get lists of filtered out authorizations
+    const authorizations = {
+      all: this.filterItems(allItems),
+      [C.REPORT.APPROVED]: this.filterItems(approvedItems),
+      [C.REPORT.DENIED]: this.filterItems(deniedItems),
+      [C.REPORT.PENDING]: this.filterItems(pendingItems),
+      [C.REPORT.NO_MANAGER]: this.filterItems(noManagerItems),
+    };
     // update with our new lists
-    this.setState({
-      authorizations: {
-        all: allItems,
-        [C.REPORT.APPROVED]: approvedItems,
-        [C.REPORT.DENIED]: deniedItems,
-        [C.REPORT.PENDING]: pendingItems,
-        [C.REPORT.NO_MANAGER]: noManagerItems,
-      },
-    });
+    this.setState({ authorizations }, () => this.setState({ isLoading: false }));
   }
 
   handleClick = (d) => {
     const key = d.data ? d.data.key : d;
     this.setState({ selectedKey: Number(key) });
+  }
+
+  handleFilterChange = (key) => (option) => {
+    const filters = { ...this.state.filters };
+    filters[key] = option.key;
+    this.setState({ filters }, this.mapData);
   }
 
   /**
@@ -119,7 +142,12 @@ export class PaasReport extends React.PureComponent {
   }
 
   render() {
-    const { authorizations, selectedKey } = this.state;
+    const { Loading } = this.props;
+    const { authorizations, selectedKey, isLoading } = this.state;
+    // TODO: BETTER LOADING.......
+    if (Loading || isLoading) {
+      return <LoadingMessage />;
+    }
     // build stats for chart lengend
     const totalCount = authorizations.all.length || 1;
     // percents for lists
@@ -129,8 +157,9 @@ export class PaasReport extends React.PureComponent {
     const noManagerPercent = 100 - approvedPercent - deniedPercent - pendingPercent;
 
     const filtersProps = {
-      // enums,
-      // selectedItem,
+      selectedKey,
+      authorizations,
+      onChange: this.handleFilterChange,
     };
 
     const pieChartProps = {
@@ -189,7 +218,7 @@ export class PaasReport extends React.PureComponent {
 }
 
 
-const { array, func } = PropTypes;
+const { array, func, node } = PropTypes;
 
 PaasReport.propTypes = {
   allItems: array.isRequired,
@@ -198,6 +227,7 @@ PaasReport.propTypes = {
   pendingItems: array.isRequired,
   noManagerItems: array.isRequired,
   onGetReportDataRequest: func.isRequired, // eslint-disable-line
+  Loading: node,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -213,10 +243,8 @@ export const mapDispatchToProps = (dispatch) => ({
   onGetReportDataRequest: () => dispatch(actions.getReportDataRequest()),
 });
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
 export default compose(
-  withConnect,
+  connect(mapStateToProps, mapDispatchToProps),
   appPage,
   toJS,
 )(PaasReport);

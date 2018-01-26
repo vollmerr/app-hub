@@ -24,13 +24,13 @@ export function appPage(Component) {
     constructor(props) {
       super(props);
       this.state = {
-        isMounting: true,
+        isLoading: 1,
       };
     }
 
     componentDidMount() {
       // do not show component wrapped until done mounting...
-      this.setState({ isMounting: false }); // eslint-disable-line
+      this.setState({ isLoading: this.state.isLoading - 1 }); // eslint-disable-line
       this.authorizeRoute(this.props.app);
     }
 
@@ -80,9 +80,17 @@ export function appPage(Component) {
       }
     }
 
+    startRequest = () => {
+      this.setState({ isLoading: this.state.isLoading + 1 });
+    }
+
+    endRequest = () => {
+      this.setState({ isLoading: this.state.isLoading - 1 });
+    }
+
     render() {
       const { app } = this.props;
-      const { isMounting } = this.state;
+      const { isLoading } = this.state;
 
       const routes = app.get('routes');
       const homeRoute = routes.find((route) => (
@@ -95,13 +103,19 @@ export function appPage(Component) {
       }
 
       let Loading = null;
-      if (app.get('loading') || isMounting) {
+      if (app.get('loading') || isLoading) {
         Loading = <LoadingMessage />;
       }
 
+      const componentProps = {
+        Loading,
+        startRequest: this.startLoading,
+        endRequest: this.stopLoading,
+      };
+
       return (
         <Content>
-          <Component {...this.props} Loading={Loading} />
+          <Component {...this.props} {...componentProps} />
         </Content>
       );
     }
