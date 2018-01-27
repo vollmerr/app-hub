@@ -6,6 +6,7 @@ import { formattedDate } from 'utils/date';
 
 import * as C from './constants';
 
+
 export const initialState = {
   user: {
     isCached: false, // determine if should fetch user data
@@ -161,26 +162,35 @@ export default handleActions({
     const ackId = String(payload[C.ACK.ID]);
     let newState = state;
     // update status in acknowledgments lookup
-    newState = newState
-      .setIn(['acknowledgments', 'byId', ackId, C.ACK.STATUS], payload[C.ACK.STATUS]);
+    newState = newState.setIn(
+      ['acknowledgments', 'byId', ackId, C.ACK.STATUS],
+      payload[C.ACK.STATUS]
+    );
     // remove from admin active
-    newState = newState
-      .setIn(['admin', 'acksActiveIds'], state.getIn(['admin', 'acksActiveIds']).filter((id) => id !== ackId));
+    newState = newState.setIn(
+      ['admin', 'acksActiveIds'],
+      state.getIn(['admin', 'acksActiveIds']).filter((id) => id !== ackId)
+    );
     // add to admin inactive
-    newState = newState
-      .setIn(['admin', 'acksPreviousIds'], state.getIn(['admin', 'acksPreviousIds']).push(ackId));
+    newState = newState.setIn(
+      ['admin', 'acksPreviousIds'],
+      state.getIn(['admin', 'acksPreviousIds']).push(ackId)
+    );
     // get the id of the users 'recipeint' object of the pending acknowledgment
-    const recipientId = state
-      .getIn(['user', 'recipientsPendingIds'])
+    const recipientId = state.getIn(['user', 'recipientsPendingIds'])
       .find((id) => String(state.getIn(['recipients', 'byId', String(id), C.RECIPIENT.ACK_ID])) === ackId);
     // if the acknowledgment is in users active list
     if (recipientId) {
       // remove from user active
-      newState = newState
-        .setIn(['user', 'recipientsPendingIds'], state.getIn(['user', 'recipientsPendingIds']).filter((x) => x !== recipientId));
+      newState = newState.setIn(
+        ['user', 'recipientsPendingIds'],
+        state.getIn(['user', 'recipientsPendingIds']).filter((x) => x !== recipientId)
+      );
       // add to user previous
-      newState = newState
-        .setIn(['user', 'recipientsPreviousIds'], state.getIn(['user', 'recipientsPreviousIds']).push(recipientId));
+      newState = newState.setIn(
+        ['user', 'recipientsPreviousIds'],
+        state.getIn(['user', 'recipientsPreviousIds']).push(recipientId)
+      );
     }
     // gimme that new state
     return newState;
@@ -192,14 +202,20 @@ export default handleActions({
     const id = payload[C.RECIPIENT.ID];
     let newState = state;
     // remove from user active
-    newState = newState
-      .setIn(['user', 'recipientsPendingIds'], state.getIn(['user', 'recipientsPendingIds']).filter((x) => x !== id));
+    newState = newState.setIn(
+      ['user', 'recipientsPendingIds'],
+      state.getIn(['user', 'recipientsPendingIds']).filter((x) => x !== id)
+    );
     // add to user previous
-    newState = newState
-      .setIn(['user', 'recipientsPreviousIds'], state.getIn(['user', 'recipientsPreviousIds']).push(id));
+    newState = newState.setIn(
+      ['user', 'recipientsPreviousIds'],
+      state.getIn(['user', 'recipientsPreviousIds']).push(id)
+    );
     // update date acknowledged in lookup table
-    newState = newState
-      .setIn(['recipients', 'byId', id, C.RECIPIENT.ACK_DATE], formattedDate(new Date()));
+    newState = newState.setIn(
+      ['recipients', 'byId', id, C.RECIPIENT.ACK_DATE],
+      formattedDate(new Date()),
+    );
     // gimme that new state
     return newState;
   },

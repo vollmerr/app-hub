@@ -1,8 +1,10 @@
-import SpaHome from 'containers/Spa-Home';
-import SpaAdmin from 'containers/Spa-Admin';
-
+import HomePage from './HomePage';
+import AdminPage from './AdminPage';
 import { ROLES } from './constants';
+
+
 export const base = '/spa';
+
 
 export default [
   {
@@ -10,14 +12,14 @@ export default [
     name: 'Home',
     path: `${base}/home`,
     exact: true,
-    component: SpaHome,
+    component: HomePage,
   },
   {
     key: 'spaAdmin',
     name: 'Admin',
     path: `${base}/admin`,
     exact: true,
-    component: SpaAdmin,
+    component: AdminPage,
     roles: [ROLES.ADMIN],
   },
 ];

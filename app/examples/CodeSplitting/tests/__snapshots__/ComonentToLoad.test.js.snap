@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`<ComponentToLoad /> should render correctly 1`] = `
-<ComponentToLoad__Wrapper>
-  This is the loaded component.
-</ComponentToLoad__Wrapper>
-`;

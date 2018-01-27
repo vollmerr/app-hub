@@ -21,7 +21,6 @@ import 'utils/injectSaga';
 
 // Import root app
 import AppHub from 'containers/AppHub';
-import Examples from 'examples/Loadable';
 
 // Load the favicon, the manifest.json file and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -43,11 +42,7 @@ import initializeIcons from './utils/initializeIcons';
 
 // Import CSS reset and Global Styles
 import './global-styles';
-
 initializeIcons();
-// For running examples instead of actual code
-const isExamples = process.env.NODE_ENV === 'EXAMPLES';
-const App = isExamples ? <Examples /> : <AppHub />;
 
 // Create redux store with history
 const initialState = {};
@@ -58,7 +53,7 @@ const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        {App}
+        <AppHub />
       </ConnectedRouter>
     </Provider>,
     MOUNT_NODE
@@ -69,7 +64,7 @@ if (module.hot) {
   // Hot reloadable React components and translation json files
   // modules.hot.accept does not accept dynamic dependencies,
   // have to be constants at compile-time
-  module.hot.accept([isExamples ? 'examples' : 'containers/AppHub'], () => {
+  module.hot.accept(['containers/AppHub'], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE);
     render();
   });

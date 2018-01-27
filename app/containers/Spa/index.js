@@ -1,17 +1,34 @@
 import React from 'react';
+import { compose } from 'redux';
 
-import AppContent from 'components/App-Content';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import App from 'containers/App';
 import Wrapper from 'components/App-Content/Wrapper';
 import Router from 'components/Router';
 
-import Spa from './Spa';
 import routes from './routes';
+import reducer from './reducer';
+import saga from './saga';
 
-export default ({ name }) => ( // eslint-disable-line
-  <Wrapper>
-    <Spa name={name} />
-    <AppContent>
-      <Router routes={routes} />
-    </AppContent>
-  </Wrapper>
-);
+
+export class SPA extends React.PureComponent {
+  render() {
+    return (
+      <Wrapper>
+        {/* AppContainer -> Helmet/AppNav, change app */}
+        <Router routes={routes} />
+      </Wrapper>
+    );
+  }
+}
+
+
+const withReducer = injectReducer({ key: 'spa', reducer });
+const withSaga = injectSaga({ key: 'spa', saga });
+
+
+export default compose(
+  withReducer,
+  withSaga,
+)(SPA);
