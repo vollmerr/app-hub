@@ -16,7 +16,7 @@ export const TOKEN = 'id_token';
  * @param {String} token  - token to set
  */
 export function setToken(token) {
-  localStorage.setItem({ [TOKEN]: token });
+  localStorage.setItem(TOKEN, token);
 }
 
 

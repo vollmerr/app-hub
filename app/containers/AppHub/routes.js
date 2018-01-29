@@ -16,7 +16,7 @@ const routes = [
     exact: true,
     component: Home,
     icon: 'Apphub',
-    meta: meta.apphub,
+    meta: meta.appHub,
   },
   // __APPS__
   // {

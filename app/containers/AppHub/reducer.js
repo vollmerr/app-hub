@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable';
 import { handleActions } from 'redux-actions';
 
-import { authorizedRoute } from '../../utils/validate';
+import { unauthorizedRoute } from '../../utils/validate';
 
 import allRoutes from './routes';
 import * as C from './constants';
@@ -73,7 +73,7 @@ export default handleActions({
     }
 
     const rolesArray = typeof roles === 'string' ? [roles] : roles;
-    const validRoutes = allRoutes.filter((route) => authorizedRoute(route, rolesArray));
+    const validRoutes = allRoutes.filter((route) => !unauthorizedRoute(route, rolesArray));
 
     return state
       .setIn(['user', 'name'], name)
