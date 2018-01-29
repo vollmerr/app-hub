@@ -13,7 +13,7 @@ import theme from '../../utils/theme';
 import Router from '../../components/Router';
 
 import Header from './Header';
-import Panel from './Panel';
+import Panels from './Panels';
 import routes from './routes';
 import saga from './saga';
 import * as selectors from './selectors';
@@ -93,7 +93,7 @@ export class AppHub extends React.PureComponent {
       <Wrapper>
         <Header {...headerProps} />
         <Router {...routerProps} />
-        <Panel {...panelProps} />
+        <Panels {...panelProps} />
       </Wrapper>
     );
   }
