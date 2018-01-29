@@ -41,12 +41,14 @@ export class AppHub extends React.PureComponent {
    * Handles window resizing, determines if is mobile or desktop view
    */
   handleResize = () => {
-    const { onChangeMobile, onChangePanelOpen, view } = this.props;
+    const { onChangeMobile, onChangePanelOpen, view, panel } = this.props;
     const mobile = window.innerWidth <= theme.breakpoints.lg;
 
     if (mobile !== view.isMobile) {
       onChangeMobile(mobile);
-      onChangePanelOpen(false);
+      if (panel.isOpen) {
+        onChangePanelOpen(false);
+      }
     }
   }
 
@@ -75,10 +77,10 @@ AppHub.propTypes = {
   app: object.isRequired,
   user: object.isRequired,
   view: object.isRequired,
+  panel: object.isRequired,
   onAuthUser: func.isRequired,
   onChangeMobile: func.isRequired,
   onChangePanelOpen: func.isRequired,
-  onChangePanelSelected: func.isRequired,
 };
 
 
@@ -86,6 +88,7 @@ const mapStateToProps = createStructuredSelector({
   app: selectors.getApp,
   user: selectors.getUser,
   view: selectors.getView,
+  panel: selectors.getViewPanel,
 });
 
 const mapDispatchToProps = (dispatch) => ({

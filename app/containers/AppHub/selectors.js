@@ -8,7 +8,10 @@ export const selectView = (state) => selectAppHub(state).get('view');
 
 
 export const getUser = createSelector(selectUser, (user) => user);
+
 export const getApp = createSelector(selectApp, (app) => app);
+
 export const getView = createSelector(selectView, (view) => view);
+export const getViewPanel = createSelector(selectView, (view) => view.get('panel'));
 
 // TODO: tests
