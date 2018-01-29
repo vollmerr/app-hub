@@ -3,7 +3,7 @@
  */
 
 import { combineReducers } from 'redux-immutable';
-import appHub from 'containers/AppHub/reducer';
+import appHub from './containers/AppHub/reducer';
 
 /**
  * Creates the main reducer with the dynamically injected ones

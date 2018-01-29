@@ -38,15 +38,16 @@ export const isNull = (value) => (
     : undefined
 );
 
-export const unauthorizedRoute = (route, roles = []) => (
-  !route ||
-  Boolean(
-    route.get &&
-    route.get('roles') &&
-    !route.get('roles').some((role) => roles.includes(role))
-  ) ||
-  Boolean(
-    route.roles &&
-    !route.roles.some((role) => roles.includes(role))
+export const authorizedRoute = (route, roles = []) => (
+  route && (
+    Boolean(
+      route.get &&
+      route.get('roles') &&
+      route.get('roles').some((role) => roles.includes(role))
+    ) ||
+    Boolean(
+      route.roles &&
+      route.roles.some((role) => roles.includes(role))
+    )
   )
 );

@@ -1,10 +1,14 @@
 import React from 'react';
 
 
+import Link from '../../../components/Link';
+
 class Header extends React.PureComponent {
   render() {
     return (
-      <div>header...</div>
+      <div>header...
+        <Link to={'spa'}>test..</Link>
+      </div>
     );
   }
 }
