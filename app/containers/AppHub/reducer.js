@@ -28,7 +28,7 @@ export const initialState = {
     subNav: false,
     panel: {
       isOpen: false,
-      selected: C.APPS_PANEL, // cannot be null/undefined or get error
+      name: C.APPS_PANEL, // cannot be null/undefined or get error
     },
   },
 };
@@ -40,7 +40,7 @@ export default handleActions({
 
   [C.CHANGE_PANEL_OPEN]: (state, action) => state.setIn(['view', 'panel', 'isOpen'], action.payload),
 
-  [C.CHANGE_PANEL_SELECTED]: (state, action) => state.setIn(['view', 'panel', 'selected'], action.payload),
+  [C.CHANGE_PANEL_SELECTED]: (state, action) => state.setIn(['view', 'panel', 'name'], action.payload),
 
   // APP
   [C.CHANGE_APP]: (state, action) => {

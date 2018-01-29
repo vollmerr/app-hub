@@ -13,6 +13,7 @@ import theme from '../../utils/theme';
 import Router from '../../components/Router';
 
 import Header from './Header';
+import Panel from './Panel';
 import routes from './routes';
 import saga from './saga';
 import * as selectors from './selectors';
@@ -52,8 +53,31 @@ export class AppHub extends React.PureComponent {
     }
   }
 
+  /**
+   * Handles clicking on a panel from the header, determines if should open or close
+   */
+  handlePanelClick = (name) => {
+    const { onChangePanelOpen, onChangePanelSelected, panel } = this.props;
+    const selected = name || panel.name; // errors if null, so set a default
+    // click on same panel or overlay
+    if (!name || (panel.name === name && panel.isOpen)) {
+      // close it
+      onChangePanelOpen(false);
+    } else {
+      // open the panel (don't dispatch unessecary actions if already open)
+      if (!panel.isOpen) {
+        onChangePanelOpen(true);
+      }
+      onChangePanelSelected(selected);
+    }
+  }
+
   render() {
     const { app, user } = this.props;
+
+    const headerProps = {
+      onClick: this.handlePanelClick,
+    };
 
     const routerProps = {
       routes,
@@ -61,10 +85,15 @@ export class AppHub extends React.PureComponent {
       loading: (app.loading || !user.isAuthenticated) && !app.error,
     };
 
+    const panelProps = {
+      onClick: this.handlePanelClick,
+    };
+
     return (
       <Wrapper>
-        <Header />
+        <Header {...headerProps} />
         <Router {...routerProps} />
+        <Panel {...panelProps} />
       </Wrapper>
     );
   }
@@ -81,6 +110,7 @@ AppHub.propTypes = {
   onAuthUser: func.isRequired,
   onChangeMobile: func.isRequired,
   onChangePanelOpen: func.isRequired,
+  onChangePanelSelected: func.isRequired,
 };
 
 

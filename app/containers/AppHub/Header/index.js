@@ -10,7 +10,6 @@ import theme from '../../../utils/theme';
 
 import meta from '../meta';
 import * as selectors from '../selectors';
-import * as actions from '../actions';
 import * as C from '../constants';
 
 import NavLink from './NavLink';
@@ -44,39 +43,20 @@ const Line = styled.div`
 
 class Header extends React.PureComponent {
   /**
-   * Handles clicking on a panel from the header, determines if should open or close
-   */
-  handlePanelClick = (name) => {
-    const { onChangePanelOpen, onChangePanelSelected, panel } = this.props;
-    const selected = name || panel.selected; // errors if null, so set a default
-    // click on same panel or overlay
-    if (!name || (panel.selected === name && panel.isOpen)) {
-      // close it
-      onChangePanelOpen(false);
-    } else {
-      // open the panel (don't dispatch unessecary actions if already open)
-      if (!panel.isOpen) {
-        onChangePanelOpen(true);
-      }
-      onChangePanelSelected(selected);
-    }
-  }
-
-  /**
    * Renders a nav link
    * @param {object} props    - props to pass through to nav link
    *
    * @return {JSX}            - NavLink to render
    */
   renderLink = (props) => {
-    const { panel } = this.props;
+    const { panel, onClick } = this.props;
     const linkProps = {
-      onClick: this.handlePanelClick,
+      onClick,
       ...props,
     };
 
     if (panel) {
-      linkProps.checked = props.panel === panel.selected && panel.isOpen;
+      linkProps.checked = props.panel === panel.name && panel.isOpen;
     }
 
     return (
@@ -195,8 +175,7 @@ Header.propTypes = {
   user: object.isRequired,
   view: object.isRequired,
   panel: object.isRequired,
-  onChangePanelOpen: func.isRequired,
-  onChangePanelSelected: func.isRequired,
+  onClick: func.isRequired,
 };
 
 
@@ -207,12 +186,7 @@ const mapStateToProps = createStructuredSelector({
   panel: selectors.getViewPanel,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onChangePanelOpen: (open) => dispatch(actions.changePanelOpen(open)),
-  onChangePanelSelected: (panel) => dispatch(actions.changePanelSelected(panel)),
-});
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withConnect = connect(mapStateToProps);
 
 
 export default compose(
