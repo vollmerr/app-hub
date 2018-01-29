@@ -12,7 +12,7 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { ConnectedRouter } from 'react-router-redux';
+import { HashRouter } from 'react-router-dom';
 import 'sanitize.css/sanitize.css';
 
 // import injectors to avoid duplicate code in app chunks
@@ -52,9 +52,9 @@ const MOUNT_NODE = document.getElementById('app');
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <ConnectedRouter history={history}>
+      <HashRouter>
         <AppHub />
-      </ConnectedRouter>
+      </HashRouter>
     </Provider>,
     MOUNT_NODE
   );

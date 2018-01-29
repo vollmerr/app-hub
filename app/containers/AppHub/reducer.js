@@ -1,7 +1,10 @@
+import { fromJS } from 'immutable';
 import { handleActions } from 'redux-actions';
 
+import Header from './Header';
 
-export const initalState = {
+
+export const initialState = {
   user: {
     name: '',
     sam: '',
@@ -14,7 +17,7 @@ export const initalState = {
 };
 
 
-export default handleActions({});
+export default handleActions({}, fromJS(initialState));
 
 
 // handle user actions
