@@ -159,7 +159,7 @@ class Header extends React.PureComponent {
           {!isMobile && <Line partial />}
 
           {appHubTitle.isVisible && this.renderLink(appHubTitle.props)}
-          {!name && <Line partial={!isMobile} />}
+          {appName && <Line partial={!isMobile} />}
 
           {appTitle.isVisible && this.renderLink(appTitle.props)}
         </Section>
