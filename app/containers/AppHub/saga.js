@@ -24,8 +24,10 @@ export function* matchPattern(action) {
 
 
 export default function* appHubSaga() {
-  yield takeEvery(C.AUTH_USER, authenticate);
-  yield takeEvery('*', matchPattern);
+  yield [
+    takeEvery(C.AUTH_USER, authenticate),
+    takeEvery('*', matchPattern),
+  ];
 }
 
 // TODO: tests

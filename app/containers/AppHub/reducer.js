@@ -46,8 +46,6 @@ export default handleActions({
   [C.CHANGE_APP]: (state, action) => {
     const { name, routes, meta } = action.payload;
     return state
-      .setIn(['app', 'error'], null)
-      .setIn(['app', 'loading'], 0)
       .setIn(['app', 'name'], name)
       .setIn(['app', 'routes'], fromJS(routes))
       .setIn(['app', 'meta'], fromJS(meta));
