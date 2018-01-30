@@ -6,7 +6,6 @@ import Help from './Help';
 import AppTiles from './AppTiles';
 import Alerts from './Alerts';
 import Dev from './Dev';
-// import Mock from './Mock';
 
 
 export default {
@@ -26,7 +25,4 @@ export default {
   [C.DEV_PANEL]: {
     component: Dev,
   },
-  // [C.MOCK_PANEL]: {
-  //   component: Mock,
-  // },
 };

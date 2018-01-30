@@ -14,7 +14,7 @@ import panels from './panels';
 
 class Panels extends React.PureComponent {
   render() {
-    const { app, user, view, panel, onClick } = this.props;
+    const { user, view, panel, onClick } = this.props;
     const Content = panels[panel.name].component;
 
     const panelProps = {
@@ -24,8 +24,7 @@ class Panels extends React.PureComponent {
     };
 
     const contentProps = {
-      appRotues: app.routes,
-      userRoutes: user.routes,
+      routes: user.routes,
       isMobile: view.isMobile,
       onClick: () => onClick(null),
     };
@@ -43,7 +42,6 @@ class Panels extends React.PureComponent {
 const { func, object } = PropTypes;
 
 Panels.propTypes = {
-  app: object.isRequired,
   user: object.isRequired,
   view: object.isRequired,
   panel: object.isRequired,
@@ -52,7 +50,6 @@ Panels.propTypes = {
 
 
 const mapStateToProps = createStructuredSelector({
-  app: selectors.getApp,
   user: selectors.getUser,
   view: selectors.getView,
   panel: selectors.getViewPanel,

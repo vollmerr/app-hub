@@ -41,6 +41,10 @@ const Line = styled.div`
 `;
 
 
+global.isDev = process.env.NODE_ENV === 'development';
+global.isMock = process.env.NODE_ENV === 'MOCK';
+
+
 class Header extends React.PureComponent {
   /**
    * Renders a nav link
@@ -118,6 +122,17 @@ class Header extends React.PureComponent {
       },
     };
 
+    const devPanel = {
+      isVisible: global.isDev || global.isMock,
+      props: {
+        iconProps: {
+          iconName: 'settingsMenu',
+        },
+        title: 'Developer Panel',
+        panel: C.DEV_PANEL,
+      },
+    };
+
     const helpPanelProps = {
       iconProps: {
         iconName: 'helpMenu',
@@ -153,7 +168,8 @@ class Header extends React.PureComponent {
           {userInfo.isVisible && <UserInfo {...userInfo.props} />}
           <Line />
 
-          {/* TODO: DEV/MOCK PANELS (+ Line) */}
+          {devPanel.isVisible && this.renderLink(devPanel.props)}
+          {devPanel.isVisible && <Line />}
 
           {/* TODO: ALERTS PANEL (+ Line) */}
 
