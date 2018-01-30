@@ -1,5 +1,5 @@
-import HomePage from './HomePage';
-import AdminPage from './AdminPage';
+import Home from './Home';
+import Admin from './Admin';
 import { ROLES } from './constants';
 
 
@@ -12,14 +12,14 @@ export default [
     name: 'Home',
     path: `${base}/home`,
     exact: true,
-    component: HomePage,
+    component: Home,
   },
   {
     key: 'spaAdmin',
     name: 'Admin',
     path: `${base}/admin`,
     exact: true,
-    component: AdminPage,
+    component: Admin,
     roles: [ROLES.ADMIN],
   },
 ];

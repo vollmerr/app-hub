@@ -29,11 +29,11 @@ const Router = ({ routes, loading, error }) => (
 );
 
 
-const { bool, object } = PropTypes;
+const { any, object } = PropTypes;
 
 Router.propTypes = {
   routes: routesProp.isRequired,
-  loading: bool,
+  loading: any,
   error: object,
 };
 

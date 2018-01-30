@@ -81,8 +81,7 @@ export class AppHub extends React.PureComponent {
 
     const routerProps = {
       routes,
-      error: app.error,
-      loading: (app.loading || !user.isAuthenticated) && !app.error,
+      loading: !user.isAuthenticated && !app.error,
     };
 
     const panelProps = {
@@ -140,5 +139,3 @@ export default compose(
 )(AppHub);
 
 // TODO: tests
-// what to pass to Header
-// 'Content' styling vs Header
