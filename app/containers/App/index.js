@@ -7,8 +7,8 @@ import { withRouter } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { CommandBar as OfficeBar } from 'office-ui-fabric-react/lib/CommandBar';
+import isEqual from 'lodash/isEqual';
 
-import { history } from '../../configureStore';
 import toJS from '../../hocs/toJS';
 import theme from '../../utils/theme';
 import { unauthorizedRoute } from '../../utils/validate';
@@ -67,8 +67,18 @@ export class App extends React.PureComponent {
 
   async componentDidMount() {
     await this.props.onChangeApp(this.props.appProps);
-    await this.authorizeRoute(this.props.app);
     this.setState({ changingApp: false }); // eslint-disable-line
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { app, location } = this.props;
+    // if there are different routes (is empty when component loads, so check here)
+    if (
+      !isEqual(nextProps.app.routes, app.routes) ||
+      !isEqual(nextProps.location.pathname, location.pathname)
+    ) {
+      this.authorizeRoute(nextProps.app);
+    }
   }
 
   componentWillUnmount() {
@@ -76,7 +86,7 @@ export class App extends React.PureComponent {
   }
 
   authorizeRoute = (app) => {
-    const { user } = this.props;
+    const { user, history } = this.props;
     // get index of current route
     const currentRoute = app.routes
       .find((route) => (
@@ -156,6 +166,8 @@ App.propTypes = {
   app: object.isRequired,
   user: object.isRequired,
   onChangeApp: func.isRequired,
+  history: object.isRequired,
+  location: object.isRequired,
 };
 
 
