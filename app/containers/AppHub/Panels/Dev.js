@@ -25,6 +25,10 @@ export const Field = styled.div`
 `;
 
 
+global.isDev = process.env.NODE_ENV === 'development';
+global.isMock = process.env.NODE_ENV === 'MOCK';
+
+
 /**
  * Panel for development utilities, such as changing user jwt.
  */
@@ -49,7 +53,12 @@ export class Dev extends React.PureComponent {
 
   render() {
     const { user } = this.props;
-    const jwts = DEV.JWT || MOCK.JWT; // eslint-disable-line
+    let jwts;
+    if (global.isDev) {
+      jwts = DEV.JWT; // eslint-disable-line
+    } else if (global.isMock) {
+      jwts = MOCK.JWT; // eslint-disable-line
+    }
 
     return (
       jwts ?
