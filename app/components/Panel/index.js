@@ -31,7 +31,7 @@ const { func, bool, node } = PropTypes;
 Panel.propTypes = {
   onClick: func.isRequired,
   children: node.isRequired,
-  left: bool,
+  isLeft: bool,
   isOpen: bool.isRequired,
 };
 

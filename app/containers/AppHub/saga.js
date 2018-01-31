@@ -29,5 +29,3 @@ export default function* appHubSaga() {
     takeEvery('*', matchPattern),
   ];
 }
-
-// TODO: tests

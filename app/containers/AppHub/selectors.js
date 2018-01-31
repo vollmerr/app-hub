@@ -14,5 +14,3 @@ export const getApp = createSelector(selectApp, (app) => app);
 
 export const getView = createSelector(selectView, (view) => view);
 export const getViewPanel = createSelector(selectView, (view) => view.get('panel'));
-
-// TODO: tests

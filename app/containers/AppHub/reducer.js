@@ -83,6 +83,3 @@ export default handleActions({
       .setIn(['user', 'isAuthenticated'], true);
   },
 }, fromJS(initialState));
-
-
-// TODO: tests

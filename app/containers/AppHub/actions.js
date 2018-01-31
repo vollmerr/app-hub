@@ -18,5 +18,3 @@ export const incrementRenderCount = createAction(
   C.INCREMENT_RENDER_COUNT,
   (component, mode) => ({ component, mode }),
 );
-
-// TODO: tests

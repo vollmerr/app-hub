@@ -1,4 +1,5 @@
-import { fromJS, Set, List } from 'immutable';
+// import { fromJS, Set, List } from 'immutable';
+import { fromJS } from 'immutable';
 import { handleActions } from 'redux-actions';
 
 import { mergeById } from '../../utils/data';

@@ -129,7 +129,7 @@ const mapStateToProps = createStructuredSelector({
   panel: selectors.getViewPanel,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch) => ({
   onAuthUser: () => dispatch(actions.authUser()),
   onChangeMobile: (isMobile) => dispatch(actions.changeMobile(isMobile)),
   onChangePanelOpen: (open) => dispatch(actions.changePanelOpen(open)),
@@ -146,5 +146,3 @@ export default compose(
   withConnect,
   toJS,
 )(AppHub);
-
-// TODO: tests
