@@ -1,0 +1,286 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SPA - <Home /> render should render correctly 1`] = `
+<div>
+  <List
+    columns={
+      Array [
+        Object {
+          "ariaLabel": "ID of the acknowledgment",
+          "data": Object {},
+          "fieldName": "id",
+          "isResizable": true,
+          "isSortedDescending": undefined,
+          "key": "id",
+          "maxWidth": 40,
+          "minWidth": 20,
+          "name": "ID",
+          "notSortable": false,
+        },
+        Object {
+          "ariaLabel": "Title of the acknowledgment",
+          "data": Object {},
+          "fieldName": "title",
+          "isResizable": true,
+          "isSortedDescending": undefined,
+          "key": "title",
+          "maxWidth": 200,
+          "minWidth": 100,
+          "name": "Title",
+          "notSortable": false,
+        },
+        Object {
+          "ariaLabel": "Status of the acknowledgment",
+          "data": Object {},
+          "fieldName": "acknowledgmentStatusID",
+          "isResizable": true,
+          "isSortedDescending": undefined,
+          "key": "acknowledgmentStatusID",
+          "maxWidth": 100,
+          "minWidth": 100,
+          "name": "Status",
+          "notSortable": false,
+        },
+        Object {
+          "ariaLabel": "Date the acknowledgment takes effect",
+          "data": Object {
+            "type": "date",
+          },
+          "fieldName": "startDate",
+          "isResizable": true,
+          "isSortedDescending": undefined,
+          "key": "startDate",
+          "maxWidth": 100,
+          "minWidth": 100,
+          "name": "Start Date",
+          "notSortable": false,
+        },
+        Object {
+          "ariaLabel": "Date the acknowledgment expires",
+          "data": Object {
+            "type": "date",
+          },
+          "fieldName": "endDate",
+          "isResizable": true,
+          "isSortedDescending": undefined,
+          "key": "endDate",
+          "maxWidth": 100,
+          "minWidth": 100,
+          "name": "End Date",
+          "notSortable": false,
+        },
+        Object {
+          "ariaLabel": "Name of the file that must be read before acknowledging",
+          "data": Object {},
+          "fieldName": "fileName",
+          "isResizable": true,
+          "isSortedDescending": undefined,
+          "key": "fileName",
+          "maxWidth": 200,
+          "minWidth": 100,
+          "name": "Attachment Name",
+          "notSortable": false,
+        },
+      ]
+    }
+    empty={
+      Object {
+        "message": "No Acknowledgments Pending Approval",
+      }
+    }
+    enums={
+      Object {
+        "targetADGroup": Object {},
+      }
+    }
+    items={
+      Array [
+        Object {
+          "id": 1,
+          "name": "test1",
+        },
+        Object {
+          "id": 3,
+          "name": "test3",
+        },
+      ]
+    }
+    selection={
+      Selection {
+        "_anchoredIndex": 0,
+        "_canSelectItem": [Function],
+        "_changeEventSuppressionCount": 0,
+        "_exemptedCount": 0,
+        "_exemptedIndices": Object {},
+        "_getKey": [Function],
+        "_isModal": false,
+        "_items": Array [],
+        "_keyToIndexMap": Object {},
+        "_onSelectionChanged": [Function],
+        "_selectedItems": null,
+        "_unselectableCount": 0,
+        "_unselectableIndices": Object {},
+        "mode": 2,
+      }
+    }
+    selectionMode={0}
+    style={
+      Object {
+        "count": 2,
+      }
+    }
+    title="Pending Acknowledgment"
+  />
+  <List
+    columns={
+      Array [
+        Object {
+          "ariaLabel": "ID of the acknowledgment",
+          "data": Object {},
+          "fieldName": "id",
+          "isResizable": true,
+          "isSortedDescending": undefined,
+          "key": "id",
+          "maxWidth": 40,
+          "minWidth": 20,
+          "name": "ID",
+          "notSortable": false,
+        },
+        Object {
+          "ariaLabel": "Title of the acknowledgment",
+          "data": Object {},
+          "fieldName": "title",
+          "isResizable": true,
+          "isSortedDescending": undefined,
+          "key": "title",
+          "maxWidth": 200,
+          "minWidth": 100,
+          "name": "Title",
+          "notSortable": false,
+        },
+        Object {
+          "ariaLabel": "Status of the acknowledgment",
+          "data": Object {},
+          "fieldName": "acknowledgmentStatusID",
+          "isResizable": true,
+          "isSortedDescending": undefined,
+          "key": "acknowledgmentStatusID",
+          "maxWidth": 100,
+          "minWidth": 100,
+          "name": "Status",
+          "notSortable": false,
+        },
+        Object {
+          "ariaLabel": "Date the acknowledgment takes effect",
+          "data": Object {
+            "type": "date",
+          },
+          "fieldName": "startDate",
+          "isResizable": true,
+          "isSortedDescending": undefined,
+          "key": "startDate",
+          "maxWidth": 100,
+          "minWidth": 100,
+          "name": "Start Date",
+          "notSortable": false,
+        },
+        Object {
+          "ariaLabel": "Date the acknowledgment expires",
+          "data": Object {
+            "type": "date",
+          },
+          "fieldName": "endDate",
+          "isResizable": true,
+          "isSortedDescending": undefined,
+          "key": "endDate",
+          "maxWidth": 100,
+          "minWidth": 100,
+          "name": "End Date",
+          "notSortable": false,
+        },
+        Object {
+          "ariaLabel": "Date the recipient acknowledged the policy",
+          "data": Object {
+            "type": "date",
+          },
+          "fieldName": "acknowledgmentDate",
+          "isResizable": true,
+          "isSortedDescending": undefined,
+          "key": "acknowledgmentDate",
+          "maxWidth": 200,
+          "minWidth": 150,
+          "name": "Acknowledgment Date",
+          "notSortable": false,
+        },
+        Object {
+          "ariaLabel": "Name of the file that must be read before acknowledging",
+          "data": Object {},
+          "fieldName": "fileName",
+          "isResizable": true,
+          "isSortedDescending": undefined,
+          "key": "fileName",
+          "maxWidth": 200,
+          "minWidth": 100,
+          "name": "Attachment Name",
+          "notSortable": false,
+        },
+      ]
+    }
+    empty={
+      Object {
+        "message": "No Previous Acknowledgments",
+      }
+    }
+    enums={
+      Object {
+        "targetADGroup": Object {},
+      }
+    }
+    items={
+      Array [
+        Object {
+          "id": 2,
+          "name": "test2",
+        },
+        Object {
+          "id": 4,
+          "name": "test4",
+        },
+      ]
+    }
+    selection={
+      Selection {
+        "_anchoredIndex": 0,
+        "_canSelectItem": [Function],
+        "_changeEventSuppressionCount": 0,
+        "_exemptedCount": 0,
+        "_exemptedIndices": Object {},
+        "_getKey": [Function],
+        "_isModal": false,
+        "_items": Array [],
+        "_keyToIndexMap": Object {},
+        "_onSelectionChanged": [Function],
+        "_selectedItems": null,
+        "_unselectableCount": 0,
+        "_unselectableIndices": Object {},
+        "mode": 2,
+      }
+    }
+    selectionMode={0}
+    style={
+      Object {
+        "count": 2,
+      }
+    }
+    title="Previous Acknowledgments"
+  />
+  <AckModal
+    hasRead={false}
+    hideModal={true}
+    item={Object {}}
+    onClose={[Function]}
+    onRead={[Function]}
+    onSubmit={[Function]}
+  />
+</div>
+`;

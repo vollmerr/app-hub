@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AckModal /> should render correctly 1`] = `
+<WithResponsiveMode
+  dialogContentProps={
+    Object {
+      "subText": "test details",
+      "title": "test title",
+      "type": 1,
+    }
+  }
+  hidden={false}
+  onDismiss={[Function]}
+>
+  <ReactFinalForm(3.0.0)(2.1.0)
+    hasRead={false}
+    onSubmit={[Function]}
+    render={[Function]}
+  />
+</WithResponsiveMode>
+`;
+
+exports[`<AckModal__FieldChecksTop /> should render correctly 1`] = `
+.c0 .ms-Checkbox-checkbox {
+  margin-top: 4px;
+  -ms-flex-item-align: flex-start;
+  align-self: flex-start;
+}
+
+<WrappedField
+  ariaLabel=""
+  className="c0"
+  disabled={false}
+  placeholder=""
+  required={false}
+  validate={Array []}
+/>
+`;

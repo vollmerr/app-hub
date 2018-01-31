@@ -101,24 +101,38 @@ describe('<AppHub />', () => {
         global.window.innerWidth = oldWidth;
       }
     });
+
+    it('should not dispatch `onChangePanelOpen` if the panel is closed', () => {
+      const oldWidth = global.window.innerWidth;
+      try {
+        // make view change to get in if statement
+        wrapper.setProps({ panel: { isOpen: false } });
+        global.window.innerWidth = theme.breakpoints.lg - 1;
+        instance.handleResize();
+        expect(props.onChangePanelOpen).not.toHaveBeenCalled();
+      } finally {
+        // reset window width to avoid global bleed over into other tests
+        global.window.innerWidth = oldWidth;
+      }
+    });
   });
 
 
   describe('handlePanelClick', () => {
     it('should close the panel if there is none selected', () => {
-      instance.handlePanelClick();
+      instance.handlePanelClick(undefined);
       expect(props.onChangePanelOpen).toHaveBeenCalledWith(false);
     });
 
     it('should close the panel if it is the same panel and open', () => {
-      wrapper.setProps({ panel: { isOpen: true } });
-      instance.handlePanelClick(props.panelSelected);
+      wrapper.setProps({ panel: { isOpen: true, name: props.panel.name } });
+      instance.handlePanelClick(props.panel.name);
       expect(props.onChangePanelOpen).toHaveBeenCalledWith(false);
     });
 
-    it('should not open but select the panel if it is already open', () => {
+    it('should not open but select the panel if it is different and already open', () => {
       const panel = 'other panel';
-      wrapper.setProps({ panel: { isOpen: true } });
+      wrapper.setProps({ panel: { isOpen: true, name: props.panel.name } });
       instance.handlePanelClick(panel);
       expect(props.onChangePanelOpen).not.toHaveBeenCalled();
       expect(props.onChangePanelSelected).toHaveBeenCalledWith(panel);
