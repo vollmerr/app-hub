@@ -8,7 +8,7 @@ const focusStyle = (props) => `
 `;
 
 
-const Item = styled.div`
+const NavItem = styled.div`
   display: flex;
   align-items: center;
   height: ${theme.hub.headerHeight}px;
@@ -25,4 +25,4 @@ const Item = styled.div`
 `;
 
 
-export default Item;
+export default NavItem;

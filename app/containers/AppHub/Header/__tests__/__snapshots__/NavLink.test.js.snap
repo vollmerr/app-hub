@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NavLink /> should render a link by default 1`] = `
+<NavItem__NavItem
+  isLink={false}
+>
+  <Button />
+</NavItem__NavItem>
+`;
+
+exports[`<NavLink /> should render an external link if passed \`href\` 1`] = `
+<NavItem__NavItem
+  isLink={true}
+>
+  <Link
+    href="http://www.google.com"
+  >
+    <Button />
+  </Link>
+</NavItem__NavItem>
+`;
+
+exports[`<NavLink /> should render an internal link if passed \`to\` 1`] = `
+<NavItem__NavItem
+  isLink={true}
+>
+  <Link
+    to="/test-route"
+  >
+    <Button />
+  </Link>
+</NavItem__NavItem>
+`;
+
+exports[`<NavLink__ButtonStyled /> should render correctly 1`] = `
+.c0 {
+  color: #ffffff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  border-width: 0;
+  padding: 0 0;
+  min-width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  -webkit-text-align: center;
+  text-align: center;
+  line-height: normal;
+  overflow: visible;
+  -webkit-transition: background-color .467s cubic-bezier(.1,.9,.2,1) 34ms;
+  transition: background-color .467s cubic-bezier(.1,.9,.2,1) 34ms;
+  pointer-events: all;
+  font-size: 24px;
+}
+
+.c0:hover,
+.c0 i.ms-Icon,
+.c0:hover i.ms-Icon,
+.c0.is-checked i.ms-Icon {
+  color: #ffffff;
+}
+
+<CustomizedActionButton
+  className="c0"
+/>
+`;

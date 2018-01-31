@@ -17,7 +17,7 @@ import Logo from './Logo';
 import UserInfo from './UserInfo';
 
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   height: ${theme.hub.headerHeight}px;
@@ -26,12 +26,12 @@ const Wrapper = styled.div`
 `;
 
 
-const Section = styled.div`
+export const Section = styled.div`
   display: flex;
 `;
 
 
-const Line = styled.div`
+export const Line = styled.div`
   width: 1px;
   margin: auto;
   background: ${theme.neutralSecondary};
@@ -45,7 +45,7 @@ global.isDev = process.env.NODE_ENV === 'development';
 global.isMock = process.env.NODE_ENV === 'MOCK';
 
 
-class Header extends React.PureComponent {
+export class Header extends React.PureComponent {
   /**
    * Renders a nav link
    * @param {object} props    - props to pass through to nav link
@@ -76,7 +76,7 @@ class Header extends React.PureComponent {
     } = this.props;
 
     const { name: userName } = user;
-    const { name: appName } = app;
+    const { name: appName, homePath } = app;
     const { isMobile } = view;
 
     const appMenu = {
@@ -107,7 +107,7 @@ class Header extends React.PureComponent {
     const appTitle = {
       isVisible: appName,
       props: {
-        to: 'app.path', // TODO!
+        to: homePath,
         text: appName,
         title: appName,
         padding: '15px',

@@ -21,6 +21,7 @@ export const initialState = {
     error: null,
     loading: 0,
     routes: [],
+    homePath: '',
     meta: {},
   },
   view: {
@@ -45,9 +46,11 @@ export default handleActions({
   // APP
   [C.CHANGE_APP]: (state, action) => {
     const { name, routes, meta } = action.payload;
+    const homePath = routes.length ? routes[0].path : '/';
     return state
       .setIn(['app', 'name'], name)
       .setIn(['app', 'routes'], fromJS(routes))
+      .setIn(['app', 'homePath'], homePath)
       .setIn(['app', 'meta'], fromJS(meta));
   },
 
@@ -72,14 +75,16 @@ export default handleActions({
 
     const rolesArray = typeof roles === 'string' ? [roles] : roles;
     const validRoutes = allRoutes.filter((route) => !unauthorizedRoute(route, rolesArray));
+    const user = {
+      sid,
+      sam,
+      name,
+      expire,
+      roles: rolesArray,
+      routes: validRoutes,
+      isAuthenticated: true,
+    };
 
-    return state
-      .setIn(['user', 'name'], name)
-      .setIn(['user', 'sam'], sam)
-      .setIn(['user', 'sid'], sid)
-      .setIn(['user', 'roles'], fromJS(rolesArray))
-      .setIn(['user', 'expire'], expire)
-      .setIn(['user', 'routes'], fromJS(validRoutes))
-      .setIn(['user', 'isAuthenticated'], true);
+    return state.set('user', fromJS(user));
   },
 }, fromJS(initialState));
