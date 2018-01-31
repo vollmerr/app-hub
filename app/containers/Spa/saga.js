@@ -1,8 +1,9 @@
+// import { delay } from 'redux-saga';
 import { takeLatest, all, call, put, select } from 'redux-saga/effects';
 
-import api from 'utils/api';
+import * as api from '../../utils/api';
 
-import { getUserSid } from 'containers/AppHub/selectors';
+import { getUserSid } from '../AppHub/selectors';
 
 import * as actions from './actions';
 import * as C from './constants';
@@ -169,14 +170,16 @@ export function* getAckRecipients(action) {
 
 
 export default function* root() {
-  // home
-  yield takeLatest(C.GET_USER_DATA_REQUEST, getUserData);
-  yield takeLatest(C.READ_ACK_REQUEST, readAck);
-  // admin
-  yield takeLatest(C.GET_ADMIN_DATA_REQUEST, getAdminData);
-  yield takeLatest(C.GET_GROUPS_REQUEST, getGroups);
-  yield takeLatest(C.NEW_ACK_REQUEST, newAck);
-  yield takeLatest(C.DISABLE_ACK_REQUEST, disableAck);
-  // report
-  yield takeLatest(C.GET_ACK_RECIPIENTS_REQUEST, getAckRecipients);
+  yield [
+    // home
+    takeLatest(C.GET_USER_DATA_REQUEST, getUserData),
+    takeLatest(C.READ_ACK_REQUEST, readAck),
+    // admin
+    takeLatest(C.GET_ADMIN_DATA_REQUEST, getAdminData),
+    takeLatest(C.GET_GROUPS_REQUEST, getGroups),
+    takeLatest(C.NEW_ACK_REQUEST, newAck),
+    takeLatest(C.DISABLE_ACK_REQUEST, disableAck),
+    // report
+    takeLatest(C.GET_ACK_RECIPIENTS_REQUEST, getAckRecipients),
+  ];
 }

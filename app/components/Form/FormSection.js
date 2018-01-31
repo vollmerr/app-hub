@@ -1,10 +1,10 @@
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import theme from 'utils/theme';
-import Section from 'components/App-Content/Section';
+import theme from '../../utils/theme';
 
 
-const FormSection = Section.withComponent('form').extend`
+// TODO: revmoed Section, add somethign back....
+const FormSection = styled.form`
   margin: ${theme.hub.padding}px;
   ${(props) => css`
     min-height: 350px;
@@ -16,6 +16,7 @@ const FormSection = Section.withComponent('form').extend`
     );
   `}
 `;
+
 
 FormSection.defaultProps = {
   noValidate: true,

@@ -1,12 +1,12 @@
-import { types, mapToColumns } from 'utils/data';
-import { isFutureDate } from 'utils/validate'; // TODO: joi
+import { types, mapToColumns } from '../../utils/data';
+import { isFutureDate } from '../../utils/validate'; // TODO: joi
 
 import {
   FieldText,
   FieldDate,
   FieldChecks,
   FieldFile,
-} from 'components/Form';
+} from '../../components/Form';
 
 import * as C from './constants';
 

@@ -1,13 +1,14 @@
 import { createSelector } from 'reselect';
 
 
-export const selectAppHub = (state) => state.get('appHub');
-export const selectUser = (state) => selectAppHub(state).get('user');
-export const selectApp = (state) => selectAppHub(state).get('app');
-export const selectView = (state) => selectAppHub(state).get('view');
+const selectAppHub = (state) => state.get('appHub');
+const selectUser = (state) => selectAppHub(state).get('user');
+const selectApp = (state) => selectAppHub(state).get('app');
+const selectView = (state) => selectAppHub(state).get('view');
 
 
 export const getUser = createSelector(selectUser, (user) => user);
+export const getUserSid = createSelector(selectUser, (user) => user.get('sid'));
 
 export const getApp = createSelector(selectApp, (app) => app);
 

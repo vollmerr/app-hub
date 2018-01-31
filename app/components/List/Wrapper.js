@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 
-import theme from 'utils/theme';
-import Section from 'components/App-Content/Section';
+import theme from '../../utils/theme';
 
 
-const Wrapper = styled(Section) `
+// TODO: removed Section, add something plzzz.
+const Wrapper = styled.div`
   position: relative;
   margin: ${theme.hub.padding}px;
   ${(props) => css`
@@ -30,9 +30,11 @@ const Wrapper = styled(Section) `
   `}
 `;
 
+
 Wrapper.defaultProps = {
   count: 1,
   padding: theme.hub.padding,
 };
+
 
 export default Wrapper;

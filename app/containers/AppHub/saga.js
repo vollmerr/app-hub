@@ -9,7 +9,7 @@ import * as C from './constants';
 
 export function* matchPattern(action) {
   const type = action.type;
-  const app = yield select(selectors.selectApp);
+  const app = yield select(selectors.getApp);
 
   if (!app.get('error')) {
     if (type.match(C.REQUEST)) {

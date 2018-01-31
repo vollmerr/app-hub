@@ -1,6 +1,10 @@
+import { fromJS, Set, Map } from 'immutable';
+
+
 export const types = {
   date: 'date',
 };
+
 
 /**
  * Formats an item object to the correct format
@@ -85,3 +89,71 @@ export function mapToColumns(obj, include = [], exclude = []) {
       isSortedDescending: obj[key].isSortedDescending || undefined,
     }));
 }
+
+
+/**
+ * Downloads a file
+ *
+ * @param  {object} file    - File to download
+ * @param  {string} name    - Name to save file as
+ */
+export /* istanbul ignore next */ function downloadFile(file, name, type = 'octet/stream') {
+  // make into blob and save
+  const a = document.createElement('a');
+  const data = [file];
+  const blob = new Blob(data, { type });
+
+  document.body.appendChild(a);
+  // IE...
+  if (window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveOrOpenBlob(blob, name);
+  } else {
+    const url = window.URL.createObjectURL(blob);
+
+    a.href = url;
+    a.download = name;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+}
+
+
+/**
+ * Maps an array of objects into { byId: [], allIds: {} }
+ *
+ * @param {array} arr       - array to normalize
+ * @param {string} key      - key to use identifier
+ *
+ * @return {object} byId    - mapped items by id
+ * @return {array} allIds   - ids of all objects, in order
+ */
+export const normalizeById = (arr, key = 'id') => {
+  const byId = arr.reduce((acc, cur) => {
+    acc[String(cur[key])] = cur;
+    return acc;
+  }, {});
+  const allIds = Object.keys(byId);
+  return { byId, allIds };
+};
+
+
+/**
+ * Maps an and merges array of objects into { byId: [], allIds: {} }
+ * Merges into an immutable existing byId and allIds
+ *
+ * @param {Map} state         - immutable state object to update
+ * @param {string} section    - section of immutable state to update
+ * @param {array} data        - data to map to byId/allIds
+ * @param {string} id         - id to use as key for iteration
+ *
+ * @return {Map} byId         - mapped and merged items by id
+ * @return {List} allIds      - ids of all objects, in order
+ */
+export const mergeById = (state, section, data, id = 'id') => {
+  const { byId, allIds } = normalizeById(data, id);
+
+  return Map({
+    byId: state.getIn([section, 'byId']).merge(fromJS(byId)),
+    allIds: state.getIn([section, 'allIds']).toSet().union(Set(allIds)).toList(),
+  });
+};

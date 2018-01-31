@@ -11,6 +11,7 @@ import toJS from '../../hocs/toJS';
 import injectSaga from '../../utils/injectSaga';
 import theme from '../../utils/theme';
 import Router from '../../components/Router';
+import Loading from '../../components/Loading';
 
 import Header from './Header';
 import Panels from './Panels';
@@ -81,7 +82,11 @@ export class AppHub extends React.PureComponent {
 
     const routerProps = {
       routes,
+    };
+
+    const loadingProps = {
       loading: !user.isAuthenticated && !app.error,
+      error: app.error,
     };
 
     const panelProps = {
@@ -91,7 +96,11 @@ export class AppHub extends React.PureComponent {
     return (
       <Wrapper>
         <Header {...headerProps} />
-        <Router {...routerProps} />
+        {
+          user.isAuthenticated ?
+            <Router {...routerProps} /> :
+            <Loading {...loadingProps} />
+        }
         <Panels {...panelProps} />
       </Wrapper>
     );
@@ -127,8 +136,8 @@ const mapDispatchToProps = (dispatch) => ({
   onChangePanelSelected: (panel) => dispatch(actions.changePanelSelected(panel)),
 });
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const withSaga = injectSaga({ key: 'appHub', saga });
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 
 export default compose(
