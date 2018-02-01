@@ -235,6 +235,7 @@
       "<rootDir>/internals/testing/test-shim.js",
       "<rootDir>/internals/testing/test-bundler.js"
     ],
+    "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-setup.js",
     "testRegex": "__tests__/.*\\.test\\.js$",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"

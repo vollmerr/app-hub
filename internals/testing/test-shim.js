@@ -2,6 +2,7 @@ const secretFile = process.env.CI ? '.secret.tmp' : '.secret';
 const secret = require(`../../server/json-server/${secretFile}`);
 const jwt = require('jsonwebtoken');
 
+
 global.jwt = {
   valid: jwt.sign({
     sub: 'valid sam',

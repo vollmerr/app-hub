@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { Nav as OfficeNav } from 'office-ui-fabric-react/lib/Nav';
-import 'jest-styled-components';
 
 import { testStyledComponent } from '../../../utils/testUtils';
 

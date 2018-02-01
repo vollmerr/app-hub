@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { List } from 'office-ui-fabric-react/lib/List';
-import 'jest-styled-components';
 
 import Link from '../../../../components/Link';
 import { testStyledComponent } from '../../../../utils/testUtils';

@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import 'jest-styled-components';
 
 /**
  * Tests a styled-component for basic tests
