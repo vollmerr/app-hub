@@ -113,7 +113,7 @@ describe('App', () => {
       expect(props.history.push).not.toHaveBeenCalled();
     });
 
-    it.only('should redirect to the routes redirect if it exists when going to a route user doesnt have permissions for', () => {
+    it('should redirect to the routes redirect if it exists when going to a route user doesnt have permissions for', () => {
       const history = { ...props.history, location: { pathname: '/routeRedirect' } };
       wrapper.setProps({ history });
       instance.authorizeRoute(props.app);
@@ -130,9 +130,9 @@ describe('App', () => {
     it('should redirect to the AppHub home if going to a route user doesnt have permissions for and no app home route', () => {
       const history = { ...props.history, location: { pathname: '/routeUnauth' } };
       const app = { ...props.app, home: {} };
-      wrapper.setProps({ history, app });
-      instance.authorizeRoute(props.app);
-      expect(props.history.push).toHaveBeenCalledWith(props.app.home.path);
+      wrapper.setProps({ history });
+      instance.authorizeRoute(app);
+      expect(props.history.push).toHaveBeenCalledWith('/');
     });
   });
 

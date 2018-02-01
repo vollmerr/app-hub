@@ -1,5 +1,3 @@
-import { fromJS } from 'immutable';
-
 import {
   isEmptyText,
   isEmptyDate,
@@ -163,24 +161,24 @@ describe('validate utils', () => {
 
   describe('unauthorizedRoute', () => {
     it('should return `true` if not provided a route', () => {
-      const route = undefined;
-      expect(unauthorizedRoute(route)).toEqual(true);
+      expect(unauthorizedRoute(undefined)).toEqual(true);
+      expect(unauthorizedRoute({})).toEqual(true);
     });
 
     it('should return `true` if no valid role found', () => {
-      const route = fromJS({ name: 'test route', roles: ['test'] });
+      const route = { name: 'test route', roles: ['test'] };
       const roles = ['not', 'the', 'roles', 'we', 'want'];
       expect(unauthorizedRoute(route, roles)).toEqual(true);
       expect(unauthorizedRoute(route)).toEqual(true);
     });
 
     it('should return `false` if the route has no roles set', () => {
-      const route = fromJS({ name: 'test route' });
+      const route = { name: 'test route' };
       expect(unauthorizedRoute(route)).toEqual(false);
     });
 
     it('should return `false` if a valid role is found', () => {
-      const route = fromJS({ name: 'test route', roles: ['test'] });
+      const route = { name: 'test route', roles: ['test'] };
       const roles = ['test', 'the', 'roles', 'we', 'want'];
       expect(unauthorizedRoute(route, roles)).toEqual(false);
     });

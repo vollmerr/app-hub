@@ -19,11 +19,10 @@ testStyledComponent(Line);
 describe('<Line/>', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<Line />);
+    wrapper = shallow(<Line partial={false} />);
   });
 
   it('should render correctly', () => {
-    wrapper.setProps({ partial: false });
     expect(wrapper).toMatchSnapshot();
   });
 
