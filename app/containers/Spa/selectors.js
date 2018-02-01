@@ -24,5 +24,3 @@ export const getUserItems = (type) => createSelector(
 );
 
 export const getEnums = createSelector(selectEnums, (enums) => enums);
-
-// TODO: tests

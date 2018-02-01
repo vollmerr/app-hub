@@ -27,6 +27,7 @@ const state = {
 
 const actual = fromJS(state);
 
+
 describe('AppHub selectors', () => {
   describe('view selectors', () => {
     it('should select the entire state', () => {

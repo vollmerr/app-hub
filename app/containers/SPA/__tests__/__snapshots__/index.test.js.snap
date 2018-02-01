@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SPA /> should render correctly 1`] = `
+<withRouter(Connect(Component))
+  appProps={
+    Object {
+      "meta": Object {
+        "desc": "Security Policy Acknowledgement",
+        "keywords": "SPA",
+        "title": "SPA",
+      },
+      "name": "SPA",
+      "routes": Array [
+        Object {
+          "component": [Function],
+          "exact": true,
+          "key": "spaHome",
+          "name": "Home",
+          "path": "/spa/home",
+        },
+        Object {
+          "component": [Function],
+          "exact": true,
+          "key": "spaAdmin",
+          "name": "Admin",
+          "path": "/spa/admin",
+          "roles": Array [
+            "SPA Admin",
+          ],
+        },
+      ],
+    }
+  }
+/>
+`;

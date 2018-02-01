@@ -1,6 +1,6 @@
 /* eslint-disable redux-saga/yield-effects */
 import { fromJS } from 'immutable';
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, takeLatest } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
 
 import { authenticate } from '../../../utils/api';
@@ -14,7 +14,7 @@ describe('appHubSaga Saga', () => {
   it('should call `authenticate` then `matchPattern` for any patterns', () => {
     testSaga(appHubSaga).next()
       .all([
-        takeEvery(AUTH_USER, authenticate),
+        takeLatest(AUTH_USER, authenticate),
         takeEvery('*', matchPattern),
       ]).next()
       .finish().isDone();

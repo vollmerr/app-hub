@@ -127,8 +127,9 @@ export function* newAck(action) {
 export function* disableAck(action) {
   try {
     const id = action.payload[C.ACK.ID];
-    // TODO: API SHOULD HANDLE SETTING DISABLED OR CANCELED.........
-    const value = action.payload[C.ACK.STATUS] === C.STATUS.PENDING ? C.STATUS.CANCELED : C.STATUS.DISABLED;
+    const value = action.payload[C.ACK.STATUS] === C.STATUS.PENDING ?
+      C.STATUS.CANCELED :
+      C.STATUS.DISABLED;
     const url = `${base}/acknowledgments/${id}`;
     const options = {
       method: 'PATCH',
@@ -169,7 +170,7 @@ export function* getAckRecipients(action) {
 }
 
 
-export default function* root() {
+export default function* spaSaga() {
   yield [
     // home
     takeLatest(C.GET_USER_DATA_REQUEST, getUserData),

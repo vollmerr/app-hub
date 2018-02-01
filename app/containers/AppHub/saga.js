@@ -1,4 +1,4 @@
-import { put, takeEvery, select } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 
 import { authenticate } from 'utils/api';
 
@@ -25,7 +25,7 @@ export function* matchPattern(action) {
 
 export default function* appHubSaga() {
   yield [
-    takeEvery(C.AUTH_USER, authenticate),
+    takeLatest(C.AUTH_USER, authenticate),
     takeEvery('*', matchPattern),
   ];
 }
