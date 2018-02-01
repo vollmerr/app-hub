@@ -21,7 +21,7 @@ export const initialState = {
     error: null,
     loading: 0,
     routes: [],
-    homePath: '',
+    home: {},
     meta: {},
   },
   view: {
@@ -46,12 +46,13 @@ export default handleActions({
   // APP
   [C.CHANGE_APP]: (state, action) => {
     const { name, routes, meta } = action.payload;
-    const homePath = routes.length ? routes[0].path : '/';
+    const home = routes.length ? routes[0] : {};
     return state
       .setIn(['app', 'name'], name)
       .setIn(['app', 'routes'], fromJS(routes))
-      .setIn(['app', 'homePath'], homePath)
-      .setIn(['app', 'meta'], fromJS(meta));
+      .setIn(['app', 'home'], fromJS(home))
+      .setIn(['app', 'meta'], fromJS(meta))
+      .setIn(['app', 'error'], null);
   },
 
   [C.CHANGE_APP_STATUS]: (state, action) => {

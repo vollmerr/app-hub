@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Nav as OfficeNav } from 'office-ui-fabric-react/lib/Nav';
 
 import toJS from '../../hocs/toJS';
 import theme from '../../utils/theme';
-import { history } from '../../configureStore';
 
 import * as selectors from '../AppHub/selectors';
 
@@ -52,20 +52,20 @@ export class Nav extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { routes } = this.props;
+    const { app, history } = this.props;
     // initalize to exisiting location
-    this.getRoutes(routes, history.location);
+    this.getRoutes(app.routes, history.location);
     // listen for changes on history, updated selected on change
     /* istanbul ignore next */
     this.history = history.listen((location) => {
-      this.getRoutes(this.props.routes, location); // use this.props to get new reference
+      this.getRoutes(this.props.app.routes, location); // use this.props to get new reference
     });
   }
 
   componentWillReceiveProps(nextProps) {
     // when mounted routes do not exist, and component is PureCOmponent must check here for route change
-    if (nextProps.routes !== this.props.routes) {
-      this.getRoutes(nextProps.routes, history.location);
+    if (nextProps.app.routes !== this.props.app.routes) {
+      this.getRoutes(nextProps.app.routes, this.props.history.location);
     }
     return nextProps !== this.props;
   }
@@ -123,7 +123,7 @@ export class Nav extends React.PureComponent {
    */
   handleClickLink = (event, element) => {
     event.preventDefault();
-    const { onClick } = this.props;
+    const { onClick, history } = this.props;
 
     if (onClick) {
       onClick(event, element);
@@ -149,16 +149,18 @@ export class Nav extends React.PureComponent {
 }
 
 
-const { func, object, array } = PropTypes;
+const { func, object } = PropTypes;
 
 Nav.propTypes = {
-  routes: array.isRequired,
   onClick: func,
+  app: object.isRequired,
   view: object.isRequired,
   user: object.isRequired,
+  history: object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
+  app: selectors.getApp,
   user: selectors.getUser,
   view: selectors.getView,
 });
@@ -167,6 +169,7 @@ const withConnect = connect(mapStateToProps);
 
 
 export default compose(
+  withRouter,
   withConnect,
   toJS,
 )(Nav);

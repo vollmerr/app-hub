@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Items /> should render correctly in desktop view 1`] = `
+.c0 {
+  display: block;
+  width: 225px;
+  height: calc(100vh - 50px);
+  background: #eaeaea;
+}
+
+.c0 li > div {
+  background: #eaeaea;
+}
+
+.c0 li > div button {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+.c0 li > div button:hover,
+.c0 li > div button:focus,
+.c0 li > div button:active {
+  color: inherit;
+  background: #c8c8c8;
+}
+
+.c0 li > div:hover button,
+.c0 li > div.is-selected button {
+  background: #c8c8c8;
+}
+
+<Nav
+  className="c0"
+  groups={null}
+  isMobile={false}
+/>
+`;
+
+exports[`<Items /> should render correctly in desktop view 2`] = `
+.c0 {
+  display: none;
+  width: 225px;
+  height: calc(100vh - 50px);
+  background: #333333;
+}
+
+.c0 li > div {
+  background: #333333;
+}
+
+.c0 li > div button {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: block;
+  color: #ffffff;
+}
+
+.c0 li > div button:hover,
+.c0 li > div button:focus,
+.c0 li > div button:active {
+  color: #212121;
+  background: #f4f4f4;
+}
+
+.c0 li > div:hover button,
+.c0 li > div.is-selected button {
+  background: #f4f4f4;
+}
+
+<Nav
+  className="c0"
+  groups={null}
+  isMobile={true}
+/>
+`;
+
+exports[`<Nav /> should render correctly 1`] = `
+<Nav__Items
+  groups={
+    Array [
+      Object {
+        "links": Array [
+          Object {
+            "key": "key1",
+            "name": "routePublic",
+            "path": "/routePublic",
+          },
+          Object {
+            "key": "key3",
+            "name": "routeAuth",
+            "path": "/routeAuth",
+            "roles": Array [
+              "role1",
+            ],
+          },
+        ],
+      },
+    ]
+  }
+  isMobile={false}
+  onLinkClick={[Function]}
+  selectedKey="key1"
+/>
+`;
+
+exports[`<Nav__Items /> should render correctly 1`] = `
+.c0 {
+  display: block;
+  width: 225px;
+  height: calc(100vh - 50px);
+  background: #eaeaea;
+}
+
+.c0 li > div {
+  background: #eaeaea;
+}
+
+.c0 li > div button {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+.c0 li > div button:hover,
+.c0 li > div button:focus,
+.c0 li > div button:active {
+  color: inherit;
+  background: #c8c8c8;
+}
+
+.c0 li > div:hover button,
+.c0 li > div.is-selected button {
+  background: #c8c8c8;
+}
+
+<Nav
+  className="c0"
+  groups={null}
+/>
+`;

@@ -37,7 +37,8 @@ export const Line = styled.div`
   background: ${theme.neutralSecondary};
   height: ${(props) => props.partial ?
     `${theme.hub.headerHeight - 15}px` :
-    `${theme.hub.headerHeight - 2}px`};
+    `${theme.hub.headerHeight - 2}px`
+  };
 `;
 
 
@@ -76,7 +77,7 @@ export class Header extends React.PureComponent {
     } = this.props;
 
     const { name: userName } = user;
-    const { name: appName, homePath } = app;
+    const { name: appName, home } = app;
     const { isMobile } = view;
 
     const appMenu = {
@@ -107,7 +108,7 @@ export class Header extends React.PureComponent {
     const appTitle = {
       isVisible: appName,
       props: {
-        to: homePath,
+        to: home.path,
         text: appName,
         title: appName,
         padding: '15px',

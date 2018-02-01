@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-// import { Helmet } from 'react-helmet';
 import { withRouter } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -88,29 +87,27 @@ export class App extends React.PureComponent {
   authorizeRoute = (app) => {
     const { user, history } = this.props;
     // get index of current route
-    const currentRoute = app.routes
-      .find((route) => (
-        route.path === history.location.pathname)
-      );
+    const currentRoute = app.routes.find((route) => (
+      route.path === history.location.pathname
+    ));
     // route found, that has permissions set
     if (currentRoute && currentRoute.roles) {
       // not authorized for route
       if (unauthorizedRoute(currentRoute, user.roles)) {
-        let key = /Home/;
+        let homeRoute = app.home;
         // // check for redirects for specific roles
-        const rolesRedirect = currentRoute.rolesRedirect;
-        if (rolesRedirect) {
+        const redirects = currentRoute.redirect;
+        if (redirects) {
           // for all users roles
           user.roles.forEach((role) => {
             // if there is a redirect, set that as the key
-            if (rolesRedirect[role]) {
-              key = rolesRedirect[role];
+            if (redirects[role]) {
+              homeRoute = app.routes.find((route) => (
+                route.key === redirects[role]
+              ));
             }
           });
         }
-        // get home route for app
-        const homeRoute = app.routes
-          .find((route) => route.key.match(key));
         // if not valid app home, redirect to apphub home
         const redirectRoute = unauthorizedRoute(homeRoute, user.roles) ?
           '/' :
@@ -124,10 +121,6 @@ export class App extends React.PureComponent {
   render() {
     const { app } = this.props;
     const { changingApp, commandBar } = this.state;
-
-    const navProps = {
-      routes: app.routes,
-    };
 
     const commandBarProps = {
       isSearchBoxVisible: false,
@@ -146,7 +139,7 @@ export class App extends React.PureComponent {
           changingApp ?
             <LoadingMessage /> :
             <Wrapper>
-              <Nav {...navProps} />
+              <Nav />
               <Body>
                 {commandBar.isVisible && <CommandBar {...commandBarProps} />}
                 <Content><Router {...routerProps} /></Content>
@@ -176,11 +169,9 @@ const mapStateToProps = createStructuredSelector({
   user: selectors.getUser,
 });
 
-export function mapDispatchToProps(dispatch) {
-  return {
-    onChangeApp: (app) => dispatch(actions.changeApp(app)),
-  };
-}
+export const mapDispatchToProps = (dispatch) => ({
+  onChangeApp: (app) => dispatch(actions.changeApp(app)),
+});
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 

@@ -39,7 +39,10 @@ global.isDev = false;
 const props = {
   app: {
     name: 'app name',
-    homePath: '/test',
+    home: {
+      key: 'testHome',
+      path: '/test',
+    },
   },
   user: {
     name: 'user name',
