@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
-import { testStyledComponent } from 'utils/testUtils';
+import { testStyledComponent } from '../../../utils/testUtils';
 
 import FormButtons, { Buttons, Button } from '../FormButtons';
 
@@ -17,6 +17,7 @@ const props = {
   reset: jest.fn(),
   children: <Child />,
 };
+
 
 describe('FormButtons', () => {
   let wrapper;

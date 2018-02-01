@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { testStyledComponent } from 'utils/testUtils';
-import 'jest-styled-components';
 
 import FormSection from '../FormSection';
 

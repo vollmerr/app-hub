@@ -18,7 +18,17 @@ describe('<TestPage />', () => {
     expect(wrapper.children().length).toEqual(0);
   });
 
-  describe('isLoading', () => {
+
+  describe('loading', () => {
+    it('should render the loading message', () => {
+      wrapper.setProps({ loading: true });
+      expect(wrapper.find(LoadingMessage).length).toEqual(1);
+      expect(wrapper.find(ErrorMessage).length).toEqual(0);
+    });
+  });
+
+
+  describe('isLoading (react-loadable)', () => {
     beforeEach(() => {
       wrapper.setProps({ isLoading: true });
     });
@@ -41,6 +51,7 @@ describe('<TestPage />', () => {
       expect(wrapper.find(ErrorMessage).length).toEqual(0);
     });
   });
+
 
   describe('error', () => {
     beforeEach(() => {

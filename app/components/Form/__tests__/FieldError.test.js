@@ -1,4 +1,4 @@
-import { testStyledComponent } from 'utils/testUtils';
+import { testStyledComponent } from '../../../utils/testUtils';
 
 import FieldError from '../FieldError';
 

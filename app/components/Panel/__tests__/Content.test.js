@@ -1,17 +1,18 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import 'jest-styled-components';
 
-import { testStyledComponent } from 'utils/testUtils';
+import { testStyledComponent } from '../../../utils/testUtils';
 
 import Content from '../Content';
 
+
 testStyledComponent(Content);
+
 
 describe('<Content />', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<Content left={false} />);
+    wrapper = shallow(<Content isLeft={false} />);
   });
 
   it('should render correctly right', () => {
@@ -21,7 +22,7 @@ describe('<Content />', () => {
   });
 
   it('should render correctly left', () => {
-    wrapper.setProps({ left: true });
+    wrapper.setProps({ isLeft: true });
     expect(wrapper).toMatchSnapshot();
     expect(wrapper).toHaveStyleRule('border-right', /.*/);
     expect(wrapper).toHaveStyleRule('left', /\d/);

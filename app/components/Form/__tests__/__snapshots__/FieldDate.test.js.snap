@@ -78,7 +78,7 @@ exports[`DatePicker.prototype DatePicker.prototype._validateTextInput should sta
 
 exports[`DatePicker.prototype DatePicker.prototype.componentWillReceiveProps should stay the same, or be updated/tested if changed 1`] = `[Function]`;
 
-exports[`FieldDate should render correctly 1`] = `
+exports[`FieldDate render should render correctly 1`] = `
 <FieldDate__Picker
   errorMessage={null}
   highlightCurrentMonth={true}

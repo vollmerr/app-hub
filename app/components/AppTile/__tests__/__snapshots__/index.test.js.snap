@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AppTile /> should render correctly 1`] = `
+<AppTile__App
+  to="/test-route"
+>
+  <AppTile__StyledIcon
+    iconName="test icon"
+  />
+  <AppTile__Text>
+    test name
+  </AppTile__Text>
+</AppTile__App>
+`;
+
+exports[`<AppTile__App /> should render correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  float: left;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-text-align: center;
+  text-align: center;
+  margin: 3px;
+  height: 102px;
+  width: 102px;
+  box-sizing: border-box;
+  overflow: visible;
+  -webkit-transition: .25s ease;
+  transition: .25s ease;
+  pointer-events: all;
+  font-size: 18px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background: #106ebe;
+  box-shadow: 0 0 2px #106ebe;
+}
+
+.c0:hover {
+  background: #ffffff;
+  box-shadow: 0 0 5px #ffffff;
+}
+
+.c0 * {
+  color: white;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c0:hover * {
+  color: #0078d7;
+}
+
+<Link
+  className="c0"
+/>
+`;
+
+exports[`<AppTile__StyledIcon /> should render correctly 1`] = `
+.c0 {
+  font-size: 26px;
+}
+
+<Component
+  className="c0"
+/>
+`;
+
+exports[`<AppTile__Text /> should render correctly 1`] = `
+.c0 {
+  display: table;
+}
+
+<div
+  className="c0"
+/>
+`;

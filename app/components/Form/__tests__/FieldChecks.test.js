@@ -2,9 +2,8 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Checkbox } from 'office-ui-fabric-react/lib/Checkbox';
 import { Label } from 'office-ui-fabric-react/lib/Label';
-import 'jest-styled-components';
 
-import { testStyledComponent } from 'utils/testUtils';
+import { testStyledComponent } from '../../../utils/testUtils';
 
 import Default, { FieldChecks, Check } from '../FieldChecks';
 import { FieldChecks as Index } from '../index';
@@ -59,44 +58,15 @@ describe('FieldChecks', () => {
     wrapper = shallow(<FieldChecks {...props} />);
   });
 
-  it('should render correctly', () => {
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('should render a `label`', () => {
-    expect(wrapper.find(Label).length).toEqual(1);
-  });
-
-  it('should render 3 `Check` boxes', () => {
-    expect(wrapper.find(Check).length).toEqual(3);
-  });
-
-  it('should handle errors if touched', () => {
-    const error = 'test error';
-    const meta = { error, touched: true };
-    wrapper.setProps({ meta });
-    expect(wrapper.find(FieldError).length).toEqual(1);
-    expect(wrapper.find(FieldError).dive().text()).toContain(error);
-  });
-
-  it('should not render errors if not touched or no error', () => {
-    let meta = { error: 'test error' };
-    wrapper.setProps({ meta });
-    expect(wrapper.find(FieldError).length).toEqual(0);
-
-    meta = { touched: true, error: null };
-    wrapper.setProps({ meta });
-    expect(wrapper.find(FieldError).length).toEqual(0);
-  });
-
-  it('should not pass onBlur or onFocus', () => {
-    expect(wrapper.find(Check).at(0).prop('onBlur')).toEqual(undefined);
-    expect(wrapper.find(Check).at(0).prop('onFocus')).toEqual(undefined);
-  });
-
   it('should be exported (wrapped) in the index', () => {
     expect(Default).toBe(Index);
   });
+
+  it('should have a format property for arrays that defaults to an emtpy array', () => {
+    expect(FieldChecks.format(undefined)).toEqual([]);
+    expect(FieldChecks.format([1, 2])).toEqual([1, 2]);
+  });
+
 
   describe('componentWillReceiveProps', () => {
     let instance;
@@ -113,7 +83,13 @@ describe('FieldChecks', () => {
       instance.componentWillReceiveProps({ ...props, input: { ...props.input, value: undefined } });
       expect(wrapper.state('options')).toEqual(options);
     });
+
+    it('should do nothing if there is a valid value', () => {
+      instance.componentWillReceiveProps({ ...props, input: { ...props.input, value: [1, 2] } });
+      expect(wrapper.state('options')).toEqual(props.options);
+    });
   });
+
 
   describe('handleChange', () => {
     let instance;
@@ -148,6 +124,44 @@ describe('FieldChecks', () => {
       instance.handleChange = jest.fn();
       wrapper.find(Check).at(2).simulate('change', null, true);
       expect(instance.handleChange).toHaveBeenCalledWith(null, true, key);
+    });
+  });
+
+
+  describe('render', () => {
+    it('should render correctly', () => {
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render a `label`', () => {
+      expect(wrapper.find(Label).length).toEqual(1);
+    });
+
+    it('should render 3 `Check` boxes', () => {
+      expect(wrapper.find(Check).length).toEqual(3);
+    });
+
+    it('should handle errors if touched', () => {
+      const error = 'test error';
+      const meta = { error, touched: true };
+      wrapper.setProps({ meta });
+      expect(wrapper.find(FieldError).length).toEqual(1);
+      expect(wrapper.find(FieldError).dive().text()).toContain(error);
+    });
+
+    it('should not render errors if not touched or no error', () => {
+      let meta = { error: 'test error' };
+      wrapper.setProps({ meta });
+      expect(wrapper.find(FieldError).length).toEqual(0);
+
+      meta = { touched: true, error: null };
+      wrapper.setProps({ meta });
+      expect(wrapper.find(FieldError).length).toEqual(0);
+    });
+
+    it('should not pass onBlur or onFocus', () => {
+      expect(wrapper.find(Check).at(0).prop('onBlur')).toEqual(undefined);
+      expect(wrapper.find(Check).at(0).prop('onFocus')).toEqual(undefined);
     });
   });
 });

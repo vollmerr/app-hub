@@ -5,6 +5,7 @@ import { TextField } from 'office-ui-fabric-react/lib/TextField';
 import Default, { FieldText } from '../FieldText';
 import { FieldText as Index } from '../index';
 
+
 const props = {
   name: 'test name',
   meta: {
@@ -18,6 +19,7 @@ const props = {
     onChange: jest.fn(),
   },
 };
+
 
 describe('FieldText', () => {
   let wrapper;
@@ -57,6 +59,7 @@ describe('FieldText', () => {
     expect(Default).toBe(Index);
   });
 
+
   describe('componentWillReceiveProps', () => {
     it('should clear the `value` when redux form resets', () => {
       wrapper.setState({ value: 'test value' });
@@ -71,6 +74,7 @@ describe('FieldText', () => {
       expect(wrapper.state('value')).toEqual(value);
     });
   });
+
 
   describe('handleChange', () => {
     it('should handle changing the `value` to the redux stores value', () => {

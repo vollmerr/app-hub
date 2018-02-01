@@ -1,15 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
-import 'jest-styled-components';
 
-import { testStyledComponent } from 'utils/testUtils';
+import { testStyledComponent } from '../../../utils/testUtils';
 
 import Default, { FieldRadios, Radios } from '../FieldRadios';
 import { FieldRadios as Index } from '../index';
 import FieldError from '../FieldError';
 
+
 testStyledComponent(Radios, ChoiceGroup);
+
 
 describe('Radios', () => {
   let wrapper;
@@ -26,6 +27,7 @@ describe('Radios', () => {
     expect(wrapper).toMatchSnapshot();
   });
 });
+
 
 const props = {
   name: 'test name',
@@ -45,6 +47,7 @@ const props = {
     { key: 'key3', text: 'text 3' },
   ],
 };
+
 
 describe('FieldSelect', () => {
   let wrapper;
@@ -90,6 +93,7 @@ describe('FieldSelect', () => {
     expect(Default).toBe(Index);
   });
 
+
   describe('componentWillReceiveProps', () => {
     it('should clear the `selectedKey` when redux form resets', () => {
       wrapper.setState({ selectedKey: 'testKey' });
@@ -103,6 +107,7 @@ describe('FieldSelect', () => {
       expect(wrapper.state('selectedKey')).toEqual('testKey');
     });
   });
+
 
   describe('handleChange', () => {
     it('should handle changing the `selectedKey`', () => {

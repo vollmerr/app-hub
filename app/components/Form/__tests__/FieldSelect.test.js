@@ -1,13 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { ComboBox } from 'office-ui-fabric-react/lib/ComboBox';
-import { testStyledComponent } from 'utils/testUtils';
-import 'jest-styled-components';
+
+import { testStyledComponent } from '../../../utils/testUtils';
 
 import Default, { FieldSelect, Select } from '../FieldSelect';
 import { FieldSelect as Index } from '../index';
 
+
 testStyledComponent(Select, ComboBox);
+
 
 describe('FieldFile', () => {
   let wrapper;
@@ -24,6 +26,7 @@ describe('FieldFile', () => {
     expect(wrapper).toMatchSnapshot();
   });
 });
+
 
 const props = {
   name: 'test name',
@@ -43,6 +46,7 @@ const props = {
     { key: 'key3', text: 'text 3' },
   ],
 };
+
 
 describe('FieldSelect', () => {
   let wrapper;

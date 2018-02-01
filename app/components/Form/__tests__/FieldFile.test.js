@@ -3,13 +3,13 @@ import { shallow } from 'enzyme';
 import Dropzone from 'react-dropzone';
 import { DefaultButton, IconButton } from 'office-ui-fabric-react/lib/Button';
 import { Label } from 'office-ui-fabric-react/lib/Label';
-import 'jest-styled-components';
 
-import { testStyledComponent } from 'utils/testUtils';
+import { testStyledComponent } from '../../../utils/testUtils';
 
 import Default, { FieldFile, FilePicker, DropZone, FileName } from '../FieldFile';
 import { FieldFile as Index } from '../index';
 import FieldError from '../FieldError';
+
 
 testStyledComponent(FilePicker);
 testStyledComponent(DropZone, Dropzone);
@@ -41,6 +41,7 @@ describe('FilePicker', () => {
     expect(wrapper).toMatchSnapshot();
   });
 });
+
 
 describe('FileName', () => {
   let wrapper;
@@ -198,6 +199,7 @@ describe('FieldFile', () => {
     });
   });
 
+
   describe('onDrop', () => {
     let instance;
     beforeEach(() => {
@@ -224,6 +226,7 @@ describe('FieldFile', () => {
       expect(wrapper.state('attachError')).toEqual('Failed to attach file.');
     });
   });
+
 
   describe('onClear', () => {
     let instance;
