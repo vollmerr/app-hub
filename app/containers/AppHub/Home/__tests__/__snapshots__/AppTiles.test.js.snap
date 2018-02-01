@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AppTiles /> should render correctly 1`] = `
+<AppTiles__Wrapper>
+  <AppTile
+    key="1"
+    route={
+      Object {
+        "component": [Function],
+        "exact": true,
+        "key": "1",
+        "path": "path1",
+      }
+    }
+  />
+  <AppTile
+    key="2"
+    route={
+      Object {
+        "component": [Function],
+        "exact": false,
+        "key": "2",
+        "path": "path2",
+      }
+    }
+  />
+  <AppTile
+    key="3"
+    route={
+      Object {
+        "href": "testHref",
+        "key": "3",
+      }
+    }
+  />
+</AppTiles__Wrapper>
+`;
+
+exports[`<AppTiles__Wrapper /> should render correctly 1`] = `
+.c0 {
+  max-width: calc(6 * 102px + 12 * 3px);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 102px;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 30px;
+}
+
+<div
+  className="c0"
+/>
+`;

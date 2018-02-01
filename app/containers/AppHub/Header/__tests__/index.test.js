@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import 'jest-styled-components';
 
 import { testStyledComponent } from '../../../../utils/testUtils';
 
@@ -19,6 +20,11 @@ describe('<Line/>', () => {
   let wrapper;
   beforeEach(() => {
     wrapper = shallow(<Line />);
+  });
+
+  it('should render correctly', () => {
+    wrapper.setProps({ partial: false });
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('should render correctly if is `partial`', () => {

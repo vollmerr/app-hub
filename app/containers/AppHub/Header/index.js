@@ -36,8 +36,8 @@ export const Line = styled.div`
   margin: auto;
   background: ${theme.neutralSecondary};
   height: ${(props) => props.partial ?
-    `calc(${theme.hub.headerHeight}px - 15px)` :
-    `calc(${theme.hub.headerHeight}px - 2px)`};
+    `${theme.hub.headerHeight - 15}px` :
+    `${theme.hub.headerHeight - 2}px`};
 `;
 
 
