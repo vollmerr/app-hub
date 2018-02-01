@@ -12,7 +12,7 @@ import * as selectors from '../selectors';
 import panels from './panels';
 
 
-class Panels extends React.PureComponent {
+export class Panels extends React.PureComponent {
   render() {
     const { user, view, panel, onClick } = this.props;
     const Content = panels[panel.name].component;

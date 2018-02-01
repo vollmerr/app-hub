@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
 `;
 
 
-class Apps extends React.PureComponent {
+class AppTiles extends React.PureComponent {
   render() {
     const { routes, onClick } = this.props;
     return (
@@ -33,10 +33,10 @@ class Apps extends React.PureComponent {
 
 const { func, arrayOf } = PropTypes;
 
-Apps.propTypes = {
+AppTiles.propTypes = {
   onClick: func.isRequired,
   routes: arrayOf(routeProp).isRequired,
 };
 
 
-export default Apps;
+export default AppTiles;

@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should contain a react component on the .component proerty for each panel 1`] = `
+Object {
+  "AppHub/ALERTS_PANEL": Object {
+    "component": [Function],
+  },
+  "AppHub/APPS_PANEL": Object {
+    "component": [Function],
+  },
+  "AppHub/APP_NAV_PANEL": Object {
+    "component": [Function],
+    "isLeft": true,
+  },
+  "AppHub/DEV_PANEL": Object {
+    "component": [Function],
+  },
+  "AppHub/HELP_PANEL": Object {
+    "component": [Function],
+  },
+}
+`;

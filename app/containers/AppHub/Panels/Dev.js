@@ -53,15 +53,15 @@ export class Dev extends React.PureComponent {
 
   render() {
     const { user } = this.props;
-    let jwts;
+    global.jwts = undefined;
     if (global.isDev) {
-      jwts = DEV.JWT; // eslint-disable-line
+      global.jwts = DEV.JWT; // eslint-disable-line
     } else if (global.isMock) {
-      jwts = MOCK.JWT; // eslint-disable-line
+      global.jwts = MOCK.JWT; // eslint-disable-line
     }
 
     return (
-      jwts ?
+      global.jwts ?
         <Wrapper>
           <h2>Developer Options</h2>
           <hr />
@@ -87,12 +87,12 @@ export class Dev extends React.PureComponent {
             />
           </Field>
           {
-            Object.keys(jwts).map((group) => (
+            Object.keys(global.jwts).map((group) => (
               <Field key={group}>
                 <Dropdown
                   label={`${group} Test Users`}
                   id={group}
-                  options={jwts[group]}
+                  options={global.jwts[group]}
                   onChanged={this.handleClickUser}
                 />
               </Field>

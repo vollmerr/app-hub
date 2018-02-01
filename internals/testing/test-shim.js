@@ -32,6 +32,12 @@ global.API = {
   BARS: 'test url',
 };
 
-global.localStorage = {};
+global.localStorage = {
+  setItem: jest.fn(),
+  removeItem: jest.fn(),
+};
 global.clearTimeout = jest.fn();
 global.setTimeout = jest.fn();
+global.location = {
+  reload: jest.fn(),
+};

@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Item /> should render correctly 1`] = `
+<Item__Wrapper>
+  <Item__StlyedLink />
+</Item__Wrapper>
+`;
+
+exports[`<Item__StlyedLink /> should render correctly 1`] = `
+.c0 {
+  color: #ffffff;
+  display: block;
+  padding: 15px;
+}
+
+.c0:hover,
+.c0:active,
+.c0:focus {
+  color: #212121;
+}
+
+<Link
+  className="c0"
+/>
+`;
+
+exports[`<Item__Wrapper /> should render correctly 1`] = `
+.c0 {
+  list-style-type: none;
+  margin: 0 -20px;
+}
+
+.c0:hover {
+  background: #f4f4f4;
+}
+
+<li
+  className="c0"
+/>
+`;
