@@ -13,29 +13,31 @@ import theme from '../../utils/theme';
 import * as selectors from '../AppHub/selectors';
 
 
-export const Items = styled(OfficeNav) `
-  /* flex: none; */
+export const Wrapper = styled.div`
   display: ${(props) => props.isMobile ? 'none' : 'block'};
-  width: ${theme.app.navWidth}px;
-  height: calc(100vh - ${theme.hub.headerHeight}px);
-  background: ${(props) => props.isMobile ? theme.neutralPrimary : theme.neutralLight};
+  flex: 0 0 ${theme.app.navWidth}px;
 
-  li > div {
+  .ms-FocusZone {
+    height: calc(100vh - ${theme.hub.headerHeight}px);
     background: ${(props) => props.isMobile ? theme.neutralPrimary : theme.neutralLight};
-    button {
-      text-decoration: none;
-      display: block;
-      color: ${(props) => props.isMobile ? theme.white : 'inherit'};
-      &:hover,
-      &:focus,
-      &:active {
-        color: ${(props) => props.isMobile ? theme.neutralDark : 'inherit'};
+
+    li > div {
+      background: ${(props) => props.isMobile ? theme.neutralPrimary : theme.neutralLight};
+      button {
+        text-decoration: none;
+        display: block;
+        color: ${(props) => props.isMobile ? theme.white : 'inherit'};
+        &:hover,
+        &:focus,
+        &:active {
+          color: ${(props) => props.isMobile ? theme.neutralDark : 'inherit'};
+          background: ${(props) => props.isMobile ? theme.neutralLighter : theme.neutralTertiaryAlt};
+        }
+      }
+      &:hover button,
+      &.is-selected button {
         background: ${(props) => props.isMobile ? theme.neutralLighter : theme.neutralTertiaryAlt};
       }
-    }
-    &:hover button,
-    &.is-selected button {
-      background: ${(props) => props.isMobile ? theme.neutralLighter : theme.neutralTertiaryAlt};
     }
   }
 `;
@@ -142,12 +144,13 @@ export class Nav extends React.PureComponent {
     const { selectedKey, routes } = this.state;
 
     return (
-      <Items
-        isMobile={view.isMobile}
-        selectedKey={selectedKey}
-        groups={[{ links: routes }]}
-        onLinkClick={this.handleClickLink.bind(this)} // eslint-disable-line
-      />
+      <Wrapper isMobile={view.isMobile}>
+        <OfficeNav
+          selectedKey={selectedKey}
+          groups={[{ links: routes }]}
+          onLinkClick={this.handleClickLink.bind(this)} // eslint-disable-line
+        />
+      </Wrapper>
     );
   }
 }

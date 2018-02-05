@@ -3,12 +3,16 @@ import styled, { css } from 'styled-components';
 import theme from '../../utils/theme';
 
 
-// TODO: removed Section, add something plzzz.
 const Wrapper = styled.div`
   position: relative;
   margin: ${theme.hub.padding}px;
+  padding: ${theme.hub.padding}px;
+  background: ${theme.white};
+  box-shadow: 0 0 3px ${theme.neutralLight};
+
+
   ${(props) => css`
-    min-height: 350px;
+    min-height: 250px;
     height: calc(
       ${100 / props.count}vh - \
       ${theme.hub.headerHeight / props.count}px - \
@@ -17,7 +21,7 @@ const Wrapper = styled.div`
     );
 
     > .ms-ScrollablePane {
-      min-height: 280px;
+      min-height: 180px;
       height: calc(
         ${100 / props.count}vh - \
         ${theme.hub.headerHeight / props.count}px - \
@@ -28,6 +32,10 @@ const Wrapper = styled.div`
       );
     }
   `}
+
+  .ms-DetailsRow {
+    color: ${theme.neutralPrimary};
+  }
 `;
 
 

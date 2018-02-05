@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Form } from 'react-final-form';
 
-import { FormSection, FormButtons } from 'components/Form';
-import theme from 'utils/theme';
+import { FormSection, FormButtons } from '../../../components/Form';
+import theme from '../../../utils/theme';
 
 import validate from './validate';
 
@@ -44,7 +44,7 @@ function mapSection(fields, section) {
 
 
 const style = {
-  padding: theme.hub.padding + theme.app.subNavHeight,
+  padding: theme.hub.padding + theme.app.commandBarHeight,
 };
 
 

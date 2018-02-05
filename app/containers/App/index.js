@@ -25,18 +25,18 @@ export const Wrapper = styled.div`
   display: flex;
   background-color: ${theme.neutralLighterAlt};
   height: calc(100vh - ${theme.hub.headerHeight}px);
-
 `;
 
 
 export const Body = styled.div`
   display: flex;
-  flex: 1 0 auto;
+  flex: 2;
   flex-direction: column;
 `;
 
 
 export const Content = styled.div`
+  width: ${(props) => props.isMobile ? '100vw' : `calc(100vw - ${theme.app.navWidth}px)`};
   overflow-y: auto;
   overflow-x: hidden;
 `;
@@ -55,12 +55,7 @@ export class App extends React.PureComponent {
     super(props);
     this.state = {
       changingApp: true,
-      commandBar: {
-        isVisible: false,
-        props: {
-          items: [],
-        },
-      },
+      commandBar: false,
     };
   }
 
@@ -123,7 +118,7 @@ export class App extends React.PureComponent {
   }
 
   render() {
-    const { app } = this.props;
+    const { app, view } = this.props;
     const { changingApp, commandBar } = this.state;
 
     const commandBarProps = {
@@ -145,7 +140,7 @@ export class App extends React.PureComponent {
               <Nav />
               <Body>
                 {commandBar && <CommandBar {...commandBarProps} />}
-                <Content><Router {...routerProps} /></Content>
+                <Content isMobile={view.isMobile}><Router {...routerProps} /></Content>
               </Body>
             </Wrapper>
         }
@@ -161,6 +156,7 @@ App.propTypes = {
   appProps: object.isRequired, // eslint-disable-line
   app: object.isRequired,
   user: object.isRequired,
+  view: object.isRequired,
   onChangeApp: func.isRequired,
   history: object.isRequired,
   location: object.isRequired,
@@ -170,6 +166,7 @@ App.propTypes = {
 const mapStateToProps = createStructuredSelector({
   app: selectors.getApp,
   user: selectors.getUser,
+  view: selectors.getView,
 });
 
 export const mapDispatchToProps = (dispatch) => ({

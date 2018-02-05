@@ -3,9 +3,12 @@ import styled, { css } from 'styled-components';
 import theme from '../../utils/theme';
 
 
-// TODO: revmoed Section, add somethign back....
 const FormSection = styled.form`
   margin: ${theme.hub.padding}px;
+  padding: ${theme.hub.padding}px;
+  background: ${theme.white};
+  box-shadow: 0 0 3px ${theme.neutralLight};
+
   ${(props) => css`
     min-height: 350px;
     height: calc(

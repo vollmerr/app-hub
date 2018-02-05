@@ -2,11 +2,18 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { DetailsList } from 'office-ui-fabric-react/lib/DetailsList';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
+import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 
-import List, { handleSelectItem } from '../index';
-import Title from '../Title';
-import Search from '../Search';
+import { testStyledComponent } from '../../../utils/testUtils';
+
+import List, { handleSelectItem, Title, Header, Search } from '../index';
 import EmptyMessage from '../EmptyMessage';
+
+
+testStyledComponent(Header);
+testStyledComponent(Title);
+testStyledComponent(Search, SearchBox);
+
 
 const props = {
   title: 'test title',

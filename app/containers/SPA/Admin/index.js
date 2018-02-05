@@ -28,15 +28,12 @@ import * as selectors from '../selectors';
 import * as actions from '../actions';
 import * as C from '../constants';
 
-// import AdminNav from './AdminNav';
 import NewAckForm from './NewAckForm';
-// import DisableModal from './DisableModal';
-// import EmailModal from './EmailModal';
 
 
 const style = {
   count: 2,
-  padding: theme.hub.padding + theme.app.subNavHeight,
+  padding: theme.hub.padding + theme.app.commandBarHeight,
 };
 
 
