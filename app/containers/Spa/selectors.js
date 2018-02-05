@@ -5,12 +5,22 @@ import * as C from './constants';
 
 const selectSpa = (state) => state.get('spa');
 const selectUser = (state) => selectSpa(state).get('user');
+const selectAdmin = (state) => selectSpa(state).get('admin');
+const selectReport = (state) => selectSpa(state).get('report');
 const selectRecipients = (state) => selectSpa(state).get('recipients');
 const selectAcknowledgments = (state) => selectSpa(state).get('acknowledgments');
+const selectGroups = (state) => selectSpa(state).get('groups');
 const selectEnums = (state) => selectSpa(state).get('enums');
 
 const selectById = (state) => state.get('byId');
 
+
+export const getAckById = (id) => createSelector(
+  selectAcknowledgments,
+  (ack) => selectById(ack).get(id)
+);
+
+// USER
 export const getUser = createSelector(selectUser, (user) => user);
 // selects array of users acknowlegments combined with recipient details based off type
 export const getUserItems = (type) => createSelector(
@@ -23,4 +33,31 @@ export const getUserItems = (type) => createSelector(
   })
 );
 
+// ADMIN
+export const getAdmin = createSelector(selectAdmin, (admin) => admin);
+// selects array of users acknowlegments combined with recipient details based off type
+export const geAdminItems = (type) => createSelector(
+  [selectAdmin, selectAcknowledgments],
+  (admin, acks) => admin.get(`${type}Ids`).map((id) => (
+    selectById(acks).get(id)
+  ))
+);
+
+
+// REPORT
+export const getReportFetchedById = (id) => createSelector(
+  selectReport,
+  (report) => report.getIn('lastFetchedById', id)
+);
+export const getReportData = createSelector(
+  selectReport,
+  (report) => selectById(report).get(report.get('id'))
+);
+
+
+// GROUPS
+export const getGroups = createSelector(selectGroups, (groups) => groups);
+
+
+// ENUMS
 export const getEnums = createSelector(selectEnums, (enums) => enums);

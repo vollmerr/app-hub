@@ -5,14 +5,14 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
-import toJS from 'hocs/toJS';
+import toJS from '../../../hocs/toJS';
 import List, { handleSelectItem } from '../../../components/List';
 
 
 import AckModal from './AckModal';
 
 import { downloadFile } from '../../../utils/data';
-import * as api from '../../../utils/api';
+import { shouldFetch } from '../../../utils/api';
 
 import Loading from '../../../components/Loading';
 
@@ -55,7 +55,8 @@ export class Home extends React.PureComponent {
 
   async componentDidMount() {
     const { user, onGetUserDataRequest } = this.props;
-    if (api.shouldFetch(user.lastFetched)) {
+    // only load user data if not cached
+    if (shouldFetch(user.lastFetched)) {
       await onGetUserDataRequest();
     }
     this.setState({ loading: false }); // eslint-disable-line

@@ -1,5 +1,6 @@
 import Home from './Home';
 import Admin from './Admin';
+import Report from './Report';
 import { ROLES } from './constants';
 
 
@@ -21,5 +22,14 @@ export default [
     exact: true,
     component: Admin,
     roles: [ROLES.ADMIN],
+  },
+  {
+    key: 'spaReport',
+    name: 'Report',
+    path: `${base}/report/:id`,
+    exact: true,
+    component: Report,
+    roles: [ROLES.ADMIN],
+    hidden: true,
   },
 ];

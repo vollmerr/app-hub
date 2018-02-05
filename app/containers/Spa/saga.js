@@ -5,6 +5,7 @@ import * as api from '../../utils/api';
 
 import { getUserSid } from '../AppHub/selectors';
 
+import * as selectors from './selectors';
 import * as actions from './actions';
 import * as C from './constants';
 
@@ -153,19 +154,33 @@ export function* disableAck(action) {
 // REPORT
 
 /**
- * GETs the recipients for an existing acknowledgment
+ * GETs the report data
  *
  * @param {object} action   - action that was dispatched
  */
-export function* getAckRecipients(action) {
+export function* getReportData(action) {
   try {
-    const id = action.payload[C.ACK.ID];
-    const url = `${base}/acknowledgments/${id}/recipients`;
+    const id = action.payload;
+    let acknowledgment = yield select(selectors.getAckById(id));
+    const urls = {
+      recipients: `${base}/acknowledgments/${id}/recipients`,
+      acknowledgment: `${base}/acknowledgments/${id}`,
+    };
 
-    const recipients = yield call(api.requestWithToken, url);
-    yield put(actions.getAckRecipientsSuccess({ recipients, id }));
+    let recipients;
+    // id acknowledgment details aleady exist, dont refetch
+    if (acknowledgment) {
+      recipients = yield call(api.requestWithToken, urls.recipients);
+      acknowledgment = acknowledgment.toJS();
+    } else {
+      [recipients, acknowledgment] = yield all([
+        call(api.requestWithToken, urls.recipients),
+        call(api.requestWithToken, urls.acknowledgment),
+      ]);
+    }
+    yield put(actions.getReportDataSuccess({ recipients, acknowledgment }));
   } catch (error) {
-    yield put(actions.getAckRecipientsFailure(error));
+    yield put(actions.getReportDataFailure(error));
   }
 }
 
@@ -181,6 +196,6 @@ export default function* spaSaga() {
     takeLatest(C.NEW_ACK_REQUEST, newAck),
     takeLatest(C.DISABLE_ACK_REQUEST, disableAck),
     // report
-    takeLatest(C.GET_ACK_RECIPIENTS_REQUEST, getAckRecipients),
+    takeLatest(C.GET_REPORT_DATA_REQUEST, getReportData),
   ];
 }

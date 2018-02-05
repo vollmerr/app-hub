@@ -84,6 +84,10 @@ export class Nav extends React.PureComponent {
   getRoutes = (allRoutes, location) => {
     const { user } = this.props;
     const routes = allRoutes.filter((route) => {
+      // ignore hidden routes
+      if (route.hidden) {
+        return false;
+      }
       // no roles on route, keep on list of routes
       if (!route.roles) {
         return true;

@@ -21,8 +21,12 @@ const appProps = {
 
 export class SPA extends React.PureComponent {
   render() {
+    const props = {
+      appProps,
+    };
+
     return (
-      <App appProps={appProps} />
+      <App {...props} />
     );
   }
 }

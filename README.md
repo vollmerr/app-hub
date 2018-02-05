@@ -13,7 +13,7 @@ This project is a central hub for BPAS applications. It is uses [React Boilerpla
 ## Getting Started
 ### Clone the repo
 ```
-https://github.com/vollmerr/app-hub.git
+git clone https://github.com/vollmerr/app-hub.git
 ```
 
 ### Install the packages

@@ -1,5 +1,4 @@
-// import { fromJS, Set, List } from 'immutable';
-import { fromJS } from 'immutable';
+import { fromJS, List } from 'immutable';
 import { handleActions } from 'redux-actions';
 
 import { mergeById } from '../../utils/data';
@@ -18,7 +17,11 @@ export const initialState = {
     lastFetched: null, // determine if should fetch admin data
     acksActiveIds: [], // [admin page] ids for list of active 'acknowledgments'
     acksPreviousIds: [], // [admin page] ids for list of previous 'acknowledgments'
-    fetchedIds: [],
+  },
+  report: {
+    id: null,
+    lastFetchedById: {},
+    byId: {},
   },
   recipients: { // list of recipients (for user and admin)
     byId: {},
@@ -45,7 +48,7 @@ export default handleActions({
   [C.GET_USER_DATA_SUCCESS]: (state, action) => {
     const { payload } = action;
     const user = {
-      lastFetched: new Date(), // set user data as cached (we will keep track of changed locally)
+      lastFetched: new Date().toISOString(),
       recipientsPendingIds: [],
       recipientsPreviousIds: [],
     };
@@ -99,67 +102,50 @@ export default handleActions({
   },
 
 
-  // [C.GET_ADMIN_DATA_SUCCESS]: (state, action) => {
-  //   const { payload } = action;
-  //   const admin = {
-  //     isCached: true, // set user data as cached (we will keep track of changed locally)
-  //     acksActiveIds: [],
-  //     acksPreviousIds: [],
-  //   };
-  //   // populate pending and previous 'recipients' and 'acknowledgment' ids
-  //   payload.acknowledgments.forEach((ack) => {
-  //     const id = String(ack[C.ACK.ID]);
-  //     // add active and pending to 'active' list
-  //     if (ack[C.ACK.STATUS] === C.STATUS.ACTIVE || ack[C.ACK.STATUS] === C.STATUS.PENDING) {
-  //       admin.acksActiveIds.push(id);
-  //     } else {
-  //       admin.acksPreviousIds.push(id);
-  //     }
-  //   });
-  //   // add entries to acks (could potentally already have some entries, so just add new)
-  //   const acknowledgments = mergeById(state, 'acknowledgments', payload.acknowledgments, C.ACK.ID);
-  //   // combine with current state
-  //   return state.mergeDeep(fromJS({
-  //     admin,
-  //     acknowledgments,
-  //   }));
-  // },
+  [C.GET_ADMIN_DATA_SUCCESS]: (state, action) => {
+    const { payload } = action;
+    const admin = {
+      lastFetched: new Date().toISOString(),
+      acksActiveIds: [],
+      acksPreviousIds: [],
+    };
+    // populate pending and previous 'recipients' and 'acknowledgment' ids
+    payload.acknowledgments.forEach((ack) => {
+      const id = String(ack[C.ACK.ID]);
+      // add active and pending to 'active' list
+      if (ack[C.ACK.STATUS] === C.STATUS.ACTIVE || ack[C.ACK.STATUS] === C.STATUS.PENDING) {
+        admin.acksActiveIds.push(id);
+      } else {
+        admin.acksPreviousIds.push(id);
+      }
+    });
+    // add entries to acks (could potentally already have some entries, so just add new)
+    const acknowledgments = mergeById(state, 'acknowledgments', payload.acknowledgments, C.ACK.ID);
+    // combine with current state
+    return state.mergeDeep(fromJS({
+      admin,
+      acknowledgments,
+    }));
+  },
 
 
-  // [C.GET_GROUPS_SUCCESS]: (state, action) => {
-  //   const { payload: { targets, creators } } = action;
-  //   // set details and ids of all for lookup
-  //   let groups = mergeById(state, 'groups', [...targets, ...creators], C.GROUP.SID);
-  //   // set ids of each group
-  //   groups = groups.set('targetIds', List(targets.map((x) => String(x[C.GROUP.SID]))));
-  //   groups = groups.set('creatorIds', List(creators.map((x) => String(x[C.GROUP.SID]))));
-  //   // map tagret groups to enums
-  //   const targetsEnum = {};
-  //   targets.forEach((x) => { targetsEnum[String(x[C.GROUP.SID])] = x[C.GROUP.NAME]; });
-  //   const enums = state.get('enums').set(C.ACK.TARGET_GROUPS, targetsEnum);
-  //   // combine with current state
-  //   return state.mergeDeep(fromJS({
-  //     enums,
-  //     groups,
-  //   }));
-  // },
-
-
-  // [C.GET_ACK_RECIPIENTS_SUCCESS]: (state, action) => {
-  //   const { payload } = action;
-  //   // add ack id to list of ids in admin
-  //   const id = Set([String(payload.id)]);
-  //   const admin = {
-  //     cachedIds: state.getIn(['admin', 'cachedIds']).toSet().union(id).toList(),
-  //   };
-  //   // add entries to acks (could potentally already have some entries, so just add new)
-  //   const recipients = mergeById(state, 'recipients', payload.recipients, C.RECIPIENT.ID);
-  //   // combine with current state
-  //   return state.mergeDeep(fromJS({
-  //     admin,
-  //     recipients,
-  //   }));
-  // },
+  [C.GET_GROUPS_SUCCESS]: (state, action) => {
+    const { payload: { targets, creators } } = action;
+    // set details and ids of all for lookup
+    let groups = mergeById(state, 'groups', [...targets, ...creators], C.GROUP.SID);
+    // set ids of each group
+    groups = groups.set('targetIds', List(targets.map((x) => String(x[C.GROUP.SID]))));
+    groups = groups.set('creatorIds', List(creators.map((x) => String(x[C.GROUP.SID]))));
+    // map tagret groups to enums
+    const targetsEnum = {};
+    targets.forEach((x) => { targetsEnum[String(x[C.GROUP.SID])] = x[C.GROUP.NAME]; });
+    const enums = state.get('enums').set(C.ACK.TARGET_GROUPS, targetsEnum);
+    // combine with current state
+    return state.mergeDeep(fromJS({
+      enums,
+      groups,
+    }));
+  },
 
 
   // [C.NEW_ACK_SUCCESS]: (state, action) => {
@@ -220,4 +206,38 @@ export default handleActions({
   //   // gimme that new state
   //   return newState;
   // },
+
+
+  [C.GET_REPORT_DATA_SUCCESS]: (state, action) => {
+    const { payload } = action;
+    const data = {
+      pending: [],
+      previous: [],
+    };
+    let newState = state;
+    // id of acknowledgment being reported on
+    const id = String(payload.acknowledgment[C.ACK.ID]);
+    console.log('SUCCESS!, ', id, payload)
+    newState = state.setIn(['report', 'id'], id);
+    // set acknowledgment as being fetched
+    newState = newState.setIn(['report', 'lastFetchedById', id], new Date().toISOString());
+    // add recients based off if approved
+    payload.recipients.forEach((recipient) => {
+      if (recipient[C.RECIPIENT.ACK_DATE]) {
+        data.previous.push(recipient);
+      } else {
+        data.pending.push(recipient);
+      }
+    });
+    // add to list of byId mapped out by status
+    newState = newState.setIn(['report', 'byId', id], fromJS(data));
+    // add entries to recpients and acks (could potentally already have some entries, so just add new)
+    const recipients = mergeById(newState, 'recipients', payload.recipients, C.RECIPIENT.ID);
+    console.log('newState: ', newState.toJS())
+    // const acknowledgments = mergeById(state, 'acknowledgments', payload.acknowledgments, C.ACK.ID);
+    // combine with current state
+    return newState.mergeDeep(fromJS({
+      recipients,
+    }));
+  },
 }, fromJS(initialState));

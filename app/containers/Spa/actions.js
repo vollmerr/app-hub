@@ -35,6 +35,6 @@ export const disableAckFailure = createAction(C.DISABLE_ACK_FAILURE);
 
 /* REPORT PAGE */
 // GET LIST OF RECIPIENTS FOR EXISTSING ACK
-export const getAckRecipientsRequest = createAction(C.GET_ACK_RECIPIENTS_REQUEST);
-export const getAckRecipientsSuccess = createAction(C.GET_ACK_RECIPIENTS_SUCCESS);
-export const getAckRecipientsFailure = createAction(C.GET_ACK_RECIPIENTS_FAILURE);
+export const getReportDataRequest = createAction(C.GET_REPORT_DATA_REQUEST);
+export const getReportDataSuccess = createAction(C.GET_REPORT_DATA_SUCCESS);
+export const getReportDataFailure = createAction(C.GET_REPORT_DATA_FAILURE);

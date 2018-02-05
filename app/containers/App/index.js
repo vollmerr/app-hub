@@ -84,6 +84,10 @@ export class App extends React.PureComponent {
     this.props.onChangeApp(initialState.app);
   }
 
+  setCommandBar = (commandBar) => {
+    this.setState({ commandBar });
+  }
+
   authorizeRoute = (app) => {
     const { user, history } = this.props;
     // get index of current route
@@ -124,13 +128,12 @@ export class App extends React.PureComponent {
 
     const commandBarProps = {
       isSearchBoxVisible: false,
-      ...commandBar.props,
+      ...commandBar,
     };
 
     const routerProps = {
+      setCommandBar: this.setCommandBar,
       routes: app.routes,
-      error: app.error,
-      loading: app.loading,
     };
 
     return (
@@ -141,7 +144,7 @@ export class App extends React.PureComponent {
             <Wrapper>
               <Nav />
               <Body>
-                {commandBar.isVisible && <CommandBar {...commandBarProps} />}
+                {commandBar && <CommandBar {...commandBarProps} />}
                 <Content><Router {...routerProps} /></Content>
               </Body>
             </Wrapper>
