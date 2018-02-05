@@ -137,7 +137,7 @@ export class App extends React.PureComponent {
           changingApp ?
             <LoadingMessage /> :
             <Wrapper>
-              <Nav />
+              {view.isMobile || <Nav />}
               <Body>
                 {commandBar && <CommandBar {...commandBarProps} />}
                 <Content isMobile={view.isMobile}><Router {...routerProps} /></Content>

@@ -5,24 +5,15 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
-// import json2csv from 'json2csv';
 
-// import * as selectors from 'containers/Spa/selectors';
-
-// import { formattedDate } from 'utils/date';
-// import { doneLoading, downloadFile } from 'utils/request';
-// import { acknowledgment, recipient, newAckForm, adminColumns, adminCsv } from 'containers/Spa/data';
-import List, { handleSelectItem } from 'components/List';
-
+import List, { handleSelectItem } from '../../../components/List';
 import toJS from '../../../hocs/toJS';
 import theme from '../../../utils/theme';
 import Loading from '../../../components/Loading';
 import { shouldFetch } from '../../../utils/api';
-// import { formatList } from '../../../utils/data';
 
 import * as hubSelectors from '../../AppHub/selectors';
 
-// import Report from '../Report';
 import { adminColumns, acknowledgment, newAckForm } from '../data';
 import * as selectors from '../selectors';
 import * as actions from '../actions';
@@ -49,12 +40,8 @@ export class Admin extends React.PureComponent {
     this.state = {
       loading: true,
       hideNewAck: true,
-      // hideReport: true,
-      // hideDisable: true,
-      // hideEmail: true,
       selectedItem: {},
       fields: acknowledgment,
-      // formattedData: [],
     };
 
     this.selectionActive = new Selection({
@@ -85,6 +72,7 @@ export class Admin extends React.PureComponent {
 
   // COMMAND BAR
 
+  // items to display in command bar by default
   getDefaultCommands = () => ({
     items: [{
       key: 'new',
@@ -95,6 +83,7 @@ export class Admin extends React.PureComponent {
     }],
   })
 
+  // items to display in command bar on new acknowledgment form
   getNewCommands = () => ({
     items: [
       {
@@ -107,7 +96,7 @@ export class Admin extends React.PureComponent {
     ],
   })
 
-  // NEW ACKNOWLEDGMENT FORM VISIBILITY
+  // NEW ACKNOWLEDGMENT FORM
 
   /**
    * Handles opening the form for creating a new acknowledgment
@@ -221,15 +210,13 @@ const { object, func, array } = PropTypes;
 Admin.propTypes = {
   setCommandBar: func.isRequired,
   app: object.isRequired,
-  admin: object.isRequired,
-  // groupsById: object.isRequired,
-  // targetGroupIds: array.isRequired,
+  admin: object.isRequired, // eslint-disable-line
   adminActiveItems: array.isRequired,
   adminPreviousItems: array.isRequired,
   groups: object.isRequired,
   enums: object.isRequired,
-  onGetAdminDataRequest: func.isRequired,
-  onGetGroupsRequest: func.isRequired,
+  onGetAdminDataRequest: func.isRequired, // eslint-disable-line
+  onGetGroupsRequest: func.isRequired, // eslint-disable-line
   onNewAckRequest: func.isRequired,
   history: object.isRequired,
 };

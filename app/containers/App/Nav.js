@@ -14,7 +14,6 @@ import * as selectors from '../AppHub/selectors';
 
 
 export const Wrapper = styled.div`
-  display: ${(props) => props.isMobile ? 'none' : 'block'};
   flex: 0 0 ${theme.app.navWidth}px;
 
   .ms-FocusZone {
