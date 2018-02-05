@@ -38,3 +38,5 @@ export const disableAckFailure = createAction(C.DISABLE_ACK_FAILURE);
 export const getReportDataRequest = createAction(C.GET_REPORT_DATA_REQUEST);
 export const getReportDataSuccess = createAction(C.GET_REPORT_DATA_SUCCESS);
 export const getReportDataFailure = createAction(C.GET_REPORT_DATA_FAILURE);
+
+export const setReportKey = createAction(C.SET_REPORT_KEY);

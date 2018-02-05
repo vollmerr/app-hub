@@ -1,13 +1,12 @@
-import styled, { css } from 'styled-components';
+import { css } from 'styled-components';
 
 import theme from '../../utils/theme';
 
+import Section from '../Layout/Section';
 
-const FormSection = styled.form`
-  margin: ${theme.hub.padding}px;
+
+const FormSection = Section.extend`
   padding: ${theme.hub.padding}px;
-  background: ${theme.white};
-  box-shadow: 0 0 3px ${theme.neutralLight};
 
   ${(props) => css`
     min-height: 350px;
@@ -18,7 +17,7 @@ const FormSection = styled.form`
       ${theme.hub.padding}px
     );
   `}
-`;
+`.withComponent('form');
 
 
 FormSection.defaultProps = {

@@ -136,7 +136,7 @@ export class Home extends React.PureComponent {
       style,
       items: userPendingItems,
       columns: homeColumns.pending,
-      title: 'Pending Acknowledgment',
+      title: 'Pending Acknowledgments',
       empty: {
         message: 'No Acknowledgments Pending Approval',
       },

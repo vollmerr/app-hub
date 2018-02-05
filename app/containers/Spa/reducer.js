@@ -20,6 +20,8 @@ export const initialState = {
   },
   report: {
     id: null,
+    item: {},
+    key: C.REPORT.PENDING,
     lastFetchedById: {},
     byId: {},
   },
@@ -211,33 +213,38 @@ export default handleActions({
   [C.GET_REPORT_DATA_SUCCESS]: (state, action) => {
     const { payload } = action;
     const data = {
-      pending: [],
-      previous: [],
+      [C.REPORT.PENDING]: [],
+      [C.REPORT.PREVIOUS]: [],
     };
     let newState = state;
     // id of acknowledgment being reported on
     const id = String(payload.acknowledgment[C.ACK.ID]);
-    console.log('SUCCESS!, ', id, payload)
-    newState = state.setIn(['report', 'id'], id);
-    // set acknowledgment as being fetched
+    // set report details
+    newState = newState.setIn(['report', 'id'], id);
+    newState = newState.setIn(['report', 'item'], payload.acknowledgment);
     newState = newState.setIn(['report', 'lastFetchedById', id], new Date().toISOString());
     // add recients based off if approved
     payload.recipients.forEach((recipient) => {
       if (recipient[C.RECIPIENT.ACK_DATE]) {
-        data.previous.push(recipient);
+        data[C.REPORT.PREVIOUS].push(recipient);
       } else {
-        data.pending.push(recipient);
+        data[C.REPORT.PENDING].push(recipient);
       }
     });
     // add to list of byId mapped out by status
     newState = newState.setIn(['report', 'byId', id], fromJS(data));
     // add entries to recpients and acks (could potentally already have some entries, so just add new)
     const recipients = mergeById(newState, 'recipients', payload.recipients, C.RECIPIENT.ID);
-    console.log('newState: ', newState.toJS())
-    // const acknowledgments = mergeById(state, 'acknowledgments', payload.acknowledgments, C.ACK.ID);
+    const acknowledgments = mergeById(newState, 'acknowledgments', [payload.acknowledgment], C.ACK.ID);
     // combine with current state
     return newState.mergeDeep(fromJS({
       recipients,
+      acknowledgments,
     }));
   },
+
+
+  [C.SET_REPORT_KEY]: (state, action) => (
+    state.setIn(['report', 'key'], action.payload)
+  ),
 }, fromJS(initialState));

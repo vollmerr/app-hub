@@ -20,6 +20,7 @@ export const getAckById = (id) => createSelector(
   (ack) => selectById(ack).get(id)
 );
 
+
 // USER
 export const getUser = createSelector(selectUser, (user) => user);
 // selects array of users acknowlegments combined with recipient details based off type
@@ -33,6 +34,7 @@ export const getUserItems = (type) => createSelector(
   })
 );
 
+
 // ADMIN
 export const getAdmin = createSelector(selectAdmin, (admin) => admin);
 // selects array of users acknowlegments combined with recipient details based off type
@@ -45,10 +47,13 @@ export const geAdminItems = (type) => createSelector(
 
 
 // REPORT
+export const getReport = createSelector(selectReport, (report) => report);
+
 export const getReportFetchedById = (id) => createSelector(
   selectReport,
   (report) => report.getIn('lastFetchedById', id)
 );
+
 export const getReportData = createSelector(
   selectReport,
   (report) => selectById(report).get(report.get('id'))

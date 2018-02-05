@@ -2,14 +2,12 @@ import styled, { css } from 'styled-components';
 
 import theme from '../../utils/theme';
 
+import Section from '../Layout/Section';
 
-const Wrapper = styled.div`
+
+const Wrapper = styled(Section)`
   position: relative;
-  margin: ${theme.hub.padding}px;
   padding: ${theme.hub.padding}px;
-  background: ${theme.white};
-  box-shadow: 0 0 3px ${theme.neutralLight};
-
 
   ${(props) => css`
     min-height: 250px;
