@@ -29,8 +29,10 @@ class LoadCommandBar extends React.PureComponent {
     const { setCommandBar, commandBar, disabled } = this.props;
 
     if (disabled) {
-      const disabledCommands = { ...commandBar };
-      commandBar.items.map((command) => ({ ...command, disabled: true }));
+      const disabledCommands = {
+        ...commandBar,
+        items: commandBar.items.map((command) => ({ ...command, disabled: true })),
+      };
       // mark all buttons as disabled if disabled
       setCommandBar(disabledCommands);
     } else {

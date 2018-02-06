@@ -27,14 +27,14 @@ testStyledComponent(CommandBar, OfficeBar);
 describe('<Content />', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<Wrapper isMobile={false} />);
+    wrapper = shallow(<Content isMobile={false} />);
   });
 
   it('should render correctly in desktop view', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should render correctly in desktop view', () => {
+  it('should render correctly in mobile view', () => {
     wrapper.setProps({ isMobile: true });
     expect(wrapper).toMatchSnapshot();
   });

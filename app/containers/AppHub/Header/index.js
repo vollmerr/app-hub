@@ -35,10 +35,9 @@ export const Line = styled.div`
   width: 1px;
   margin: auto;
   background: ${theme.neutralSecondary};
-  height: ${(props) => props.partial ?
-    `${theme.hub.headerHeight - 15}px` :
-    `${theme.hub.headerHeight - 2}px`
-  };
+  height: ${(props) => (
+    props.partial ? `${theme.hub.headerHeight - 15}px` : `${theme.hub.headerHeight - 2}px`
+  )};
 `;
 
 

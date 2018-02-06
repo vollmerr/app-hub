@@ -62,12 +62,9 @@ exports[`<App__Wrapper /> should render correctly 1`] = `
 
 exports[`<Content /> should render correctly in desktop view 1`] = `
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  background-color: #f8f8f8;
-  height: calc(100vh - 50px);
+  width: calc(100vw - 225px);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 <div
@@ -75,14 +72,11 @@ exports[`<Content /> should render correctly in desktop view 1`] = `
 />
 `;
 
-exports[`<Content /> should render correctly in desktop view 2`] = `
+exports[`<Content /> should render correctly in mobile view 1`] = `
 .c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  background-color: #f8f8f8;
-  height: calc(100vh - 50px);
+  width: 100vw;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 <div
