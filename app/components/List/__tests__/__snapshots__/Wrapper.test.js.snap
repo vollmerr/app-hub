@@ -3,14 +3,18 @@
 exports[`<Wrapper__Wrapper /> should render correctly 1`] = `
 .c0 {
   position: relative;
-  margin: 10px;
-  min-height: 350px;
+  padding: 10px;
+  min-height: 250px;
   height: calc(100vh -       50px -       10px -       10px);
 }
 
 .c0 > .ms-ScrollablePane {
-  min-height: 280px;
+  min-height: 180px;
   height: calc(100vh -         50px -         10px -         10px -         50px -         20px);
+}
+
+.c0 .ms-DetailsRow {
+  color: #333333;
 }
 
 <Section__Section

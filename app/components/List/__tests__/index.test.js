@@ -82,41 +82,14 @@ describe('<List />', () => {
     instance = wrapper.instance();
   });
 
-  it('should render correctly', () => {
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('should render a title', () => {
-    expect(wrapper.find(Title).length).toEqual(1);
-    expect(wrapper.find(Title).dive().text()).toEqual(props.title);
-  });
-
-  it('should render a search box', () => {
-    expect(wrapper.find(Search).length).toEqual(1);
-    expect(wrapper.find(Search).prop('onChange')).toEqual(instance.handleSearch);
-  });
-
-  it('should render a list of items', () => {
-    expect(wrapper.find(DetailsList).length).toEqual(1);
-    expect(wrapper.find(DetailsList).prop('items')).toEqual(wrapper.state('items'));
-
-    wrapper.setState({ items: props.items.slice(1) });
-    expect(wrapper.find(DetailsList).prop('items')).toEqual(wrapper.state('items'));
-  });
-
-  it('should render an empty `EmptyMessage` is there are no items passed', () => {
-    wrapper.setProps({ items: [] });
-    expect(wrapper.find(EmptyMessage).length).toEqual(1);
-    expect(wrapper.find(EmptyMessage).prop('message')).toEqual(props.empty.message);
-  });
-
 
   describe('componentDidMount', () => {
-    it('should bind `handleColumnClick` to columns without `notSortable`', () => {
-      const columns = wrapper.state('columns');
-      expect(columns[0].onColumnClick).toEqual(instance.handleColumnClick);
-      expect(columns[1].onColumnClick).toEqual(undefined);
-      expect(columns[2].onColumnClick).toEqual(instance.handleColumnClick);
+    it('should sort by the `sortBy` column keys if passed any', () => {
+      const sortBy = [props.columns[2].key, props.columns[0].key];
+      instance.handleColumnClick = jest.fn();
+      wrapper.setProps({ sortBy });
+      instance.componentDidMount();
+      expect(instance.handleColumnClick).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -289,6 +262,37 @@ describe('<List />', () => {
       };
       const actual = instance.renderItemColumn(item, null, column);
       expect(actual).toEqual(content.join(', '));
+    });
+  });
+
+
+  describe('render', () => {
+    it('should render correctly', () => {
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render a title', () => {
+      expect(wrapper.find(Title).length).toEqual(1);
+      expect(wrapper.find(Title).dive().text()).toEqual(props.title);
+    });
+
+    it('should render a search box', () => {
+      expect(wrapper.find(Search).length).toEqual(1);
+      expect(wrapper.find(Search).prop('onChange')).toEqual(instance.handleSearch);
+    });
+
+    it('should render a list of items', () => {
+      expect(wrapper.find(DetailsList).length).toEqual(1);
+      expect(wrapper.find(DetailsList).prop('items')).toEqual(wrapper.state('items'));
+
+      wrapper.setState({ items: props.items.slice(1) });
+      expect(wrapper.find(DetailsList).prop('items')).toEqual(wrapper.state('items'));
+    });
+
+    it('should render an empty `EmptyMessage` is there are no items passed', () => {
+      wrapper.setProps({ items: [] });
+      expect(wrapper.find(EmptyMessage).length).toEqual(1);
+      expect(wrapper.find(EmptyMessage).prop('message')).toEqual(props.empty.message);
     });
   });
 });
