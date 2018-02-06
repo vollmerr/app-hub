@@ -49,11 +49,6 @@ export const geAdminItems = (type) => createSelector(
 // REPORT
 export const getReport = createSelector(selectReport, (report) => report);
 
-export const getReportFetchedById = (id) => createSelector(
-  selectReport,
-  (report) => report.getIn('lastFetchedById', id)
-);
-
 export const getReportData = createSelector(
   selectReport,
   (report) => selectById(report).get(report.get('id'))

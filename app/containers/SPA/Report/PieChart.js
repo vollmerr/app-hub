@@ -29,6 +29,11 @@ const measurements = {
 
 
 export class PieChart extends React.PureComponent {
+  componentDidMount() {
+    // in here to wait until data loaded until setting the command bar...
+    this.props.setCommandBar();
+  }
+
   render() {
     const {
       data,
@@ -91,8 +96,9 @@ PieChart.propTypes = {
       percent: number,
     }).isRequired,
   }),
-  onClick: func.isRequired,
   hasData: bool.isRequired,
+  onClick: func.isRequired,
+  setCommandBar: func.isRequired,
 };
 
 

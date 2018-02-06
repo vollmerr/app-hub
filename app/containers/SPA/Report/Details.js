@@ -12,6 +12,7 @@ import { ACK } from '../constants';
 
 export const Wrapper = Section.extend`
   flex: 2 0 250px;
+  padding: ${theme.hub.padding}px;
   margin: ${theme.hub.padding / 2}px;
   overflow: auto;
 `;

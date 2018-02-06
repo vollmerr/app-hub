@@ -55,7 +55,7 @@ export class Admin extends React.PureComponent {
   async componentDidMount() {
     const { admin, onGetAdminDataRequest, onGetGroupsRequest, setCommandBar } = this.props;
     // set the command bar props
-    setCommandBar(this.getDefaultCommands(true));
+    setCommandBar(this.getCommands());
     // only load admin data if not cached
     if (shouldFetch(admin.lastFetched)) {
       await Promise.all([
@@ -73,7 +73,7 @@ export class Admin extends React.PureComponent {
   // COMMAND BAR
 
   // items to display in command bar by default
-  getDefaultCommands = () => ({
+  getCommands = () => ({
     items: [{
       key: 'new',
       name: 'New',
@@ -123,7 +123,7 @@ export class Admin extends React.PureComponent {
    * Handles hiding the new acknowledgment form
    */
   handleHideNew = () => {
-    this.props.setCommandBar(this.getDefaultCommands());
+    this.props.setCommandBar(this.getCommands());
     this.setState({ hideNewAck: true });
   }
 
