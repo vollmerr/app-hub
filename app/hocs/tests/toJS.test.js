@@ -29,7 +29,6 @@ describe('toJS', () => {
   let wrapper;
   let withJS;
   beforeEach(() => {
-    jest.resetAllMocks();
     withJS = toJS(WrappedComponent)(props);
     wrapper = shallow(<div>{withJS}</div>);
   });

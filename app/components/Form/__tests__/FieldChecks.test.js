@@ -54,7 +54,6 @@ const props = {
 describe('FieldChecks', () => {
   let wrapper;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<FieldChecks {...props} />);
   });
 

@@ -6,9 +6,9 @@ exports[`<App__Body /> should render correctly 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex: 1 0 auto;
-  -ms-flex: 1 0 auto;
-  flex: 1 0 auto;
+  -webkit-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
@@ -35,6 +35,7 @@ exports[`<App__CommandBar /> should render correctly 1`] = `
 
 exports[`<App__Content /> should render correctly 1`] = `
 .c0 {
+  width: calc(100vw - 225px);
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -45,6 +46,36 @@ exports[`<App__Content /> should render correctly 1`] = `
 `;
 
 exports[`<App__Wrapper /> should render correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #f8f8f8;
+  height: calc(100vh - 50px);
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Content /> should render correctly in desktop view 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #f8f8f8;
+  height: calc(100vh - 50px);
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Content /> should render correctly in desktop view 2`] = `
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -70,10 +101,10 @@ exports[`App render should render correctly if not changing the app 1`] = `
   <App__Wrapper>
     <withRouter(Connect(Component)) />
     <App__Body>
-      <App__Content>
+      <App__Content
+        isMobile={false}
+      >
         <Router
-          error={null}
-          loading={0}
           routes={
             Array [
               Object {
@@ -106,6 +137,7 @@ exports[`App render should render correctly if not changing the app 1`] = `
               },
             ]
           }
+          setCommandBar={[Function]}
         />
       </App__Content>
     </App__Body>

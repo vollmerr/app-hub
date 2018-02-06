@@ -61,7 +61,6 @@ const props = {
 describe('FieldDate', () => {
   let wrapper;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<FieldDate {...props} />);
   });
 

@@ -43,7 +43,6 @@ describe('SPA - <Home />', () => {
   let wrapper;
   let instance;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<Home {...props} />);
     instance = wrapper.instance();
   });

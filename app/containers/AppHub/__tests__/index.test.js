@@ -39,7 +39,6 @@ describe('<AppHub />', () => {
   let wrapper;
   let instance;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<AppHub {...props} />);
     instance = wrapper.instance();
   });

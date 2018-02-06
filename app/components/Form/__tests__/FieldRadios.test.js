@@ -53,7 +53,6 @@ describe('FieldSelect', () => {
   let wrapper;
   let instance;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<FieldRadios {...props} />);
     instance = wrapper.instance();
   });

@@ -51,7 +51,6 @@ const props = {
 describe('FieldSelect', () => {
   let wrapper;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<FieldSelect {...props} />);
   });
 

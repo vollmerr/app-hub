@@ -24,6 +24,23 @@ testStyledComponent(Content);
 testStyledComponent(CommandBar, OfficeBar);
 
 
+describe('<Content />', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<Wrapper isMobile={false} />);
+  });
+
+  it('should render correctly in desktop view', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render correctly in desktop view', () => {
+    wrapper.setProps({ isMobile: true });
+    expect(wrapper).toMatchSnapshot();
+  });
+});
+
+
 const props = {
   appProps: { name: 'app' }, // eslint-disable-line
   app: {
@@ -43,6 +60,9 @@ const props = {
   user: {
     roles: ['valid', 'valid2'],
   },
+  view: {
+    isMobile: false,
+  },
   onChangeApp: jest.fn(),
   history: {
     location: {
@@ -60,7 +80,6 @@ describe('App', () => {
   let wrapper;
   let instance;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<App {...props} />);
     instance = wrapper.instance();
   });
@@ -94,6 +113,15 @@ describe('App', () => {
       jest.resetAllMocks();
       wrapper.unmount();
       expect(props.onChangeApp).toHaveBeenCalledWith(initialState.app);
+    });
+  });
+
+
+  describe('setCommandBar', () => {
+    it('should set the commandBar in state', () => {
+      const commandBar = { a: 'test' };
+      instance.setCommandBar(commandBar);
+      expect(wrapper.state('commandBar')).toEqual(commandBar);
     });
   });
 
@@ -150,10 +178,7 @@ describe('App', () => {
 
     it('should render the `CommandBar` if it `isVisible`', () => {
       const commandBar = {
-        isVisible: true,
-        props: {
-          items: [{ key: 'item1' }],
-        },
+        items: [{ key: 'item1' }],
       };
 
       expect(wrapper.find(CommandBar).length).toEqual(0);

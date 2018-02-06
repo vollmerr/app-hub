@@ -27,7 +27,6 @@ const props = {
 describe('<Panels />', () => {
   let wrapper;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<Panels {...props} />);
   });
 

@@ -58,7 +58,6 @@ describe('<Dev />', () => {
   let wrapper;
   let instance;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<Dev {...props} />);
     instance = wrapper.instance();
   });

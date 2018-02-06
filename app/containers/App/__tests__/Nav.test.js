@@ -4,16 +4,16 @@ import { Nav as OfficeNav } from 'office-ui-fabric-react/lib/Nav';
 
 import { testStyledComponent } from '../../../utils/testUtils';
 
-import { Nav, Items } from '../Nav';
+import { Nav, Wrapper } from '../Nav';
 
 
-testStyledComponent(Items, OfficeNav);
+testStyledComponent(Wrapper);
 
 
-describe('<Items />', () => {
+describe('<Wrapper />', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<Items isMobile={false} />);
+    wrapper = shallow(<Wrapper isMobile={false} />);
   });
 
   it('should render correctly in desktop view', () => {
@@ -58,15 +58,10 @@ describe('<Nav />', () => {
   let event;
   let element;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<Nav {...props} />);
     instance = wrapper.instance();
     event = { preventDefault: jest.fn() };
     element = { path: '/test' };
-  });
-
-  it('should render correctly', () => {
-    expect(wrapper).toMatchSnapshot();
   });
 
 
@@ -135,6 +130,15 @@ describe('<Nav />', () => {
       filteredRoutes = [props.app.routes[0], props.app.routes[2]]; // routes user is authed for
     });
 
+    it('should ignore `hidden` routes', () => {
+      const routes = [
+        ...props.app.routes,
+        { key: 'hiddenTest', hidden: true },
+      ];
+      instance.getRoutes(routes, history.location);
+      expect(wrapper.state('routes')).toEqual(filteredRoutes);
+    });
+
     it('should update the `selectedKey`', () => {
       instance.getRoutes(props.app.routes, history.location);
       expect(instance.getSelectedKey).toHaveBeenCalledWith(filteredRoutes, history.location);
@@ -191,6 +195,17 @@ describe('<Nav />', () => {
       element = { href: 'http://www.google.com' };
       instance.handleClickLink(event, element);
       expect(props.history.push).toHaveBeenCalledWith(element.href);
+    });
+  });
+
+
+  describe('render', () => {
+    it('should render correctly', () => {
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render a Office UI `Nav`', () => {
+      expect(wrapper.find(OfficeNav).length).toEqual(1);
     });
   });
 });

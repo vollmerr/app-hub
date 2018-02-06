@@ -205,6 +205,7 @@
     ]
   },
   "jest": {
+    "resetMocks": true,
     "collectCoverageFrom": [
       "app/**/*.{js,jsx}",
       "!app/**/*.test.{js,jsx}",

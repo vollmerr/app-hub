@@ -38,7 +38,6 @@ describe('<AckModal />', () => {
   let wrapper;
   let instance;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<AckModal {...props} />);
     instance = wrapper.instance();
   });

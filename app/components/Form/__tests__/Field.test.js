@@ -50,7 +50,6 @@ describe('Field', () => {
   let Hoc;
   let wrapper;
   beforeEach(() => {
-    jest.resetAllMocks();
     Hoc = Field(WrappedComponent, requiredFunc);
     wrapper = shallow(<Hoc {...props} />);
   });

@@ -30,7 +30,6 @@ const props = {
 describe('FieldText', () => {
   let wrapper;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<PieChart {...props} />);
   });
 

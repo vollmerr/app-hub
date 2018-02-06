@@ -22,7 +22,6 @@ const props = {
 describe('FormButtons', () => {
   let wrapper;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<FormButtons {...props} />);
   });
 

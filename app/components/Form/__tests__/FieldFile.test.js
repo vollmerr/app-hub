@@ -85,7 +85,6 @@ const file = files[0];
 describe('FieldFile', () => {
   let wrapper;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<FieldFile {...props} />);
   });
 

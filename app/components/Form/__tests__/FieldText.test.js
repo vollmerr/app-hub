@@ -25,7 +25,6 @@ describe('FieldText', () => {
   let wrapper;
   let instance;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<FieldText {...props} />);
     instance = wrapper.instance();
   });
