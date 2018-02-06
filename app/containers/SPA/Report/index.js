@@ -6,15 +6,19 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import { SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
+import json2csv from 'json2csv';
 
 import toJS from '../../../hocs/toJS';
 import Loading from '../../../components/Loading';
+import { downloadFile, formatList } from '../../../utils/data';
+import { formattedDate } from '../../../utils/date';
 import { shouldFetch } from '../../../utils/api';
 import List from '../../../components/List';
 import theme from '../../../utils/theme';
+import LoadCommandBar from '../../App/LoadCommandBar';
 import * as hubSelectors from '../../AppHub/selectors';
 
-import { reportColumns } from '../data';
+import { reportColumns, adminCsv, recipient } from '../data';
 import * as selectors from '../selectors';
 import * as actions from '../actions';
 import * as C from '../constants';
@@ -104,16 +108,9 @@ export class Report extends React.PureComponent {
     }
   }
 
-  // remove command bar on unmount
-  componentWillUnmount() {
-    this.props.setCommandBar(false);
-  }
-
   // items to display in command bar by default
-  // NOTE: called in PieChart to wait for data to be loaded
   getCommands = () => {
     const { report } = this.props;
-
     // add back button, naviagtes to admin page
     const items = [{
       key: 'back',
@@ -177,7 +174,12 @@ export class Report extends React.PureComponent {
 
   // handles downloading the csv export
   handleDownload = () => {
+    const { report, reportData } = this.props;
+    const csv = json2csv({ data: formatList(reportData[report.key], recipient), newLine: '\r\n', ...adminCsv });
+    const name = `${report.item[C.ACK.TITLE]} - ${formattedDate(new Date())}.csv`;
+    const type = 'data:text/csv;charset=utf-8;';
 
+    downloadFile(csv, name, type);
   }
 
   // handles displaying a modal by name
@@ -204,12 +206,13 @@ export class Report extends React.PureComponent {
   }
 
   render() {
-    const { app, report, reportData, enums } = this.props;
+    const { app, report, reportData, enums, setCommandBar } = this.props;
     const { loading, chartData, modals } = this.state;
+    const isLoading = app.loading || loading;
     // LOADING
-    if (app.loading || app.error || loading) {
+    if (isLoading || app.error) {
       const loadingProps = {
-        loading: app.loading || loading,
+        loading: isLoading,
         error: app.error,
       };
       return <Loading {...loadingProps} />;
@@ -243,7 +246,6 @@ export class Report extends React.PureComponent {
       },
       onClick: this.handleClickReport,
       hasData: Boolean(chartData.some((x) => x.value)),
-      setCommandBar: () => this.props.setCommandBar(this.getCommands()), // set command bar in PieChart (to wait for data)
     };
 
     const recipientListProps = {
@@ -275,19 +277,26 @@ export class Report extends React.PureComponent {
       onSubmit: this.handleSubmitEmail,
     };
 
+    const commandBarProps = {
+      setCommandBar,
+      commands: this.getCommands(),
+      disabled: isLoading || app.error,
+    };
+
     return (
       <Wrapper>
         <Section>
           <Details {...detailsProps} />
           <PieChart {...pieChartProps} />
         </Section>
-
         <Section>
           <RecipientList {...recipientListProps} />
         </Section>
 
         <DisableModal {...disableProps} />
         <EmailModal {...emailProps} />
+
+        <LoadCommandBar {...commandBarProps} />
       </Wrapper>
     );
   }

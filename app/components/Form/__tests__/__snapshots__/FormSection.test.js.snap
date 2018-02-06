@@ -38,3 +38,19 @@ exports[`<FormSection__FormSection /> should render correctly 1`] = `
   noValidate={true}
 />
 `;
+
+exports[`<styled.form /> should render correctly 1`] = `
+.c0 {
+  margin: 10px;
+  background: #ffffff;
+  box-shadow: 0 0 3px #eaeaea;
+  padding: 10px;
+  min-height: 350px;
+  height: calc(100vh -       50px -       10px -       10px);
+}
+
+<form
+  className="c0"
+  noValidate={true}
+/>
+`;

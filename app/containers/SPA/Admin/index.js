@@ -12,6 +12,7 @@ import theme from '../../../utils/theme';
 import Loading from '../../../components/Loading';
 import { shouldFetch } from '../../../utils/api';
 
+import LoadCommandBar from '../../App/LoadCommandBar';
 import * as hubSelectors from '../../AppHub/selectors';
 
 import { adminColumns, acknowledgment, newAckForm } from '../data';
@@ -53,9 +54,7 @@ export class Admin extends React.PureComponent {
   }
 
   async componentDidMount() {
-    const { admin, onGetAdminDataRequest, onGetGroupsRequest, setCommandBar } = this.props;
-    // set the command bar props
-    setCommandBar(this.getCommands());
+    const { admin, onGetAdminDataRequest, onGetGroupsRequest } = this.props;
     // only load admin data if not cached
     if (shouldFetch(admin.lastFetched)) {
       await Promise.all([
@@ -64,10 +63,6 @@ export class Admin extends React.PureComponent {
       ]);
     }
     this.setState({ loading: false }); // eslint-disable-line
-  }
-
-  componentWillUnmount() {
-    this.props.setCommandBar(false);
   }
 
   // COMMAND BAR
@@ -115,7 +110,6 @@ export class Admin extends React.PureComponent {
     fields[C.ACK.END_DATE].minDate = new Date();
     // update fields then show the form
     await this.setState({ fields });
-    this.props.setCommandBar(this.getNewCommands());
     this.setState({ hideNewAck: false });
   }
 
@@ -123,7 +117,6 @@ export class Admin extends React.PureComponent {
    * Handles hiding the new acknowledgment form
    */
   handleHideNew = () => {
-    this.props.setCommandBar(this.getCommands());
     this.setState({ hideNewAck: true });
   }
 
@@ -146,12 +139,13 @@ export class Admin extends React.PureComponent {
   }
 
   render() {
-    const { app, adminActiveItems, adminPreviousItems, enums } = this.props;
+    const { app, adminActiveItems, adminPreviousItems, enums, setCommandBar } = this.props;
     const { loading, fields, hideNewAck } = this.state;
+    const isLoading = app.loading || loading;
     // LOADING
-    if (app.loading || app.error || loading) {
+    if (isLoading || app.error) {
       const loadingProps = {
-        loading: app.loading || loading,
+        loading: isLoading,
         error: app.error,
       };
       return <Loading {...loadingProps} />;
@@ -165,7 +159,18 @@ export class Admin extends React.PureComponent {
         onSubmit: this.handleSubmitNew,
       };
 
-      return <NewAckForm {...newAckProps} />;
+      const commandBarProps = {
+        setCommandBar,
+        commands: this.getNewCommands(),
+        disabled: isLoading || app.error,
+      };
+
+      return (
+        <div>
+          <NewAckForm {...newAckProps} />
+          <LoadCommandBar {...commandBarProps} />
+        </div>
+      );
     }
     // ACTIVE / PREVIOUS LISTS
     const activeProps = {
@@ -195,10 +200,18 @@ export class Admin extends React.PureComponent {
       selection: this.selectionPrev,
     };
 
+    const commandBarProps = {
+      setCommandBar,
+      commands: this.getCommands(),
+      disabled: isLoading || app.error,
+    };
+
     return (
       <div>
         <List {...activeProps} />
         <List {...previousProps} />
+
+        <LoadCommandBar {...commandBarProps} />
       </div>
     );
   }

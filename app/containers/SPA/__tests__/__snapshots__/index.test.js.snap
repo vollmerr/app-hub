@@ -28,6 +28,17 @@ exports[`<SPA /> should render correctly 1`] = `
             "SPA Admin",
           ],
         },
+        Object {
+          "component": [Function],
+          "exact": true,
+          "hidden": true,
+          "key": "spaReport",
+          "name": "Report",
+          "path": "/spa/report/:id",
+          "roles": Array [
+            "SPA Admin",
+          ],
+        },
       ],
     }
   }
