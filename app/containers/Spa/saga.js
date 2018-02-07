@@ -161,12 +161,13 @@ export function* disableAck(action) {
 export function* getReportData(action) {
   try {
     const id = action.payload;
-    let acknowledgment = yield select(selectors.getAckById(id));
+    const selector = selectors.getAckById(id);
+    let acknowledgment = yield select(selector);
+
     const urls = {
       recipients: `${base}/acknowledgments/${id}/recipients`,
       acknowledgment: `${base}/acknowledgments/${id}`,
     };
-
     let recipients;
     // id acknowledgment details aleady exist, dont refetch
     if (acknowledgment) {

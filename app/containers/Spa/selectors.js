@@ -14,7 +14,7 @@ const selectEnums = (state) => selectSpa(state).get('enums');
 
 const selectById = (state) => state.get('byId');
 
-
+// get an acknowledgment from the lookup by id
 export const getAckById = (id) => createSelector(
   selectAcknowledgments,
   (ack) => selectById(ack).get(id)
@@ -48,7 +48,7 @@ export const geAdminItems = (type) => createSelector(
 
 // REPORT
 export const getReport = createSelector(selectReport, (report) => report);
-
+// get report data from the lookup by id
 export const getReportData = createSelector(
   selectReport,
   (report) => selectById(report).get(report.get('id'))

@@ -1,22 +1,24 @@
 /* eslint-disable redux-saga/yield-effects */
 import { put, call, takeLatest } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
+import { fromJS } from 'immutable';
 
 import { requestWithToken } from '../../../utils/api';
 
-import * as selectors from '../../AppHub/selectors';
+import * as hubSelectors from '../../AppHub/selectors';
 
 import spaSaga, {
   getUserData,
   getAdminData,
   getGroups,
-  getAckRecipients,
+  getReportData,
   newAck,
   disableAck,
   readAck,
   base,
 } from '../saga';
 
+import * as selectors from '../selectors';
 import * as C from '../constants';
 import * as actions from '../actions';
 
@@ -31,12 +33,12 @@ let action;
 describe('spaSaga', () => {
   it(`should take the latest
       'GET_USER_DATA_REQUEST',
+      'READ_ACK_REQUEST',
       'GET_ADMIN_DATA_REQUEST',
       'GET_GROUPS_REQUEST',
-      'GET_ACK_RECIPIENTS_REQUEST',
       'NEW_ACK_REQUEST',
       'DISABLE_ACK_REQUEST',
-      'READ_ACK_REQUEST'`,
+      'GET_REPORT_DATA_REQUEST'`,
     () => {
       testSaga(spaSaga).next()
         .all([
@@ -46,7 +48,7 @@ describe('spaSaga', () => {
           takeLatest(C.GET_GROUPS_REQUEST, getGroups),
           takeLatest(C.NEW_ACK_REQUEST, newAck),
           takeLatest(C.DISABLE_ACK_REQUEST, disableAck),
-          takeLatest(C.GET_ACK_RECIPIENTS_REQUEST, getAckRecipients),
+          takeLatest(C.GET_REPORT_DATA_REQUEST, getReportData),
         ]).next()
         .finish().isDone();
     });
@@ -60,10 +62,10 @@ describe('getUserData', () => {
       recipients: `${base}/recipients/${sid}`,
       acknowledgments: `${base}/recipients/${sid}/acknowledgments`,
     };
-    selectors.getUserSid = jest.fn(() => sid);
+    hubSelectors.getUserSid = jest.fn(() => sid);
 
     testSaga(getUserData).next()
-      .select(selectors.getUserSid).next(sid)
+      .select(hubSelectors.getUserSid).next(sid)
       .all([
         call(requestWithToken, urls.recipients),
         call(requestWithToken, urls.acknowledgments),
@@ -230,24 +232,53 @@ describe('disableAck', () => {
 });
 
 
-describe('getAckRecipients', () => {
+describe('getReportData', () => {
   it('should call the api and update the store with its results', () => {
-    action = { payload: { id: data.id } };
+    const acknowledgment = { id: 1, name: 'abc' };
     const url = `${base}/acknowledgments/${data.id}/recipients`;
+    action = { payload: data.id };
 
-    testSaga(getAckRecipients, action).next()
+    const selector = () => fromJS(acknowledgment);
+    selectors.getAckById = () => selector;
+
+    testSaga(getReportData, action).next()
+      .select(selector).next(selector())
       .call(requestWithToken, url).next(data.recipients)
-      .put(actions.getAckRecipientsSuccess({
+      .put(actions.getReportDataSuccess({
+        acknowledgment,
         recipients: data.recipients,
-        id: data.id,
+      })).next()
+      .finish().isDone();
+  });
+
+  it('should get the acknowledgment if not found in the store', () => {
+    const acknowledgment = undefined;
+    const urls = {
+      recipients: `${base}/acknowledgments/${data.id}/recipients`,
+      acknowledgment: `${base}/acknowledgments/${data.id}`,
+    };
+    action = { payload: data.id };
+
+    const selector = () => fromJS(acknowledgment);
+    selectors.getAckById = () => selector;
+
+    testSaga(getReportData, action).next()
+      .select(selector).next(selector())
+      .all([
+        call(requestWithToken, urls.recipients),
+        call(requestWithToken, urls.acknowledgment),
+      ]).next([data.recipients, acknowledgment])
+      .put(actions.getReportDataSuccess({
+        acknowledgment,
+        recipients: data.recipients,
       })).next()
       .finish().isDone();
   });
 
   it('should handle errors', () => {
-    const errGen = getAckRecipients(action);
+    const errGen = getReportData(action);
     errGen.next();
-    expect(errGen.throw(error).value).toEqual(put(actions.getAckRecipientsFailure(error)));
+    expect(errGen.throw(error).value).toEqual(put(actions.getReportDataFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });
   });
 });
