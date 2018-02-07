@@ -161,7 +161,7 @@ export class Admin extends React.PureComponent {
 
       const commandBarProps = {
         setCommandBar,
-        commands: this.getNewCommands(),
+        commandBar: this.getNewCommands(),
         disabled: isLoading || app.error,
       };
 
