@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Section__Section /> should render correctly 1`] = `
+.c0 {
+  margin: 10px;
+  background: #ffffff;
+  box-shadow: 0 0 3px #eaeaea;
+}
+
+<div
+  className="c0"
+/>
+`;
