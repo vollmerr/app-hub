@@ -129,7 +129,7 @@ exports[`SPA - <Home /> render should render correctly 1`] = `
         "count": 2,
       }
     }
-    title="Pending Acknowledgment"
+    title="Pending Acknowledgments"
   />
   <List
     columns={

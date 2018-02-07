@@ -202,7 +202,7 @@ export class Admin extends React.PureComponent {
 
     const commandBarProps = {
       setCommandBar,
-      commands: this.getCommands(),
+      commandBar: this.getCommands(),
       disabled: isLoading || app.error,
     };
 

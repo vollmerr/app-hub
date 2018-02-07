@@ -5,7 +5,7 @@ import 'whatwg-fetch';
 
 import { authUserDone } from '../containers/AppHub/actions';
 
-
+export const CACHE_MS = 350000;
 export const DEFAULT_EXPIRE = 1000;
 export const TOKEN = 'id_token';
 
@@ -14,12 +14,11 @@ export const TOKEN = 'id_token';
  * Determines if should fetch based off a cache time
  *
  * @param {Date} date             - date of cache
- * @param {Number} cacheSeconds   - number of seconds to cache
  *
  * @return {Bool}                 - if should fetch
  */
-export function shouldFetch(date, cacheSeconds = 350) {
-  return !date || (new Date(date).getTime() - (cacheSeconds * 1000)) > new Date().getTime();
+export function shouldFetch(date) {
+  return !date || (new Date(date).getTime() + CACHE_MS) < new Date().getTime();
 }
 
 
@@ -201,33 +200,20 @@ export function request(url, options) {
  * @return {object}           The response data
  */
 export function requestWithToken(url, options = {}) {
-  let timer = null;
-
-  const requestIfToken = () => { // eslint-disable-line
-    // get users jwt token form storage else they dont have one
-    const token = localStorage.getItem('id_token') || null;
-    // valid token, call api
-    if (validToken(token)) {
-      clearTimeout(timer);
-      // config settings to send api
-      const newOptions = {
-        method: options.method || 'get',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        ...options,
-      };
-      // append optional body to request (POSTs)
-      if (options.body) {
-        newOptions.body = JSON.stringify(options.body);
-      }
-
-      return request(url, newOptions);
-    }
-    // wait again until token set
-    timer = setTimeout(requestIfToken, 100);
+  const token = getToken();
+  // config settings to send api
+  const newOptions = {
+    method: options.method || 'get',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    ...options,
   };
+  // append optional body to request (POSTs)
+  if (options.body) {
+    newOptions.body = JSON.stringify(options.body);
+  }
 
-  return requestIfToken();
+  return request(url, newOptions);
 }

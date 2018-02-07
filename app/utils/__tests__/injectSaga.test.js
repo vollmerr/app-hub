@@ -23,11 +23,8 @@ describe('injectSaga decorator', () => {
   let injectors;
   let ComponentWithSaga;
 
-  beforeAll(() => {
-    sagaInjectors.default = jest.fn().mockImplementation(() => injectors);
-  });
-
   beforeEach(() => {
+    sagaInjectors.default = jest.fn().mockImplementation(() => injectors);
     store = configureStore({}, memoryHistory);
     injectors = {
       injectSaga: jest.fn(),

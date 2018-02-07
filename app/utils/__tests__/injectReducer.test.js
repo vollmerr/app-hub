@@ -21,11 +21,8 @@ describe('injectReducer decorator', () => {
   let injectors;
   let ComponentWithReducer;
 
-  beforeAll(() => {
-    reducerInjectors.default = jest.fn().mockImplementation(() => injectors);
-  });
-
   beforeEach(() => {
+    reducerInjectors.default = jest.fn().mockImplementation(() => injectors);
     store = configureStore({}, memoryHistory);
     injectors = {
       injectReducer: jest.fn(),

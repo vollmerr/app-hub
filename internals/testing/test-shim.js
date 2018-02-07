@@ -35,6 +35,7 @@ global.API = {
 
 global.localStorage = {
   setItem: jest.fn(),
+  getItem: jest.fn(),
   removeItem: jest.fn(),
 };
 global.clearTimeout = jest.fn();
