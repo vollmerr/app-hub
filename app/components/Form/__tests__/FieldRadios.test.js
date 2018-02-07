@@ -49,7 +49,7 @@ const props = {
 };
 
 
-describe('FieldSelect', () => {
+describe('FieldRadios', () => {
   let wrapper;
   let instance;
   beforeEach(() => {

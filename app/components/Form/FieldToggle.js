@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 
-import { metaProp, inputProp } from 'utils/propTypes';
-import { isNull } from 'utils/validate';
-import theme from 'utils/theme';
+import { metaProp, inputProp } from '../../utils/propTypes';
+import { isNull } from '../../utils/validate';
+import theme from '../../utils/theme';
 
 import Field from './Field';
 
@@ -64,7 +64,7 @@ export const StyledToggle = styled(Toggle) `
 
 
 export class FieldToggle extends React.Component {
-  static format = (value) => isNaN(Number(value)) || value === null ? undefined : Number(value);
+  static format = (value) => isNaN(Number(value)) || isNull(value) ? undefined : Number(value);
 
   constructor(props) {
     super(props);
@@ -105,7 +105,7 @@ export class FieldToggle extends React.Component {
 
   /**
    * Handles if the toggle value has changed
-   * Updates local state and redux form
+   * Updates redux form
    *
    * @param {bool} value    - value of if toggle is checked
    */
@@ -144,5 +144,6 @@ FieldToggle.propTypes = {
   input: inputProp(number).isRequired,
   isNullable: bool,
 };
+
 
 export default Field(FieldToggle, isNull);

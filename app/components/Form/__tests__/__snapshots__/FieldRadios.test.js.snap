@@ -11,7 +11,7 @@ exports[`<FieldRadios__Radios /> should render correctly 1`] = `
 />
 `;
 
-exports[`FieldSelect should render correctly 1`] = `
+exports[`FieldRadios should render correctly 1`] = `
 <div>
   <FieldRadios__Radios
     errorMessage=""
