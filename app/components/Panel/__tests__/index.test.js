@@ -7,17 +7,16 @@ import Overlay from '../Overlay';
 
 const Children = () => <div>test children</div>;
 
+const props = {
+  isOpen: true,
+  onClick: jest.fn(),
+  isLeft: false,
+};
+
+
 describe('<Panel />', () => {
   let wrapper;
-  let mockFn;
-
   beforeEach(() => {
-    mockFn = jest.fn();
-    const props = {
-      isOpen: true,
-      onClick: mockFn,
-      left: false,
-    };
     wrapper = shallow(
       <Panel {...props}><Children /></Panel>
     );
@@ -35,7 +34,7 @@ describe('<Panel />', () => {
 
   it('should call onClick when Overlay is clicked', () => {
     wrapper.find(Overlay).simulate('click');
-    expect(mockFn).toHaveBeenCalled();
+    expect(props.onClick).toHaveBeenCalled();
   });
 
   it('should render its children', () => {
