@@ -12,6 +12,7 @@ export const initialState = {
     allIds: [],
   },
   manager: {
+    lastFetched: null,
     currentIds: [],
     previousIds: [],
     allIds: [],
@@ -30,6 +31,7 @@ export default handleActions({
     const { payload } = action;
     const authorizations = mergeById(state, 'authorizations', payload, C.AUTH.ID);
     const manager = {
+      lastFetched: new Date().toISOString(),
       currentIds: [],
       previousIds: [],
       allIds: [],

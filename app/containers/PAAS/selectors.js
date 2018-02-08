@@ -47,6 +47,10 @@ export const selectById = (state) => state.get('byId');
 //   ))
 // );
 
+// MANAGER
+
+export const getManager = createSelector(selectManager, (manager) => manager);
+
 export const getManagerById = (type) => createSelector(
   [selectManager, selectAuthorizations],
   (manager, auths) => {

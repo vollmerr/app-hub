@@ -10,10 +10,9 @@ import isEqual from 'lodash/isEqual';
 import pick from 'lodash/pick';
 import { ActionButton } from 'office-ui-fabric-react/lib/Button';
 
-// import { shouldFetch } from '../../../utils/api';
-
 import toJS from '../../../hocs/toJS';
 import theme from '../../../utils/theme';
+import { shouldFetch } from '../../../utils/api';
 import Loading from '../../../components/Loading';
 import List from '../../../components/List';
 import { FormSection, FormButtons, FieldToggle } from '../../../components/Form';
@@ -30,7 +29,9 @@ import * as C from '../constants';
 export const FormList = styled(List) `
   box-shadow: none;
   margin: 0;
+  padding: 0;
 `;
+
 
 export const ApproveButton = styled(ActionButton) `
   height: 30px;
@@ -61,11 +62,11 @@ export class Current extends React.PureComponent {
   }
 
   async componentDidMount() {
-    const { onGetManagerDataRequest } = this.props;
+    const { manager, onGetManagerDataRequest } = this.props;
     // only load user data if not cached
-    // if (shouldFetch(user.lastFetched)) {
-    await onGetManagerDataRequest();
-    // }
+    if (shouldFetch(manager.lastFetched)) {
+      await onGetManagerDataRequest();
+    }
     this.setState({ loading: false }); // eslint-disable-line
   }
 
@@ -247,6 +248,7 @@ const { object, func, array } = PropTypes;
 
 Current.propTypes = {
   app: object.isRequired,
+  manager: object.isRequired, // eslint-disable-line
   managerItems: array.isRequired,
   managerById: object.isRequired,
   onGetManagerDataRequest: func.isRequired, // eslint-disable-line
@@ -256,6 +258,7 @@ Current.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   app: hubSelectors.getApp,
+  manager: selectors.getManager,
   managerItems: selectors.getManagerItems('current'),
   managerById: selectors.getManagerById('current'),
 });

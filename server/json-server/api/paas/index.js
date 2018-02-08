@@ -18,11 +18,15 @@ function generateAuthorization(manager) {
   const sid = faker.random.uuid();
   const roles = ['AppHub User'];
   const date = new Date(faker.date.past(10));
-  const status = faker.random.arrayElement(Object.values(C.STATUS));
+  let status = faker.random.arrayElement([C.STATUS.ACTIVE, C.STATUS.INACTIVE]);
+  // make every 1/30 have no manager
+  if (!faker.random.number({ min: 0, max: 30 })) {
+    status = C.STATUS.NO_MANAGER;
+  }
   // set manager details
   let managerSid = '';
   let managerName = '';
-  // ignore noMnaager status employees
+  // ignore noManager status employees
   if (status !== C.STATUS.NO_MANAGER) {
     if (manager) {
       // manager provided, use their details

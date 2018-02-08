@@ -122,7 +122,6 @@ export class FieldToggle extends React.Component {
     } = this.props;
 
     const { checked, errorMessage } = this.state;
-
     const toggleProps = {
       ...props,
       checked,
