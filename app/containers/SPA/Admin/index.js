@@ -55,7 +55,7 @@ export class Admin extends React.PureComponent {
 
   async componentDidMount() {
     const { admin, onGetAdminDataRequest, onGetGroupsRequest } = this.props;
-    // only load admin data if not cached
+    // only load admin data if, not cached
     if (shouldFetch(admin.lastFetched)) {
       await Promise.all([
         onGetAdminDataRequest(),

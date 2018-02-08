@@ -37,7 +37,7 @@ export const Wrapper = styled.div`
   min-height: calc(
     100vh - \
     ${theme.hub.headerHeight}px - \
-    ${theme.app.subNavHeight}px
+    ${theme.app.commandBarHeight}px
   );
 `;
 
@@ -315,6 +315,7 @@ Report.propTypes = {
   onDisableAckRequest: func.isRequired,
   setCommandBar: func.isRequired,
   history: object.isRequired,
+  match: object.isRequired,
 };
 
 

@@ -52,9 +52,9 @@ describe('<Admin />', () => {
   let wrapper;
   let instance;
   beforeEach(() => {
-    jest.resetAllMocks();
     wrapper = shallow(<Admin {...props} />);
     instance = wrapper.instance();
+    api.shouldFetch = jest.fn();
   });
 
   it('should create a new instance of `Selection` for active acknowledgments', () => {
@@ -92,14 +92,18 @@ describe('<Admin />', () => {
 
 
   describe('componentDidMount', () => {
-    it('should get the admin data if its not fetched', () => {
+    it('should get the admin data if its not fetched', async () => {
+      jest.resetAllMocks();
       api.shouldFetch = jest.fn(() => true);
+      await instance.componentDidMount();
       expect(props.onGetAdminDataRequest).toHaveBeenCalled();
       expect(props.onGetGroupsRequest).toHaveBeenCalled();
     });
 
-    it('should not get the admin data if its already fetched', () => {
+    it('should not get the admin data if its already fetched', async () => {
+      jest.resetAllMocks();
       api.shouldFetch = jest.fn(() => false);
+      await instance.componentDidMount();
       expect(props.onGetAdminDataRequest).not.toHaveBeenCalled();
       expect(props.onGetGroupsRequest).not.toHaveBeenCalled();
     });

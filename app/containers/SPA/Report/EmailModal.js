@@ -53,10 +53,7 @@ export class EmailModal extends React.PureComponent {
       <form onSubmit={handleSubmit} noValidate>
         <FieldText {...messageProps} />
 
-        {
-          recipientCount > 10 &&
-          <Warning>{warningText}</Warning>
-        }
+        <Warning>{warningText}</Warning>
 
         <DialogFooter>
           <PrimaryButton {...primaryButtonProps} />

@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<styled.div /> should render correctly 1`] = `
+.c0 {
+  margin: 10px;
+  background: #ffffff;
+  box-shadow: 0 0 3px #eaeaea;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: row wrap;
+  -ms-flex-flow: row wrap;
+  flex-flow: row wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 5px;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`PieChart should render a no data indicator and no chart if there is no data 1`] = `
+<styled.div>
+  No Data
+</styled.div>
+`;
+
+exports[`PieChart should render correctly 1`] = `
+<styled.div>
+  <WithFauxDOM(WithD3Renderer)
+    data={
+      Array [
+        Array [
+          Object {
+            "key": 0,
+            "value": 29,
+          },
+        ],
+        Array [
+          Object {
+            "key": 1,
+            "value": 129,
+          },
+        ],
+      ]
+    }
+    dataKey={0}
+    hasData={true}
+    height={260}
+    legend={
+      Array [
+        Object {
+          "checked": true,
+          "key": 0,
+          "onClick": [Function],
+          "text": "Pending: 5 (30 %)",
+        },
+        Object {
+          "checked": false,
+          "key": 1,
+          "onClick": [Function],
+          "text": "Acknowldged: 20 (70 %)",
+        },
+      ]
+    }
+    onClick={[Function]}
+    stats={
+      Object {
+        "acknowledged": Object {
+          "count": 20,
+          "percent": 70,
+        },
+        "pending": Object {
+          "count": 5,
+          "percent": 30,
+        },
+      }
+    }
+    width={260}
+  />
+</styled.div>
+`;
