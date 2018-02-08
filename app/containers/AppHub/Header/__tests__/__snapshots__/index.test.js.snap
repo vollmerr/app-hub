@@ -1,5 +1,131 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<Header /> render - desktop view should render correctly 1`] = `
+<Header__Wrapper>
+  <Header__Section>
+    <Logo />
+    <Header__Line
+      partial={true}
+    />
+    <NavLink
+      checked={false}
+      iconProps={
+        Object {
+          "iconName": "Apphub",
+          "style": Object {
+            "fontSize": "24px",
+            "marginRight": "10px",
+          },
+        }
+      }
+      onClick={[Function]}
+      padding="15px"
+      text="App Hub"
+      title="App Hub"
+      to="/"
+    />
+    <Header__Line
+      partial={true}
+    />
+    <NavLink
+      checked={false}
+      onClick={[Function]}
+      padding="15px"
+      text="app name"
+      title="app name"
+      to="/test"
+    />
+  </Header__Section>
+  <Header__Section>
+    <UserInfo
+      initials="UN"
+      name="user name"
+    />
+    <Header__Line />
+    <NavLink
+      checked={false}
+      iconProps={
+        Object {
+          "iconName": "helpMenu",
+        }
+      }
+      onClick={[Function]}
+      panel="AppHub/HELP_PANEL"
+      title="Help Panel"
+    />
+    <Header__Line />
+    <NavLink
+      checked={false}
+      dark={true}
+      iconProps={
+        Object {
+          "iconName": "appHubMenu",
+        }
+      }
+      onClick={[Function]}
+      panel="AppHub/APPS_PANEL"
+      title="App Hub Navigation"
+    />
+  </Header__Section>
+</Header__Wrapper>
+`;
+
+exports[`<Header /> render - mobile view should render correctly 1`] = `
+<Header__Wrapper>
+  <Header__Section>
+    <NavLink
+      checked={false}
+      iconProps={
+        Object {
+          "iconName": "appMenu",
+        }
+      }
+      onClick={[Function]}
+      panel="AppHub/APP_NAV_PANEL"
+      title="app name Navigation"
+    />
+    <Header__Line
+      partial={false}
+    />
+    <NavLink
+      checked={false}
+      onClick={[Function]}
+      padding="15px"
+      text="app name"
+      title="app name"
+      to="/test"
+    />
+  </Header__Section>
+  <Header__Section>
+    <Header__Line />
+    <NavLink
+      checked={false}
+      iconProps={
+        Object {
+          "iconName": "helpMenu",
+        }
+      }
+      onClick={[Function]}
+      panel="AppHub/HELP_PANEL"
+      title="Help Panel"
+    />
+    <Header__Line />
+    <NavLink
+      checked={false}
+      dark={true}
+      iconProps={
+        Object {
+          "iconName": "appHubMenu",
+        }
+      }
+      onClick={[Function]}
+      panel="AppHub/APPS_PANEL"
+      title="App Hub Navigation"
+    />
+  </Header__Section>
+</Header__Wrapper>
+`;
+
 exports[`<Header__Line /> should render correctly 1`] = `
 .c0 {
   width: 1px;

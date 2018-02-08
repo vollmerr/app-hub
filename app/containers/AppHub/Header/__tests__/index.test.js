@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 
 import { testStyledComponent } from '../../../../utils/testUtils';
 
+import { initialState } from '../../reducer';
 import * as C from '../../constants';
 
 import { Header, Wrapper, Section, Line } from '../index';
@@ -71,9 +72,9 @@ describe('<Header />', () => {
     instance = wrapper.instance();
   });
 
-  describe.only('renderLink', () => {
+  describe('renderLink', () => {
     let linkWrapper;
-    it.only('should render a checked `NavLink` if the selected panel is open', () => {
+    it('should render a checked `NavLink` if the selected panel is open', () => {
       const linkProps = {
         panel: props.panel.name,
       };
@@ -84,15 +85,15 @@ describe('<Header />', () => {
 
     it('should render an unchecked `NavLink` if is not open or not the panel selected', () => {
       let linkProps = {
-        panel: 'other panel',
+        panel: props.panel.name,
       };
-      wrapper.setProps({ panel: { ...props.panel, isOpen: true } });
       linkWrapper = shallow(instance.renderLink(linkProps));
       expect(linkWrapper.prop('checked')).toEqual(false);
 
       linkProps = {
-        panel: props.panel.name,
+        panel: 'other panel',
       };
+      wrapper.setProps({ panel: { ...props.panel, isOpen: true } });
       linkWrapper = shallow(instance.renderLink(linkProps));
       expect(linkWrapper.prop('checked')).toEqual(false);
     });
@@ -125,14 +126,14 @@ describe('<Header />', () => {
       const text = props.app.name;
       expect(wrapper.find({ text }).length).toEqual(1);
 
-      wrapper.setProps({ app: {} });
+      wrapper.setProps({ app: initialState.app });
       expect(wrapper.find({ text }).length).toEqual(0);
     });
 
     it('should render the user information if passed a `user.name`', () => {
       expect(wrapper.find(UserInfo).length).toEqual(1);
 
-      wrapper.setProps({ user: {} });
+      wrapper.setProps({ user: initialState.user });
       expect(wrapper.find(UserInfo).length).toEqual(0);
     });
 
@@ -215,7 +216,7 @@ describe('<Header />', () => {
       expect(wrapper.find({ panel }).length).toEqual(1);
       testIfChecked(wrapper, panel);
 
-      wrapper.setProps({ app: {} });
+      wrapper.setProps({ app: initialState.app });
       expect(wrapper.find({ panel }).length).toEqual(0);
     });
 
@@ -232,7 +233,7 @@ describe('<Header />', () => {
       const text = props.app.name;
       expect(wrapper.find({ text }).length).toEqual(1);
 
-      wrapper.setProps({ app: {} });
+      wrapper.setProps({ app: initialState.app });
       expect(wrapper.find({ text }).length).toEqual(0);
     });
 
