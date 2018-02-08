@@ -1,7 +1,7 @@
 import SPA from '../SPA/Loadable';
 
-// import PAAS from '../PAAS/Loadable';
-// import * as PAAS_C from '../PAAS/constants';
+import PAAS from '../PAAS/Loadable';
+import * as PAAS_C from '../PAAS/constants';
 
 import Home from './Home';
 import { meta } from './meta';
@@ -19,16 +19,16 @@ const routes = [
     meta: meta.appHub,
   },
   // __APPS__
-  // {
-  //   key: 'paas',
-  //   name: 'PAAS',
-  //   path: '/paas',
-  //   exact: false,
-  //   component: PAAS,
-  //   icon: 'Paas',
-  //   meta: meta.paas,
-  //   roles: Object.values(PAAS_C.ROLES),
-  // },
+  {
+    key: 'paas',
+    name: 'PAAS',
+    path: '/paas',
+    exact: false,
+    component: PAAS,
+    icon: 'Paas',
+    meta: meta.paas,
+    roles: Object.values(PAAS_C.ROLES),
+  },
   {
     key: 'spa',
     name: 'SPA',
@@ -79,5 +79,3 @@ const routes = [
 export const apps = routes.slice(1);
 
 export default routes;
-
-// TODO: add other apps...

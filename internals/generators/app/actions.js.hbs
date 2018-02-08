@@ -1,11 +1,8 @@
 import { createAction } from 'redux-actions';
 
-import {
-  INIT_DATA_REQUEST,
-  INIT_DATA_SUCCESS,
-  INIT_DATA_FAILURE,
-} from './constants';
+import * as C from './constants';
 
-export const initDataRequest = createAction(INIT_DATA_REQUEST);
-export const initDataSuccess = createAction(INIT_DATA_SUCCESS);
-export const initDataFailure = createAction(INIT_DATA_FAILURE);
+
+export const getInitDataRequest = createAction(GET_INIT_DATA_REQUEST);
+export const getInitDataSuccess = createAction(GET_INIT_DATA_SUCCESS);
+export const getInitDataFailure = createAction(GET_INIT_DATA_FAILURE);

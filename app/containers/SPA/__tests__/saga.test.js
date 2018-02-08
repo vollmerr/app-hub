@@ -7,17 +7,7 @@ import { requestWithToken } from '../../../utils/api';
 
 import * as hubSelectors from '../../AppHub/selectors';
 
-import spaSaga, {
-  getUserData,
-  getAdminData,
-  getGroups,
-  getReportData,
-  newAck,
-  disableAck,
-  readAck,
-  base,
-} from '../saga';
-
+import * as sagas from '../saga';
 import * as selectors from '../selectors';
 import * as C from '../constants';
 import * as actions from '../actions';
@@ -40,15 +30,15 @@ describe('spaSaga', () => {
       'DISABLE_ACK_REQUEST',
       'GET_REPORT_DATA_REQUEST'`,
     () => {
-      testSaga(spaSaga).next()
+      testSaga(sagas.default).next()
         .all([
-          takeLatest(C.GET_USER_DATA_REQUEST, getUserData),
-          takeLatest(C.READ_ACK_REQUEST, readAck),
-          takeLatest(C.GET_ADMIN_DATA_REQUEST, getAdminData),
-          takeLatest(C.GET_GROUPS_REQUEST, getGroups),
-          takeLatest(C.NEW_ACK_REQUEST, newAck),
-          takeLatest(C.DISABLE_ACK_REQUEST, disableAck),
-          takeLatest(C.GET_REPORT_DATA_REQUEST, getReportData),
+          takeLatest(C.GET_USER_DATA_REQUEST, sagas.getUserData),
+          takeLatest(C.READ_ACK_REQUEST, sagas.readAck),
+          takeLatest(C.GET_ADMIN_DATA_REQUEST, sagas.getAdminData),
+          takeLatest(C.GET_GROUPS_REQUEST, sagas.getGroups),
+          takeLatest(C.NEW_ACK_REQUEST, sagas.newAck),
+          takeLatest(C.DISABLE_ACK_REQUEST, sagas.disableAck),
+          takeLatest(C.GET_REPORT_DATA_REQUEST, sagas.getReportData),
         ]).next()
         .finish().isDone();
     });
@@ -59,12 +49,12 @@ describe('getUserData', () => {
   it('should get the users sid, call the api, and update the store with its results', () => {
     const sid = 99;
     const urls = {
-      recipients: `${base}/recipients/${sid}`,
-      acknowledgments: `${base}/recipients/${sid}/acknowledgments`,
+      recipients: `${sagas.base}/recipients/${sid}`,
+      acknowledgments: `${sagas.base}/recipients/${sid}/acknowledgments`,
     };
     hubSelectors.getUserSid = jest.fn(() => sid);
 
-    testSaga(getUserData).next()
+    testSaga(sagas.getUserData).next()
       .select(hubSelectors.getUserSid).next(sid)
       .all([
         call(requestWithToken, urls.recipients),
@@ -78,7 +68,7 @@ describe('getUserData', () => {
   });
 
   it('should handle errors', () => {
-    const errGen = getUserData();
+    const errGen = sagas.getUserData();
     errGen.next();
     expect(errGen.throw(error).value).toEqual(put(actions.getUserDataFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });
@@ -92,16 +82,16 @@ describe('readAck', () => {
     const options = {
       method: 'POST',
     };
-    const url = `${base}/recipients/${data.id}/acknowledge`;
+    const url = `${sagas.base}/recipients/${data.id}/acknowledge`;
 
-    testSaga(readAck, action).next()
+    testSaga(sagas.readAck, action).next()
       .call(requestWithToken, url, options).next(data)
       .put(actions.readAckSuccess(data)).next()
       .finish().isDone();
   });
 
   it('should handle errors', () => {
-    const errGen = readAck(action);
+    const errGen = sagas.readAck(action);
     errGen.next();
     expect(errGen.throw(error).value).toEqual(put(actions.readAckFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });
@@ -111,9 +101,9 @@ describe('readAck', () => {
 
 describe('getAdminData', () => {
   it('should call the api and update the store with its results', () => {
-    const url = `${base}/acknowledgments`;
+    const url = `${sagas.base}/acknowledgments`;
 
-    testSaga(getAdminData).next()
+    testSaga(sagas.getAdminData).next()
       .call(requestWithToken, url).next(data.acknowledgments)
       .put(actions.getAdminDataSuccess({
         acknowledgments: data.acknowledgments,
@@ -122,7 +112,7 @@ describe('getAdminData', () => {
   });
 
   it('should handle errors', () => {
-    const errGen = getAdminData(action);
+    const errGen = sagas.getAdminData(action);
     errGen.next();
     expect(errGen.throw(error).value).toEqual(put(actions.getAdminDataFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });
@@ -133,11 +123,11 @@ describe('getAdminData', () => {
 describe('getGroups', () => {
   it('should call the api and update the store with its results', () => {
     const urls = {
-      targets: `${base}/groups/targets`,
-      creators: `${base}/groups/creators`,
+      targets: `${sagas.base}/groups/targets`,
+      creators: `${sagas.base}/groups/creators`,
     };
 
-    testSaga(getGroups).next()
+    testSaga(sagas.getGroups).next()
       .all([
         call(requestWithToken, urls.targets),
         call(requestWithToken, urls.creators),
@@ -150,7 +140,7 @@ describe('getGroups', () => {
   });
 
   it('should handle errors', () => {
-    const errGen = getGroups(action);
+    const errGen = sagas.getGroups(action);
     errGen.next();
     expect(errGen.throw(error).value).toEqual(put(actions.getGroupsFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });
@@ -165,16 +155,16 @@ describe('newAck', () => {
       method: 'POST',
       body: data,
     };
-    const url = `${base}/acknowledgments`;
+    const url = `${sagas.base}/acknowledgments`;
 
-    testSaga(newAck, action).next()
+    testSaga(sagas.newAck, action).next()
       .call(requestWithToken, url, options).next(data)
       .put(actions.newAckSuccess(data)).next()
       .finish().isDone();
   });
 
   it('should handle errors', () => {
-    const errGen = newAck(action);
+    const errGen = sagas.newAck(action);
     errGen.next();
     expect(errGen.throw(error).value).toEqual(put(actions.newAckFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });
@@ -195,9 +185,9 @@ describe('disableAck', () => {
         },
       ],
     };
-    const url = `${base}/acknowledgments/${data.id}`;
+    const url = `${sagas.base}/acknowledgments/${data.id}`;
 
-    testSaga(disableAck, action).next()
+    testSaga(sagas.disableAck, action).next()
       .call(requestWithToken, url, options).next(data)
       .put(actions.disableAckSuccess(data)).next()
       .finish().isDone();
@@ -215,16 +205,16 @@ describe('disableAck', () => {
         },
       ],
     };
-    const url = `${base}/acknowledgments/${data.id}`;
+    const url = `${sagas.base}/acknowledgments/${data.id}`;
 
-    testSaga(disableAck, action).next()
+    testSaga(sagas.disableAck, action).next()
       .call(requestWithToken, url, options).next(data)
       .put(actions.disableAckSuccess(data)).next()
       .finish().isDone();
   });
 
   it('should handle errors', () => {
-    const errGen = disableAck(action);
+    const errGen = sagas.disableAck(action);
     errGen.next();
     expect(errGen.throw(error).value).toEqual(put(actions.disableAckFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });
@@ -235,13 +225,13 @@ describe('disableAck', () => {
 describe('getReportData', () => {
   it('should call the api and update the store with its results', () => {
     const acknowledgment = { id: 1, name: 'abc' };
-    const url = `${base}/acknowledgments/${data.id}/recipients`;
+    const url = `${sagas.base}/acknowledgments/${data.id}/recipients`;
     action = { payload: data.id };
 
     const selector = () => fromJS(acknowledgment);
     selectors.getAckById = () => selector;
 
-    testSaga(getReportData, action).next()
+    testSaga(sagas.getReportData, action).next()
       .select(selector).next(selector())
       .call(requestWithToken, url).next(data.recipients)
       .put(actions.getReportDataSuccess({
@@ -254,15 +244,15 @@ describe('getReportData', () => {
   it('should get the acknowledgment if not found in the store', () => {
     const acknowledgment = undefined;
     const urls = {
-      recipients: `${base}/acknowledgments/${data.id}/recipients`,
-      acknowledgment: `${base}/acknowledgments/${data.id}`,
+      recipients: `${sagas.base}/acknowledgments/${data.id}/recipients`,
+      acknowledgment: `${sagas.base}/acknowledgments/${data.id}`,
     };
     action = { payload: data.id };
 
     const selector = () => fromJS(acknowledgment);
     selectors.getAckById = () => selector;
 
-    testSaga(getReportData, action).next()
+    testSaga(sagas.getReportData, action).next()
       .select(selector).next(selector())
       .all([
         call(requestWithToken, urls.recipients),
@@ -276,7 +266,7 @@ describe('getReportData', () => {
   });
 
   it('should handle errors', () => {
-    const errGen = getReportData(action);
+    const errGen = sagas.getReportData(action);
     errGen.next();
     expect(errGen.throw(error).value).toEqual(put(actions.getReportDataFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });

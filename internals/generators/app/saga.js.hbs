@@ -1,21 +1,24 @@
-import { takeEvery, call, put } from 'redux-saga/effects';
+// import { delay } from 'redux-saga';
+import { takeLatest, call, put } from 'redux-saga/effects';
 
-import requestWithToken from 'utils/requestWithToken';
-import { INIT_DATA_REQUEST } from './constants';
-import { initDataSuccess, initDataFailure } from './actions';
+import * as api from '../../utils/api';
+
+import * as actions from './actions';
+import * as C from './constants';
 
 
-export function* {{ camelCase name }}Worker() {
+export function* getInitData() {
   try {
-    const data = yield call(requestWithToken, 'TODO');
-    yield put(initDataSuccess(data));
+    const data = yield call(api.requestWithToken, 'URL GOES HERE');
+    yield put(actions.getInitDataSuccess(data));
   } catch (error) {
-    yield put(initDataFailure(error));
+    yield put(actions.getInitDataFailure(error));
   }
 }
 
-function* {{ camelCase name }}Saga() {
-  yield takeEvery(INIT_DATA_REQUEST, {{ camelCase name }}Worker);
-}
 
-export default {{ camelCase name }}Saga;
+export default function* {{ camelCase name }}Saga() {
+  yield [
+    takeLatest(C.GET_INIT_DATA_REQUEST, getInitData),
+  ];
+}

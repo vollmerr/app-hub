@@ -6,15 +6,10 @@ import { createStructuredSelector } from 'reselect';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import toJS from '../../../hocs/toJS';
-import List, { handleSelectItem } from '../../../components/List';
-
-
-import AckModal from './AckModal';
-
 import { downloadFile } from '../../../utils/data';
 import { shouldFetch } from '../../../utils/api';
-
 import Loading from '../../../components/Loading';
+import List, { handleSelectItem } from '../../../components/List';
 
 import * as hubSelectors from '../../AppHub/selectors';
 
@@ -22,6 +17,8 @@ import { homeColumns } from '../data';
 import * as selectors from '../selectors';
 import * as actions from '../actions';
 import * as C from '../constants';
+
+import AckModal from './AckModal';
 
 
 const style = {

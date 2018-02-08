@@ -1,65 +1,42 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import AppContainer from 'containers/App-Container';
-import { meta } from 'containers/AppHub/meta';
 
-import { initDataRequest } from './actions';
-// import makeSelect{{ properCase name }} from './selectors';
+import { meta } from '../AppHub/meta';
+import App from '../App';
+
+import routes from './routes';
 import reducer from './reducer';
 import saga from './saga';
-import routes from './routes';
 
-const app = {
-  meta: meta.{{ camelCase name }},
+
+const appProps = {
   routes,
+  meta: meta.{{ camelCase name }},
+  name: meta.{{ camelCase name }}.title,
 };
 
 
 export class {{ properCase name }} extends React.PureComponent {
-  componentDidMount() {
-    const { onInitDataRequest } = this.props;
-    onInitDataRequest();
-  }
-
   render() {
-    app.name = this.props.name;
+    const props = {
+      appProps,
+    };
 
     return (
-      <AppContainer app={app} />
+      <App {...props} />
     );
   }
 }
 
 
-const { func, string } = PropTypes;
-
-{{ properCase name }}.propTypes = {
-  onInitDataRequest: func.isRequired,
-  name: string.isRequired,
-};
-
-const mapStateToProps = createStructuredSelector({
-  // {{ camelCase name }}: makeSelect{{ properCase name }}(),
-});
-
-export function mapDispatchToProps(dispatch) {
-  return {
-    onInitDataRequest: () => dispatch(initDataRequest()),
-  };
-}
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
 const withReducer = injectReducer({ key: '{{ camelCase name }}', reducer });
 const withSaga = injectSaga({ key: '{{ camelCase name }}', saga });
+
 
 export default compose(
   withReducer,
   withSaga,
-  withConnect,
 )({{ properCase name }});
