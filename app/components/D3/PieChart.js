@@ -5,24 +5,18 @@ import styled, { css } from 'styled-components';
 import _ from 'lodash';
 import * as d3 from 'd3';
 import { ActionButton } from 'office-ui-fabric-react/lib/Button';
+import { Spinner } from 'office-ui-fabric-react/lib/Spinner';
 
-import withD3Renderer from 'hocs/withD3Renderer';
-import theme from 'utils/theme';
+import withD3Renderer from '../../hocs/withD3Renderer';
+import theme from '../../utils/theme';
 
-
-const LOADING = 'loading...';
-
-// const Title = styled.div`
-//   text-align: center;
-//   position: relative;
-//   top: -${({ height }) => height * 1 / 5}px;
-// `;
 
 export const Wrapper = styled.div`
   display:flex;
   align-items: center;
   justify-content: center;
   flex-flow: row wrap;
+  min-height: ${theme.chart.height + (2 * theme.hub.padding)}px;
 
   path {
     stroke: ${theme.themeDarker};
@@ -146,14 +140,14 @@ export class PieChart extends React.Component {
         this.current = d;
       })
       .on('click', onClick);
-      // TODO: TOOLTIPS
-      // .on('mouseover', (d, i) => {
-      //   clearTimeout(this.unsetTooltipTimeout);
-      //   this.setTooltip(data[i].key);
-      // })
-      // .on('mouseout', () => {
-      //   this.unsetTooltipTimeout = setTimeout(() => this.setTooltip(null), 200);
-      // });
+    // TODO: TOOLTIPS
+    // .on('mouseover', (d, i) => {
+    //   clearTimeout(this.unsetTooltipTimeout);
+    //   this.setTooltip(data[i].key);
+    // })
+    // .on('mouseout', () => {
+    //   this.unsetTooltipTimeout = setTimeout(() => this.setTooltip(null), 200);
+    // });
     // remove old data
     arcs.exit().remove();
     arcs.transition().attrTween('d', arcTween);
@@ -165,9 +159,11 @@ export class PieChart extends React.Component {
 
     return (
       <Wrapper width={width} height={height}>
-        {chart}
         {
-          legend &&
+          chart || <Spinner />
+        }
+        {
+          chart && legend &&
           <Legend>
             {
               legend.map((item) => (
@@ -200,14 +196,11 @@ PieChart.propTypes = {
     })
   ),
   onClick: func,
-  chart: any.isRequired,
+  chart: any,
   connectFauxDOM: func.isRequired,
   animateFauxDOM: func.isRequired,
 };
 
-PieChart.defaultProps = {
-  chart: LOADING,
-};
 
 export default withFauxDOM(
   withD3Renderer({ updateOn: ['data'] })(PieChart)

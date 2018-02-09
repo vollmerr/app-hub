@@ -63,8 +63,8 @@ export class Home extends React.PureComponent {
    * Handles downloading a file for reading
    */
   handleDownloadFile = () => {
-    const name = this.state[C.ACK.FILE_NAME];
-    const content = this.state[C.ACK.FILE_CONTENT];
+    const name = this.state.selectedItem[C.ACK.FILE_NAME];
+    const content = this.state.selectedItem[C.ACK.FILE_CONTENT];
     downloadFile(content, name);
   }
 
@@ -139,6 +139,7 @@ export class Home extends React.PureComponent {
       },
       selection: this.selectionActive,
     };
+
     const previousAckProps = {
       enums,
       style,

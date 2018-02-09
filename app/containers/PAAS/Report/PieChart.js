@@ -8,7 +8,6 @@ import theme from '../../../utils/theme';
 
 import { incrementRenderCount } from '../../AppHub/actions';
 
-import * as actions from '../actions';
 import * as C from '../constants';
 
 
