@@ -33,8 +33,14 @@ export const SET_REPORT_KEY = 'app/SPA/SET_REPORT_KEY';
 export const ROLES = {
   ADMIN: 'SPA Admin',
 };
+export const TEST_ROLES = {
+  BPAS: 'SPA Creator - BPAS',
+  SECURITY: 'SPA Creator - Security',
+  TEST: 'SPA Creator - Test',
+};
+export const TEST_ROLES_VALUES = Object.values(TEST_ROLES);
 // STATUS
-// TODO: PULL IN FROM API
+// TODO: PULL IN FROM API, MOVE TO REDUX?
 export const STATUS = {
   PENDING: 0,
   ACTIVE: 1,

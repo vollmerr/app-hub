@@ -1,6 +1,9 @@
 module.exports = {
   ROLES: [
     'SPA Admin',
+    'SPA Creator - BPAS',
+    'SPA Creator - Security',
+    'SPA Creator - Test',
   ],
   ACK: {
     ID: 'id',

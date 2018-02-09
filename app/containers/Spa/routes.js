@@ -1,7 +1,7 @@
 import Home from './Home';
 import Admin from './Admin';
 import Report from './Report';
-import { ROLES } from './constants';
+import { ROLES, TEST_ROLES_VALUES } from './constants';
 
 
 export const base = '/spa';
@@ -21,7 +21,7 @@ export default [
     path: `${base}/admin`,
     exact: true,
     component: Admin,
-    roles: [ROLES.ADMIN],
+    roles: [ROLES.ADMIN, ...TEST_ROLES_VALUES],
   },
   {
     key: 'spaReport',
@@ -29,7 +29,7 @@ export default [
     path: `${base}/report/:id`,
     exact: true,
     component: Report,
-    roles: [ROLES.ADMIN],
+    roles: [ROLES.ADMIN, ...TEST_ROLES_VALUES],
     hidden: true,
   },
 ];
