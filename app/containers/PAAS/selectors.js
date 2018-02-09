@@ -2,30 +2,10 @@ import { Map } from 'immutable';
 import { createSelector } from 'reselect';
 
 
-// export const initialState = {
-//   authorizations: {
-//     byId: {},
-//     allIds: [],
-//   },
-//   manager: {
-//     currentIds: [],
-//     previousIds: [],
-//     allIds: [],
-//   },
-//   report: {
-//     deniedIds: [],
-//     approvedIds: [],
-//     pendingIds: [],
-//     noManagerIds: [],
-//   },
-// };
-
-
 const selectPaas = (state) => state.get('paas');
 const selectAuthorizations = (state) => selectPaas(state).get('authorizations');
 const selectManager = (state) => selectPaas(state).get('manager');
 const selectReport = (state) => selectPaas(state).get('report');
-
 
 export const selectById = (state) => state.get('byId');
 // export const selectAllIds = (state) => state.get('allIds');
@@ -46,6 +26,7 @@ export const selectById = (state) => state.get('byId');
 //     selectById(auths).get(authId)
 //   ))
 // );
+
 
 // MANAGER
 
@@ -73,6 +54,10 @@ export const getManagerItems = (type) => createSelector(
   }
 );
 
+
+// REPORT
+export const getReport = createSelector(selectReport, (report) => report);
+
 // export const getReportItems = (type) => createSelector(
 //   [selectReport, selectAuthorizations],
 //   (report, auths) => {
@@ -80,3 +65,23 @@ export const getManagerItems = (type) => createSelector(
 //     return report.get(`${type}Ids`).map((id) => authsById.get(id));
 //   }
 // );
+
+export const getReportData = createSelector(
+  selectReport,
+  (report) => {
+    const filters = report.get('filters');
+    const data = report.get('data');
+    // only filter if one is found (expensive operation...)
+    if (filters.some((filter) => filter !== 'ALL')) {
+      return data.map((items) => (
+        items.filter((item) => (
+          filters.some((v, k) => (
+            item.get(k) === v
+          ))
+        ))
+      ));
+    }
+    // no filters, just return as is
+    return data;
+  }
+);

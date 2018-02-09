@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
 
 import Section from '../../../components/Layout/Section';
@@ -9,10 +8,12 @@ import theme from '../../../utils/theme';
 
 import { incrementRenderCount } from '../../AppHub/actions';
 
+import * as actions from '../actions';
 import * as C from '../constants';
 
 
 export const Wrapper = Section.extend`
+  flex: 2 0 auto;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -29,16 +30,20 @@ const measurements = {
 
 
 export class PieChart extends React.PureComponent {
+  handleClick = (key) => () => {
+    this.props.onClick(key);
+  }
+
+
   render() {
     const {
       data,
       dataKey,
       stats,
-      onClick,
       hasData,
-    } = this.props;
+     } = this.props;
 
-    const { pending, acknowledged } = stats;
+    const { approved, denied, pending, noManager } = stats;
 
     if (!hasData) {
       return (
@@ -48,18 +53,31 @@ export class PieChart extends React.PureComponent {
 
     const legend = [
       {
+        key: C.REPORT.APPROVED,
+        text: `All Approved: ${approved.count} (${approved.percent} %)`,
+        onClick: this.handleClick(C.REPORT.APPROVED),
+        checked: dataKey === C.REPORT.APPROVED,
+      },
+      {
+        key: C.REPORT.DENIED,
+        text: `Any Denied: ${denied.count} (${denied.percent} %)`,
+        onClick: this.handleClick(C.REPORT.DENIED),
+        checked: dataKey === C.REPORT.DENIED,
+      },
+      {
         key: C.REPORT.PENDING,
         text: `Pending: ${pending.count} (${pending.percent} %)`,
-        onClick: () => onClick(C.REPORT.PENDING),
+        onClick: this.handleClick(C.REPORT.PENDING),
         checked: dataKey === C.REPORT.PENDING,
       },
       {
-        key: C.REPORT.PREVIOUS,
-        text: `Acknowldged: ${acknowledged.count} (${acknowledged.percent} %)`,
-        onClick: () => onClick(C.REPORT.PREVIOUS),
-        checked: dataKey === C.REPORT.PREVIOUS,
+        key: C.REPORT.NO_MANAGER,
+        text: `No Manager: ${noManager.count} (${noManager.percent} %)`,
+        onClick: this.handleClick(C.REPORT.NO_MANAGER),
+        checked: dataKey === C.REPORT.NO_MANAGER,
       },
     ];
+
     const chartProps = {
       data,
       legend,
@@ -78,18 +96,19 @@ export class PieChart extends React.PureComponent {
 
 const { shape, number, func, bool, array } = PropTypes;
 
+const stat = shape({
+  count: number,
+  percent: number,
+}).isRequired;
+
 PieChart.propTypes = {
   data: array.isRequired,
   dataKey: number.isRequired,
   stats: shape({
-    pending: shape({
-      count: number,
-      percent: number,
-    }).isRequired,
-    acknowledged: shape({
-      count: number,
-      percent: number,
-    }).isRequired,
+    approved: stat,
+    denied: stat,
+    pending: stat,
+    noManager: stat,
   }),
   hasData: bool.isRequired,
   onClick: func.isRequired,
@@ -98,9 +117,8 @@ PieChart.propTypes = {
 
 export const mapDispatchToProps = (dispatch) => ({
   incrementRenderCount(mode) {
-    dispatch(incrementRenderCount('spa-piechart', mode));
+    dispatch(incrementRenderCount('paas-piechart', mode));
   },
 });
-
 
 export default connect(null, mapDispatchToProps)(PieChart);

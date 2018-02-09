@@ -18,10 +18,10 @@ export const initialState = {
     allIds: [],
   },
   report: {
-    deniedIds: [],
-    approvedIds: [],
-    pendingIds: [],
-    noManagerIds: [],
+    lastFetched: null,
+    key: C.REPORT.PENDING,
+    data: null,
+    filters: {},
   },
 };
 
@@ -53,34 +53,6 @@ export default handleActions({
     }));
   },
 
-  [C.GET_REPORT_DATA_SUCCESS]: (state, action) => {
-    const { payload } = action;
-    const authorizations = mergeById(state, 'authorizations', payload, C.AUTH.ID);
-    const report = {
-      deniedIds: [],
-      approvedIds: [],
-      pendingIds: [],
-      noManagerIds: [],
-    };
-    // map out ids based off if approved, denied, or pending
-    payload.forEach((auth) => {
-      const id = auth[C.AUTH.ID];
-      if (auth[C.AUTH.STATUS] === C.STATUS.NO_MANAGER) {
-        report.noManagerIds.push(id);
-      } else if (C.APP_LIST.every((app) => auth[app] === C.APPROVAL.APPROVE)) {
-        report.approvedIds.push(id);
-      } else if (C.APP_LIST.some((app) => auth[app] === C.APPROVAL.DENY)) {
-        report.deniedIds.push(id);
-      } else {
-        report.pendingIds.push(id);
-      }
-    });
-    // combine with current state
-    return state.mergeDeep(fromJS({
-      report,
-      authorizations,
-    }));
-  },
 
   [C.UPDATE_USERS_SUCCESS]: (state, action) => {
     const { payload } = action;
@@ -93,5 +65,58 @@ export default handleActions({
     });
     // gimme that new state
     return newState;
+  },
+
+
+  [C.GET_REPORT_DATA_SUCCESS]: (state, action) => {
+    const { payload } = action;
+    const data = {
+      all: [],
+      [C.REPORT.APPROVED]: [],
+      [C.REPORT.DENIED]: [],
+      [C.REPORT.PENDING]: [],
+      [C.REPORT.NO_MANAGER]: [],
+    };
+    // map out ids based off if approved, denied, pending,or no manager
+    payload.forEach((auth) => {
+      if (auth[C.AUTH.STATUS] === C.STATUS.NO_MANAGER) {
+        data[C.REPORT.NO_MANAGER].push(auth);
+      } else if (C.APP_LIST.every((app) => auth[app] === C.APPROVAL.APPROVE)) {
+        data[C.REPORT.APPROVED].push(auth);
+      } else if (C.APP_LIST.some((app) => auth[app] === C.APPROVAL.DENY)) {
+        data[C.REPORT.DENIED].push(auth);
+      } else {
+        data[C.REPORT.PENDING].push(auth);
+      }
+      data.all.push(auth);
+    });
+    // add the last fetched date for caching
+    const report = {
+      data,
+      lastFetched: new Date().toISOString(),
+    };
+    // add entries to authorizations, merging with existing ones
+    const authorizations = mergeById(state, 'authorizations', payload, C.AUTH.ID);
+    // combine with current state
+    return state.mergeDeep(fromJS({
+      report,
+      authorizations,
+    }));
+  },
+
+
+  [C.SET_REPORT_KEY]: (state, action) => (
+    state.setIn(['report', 'key'], action.payload)
+  ),
+
+
+  [C.SET_REPORT_FILTER]: (state, action) => {
+    const filter = action.payload;
+    if (filter) {
+      // add filter to lookup of filters
+      return state.setIn(['report', 'filters', Object.keys(filter)[0]], Object.values(filter)[0]);
+    }
+    // reset filters on empty
+    return state.setIn(['report', 'filters'], {});
   },
 }, fromJS(initialState));

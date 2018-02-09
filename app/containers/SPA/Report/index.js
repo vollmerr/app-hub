@@ -15,6 +15,7 @@ import { formattedDate } from '../../../utils/date';
 import { shouldFetch } from '../../../utils/api';
 import List from '../../../components/List';
 import theme from '../../../utils/theme';
+
 import LoadCommandBar from '../../App/LoadCommandBar';
 import * as hubSelectors from '../../AppHub/selectors';
 
@@ -209,6 +210,7 @@ export class Report extends React.PureComponent {
     const { app, report, reportData, enums, setCommandBar } = this.props;
     const { loading, chartData, modals } = this.state;
     const isLoading = app.loading || loading;
+    const { key, item } = report;
     // LOADING
     if (isLoading || app.error) {
       const loadingProps = {
@@ -223,8 +225,6 @@ export class Report extends React.PureComponent {
     const totalCount = pendingCount + acknowledgedCount || 1;
     const pendingPercent = Math.round((pendingCount / totalCount) * 100);
     const acknowldgedPercent = 100 - pendingPercent;
-
-    const { key, item } = report;
 
     const detailsProps = {
       item,
@@ -307,7 +307,7 @@ const { func, object } = PropTypes;
 
 Report.propTypes = {
   app: object.isRequired,
-  report: object,
+  report: object.isRequired,
   reportData: object,
   enums: object,
   onGetReportDataRequest: func.isRequired, // eslint-disable-line
