@@ -49,6 +49,7 @@ exports[`<PieChart__Wrapper /> should render correctly 1`] = `
   -webkit-flex-flow: row wrap;
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
+  min-height: 280px;
 }
 
 .c0 path {

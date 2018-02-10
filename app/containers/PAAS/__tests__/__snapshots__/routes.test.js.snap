@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes should be in the correct format 1`] = `
+Array [
+  Object {
+    "component": [Function],
+    "exact": true,
+    "key": "paasHome",
+    "name": "Current Staff",
+    "path": "/paas/current",
+    "roles": Array [
+      "PAAS Manager",
+    ],
+    "rolesRedirect": Object {
+      "PAAS Reports": "paasReport",
+    },
+  },
+  Object {
+    "component": [Function],
+    "exact": true,
+    "key": "paasPrevious",
+    "name": "Previous Staff",
+    "path": "/paas/previous",
+    "roles": Array [
+      "PAAS Manager",
+    ],
+  },
+  Object {
+    "component": [Function],
+    "exact": true,
+    "key": "paasReport",
+    "name": "Report",
+    "path": "/paas/report",
+    "roles": Array [
+      "PAAS Reports",
+    ],
+  },
+]
+`;

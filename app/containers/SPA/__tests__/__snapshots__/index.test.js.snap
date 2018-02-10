@@ -26,6 +26,9 @@ exports[`<SPA /> should render correctly 1`] = `
           "path": "/spa/admin",
           "roles": Array [
             "SPA Admin",
+            "SPA Creator - BPAS",
+            "SPA Creator - Security",
+            "SPA Creator - Test",
           ],
         },
         Object {
@@ -37,6 +40,9 @@ exports[`<SPA /> should render correctly 1`] = `
           "path": "/spa/report/:id",
           "roles": Array [
             "SPA Admin",
+            "SPA Creator - BPAS",
+            "SPA Creator - Security",
+            "SPA Creator - Test",
           ],
         },
       ],

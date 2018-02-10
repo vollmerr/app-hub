@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PAAS /> should render correctly 1`] = `
+<withRouter(Connect(Component))
+  appProps={
+    Object {
+      "meta": Object {
+        "desc": "Personal Authorization Access System",
+        "keywords": "tracking, access, authorization",
+        "title": "PAAS",
+      },
+      "name": "PAAS",
+      "routes": Array [
+        Object {
+          "component": [Function],
+          "exact": true,
+          "key": "paasHome",
+          "name": "Current Staff",
+          "path": "/paas/current",
+          "roles": Array [
+            "PAAS Manager",
+          ],
+          "rolesRedirect": Object {
+            "PAAS Reports": "paasReport",
+          },
+        },
+        Object {
+          "component": [Function],
+          "exact": true,
+          "key": "paasPrevious",
+          "name": "Previous Staff",
+          "path": "/paas/previous",
+          "roles": Array [
+            "PAAS Manager",
+          ],
+        },
+        Object {
+          "component": [Function],
+          "exact": true,
+          "key": "paasReport",
+          "name": "Report",
+          "path": "/paas/report",
+          "roles": Array [
+            "PAAS Reports",
+          ],
+        },
+      ],
+    }
+  }
+/>
+`;

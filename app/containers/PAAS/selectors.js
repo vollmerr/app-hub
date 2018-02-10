@@ -8,25 +8,6 @@ const selectManager = (state) => selectPaas(state).get('manager');
 const selectReport = (state) => selectPaas(state).get('report');
 
 export const selectById = (state) => state.get('byId');
-// export const selectAllIds = (state) => state.get('allIds');
-
-// export const getAuthorizations = () => createSelector(
-//   selectAuthorizations,
-//   (auths) => auths,
-// );
-
-// export const getAuthorizationsById = () => createSelector(
-//   selectAuthorizations,
-//   (auths) => selectById(auths)
-// );
-
-// export const getAuthorizationItems = () => createSelector(
-//   selectAuthorizations,
-//   (auths) => selectAllIds(auths).map((authId) => (
-//     selectById(auths).get(authId)
-//   ))
-// );
-
 
 // MANAGER
 
@@ -57,15 +38,7 @@ export const getManagerItems = (type) => createSelector(
 
 // REPORT
 export const getReport = createSelector(selectReport, (report) => report);
-
-// export const getReportItems = (type) => createSelector(
-//   [selectReport, selectAuthorizations],
-//   (report, auths) => {
-//     const authsById = selectById(auths);
-//     return report.get(`${type}Ids`).map((id) => authsById.get(id));
-//   }
-// );
-
+// get filtered report data
 export const getReportData = createSelector(
   selectReport,
   (report) => {

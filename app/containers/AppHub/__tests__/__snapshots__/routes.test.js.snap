@@ -18,6 +18,23 @@ Array [
   Object {
     "component": [Function],
     "exact": false,
+    "icon": "Paas",
+    "key": "paas",
+    "meta": Object {
+      "desc": "Personal Authorization Access System",
+      "keywords": "tracking, access, authorization",
+      "title": "PAAS",
+    },
+    "name": "PAAS",
+    "path": "/paas",
+    "roles": Array [
+      "PAAS Manager",
+      "PAAS Reports",
+    ],
+  },
+  Object {
+    "component": [Function],
+    "exact": false,
     "icon": "Spa",
     "key": "spa",
     "meta": Object {
@@ -66,6 +83,23 @@ Array [
 
 exports[`routes should be in the correct format 2`] = `
 Array [
+  Object {
+    "component": [Function],
+    "exact": false,
+    "icon": "Paas",
+    "key": "paas",
+    "meta": Object {
+      "desc": "Personal Authorization Access System",
+      "keywords": "tracking, access, authorization",
+      "title": "PAAS",
+    },
+    "name": "PAAS",
+    "path": "/paas",
+    "roles": Array [
+      "PAAS Manager",
+      "PAAS Reports",
+    ],
+  },
   Object {
     "component": [Function],
     "exact": false,
