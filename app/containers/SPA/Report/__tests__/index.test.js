@@ -1,17 +1,36 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { testMapDispatchToProps } from '../../../../utils/testUtils';
+import {
+  testStyledComponent,
+  testMapDispatchToProps,
+} from '../../../../utils/testUtils';
+import List from '../../../../components/List';
+import Loading from '../../../../components/Loading';
 import * as api from '../../../../utils/api';
 
-import * as C from '../../constants';
 import {
   getReportDataRequest,
   setReportKey,
   disableAckRequest,
 } from '../../actions';
+import * as C from '../../constants';
 
-import { Report, mapDispatchToProps } from '../index';
+import {
+  Report,
+  Wrapper,
+  Section,
+  RecipientList,
+  mapDispatchToProps,
+} from '../index';
+
+jest.mock('../../../../utils/data');
+const dataUtils = require('../../../../utils/data');
+
+
+testStyledComponent(Wrapper);
+testStyledComponent(Section);
+testStyledComponent(RecipientList, List);
 
 
 const data = [
@@ -92,6 +111,12 @@ describe('<Report />', () => {
       wrapper.setState({ chartData: [] });
       instance.componentWillReceiveProps({ reportData: props.reportData });
       expect(wrapper.state('chartData')).toEqual(chartData);
+    });
+
+    it('should not perform actions if no data', () => {
+      wrapper.setState({ chartData: [] });
+      instance.componentWillReceiveProps({ reportData: null });
+      expect(wrapper.state('chartData')).toEqual([]);
     });
   });
 
@@ -177,7 +202,8 @@ describe('<Report />', () => {
 
   describe('handleDownload', () => {
     it('should download the data to a csv file', () => {
-      // HALP ME!
+      instance.handleDownload();
+      expect(dataUtils.downloadFile).toHaveBeenCalled();
     });
   });
 
@@ -225,15 +251,18 @@ describe('<Report />', () => {
     });
   });
 
-  // xdescribe('render', () => {
-  //   it('should render a loading indicator if loading', () => {
-  //     expect(wrapper).toMatchSnapshot();
-  //   });
 
-  //   it('should render a loading indicator if loading', () => {
-  //     expect(wrapper).toMatchSnapshot();
-  //   });
-  // });
+  describe('render', () => {
+    it('should render the loading/error indicator if loading or an error', () => {
+      wrapper.setProps({ app: { loading: 1 } });
+      expect(wrapper.find(Loading).length).toEqual(1);
+    });
+
+    xit('should render ...', () => {
+      // TODO: tests
+    });
+  });
+
 
   describe('mapDispatchToProps', () => {
     const actions = {

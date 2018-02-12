@@ -11,7 +11,7 @@ const validate = (vals) => {
     let error;
     const errors = {};
     // for each app
-    Object.values(C.APPS).forEach((app) => {
+    C.APP_LIST.forEach((app) => {
       error = isNull(vals[sid][app]);
       // if it has an error add
       if (error) {

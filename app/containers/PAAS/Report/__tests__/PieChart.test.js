@@ -15,20 +15,28 @@ testStyledComponent(Wrapper);
 
 
 const props = {
+  data: [[{ key: 0, value: 29 }], [{ key: 1, value: 129 }]],
+  dataKey: 0,
   stats: {
-    pending: {
+    approved: {
       count: 5,
       percent: 30,
     },
-    acknowledged: {
+    denied: {
       count: 20,
       percent: 70,
     },
+    pending: {
+      count: 3,
+      percent: 30,
+    },
+    noManager: {
+      count: 1,
+      percent: 20,
+    },
   },
-  onClick: jest.fn(),
   hasData: true,
-  data: [[{ key: 0, value: 29 }], [{ key: 1, value: 129 }]],
-  dataKey: 0,
+  onClick: jest.fn(),
 };
 
 
@@ -50,6 +58,15 @@ describe('PieChart', () => {
 
   it('should render the chart', () => {
     expect(wrapper.find(Chart).length).toEqual(1);
+  });
+
+
+  describe('handleClick', () => {
+    it('should return a function thats calls the passed onClick with a passed key', () => {
+      const key = 'test';
+      wrapper.instance().handleClick(key)();
+      expect(props.onClick).toHaveBeenCalledWith(key);
+    });
   });
 
 

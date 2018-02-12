@@ -193,11 +193,18 @@ export class Report extends React.PureComponent {
     this.setState({ modals: { ...this.state.modals, [name]: false } });
   }
 
-  // hadnles submitting a disable
+  // handles submitting a disable
   handleSubmitDisable = () => {
     const { report, onDisableAckRequest } = this.props;
     onDisableAckRequest(report.item);
     this.handleHideModal(modal.disable)();
+  }
+
+  // handles submitting an email
+  handleSubmitEmail = () => {
+    // const { report, onEmailRequest } = this.props;
+    // onEmailRequest(...);
+    this.handleHideModal(modal.email)();
   }
 
   // handles clicking on the report or legend to swicth the key
@@ -222,7 +229,7 @@ export class Report extends React.PureComponent {
     // build stats for chart lengend
     const pendingCount = reportData[C.REPORT.PENDING].length;
     const acknowledgedCount = reportData[C.REPORT.PREVIOUS].length;
-    const totalCount = pendingCount + acknowledgedCount || 1;
+    const totalCount = pendingCount + acknowledgedCount;
     const pendingPercent = Math.round((pendingCount / totalCount) * 100);
     const acknowldgedPercent = 100 - pendingPercent;
 

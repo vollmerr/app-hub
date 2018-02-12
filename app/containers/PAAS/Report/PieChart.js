@@ -115,7 +115,7 @@ PieChart.propTypes = {
 
 
 export const mapDispatchToProps = (dispatch) => ({
-  incrementRenderCount(mode) {
+  onIncrementRenderCount(mode) {
     dispatch(incrementRenderCount('paas-piechart', mode));
   },
 });

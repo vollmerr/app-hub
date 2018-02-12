@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Current /> render should render correctly 1`] = `
+<ReactFinalForm(3.0.0)(2.1.0)
+  initialValues={
+    Object {
+      "sid1": Object {
+        "sid": "sid1",
+        "text": "text 1",
+      },
+      "sid2": Object {
+        "sid": "sid2",
+        "text": "text 2",
+      },
+    }
+  }
+  onSubmit={[Function]}
+  render={[Function]}
+  subscription={
+    Object {
+      "pristine": true,
+      "submitting": true,
+    }
+  }
+  validate={[Function]}
+/>
+`;
