@@ -12,7 +12,7 @@ export const base = API.PAAS;
 
 export function* getManagerData() {
   try {
-    const url = `${base}`;
+    const url = `${base}/auth`;
     const data = yield call(api.requestWithToken, url);
     yield put(actions.getManagerDataSuccess(data));
   } catch (error) {
@@ -23,7 +23,7 @@ export function* getManagerData() {
 
 export function* getReportData() {
   try {
-    const url = `${base}/reports`;
+    const url = `${base}/report`;
     const data = yield call(api.requestWithToken, url);
     yield put(actions.getReportDataSuccess(data));
   } catch (error) {
@@ -34,7 +34,7 @@ export function* getReportData() {
 
 export function* updateUsers(action) {
   try {
-    const url = `${base}`;
+    const url = `${base}/auth`;
     const options = {
       method: 'POST',
       body: action.payload,

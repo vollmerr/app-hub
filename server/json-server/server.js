@@ -1,5 +1,5 @@
 /* eslint-disable */
-const auth = 0; // chagne to 1 to test with authentication
+const auth = 1; // chagne to 1 to test with authentication
 
 const path = require('path');
 const chalk = require('chalk');
@@ -22,9 +22,6 @@ server.use(middlewares);
 server.use(jsonServer.rewriter(redirects));
 server.use(jsonServer.bodyParser);
 server.use(cors());
-
-spaRoutes(server, router);
-paasRoutes(server, router);
 
 // handle patching in correct format
 // http://jsonpatch.com/
@@ -55,6 +52,8 @@ if (auth) {
   });
 }
 
+spaRoutes(server, router);
+paasRoutes(server, router);
 server.use(router);
 
 server.listen(port, () => {

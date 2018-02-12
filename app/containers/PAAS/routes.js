@@ -18,7 +18,8 @@ export default [
     component: Current,
     roles: [ROLES.MANAGER],
     rolesRedirect: {
-      [ROLES.REPORTS]: 'paasReport',
+      [ROLES.HR]: 'paasReport',
+      [ROLES.SECURITY]: 'paasReport',
     },
   },
   {
@@ -35,6 +36,6 @@ export default [
     path: `${base}/report`,
     exact: true,
     component: Report,
-    roles: [ROLES.REPORTS],
+    roles: [ROLES.HR, ROLES.SECURITY],
   },
 ];

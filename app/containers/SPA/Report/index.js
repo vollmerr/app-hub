@@ -81,32 +81,24 @@ export class Report extends React.PureComponent {
         [modal.email]: false,
         [modal.disable]: false,
       },
-      chartData: [[], []],
+      chartData: [{}, {}],
     };
   }
 
   async componentDidMount() {
-    const { match, report, onGetReportDataRequest } = this.props;
+    const { match, report, reportData, onGetReportDataRequest } = this.props;
     const id = match.params.id;
     if (shouldFetch(report.lastFetchedById[id])) {
       await onGetReportDataRequest(match.params.id);
     }
+    this.buildReportData(reportData);
     this.setState({ loading: false }); // eslint-disable-line
   }
 
   componentWillReceiveProps(nextProps) {
     const { reportData } = nextProps;
     // if there is report data, map it out to [{ key, value }, {...}]
-    if (reportData) {
-      const chartData = [];
-      Object.values(C.REPORT).forEach((key) => {
-        chartData[key] = {
-          key,
-          value: reportData[key].length,
-        };
-      });
-      this.setState({ chartData });
-    }
+    this.buildReportData(reportData);
   }
 
   // items to display in command bar by default
@@ -165,6 +157,19 @@ export class Report extends React.PureComponent {
       });
     }
     return { items };
+  }
+
+  buildReportData = (reportData) => {
+    if (reportData) {
+      const chartData = [];
+      Object.values(C.REPORT).forEach((key) => {
+        chartData[key] = {
+          key,
+          value: reportData[key].length,
+        };
+      });
+      this.setState({ chartData });
+    }
   }
 
   // handles navigating back to the admin page

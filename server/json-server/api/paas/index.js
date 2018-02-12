@@ -121,7 +121,6 @@ module.exports = {
     authorizations,
   },
   routes: [
-    { '/paas': '/paas-authorizations' },
-    { '/paas/reports': '/paas-authorizations' },
+    { '/paas/report': '/paas-authorizations' },
   ],
 };

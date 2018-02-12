@@ -67,15 +67,16 @@ export class Report extends React.PureComponent {
     this.state = {
       loading: true,
       columns: this.buildColumns(reportColumns[this.props.report.key]),
-      chartData: Object.keys(C.REPORT).map(() => []),
+      chartData: Object.keys(C.REPORT).map(() => ({})),
     };
   }
 
   async componentDidMount() {
-    const { report, onGetReportDataRequest } = this.props;
+    const { report, reportData, onGetReportDataRequest } = this.props;
     if (shouldFetch(report.lastFetched)) {
       await onGetReportDataRequest();
     }
+    this.buildReportData(reportData);
     this.setState({ loading: false }); // eslint-disable-line
   }
 
@@ -87,6 +88,11 @@ export class Report extends React.PureComponent {
       this.setState({ columns });
     }
     // if there is report data, map it out to [{ key, value }, {...}]
+    this.buildReportData(reportData);
+  }
+
+
+  buildReportData = (reportData) => {
     if (reportData) {
       const chartData = [];
       Object.values(C.REPORT).forEach((key) => {
@@ -98,6 +104,7 @@ export class Report extends React.PureComponent {
       this.setState({ chartData });
     }
   }
+
 
   /**
    * Binds columns with a custom render function

@@ -16,7 +16,8 @@ export const SET_REPORT_FILTER = 'app/Paas/SET_REPORT_FILTER';
 // ROLES
 export const ROLES = {
   MANAGER: 'PAAS Manager',
-  REPORTS: 'PAAS Reports',
+  SECURITY: 'PAAS Security',
+  HR: 'PAAS HR',
 };
 // APPROVAL CODES
 export const APPROVAL = {
