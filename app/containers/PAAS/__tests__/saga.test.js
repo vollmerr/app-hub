@@ -34,7 +34,7 @@ describe('paasSaga', () => {
 
 describe('getManagerData', () => {
   it('should call the api and update the store with its results', () => {
-    const url = `${sagas.base}`;
+    const url = `${sagas.base}/auth`;
 
     testSaga(sagas.getManagerData).next()
       .call(requestWithToken, url).next(data.authorizations)
@@ -53,7 +53,7 @@ describe('getManagerData', () => {
 
 describe('getReportData', () => {
   it('should call the api and update the store with its results', () => {
-    const url = `${sagas.base}/reports`;
+    const url = `${sagas.base}/report`;
 
     testSaga(sagas.getReportData).next()
       .call(requestWithToken, url).next(data.authorizations)
@@ -77,7 +77,7 @@ describe('updateUsers', () => {
       method: 'POST',
       body: action.payload,
     };
-    const url = `${sagas.base}`;
+    const url = `${sagas.base}/auth`;
 
     testSaga(sagas.updateUsers, action).next()
       .call(requestWithToken, url, options).next(data)

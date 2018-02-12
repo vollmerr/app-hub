@@ -21,7 +21,8 @@ exports[`<PAAS /> should render correctly 1`] = `
             "PAAS Manager",
           ],
           "rolesRedirect": Object {
-            "PAAS Reports": "paasReport",
+            "PAAS HR": "paasReport",
+            "PAAS Security": "paasReport",
           },
         },
         Object {
@@ -41,7 +42,8 @@ exports[`<PAAS /> should render correctly 1`] = `
           "name": "Report",
           "path": "/paas/report",
           "roles": Array [
-            "PAAS Reports",
+            "PAAS HR",
+            "PAAS Security",
           ],
         },
       ],

@@ -35,7 +35,8 @@ exports[`<AppHub /> render should render correctly 1`] = `
           "path": "/paas",
           "roles": Array [
             "PAAS Manager",
-            "PAAS Reports",
+            "PAAS Security",
+            "PAAS HR",
           ],
         },
         Object {
