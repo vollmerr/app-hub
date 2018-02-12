@@ -37,7 +37,7 @@ exports[`Filters render should render correctly 1`] = `
 <Filters__Wrapper>
   <WithResponsiveMode
     defaultSelectedKey="ALL"
-    label="Report Year"
+    label="Authorization Year"
     options={
       Array [
         Object {
@@ -65,6 +65,7 @@ exports[`Filters render should render correctly 1`] = `
         "iconName": "download",
       }
     }
+    onClick={[Function]}
     text="Download CSV"
   />
 </Filters__Wrapper>
