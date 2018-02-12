@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import { Dropdown } from 'office-ui-fabric-react/lib/Dropdown';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import sortBy from 'lodash/sortBy';
-// import json2csv from 'json2csv';
+import json2csv from 'json2csv';
 
 import theme from '../../../utils/theme';
-// import { formattedDate } from '../../../utils/date';
-// import { formatList, downloadFile } from '../../../utils/data';
+import { formattedDate } from '../../../utils/date';
+import { formatList, downloadFile } from '../../../utils/data';
 
-// import { reportCsv } from '../data';
+import { reportCsv } from '../data';
 import * as C from '../constants';
 
 
@@ -82,18 +82,17 @@ class Filters extends React.PureComponent {
     this.setState({ options });
   }
 
-  // /**
-  //  * Handles downloading the report as a csv
-  //  */
-  // handleDownload = () => {
-  //   const { authorizations, selectedKey } = this.props;
-  //   const data = formatList(authorizations[selectedKey], reportCsv);
-  //   const csv = json2csv({ data, newLine: '\r\n', ...reportCsv });
-  //   const name = `PAAS Report ${formattedDate(new Date())}.csv`;
-  //   const type = 'data:text/csv;charset=utf-8;';
+  /**
+   * Handles downloading the report as a csv
+   */
+  handleDownload = () => {
+    const data = formatList(this.props.filteredData, reportCsv);
+    const csv = json2csv({ data, newLine: '\r\n', ...reportCsv });
+    const name = `PAAS Report ${formattedDate(new Date())}.csv`;
+    const type = 'data:text/csv;charset=utf-8;';
 
-  //   downloadFile(csv, name, type);
-  // }
+    downloadFile(csv, name, type);
+  }
 
   render() {
     const { onChange } = this.props;
@@ -103,7 +102,7 @@ class Filters extends React.PureComponent {
       <Wrapper>
         <Dropdown
           defaultSelectedKey={'ALL'}
-          label={'Report Year'}
+          label={'Authorization Year'}
           options={options[C.AUTH.AUTH_YEAR]}
           onChanged={onChange(C.AUTH.AUTH_YEAR)}
         />
@@ -122,6 +121,7 @@ const { array, func } = PropTypes;
 
 Filters.propTypes = {
   data: array,
+  filteredData: array,
   onChange: func.isRequired,
 };
 

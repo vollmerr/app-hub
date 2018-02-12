@@ -155,6 +155,7 @@ export const currentFieldsApi = [
 const currentFields = [
   AUTH.FULL_NAME,
   ...APP_LIST,
+  AUTH.LAST_APPROVED,
   BUTTONS.APPROVE,
   BUTTONS.DENY,
 ];

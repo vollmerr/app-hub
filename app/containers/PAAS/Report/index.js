@@ -184,6 +184,7 @@ export class Report extends React.PureComponent {
 
     const filterProps = {
       data: report.data.all,
+      filteredData: reportData[key],
       onChange: this.handleChangeFilter,
     };
 

@@ -57,9 +57,11 @@ function generateAuthorization(manager) {
   });
   // add app auths
   let possibleApps = [C.APPROVAL.NONE];
+  let lastApproved = null;
   if (status !== C.STATUS.NO_MANAGER) {
     if (faker.random.boolean()) {
       possibleApps = [C.APPROVAL.APPROVE, C.APPROVAL.DENY];
+      lastApproved = faker.date.past(1, date);
     }
   }
   const apps = Object.values(C.APPS).reduce((rest, app) => ({
@@ -77,7 +79,7 @@ function generateAuthorization(manager) {
     [C.AUTH.MANAGER_NAME]: managerName,
     [C.AUTH.STATUS]: status,
     [C.AUTH.LAST_MODIFIED]: faker.date.past(1, date),
-    [C.AUTH.LAST_APPROVED]: faker.date.past(1, date),
+    [C.AUTH.LAST_APPROVED]: lastApproved,
     [C.AUTH.DATE_CREATED]: faker.date.past(1, date),
     [C.AUTH.AUTH_YEAR]: date.getFullYear(),
     ...apps,

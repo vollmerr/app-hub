@@ -59,9 +59,14 @@ export default handleActions({
     let newState = state;
     // for each user
     payload.forEach((user) => {
+      const udpatedUser = {
+        ...user,
+        [C.AUTH.LAST_APPROVED]: new Date().toISOString(),
+        [C.AUTH.LAST_MODIFIED]: new Date().toISOString(),
+      };
       // merge the updated data
       newState = newState
-        .mergeIn(['authorizations', 'byId', user[C.AUTH.ID]], fromJS(user));
+        .mergeIn(['authorizations', 'byId', user[C.AUTH.ID]], fromJS(udpatedUser));
     });
     // gimme that new state
     return newState;
