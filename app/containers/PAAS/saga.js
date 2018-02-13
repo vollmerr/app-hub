@@ -1,6 +1,7 @@
 // import { delay } from 'redux-saga';
-import { takeLatest, call, put } from 'redux-saga/effects';
+import { takeLatest, call, put, select } from 'redux-saga/effects';
 
+import { getUserRoles } from '../AppHub/selectors';
 import * as api from '../../utils/api';
 
 import * as actions from './actions';
@@ -23,9 +24,18 @@ export function* getManagerData() {
 
 export function* getReportData() {
   try {
-    const url = `${base}/report`;
+    const roles = yield select(getUserRoles);
+    // default to getting the manager data
+    let url = `${base}/auth`;
+    let isAdmin = false;
+    // if user is security or admin, get report data
+    const adminRoles = [C.ROLES.HR, C.ROLES.SECURITY];
+    if (roles.some((x) => adminRoles.includes(x))) {
+      url = `${base}/report`;
+      isAdmin = true;
+    }
     const data = yield call(api.requestWithToken, url);
-    yield put(actions.getReportDataSuccess(data));
+    yield put(actions.getReportDataSuccess({ data, isAdmin }));
   } catch (error) {
     yield put(actions.getReportDataFailure(error));
   }

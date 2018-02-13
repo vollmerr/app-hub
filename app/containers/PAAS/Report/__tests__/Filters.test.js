@@ -1,14 +1,16 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
 import { testStyledComponent } from '../../../../utils/testUtils';
 
 import * as C from '../../constants';
 
-import Filters, { Wrapper } from '../Filters';
+import Filters, { Wrapper, ExportButton } from '../Filters';
 
 
 testStyledComponent(Wrapper);
+testStyledComponent(ExportButton, DefaultButton);
 
 
 const props = {

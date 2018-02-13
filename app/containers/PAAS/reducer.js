@@ -18,6 +18,7 @@ export const initialState = {
     allIds: [],
   },
   report: {
+    isAdmin: false,
     lastFetched: null,
     key: C.REPORT.PENDING,
     data: null,
@@ -83,7 +84,7 @@ export default handleActions({
       [C.REPORT.NO_MANAGER]: [],
     };
     // map out ids based off if approved, denied, pending,or no manager
-    payload.forEach((auth) => {
+    payload.data.forEach((auth) => {
       if (auth[C.AUTH.STATUS] === C.STATUS.NO_MANAGER) {
         data[C.REPORT.NO_MANAGER].push(auth);
       } else if (C.APP_LIST.every((app) => auth[app] === C.APPROVAL.APPROVE)) {
@@ -98,10 +99,11 @@ export default handleActions({
     // add the last fetched date for caching
     const report = {
       data,
+      isAdmin: payload.isAdmin,
       lastFetched: new Date().toISOString(),
     };
     // add entries to authorizations, merging with existing ones
-    const authorizations = mergeById(state, 'authorizations', payload, C.AUTH.ID);
+    const authorizations = mergeById(state, 'authorizations', payload.data, C.AUTH.ID);
     // combine with current state
     return state.mergeDeep(fromJS({
       report,
@@ -119,9 +121,9 @@ export default handleActions({
     const filter = action.payload;
     if (filter) {
       // add filter to lookup of filters
-      return state.setIn(['report', 'filters', Object.keys(filter)[0]], Object.values(filter)[0]);
+      return state.setIn(['report', 'filters', Object.keys(filter)[0]], fromJS(Object.values(filter)[0]));
     }
     // reset filters on empty
-    return state.setIn(['report', 'filters'], {});
+    return state.setIn(['report', 'filters'], fromJS({}));
   },
 }, fromJS(initialState));

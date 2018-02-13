@@ -30,6 +30,11 @@ export const Wrapper = styled.div`
 `;
 
 
+export const ExportButton = styled(DefaultButton)`
+  margin-top: 15px;
+`;
+
+
 class Filters extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -106,7 +111,7 @@ class Filters extends React.PureComponent {
           options={options[C.AUTH.AUTH_YEAR]}
           onChanged={onChange(C.AUTH.AUTH_YEAR)}
         />
-        <DefaultButton
+        <ExportButton
           iconProps={{ iconName: 'download' }}
           text={'Download CSV'}
           onClick={this.handleDownload}

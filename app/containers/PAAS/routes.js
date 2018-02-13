@@ -32,10 +32,10 @@ export default [
   },
   {
     key: 'paasReport',
-    name: 'Report',
+    name: 'Reports',
     path: `${base}/report`,
     exact: true,
     component: Report,
-    roles: [ROLES.HR, ROLES.SECURITY],
+    roles: [ROLES.MANAGER, ROLES.HR, ROLES.SECURITY],
   },
 ];

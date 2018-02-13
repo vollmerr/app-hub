@@ -39,6 +39,7 @@ export class PieChart extends React.PureComponent {
       data,
       dataKey,
       stats,
+      isAdmin,
       hasData,
      } = this.props;
 
@@ -69,13 +70,16 @@ export class PieChart extends React.PureComponent {
         onClick: this.handleClick(C.REPORT.PENDING),
         checked: dataKey === C.REPORT.PENDING,
       },
-      {
+    ];
+
+    if (isAdmin) {
+      legend.push({
         key: C.REPORT.NO_MANAGER,
         text: `No Manager: ${noManager.count} (${noManager.percent} %)`,
         onClick: this.handleClick(C.REPORT.NO_MANAGER),
         checked: dataKey === C.REPORT.NO_MANAGER,
-      },
-    ];
+      });
+    }
 
     const chartProps = {
       data,
@@ -109,6 +113,7 @@ PieChart.propTypes = {
     pending: stat,
     noManager: stat,
   }),
+  isAdmin: bool.isRequired,
   hasData: bool.isRequired,
   onClick: func.isRequired,
 };

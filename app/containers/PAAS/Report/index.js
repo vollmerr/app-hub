@@ -91,6 +91,10 @@ export class Report extends React.PureComponent {
     this.buildReportData(reportData);
   }
 
+  componentWillUnmount() {
+    // clear filters when leaving page
+    this.props.onSetReportFilter();
+  }
 
   buildReportData = (reportData) => {
     if (reportData) {
@@ -210,6 +214,7 @@ export class Report extends React.PureComponent {
         },
       },
       hasData: Boolean(report.data.all),
+      isAdmin: report.isAdmin,
       onClick: this.handleClickReport,
     };
 
