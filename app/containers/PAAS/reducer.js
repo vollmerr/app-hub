@@ -87,9 +87,10 @@ export default handleActions({
     payload.data.forEach((auth) => {
       if (auth[C.AUTH.STATUS] === C.STATUS.NO_MANAGER) {
         data[C.REPORT.NO_MANAGER].push(auth);
-      } else if (C.APP_LIST.every((app) => auth[app] === C.APPROVAL.APPROVE)) {
+        // TODO: strict comparison when API guarenteed to return number
+      } else if (C.APP_LIST.every((app) => auth[app] == C.APPROVAL.APPROVE)) { // eslint-disable-line
         data[C.REPORT.APPROVED].push(auth);
-      } else if (C.APP_LIST.some((app) => auth[app] === C.APPROVAL.DENY)) {
+      } else if (C.APP_LIST.some((app) => auth[app] == C.APPROVAL.DENY)) { // eslint-disable-line
         data[C.REPORT.DENIED].push(auth);
       } else {
         data[C.REPORT.PENDING].push(auth);
