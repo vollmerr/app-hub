@@ -31,7 +31,7 @@ export const Title = styled.h3`
 `;
 
 
-export const Search = styled(SearchBox)`
+export const Search = styled(SearchBox) `
   flex: 1;
 `;
 

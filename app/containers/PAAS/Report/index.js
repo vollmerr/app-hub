@@ -11,6 +11,7 @@ import Loading from '../../../components/Loading';
 import { shouldFetch } from '../../../utils/api';
 import List from '../../../components/List';
 import { StyledToggle } from '../../../components/Form/FieldToggle';
+import { isNull } from '../../../utils/validate';
 import theme from '../../../utils/theme';
 
 import * as hubSelectors from '../../AppHub/selectors';
@@ -145,8 +146,9 @@ export class Report extends React.PureComponent {
     if (column.data && column.data.render) {
       const onRenders = {
         authorizationToggle: (item) => {
+          const checked = isNull(item[column.key]) ? null : Number(item[column.key]);
           const toggleProps = {
-            checked: item[column.key],
+            checked,
             onText: 'Yes',
             offText: 'No',
             isNullable: true,

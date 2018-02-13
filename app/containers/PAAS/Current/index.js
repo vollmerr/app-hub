@@ -126,10 +126,18 @@ export class Current extends React.PureComponent {
   handleSubmit = async (values) => {
     const { onUpdateUsersRequest, managerById } = this.props;
     const users = [];
+    let user;
 
     Object.keys(values).forEach((k) => {
       if (!isEqual(managerById[k], values[k])) {
-        users.push(pick(values[k], currentFieldsApi));
+        user = pick(values[k], currentFieldsApi);
+        // convert app values to strings (api expects)
+        Object.keys(user).forEach((n) => {
+          if (C.APP_LIST.includes(n)) {
+            user[n] = `${user[n]}`;
+          }
+        });
+        users.push(user);
       }
     });
 

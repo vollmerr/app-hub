@@ -148,7 +148,6 @@ const buttons = {
 
 export const currentFieldsApi = [
   AUTH.ID,
-  AUTH.SID,
   ...APP_LIST,
 ];
 
