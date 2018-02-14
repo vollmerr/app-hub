@@ -4,8 +4,10 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
-import { changeAppStatus } from 'containers/AppHub/actions';
-import Link from 'components/Link';
+import * as actions from '../../containers/AppHub/actions';
+import { clearToken } from '../../utils/api';
+
+import Link from '../Link';
 
 import Wrapper from './Wrapper';
 
@@ -26,8 +28,16 @@ export const Button = styled(DefaultButton) `
 
 
 export class ErrorMessage extends React.PureComponent {
+  handleClick = () => {
+    const { onAuthUser, onChangeAppStatus } = this.props;
+
+    clearToken();
+    onAuthUser();
+    onChangeAppStatus();
+  }
+
   render() {
-    const { error, to, onChangeAppStatus } = this.props;
+    const { error, to } = this.props;
 
     let message;
     if (error) {
@@ -41,7 +51,7 @@ export class ErrorMessage extends React.PureComponent {
       <Wrapper>
         <Header>Sorry, an error has occurred.</Header>
         {message && <Message>{message}</Message>}
-        <Link to={to || '/'} onClick={onChangeAppStatus}><Button primary>Home</Button></Link>
+        <Link to={to || '/'} onClick={this.handleClick}><Button primary>Home</Button></Link>
       </Wrapper>
     );
   }
@@ -56,13 +66,16 @@ ErrorMessage.propTypes = {
     string,
   ]),
   to: string,
+  onAuthUser: func.isRequired,
   onChangeAppStatus: func.isRequired,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeAppStatus: () => dispatch(changeAppStatus({ loading: 0, error: null })),
+    onAuthUser: () => dispatch(actions.authUser()),
+    onChangeAppStatus: () => dispatch(actions.changeAppStatus({ loading: 0, error: null })),
   };
 }
+
 
 export default connect(null, mapDispatchToProps)(ErrorMessage);

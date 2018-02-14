@@ -105,9 +105,21 @@ export class SpaAdmin extends React.PureComponent {
     }));
     // set target group options to ones pulled in from API (mapped above)
     const fields = { ...this.state.fields };
+    // fields[C.ACK.TARGET_GROUPS].options = options;
+    // set minimum selectable date on date picker
+    // fields[C.ACK.START_DATE].minDate = new Date();
+    // fields[C.ACK.END_DATE].minDate = new Date();
+
+    // TODO: determine if can select today. if not, remove today highlighted.
+    //  then remove this or above accordingly.....
+
+    // set options
     fields[C.ACK.TARGET_GROUPS].options = options;
-    fields[C.ACK.START_DATE].minDate = new Date();
-    fields[C.ACK.END_DATE].minDate = new Date();
+    // set date for tommorrow
+    const tommorrow = new Date();
+    tommorrow.setDate(tommorrow.getDate() + 1);
+    fields[C.ACK.START_DATE].minDate = tommorrow;
+    fields[C.ACK.END_DATE].minDate = tommorrow;
     // update fields then show the form
     await this.setState({ fields });
     this.setState({ hideNewAck: false });

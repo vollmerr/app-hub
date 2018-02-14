@@ -52,6 +52,6 @@ module.exports = {
   MAX_CREATOR: 1003,
   MIN_ACK: 100,
   MAX_ACK: 130,
-  MIN_STATUS: 0,
-  MAX_STATUS: 4,
+  MIN_STATUS: 1,
+  MAX_STATUS: 6,
 };

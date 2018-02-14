@@ -35,22 +35,24 @@ export const SET_REPORT_KEY = 'app/Spa/SET_REPORT_KEY';
 
 // ROLES
 export const ROLES = {
-  ADMIN: 'SPA Admin',
+  ADMIN: 'SPA Creator',
 };
 export const TEST_ROLES = {
   BPAS: 'SPA Creator - BPAS',
   SECURITY: 'SPA Creator - Security',
   TEST: 'SPA Creator - Test',
 };
+export const ROLES_VALUES = Object.values(ROLES);
 export const TEST_ROLES_VALUES = Object.values(TEST_ROLES);
 // STATUS
 // TODO: PULL IN FROM API, MOVE TO REDUX?
 export const STATUS = {
-  PENDING: 0,
-  ACTIVE: 1,
-  EXPIRED: 2,
-  DISABLED: 3,
-  CANCELED: 4,
+  PENDING: 1,
+  COMPLETED: 2,
+  CANCELED: 3,
+  ACTIVE: 4,
+  EXPIRED: 5,
+  DISABLED: 6,
 };
 // DATA FIELDS
 // fields for acknowledgment

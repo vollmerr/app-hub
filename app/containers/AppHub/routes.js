@@ -27,7 +27,7 @@ const routes = [
     component: Paas,
     icon: 'Paas',
     meta: meta.paas,
-    roles: Object.values(PAAS_C.ROLES),
+    roles: PAAS_C.ROLES_VALUES,
   },
   {
     key: 'spa',

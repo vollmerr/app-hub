@@ -70,15 +70,22 @@ export default handleActions({
   // USER
   [C.AUTH_USER_DONE]: (state, action) => {
     const { name, sam, sid, roles, expire } = action.payload;
+    const rolesArray = typeof roles === 'string' ? [roles] : roles;
 
-    if (action.error) {
+    let error = action.error;
+    let errorMessage = fromJS(action.payload);
+    // if not already an error and if not a AppHub User, generate error
+    if (!action.error && !rolesArray.includes(C.ROLES.USER)) {
+      error = true;
+      errorMessage = new Error('Unauthorized');
+    }
+
+    if (error) {
       return state
-        .setIn(['app', 'error'], fromJS(action.payload))
-        .setIn(['app', 'loading'], state.getIn(['app', 'loading']) - 1)
+        .setIn(['app', 'error'], errorMessage)
         .setIn(['user', 'isAuthenticated'], false);
     }
 
-    const rolesArray = typeof roles === 'string' ? [roles] : roles;
     const validRoutes = allRoutes.filter((route) => !unauthorizedRoute(route, rolesArray));
     const user = {
       sid,

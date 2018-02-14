@@ -19,6 +19,7 @@ export const ROLES = {
   SECURITY: 'PAAS Security',
   HR: 'PAAS HR',
 };
+export const ROLES_VALUES = Object.values(ROLES);
 // APPROVAL CODES
 export const APPROVAL = {
   NONE: undefined,

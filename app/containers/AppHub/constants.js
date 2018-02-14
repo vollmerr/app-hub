@@ -23,5 +23,9 @@ export const COL_TYPES = {
   DATE: 'DATE',
 };
 
+export const ROLES = {
+  USER: 'AppHub User',
+};
+
 // D3
 export const INCREMENT_RENDER_COUNT = 'AppHub/INCREMENT_RENDER_COUNT';
