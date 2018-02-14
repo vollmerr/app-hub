@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<PAAS /> should render correctly 1`] = `
+exports[`<Paas /> should render correctly 1`] = `
 <withRouter(Connect(Component))
   appProps={
     Object {

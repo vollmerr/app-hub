@@ -1,6 +1,6 @@
-import Home from './Home';
-import Admin from './Admin';
-import Report from './Report';
+import SpaHome from './SpaHome';
+import SpaAdmin from './SpaAdmin';
+import SpaReport from './SpaReport';
 import { ROLES, TEST_ROLES_VALUES } from './constants';
 
 
@@ -13,14 +13,14 @@ export default [
     name: 'Home',
     path: `${base}/home`,
     exact: true,
-    component: Home,
+    component: SpaHome,
   },
   {
     key: 'spaAdmin',
     name: 'Admin',
     path: `${base}/admin`,
     exact: true,
-    component: Admin,
+    component: SpaAdmin,
     roles: [ROLES.ADMIN, ...TEST_ROLES_VALUES],
   },
   {
@@ -28,7 +28,7 @@ export default [
     name: 'Report',
     path: `${base}/report/:id`,
     exact: true,
-    component: Report,
+    component: SpaReport,
     roles: [ROLES.ADMIN, ...TEST_ROLES_VALUES],
     hidden: true,
   },

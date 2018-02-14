@@ -1,7 +1,7 @@
 
-import Current from './Current';
-import Previous from './Previous';
-import Report from './Report';
+import PaasCurrent from './PaasCurrent';
+import PaasPrevious from './PaasPrevious';
+import PaasReport from './PaasReport';
 
 import { ROLES } from './constants';
 
@@ -15,7 +15,7 @@ export default [
     name: 'Current Staff',
     path: `${base}/current`,
     exact: true,
-    component: Current,
+    component: PaasCurrent,
     roles: [ROLES.MANAGER],
     rolesRedirect: {
       [ROLES.HR]: 'paasReport',
@@ -27,7 +27,7 @@ export default [
     name: 'Previous Staff',
     path: `${base}/previous`,
     exact: true,
-    component: Previous,
+    component: PaasPrevious,
     roles: [ROLES.MANAGER],
   },
   {
@@ -35,7 +35,7 @@ export default [
     name: 'Reports',
     path: `${base}/report`,
     exact: true,
-    component: Report,
+    component: PaasReport,
     roles: [ROLES.MANAGER, ROLES.HR, ROLES.SECURITY],
   },
 ];

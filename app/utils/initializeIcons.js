@@ -28,7 +28,6 @@ const initializeIcons = () => {
       ED: '\uE417',
       Loading: '\uF8FD',
       Demo: '\uF8FD',
-      // SPA: '\uE22E',
       Apphub: '\uE300',
       COLD: '\uE408',
       BARS: '\uE259',

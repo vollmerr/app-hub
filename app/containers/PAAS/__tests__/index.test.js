@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 
 import App from '../../App';
 
-import { PAAS } from '../index';
+import { Paas } from '../index';
 
 
 const props = {
@@ -15,10 +15,10 @@ const props = {
 };
 
 
-describe('<PAAS />', () => {
+describe('<Paas />', () => {
   let wrapper;
   beforeEach(() => {
-    wrapper = shallow(<PAAS {...props} />);
+    wrapper = shallow(<Paas {...props} />);
   });
 
   it('should render correctly', () => {

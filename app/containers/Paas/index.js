@@ -19,7 +19,7 @@ const appProps = {
 };
 
 
-export class PAAS extends React.PureComponent {
+export class Paas extends React.PureComponent {
   render() {
     const props = {
       appProps,
@@ -39,4 +39,4 @@ const withSaga = injectSaga({ key: 'paas', saga });
 export default compose(
   withReducer,
   withSaga,
-)(PAAS);
+)(Paas);

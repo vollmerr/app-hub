@@ -138,6 +138,19 @@ function generateAcknowledgments() {
 }
 
 
+function generateAcknowledgmentStatus() {
+  const status = [];
+  for (let i = C.MIN_STATUS; i <= C.MAX_STATUS; i += 1) {
+    status.push({
+      [C.ACK_STATUS.ID]: i,
+      [C.ACK_STATUS.DESC]: faker.lorem.sentence(),
+      [C.ACK_STATUS.STATUS]: `status ${i}`,
+    });
+  }
+  return status;
+}
+
+
 function generateGroups(min, max) {
   const groups = [];
   for (let i = min; i <= max; i += 1) {
@@ -153,6 +166,7 @@ function generateGroups(min, max) {
 const users = generateUsers();
 const recipients = generateRecipients(users);
 const acknowledgments = generateAcknowledgments();
+const acknowledgmentStatus = generateAcknowledgmentStatus();
 const targetGroups = generateGroups(C.MIN_TARGET, C.MAX_TARGET);
 const creatorGroups = generateGroups(C.MIN_CREATOR, C.MAX_CREATOR);
 
@@ -163,14 +177,16 @@ module.exports = {
   keys: {
     recipients,
     acknowledgments,
+    acknowledgmentStatus,
     targetGroups,
     creatorGroups,
   },
   routes: [
-    { '/spa': '/spa-acknowledgments' },
+    { '/spa/acknowledgementstatuses': '/spa-acknowledgmentStatus' },
+    { '/spa/acknowledgements': '/spa-acknowledgments' },
     { '/spa/recipients/:id': `/spa-recipients?${C.RECIPIENT.SID}=:id` },
-    { '/spa/acknowledgments/:id/recipients': `/spa-recipients?${C.RECIPIENT.ACK_ID}=:id` },
-    { '/spa/groups/targets': '/spa-targetGroups' },
-    { '/spa/groups/creators': '/spa-creatorGroups' },
+    { '/spa/acknowledgements/:id/recipients': `/spa-recipients?${C.RECIPIENT.ACK_ID}=:id` },
+    { '/spa/targetabletargets': '/spa-targetGroups' },
+    { '/spa/targetablecreators': '/spa-creatorGroups' },
   ],
 };

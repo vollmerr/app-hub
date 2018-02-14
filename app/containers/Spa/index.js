@@ -26,7 +26,7 @@ const appProps = {
 };
 
 
-export class SPA extends React.PureComponent {
+export class Spa extends React.PureComponent {
   componentDidMount() {
     const { ackStatus, onGetAckStatusRequest } = this.props;
     if (shouldFetch(ackStatus.lastFetched)) {
@@ -35,8 +35,12 @@ export class SPA extends React.PureComponent {
   }
 
   render() {
+    const props = {
+      appProps,
+    };
+
     return (
-      <App {...appProps} />
+      <App {...props} />
     );
   }
 }
@@ -44,7 +48,7 @@ export class SPA extends React.PureComponent {
 
 const { object, func } = PropTypes;
 
-SPA.propTypes = {
+Spa.propTypes = {
   ackStatus: object.isRequired,
   onGetAckStatusRequest: func.isRequired,
 };
@@ -68,4 +72,4 @@ export default compose(
   withSaga,
   withConnect,
   toJS,
-)(SPA);
+)(Spa);

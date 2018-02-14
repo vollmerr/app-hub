@@ -14,7 +14,7 @@ function spaRoutes(server, router) {
     next();
   });
 
-  server.get('/spa/recipients/:sid/acknowledgments', (req, res) => {
+  server.get('/spa/recipients/:sid/acknowledgements', (req, res) => {
     let ackIds = [];
     let acks = [];
     // get the list of users acks ids
