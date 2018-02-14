@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
-import { testMapDispatchToProps } from '../../../../utils/testUtils';
+import { testProps, testMapDispatchToProps } from '../../../../utils/testUtils';
 import * as api from '../../../../utils/api';
 import Loading from '../../../../components/Loading';
 import * as List from '../../../../components/List';
@@ -24,9 +24,7 @@ import NewAckForm from '../NewAckForm';
 
 const props = {
   setCommandBar: jest.fn(),
-  app: {
-    loading: 0,
-  },
+  app: testProps.app,
   admin: {
 
   },
@@ -175,7 +173,7 @@ describe('<Admin />', () => {
 
   describe('render', () => {
     it('should render the loading/error indicator if loading or an error', () => {
-      wrapper.setProps({ app: { loading: 1 } });
+      wrapper.setProps({ app: { ...props.app, loading: 1 } });
       expect(wrapper.find(Loading).length).toEqual(1);
     });
 

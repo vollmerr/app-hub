@@ -15,8 +15,12 @@ export function* matchPattern(action) {
     yield put(actions.changeAppStatus({ loading: app.get('loading') + 1, error: null }));
   }
 
-  if (type.match(C.SUCCESS) || type.match(C.FAILURE)) {
-    yield put(actions.changeAppStatus({ loading: app.get('loading') - 1, error: action.error ? action.payload : null }));
+  if (type.match(C.SUCCESS)) {
+    yield put(actions.changeAppStatus({ loading: app.get('loading') - 1, error: null }));
+  }
+
+  if (type.match(C.FAILURE)) {
+    yield put(actions.changeAppStatus({ loading: app.get('loading') - 1, error: action.payload }));
   }
 }
 

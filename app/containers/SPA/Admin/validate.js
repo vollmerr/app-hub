@@ -1,3 +1,5 @@
+import { daysToMs } from '../../../utils/date';
+
 import { ACK } from '../constants';
 
 
@@ -6,6 +8,10 @@ const validate = (vals) => {
   const errors = {};
   // check end date after start
   if (vals[ACK.START_DATE] && vals[ACK.END_DATE]) {
+    if (new Date(vals[ACK.END_DATE]) - new Date(vals[ACK.START_DATE]) < daysToMs(14)) {
+      errors[ACK.END_DATE] = '"End Date" must be at least 14 days after "Start Date"';
+    }
+
     if (new Date(vals[ACK.START_DATE]) > new Date(vals[ACK.END_DATE])) {
       errors[ACK.END_DATE] = '"End Date" must be after "Start Date"';
     }

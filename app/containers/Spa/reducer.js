@@ -34,14 +34,20 @@ export const initialState = {
     allIds: [],
   },
   groups: { // lists of AD groups
+    lastFetched: null,
     byId: {},
     creatorIds: [],
     targetIds: [],
     allIds: [],
   },
+  ackStatus: {
+    lastFetched: null,
+    byId: {},
+    allIds: [],
+  },
   enums: {
     [C.ACK.TARGET_GROUPS]: {},
-    [C.ACK.STATUS]: C.STATUS_CODES,
+    [C.ACK.STATUS]: {},
   },
 };
 
@@ -138,6 +144,7 @@ export default handleActions({
     // set ids of each group
     groups = groups.set('targetIds', List(targets.map((x) => String(x[C.GROUP.SID]))));
     groups = groups.set('creatorIds', List(creators.map((x) => String(x[C.GROUP.SID]))));
+    groups = groups.set('lastFetched', new Date().toISOString());
     // map tagret groups to enums
     const targetsEnum = {};
     targets.forEach((x) => { targetsEnum[String(x[C.GROUP.SID])] = x[C.GROUP.NAME]; });
@@ -146,6 +153,24 @@ export default handleActions({
     return state.mergeDeep(fromJS({
       enums,
       groups,
+    }));
+  },
+
+
+  [C.GET_ACK_STATUS_SUCCESS]: (state, action) => {
+    const { payload } = action;
+    // set ids of all for lookup
+    let ackStatus = mergeById(state, 'ackStatus', payload, C.ACK_STATUS.ID);
+    // set last fetched
+    ackStatus = ackStatus.set('lastFetched', new Date().toISOString());
+    // map ids to desc for enum
+    const statusEnum = {};
+    payload.forEach((x) => { statusEnum[String(x[C.ACK_STATUS.ID])] = x[C.ACK_STATUS.STATUS]; });
+    const enums = state.get('enums').set(C.ACK.STATUS, statusEnum);
+    // combine with current state
+    return state.mergeDeep(fromJS({
+      enums,
+      ackStatus,
     }));
   },
 

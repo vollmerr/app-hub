@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import {
+  testProps,
   testStyledComponent,
   testMapDispatchToProps,
 } from '../../../../utils/testUtils';
@@ -40,10 +41,7 @@ const data = [
 ];
 
 const props = {
-  app: {
-    loading: false,
-    error: null,
-  },
+  app: testProps.app,
   report: {
     key: 'id1',
     lastFetchedById: {
@@ -254,7 +252,7 @@ describe('<Report />', () => {
 
   describe('render', () => {
     it('should render the loading/error indicator if loading or an error', () => {
-      wrapper.setProps({ app: { loading: 1 } });
+      wrapper.setProps({ app: { ...props.app, loading: 1 } });
       expect(wrapper.find(Loading).length).toEqual(1);
     });
 

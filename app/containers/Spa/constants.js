@@ -1,3 +1,7 @@
+// GET ACK STATUS CODES
+export const GET_ACK_STATUS_REQUEST = 'app/SPA/GET_ACK_STATUS_REQUEST';
+export const GET_ACK_STATUS_SUCCESS = 'app/SPA/GET_ACK_STATUS_SUCCESS';
+export const GET_ACK_STATUS_FAILURE = 'app/SPA/GET_ACK_STATUS_FAILURE';
 // GET DATA FOR A USER
 export const GET_USER_DATA_REQUEST = 'app/SPA/GET_USER_DATA_REQUEST';
 export const GET_USER_DATA_SUCCESS = 'app/SPA/GET_USER_DATA_SUCCESS';
@@ -61,13 +65,13 @@ export const STATUS_CODES = {
 export const ACK = {
   ID: 'id',
   TITLE: 'title',
-  STATUS: 'acknowledgmentStatusID',
+  STATUS: 'acknowledgementStatusID',
   START_DATE: 'startDate',
   END_DATE: 'endDate',
   // CREATED_BY: 'createdBy',
   // CREATED_DATE: 'createdDate',
   CREATOR_GROUP: 'creatorGroupID',
-  TARGET_GROUPS: 'targetADGroup',
+  TARGET_GROUPS: 'targetGroupSids',
   DETAILS: 'details',
   STATEMENT: 'statement',
   FILE_NAME: 'fileName',
@@ -85,11 +89,17 @@ export const RECIPIENT = {
   EMAIL: 'email',
   MANAGER_SID: 'managerSid',
   MANAGER_NAME: 'managerName',
-  ACK_ID: 'acknowledgmentID',
-  ACK_DATE: 'acknowledgmentDate',
+  ACK_ID: 'acknowledgementID',
+  ACK_DATE: 'acknowledgementDate',
   FIRST_REMINDER_DATE: 'firstReminderDate',
   SECOND_REMINDER_DATE: 'secondReminderDate',
   FINAL_REMINDER_DATE: 'finalReminderDate',
+};
+
+export const ACK_STATUS = {
+  ID: 'id',
+  STATUS: 'status',
+  DESC: 'description',
 };
 
 export const GROUP = {

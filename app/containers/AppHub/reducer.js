@@ -55,12 +55,16 @@ export default handleActions({
       .setIn(['app', 'error'], null);
   },
 
+
   [C.CHANGE_APP_STATUS]: (state, action) => {
     const { error, loading } = action.payload;
+    const newState = state.setIn(['app', 'loading'], loading || 0);
 
-    return state
-      .setIn(['app', 'error'], error || null)
-      .setIn(['app', 'loading'], loading || 0);
+    if (error) {
+      return newState.setIn(['app', 'error'], error);
+    }
+
+    return newState;
   },
 
   // USER

@@ -14,12 +14,12 @@ class Loading extends React.PureComponent {
       return <LoadingMessage text={text} />;
     } else if (isLoading) { // isLoading and timeOut, etc is used by react-loadable
       if (timedOut) {
-        return <ErrorMessage />;
+        return <ErrorMessage {...this.props} />;
       } else if (pastDelay) {
         return <LoadingMessage text={text} />;
       }
     } else if (error) {
-      return <ErrorMessage error={error} />;
+      return <ErrorMessage {...this.props} />;
     }
 
     return null;

@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`<Filters__ExportButton /> should render correctly 1`] = `
+.c0 {
+  margin-top: 15px;
+}
+
+<CustomizedDefaultButton
+  className="c0"
+/>
+`;
+
 exports[`<Filters__Wrapper /> should render correctly 1`] = `
 .c0 {
   display: -webkit-box;
@@ -59,7 +69,7 @@ exports[`Filters render should render correctly 1`] = `
       ]
     }
   />
-  <CustomizedDefaultButton
+  <Filters__ExportButton
     iconProps={
       Object {
         "iconName": "download",

@@ -61,6 +61,7 @@ exports[`PieChart should render correctly 1`] = `
     dataKey={0}
     hasData={true}
     height={260}
+    isAdmin={false}
     legend={
       Array [
         Object {
@@ -80,12 +81,6 @@ exports[`PieChart should render correctly 1`] = `
           "key": 2,
           "onClick": [Function],
           "text": "Pending: 3 (30 %)",
-        },
-        Object {
-          "checked": false,
-          "key": 3,
-          "onClick": [Function],
-          "text": "No Manager: 1 (20 %)",
         },
       ]
     }

@@ -4,6 +4,8 @@ import { testSaga } from 'redux-saga-test-plan';
 
 import { requestWithToken } from '../../../utils/api';
 
+import * as hubSelectors from '../../AppHub/selectors';
+
 import * as sagas from '../saga';
 import * as C from '../constants';
 import * as actions from '../actions';
@@ -52,12 +54,34 @@ describe('getManagerData', () => {
 
 
 describe('getReportData', () => {
-  it('should call the api and update the store with its results', () => {
+  it('should get the users roles, call the api, and update the store with its results', () => {
     const url = `${sagas.base}/report`;
+    const roles = Object.values(C.ROLES);
+    hubSelectors.getUserRoles = jest.fn(() => roles);
 
     testSaga(sagas.getReportData).next()
+      .select(hubSelectors.getUserRoles).next(roles)
       .call(requestWithToken, url).next(data.authorizations)
-      .put(actions.getReportDataSuccess(data.authorizations)).next()
+      .put(actions.getReportDataSuccess({
+        data: data.authorizations,
+        isAdmin: true,
+      })).next()
+      .finish().isDone();
+  });
+
+
+  it('should get only the manager data for managers', () => {
+    const url = `${sagas.base}/auth`;
+    const roles = ['not admin role'];
+
+    hubSelectors.getUserRoles = jest.fn(() => roles);
+    testSaga(sagas.getReportData).next()
+      .select(hubSelectors.getUserRoles).next(roles)
+      .call(requestWithToken, url).next(data.authorizations)
+      .put(actions.getReportDataSuccess({
+        data: data.authorizations,
+        isAdmin: false,
+      })).next()
       .finish().isDone();
   });
 

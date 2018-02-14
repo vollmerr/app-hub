@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
-import { testMapDispatchToProps } from '../../../../utils/testUtils';
+import { testProps, testMapDispatchToProps } from '../../../../utils/testUtils';
 import Loading from '../../../../components/Loading';
 import * as data from '../../../../utils/data';
 import * as api from '../../../../utils/api';
@@ -17,7 +17,7 @@ import AckModal from '../AckModal';
 const List = require.requireActual('../../../../components/List');
 
 const props = {
-  app: { loading: 0, error: null },
+  app: testProps.app,
   user: { lastFetched: '01/01/2003' }, // eslint-disable-line
   enums: { [ACK.TARGET_GROUPS]: {} },
   userPendingItems: [{

@@ -2,6 +2,11 @@ import { createAction } from 'redux-actions';
 
 import * as C from './constants';
 
+// GET ACK STATUS CODES
+export const getAckStatusRequest = createAction(C.GET_ACK_STATUS_REQUEST);
+export const getAckStatusSuccess = createAction(C.GET_ACK_STATUS_SUCCESS);
+export const getAckStatusFailure = createAction(C.GET_ACK_STATUS_FAILURE);
+
 
 /* HOME PAGE */
 // GET DATA FOR A USER

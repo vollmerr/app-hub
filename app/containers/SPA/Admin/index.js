@@ -147,6 +147,7 @@ export class Admin extends React.PureComponent {
       const loadingProps = {
         loading: isLoading,
         error: app.error,
+        to: app.home.path,
       };
       return <Loading {...loadingProps} />;
     }

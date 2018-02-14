@@ -74,13 +74,13 @@ exports[`Details should render correctly 1`] = `
     Test Title
   </Details__Heading>
   <Details__Item
-    key="acknowledgmentStatusID"
+    key="acknowledgementStatusID"
   >
     <Details__Key>
       Status
     </Details__Key>
     <Details__Value>
-      Test acknowledgmentStatusID
+      Test acknowledgementStatusID
     </Details__Value>
   </Details__Item>
   <Details__Item
@@ -100,13 +100,13 @@ exports[`Details should render correctly 1`] = `
     <Details__Value />
   </Details__Item>
   <Details__Item
-    key="targetADGroup"
+    key="targetGroupSids"
   >
     <Details__Key>
       Target Group(s)
     </Details__Key>
     <Details__Value>
-      Test targetADGroup
+      Test targetGroupSids
     </Details__Value>
   </Details__Item>
   <Details__Item

@@ -22,6 +22,7 @@ let action;
 
 describe('spaSaga', () => {
   it(`should take the latest
+      'GET_ACK_STATUS_REQUEST',
       'GET_USER_DATA_REQUEST',
       'READ_ACK_REQUEST',
       'GET_ADMIN_DATA_REQUEST',
@@ -32,6 +33,7 @@ describe('spaSaga', () => {
     () => {
       testSaga(sagas.default).next()
         .all([
+          takeLatest(C.GET_ACK_STATUS_REQUEST, sagas.getAckStatus),
           takeLatest(C.GET_USER_DATA_REQUEST, sagas.getUserData),
           takeLatest(C.READ_ACK_REQUEST, sagas.readAck),
           takeLatest(C.GET_ADMIN_DATA_REQUEST, sagas.getAdminData),
@@ -45,12 +47,31 @@ describe('spaSaga', () => {
 });
 
 
+describe('getAckStatus', () => {
+  it('should call the api and update the store with its results', () => {
+    const url = `${sagas.base}/acknowledgementstatuses`;
+
+    testSaga(sagas.getAckStatus).next()
+      .call(requestWithToken, url).next(data)
+      .put(actions.getAckStatusSuccess(data)).next()
+      .finish().isDone();
+  });
+
+  it('should handle errors', () => {
+    const errGen = sagas.getAckStatus(action);
+    errGen.next();
+    expect(errGen.throw(error).value).toEqual(put(actions.getAckStatusFailure(error)));
+    expect(errGen.next()).toEqual({ done: true, value: undefined });
+  });
+});
+
+
 describe('getUserData', () => {
   it('should get the users sid, call the api, and update the store with its results', () => {
     const sid = 99;
     const urls = {
       recipients: `${sagas.base}/recipients/${sid}`,
-      acknowledgments: `${sagas.base}/recipients/${sid}/acknowledgments`,
+      acknowledgments: `${sagas.base}/recipients/${sid}/acknowledgements`,
     };
     hubSelectors.getUserSid = jest.fn(() => sid);
 
@@ -101,7 +122,7 @@ describe('readAck', () => {
 
 describe('getAdminData', () => {
   it('should call the api and update the store with its results', () => {
-    const url = `${sagas.base}/acknowledgments`;
+    const url = `${sagas.base}/acknowledgements`;
 
     testSaga(sagas.getAdminData).next()
       .call(requestWithToken, url).next(data.acknowledgments)
@@ -123,8 +144,8 @@ describe('getAdminData', () => {
 describe('getGroups', () => {
   it('should call the api and update the store with its results', () => {
     const urls = {
-      targets: `${sagas.base}/groups/targets`,
-      creators: `${sagas.base}/groups/creators`,
+      targets: `${sagas.base}/targetabletargets`,
+      creators: `${sagas.base}/targetablecreators`,
     };
 
     testSaga(sagas.getGroups).next()
@@ -155,7 +176,7 @@ describe('newAck', () => {
       method: 'POST',
       body: data,
     };
-    const url = `${sagas.base}/acknowledgments`;
+    const url = `${sagas.base}/acknowledgements`;
 
     testSaga(sagas.newAck, action).next()
       .call(requestWithToken, url, options).next(data)
@@ -185,7 +206,7 @@ describe('disableAck', () => {
         },
       ],
     };
-    const url = `${sagas.base}/acknowledgments/${data.id}`;
+    const url = `${sagas.base}/acknowledgements/${data.id}`;
 
     testSaga(sagas.disableAck, action).next()
       .call(requestWithToken, url, options).next(data)
@@ -205,7 +226,7 @@ describe('disableAck', () => {
         },
       ],
     };
-    const url = `${sagas.base}/acknowledgments/${data.id}`;
+    const url = `${sagas.base}/acknowledgements/${data.id}`;
 
     testSaga(sagas.disableAck, action).next()
       .call(requestWithToken, url, options).next(data)
@@ -225,7 +246,7 @@ describe('disableAck', () => {
 describe('getReportData', () => {
   it('should call the api and update the store with its results', () => {
     const acknowledgment = { id: 1, name: 'abc' };
-    const url = `${sagas.base}/acknowledgments/${data.id}/recipients`;
+    const url = `${sagas.base}/acknowledgements/${data.id}/recipients`;
     action = { payload: data.id };
 
     const selector = () => fromJS(acknowledgment);
@@ -244,8 +265,8 @@ describe('getReportData', () => {
   it('should get the acknowledgment if not found in the store', () => {
     const acknowledgment = undefined;
     const urls = {
-      recipients: `${sagas.base}/acknowledgments/${data.id}/recipients`,
-      acknowledgment: `${sagas.base}/acknowledgments/${data.id}`,
+      recipients: `${sagas.base}/acknowledgements/${data.id}/recipients`,
+      acknowledgment: `${sagas.base}/acknowledgements/${data.id}`,
     };
     action = { payload: data.id };
 

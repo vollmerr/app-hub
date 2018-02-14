@@ -13,6 +13,21 @@ import * as C from './constants';
 export const base = API.SPA;
 
 
+/**
+ * GETs acknowledgment status codes
+ */
+export function* getAckStatus() {
+  try {
+    const url = `${base}/acknowledgementstatuses`;
+
+    const status = yield call(api.requestWithToken, url);
+    yield put(actions.getAckStatusSuccess(status));
+  } catch (error) {
+    yield put(actions.getAckStatusFailure(error));
+  }
+}
+
+
 // HOME PAGE
 
 /**
@@ -24,7 +39,7 @@ export function* getUserData() {
 
     const urls = {
       recipients: `${base}/recipients/${sid}`,
-      acknowledgments: `${base}/recipients/${sid}/acknowledgments`,
+      acknowledgments: `${base}/recipients/${sid}/acknowledgements`,
     };
 
     const [recipients, acknowledgments] = yield all([
@@ -66,7 +81,7 @@ export function* readAck(action) {
  */
 export function* getAdminData() {
   try {
-    const url = `${base}/acknowledgments`;
+    const url = `${base}/acknowledgements`;
 
     const acknowledgments = yield call(api.requestWithToken, url);
     yield put(actions.getAdminDataSuccess({ acknowledgments }));
@@ -84,8 +99,8 @@ export function* getAdminData() {
 export function* getGroups() {
   try {
     const urls = {
-      targets: `${base}/groups/targets`,
-      creators: `${base}/groups/creators`,
+      targets: `${base}/targetabletargets`,
+      creators: `${base}/targetablecreators`,
     };
 
     const [targets, creators] = yield all([
@@ -99,6 +114,7 @@ export function* getGroups() {
   }
 }
 
+
 /**
  * POSTs a new acknowledgment to the api
  *
@@ -106,12 +122,12 @@ export function* getGroups() {
  */
 export function* newAck(action) {
   try {
-    const url = `${base}/acknowledgments`;
+    const url = `${base}/acknowledgements`;
     const options = {
       method: 'POST',
       body: action.payload,
     };
-
+// options.body.creatorGroupSid = 'S-1-5-21-695811389-1873965473-9522986-26199';
     const data = yield call(api.requestWithToken, url, options);
     yield put(actions.newAckSuccess(data));
   } catch (error) {
@@ -131,7 +147,7 @@ export function* disableAck(action) {
     const value = action.payload[C.ACK.STATUS] === C.STATUS.PENDING ?
       C.STATUS.CANCELED :
       C.STATUS.DISABLED;
-    const url = `${base}/acknowledgments/${id}`;
+    const url = `${base}/acknowledgements/${id}`;
     const options = {
       method: 'PATCH',
       body: [
@@ -165,8 +181,8 @@ export function* getReportData(action) {
     let acknowledgment = yield select(selector);
 
     const urls = {
-      recipients: `${base}/acknowledgments/${id}/recipients`,
-      acknowledgment: `${base}/acknowledgments/${id}`,
+      recipients: `${base}/acknowledgements/${id}/recipients`,
+      acknowledgment: `${base}/acknowledgements/${id}`,
     };
     let recipients;
     // id acknowledgment details aleady exist, dont refetch
@@ -188,6 +204,7 @@ export function* getReportData(action) {
 
 export default function* spaSaga() {
   yield [
+    takeLatest(C.GET_ACK_STATUS_REQUEST, getAckStatus),
     // home
     takeLatest(C.GET_USER_DATA_REQUEST, getUserData),
     takeLatest(C.READ_ACK_REQUEST, readAck),

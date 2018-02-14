@@ -35,6 +35,7 @@ const props = {
       percent: 20,
     },
   },
+  isAdmin: false,
   hasData: true,
   onClick: jest.fn(),
 };

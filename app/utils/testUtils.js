@@ -1,6 +1,18 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
+
+export const testProps = {
+  app: {
+    loading: false,
+    error: null,
+    home: {
+      path: '/test',
+    },
+  },
+};
+
+
 /**
  * Tests a styled-component for basic tests
  * such as rending correctly and adopting attributes

@@ -32,10 +32,10 @@ exports[`SPA - <Home /> render should render correctly 1`] = `
         Object {
           "ariaLabel": "Status of the acknowledgment",
           "data": Object {},
-          "fieldName": "acknowledgmentStatusID",
+          "fieldName": "acknowledgementStatusID",
           "isResizable": true,
           "isSortedDescending": undefined,
-          "key": "acknowledgmentStatusID",
+          "key": "acknowledgementStatusID",
           "maxWidth": 100,
           "minWidth": 100,
           "name": "Status",
@@ -90,7 +90,7 @@ exports[`SPA - <Home /> render should render correctly 1`] = `
     }
     enums={
       Object {
-        "targetADGroup": Object {},
+        "targetGroupSids": Object {},
       }
     }
     items={
@@ -161,10 +161,10 @@ exports[`SPA - <Home /> render should render correctly 1`] = `
         Object {
           "ariaLabel": "Status of the acknowledgment",
           "data": Object {},
-          "fieldName": "acknowledgmentStatusID",
+          "fieldName": "acknowledgementStatusID",
           "isResizable": true,
           "isSortedDescending": undefined,
-          "key": "acknowledgmentStatusID",
+          "key": "acknowledgementStatusID",
           "maxWidth": 100,
           "minWidth": 100,
           "name": "Status",
@@ -203,10 +203,10 @@ exports[`SPA - <Home /> render should render correctly 1`] = `
           "data": Object {
             "type": "date",
           },
-          "fieldName": "acknowledgmentDate",
+          "fieldName": "acknowledgementDate",
           "isResizable": true,
           "isSortedDescending": undefined,
-          "key": "acknowledgmentDate",
+          "key": "acknowledgementDate",
           "maxWidth": 200,
           "minWidth": 150,
           "name": "Acknowledgment Date",
@@ -233,7 +233,7 @@ exports[`SPA - <Home /> render should render correctly 1`] = `
     }
     enums={
       Object {
-        "targetADGroup": Object {},
+        "targetGroupSids": Object {},
       }
     }
     items={

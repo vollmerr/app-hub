@@ -10,6 +10,7 @@ const selectReport = (state) => selectSpa(state).get('report');
 const selectRecipients = (state) => selectSpa(state).get('recipients');
 const selectAcknowledgments = (state) => selectSpa(state).get('acknowledgments');
 const selectGroups = (state) => selectSpa(state).get('groups');
+const selectAckStatus = (state) => selectSpa(state).get('ackStatus');
 const selectEnums = (state) => selectSpa(state).get('enums');
 
 const selectById = (state) => state.get('byId');
@@ -57,6 +58,10 @@ export const getReportData = createSelector(
 
 // GROUPS
 export const getGroups = createSelector(selectGroups, (groups) => groups);
+
+
+// ACK STATUS
+export const getAckStatus = createSelector(selectAckStatus, (status) => status);
 
 
 // ENUMS

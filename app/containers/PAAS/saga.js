@@ -34,6 +34,7 @@ export function* getReportData() {
       url = `${base}/report`;
       isAdmin = true;
     }
+
     const data = yield call(api.requestWithToken, url);
     yield put(actions.getReportDataSuccess({ data, isAdmin }));
   } catch (error) {

@@ -92,6 +92,7 @@ export class Previous extends React.PureComponent {
       const loadingProps = {
         loading: app.loading || loading,
         error: app.error,
+        to: app.home.path,
       };
       return <Loading {...loadingProps} />;
     }

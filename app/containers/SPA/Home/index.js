@@ -124,6 +124,7 @@ export class Home extends React.PureComponent {
       const loadingProps = {
         loading: app.loading || loading,
         error: app.error,
+        to: '/',
       };
       return <Loading {...loadingProps} />;
     }

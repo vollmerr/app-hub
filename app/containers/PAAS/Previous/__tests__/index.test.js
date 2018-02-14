@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { testMapDispatchToProps } from '../../../../utils/testUtils';
+import { testProps, testMapDispatchToProps } from '../../../../utils/testUtils';
 import * as api from '../../../../utils/api';
 import Loading from '../../../../components/Loading';
 import List from '../../../../components/List';
@@ -22,10 +22,7 @@ const managerById = {
 };
 
 const props = {
-  app: {
-    loading: false,
-    error: null,
-  },
+  app: testProps.app,
   manager: {
     lastFetched: '01/02/2012',
   },
@@ -90,7 +87,7 @@ describe('<Previous />', () => {
     });
 
     it('should render the loading/error indicator if loading or an error', () => {
-      wrapper.setProps({ app: { loading: 1 } });
+      wrapper.setProps({ app: { ...props.app, loading: 1 } });
       expect(wrapper.find(Loading).length).toEqual(1);
     });
 

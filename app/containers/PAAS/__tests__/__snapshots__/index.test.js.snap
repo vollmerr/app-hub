@@ -39,9 +39,10 @@ exports[`<PAAS /> should render correctly 1`] = `
           "component": [Function],
           "exact": true,
           "key": "paasReport",
-          "name": "Report",
+          "name": "Reports",
           "path": "/paas/report",
           "roles": Array [
+            "PAAS Manager",
             "PAAS HR",
             "PAAS Security",
           ],

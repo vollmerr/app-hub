@@ -7,11 +7,10 @@ import { SPA } from '../index';
 
 
 const props = {
-  appProps: {
-    name: 'test name',
-    meta: { desc: 'test desc' },
-    routes: [{ name: 'route1', key: 'testHome', path: '/testpath' }, { name: 'route2', key: '2', path: '/testpath2' }],
+  ackStatus: {
+    lastFetched: '01/02/2003',
   },
+  onGetAckStatusRequest: jest.fn(),
 };
 
 
