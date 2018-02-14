@@ -1,11 +1,14 @@
 module.exports = {
   ROLES: [
     'SPA Admin',
+    'SPA Creator - BPAS',
+    'SPA Creator - Security',
+    'SPA Creator - Test',
   ],
   ACK: {
     ID: 'id',
     TITLE: 'title',
-    STATUS: 'acknowledgmentStatusID',
+    STATUS: 'acknowledgementStatusID',
     START_DATE: 'startDate',
     END_DATE: 'endDate',
     // CREATED_DATE: 'createdDate',
@@ -31,8 +34,13 @@ module.exports = {
     FIRST_REMINDER_DATE: 'firstReminderDate',
     SECOND_REMINDER_DATE: 'secondReminderDate',
     FINAL_REMINDER_DATE: 'finalReminderDate',
-    ACK_ID: 'acknowledgmentID',
-    ACK_DATE: 'acknowledgmentDate',
+    ACK_ID: 'acknowledgementID',
+    ACK_DATE: 'acknowledgementDate',
+  },
+  ACK_STATUS: {
+    ID: 'id',
+    STATUS: 'status',
+    DESC: 'description',
   },
   GROUP: {
     NAME: 'name',

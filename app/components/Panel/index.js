@@ -8,13 +8,13 @@ import Content from './Content';
 
 class Panel extends React.PureComponent {
   render() {
-    const { onClick, children, left, isOpen } = this.props;
+    const { onClick, children, isLeft, isOpen } = this.props;
 
     if (isOpen) {
       return (
         <Wrapper isOpen={isOpen}>
           <Overlay onClick={() => onClick(null)} />
-          <Content left={left}>
+          <Content isLeft={isLeft}>
             {children}
           </Content>
         </Wrapper>
@@ -31,7 +31,7 @@ const { func, bool, node } = PropTypes;
 Panel.propTypes = {
   onClick: func.isRequired,
   children: node.isRequired,
-  left: bool,
+  isLeft: bool,
   isOpen: bool.isRequired,
 };
 

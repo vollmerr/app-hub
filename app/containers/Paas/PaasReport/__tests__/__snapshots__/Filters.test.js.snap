@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Filters__ExportButton /> should render correctly 1`] = `
+.c0 {
+  margin-top: 15px;
+}
+
+<CustomizedDefaultButton
+  className="c0"
+/>
+`;
+
+exports[`<Filters__Wrapper /> should render correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: space-between;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: space-between;
+  justify-content: space-between;
+  -webkit-flex: 1 0 auto;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  margin: 5px;
+  padding: 15px;
+  background: #ffffff;
+  box-shadow: 0 0 3px #eaeaea;
+  overflow: auto;
+}
+
+.c0 > button {
+  -ms-flex-item-align: center;
+  align-self: center;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`Filters render should render correctly 1`] = `
+<Filters__Wrapper>
+  <WithResponsiveMode
+    defaultSelectedKey="ALL"
+    label="Authorization Year"
+    options={
+      Array [
+        Object {
+          "key": "ALL",
+          "text": "All",
+        },
+        Object {
+          "key": 2007,
+          "text": 2007,
+        },
+        Object {
+          "key": 2003,
+          "text": 2003,
+        },
+        Object {
+          "key": 2001,
+          "text": 2001,
+        },
+      ]
+    }
+  />
+  <Filters__ExportButton
+    iconProps={
+      Object {
+        "iconName": "download",
+      }
+    }
+    onClick={[Function]}
+    text="Download CSV"
+  />
+</Filters__Wrapper>
+`;

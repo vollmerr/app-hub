@@ -1,5 +1,5 @@
 {
-  "name": "AppHub",
+  "name": "app-hub",
   "version": "0.0.1",
   "description": "Central hub for BPAS applications",
   "repository": {
@@ -7,8 +7,8 @@
     "url": "https://github.com/vollmerr/app-hub.git"
   },
   "engines": {
-    "npm": ">=3",
-    "node": ">=5"
+    "npm": ">=5",
+    "node": ">=8"
   },
   "author": "Max Stoiber",
   "license": "MIT",
@@ -28,7 +28,6 @@
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
     "start:production": "npm run test && npm run build && npm run start:prod",
     "start:prod": "cross-env NODE_ENV=production node server",
-    "start:examples": "cross-env NODE_ENV=EXAMPLES node server",
     "mock": "cross-env NODE_ENV=MOCK node server",
     "mock:api": "nodemon ./server/json-server/server.js",
     "mock:build": "node ./server/json-server/generate.js",
@@ -206,6 +205,7 @@
     ]
   },
   "jest": {
+    "resetMocks": true,
     "collectCoverageFrom": [
       "app/**/*.{js,jsx}",
       "!app/**/*.test.{js,jsx}",
@@ -236,7 +236,8 @@
       "<rootDir>/internals/testing/test-shim.js",
       "<rootDir>/internals/testing/test-bundler.js"
     ],
-    "testRegex": "tests/.*\\.test\\.js$",
+    "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-setup.js",
+    "testRegex": "__tests__/.*\\.test\\.js$",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ]
@@ -268,6 +269,7 @@
     "react-helmet": "5.1.3",
     "react-loadable": "4.0.3",
     "react-redux": "5.0.5",
+    "react-router": "4.2.0",
     "react-router-dom": "4.1.1",
     "react-router-redux": "5.0.0-alpha.6",
     "recompose": "0.26.0",
@@ -300,6 +302,7 @@
     "babel-preset-stage-0": "6.24.1",
     "circular-dependency-plugin": "3.0.0",
     "copy-webpack-plugin": "4.1.0",
+    "cors": "2.8.4",
     "css-loader": "0.28.4",
     "enzyme": "3.1.0",
     "enzyme-adapter-react-16": "1.0.1",

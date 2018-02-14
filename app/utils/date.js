@@ -4,3 +4,8 @@ export const formattedDate = (date) => {
   }
   return '';
 };
+
+
+export const daysToMs = (numDays) => (
+  numDays * 1000 * 60 * 60 * 24
+);

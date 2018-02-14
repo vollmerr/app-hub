@@ -1,0 +1,115 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<List /> render should render correctly 1`] = `
+<Wrapper__Wrapper
+  count={1}
+  padding={10}
+>
+  <List__Header>
+    <List__Title>
+      test title
+    </List__Title>
+    <List__Search
+      onChange={[Function]}
+      value=""
+    />
+  </List__Header>
+  <ScrollablePane>
+    <WithViewportComponent
+      columns={
+        Array [
+          Object {
+            "ariaLabel": "test aria label",
+            "fieldName": "name",
+            "key": "name",
+            "name": "name",
+            "onColumnClick": [Function],
+          },
+          Object {
+            "fieldName": "test",
+            "key": "test",
+            "name": "test",
+            "notSortable": true,
+          },
+          Object {
+            "fieldName": "other",
+            "key": "other",
+            "name": "other",
+            "onColumnClick": [Function],
+          },
+        ]
+      }
+      enums={Object {}}
+      items={
+        Array [
+          Object {
+            "id": 1,
+            "name": "name 2",
+            "other": "1989/22/08",
+            "test": 1,
+          },
+          Object {
+            "id": 2,
+            "name": "name 1",
+            "other": "2001/11/01",
+            "test": 7,
+          },
+          Object {
+            "id": 3,
+            "name": "stuff",
+            "other": "2000/12/01",
+            "test": 1,
+          },
+        ]
+      }
+      onRenderDetailsHeader={[Function]}
+      onRenderItemColumn={[Function]}
+      selectionMode={0}
+    />
+  </ScrollablePane>
+</Wrapper__Wrapper>
+`;
+
+exports[`<List__Header /> should render correctly 1`] = `
+.c0 {
+  -webkit-flex: 1 50px;
+  -ms-flex: 1 50px;
+  flex: 1 50px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px 0;
+  height: 50px;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<List__Search /> should render correctly 1`] = `
+.c0 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+<SearchBox
+  className="c0"
+  labelText="Search"
+/>
+`;
+
+exports[`<List__Title /> should render correctly 1`] = `
+.c0 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin: 5px;
+}
+
+<h3
+  className="c0"
+/>
+`;

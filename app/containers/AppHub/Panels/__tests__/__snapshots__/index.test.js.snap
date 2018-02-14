@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Panels /> should render correctly 1`] = `
+<Panel
+  isOpen={true}
+  onClick={[Function]}
+>
+  <Help
+    isMobile={false}
+    onClick={[Function]}
+    routes={
+      Array [
+        Object {
+          "key": "rotue1",
+          "name": "route1",
+          "path": "/test",
+        },
+      ]
+    }
+  />
+</Panel>
+`;

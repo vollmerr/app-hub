@@ -1,12 +1,11 @@
-import AppHubHome from 'containers/AppHub-Home';
-import Paas from 'containers/Paas/Loadable';
-import Spa from 'containers/Spa/Loadable';
-import Demo from 'containers/Demo/Loadable';
-import Loading from 'components/Loading/TestPage';
+import Spa from '../Spa/Loadable';
 
-import * as PAAS from 'containers/Paas/constants';
+import Paas from '../Paas/Loadable';
+import * as PAAS_C from '../Paas/constants';
 
+import Home from './Home';
 import { meta } from './meta';
+
 
 const routes = [
   // hub
@@ -15,9 +14,9 @@ const routes = [
     name: 'App Hub',
     path: '/',
     exact: true,
-    component: AppHubHome,
+    component: Home,
     icon: 'Apphub',
-    meta: meta.apphub,
+    meta: meta.appHub,
   },
   // __APPS__
   {
@@ -28,7 +27,7 @@ const routes = [
     component: Paas,
     icon: 'Paas',
     meta: meta.paas,
-    roles: Object.values(PAAS.ROLES),
+    roles: Object.values(PAAS_C.ROLES),
   },
   {
     key: 'spa',
@@ -63,26 +62,19 @@ const routes = [
   },
 ];
 
-/* istanbul ignore next */
-if (process.env.NODE_ENV !== 'production') {
-  routes.push({
-    key: 'demo',
-    name: 'Demo',
-    path: '/demo',
-    exact: false,
-    component: Demo,
-    icon: 'Demo',
-    meta: meta.demo,
-  });
-  routes.push({
-    key: 'loading',
-    name: 'Test App Loading',
-    path: '/loading',
-    component: Loading,
-    icon: 'Loading',
-    meta: meta.loading,
-  });
-}
+// /* istanbul ignore next */
+// if (process.env.NODE_ENV !== 'production') {
+//   routes.push({
+//     key: 'demo',
+//     name: 'Demo',
+//     path: '/demo',
+//     exact: false,
+//     component: Demo,
+//     icon: 'Demo',
+//     meta: meta.demo,
+//   });
+// }
+
 
 export const apps = routes.slice(1);
 

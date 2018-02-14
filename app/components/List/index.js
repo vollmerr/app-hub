@@ -1,20 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { DetailsList, SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
 import { TooltipHost } from 'office-ui-fabric-react/lib/Tooltip';
 import { Sticky } from 'office-ui-fabric-react/lib/Sticky';
 import { ScrollablePane } from 'office-ui-fabric-react/lib/ScrollablePane';
+import { SearchBox } from 'office-ui-fabric-react/lib/SearchBox';
 import orderBy from 'lodash/orderBy';
 import isEqual from 'lodash/isEqual';
 
-import { escapeRegExp } from 'utils/string';
-import { formatItem } from 'utils/data';
+import theme from '../../utils/theme';
+import { escapeRegExp } from '../../utils/string';
+import { formatItem } from '../../utils/data';
 
 import Wrapper from './Wrapper';
-import Title from './Title';
-import Search from './Search';
-import Header from './Header';
 import EmptyMessage from './EmptyMessage';
+
+
+export const Header = styled.div`
+  flex: 1 ${theme.list.headerHeight}px;
+  display: flex;
+  padding: 5px 0;
+  height: ${theme.list.headerHeight}px;
+`;
+
+
+export const Title = styled.h3`
+  flex: 1;
+  margin: 5px;
+`;
+
+
+export const Search = styled(SearchBox) `
+  flex: 1;
+`;
 
 
 /**

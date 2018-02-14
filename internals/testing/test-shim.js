@@ -2,6 +2,7 @@ const secretFile = process.env.CI ? '.secret.tmp' : '.secret';
 const secret = require(`../../server/json-server/${secretFile}`);
 const jwt = require('jsonwebtoken');
 
+
 global.jwt = {
   valid: jwt.sign({
     sub: 'valid sam',
@@ -32,6 +33,13 @@ global.API = {
   BARS: 'test url',
 };
 
-global.localStorage = {};
+global.localStorage = {
+  setItem: jest.fn(),
+  getItem: jest.fn(),
+  removeItem: jest.fn(),
+};
 global.clearTimeout = jest.fn();
 global.setTimeout = jest.fn();
+global.location = {
+  reload: jest.fn(),
+};

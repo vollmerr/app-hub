@@ -1,18 +1,42 @@
 import React from 'react';
+import { compose } from 'redux';
 
-import AppContent from 'components/App-Content';
-import Wrapper from 'components/App-Content/Wrapper';
-import Router from 'components/Router';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
 
-import Paas from './Paas';
+import { meta } from '../AppHub/meta';
+import App from '../App';
+
 import routes from './routes';
+import reducer from './reducer';
+import saga from './saga';
 
 
-export default ({ name }) => ( // eslint-disable-line
-  <Wrapper>
-    <Paas name={name} />
-    <AppContent>
-      <Router routes={routes} />
-    </AppContent>
-  </Wrapper>
-);
+const appProps = {
+  routes,
+  meta: meta.paas,
+  name: meta.paas.title,
+};
+
+
+export class Paas extends React.PureComponent {
+  render() {
+    const props = {
+      appProps,
+    };
+
+    return (
+      <App {...props} />
+    );
+  }
+}
+
+
+const withReducer = injectReducer({ key: 'paas', reducer });
+const withSaga = injectSaga({ key: 'paas', saga });
+
+
+export default compose(
+  withReducer,
+  withSaga,
+)(Paas);

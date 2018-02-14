@@ -1,93 +1,68 @@
 import { createSelector } from 'reselect';
 
-import { RECIPIENT } from './constants';
+import * as C from './constants';
 
 
 const selectSpa = (state) => state.get('spa');
 const selectUser = (state) => selectSpa(state).get('user');
 const selectAdmin = (state) => selectSpa(state).get('admin');
+const selectReport = (state) => selectSpa(state).get('report');
 const selectRecipients = (state) => selectSpa(state).get('recipients');
 const selectAcknowledgments = (state) => selectSpa(state).get('acknowledgments');
 const selectGroups = (state) => selectSpa(state).get('groups');
+const selectAckStatus = (state) => selectSpa(state).get('ackStatus');
 const selectEnums = (state) => selectSpa(state).get('enums');
 
 const selectById = (state) => state.get('byId');
-const selectCached = (state) => state.get('isCached');
 
-
-// selects if user data is cached
-export const getUserIsCached = () => createSelector(
-  selectUser,
-  (user) => selectCached(user)
+// get an acknowledgment from the lookup by id
+export const getAckById = (id) => createSelector(
+  selectAcknowledgments,
+  (ack) => selectById(ack).get(id)
 );
+
+
+// USER
+export const getUser = createSelector(selectUser, (user) => user);
 // selects array of users acknowlegments combined with recipient details based off type
-const getUserItems = (type) => (
-  (user, recipients, acks) => user.get(type).map((id) => {
+export const getUserItems = (type) => createSelector(
+  [selectUser, selectRecipients, selectAcknowledgments],
+  (user, recipients, acks) => user.get(`${type}Ids`).map((id) => {
     const recipient = selectById(recipients).get(String(id));
-    const ackId = String(recipient.get(RECIPIENT.ACK_ID));
+    const ackId = String(recipient.get(C.RECIPIENT.ACK_ID));
     const ack = selectById(acks).get(ackId);
     return recipient.mergeDeep(ack).set('id', String(id));
   })
 );
-// selects array of users pending acknowlegments combined with recipient details
-export const getUserPendingItems = () => createSelector(
-  [selectUser, selectRecipients, selectAcknowledgments],
-  getUserItems('recipientsPendingIds')
-);
-// selects array of users previous acknowlegments combined with recipient details
-export const getUserPreviousItems = () => createSelector(
-  [selectUser, selectRecipients, selectAcknowledgments],
-  getUserItems('recipientsPreviousIds')
-);
 
 
-// selects if admin data is cached
-export const getAdminIsCached = () => createSelector(
-  selectAdmin,
-  (admin) => selectCached(admin)
-);
-export const getAdminCachedIds = () => createSelector(
-  selectAdmin,
-  (admin) => admin.get('cachedIds')
-);
-// selects List of users acknowlegments based off type
-const getAdminItems = (type) => (
-  (admin, acks) => admin.get(type).map((id) => (
+// ADMIN
+export const getAdmin = createSelector(selectAdmin, (admin) => admin);
+// selects array of users acknowlegments combined with recipient details based off type
+export const geAdminItems = (type) => createSelector(
+  [selectAdmin, selectAcknowledgments],
+  (admin, acks) => admin.get(`${type}Ids`).map((id) => (
     selectById(acks).get(id)
   ))
 );
-// selects List of active acknowlegments
-export const getAdminActiveItems = () => createSelector(
-  [selectAdmin, selectAcknowledgments],
-  getAdminItems('acksActiveIds')
-);
-// selects List of previous acknowlegments
-export const getAdminPreviousItems = () => createSelector(
-  [selectAdmin, selectAcknowledgments],
-  getAdminItems('acksPreviousIds')
-);
 
 
-// selects 'recipients.byId'
-export const getRecipientsById = () => createSelector(
-  selectRecipients,
-  (recipients) => selectById(recipients)
+// REPORT
+export const getReport = createSelector(selectReport, (report) => report);
+// get report data from the lookup by id
+export const getReportData = createSelector(
+  selectReport,
+  (report) => selectById(report).get(report.get('id'))
 );
 
 
-// groups
-export const getGroupsById = () => createSelector(
-  selectGroups,
-  (groups) => selectById(groups)
-);
-export const getTargetGroupIds = () => createSelector(
-  selectGroups,
-  (groups) => groups.get('targetIds')
-);
+// GROUPS
+export const getGroups = createSelector(selectGroups, (groups) => groups);
 
 
-// enums
-export const getEnums = () => createSelector(
-  selectEnums,
-  (enums) => enums
-);
+// ACK STATUS
+export const getAckStatus = createSelector(selectAckStatus, (status) => status);
+
+
+// ENUMS
+export const getEnums = createSelector(selectEnums, (enums) => enums);

@@ -61,7 +61,7 @@ ErrorMessage.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onChangeAppStatus: () => dispatch(changeAppStatus({ loading: false, error: null })),
+    onChangeAppStatus: () => dispatch(changeAppStatus({ loading: 0, error: null })),
   };
 }
 

@@ -1,22 +1,29 @@
-import { fromJS, Set, List } from 'immutable';
+import { fromJS, List } from 'immutable';
 import { handleActions } from 'redux-actions';
 
-import { mergeById } from 'utils/request';
-import { formattedDate } from 'utils/date';
+import { mergeById } from '../../utils/data';
+import { formattedDate } from '../../utils/date';
 
 import * as C from './constants';
 
+
 export const initialState = {
   user: {
-    isCached: false, // determine if should fetch user data
+    lastFetched: null, // determine if should fetch user data
     recipientsPendingIds: [], // [home page] ids of pending 'recipients' objects
     recipientsPreviousIds: [], // [home page] ids of previous 'recipients' objects
   },
   admin: {
-    isCached: false, // determine if should fetch admin data
+    lastFetched: null, // determine if should fetch admin data
     acksActiveIds: [], // [admin page] ids for list of active 'acknowledgments'
     acksPreviousIds: [], // [admin page] ids for list of previous 'acknowledgments'
-    cachedIds: [],
+  },
+  report: {
+    id: null,
+    item: {},
+    key: C.REPORT.PENDING,
+    lastFetchedById: {},
+    byId: {},
   },
   recipients: { // list of recipients (for user and admin)
     byId: {},
@@ -27,14 +34,20 @@ export const initialState = {
     allIds: [],
   },
   groups: { // lists of AD groups
+    lastFetched: null,
     byId: {},
     creatorIds: [],
     targetIds: [],
     allIds: [],
   },
+  ackStatus: {
+    lastFetched: null,
+    byId: {},
+    allIds: [],
+  },
   enums: {
     [C.ACK.TARGET_GROUPS]: {},
-    [C.ACK.STATUS]: C.STATUS_CODES,
+    [C.ACK.STATUS]: {},
   },
 };
 
@@ -43,7 +56,7 @@ export default handleActions({
   [C.GET_USER_DATA_SUCCESS]: (state, action) => {
     const { payload } = action;
     const user = {
-      isCached: true, // set user data as cached (we will keep track of changed locally)
+      lastFetched: new Date().toISOString(),
       recipientsPendingIds: [],
       recipientsPreviousIds: [],
     };
@@ -73,10 +86,34 @@ export default handleActions({
   },
 
 
+  [C.READ_ACK_SUCCESS]: (state, action) => {
+    const { payload } = action;
+    const id = payload[C.RECIPIENT.ID];
+    let newState = state;
+    // remove from user active
+    newState = newState.setIn(
+      ['user', 'recipientsPendingIds'],
+      state.getIn(['user', 'recipientsPendingIds']).filter((x) => x !== id)
+    );
+    // add to user previous
+    newState = newState.setIn(
+      ['user', 'recipientsPreviousIds'],
+      state.getIn(['user', 'recipientsPreviousIds']).push(id)
+    );
+    // update date acknowledged in lookup table
+    newState = newState.setIn(
+      ['recipients', 'byId', id, C.RECIPIENT.ACK_DATE],
+      formattedDate(new Date()),
+    );
+    // gimme that new state
+    return newState;
+  },
+
+
   [C.GET_ADMIN_DATA_SUCCESS]: (state, action) => {
     const { payload } = action;
     const admin = {
-      isCached: true, // set user data as cached (we will keep track of changed locally)
+      lastFetched: new Date().toISOString(),
       acksActiveIds: [],
       acksPreviousIds: [],
     };
@@ -107,6 +144,7 @@ export default handleActions({
     // set ids of each group
     groups = groups.set('targetIds', List(targets.map((x) => String(x[C.GROUP.SID]))));
     groups = groups.set('creatorIds', List(creators.map((x) => String(x[C.GROUP.SID]))));
+    groups = groups.set('lastFetched', new Date().toISOString());
     // map tagret groups to enums
     const targetsEnum = {};
     targets.forEach((x) => { targetsEnum[String(x[C.GROUP.SID])] = x[C.GROUP.NAME]; });
@@ -119,19 +157,20 @@ export default handleActions({
   },
 
 
-  [C.GET_ACK_RECIPIENTS_SUCCESS]: (state, action) => {
+  [C.GET_ACK_STATUS_SUCCESS]: (state, action) => {
     const { payload } = action;
-    // add ack id to list of ids in admin
-    const id = Set([String(payload.id)]);
-    const admin = {
-      cachedIds: state.getIn(['admin', 'cachedIds']).toSet().union(id).toList(),
-    };
-    // add entries to acks (could potentally already have some entries, so just add new)
-    const recipients = mergeById(state, 'recipients', payload.recipients, C.RECIPIENT.ID);
+    // set ids of all for lookup
+    let ackStatus = mergeById(state, 'ackStatus', payload, C.ACK_STATUS.ID);
+    // set last fetched
+    ackStatus = ackStatus.set('lastFetched', new Date().toISOString());
+    // map ids to desc for enum
+    const statusEnum = {};
+    payload.forEach((x) => { statusEnum[String(x[C.ACK_STATUS.ID])] = x[C.ACK_STATUS.STATUS]; });
+    const enums = state.get('enums').set(C.ACK.STATUS, statusEnum);
     // combine with current state
     return state.mergeDeep(fromJS({
-      admin,
-      recipients,
+      enums,
+      ackStatus,
     }));
   },
 
@@ -161,46 +200,81 @@ export default handleActions({
     const ackId = String(payload[C.ACK.ID]);
     let newState = state;
     // update status in acknowledgments lookup
-    newState = newState
-      .setIn(['acknowledgments', 'byId', ackId, C.ACK.STATUS], payload[C.ACK.STATUS]);
+    newState = newState.setIn(
+      ['acknowledgments', 'byId', ackId, C.ACK.STATUS],
+      payload[C.ACK.STATUS]
+    );
+    // update item in report
+    newState = newState.setIn(
+      ['report', 'item'],
+      payload,
+    );
     // remove from admin active
-    newState = newState
-      .setIn(['admin', 'acksActiveIds'], state.getIn(['admin', 'acksActiveIds']).filter((id) => id !== ackId));
+    newState = newState.setIn(
+      ['admin', 'acksActiveIds'],
+      state.getIn(['admin', 'acksActiveIds']).filter((id) => id !== ackId)
+    );
     // add to admin inactive
-    newState = newState
-      .setIn(['admin', 'acksPreviousIds'], state.getIn(['admin', 'acksPreviousIds']).push(ackId));
+    newState = newState.setIn(
+      ['admin', 'acksPreviousIds'],
+      state.getIn(['admin', 'acksPreviousIds']).push(ackId)
+    );
     // get the id of the users 'recipeint' object of the pending acknowledgment
-    const recipientId = state
-      .getIn(['user', 'recipientsPendingIds'])
+    const recipientId = state.getIn(['user', 'recipientsPendingIds'])
       .find((id) => String(state.getIn(['recipients', 'byId', String(id), C.RECIPIENT.ACK_ID])) === ackId);
     // if the acknowledgment is in users active list
     if (recipientId) {
       // remove from user active
-      newState = newState
-        .setIn(['user', 'recipientsPendingIds'], state.getIn(['user', 'recipientsPendingIds']).filter((x) => x !== recipientId));
+      newState = newState.setIn(
+        ['user', 'recipientsPendingIds'],
+        state.getIn(['user', 'recipientsPendingIds']).filter((x) => x !== recipientId)
+      );
       // add to user previous
-      newState = newState
-        .setIn(['user', 'recipientsPreviousIds'], state.getIn(['user', 'recipientsPreviousIds']).push(recipientId));
+      newState = newState.setIn(
+        ['user', 'recipientsPreviousIds'],
+        state.getIn(['user', 'recipientsPreviousIds']).push(recipientId)
+      );
     }
     // gimme that new state
     return newState;
   },
 
 
-  [C.READ_ACK_SUCCESS]: (state, action) => {
+  [C.GET_REPORT_DATA_SUCCESS]: (state, action) => {
     const { payload } = action;
-    const id = payload[C.RECIPIENT.ID];
+    const data = {
+      [C.REPORT.PENDING]: [],
+      [C.REPORT.PREVIOUS]: [],
+    };
     let newState = state;
-    // remove from user active
-    newState = newState
-      .setIn(['user', 'recipientsPendingIds'], state.getIn(['user', 'recipientsPendingIds']).filter((x) => x !== id));
-    // add to user previous
-    newState = newState
-      .setIn(['user', 'recipientsPreviousIds'], state.getIn(['user', 'recipientsPreviousIds']).push(id));
-    // update date acknowledged in lookup table
-    newState = newState
-      .setIn(['recipients', 'byId', id, C.RECIPIENT.ACK_DATE], formattedDate(new Date()));
-    // gimme that new state
-    return newState;
+    // id of acknowledgment being reported on
+    const id = String(payload.acknowledgment[C.ACK.ID]);
+    // set report details
+    newState = newState.setIn(['report', 'id'], id);
+    newState = newState.setIn(['report', 'item'], payload.acknowledgment);
+    newState = newState.setIn(['report', 'lastFetchedById', id], new Date().toISOString());
+    // add recients based off if approved
+    payload.recipients.forEach((recipient) => {
+      if (recipient[C.RECIPIENT.ACK_DATE]) {
+        data[C.REPORT.PREVIOUS].push(recipient);
+      } else {
+        data[C.REPORT.PENDING].push(recipient);
+      }
+    });
+    // add to list of byId mapped out by status
+    newState = newState.setIn(['report', 'byId', id], fromJS(data));
+    // add entries to recpients and acks (could potentally already have some entries, so just add new)
+    const recipients = mergeById(newState, 'recipients', payload.recipients, C.RECIPIENT.ID);
+    const acknowledgments = mergeById(newState, 'acknowledgments', [payload.acknowledgment], C.ACK.ID);
+    // combine with current state
+    return newState.mergeDeep(fromJS({
+      recipients,
+      acknowledgments,
+    }));
   },
+
+
+  [C.SET_REPORT_KEY]: (state, action) => (
+    state.setIn(['report', 'key'], action.payload)
+  ),
 }, fromJS(initialState));

@@ -10,7 +10,7 @@ const withD3Renderer = ({
 }) => (WrappedComponent) => (
     class WithD3Renderer extends React.Component {
       static propTypes = {
-        incrementRenderCount: PropTypes.func.isRequired,
+        onIncrementRenderCount: PropTypes.func.isRequired,
       };
 
       setRef = (wrappedComponentInstance) => {
@@ -18,30 +18,30 @@ const withD3Renderer = ({
       }
 
       componentDidMount() {
-        const { incrementRenderCount } = this.props;
-        incrementRenderCount('component');
-        incrementRenderCount('d3');
+        const { onIncrementRenderCount } = this.props;
+        onIncrementRenderCount('component');
+        onIncrementRenderCount('d3');
         this.component.renderD3('render');
       }
 
       componentDidUpdate(prevProps) {
-        const { incrementRenderCount } = this.props;
-        incrementRenderCount('component');
+        const { onIncrementRenderCount } = this.props;
+        onIncrementRenderCount('component');
         const shouldResize = (props) => _.pick(props, resizeOn);
         if (!shallowEqual(shouldResize(this.props), shouldResize(prevProps))) {
-          incrementRenderCount('d3');
+          onIncrementRenderCount('d3');
           return this.component.renderD3('resize');
         }
         const shouldUpdate = (props) => _.pick(props, updateOn);
         if (!shallowEqual(shouldUpdate(this.props), shouldUpdate(prevProps))) {
-          incrementRenderCount('d3');
+          onIncrementRenderCount('d3');
           return this.component.renderD3('update');
         }
         return false;
       }
 
       render() {
-        const { incrementRenderCount, ...otherProps } = this.props;
+        const { onIncrementRenderCount, ...otherProps } = this.props;
         return <WrappedComponent ref={this.setRef} {...otherProps} />;
       }
     }

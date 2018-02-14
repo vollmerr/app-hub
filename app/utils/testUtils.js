@@ -1,6 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import 'jest-styled-components';
+
+
+export const testProps = {
+  app: {
+    loading: false,
+    error: null,
+    home: {
+      path: '/test',
+    },
+  },
+};
+
 
 /**
  * Tests a styled-component for basic tests

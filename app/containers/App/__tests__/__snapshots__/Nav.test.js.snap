@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Nav /> render should render correctly 1`] = `
+<Nav__Wrapper
+  isMobile={false}
+>
+  <Nav
+    groups={
+      Array [
+        Object {
+          "links": Array [
+            Object {
+              "key": "key1",
+              "name": "routePublic",
+              "path": "/routePublic",
+            },
+            Object {
+              "key": "key3",
+              "name": "routeAuth",
+              "path": "/routeAuth",
+              "roles": Array [
+                "role1",
+              ],
+            },
+          ],
+        },
+      ]
+    }
+    onLinkClick={[Function]}
+    selectedKey="key1"
+  />
+</Nav__Wrapper>
+`;
+
+exports[`<Nav__Wrapper /> should render correctly 1`] = `
+.c0 {
+  -webkit-flex: 0 0 225px;
+  -ms-flex: 0 0 225px;
+  flex: 0 0 225px;
+}
+
+.c0 .ms-FocusZone {
+  height: calc(100vh - 50px);
+  background: #eaeaea;
+}
+
+.c0 .ms-FocusZone li > div {
+  background: #eaeaea;
+}
+
+.c0 .ms-FocusZone li > div button {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+.c0 .ms-FocusZone li > div button:hover,
+.c0 .ms-FocusZone li > div button:focus,
+.c0 .ms-FocusZone li > div button:active {
+  color: inherit;
+  background: #c8c8c8;
+}
+
+.c0 .ms-FocusZone li > div:hover button,
+.c0 .ms-FocusZone li > div.is-selected button {
+  background: #c8c8c8;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Wrapper /> should render correctly in desktop view 1`] = `
+.c0 {
+  -webkit-flex: 0 0 225px;
+  -ms-flex: 0 0 225px;
+  flex: 0 0 225px;
+}
+
+.c0 .ms-FocusZone {
+  height: calc(100vh - 50px);
+  background: #eaeaea;
+}
+
+.c0 .ms-FocusZone li > div {
+  background: #eaeaea;
+}
+
+.c0 .ms-FocusZone li > div button {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+
+.c0 .ms-FocusZone li > div button:hover,
+.c0 .ms-FocusZone li > div button:focus,
+.c0 .ms-FocusZone li > div button:active {
+  color: inherit;
+  background: #c8c8c8;
+}
+
+.c0 .ms-FocusZone li > div:hover button,
+.c0 .ms-FocusZone li > div.is-selected button {
+  background: #c8c8c8;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Wrapper /> should render correctly in desktop view 2`] = `
+.c0 {
+  -webkit-flex: 0 0 225px;
+  -ms-flex: 0 0 225px;
+  flex: 0 0 225px;
+}
+
+.c0 .ms-FocusZone {
+  height: calc(100vh - 50px);
+  background: #333333;
+}
+
+.c0 .ms-FocusZone li > div {
+  background: #333333;
+}
+
+.c0 .ms-FocusZone li > div button {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  display: block;
+  color: #ffffff;
+}
+
+.c0 .ms-FocusZone li > div button:hover,
+.c0 .ms-FocusZone li > div button:focus,
+.c0 .ms-FocusZone li > div button:active {
+  color: #212121;
+  background: #f4f4f4;
+}
+
+.c0 .ms-FocusZone li > div:hover button,
+.c0 .ms-FocusZone li > div.is-selected button {
+  background: #f4f4f4;
+}
+
+<div
+  className="c0"
+/>
+`;

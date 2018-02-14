@@ -1,11 +1,13 @@
-import PaasCurrent from 'containers/Paas-Current';
-import PaasPrevious from 'containers/Paas-Previous';
-import PaasReport from 'containers/Paas-Report';
+
+import PaasCurrent from './PaasCurrent';
+import PaasPrevious from './PaasPrevious';
+import PaasReport from './PaasReport';
 
 import { ROLES } from './constants';
 
 
 export const base = '/paas';
+
 
 export default [
   {
@@ -16,7 +18,8 @@ export default [
     component: PaasCurrent,
     roles: [ROLES.MANAGER],
     rolesRedirect: {
-      [ROLES.REPORTS]: 'paasReport',
+      [ROLES.HR]: 'paasReport',
+      [ROLES.SECURITY]: 'paasReport',
     },
   },
   {
@@ -29,10 +32,10 @@ export default [
   },
   {
     key: 'paasReport',
-    name: 'Report',
+    name: 'Reports',
     path: `${base}/report`,
     exact: true,
     component: PaasReport,
-    roles: [ROLES.REPORTS],
+    roles: [ROLES.MANAGER, ROLES.HR, ROLES.SECURITY],
   },
 ];

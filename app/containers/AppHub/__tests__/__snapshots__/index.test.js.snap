@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AppHub /> render should render correctly 1`] = `
+<AppHub__Wrapper>
+  <Connect(Component)
+    onClick={[Function]}
+  />
+  <Router
+    routes={
+      Array [
+        Object {
+          "component": [Function],
+          "exact": true,
+          "icon": "Apphub",
+          "key": "home",
+          "meta": Object {
+            "desc": "Central location for CDT ODI applications",
+            "keywords": "App, Hub",
+            "title": "App Hub",
+          },
+          "name": "App Hub",
+          "path": "/",
+        },
+        Object {
+          "component": [Function],
+          "exact": false,
+          "icon": "Paas",
+          "key": "paas",
+          "meta": Object {
+            "desc": "Personal Authorization Access System",
+            "keywords": "tracking, access, authorization",
+            "title": "PAAS",
+          },
+          "name": "PAAS",
+          "path": "/paas",
+          "roles": Array [
+            "PAAS Manager",
+            "PAAS Security",
+            "PAAS HR",
+          ],
+        },
+        Object {
+          "component": [Function],
+          "exact": false,
+          "icon": "Spa",
+          "key": "spa",
+          "meta": Object {
+            "desc": "Security Policy Acknowledgement",
+            "keywords": "SPA",
+            "title": "SPA",
+          },
+          "name": "SPA",
+          "path": "/spa",
+        },
+        Object {
+          "href": "https://cold.govops.ca.gov/",
+          "icon": "COLD",
+          "key": "cold",
+          "meta": Object {
+            "desc": "",
+            "keywords": "",
+            "title": "COLD",
+          },
+          "name": "COLD",
+        },
+        Object {
+          "href": "http://bars.technology.ca.gov/",
+          "icon": "BARS",
+          "key": "bars",
+          "meta": Object {
+            "desc": "Badge Access Request System",
+            "keywords": "badge, employee, new, student, request",
+            "title": "BARS",
+          },
+          "name": "BARS",
+        },
+        Object {
+          "href": "http://employeedirectory/",
+          "icon": "ED",
+          "key": "ed",
+          "meta": Object {
+            "desc": "Employee Directory",
+            "keywords": "Employee, Directory, Lookup",
+            "title": "ED",
+          },
+          "name": "ED",
+        },
+      ]
+    }
+  />
+  <Connect(Component)
+    onClick={[Function]}
+  />
+</AppHub__Wrapper>
+`;

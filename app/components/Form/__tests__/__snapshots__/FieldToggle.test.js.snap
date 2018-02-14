@@ -1,0 +1,200 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FieldToggle__StyledToggle /> should render correctly 1`] = `
+.c0 .ms-Toggle-background + .ms-Label {
+  visibility: hidden;
+}
+
+.c0 .ms-Toggle-background > * {
+  visibility: hidden;
+}
+
+<CustomizedToggle
+  className="c0"
+/>
+`;
+
+exports[`FieldToggle render should render correctly 1`] = `
+<FieldToggle__StyledToggle
+  checked={0}
+  errorMessage=""
+  isNullable={false}
+  meta={
+    Object {
+      "error": null,
+      "touched": false,
+    }
+  }
+  onChanged={[Function]}
+/>
+`;
+
+exports[`StyledToggle should render properly 1`] = `
+<CustomizedToggle
+  checked={false}
+  className=""
+  disabled={false}
+  errorMessage={null}
+  readOnly={false}
+  required={false}
+  warning={false}
+/>
+`;
+
+exports[`StyledToggle should render properly when checked 1`] = `
+<CustomizedToggle
+  checked={true}
+  className=""
+  disabled={false}
+  errorMessage={null}
+  readOnly={false}
+  required={false}
+  warning={false}
+/>
+`;
+
+exports[`StyledToggle should render properly when has errorMessage 1`] = `
+.c0 .ms-Toggle-background {
+  background: #fde7e9;
+  border-color: #a80000;
+}
+
+<CustomizedToggle
+  checked={false}
+  className="c0"
+  disabled={false}
+  errorMessage="error!"
+  readOnly={false}
+  required={false}
+  warning={false}
+/>
+`;
+
+exports[`StyledToggle should render properly when has warning 1`] = `
+<CustomizedToggle
+  checked={false}
+  className=""
+  disabled={false}
+  errorMessage={null}
+  readOnly={false}
+  required={false}
+  warning={true}
+/>
+`;
+
+exports[`StyledToggle should render properly when has warning 2`] = `
+.c0 .ms-Toggle-background {
+  background: #fff4ce;
+  border-color: #ffb900;
+}
+
+.c0 .ms-Toggle-background + .ms-Label {
+  visibility: hidden;
+}
+
+.c0 .ms-Toggle-background > * {
+  visibility: hidden;
+}
+
+<CustomizedToggle
+  checked={null}
+  className="c0"
+  disabled={false}
+  errorMessage={null}
+  readOnly={false}
+  required={false}
+  warning={true}
+/>
+`;
+
+exports[`StyledToggle should render properly when is disabled 1`] = `
+<CustomizedToggle
+  checked={false}
+  className=""
+  disabled={true}
+  errorMessage={null}
+  readOnly={false}
+  required={false}
+  warning={false}
+/>
+`;
+
+exports[`StyledToggle should render properly when is readOnly 1`] = `
+.c0 .ms-Toggle-background {
+  background: #ffffff;
+}
+
+.c0 .ms-Toggle-thumb {
+  background: #333333;
+  border-color: #333333;
+}
+
+.c0 .ms-Label {
+  color: #333333;
+}
+
+<CustomizedToggle
+  checked={false}
+  className="c0"
+  disabled={false}
+  errorMessage={null}
+  readOnly={true}
+  required={false}
+  warning={false}
+/>
+`;
+
+exports[`StyledToggle should render properly when is readOnly 2`] = `
+.c0 .ms-Toggle-background {
+  background: #0078d7;
+}
+
+.c0 .ms-Toggle-thumb {
+  background: #ffffff;
+  border-color: transparent;
+}
+
+.c0 .ms-Label {
+  color: #333333;
+}
+
+<CustomizedToggle
+  checked={true}
+  className="c0"
+  disabled={false}
+  errorMessage={null}
+  readOnly={true}
+  required={false}
+  warning={false}
+/>
+`;
+
+exports[`StyledToggle should render properly when is required 1`] = `
+.c0 > .ms-Label::after {
+  content: " *";
+  color: #a80000;
+  padding-right: 12px;
+}
+
+<CustomizedToggle
+  checked={false}
+  className="c0"
+  disabled={false}
+  errorMessage={null}
+  readOnly={false}
+  required={true}
+  warning={false}
+/>
+`;
+
+exports[`StyledToggle should render properly when is required 2`] = `
+<CustomizedToggle
+  checked={false}
+  className=""
+  disabled={true}
+  errorMessage={null}
+  readOnly={false}
+  required={true}
+  warning={false}
+/>
+`;

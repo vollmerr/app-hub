@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App__Body /> should render correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<App__CommandBar /> should render correctly 1`] = `
+.c0.ms-CommandBar {
+  width: 100%;
+  border-bottom: 1px solid #eaeaea;
+}
+
+<CommandBar
+  className="c0"
+  farItems={Array []}
+  items={Array []}
+  overflowItems={Array []}
+/>
+`;
+
+exports[`<App__Content /> should render correctly 1`] = `
+.c0 {
+  width: calc(100vw - 225px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<App__Wrapper /> should render correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: #f8f8f8;
+  height: calc(100vh - 50px);
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Content /> should render correctly in desktop view 1`] = `
+.c0 {
+  width: calc(100vw - 225px);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Content /> should render correctly in mobile view 1`] = `
+.c0 {
+  width: 100vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`App render should render a \`LoadingMessage\` if the app is not done being changed (in redux) 1`] = `
+<div>
+  <LoadingMessage />
+</div>
+`;
+
+exports[`App render should render correctly if not changing the app 1`] = `
+<div>
+  <App__Wrapper>
+    <withRouter(Connect(Component)) />
+    <App__Body>
+      <App__Content
+        isMobile={false}
+      >
+        <Router
+          routes={
+            Array [
+              Object {
+                "key": "routeAuth",
+                "path": "/routeAuth",
+                "roles": Array [
+                  "valid",
+                ],
+              },
+              Object {
+                "key": "routeUnauth",
+                "path": "/routeUnauth",
+                "roles": Array [
+                  "invalid",
+                ],
+              },
+              Object {
+                "key": "routePublic",
+                "path": "/routePublic",
+              },
+              Object {
+                "key": "routeRedirect",
+                "path": "/routeRedirect",
+                "redirect": Object {
+                  "valid": "routePublic",
+                },
+                "roles": Array [
+                  "invalid",
+                ],
+              },
+            ]
+          }
+          setCommandBar={[Function]}
+        />
+      </App__Content>
+    </App__Body>
+  </App__Wrapper>
+</div>
+`;

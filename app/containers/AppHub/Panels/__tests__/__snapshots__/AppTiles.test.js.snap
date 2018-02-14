@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AppTiles /> should render correctly 1`] = `
+<AppTiles__Wrapper>
+  <AppTile
+    key="test key 1"
+    onClick={[Function]}
+    route={
+      Object {
+        "key": "test key 1",
+        "name": "route 1",
+      }
+    }
+  />
+  <AppTile
+    key="test key 2"
+    onClick={[Function]}
+    route={
+      Object {
+        "key": "test key 2",
+        "name": "route 2",
+      }
+    }
+  />
+</AppTiles__Wrapper>
+`;
+
+exports[`<AppTiles__Wrapper /> should render correctly 1`] = `
+.c0 {
+  padding: 15px;
+  background: #004578;
+  height: 100%;
+}
+
+<div
+  className="c0"
+/>
+`;

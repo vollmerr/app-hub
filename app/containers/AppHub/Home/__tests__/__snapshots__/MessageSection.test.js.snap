@@ -1,0 +1,178 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MessageSection__Date /> should render correctly 1`] = `
+.c0 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<MessageSection__Item /> should render correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 15px;
+  min-height: 50px;
+}
+
+.c0:hover,
+.c0:focus,
+.c0:active {
+  background: #eaeaea;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<MessageSection__Name /> should render correctly 1`] = `
+.c0 {
+  -webkit-flex: 4;
+  -ms-flex: 4;
+  flex: 4;
+  padding: 0 15px;
+  color: #212121;
+}
+
+.c0:hover {
+  color: #005a9e;
+}
+
+<Link
+  className="c0"
+/>
+`;
+
+exports[`<MessageSection__Padded /> should render correctly 1`] = `
+.c0 {
+  padding: 0 0 15px 15px;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<MessageSection__ReadMore /> should render correctly 1`] = `
+.c0 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-text-align: center;
+  text-align: center;
+  cursor: pointer;
+  color: #005a9e;
+  padding: 15px;
+}
+
+.c0:hover {
+  color: #0078d7;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<MessageSection__Wrapper /> should render correctly 1`] = `
+.c0 {
+  background: #f4f4f4;
+  padding: 25px;
+  height: 100%;
+  width: 100%;
+  max-width: 800px;
+  box-shadow: 0 0 15px #c8c8c8;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Updates /> should render correctly 1`] = `
+<MessageSection__Wrapper
+  isMobile={false}
+>
+  <styled.h2>
+    Updates
+  </styled.h2>
+  <List
+    items={
+      Array [
+        Object {
+          "date": "2017/10/08",
+          "desc": <messages__Desc>
+            <p>
+              This system allows users to easily apply for ODI access badges. It replaces the old paper form for an entirely online experience, and provides features including email reminders and alerts, automatic workflow, and record history.
+            </p>
+            <p>
+              Get started today at 
+              <Link
+                href="http://bars.technology.ca.gov/"
+              >
+                http://bars.technology.ca.gov
+              </Link>
+              .
+            </p>
+          </messages__Desc>,
+          "href": "http://bars.technology.ca.gov/",
+          "name": "The Badge Access Request System (BARS) is now live!",
+        },
+        Object {
+          "date": "2017/10/08",
+          "desc": <messages__Desc>
+            <p>
+              We are proud to announce the release of the ODI App hub; a central location for ODI internal applications.
+            </p>
+            <p>
+              It is built using the latest technologies such as React, Webpack, Node, and .Net Core 2
+            </p>
+          </messages__Desc>,
+          "name": "Initial release of the ODI App Hub",
+          "to": "/",
+        },
+      ]
+    }
+    onRenderCell={[Function]}
+    renderedWindowsAhead={2}
+    renderedWindowsBehind={2}
+    startIndex={0}
+  />
+</MessageSection__Wrapper>
+`;
+
+exports[`<Wrapper /> should render correctly in mobile view 1`] = `
+.c0 {
+  background: #f4f4f4;
+  padding: 25px;
+  height: 100%;
+  width: 100%;
+  max-width: 800px;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<styled.h2 /> should render correctly 1`] = `
+.c0 {
+  padding: 0 0 15px 15px;
+}
+
+<h2
+  className="c0"
+/>
+`;

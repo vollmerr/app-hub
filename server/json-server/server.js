@@ -1,9 +1,10 @@
 /* eslint-disable */
-const auth = 0; // chagne to 1 to test with authentication
+const auth = 1; // chagne to 1 to test with authentication
 
 const path = require('path');
 const chalk = require('chalk');
 const jwt = require('express-jwt');
+const cors = require('cors');
 const jsonServer = require('json-server');
 const server = jsonServer.create();
 const router = jsonServer.router(path.join(__dirname, '.db.json'));
@@ -20,9 +21,7 @@ const port = 3001;
 server.use(middlewares);
 server.use(jsonServer.rewriter(redirects));
 server.use(jsonServer.bodyParser);
-
-spaRoutes(server, router);
-paasRoutes(server, router);
+server.use(cors());
 
 // handle patching in correct format
 // http://jsonpatch.com/
@@ -53,6 +52,8 @@ if (auth) {
   });
 }
 
+spaRoutes(server, router);
+paasRoutes(server, router);
 server.use(router);
 
 server.listen(port, () => {

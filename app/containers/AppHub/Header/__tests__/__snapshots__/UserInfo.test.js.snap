@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserInfo /> should render correctly 1`] = `
+<NavItem__NavItem>
+  <UserInfo__Name>
+    test name
+  </UserInfo__Name>
+  <UserInfo__Initials>
+    TN
+  </UserInfo__Initials>
+</NavItem__NavItem>
+`;
+
+exports[`<UserInfo__Initials /> should render correctly 1`] = `
+.c0 {
+  width: calc(50px - 10px);
+  height: calc(50px - 10px);
+  color: #eff6fc;
+  background: #0078d7;
+  border-radius: 50%;
+  margin: 0 15px 0 10px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<UserInfo__Name /> should render correctly 1`] = `
+.c0 {
+  color: #eff6fc;
+  line-height: 50px;
+  display: inline-block;
+  font-family: "SegoeUI-SemiLight-final","Segoe UI SemiLight","Segoe UI WPC Semilight","Segoe UI",Segoe,Tahoma,Helvetica,Arial,sans-serif;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+}
+
+<span
+  className="c0"
+/>
+`;

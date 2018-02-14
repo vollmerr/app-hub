@@ -1,17 +1,75 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-import AppContent from 'components/App-Content';
-import Wrapper from 'components/App-Content/Wrapper';
-import Router from 'components/Router';
+import injectSaga from '../../utils/injectSaga';
+import injectReducer from '../../utils/injectReducer';
+import { shouldFetch } from '../../utils/api';
+import toJS from '../../hocs/toJS';
 
-import Spa from './Spa';
+import { meta } from '../AppHub/meta';
+import App from '../App';
+
 import routes from './routes';
+import reducer from './reducer';
+import saga from './saga';
+import * as selectors from './selectors';
+import * as actions from './actions';
 
-export default ({ name }) => ( // eslint-disable-line
-  <Wrapper>
-    <Spa name={name} />
-    <AppContent>
-      <Router routes={routes} />
-    </AppContent>
-  </Wrapper>
-);
+
+const appProps = {
+  routes,
+  meta: meta.spa,
+  name: meta.spa.title,
+};
+
+
+export class Spa extends React.PureComponent {
+  componentDidMount() {
+    const { ackStatus, onGetAckStatusRequest } = this.props;
+    if (shouldFetch(ackStatus.lastFetched)) {
+      onGetAckStatusRequest();
+    }
+  }
+
+  render() {
+    const props = {
+      appProps,
+    };
+
+    return (
+      <App {...props} />
+    );
+  }
+}
+
+
+const { object, func } = PropTypes;
+
+Spa.propTypes = {
+  ackStatus: object.isRequired,
+  onGetAckStatusRequest: func.isRequired,
+};
+
+
+const mapStateToProps = createStructuredSelector({
+  ackStatus: selectors.getAckStatus,
+});
+
+export const mapDispatchToProps = (dispatch) => ({
+  onGetAckStatusRequest: () => dispatch(actions.getAckStatusRequest()),
+});
+
+const withReducer = injectReducer({ key: 'spa', reducer });
+const withSaga = injectSaga({ key: 'spa', saga });
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+
+
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect,
+  toJS,
+)(Spa);

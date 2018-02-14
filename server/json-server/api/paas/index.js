@@ -18,11 +18,15 @@ function generateAuthorization(manager) {
   const sid = faker.random.uuid();
   const roles = ['AppHub User'];
   const date = new Date(faker.date.past(10));
-  const status = faker.random.arrayElement(Object.values(C.STATUS));
+  let status = faker.random.arrayElement([C.STATUS.ACTIVE, C.STATUS.INACTIVE]);
+  // make every 1/30 have no manager
+  if (!faker.random.number({ min: 0, max: 30 })) {
+    status = C.STATUS.NO_MANAGER;
+  }
   // set manager details
   let managerSid = '';
   let managerName = '';
-  // ignore noMnaager status employees
+  // ignore noManager status employees
   if (status !== C.STATUS.NO_MANAGER) {
     if (manager) {
       // manager provided, use their details
@@ -53,9 +57,11 @@ function generateAuthorization(manager) {
   });
   // add app auths
   let possibleApps = [C.APPROVAL.NONE];
+  let lastApproved = null;
   if (status !== C.STATUS.NO_MANAGER) {
     if (faker.random.boolean()) {
       possibleApps = [C.APPROVAL.APPROVE, C.APPROVAL.DENY];
+      lastApproved = faker.date.past(1, date);
     }
   }
   const apps = Object.values(C.APPS).reduce((rest, app) => ({
@@ -73,7 +79,7 @@ function generateAuthorization(manager) {
     [C.AUTH.MANAGER_NAME]: managerName,
     [C.AUTH.STATUS]: status,
     [C.AUTH.LAST_MODIFIED]: faker.date.past(1, date),
-    [C.AUTH.LAST_APPROVED]: faker.date.past(1, date),
+    [C.AUTH.LAST_APPROVED]: lastApproved,
     [C.AUTH.DATE_CREATED]: faker.date.past(1, date),
     [C.AUTH.AUTH_YEAR]: date.getFullYear(),
     ...apps,
@@ -117,7 +123,6 @@ module.exports = {
     authorizations,
   },
   routes: [
-    { '/paas': '/paas-authorizations' },
-    { '/paas/reports': '/paas-authorizations' },
+    { '/paas/report': '/paas-authorizations' },
   ],
 };

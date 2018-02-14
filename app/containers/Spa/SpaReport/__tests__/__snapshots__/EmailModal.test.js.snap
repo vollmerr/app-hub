@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EmailModal /> render should render correctly 1`] = `
+<WithResponsiveMode
+  dialogContentProps={
+    Object {
+      "subText": "Send an email to all pending recipients for this policy.",
+      "title": "test title",
+      "type": 1,
+    }
+  }
+  hidden={false}
+  onDismiss={[Function]}
+>
+  <ReactFinalForm(3.0.0)(2.1.0)
+    onSubmit={[Function]}
+    render={[Function]}
+  />
+</WithResponsiveMode>
+`;
+
+exports[`<EmailModal__Warning /> should render correctly 1`] = `
+.c0 {
+  font-weight: bold;
+}
+
+<p
+  className="c0"
+/>
+`;

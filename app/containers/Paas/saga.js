@@ -1,9 +1,11 @@
 // import { delay } from 'redux-saga';
-import { takeEvery, call, put } from 'redux-saga/effects';
+import { takeLatest, call, put, select } from 'redux-saga/effects';
 
-import requestWithToken from 'utils/requestWithToken';
-import * as C from './constants';
+import { getUserRoles } from '../AppHub/selectors';
+import * as api from '../../utils/api';
+
 import * as actions from './actions';
+import * as C from './constants';
 
 
 export const base = API.PAAS;
@@ -11,8 +13,8 @@ export const base = API.PAAS;
 
 export function* getManagerData() {
   try {
-    const url = `${base}`;
-    const data = yield call(requestWithToken, url);
+    const url = `${base}/auth`;
+    const data = yield call(api.requestWithToken, url);
     yield put(actions.getManagerDataSuccess(data));
   } catch (error) {
     yield put(actions.getManagerDataFailure(error));
@@ -22,9 +24,19 @@ export function* getManagerData() {
 
 export function* getReportData() {
   try {
-    const url = `${base}/reports`;
-    const data = yield call(requestWithToken, url);
-    yield put(actions.getReportDataSuccess(data));
+    const roles = yield select(getUserRoles);
+    // default to getting the manager data
+    let url = `${base}/auth`;
+    let isAdmin = false;
+    // if user is security or admin, get report data
+    const adminRoles = [C.ROLES.HR, C.ROLES.SECURITY];
+    if (roles.some((x) => adminRoles.includes(x))) {
+      url = `${base}/report`;
+      isAdmin = true;
+    }
+
+    const data = yield call(api.requestWithToken, url);
+    yield put(actions.getReportDataSuccess({ data, isAdmin }));
   } catch (error) {
     yield put(actions.getReportDataFailure(error));
   }
@@ -33,13 +45,13 @@ export function* getReportData() {
 
 export function* updateUsers(action) {
   try {
-    const url = `${base}`;
+    const url = `${base}/auth`;
     const options = {
       method: 'POST',
       body: action.payload,
     };
 
-    yield call(requestWithToken, url, options);
+    yield call(api.requestWithToken, url, options);
     yield put(actions.updateUsersSuccess(action.payload));
   } catch (error) {
     yield put(actions.updateUsersFailure(error));
@@ -47,11 +59,12 @@ export function* updateUsers(action) {
 }
 
 
-function* paasSaga() {
-  yield takeEvery(C.GET_MANAGER_DATA_REQUEST, getManagerData);
-  yield takeEvery(C.GET_REPORT_DATA_REQUEST, getReportData);
-  yield takeEvery(C.UPDATE_USERS_REQUEST, updateUsers);
+export default function* paasSaga() {
+  yield [
+    // manager (current / previous)
+    takeLatest(C.GET_MANAGER_DATA_REQUEST, getManagerData),
+    takeLatest(C.UPDATE_USERS_REQUEST, updateUsers),
+    // report
+    takeLatest(C.GET_REPORT_DATA_REQUEST, getReportData),
+  ];
 }
-
-
-export default paasSaga;

@@ -8,16 +8,18 @@ import LoadingMessage from './LoadingMessage';
 // https://www.npmjs.com/package/react-loadable
 class Loading extends React.PureComponent {
   render() {
-    const { text, isLoading, timedOut, pastDelay, error } = this.props;
+    const { text, loading, isLoading, timedOut, pastDelay, error } = this.props;
 
-    if (isLoading) {
+    if (loading) {
+      return <LoadingMessage text={text} />;
+    } else if (isLoading) { // isLoading and timeOut, etc is used by react-loadable
       if (timedOut) {
-        return <ErrorMessage />;
+        return <ErrorMessage {...this.props} />;
       } else if (pastDelay) {
         return <LoadingMessage text={text} />;
       }
     } else if (error) {
-      return <ErrorMessage error={error} />;
+      return <ErrorMessage {...this.props} />;
     }
 
     return null;
@@ -25,10 +27,11 @@ class Loading extends React.PureComponent {
 }
 
 
-const { bool, string, shape } = PropTypes;
+const { bool, string, shape, number, oneOfType } = PropTypes;
 
 Loading.propTypes = {
   text: string,
+  loading: oneOfType([bool, number]),
   isLoading: bool,
   timedOut: bool,
   pastDelay: bool,

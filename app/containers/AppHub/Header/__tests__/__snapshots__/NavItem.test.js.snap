@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Item /> should render correctly if \`isLink\` 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 50px;
+}
+
+.c0:hover,
+.c0:active,
+.c0:focus {
+  background: #333333;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Item /> should render correctly if is \`checked\` 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 50px;
+  background: #333333;
+}
+
+<div
+  checked={true}
+  className="c0"
+/>
+`;
+
+exports[`<Item /> should render correctly if is \`dark\` 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 50px;
+}
+
+.c0:hover,
+.c0:active,
+.c0:focus {
+  background: #004578;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<NavItem__NavItem /> should render correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  height: 50px;
+}
+
+<div
+  className="c0"
+/>
+`;

@@ -1,7 +1,8 @@
 module.exports = {
   ROLES: {
     MANAGER: 'PAAS Manager',
-    REPORTS: 'PAAS Reports',
+    SECURITY: 'PAAS Security',
+    HR: 'PAAS HR',
   },
   APPROVAL: {
     NONE: null,

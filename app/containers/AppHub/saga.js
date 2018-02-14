@@ -1,27 +1,33 @@
-import { put, takeEvery, select } from 'redux-saga/effects';
+import { put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 
-import { authenticate } from 'utils/requestWithToken';
+import { authenticate } from 'utils/api';
 
-import { selectApp } from './selectors';
-import { REQUEST, SUCCESS, FAILURE, AUTH_USER } from './constants';
-import { changeAppStatus } from './actions';
+import * as selectors from './selectors';
+import * as actions from './actions';
+import * as C from './constants';
+
 
 export function* matchPattern(action) {
   const type = action.type;
-  const app = yield select(selectApp);
+  const app = yield select(selectors.getApp);
 
-  if (!app.get('error')) {
-    if (type.match(REQUEST)) {
-      yield put(changeAppStatus({ loading: app.get('loading') + 1, error: null }));
-    }
+  if (type.match(C.REQUEST)) {
+    yield put(actions.changeAppStatus({ loading: app.get('loading') + 1, error: null }));
+  }
 
-    if (type.match(SUCCESS) || type.match(FAILURE)) {
-      yield put(changeAppStatus({ loading: app.get('loading') - 1, error: action.error ? action.payload : null }));
-    }
+  if (type.match(C.SUCCESS)) {
+    yield put(actions.changeAppStatus({ loading: app.get('loading') - 1, error: null }));
+  }
+
+  if (type.match(C.FAILURE)) {
+    yield put(actions.changeAppStatus({ loading: app.get('loading') - 1, error: action.payload }));
   }
 }
 
+
 export default function* appHubSaga() {
-  yield takeEvery(AUTH_USER, authenticate);
-  yield takeEvery('*', matchPattern);
+  yield [
+    takeLatest(C.AUTH_USER, authenticate),
+    takeEvery('*', matchPattern),
+  ];
 }

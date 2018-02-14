@@ -22,7 +22,7 @@ const globals = {
       BARS: 'https://testbarsapi.technology.ca.gov/api/BadgeRequests',
       ED: 'http://testapphubapi.technology.ca.gov/directory/employees',
       JWT: 'https://testsec.api.technology.ca.gov/createToken',
-      SPA: 'https://testapphubapi.technology.ca.gov',
+      SPA: 'https://testapphubapi.technology.ca.gov/spa',
       PAAS: 'http://134.187.212.124:5353/paas',
     }),
     DEV: JSON.stringify({

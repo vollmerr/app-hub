@@ -1,11 +1,13 @@
 import { css } from 'styled-components';
 
-import theme from 'utils/theme';
-import Section from 'components/App-Content/Section';
+import theme from '../../utils/theme';
+
+import Section from '../Layout/Section';
 
 
-const FormSection = Section.withComponent('form').extend`
-  margin: ${theme.hub.padding}px;
+const FormSection = Section.extend`
+  padding: ${theme.hub.padding}px;
+
   ${(props) => css`
     min-height: 350px;
     height: calc(
@@ -15,7 +17,8 @@ const FormSection = Section.withComponent('form').extend`
       ${theme.hub.padding}px
     );
   `}
-`;
+`.withComponent('form');
+
 
 FormSection.defaultProps = {
   noValidate: true,

@@ -1,6 +1,6 @@
 export const meta = {
   // hub
-  apphub: {
+  appHub: {
     title: 'App Hub',
     desc: 'Central location for CDT ODI applications',
     keywords: 'App, Hub',
@@ -33,11 +33,6 @@ export const meta = {
     keywords: 'Employee, Directory, Lookup',
   },
   // TEMP / TESTING
-  loading: {
-    title: 'TEST LOADING',
-    desc: 'test...',
-    keywords: 'test, loading',
-  },
   demo: {
     title: 'Demo Title',
     desc: 'Demo Description',
@@ -45,4 +40,4 @@ export const meta = {
   },
 };
 
-export default meta.apphub;
+export default meta.appHub;

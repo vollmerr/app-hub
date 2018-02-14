@@ -14,7 +14,7 @@ export default {
   },
   app: {
     navWidth: 225,
-    subNavHeight: 40,
+    commandBarHeight: 40,
   },
   list: {
     headerHeight: 50,
