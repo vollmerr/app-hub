@@ -47,6 +47,18 @@ exports[`<Paas /> should render correctly 1`] = `
             "PAAS Security",
           ],
         },
+        Object {
+          "component": [Function],
+          "exact": true,
+          "key": "paasHelp",
+          "name": "Help",
+          "path": "/paas/help",
+          "roles": Array [
+            "PAAS Manager",
+            "PAAS HR",
+            "PAAS Security",
+          ],
+        },
       ],
     }
   }

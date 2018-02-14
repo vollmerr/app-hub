@@ -103,7 +103,7 @@ describe('appHubReducer', () => {
         sam: 'testSam',
         name: 'test name',
         expire: 1234,
-        roles: ['role1', 'role2'],
+        roles: ['role1', 'role2', C.ROLES.USER],
       };
       const user = {
         ...payload,
@@ -123,7 +123,7 @@ describe('appHubReducer', () => {
         sam: 'testSam',
         name: 'test name',
         expire: 1234,
-        roles: 'role1',
+        roles: C.ROLES.USER,
       };
       const user = {
         ...payload,
@@ -142,7 +142,7 @@ describe('appHubReducer', () => {
       const error = new Error('test error');
       expected = expected
         .setIn(['app', 'error'], error)
-        .setIn(['app', 'loading'], initialState.app.loading - 1);
+        .setIn(['user', 'isAuthenticated'], false);
       const action = { type: C.AUTH_USER_DONE, payload: error, error: true };
 
       expect(appHubReducer(undefined, action)).toEqual(expected);

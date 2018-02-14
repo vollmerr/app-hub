@@ -8,6 +8,7 @@ import { changeAppStatus } from 'containers/AppHub/actions';
 import { ErrorMessage, Header, Message, mapDispatchToProps } from '../ErrorMessage';
 
 const props = {
+  onAuthUser: jest.fn(),
   onChangeAppStatus: jest.fn(),
   to: undefined,
   error: null,

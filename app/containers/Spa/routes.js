@@ -33,7 +33,8 @@ export default [
     component: SpaReport,
     roles: [ROLES.ADMIN, ...TEST_ROLES_VALUES],
     hidden: true,
-  },{
+  },
+  {
     key: 'SpaHelp',
     name: 'Help',
     path: `${base}/help`,
