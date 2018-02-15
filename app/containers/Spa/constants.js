@@ -22,6 +22,10 @@ export const GET_GROUPS_FAILURE = 'app/Spa/GET_GROUPS_FAILURE';
 export const NEW_ACK_REQUEST = 'app/Spa/NEW_ACK_REQUEST';
 export const NEW_ACK_SUCCESS = 'app/Spa/NEW_ACK_SUCCESS';
 export const NEW_ACK_FAILURE = 'app/Spa/NEW_ACK_FAILURE';
+// SAVE ACKNOWLEDGMENT
+export const SAVE_ACK_REQUEST = 'app/Spa/SAVE_ACK_REQUEST';
+export const SAVE_ACK_SUCCESS = 'app/Spa/SAVE_ACK_SUCCESS';
+export const SAVE_ACK_FAILURE = 'app/Spa/SAVE_ACK_FAILURE';
 // DISABLE EXISITNG ACKNOWLEDGMENT
 export const DISABLE_ACK_REQUEST = 'app/Spa/DISABLE_ACK_REQUEST';
 export const DISABLE_ACK_SUCCESS = 'app/Spa/DISABLE_ACK_SUCCESS';
@@ -44,15 +48,14 @@ export const TEST_ROLES = {
 };
 export const ROLES_VALUES = Object.values(ROLES);
 export const TEST_ROLES_VALUES = Object.values(TEST_ROLES);
-// STATUS
-// TODO: PULL IN FROM API, MOVE TO REDUX?
+// STATUS VALUES
 export const STATUS = {
-  PENDING: 1,
-  COMPLETED: 2,
-  CANCELED: 3,
-  ACTIVE: 4,
-  EXPIRED: 5,
-  DISABLED: 6,
+  DRAFT: 1,
+  PENDING: 2,
+  ACTIVE: 3,
+  CANCELED: 4,
+  DISABLED: 5,
+  EXPIRED: 6,
 };
 // DATA FIELDS
 // fields for acknowledgment
@@ -64,7 +67,7 @@ export const ACK = {
   END_DATE: 'endDate',
   // CREATED_BY: 'createdBy',
   // CREATED_DATE: 'createdDate',
-  CREATOR_GROUP: 'creatorGroupID',
+  CREATOR_GROUP: 'creatorGroup',
   TARGET_GROUPS: 'targetGroupSids',
   DETAILS: 'details',
   STATEMENT: 'statement',

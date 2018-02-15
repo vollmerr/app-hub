@@ -28,6 +28,7 @@ describe('spaSaga', () => {
       'GET_ADMIN_DATA_REQUEST',
       'GET_GROUPS_REQUEST',
       'NEW_ACK_REQUEST',
+      'SAVE_ACK_REQUEST',
       'DISABLE_ACK_REQUEST',
       'GET_REPORT_DATA_REQUEST'`,
     () => {
@@ -39,6 +40,7 @@ describe('spaSaga', () => {
           takeLatest(C.GET_ADMIN_DATA_REQUEST, sagas.getAdminData),
           takeLatest(C.GET_GROUPS_REQUEST, sagas.getGroups),
           takeLatest(C.NEW_ACK_REQUEST, sagas.newAck),
+          takeLatest(C.SAVE_ACK_REQUEST, sagas.saveAck),
           takeLatest(C.DISABLE_ACK_REQUEST, sagas.disableAck),
           takeLatest(C.GET_REPORT_DATA_REQUEST, sagas.getReportData),
         ]).next()
@@ -144,8 +146,8 @@ describe('getAdminData', () => {
 describe('getGroups', () => {
   it('should call the api and update the store with its results', () => {
     const urls = {
-      targets: `${sagas.base}/targetabletargets`,
-      creators: `${sagas.base}/targetablecreators`,
+      targets: `${sagas.base}/targets`,
+      creators: `${sagas.base}/creators`,
     };
 
     testSaga(sagas.getGroups).next()

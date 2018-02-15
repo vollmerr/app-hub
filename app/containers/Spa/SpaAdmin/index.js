@@ -43,6 +43,7 @@ export class SpaAdmin extends React.PureComponent {
       hideNewAck: true,
       selectedItem: {},
       fields: acknowledgment,
+      initialValues: {},
     };
 
     this.selectionActive = new Selection({
@@ -98,30 +99,33 @@ export class SpaAdmin extends React.PureComponent {
    */
   handleShowNew = async () => {
     const { groups } = this.props;
-    // map to { key, text } options as FieldSelect expects
-    const options = groups.targetIds.map((id) => ({
+    // map to { key, text } options as FieldSelect/FieldChecks expects
+    const creatorOptions = groups.creatorIds.map((id) => ({
+      key: id,
+      text: groups.byId[id][C.GROUP.NAME],
+    }));
+    const targetOptions = groups.targetIds.map((id) => ({
       key: id,
       text: groups.byId[id][C.GROUP.NAME],
     }));
     // set target group options to ones pulled in from API (mapped above)
     const fields = { ...this.state.fields };
-    // fields[C.ACK.TARGET_GROUPS].options = options;
-    // set minimum selectable date on date picker
-    // fields[C.ACK.START_DATE].minDate = new Date();
-    // fields[C.ACK.END_DATE].minDate = new Date();
-
-    // TODO: determine if can select today. if not, remove today highlighted.
-    //  then remove this or above accordingly.....
-
     // set options
-    fields[C.ACK.TARGET_GROUPS].options = options;
+    fields[C.ACK.CREATOR_GROUP].options = creatorOptions;
+    fields[C.ACK.TARGET_GROUPS].options = targetOptions;
+    // if single creator group, select it and hide input
+    const initialValues = { ...this.state.initalValues };
+    if (creatorOptions.length === 1) {
+      initialValues[C.ACK.CREATOR_GROUP] = creatorOptions[0].key;
+      fields[C.ACK.CREATOR_GROUP].hidden = true;
+    }
     // set date for tommorrow
     const tommorrow = new Date();
     tommorrow.setDate(tommorrow.getDate() + 1);
     fields[C.ACK.START_DATE].minDate = tommorrow;
     fields[C.ACK.END_DATE].minDate = tommorrow;
     // update fields then show the form
-    await this.setState({ fields });
+    await this.setState({ fields, initialValues });
     this.setState({ hideNewAck: false });
   }
 
@@ -133,13 +137,24 @@ export class SpaAdmin extends React.PureComponent {
   }
 
   /**
-   * Handles submitting the new acknowledgment form to api
+   * Handles submitting the new acknowledgment form to api as ready to be active
    */
   handleSubmitNew = (values) => {
     const { onNewAckRequest } = this.props;
 
     this.handleHideNew();
     onNewAckRequest(values);
+  }
+
+  /**
+   * Handles submitting the new acknowledgment form to api as draft state
+   * Does not handle errors, is assumed valid form
+   */
+  handleSubmitSave = (values) => (event) => {
+    event.preventDefault();
+    console.log('SAVING : ', values);
+    const { onSaveAckRequest } = this.props;
+    onSaveAckRequest(values);
   }
 
   /**
@@ -152,7 +167,7 @@ export class SpaAdmin extends React.PureComponent {
 
   render() {
     const { app, adminActiveItems, adminPreviousItems, enums, setCommandBar } = this.props;
-    const { loading, fields, hideNewAck } = this.state;
+    const { loading, fields, hideNewAck, initialValues } = this.state;
     const isLoading = app.loading || loading;
     // LOADING
     if (isLoading || app.error) {
@@ -167,9 +182,11 @@ export class SpaAdmin extends React.PureComponent {
     if (!hideNewAck) {
       const newAckProps = {
         fields,
+        initialValues,
         title: newAckForm.title,
         sections: newAckForm.sections,
         onSubmit: this.handleSubmitNew,
+        onSave: this.handleSubmitSave,
       };
 
       const commandBarProps = {
@@ -244,6 +261,7 @@ SpaAdmin.propTypes = {
   onGetAdminDataRequest: func.isRequired, // eslint-disable-line
   onGetGroupsRequest: func.isRequired, // eslint-disable-line
   onNewAckRequest: func.isRequired,
+  onSaveAckRequest: func.isRequired,
   history: object.isRequired,
 };
 
@@ -260,6 +278,7 @@ export const mapDispatchToProps = (dispatch) => ({
   onGetAdminDataRequest: () => dispatch(actions.getAdminDataRequest()),
   onGetGroupsRequest: () => dispatch(actions.getGroupsRequest()),
   onNewAckRequest: (vals) => dispatch(actions.newAckRequest(vals)),
+  onSaveAckRequest: (vals) => dispatch(actions.saveAckRequest(vals)),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

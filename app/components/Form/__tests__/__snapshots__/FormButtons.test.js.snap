@@ -12,16 +12,19 @@ exports[`<FormButtons__Button /> should render correctly 1`] = `
 
 exports[`<FormButtons__Buttons /> should render correctly 1`] = `
 .c0 {
-  padding: 10px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-self: flex-end;
+  -ms-flex-pack: end;
+  justify-self: flex-end;
   -webkit-box-pack: space-between;
   -webkit-justify-content: space-between;
   -ms-flex-pack: space-between;
   justify-content: space-between;
-  height: 52px;
+  margin-top: auto;
 }
 
 <div

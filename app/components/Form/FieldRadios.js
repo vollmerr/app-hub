@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { ChoiceGroup } from 'office-ui-fabric-react/lib/ChoiceGroup';
 import styled from 'styled-components';
 
-import { metaProp, inputProp } from 'utils/propTypes';
-import { isEmptyText } from 'utils/validate';
-import theme from 'utils/theme';
+import { metaProp, inputProp } from '../../utils/propTypes';
+import { isEmptyText } from '../../utils/validate';
+import theme from '../../utils/theme';
 
 import Field from './Field';
 import FieldError from './FieldError';
@@ -29,13 +29,6 @@ export class FieldRadios extends React.Component {
       selectedKey: this.props.input.value,
     };
   }
-
-  // componentDidMount() {
-  //   const { defaultSelectedKey, input } = this.props;
-  //   if (defaultSelectedKey && !input.value) {
-  //     this.handleChange(null, { key: defaultSelectedKey });
-  //   }
-  // }
 
   componentWillReceiveProps(nextProps) {
     const { input } = nextProps;

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Form } from 'react-final-form';
+import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 
 import { FormSection, FormButtons } from '../../../components/Form';
 import theme from '../../../utils/theme';
@@ -9,17 +10,21 @@ import theme from '../../../utils/theme';
 import validate from './validate';
 
 
-export const Fields = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -15px;
+export const Title = styled.h3`
+  margin: 0;
 `;
 
 
-// min-width = xs breakpoint - 2 * 15px margin (Content) - 2 * 15px padding (Form) - 15px margin (Form)
+export const Fields = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: ${theme.hub.padding}px -${theme.hub.padding}px 0 0;
+`;
+
+
 export const FieldSection = styled.div`
   flex: 100%;
-  padding-right:15px;
+  padding-right: ${theme.hub.padding}px;
   @media (min-width: ${theme.breakpoints.md}px) {
     flex: 50%;
   }
@@ -54,6 +59,8 @@ const style = {
 export class NewAckForm extends React.PureComponent {
   renderForm = ({
     reset,
+    valid,
+    values,
     pristine,
     submitting,
     handleSubmit,
@@ -62,6 +69,7 @@ export class NewAckForm extends React.PureComponent {
       title,
       fields,
       sections,
+      onSave,
     } = this.props;
 
     const formProps = {
@@ -74,26 +82,36 @@ export class NewAckForm extends React.PureComponent {
       disabled: pristine || submitting,
     };
 
+    const saveButtonProps = {
+      text: 'Save Draft',
+      type: 'submit',
+      onClick: valid ? onSave(values) : handleSubmit,
+      disabled: pristine || submitting,
+    };
+
     return (
       <FormSection {...formProps}>
-        <h3>{title}</h3>
+        <Title>{title}</Title>
 
         <Fields>
           {mapSection(fields, sections.left)}
           {mapSection(fields, sections.right)}
         </Fields>
 
-        <FormButtons {...buttonProps} />
+        <FormButtons {...buttonProps}>
+          <DefaultButton {...saveButtonProps} />
+        </FormButtons>
       </FormSection>
     );
   }
 
   render() {
-    const { onSubmit } = this.props;
+    const { onSubmit, initialValues } = this.props;
 
     const formProps = {
       onSubmit,
       validate,
+      initialValues,
       render: this.renderForm,
     };
 
@@ -109,6 +127,8 @@ NewAckForm.propTypes = {
   fields: object.isRequired,
   sections: object.isRequired,
   onSubmit: func.isRequired,
+  onSave: func.isRequired,
+  initialValues: object,
 };
 
 

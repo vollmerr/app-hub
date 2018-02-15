@@ -13,6 +13,7 @@ import {
   getAdminDataRequest,
   getGroupsRequest,
   newAckRequest,
+  saveAckRequest,
 } from '../../actions';
 
 import { acknowledgment } from '../../data';
@@ -32,14 +33,17 @@ const props = {
   adminPreviousItems: [],
   groups: {
     byId: {
-      group1: { [C.GROUP.NAME]: 'group1Name' },
+      group1: { [C.GROUP.NAME]: 'group1Name', key: 'group1' },
+      group2: { [C.GROUP.NAME]: 'group2Name', key: 'group2' },
     },
     targetIds: ['group1'],
+    creatorIds: ['group2'],
   },
   enums: {},
   onGetAdminDataRequest: jest.fn(),
   onGetGroupsRequest: jest.fn(),
   onNewAckRequest: jest.fn(),
+  onSaveAckRequest: jest.fn(),
   history: {
     push: jest.fn(),
   },
@@ -202,6 +206,7 @@ describe('<SpaAdmin />', () => {
       getAdminDataRequest,
       getGroupsRequest,
       newAckRequest,
+      saveAckRequest,
     };
 
     testMapDispatchToProps(mapDispatchToProps, actions);

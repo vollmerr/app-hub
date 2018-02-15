@@ -99,8 +99,8 @@ export function* getAdminData() {
 export function* getGroups() {
   try {
     const urls = {
-      targets: `${base}/targetabletargets`,
-      creators: `${base}/targetablecreators`,
+      targets: `${base}/targets`,
+      creators: `${base}/creators`,
     };
 
     const [targets, creators] = yield all([
@@ -121,6 +121,27 @@ export function* getGroups() {
  * @param {object} action   - action that was dispatched
  */
 export function* newAck(action) {
+  try {
+    const url = `${base}/acknowledgements`;
+    const options = {
+      method: 'POST',
+      body: action.payload,
+    };
+// options.body.creatorGroupSid = 'S-1-5-21-695811389-1873965473-9522986-26199';
+    const data = yield call(api.requestWithToken, url, options);
+    yield put(actions.newAckSuccess(data));
+  } catch (error) {
+    yield put(actions.newAckFailure(error));
+  }
+}
+
+
+/**
+ * POSTs an acknowledgment to the api in draft mode
+ *
+ * @param {object} action   - action that was dispatched
+ */
+export function* saveAck(action) {
   try {
     const url = `${base}/acknowledgements`;
     const options = {
@@ -212,6 +233,7 @@ export default function* spaSaga() {
     takeLatest(C.GET_ADMIN_DATA_REQUEST, getAdminData),
     takeLatest(C.GET_GROUPS_REQUEST, getGroups),
     takeLatest(C.NEW_ACK_REQUEST, newAck),
+    takeLatest(C.SAVE_ACK_REQUEST, saveAck),
     takeLatest(C.DISABLE_ACK_REQUEST, disableAck),
     // report
     takeLatest(C.GET_REPORT_DATA_REQUEST, getReportData),

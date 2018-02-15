@@ -6,6 +6,9 @@ import Section from '../Layout/Section';
 
 
 const FormSection = Section.extend`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   padding: ${theme.hub.padding}px;
 
   ${(props) => css`

@@ -35,7 +35,7 @@ export default [
     hidden: true,
   },
   {
-    key: 'SpaHelp',
+    key: 'spaHelp',
     name: 'Help',
     path: `${base}/help`,
     exact: true,

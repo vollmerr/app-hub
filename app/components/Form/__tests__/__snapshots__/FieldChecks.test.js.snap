@@ -5,6 +5,10 @@ exports[`<FieldChecks__Check /> should render correctly 1`] = `
   margin: 5px 0;
 }
 
+.c0 .ms-Checkbox-checkbox {
+  border-color: #a6a6a6;
+}
+
 <CustomizedCheckbox
   className="c0"
 />
@@ -16,6 +20,7 @@ exports[`Check should render properly when errorMessage 1`] = `
 }
 
 .c0 .ms-Checkbox-checkbox {
+  border-color: #a6a6a6;
   border-color: #a80000;
 }
 
@@ -28,6 +33,10 @@ exports[`Check should render properly when errorMessage 1`] = `
 exports[`Check should render properly when no errorMessage 1`] = `
 .c0 {
   margin: 5px 0;
+}
+
+.c0 .ms-Checkbox-checkbox {
+  border-color: #a6a6a6;
 }
 
 <CustomizedCheckbox

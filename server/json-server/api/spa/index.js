@@ -163,13 +163,32 @@ function generateGroups(min, max) {
 }
 
 
+function generateUsersGroups(users, groups) {
+  const usersGroups = {};
+  users.forEach((user) => {
+    const sid = user[C.RECIPIENT.SID];
+    usersGroups[sid] = [];
+    groups.forEach((group) => {
+      if (faker.random.boolean()) {
+        usersGroups[sid].push(group);
+      }
+    });
+    if (!usersGroups[sid]) {
+      usersGroups[sid].push(groups[0]);
+    }
+  });
+  return usersGroups;
+}
+
+
 const users = generateUsers();
 const recipients = generateRecipients(users);
 const acknowledgments = generateAcknowledgments();
 const acknowledgmentStatus = generateAcknowledgmentStatus();
 const targetGroups = generateGroups(C.MIN_TARGET, C.MAX_TARGET);
 const creatorGroups = generateGroups(C.MIN_CREATOR, C.MAX_CREATOR);
-
+const usersTargetGroups = generateUsersGroups(users, targetGroups);
+const usersCreatorGroups = generateUsersGroups(users, creatorGroups);
 
 module.exports = {
   jwts,
@@ -178,8 +197,8 @@ module.exports = {
     recipients,
     acknowledgments,
     acknowledgmentStatus,
-    targetGroups,
-    creatorGroups,
+    usersTargetGroups,
+    usersCreatorGroups,
   },
   routes: [
     { '/spa/acknowledgementstatuses': '/spa-acknowledgmentStatus' },

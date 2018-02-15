@@ -1,13 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Field should render the returned component correctly 1`] = `
+exports[`<Field__StyledField /> should render correctly 1`] = `
 <Field
+  className=""
+  format={[Function]}
+  parse={[Function]}
+/>
+`;
+
+exports[`Field should render the returned component correctly 1`] = `
+<Field__StyledField
   aria-label=""
   component={[Function]}
   disabled={false}
   format={[Function]}
   name="test input"
-  parse={[Function]}
   placeholder=""
   required={false}
   validate={[Function]}

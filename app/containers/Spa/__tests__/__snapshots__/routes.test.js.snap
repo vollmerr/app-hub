@@ -39,7 +39,7 @@ Array [
   Object {
     "component": [Function],
     "exact": true,
-    "key": "SpaHelp",
+    "key": "spaHelp",
     "name": "Help",
     "path": "/spa/help",
   },

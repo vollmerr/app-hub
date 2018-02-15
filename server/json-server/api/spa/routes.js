@@ -1,6 +1,7 @@
 const C = require('./constants');
 
 function spaRoutes(server, router) {
+  // Add data to all POSTs
   server.use((req, res, next) => {
     if (req.method === 'POST') {
       if (req.url === '/spa-acknowledgments') {
@@ -13,7 +14,7 @@ function spaRoutes(server, router) {
     // Continue to JSON Server router
     next();
   });
-
+  // GET a recipients acknowledgments
   server.get('/spa/recipients/:sid/acknowledgements', (req, res) => {
     let ackIds = [];
     let acks = [];
@@ -31,7 +32,23 @@ function spaRoutes(server, router) {
 
     res.jsonp(acks);
   });
-
+  // GET a list of users creator groups
+  server.get('/spa/creators', (req, res) => {
+    const sid = req.user.sid;
+    const users = router.db
+      .get('spa-usersCreatorGroups')
+      .value();
+    res.jsonp(users[sid]);
+  });
+  // GET a list of users target groups
+  server.get('/spa/targets', (req, res) => {
+    const sid = req.user.sid;
+    const users = router.db
+      .get('spa-usersTargetGroups')
+      .value();
+    res.jsonp(users[sid]);
+  });
+  // POST an acknowlegment to acknowledge it
   server.post(`/spa/recipients/:${C.RECIPIENT.ID}/acknowledge`, (req, res) => {
     router.db
       .get('spa-recipients')
