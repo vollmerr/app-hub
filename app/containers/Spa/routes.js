@@ -1,6 +1,8 @@
 import SpaHome from './SpaHome';
 import SpaAdmin from './SpaAdmin';
 import SpaReport from './SpaReport';
+import SpaHelp from './SpaHelp';
+
 import { ROLES, TEST_ROLES_VALUES } from './constants';
 
 
@@ -31,5 +33,12 @@ export default [
     component: SpaReport,
     roles: [ROLES.ADMIN, ...TEST_ROLES_VALUES],
     hidden: true,
+  },
+  {
+    key: 'SpaHelp',
+    name: 'Help',
+    path: `${base}/help`,
+    exact: true,
+    component: SpaHelp,
   },
 ];
