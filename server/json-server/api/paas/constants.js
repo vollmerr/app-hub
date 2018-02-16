@@ -13,6 +13,7 @@ module.exports = {
     ACTIVE: 'active',
     INACTIVE: 'inactive',
     NO_MANAGER: 'noManager',
+    ASSIGNED_MANAGER: 'assignedManager',
   },
   AUTH: {
     ID: '_id',
@@ -20,7 +21,7 @@ module.exports = {
     FULL_NAME: 'fullName',
     EMAIL: 'email',
     POS_NUMBER: 'posNumber',
-    MANAGER_SID: 'managerSid',
+    MANAGER_SID: 'managerSID',
     MANAGER_NAME: 'managerFullName',
     STATUS: 'status',
     LAST_MODIFIED: 'lastUpdated',

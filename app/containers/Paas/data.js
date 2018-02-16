@@ -165,9 +165,20 @@ const previousFields = [
   AUTH.LAST_APPROVED,
 ];
 
+const adminNoManFields = [
+  AUTH.FULL_NAME,
+];
+
+const adminAssignedManFields = [
+  AUTH.FULL_NAME,
+  AUTH.MANAGER_NAME,
+];
+
 export const currentColumns = mapToColumns({ ...authorization, ...buttons }, currentFields);
 export const previousColumns = mapToColumns(authorization, previousFields);
 
+export const adminNoManagerColumns = mapToColumns(authorization, adminNoManFields);
+export const adminAssignedManagerColumns = mapToColumns(authorization, adminAssignedManFields);
 
 const reportFields = [
   AUTH.FULL_NAME,

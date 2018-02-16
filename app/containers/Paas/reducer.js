@@ -82,9 +82,14 @@ export default handleActions({
       [C.REPORT.DENIED]: [],
       [C.REPORT.PENDING]: [],
       [C.REPORT.NO_MANAGER]: [],
+      [C.REPORT.ASSIGNED_MANAGER]: [],
     };
     // map out ids based off if approved, denied, pending,or no manager
     payload.data.forEach((auth) => {
+      if (auth[C.AUTH.STATUS] === C.STATUS.ASSIGNED_MANAGER) {
+        data[C.REPORT.ASSIGNED_MANAGER].push(auth);
+      }
+
       if (auth[C.AUTH.STATUS] === C.STATUS.NO_MANAGER) {
         data[C.REPORT.NO_MANAGER].push(auth);
         // TODO: strict comparison when API guarenteed to return number

@@ -2,6 +2,7 @@
 import PaasCurrent from './PaasCurrent';
 import PaasPrevious from './PaasPrevious';
 import PaasReport from './PaasReport';
+import PaasAdmin from './PaasAdmin';
 import PaasHelp from './PaasHelp';
 
 import { ROLES } from './constants';
@@ -38,6 +39,14 @@ export default [
     exact: true,
     component: PaasReport,
     roles: [ROLES.MANAGER, ROLES.HR, ROLES.SECURITY],
+  },
+  {
+    key: 'paasAdmin',
+    name: 'Admin',
+    path: `${base}/admin`,
+    exact: true,
+    component: PaasAdmin,
+    roles: [ROLES.SECURITY],
   },
   {
     key: 'paasHelp',

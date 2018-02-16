@@ -33,7 +33,7 @@ export const AUTH = {
   FULL_NAME: 'fullName',
   EMAIL: 'email',
   POS_NUMBER: 'posNumber',
-  MANAGER_SID: 'managerSid',
+  MANAGER_SID: 'managerSID',
   MANAGER_NAME: 'managerFullName',
   STATUS: 'status',
   LAST_MODIFIED: 'lastUpdated',
@@ -46,6 +46,7 @@ export const STATUS = {
   ACTIVE: 'active',
   INACTIVE: 'inactive',
   NO_MANAGER: 'noManager',
+  ASSIGNED_MANAGER: 'assignedManager',
 };
 // APP TO AUTHORIZE
 export const APPS = {
@@ -64,4 +65,5 @@ export const REPORT = {
   DENIED: 1,
   PENDING: 2,
   NO_MANAGER: 3,
+  ASSIGNED_MANAGER: 4,
 };
