@@ -42,6 +42,16 @@ module.exports = {
     STATUS: 'status',
     DESC: 'description',
   },
+  STATUS: {
+    DRAFT: 1,
+    PENDING: 2,
+    ACTIVE: 3,
+    CANCELED: 4,
+    DEACTIVATED: 5,
+    EXPIRED: 6,
+  },
+  MIN_STATUS: 1, // maps to STATUS above
+  MAX_STATUS: 6, // maps to STATUS above
   GROUP: {
     NAME: 'name',
     SID: 'sid',
@@ -52,6 +62,4 @@ module.exports = {
   MAX_CREATOR: 1003,
   MIN_ACK: 100,
   MAX_ACK: 130,
-  MIN_STATUS: 1,
-  MAX_STATUS: 6,
 };

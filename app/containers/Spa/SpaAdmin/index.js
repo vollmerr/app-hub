@@ -15,12 +15,10 @@ import { shouldFetch } from '../../../utils/api';
 import LoadCommandBar from '../../App/LoadCommandBar';
 import * as hubSelectors from '../../AppHub/selectors';
 
-import { adminColumns, acknowledgment, newAckForm } from '../data';
+import { adminColumns, acknowledgment } from '../data';
 import * as selectors from '../selectors';
 import * as actions from '../actions';
 import * as C from '../constants';
-
-import NewAckForm from './NewAckForm';
 
 
 const style = {
@@ -40,7 +38,7 @@ export class SpaAdmin extends React.PureComponent {
     super(props);
     this.state = {
       loading: true,
-      hideNewAck: true,
+      // hideNewAck: true,
       selectedItem: {},
       fields: acknowledgment,
       initialValues: {},
@@ -55,13 +53,11 @@ export class SpaAdmin extends React.PureComponent {
   }
 
   async componentDidMount() {
-    const { admin, onGetAdminDataRequest, onGetGroupsRequest } = this.props;
+    // const { admin, onGetAdminDataRequest, onGetGroupsRequest } = this.props;
+    const { admin, onGetAdminDataRequest } = this.props;
     // only load admin data if, not cached
     if (shouldFetch(admin.lastFetched)) {
-      await Promise.all([
-        onGetAdminDataRequest(),
-        onGetGroupsRequest(),
-      ]);
+      await onGetAdminDataRequest();
     }
     this.setState({ loading: false }); // eslint-disable-line
   }
@@ -75,86 +71,13 @@ export class SpaAdmin extends React.PureComponent {
       name: 'New',
       icon: 'plus',
       ariaLabel: 'Add New Acknowledgment',
-      onClick: this.handleShowNew,
+      onClick: this.newFormRedirect,
     }],
   })
 
-  // items to display in command bar on new acknowledgment form
-  getNewCommands = () => ({
-    items: [
-      {
-        key: 'back',
-        name: 'Back',
-        icon: 'navBack',
-        ariaLabel: 'Back to Admin Page',
-        onClick: this.handleHideNew,
-      },
-    ],
-  })
-
-  // NEW ACKNOWLEDGMENT FORM
-
-  /**
-   * Handles opening the form for creating a new acknowledgment
-   */
-  handleShowNew = async () => {
-    const { groups } = this.props;
-    // map to { key, text } options as FieldSelect/FieldChecks expects
-    const creatorOptions = groups.creatorIds.map((id) => ({
-      key: id,
-      text: groups.byId[id][C.GROUP.NAME],
-    }));
-    const targetOptions = groups.targetIds.map((id) => ({
-      key: id,
-      text: groups.byId[id][C.GROUP.NAME],
-    }));
-    // set target group options to ones pulled in from API (mapped above)
-    const fields = { ...this.state.fields };
-    // set options
-    fields[C.ACK.CREATOR_GROUP].options = creatorOptions;
-    fields[C.ACK.TARGET_GROUPS].options = targetOptions;
-    // if single creator group, select it and hide input
-    const initialValues = { ...this.state.initalValues };
-    if (creatorOptions.length === 1) {
-      initialValues[C.ACK.CREATOR_GROUP] = creatorOptions[0].key;
-      fields[C.ACK.CREATOR_GROUP].hidden = true;
-    }
-    // set date for tommorrow
-    const tommorrow = new Date();
-    tommorrow.setDate(tommorrow.getDate() + 1);
-    fields[C.ACK.START_DATE].minDate = tommorrow;
-    fields[C.ACK.END_DATE].minDate = tommorrow;
-    // update fields then show the form
-    await this.setState({ fields, initialValues });
-    this.setState({ hideNewAck: false });
-  }
-
-  /**
-   * Handles hiding the new acknowledgment form
-   */
-  handleHideNew = () => {
-    this.setState({ hideNewAck: true });
-  }
-
-  /**
-   * Handles submitting the new acknowledgment form to api as ready to be active
-   */
-  handleSubmitNew = (values) => {
-    const { onNewAckRequest } = this.props;
-
-    this.handleHideNew();
-    onNewAckRequest(values);
-  }
-
-  /**
-   * Handles submitting the new acknowledgment form to api as draft state
-   * Does not handle errors, is assumed valid form
-   */
-  handleSubmitSave = (values) => (event) => {
-    event.preventDefault();
-    console.log('SAVING : ', values);
-    const { onSaveAckRequest } = this.props;
-    onSaveAckRequest(values);
+  newFormRedirect = () => {
+    const { history } = this.props;
+    history.push('/spa/form/new');
   }
 
   /**
@@ -162,12 +85,20 @@ export class SpaAdmin extends React.PureComponent {
    */
   handleSelectItem = (item) => {
     const { history } = this.props;
-    history.push(`/spa/report/${item[C.ACK.ID]}`);
+    let page = 'report';
+    const formStatus = [C.STATUS.DRAFT, C.STATUS.PENDING, C.STATUS.CANCELED];
+    // if draft, pending, or canceled
+    if (item[C.ACK.STATUS] in formStatus) {
+      page = 'form';
+    }
+    // open the page...
+    history.push(`/spa/${page}/${item[C.ACK.ID]}`);
   }
 
   render() {
     const { app, adminActiveItems, adminPreviousItems, enums, setCommandBar } = this.props;
-    const { loading, fields, hideNewAck, initialValues } = this.state;
+    // const { loading, fields, hideNewAck, initialValues } = this.state;
+    const { loading } = this.state;
     const isLoading = app.loading || loading;
     // LOADING
     if (isLoading || app.error) {
@@ -178,40 +109,16 @@ export class SpaAdmin extends React.PureComponent {
       };
       return <Loading {...loadingProps} />;
     }
-    // NEW ACK FORM VISIBLE
-    if (!hideNewAck) {
-      const newAckProps = {
-        fields,
-        initialValues,
-        title: newAckForm.title,
-        sections: newAckForm.sections,
-        onSubmit: this.handleSubmitNew,
-        onSave: this.handleSubmitSave,
-      };
-
-      const commandBarProps = {
-        setCommandBar,
-        commandBar: this.getNewCommands(),
-        disabled: isLoading || app.error,
-      };
-
-      return (
-        <div>
-          <NewAckForm {...newAckProps} />
-          <LoadCommandBar {...commandBarProps} />
-        </div>
-      );
-    }
     // ACTIVE / PREVIOUS LISTS
     const activeProps = {
       enums,
       style,
       items: adminActiveItems,
       columns: adminColumns,
-      title: 'Active Acknowledgments',
+      title: 'Active Policies',
       empty: {
-        message: 'No Active Acknowledgments',
-        onClick: this.handleShowNew,
+        message: 'No Active Policies',
+        onClick: this.newFormRedirect,
         buttonText: 'Create New',
         buttonIcon: 'plus',
       },
@@ -223,9 +130,9 @@ export class SpaAdmin extends React.PureComponent {
       style,
       items: adminPreviousItems,
       columns: adminColumns,
-      title: 'Previous Acknowledgments',
+      title: 'Previous Policies',
       empty: {
-        message: 'No Previous Acknowledgments',
+        message: 'No Previous Policies',
       },
       selection: this.selectionPrev,
     };
@@ -256,29 +163,22 @@ SpaAdmin.propTypes = {
   admin: object.isRequired, // eslint-disable-line
   adminActiveItems: array.isRequired,
   adminPreviousItems: array.isRequired,
-  groups: object.isRequired,
   enums: object.isRequired,
   onGetAdminDataRequest: func.isRequired, // eslint-disable-line
-  onGetGroupsRequest: func.isRequired, // eslint-disable-line
-  onNewAckRequest: func.isRequired,
-  onSaveAckRequest: func.isRequired,
   history: object.isRequired,
 };
+
 
 const mapStateToProps = createStructuredSelector({
   app: hubSelectors.getApp,
   admin: selectors.getAdmin,
   adminActiveItems: selectors.geAdminItems('acksActive'),
   adminPreviousItems: selectors.geAdminItems('acksPrevious'),
-  groups: selectors.getGroups,
   enums: selectors.getEnums,
 });
 
 export const mapDispatchToProps = (dispatch) => ({
   onGetAdminDataRequest: () => dispatch(actions.getAdminDataRequest()),
-  onGetGroupsRequest: () => dispatch(actions.getGroupsRequest()),
-  onNewAckRequest: (vals) => dispatch(actions.newAckRequest(vals)),
-  onSaveAckRequest: (vals) => dispatch(actions.saveAckRequest(vals)),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

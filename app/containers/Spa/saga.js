@@ -158,32 +158,22 @@ export function* saveAck(action) {
 
 
 /**
- * PATCHs an existing acknowledgment with disable
+ * POST an existing acknowledgment to disable it
  *
  * @param {object} action   - action that was dispatched
  */
-export function* disableAck(action) {
+export function* deactivateAck(action) {
   try {
     const id = action.payload[C.ACK.ID];
-    const value = action.payload[C.ACK.STATUS] === C.STATUS.PENDING ?
-      C.STATUS.CANCELED :
-      C.STATUS.DISABLED;
-    const url = `${base}/acknowledgements/${id}`;
+    const url = `${base}/acknowledgements/${id}/deactivate`;
     const options = {
-      method: 'PATCH',
-      body: [
-        {
-          value,
-          op: 'replace',
-          path: `/${C.ACK.STATUS}`,
-        },
-      ],
+      method: 'POST',
     };
 
     const data = yield call(api.requestWithToken, url, options);
-    yield put(actions.disableAckSuccess(data));
+    yield put(actions.deactivateAckSuccess(data));
   } catch (error) {
-    yield put(actions.disableAckFailure(error));
+    yield put(actions.deactivateAckFailure(error));
   }
 }
 
@@ -234,7 +224,7 @@ export default function* spaSaga() {
     takeLatest(C.GET_GROUPS_REQUEST, getGroups),
     takeLatest(C.NEW_ACK_REQUEST, newAck),
     takeLatest(C.SAVE_ACK_REQUEST, saveAck),
-    takeLatest(C.DISABLE_ACK_REQUEST, disableAck),
+    takeLatest(C.DEACTIVATE_ACK_REQUEST, deactivateAck),
     // report
     takeLatest(C.GET_REPORT_DATA_REQUEST, getReportData),
   ];

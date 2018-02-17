@@ -1,19 +1,6 @@
 const C = require('./constants');
 
 function spaRoutes(server, router) {
-  // Add data to all POSTs
-  server.use((req, res, next) => {
-    if (req.method === 'POST') {
-      if (req.url === '/spa-acknowledgments') {
-        // set to active status
-        req.body[C.ACK.STATUS] = 0;
-      } else if (/\/spa-recipients\?id=\d+/.test(req.url)) {
-        req.body[C.RECIPIENT.ACK_DATE] = new Date().toISOString();
-      }
-    }
-    // Continue to JSON Server router
-    next();
-  });
   // GET a recipients acknowledgments
   server.get('/spa/recipients/:sid/acknowledgements', (req, res) => {
     let ackIds = [];
@@ -52,8 +39,28 @@ function spaRoutes(server, router) {
   server.post(`/spa/recipients/:${C.RECIPIENT.ID}/acknowledge`, (req, res) => {
     router.db
       .get('spa-recipients')
-      .find({ [C.RECIPIENT.ID]: Number(req.params[C.RECIPIENT.ID]) })
+      .find({ [C.RECIPIENT.ID]: req.params[C.RECIPIENT.ID] })
       .assign({ [C.RECIPIENT.ACK_DATE]: new Date().toISOString() })
+      .write();
+
+    res.sendStatus(204);
+  });
+  // POST an acknowlegment to deactive it (from active state)
+  server.post(`/spa/acknowledgements/:${C.ACK.ID}/deactivate`, (req, res) => {
+    router.db
+      .get('spa-acknowledgments')
+      .find({ [C.ACK.ID]: req.params[C.ACK.ID] })
+      .assign({ [C.ACK.STATUS]: C.STATUS.DEACTIVATED })
+      .write();
+
+    res.sendStatus(204);
+  });
+  // POST an acknowlegment to cancel it (from draft state)
+  server.post(`/spa/acknowledgements/:${C.ACK.ID}/cancel`, (req, res) => {
+    router.db
+      .get('spa-acknowledgments')
+      .find({ [C.ACK.ID]: req.params[C.ACK.ID] })
+      .assign({ [C.ACK.STATUS]: C.STATUS.CANCELED })
       .write();
 
     res.sendStatus(204);

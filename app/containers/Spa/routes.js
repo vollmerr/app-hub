@@ -1,5 +1,6 @@
 import SpaHome from './SpaHome';
 import SpaAdmin from './SpaAdmin';
+import SpaForm from './SpaForm';
 import SpaReport from './SpaReport';
 import SpaHelp from './SpaHelp';
 
@@ -24,6 +25,15 @@ export default [
     exact: true,
     component: SpaAdmin,
     roles: [ROLES.ADMIN, ...TEST_ROLES_VALUES],
+  },
+  {
+    key: 'spaForm',
+    name: 'Form',
+    path: `${base}/form/:id`,
+    exact: true,
+    component: SpaForm,
+    roles: [ROLES.ADMIN, ...TEST_ROLES_VALUES],
+    hidden: true,
   },
   {
     key: 'spaReport',

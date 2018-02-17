@@ -204,7 +204,7 @@ export default handleActions({
   },
 
 
-  [C.DISABLE_ACK_SUCCESS]: (state, action) => {
+  [C.DEACTIVATE_ACK_SUCCESS]: (state, action) => {
     const { payload } = action;
     // id must be string
     const ackId = String(payload[C.ACK.ID]);

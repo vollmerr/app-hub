@@ -13,7 +13,7 @@ import * as api from '../../../../utils/api';
 import {
   getReportDataRequest,
   setReportKey,
-  disableAckRequest,
+  deactivateAckRequest,
 } from '../../actions';
 import * as C from '../../constants';
 
@@ -60,7 +60,7 @@ const props = {
   enums: {},
   onGetReportDataRequest: jest.fn(),
   onSetReportKey: jest.fn(),
-  onDisableAckRequest: jest.fn(),
+  onDeactivateAckRequest: jest.fn(),
   setCommandBar: jest.fn(),
   history: {
     push: jest.fn(),
@@ -223,9 +223,9 @@ describe('<SpaReport />', () => {
 
 
   describe('handleSubmitDisable', () => {
-    it('should dispatch the `onDisableAckRequest` action with the item to update the api', () => {
+    it('should dispatch the `onDeactivateAckRequest` action with the item to update the api', () => {
       instance.handleSubmitDisable();
-      expect(props.onDisableAckRequest).toHaveBeenCalledWith(props.report.item);
+      expect(props.onDeactivateAckRequest).toHaveBeenCalledWith(props.report.item);
     });
 
     it('should hide the disable modal', () => {
@@ -266,7 +266,7 @@ describe('<SpaReport />', () => {
     const actions = {
       getReportDataRequest,
       setReportKey,
-      disableAckRequest,
+      deactivateAckRequest,
     };
 
     testMapDispatchToProps(mapDispatchToProps, actions);
