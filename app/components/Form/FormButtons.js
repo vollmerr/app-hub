@@ -7,10 +7,10 @@ import theme from 'utils/theme';
 
 
 export const Buttons = styled.div`
-  padding: ${theme.hub.padding}px;
   display: flex;
+  justify-self: flex-end;
   justify-content: space-between;
-  height: ${theme.form.buttonsHeight}px;
+  margin-top:auto;
 `;
 
 export const Button = styled(DefaultButton)`

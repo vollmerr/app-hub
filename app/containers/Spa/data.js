@@ -6,6 +6,7 @@ import {
   FieldDate,
   FieldChecks,
   FieldFile,
+  FieldRadios,
 } from '../../components/Form';
 
 import * as C from './constants';
@@ -61,8 +62,11 @@ export const acknowledgment = {
   },
   [C.ACK.CREATOR_GROUP]: {
     label: 'Creator Group',
+    required: true,
     name: C.ACK.CREATOR_GROUP,
     ariaLabel: 'AD group that created the acknowledgment',
+    component: FieldRadios,
+    options: [],
   },
   [C.ACK.TARGET_GROUPS]: {
     label: 'Target Group(s)',
@@ -195,24 +199,21 @@ export const recipient = {
 };
 
 
-// FORMS
-// TODO MOVE NEW ACK FORM?
-export const newAckForm = {
-  title: 'New Policy Acknowledgment',
-  sections: {
-    left: [
-      C.ACK.TITLE,
-      C.ACK.START_DATE,
-      C.ACK.END_DATE,
-      C.ACK.TARGET_GROUPS,
-    ],
-    right: [
-      C.ACK.STATEMENT,
-      C.ACK.DETAILS,
-      C.ACK.FILE_NAME,
-      C.ACK.FILE_CONTENT,
-    ],
-  },
+// FORM
+export const formFields = {
+  left: [
+    C.ACK.TITLE,
+    C.ACK.START_DATE,
+    C.ACK.END_DATE,
+    C.ACK.CREATOR_GROUP,
+    C.ACK.TARGET_GROUPS,
+  ],
+  right: [
+    C.ACK.STATEMENT,
+    C.ACK.DETAILS,
+    C.ACK.FILE_NAME,
+    C.ACK.FILE_CONTENT,
+  ],
 };
 
 
@@ -223,7 +224,7 @@ const fields = {
 };
 
 const homeFields = [
-  C.ACK.ID,
+  // C.ACK.ID,
   C.ACK.TITLE,
   C.ACK.STATUS,
   C.ACK.START_DATE,
@@ -236,7 +237,7 @@ const homeExcludes = [
 ];
 
 const adminFields = [
-  C.ACK.ID,
+  // C.ACK.ID,
   C.ACK.TITLE,
   C.ACK.STATUS,
   C.ACK.START_DATE,

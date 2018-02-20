@@ -1,30 +1,58 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
+
+import toJS from '../../hocs/toJS';
+import theme from '../../utils/theme';
+import * as selectors from '../../containers/AppHub/selectors';
 
 import LayoutSection from '../Layout/Section';
 
+
+export const Wrapper = styled(LayoutSection) `
+  padding: ${theme.hub.padding}px;
+`;
+
+
+export const Title = styled.h1`
+  margin: 0;
+`;
+
+
 const Section = ({ title, desc }) => (
-  <LayoutSection>
+  <div>
     <h2>{title}</h2>
     <div>{desc}</div>
-  </LayoutSection>
+  </div>
 );
+
 
 class Help extends React.PureComponent {
   render() {
-    const { title, sections } = this.props;
+    const { title, sections, roles } = this.props;
 
     return (
-      <div>
-        <LayoutSection>
-          <h1>{title}</h1>
-        </LayoutSection>
+      <Wrapper>
+        <Title>{title}</Title>
         {
-          sections.map((section) => (
-            <Section key={section.title} {...section} />
-          ))
+          sections.map((section) => {
+            // section has specific roles defined
+            if (section.roles) {
+              // do not render if user does not have roles
+              if (!section.roles.some((role) => roles.includes(role))) {
+                return null;
+              }
+            }
+
+            return (
+              <Section key={section.title} {...section} />
+            );
+          })
         }
-      </div>
+      </Wrapper>
     );
   }
 }
@@ -39,8 +67,24 @@ Section.propTypes = {
 };
 
 Help.propTypes = {
+  roles: array,
   title: string.isRequired,
   sections: array.isRequired,
 };
 
-export default Help;
+Help.defaultProps = {
+  roles: [],
+};
+
+
+const mapStateToProps = createStructuredSelector({
+  roles: selectors.getUserRoles,
+});
+
+const withConnect = connect(mapStateToProps);
+
+
+export default compose(
+  withConnect,
+  toJS,
+)(Help);

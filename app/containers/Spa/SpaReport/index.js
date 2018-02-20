@@ -200,8 +200,8 @@ export class SpaReport extends React.PureComponent {
 
   // handles submitting a disable
   handleSubmitDisable = () => {
-    const { report, onDisableAckRequest } = this.props;
-    onDisableAckRequest(report.item);
+    const { report, onDeactivateAckRequest } = this.props;
+    onDeactivateAckRequest(report.item);
     this.handleHideModal(modal.disable)();
   }
 
@@ -325,7 +325,7 @@ SpaReport.propTypes = {
   enums: object,
   onGetReportDataRequest: func.isRequired, // eslint-disable-line
   onSetReportKey: func.isRequired,
-  onDisableAckRequest: func.isRequired,
+  onDeactivateAckRequest: func.isRequired,
   setCommandBar: func.isRequired,
   history: object.isRequired,
   match: object.isRequired,
@@ -342,7 +342,7 @@ const mapStateToProps = createStructuredSelector({
 export const mapDispatchToProps = (dispatch) => ({
   onGetReportDataRequest: (id) => dispatch(actions.getReportDataRequest(id)),
   onSetReportKey: (key) => dispatch(actions.setReportKey(key)),
-  onDisableAckRequest: (item) => dispatch(actions.disableAckRequest(item)),
+  onDeactivateAckRequest: (item) => dispatch(actions.deactivateAckRequest(item)),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

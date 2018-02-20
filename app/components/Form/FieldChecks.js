@@ -16,6 +16,7 @@ export const Check = styled(Checkbox)`
   margin: 5px 0;
 
   .ms-Checkbox-checkbox {
+    border-color: ${theme.neutralTertiary};
     ${(props) => props.errorMessage && `border-color: ${theme.redDark};`}
   }
 `;

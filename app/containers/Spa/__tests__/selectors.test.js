@@ -50,7 +50,7 @@ const spa = {
     byId: {
       g: { [C.ACK.ID]: 'g', [C.ACK.STATUS]: C.STATUS.ACTIVE },
       x: { [C.ACK.ID]: 'x', [C.ACK.STATUS]: C.STATUS.EXPIRED },
-      y: { [C.ACK.ID]: 'y', [C.ACK.STATUS]: C.STATUS.DISABLED },
+      y: { [C.ACK.ID]: 'y', [C.ACK.STATUS]: C.STATUS.DEACTIVATED },
     },
     allIds: ['g', 'x', 'y'],
   },

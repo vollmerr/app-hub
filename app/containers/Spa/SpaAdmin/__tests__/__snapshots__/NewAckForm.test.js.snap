@@ -13,7 +13,7 @@ exports[`<NewAckForm__FieldSection /> should render correctly 1`] = `
   -webkit-flex: 100%;
   -ms-flex: 100%;
   flex: 100%;
-  padding-right: 15px;
+  padding-right: 10px;
 }
 
 @media (min-width: 768px) {
@@ -38,10 +38,20 @@ exports[`<NewAckForm__Fields /> should render correctly 1`] = `
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-right: -15px;
+  margin: 10px -10px 0 0;
 }
 
 <div
+  className="c0"
+/>
+`;
+
+exports[`<NewAckForm__Title /> should render correctly 1`] = `
+.c0 {
+  margin: 0;
+}
+
+<h3
   className="c0"
 />
 `;

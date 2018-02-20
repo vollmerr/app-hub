@@ -99,8 +99,8 @@ export function* getAdminData() {
 export function* getGroups() {
   try {
     const urls = {
-      targets: `${base}/targetabletargets`,
-      creators: `${base}/targetablecreators`,
+      targets: `${base}/targets`,
+      creators: `${base}/creators`,
     };
 
     const [targets, creators] = yield all([
@@ -137,32 +137,43 @@ export function* newAck(action) {
 
 
 /**
- * PATCHs an existing acknowledgment with disable
+ * POSTs an acknowledgment to the api in draft mode
  *
  * @param {object} action   - action that was dispatched
  */
-export function* disableAck(action) {
+export function* saveAck(action) {
+  try {
+    const url = `${base}/acknowledgements`;
+    const options = {
+      method: 'POST',
+      body: action.payload,
+    };
+// options.body.creatorGroupSid = 'S-1-5-21-695811389-1873965473-9522986-26199';
+    const data = yield call(api.requestWithToken, url, options);
+    yield put(actions.newAckSuccess(data));
+  } catch (error) {
+    yield put(actions.newAckFailure(error));
+  }
+}
+
+
+/**
+ * POST an existing acknowledgment to disable it
+ *
+ * @param {object} action   - action that was dispatched
+ */
+export function* deactivateAck(action) {
   try {
     const id = action.payload[C.ACK.ID];
-    const value = action.payload[C.ACK.STATUS] === C.STATUS.PENDING ?
-      C.STATUS.CANCELED :
-      C.STATUS.DISABLED;
-    const url = `${base}/acknowledgements/${id}`;
+    const url = `${base}/acknowledgements/${id}/deactivate`;
     const options = {
-      method: 'PATCH',
-      body: [
-        {
-          value,
-          op: 'replace',
-          path: `/${C.ACK.STATUS}`,
-        },
-      ],
+      method: 'POST',
     };
 
     const data = yield call(api.requestWithToken, url, options);
-    yield put(actions.disableAckSuccess(data));
+    yield put(actions.deactivateAckSuccess(data));
   } catch (error) {
-    yield put(actions.disableAckFailure(error));
+    yield put(actions.deactivateAckFailure(error));
   }
 }
 
@@ -212,7 +223,8 @@ export default function* spaSaga() {
     takeLatest(C.GET_ADMIN_DATA_REQUEST, getAdminData),
     takeLatest(C.GET_GROUPS_REQUEST, getGroups),
     takeLatest(C.NEW_ACK_REQUEST, newAck),
-    takeLatest(C.DISABLE_ACK_REQUEST, disableAck),
+    takeLatest(C.SAVE_ACK_REQUEST, saveAck),
+    takeLatest(C.DEACTIVATE_ACK_REQUEST, deactivateAck),
     // report
     takeLatest(C.GET_REPORT_DATA_REQUEST, getReportData),
   ];

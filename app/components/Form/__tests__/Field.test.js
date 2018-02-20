@@ -2,8 +2,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Field as ReactField } from 'react-final-form';
 
-import Field, { composeValidators, format } from '../Field';
+import { testStyledComponent } from '../../../utils/testUtils';
+
+import Field, { composeValidators, format, StyledField } from '../Field';
 import { Field as Index } from '../index';
+
+
+testStyledComponent(StyledField, ReactField);
 
 
 const WrappedComponent = () => <input type={'text'} />;
@@ -63,18 +68,18 @@ describe('Field', () => {
   });
 
   it('should render a redux-form Field with the passed component', () => {
-    expect(wrapper.find(ReactField).length).toEqual(1);
-    expect(wrapper.find(ReactField).prop('component')).toEqual(WrappedComponent);
+    expect(wrapper.find(StyledField).length).toEqual(1);
+    expect(wrapper.find(StyledField).prop('component')).toEqual(WrappedComponent);
   });
 
   it('should be required if not disabled', () => {
     wrapper.setProps({ required: true });
-    expect(wrapper.find(ReactField).prop('required')).toEqual(true);
+    expect(wrapper.find(StyledField).prop('required')).toEqual(true);
   });
 
   it('should be not be required if disabled', () => {
     wrapper.setProps({ required: true, disabled: true });
-    expect(wrapper.find(ReactField).prop('required')).toEqual(false);
+    expect(wrapper.find(StyledField).prop('required')).toEqual(false);
   });
 
   // it('should pass addtional validation if not disabled', () => {

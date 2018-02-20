@@ -28,7 +28,8 @@ describe('spaSaga', () => {
       'GET_ADMIN_DATA_REQUEST',
       'GET_GROUPS_REQUEST',
       'NEW_ACK_REQUEST',
-      'DISABLE_ACK_REQUEST',
+      'SAVE_ACK_REQUEST',
+      'DEACTIVATE_ACK_REQUEST',
       'GET_REPORT_DATA_REQUEST'`,
     () => {
       testSaga(sagas.default).next()
@@ -39,7 +40,8 @@ describe('spaSaga', () => {
           takeLatest(C.GET_ADMIN_DATA_REQUEST, sagas.getAdminData),
           takeLatest(C.GET_GROUPS_REQUEST, sagas.getGroups),
           takeLatest(C.NEW_ACK_REQUEST, sagas.newAck),
-          takeLatest(C.DISABLE_ACK_REQUEST, sagas.disableAck),
+          takeLatest(C.SAVE_ACK_REQUEST, sagas.saveAck),
+          takeLatest(C.DEACTIVATE_ACK_REQUEST, sagas.deactivateAck),
           takeLatest(C.GET_REPORT_DATA_REQUEST, sagas.getReportData),
         ]).next()
         .finish().isDone();
@@ -144,8 +146,8 @@ describe('getAdminData', () => {
 describe('getGroups', () => {
   it('should call the api and update the store with its results', () => {
     const urls = {
-      targets: `${sagas.base}/targetabletargets`,
-      creators: `${sagas.base}/targetablecreators`,
+      targets: `${sagas.base}/targets`,
+      creators: `${sagas.base}/creators`,
     };
 
     testSaga(sagas.getGroups).next()
@@ -193,7 +195,7 @@ describe('newAck', () => {
 });
 
 
-describe('disableAck', () => {
+describe('deactivateAck', () => {
   it('should call the api and update the store with its results', () => {
     action = { payload: data };
     const options = {
@@ -202,15 +204,15 @@ describe('disableAck', () => {
         {
           op: 'replace',
           path: `/${C.ACK.STATUS}`,
-          value: C.STATUS.DISABLED,
+          value: C.STATUS.DEACTIVATED,
         },
       ],
     };
     const url = `${sagas.base}/acknowledgements/${data.id}`;
 
-    testSaga(sagas.disableAck, action).next()
+    testSaga(sagas.deactivateAck, action).next()
       .call(requestWithToken, url, options).next(data)
-      .put(actions.disableAckSuccess(data)).next()
+      .put(actions.deactivateAckSuccess(data)).next()
       .finish().isDone();
   });
 
@@ -228,16 +230,16 @@ describe('disableAck', () => {
     };
     const url = `${sagas.base}/acknowledgements/${data.id}`;
 
-    testSaga(sagas.disableAck, action).next()
+    testSaga(sagas.deactivateAck, action).next()
       .call(requestWithToken, url, options).next(data)
-      .put(actions.disableAckSuccess(data)).next()
+      .put(actions.deactivateAckSuccess(data)).next()
       .finish().isDone();
   });
 
   it('should handle errors', () => {
-    const errGen = sagas.disableAck(action);
+    const errGen = sagas.deactivateAck(action);
     errGen.next();
-    expect(errGen.throw(error).value).toEqual(put(actions.disableAckFailure(error)));
+    expect(errGen.throw(error).value).toEqual(put(actions.deactivateAckFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });
   });
 });

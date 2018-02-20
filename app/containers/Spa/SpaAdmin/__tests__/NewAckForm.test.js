@@ -7,9 +7,10 @@ import { FormSection, FormButtons } from '../../../../components/Form';
 
 import { acknowledgment, newAckForm } from '../../data';
 
-import { NewAckForm, Fields, FieldSection } from '../NewAckForm';
+import { NewAckForm, Title, Fields, FieldSection } from '../NewAckForm';
 
 
+testStyledComponent(Title);
 testStyledComponent(Fields);
 testStyledComponent(FieldSection);
 
@@ -19,6 +20,7 @@ const props = {
   fields: acknowledgment,
   sections: newAckForm.sections,
   onSubmit: jest.fn(),
+  onSave: jest.fn(),
 };
 
 const formProps = {
@@ -56,9 +58,9 @@ describe('<NewAckForm />', () => {
       expect(form.find(FormSection).length).toEqual(1);
     });
 
-    it('should render a title (h3)', () => {
-      expect(form.find('h3').length).toEqual(1);
-      expect(form.find('h3').text()).toEqual(props.title);
+    it('should render a title', () => {
+      expect(form.find(Title).length).toEqual(1);
+      expect(form.find(Title).dive().text()).toEqual(props.title);
     });
 
     it('should render all the fields', () => {

@@ -17,7 +17,7 @@ const recipients = [
 const acknowledgments = [
   { [C.ACK.ID]: 'a', [C.ACK.TITLE]: 'title a', [C.ACK.STATUS]: C.STATUS.PENDING },
   { [C.ACK.ID]: 'b', [C.ACK.TITLE]: 'title b', [C.ACK.STATUS]: C.STATUS.ACTIVE },
-  { [C.ACK.ID]: 'c', [C.ACK.TITLE]: 'title c', [C.ACK.STATUS]: C.STATUS.DISABLED },
+  { [C.ACK.ID]: 'c', [C.ACK.TITLE]: 'title c', [C.ACK.STATUS]: C.STATUS.DEACTIVATED },
   { [C.ACK.ID]: 'd', [C.ACK.TITLE]: 'title d', [C.ACK.STATUS]: C.STATUS.EXPIRED },
   { [C.ACK.ID]: 'e', [C.ACK.TITLE]: 'title e', [C.ACK.STATUS]: C.STATUS.CANCELED },
 ];
@@ -295,10 +295,10 @@ describe('spaReducer', () => {
   });
 
 
-  describe('DISABLE_ACK_SUCCESS', () => {
+  describe('DEACTIVATE_ACK_SUCCESS', () => {
     beforeEach(() => {
-      payload = { ...state.acknowledgments.byId.g, [C.ACK.STATUS]: C.STATUS.DISABLED };
-      action = { type: C.DISABLE_ACK_SUCCESS, payload };
+      payload = { ...state.acknowledgments.byId.g, [C.ACK.STATUS]: C.STATUS.DEACTIVATED };
+      action = { type: C.DEACTIVATE_ACK_SUCCESS, payload };
     });
 
     it('should update the acknowledgment`s status in the lookup', () => {

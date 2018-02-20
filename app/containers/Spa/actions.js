@@ -32,10 +32,14 @@ export const getGroupsFailure = createAction(C.GET_GROUPS_FAILURE);
 export const newAckRequest = createAction(C.NEW_ACK_REQUEST);
 export const newAckSuccess = createAction(C.NEW_ACK_SUCCESS);
 export const newAckFailure = createAction(C.NEW_ACK_FAILURE);
+// SAVE ACKNOWLEDGMENT
+export const saveAckRequest = createAction(C.SAVE_ACK_REQUEST);
+export const saveAckSuccess = createAction(C.SAVE_ACK_SUCCESS);
+export const saveAckFailure = createAction(C.SAVE_ACK_FAILURE);
 // DSIABLE ACKNOWLEDGMENT
-export const disableAckRequest = createAction(C.DISABLE_ACK_REQUEST);
-export const disableAckSuccess = createAction(C.DISABLE_ACK_SUCCESS);
-export const disableAckFailure = createAction(C.DISABLE_ACK_FAILURE);
+export const deactivateAckRequest = createAction(C.DEACTIVATE_ACK_REQUEST);
+export const deactivateAckSuccess = createAction(C.DEACTIVATE_ACK_SUCCESS);
+export const deactivateAckFailure = createAction(C.DEACTIVATE_ACK_FAILURE);
 
 
 /* REPORT PAGE */

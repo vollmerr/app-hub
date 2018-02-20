@@ -16,7 +16,7 @@ Array [
     "name": "Admin",
     "path": "/spa/admin",
     "roles": Array [
-      "SPA Admin",
+      "SPA Creator",
       "SPA Creator - BPAS",
       "SPA Creator - Security",
       "SPA Creator - Test",
@@ -30,11 +30,18 @@ Array [
     "name": "Report",
     "path": "/spa/report/:id",
     "roles": Array [
-      "SPA Admin",
+      "SPA Creator",
       "SPA Creator - BPAS",
       "SPA Creator - Security",
       "SPA Creator - Test",
     ],
+  },
+  Object {
+    "component": [Function],
+    "exact": true,
+    "key": "spaHelp",
+    "name": "Help",
+    "path": "/spa/help",
   },
 ]
 `;

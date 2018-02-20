@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field as ReactField } from 'react-final-form';
+import styled from 'styled-components';
 
 
 const { bool, string, arrayOf, func } = PropTypes;
@@ -12,6 +13,11 @@ export const composeValidators = (...validators) => (value) => (
 export const format = (component) => (value) => (
   component.format ? component.format(value) : value || ''
 );
+
+
+export const StyledField = styled(ReactField)`
+  ${(props) => props.hidden && 'display: none;'}
+`;
 
 
 function Field(WrappedComponent, requiredFunc = null) {
@@ -67,7 +73,7 @@ function Field(WrappedComponent, requiredFunc = null) {
       };
 
       return (
-        <ReactField {...fieldProps} />
+        <StyledField {...fieldProps} />
       );
     }
   };

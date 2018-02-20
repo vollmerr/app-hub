@@ -64,12 +64,15 @@ export default handleActions({
     payload.recipients.forEach((recipient) => {
       const id = String(recipient[C.RECIPIENT.ID]);
       const ack = payload.acknowledgments.find((x) => x[C.ACK.ID] === recipient[C.RECIPIENT.ACK_ID]);
-      // only add recipients that are not pending and exist...
-      if (ack && ack[C.ACK.STATUS] !== C.STATUS.PENDING) {
-        // if the recipient has acknoweldged and acknowledgment is active
+      // only add recipients that exist and are not pending or in draft mode...
+      // TODO: IS THIS CHECK NEEDED? CHECK API IS FITLERING PENDING / DRAFT OUT
+      if (ack && ack[C.ACK.STATUS] !== C.STATUS.PENDING && ack[C.ACK.STATUS] !== C.STATUS.DRAFT) {
+        // if the recipient has acknoweldged or acknowledgment is not active
         if (recipient[C.RECIPIENT.ACK_DATE] || (ack && ack[C.ACK.STATUS] !== C.STATUS.ACTIVE)) {
+          // add id to previous recipients
           user.recipientsPreviousIds.push(id);
         } else {
+          // otherwise is active and unacknowledged, add to pending recipients
           user.recipientsPendingIds.push(id);
         }
       }
@@ -120,10 +123,17 @@ export default handleActions({
     // populate pending and previous 'recipients' and 'acknowledgment' ids
     payload.acknowledgments.forEach((ack) => {
       const id = String(ack[C.ACK.ID]);
-      // add active and pending to 'active' list
-      if (ack[C.ACK.STATUS] === C.STATUS.ACTIVE || ack[C.ACK.STATUS] === C.STATUS.PENDING) {
+      const status = ack[C.ACK.STATUS];
+      // if active, pending, and draft status acknowledgment
+      if (
+        status === C.STATUS.ACTIVE ||
+        status === C.STATUS.PENDING ||
+        status === C.STATUS.DRAFT
+      ) {
+        // add to to 'active' acknowledgment list
         admin.acksActiveIds.push(id);
       } else {
+        // otherwise expired/disabled, etc, add to 'previous' acknowledgment list
         admin.acksPreviousIds.push(id);
       }
     });
@@ -194,7 +204,7 @@ export default handleActions({
   },
 
 
-  [C.DISABLE_ACK_SUCCESS]: (state, action) => {
+  [C.DEACTIVATE_ACK_SUCCESS]: (state, action) => {
     const { payload } = action;
     // id must be string
     const ackId = String(payload[C.ACK.ID]);
