@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PaasAdmin /> render should render correctly 1`] = `
+<PaasAdmin__Wrapper>
+  <PaasAdmin__Section>
+    <List
+      columns={
+        Array [
+          Object {
+            "ariaLabel": "Full Name of the Employee",
+            "data": Object {},
+            "fieldName": "fullName",
+            "isResizable": true,
+            "isSortedDescending": true,
+            "key": "fullName",
+            "maxWidth": 150,
+            "minWidth": 100,
+            "name": "Full Name",
+            "notSortable": false,
+          },
+        ]
+      }
+      empty={
+        Object {
+          "message": "No items",
+        }
+      }
+      enums={Object {}}
+      items={Array []}
+      selection={
+        Selection {
+          "_anchoredIndex": 0,
+          "_canSelectItem": [Function],
+          "_changeEventSuppressionCount": 0,
+          "_exemptedCount": 0,
+          "_exemptedIndices": Object {},
+          "_getKey": [Function],
+          "_isModal": false,
+          "_items": Array [],
+          "_keyToIndexMap": Object {},
+          "_onSelectionChanged": [Function],
+          "_selectedItems": null,
+          "_unselectableCount": 0,
+          "_unselectableIndices": Object {},
+          "mode": 2,
+        }
+      }
+      selectionMode={0}
+      sortBy={
+        Array [
+          "fullName",
+        ]
+      }
+      style={Object {}}
+      title="Employees w/o Manager"
+    />
+    <List
+      columns={
+        Array [
+          Object {
+            "ariaLabel": "Full Name of the Employee",
+            "data": Object {},
+            "fieldName": "fullName",
+            "isResizable": true,
+            "isSortedDescending": true,
+            "key": "fullName",
+            "maxWidth": 150,
+            "minWidth": 100,
+            "name": "Full Name",
+            "notSortable": false,
+          },
+          Object {
+            "ariaLabel": "Full Name of the Employee's Manager",
+            "data": Object {},
+            "fieldName": "managerFullName",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "managerFullName",
+            "maxWidth": 200,
+            "minWidth": 100,
+            "name": "Manager Name",
+            "notSortable": false,
+          },
+        ]
+      }
+      empty={
+        Object {
+          "message": "No items",
+        }
+      }
+      enums={Object {}}
+      items={Array []}
+      selection={
+        Selection {
+          "_anchoredIndex": 0,
+          "_canSelectItem": [Function],
+          "_changeEventSuppressionCount": 0,
+          "_exemptedCount": 0,
+          "_exemptedIndices": Object {},
+          "_getKey": [Function],
+          "_isModal": false,
+          "_items": Array [],
+          "_keyToIndexMap": Object {},
+          "_onSelectionChanged": [Function],
+          "_selectedItems": null,
+          "_unselectableCount": 0,
+          "_unselectableIndices": Object {},
+          "mode": 2,
+        }
+      }
+      selectionMode={0}
+      sortBy={
+        Array [
+          "fullName",
+        ]
+      }
+      style={Object {}}
+      title="Emp. w/assigned Manager"
+    />
+  </PaasAdmin__Section>
+  <PaasAdmin__Section
+    flex={50}
+  >
+    <ReactFinalForm(3.0.0)(2.1.0)
+      initialValues={
+        Object {
+          "employeeName": "Select Employee From list on left",
+          "employee_id": undefined,
+          "manager_id": undefined,
+        }
+      }
+      onSubmit={[Function]}
+      render={[Function]}
+      subscription={
+        Object {
+          "pristine": true,
+          "submitting": true,
+        }
+      }
+      validate={[Function]}
+    />
+  </PaasAdmin__Section>
+</PaasAdmin__Wrapper>
+`;

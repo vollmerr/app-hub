@@ -1,6 +1,6 @@
 module.exports = {
   ROLES: [
-    'SPA Admin',
+    'SPA Creator',
     'SPA Creator - BPAS',
     'SPA Creator - Security',
     'SPA Creator - Test',

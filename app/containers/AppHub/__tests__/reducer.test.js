@@ -142,7 +142,7 @@ describe('appHubReducer', () => {
       const error = new Error('test error');
       expected = expected
         .setIn(['app', 'error'], error)
-        .setIn(['app', 'loading'], initialState.app.loading - 1);
+        .setIn(['app', 'loading'], initialState.app.loading);
       const action = { type: C.AUTH_USER_DONE, payload: error, error: true };
 
       expect(appHubReducer(undefined, action)).toEqual(expected);

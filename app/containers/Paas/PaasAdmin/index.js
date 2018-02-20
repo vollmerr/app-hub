@@ -8,6 +8,7 @@ import { Form } from 'react-final-form';
 
 import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
+import validate from './validate';
 import toJS from '../../../hocs/toJS';
 import { shouldFetch } from '../../../utils/api';
 import Loading from '../../../components/Loading';
@@ -82,7 +83,6 @@ export class PaasAdmin extends React.PureComponent {
    * Handles selecting an item from a list
    */
   handleSelectNoManager = (item) => {
-    console.log('You clicked the nomanageritem...=', item);
     this.setState({ selectedEmployee: item });
   }
 
@@ -91,13 +91,9 @@ export class PaasAdmin extends React.PureComponent {
    * Handles selecting an item from a list
    */
   handleSelectAssignedManager = (selectedEmployee) => {
-    console.log('You clicked the assigned item...=', selectedEmployee);
-    console.log('You clicked the assigned item selectedEmployee[C.AUTH.MANAGER_SID] =', selectedEmployee[C.AUTH.MANAGER_SID]);
-    console.log('You clicked the assigned item...all=', this.props.reportData.all);
     const selectedInitalAssignedMananger = this.props.reportData.all.find((e) => e[C.AUTH.SID] === selectedEmployee[C.AUTH.MANAGER_SID]);
     this.setState({ selectedEmployee });
     this.setState({ selectedInitalAssignedMananger });
-    console.log('You clicked the assigned item and set State');
   }
 
 
@@ -107,8 +103,18 @@ export class PaasAdmin extends React.PureComponent {
    * @param {object} values   - form values
    */
   handleSubmit = async (values) => {
-    console.log('SUCCESS.... values=', values);
-    // Call new API
+    const selectedInitalAssignedMananger = this.props.reportData.all
+      .find((e) => e[C.AUTH.ID] === values[C.MANAGE.MANAGER_ID]);
+    const { onUpdateUserManagerRequest } = this.props;
+    const user = {
+      [C.MANAGE.EMPLOYEE_ID]: values[C.MANAGE.EMPLOYEE_ID],
+      [C.MANAGE.MANAGER_ID]: values[C.MANAGE.MANAGER_ID],
+      manager: this.props.reportData.all.find((e) => e[C.AUTH.ID] === values[C.MANAGE.MANAGER_ID]),
+      employee: this.props.reportData.all.find((e) => e[C.AUTH.ID] === values[C.MANAGE.EMPLOYEE_ID]),
+    };
+
+    await onUpdateUserManagerRequest(user);
+    this.setState({ selectedInitalAssignedMananger });
   }
 
 
@@ -124,6 +130,7 @@ export class PaasAdmin extends React.PureComponent {
       placeholder: 'Select employee from list',
     };
 
+    // sort the manager list alphabetically
     const managerSort = (a, b) => {
       let res = 0;
       const x = a.fullName.toLowerCase();
@@ -142,8 +149,6 @@ export class PaasAdmin extends React.PureComponent {
       return e[C.AUTH.ID] !== x;
     };
 
-    console.log('reportData RENDERFORM', reportData);
-
     const managerProps = {
       label: 'Manager:',
       name: 'manager_id',
@@ -152,7 +157,7 @@ export class PaasAdmin extends React.PureComponent {
       options: reportData.all.sort(managerSort).filter(managerFilter).map((entry) => (
         {
           key: entry[C.AUTH.ID],
-          text: entry.fullName,
+          text: entry[C.AUTH.FULL_NAME],
         })),
       placeholder: 'Select manager from list',
     };
@@ -177,8 +182,6 @@ export class PaasAdmin extends React.PureComponent {
     const { app, reportData } = this.props;
     const { loading } = this.state;
 
-    console.log('RenderState =', this.state);
-
     if (app.loading || app.error || loading) {
       const loadingProps = {
         loading: app.loading || loading,
@@ -198,7 +201,7 @@ export class PaasAdmin extends React.PureComponent {
 
     const listAssignedManProps = {
       columns: adminAssignedManagerColumns,
-      items: reportData[C.REPORT.ASSIGNED_MANAGER],
+      items: reportData[C.STATUS.ASSIGNED_MANAGER],
       title: 'Emp. w/assigned Manager',
       sortBy: [C.AUTH.FULL_NAME],
       selection: this.selectionAssignedManager,
@@ -210,6 +213,7 @@ export class PaasAdmin extends React.PureComponent {
         employee_id: this.state.selectedEmployee[C.AUTH.ID],
         manager_id: this.state.selectedInitalAssignedMananger[C.AUTH.ID],
       },
+      validate,
       render: this.renderForm,
       onSubmit: this.handleSubmit,
       subscription: { submitting: true, pristine: true },
@@ -238,7 +242,7 @@ PaasAdmin.propTypes = {
   report: object.isRequired, // eslint-disable-line
   reportData: object,
   onGetReportDataRequest: func.isRequired, // eslint-disable-line
-  onUpdateUsersRequest: func.isRequired,  // eslint-disable-line
+  onUpdateUserManagerRequest: func.isRequired,  // eslint-disable-line
 };
 
 
@@ -250,7 +254,7 @@ const mapStateToProps = createStructuredSelector({
 
 export const mapDispatchToProps = (dispatch) => ({
   onGetReportDataRequest: () => dispatch(actions.getReportDataRequest()),
-  onUpdateUsersRequest: (users) => dispatch(actions.updateUsersRequest(users)),
+  onUpdateUserManagerRequest: (user) => dispatch(actions.updateUserManagerRequest(user)),
 });
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);

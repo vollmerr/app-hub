@@ -16,7 +16,7 @@ Array [
     "name": "Admin",
     "path": "/spa/admin",
     "roles": Array [
-      "SPA Admin",
+      "SPA Creator",
       "SPA Creator - BPAS",
       "SPA Creator - Security",
       "SPA Creator - Test",
@@ -30,7 +30,7 @@ Array [
     "name": "Report",
     "path": "/spa/report/:id",
     "roles": Array [
-      "SPA Admin",
+      "SPA Creator",
       "SPA Creator - BPAS",
       "SPA Creator - Security",
       "SPA Creator - Test",

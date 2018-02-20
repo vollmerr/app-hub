@@ -21,13 +21,15 @@ describe('paasSaga', () => {
   it(`should take the latest
       'GET_MANAGER_DATA_REQUEST',
       'UPDATE_USERS_REQUEST',
-      'GET_REPORT_DATA_REQUEST'`,
+      'GET_REPORT_DATA_REQUEST'
+      .UPDATE_USER_MANAGER_REQUEST'`,
     () => {
       testSaga(sagas.default).next()
         .all([
           takeLatest(C.GET_MANAGER_DATA_REQUEST, sagas.getManagerData),
           takeLatest(C.UPDATE_USERS_REQUEST, sagas.updateUsers),
           takeLatest(C.GET_REPORT_DATA_REQUEST, sagas.getReportData),
+          takeLatest(C.UPDATE_USER_MANAGER_REQUEST, sagas.updateUserManager),
         ]).next()
         .finish().isDone();
     });

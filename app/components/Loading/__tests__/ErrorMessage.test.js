@@ -9,6 +9,7 @@ import { ErrorMessage, Header, Message, mapDispatchToProps } from '../ErrorMessa
 
 const props = {
   onChangeAppStatus: jest.fn(),
+  onAuthUser: jest.fn(),
   to: undefined,
   error: null,
 };

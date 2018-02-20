@@ -18,3 +18,8 @@ export const getReportDataFailure = createAction(C.GET_REPORT_DATA_FAILURE);
 
 export const setReportKey = createAction(C.SET_REPORT_KEY);
 export const setReportFilter = createAction(C.SET_REPORT_FILTER);
+
+// USER MANAGER
+export const updateUserManagerRequest = createAction(C.UPDATE_USER_MANAGER_REQUEST);
+export const updateUserManagerSuccess = createAction(C.UPDATE_USER_MANAGER_SUCCESS);
+export const updateUserManagerFailure = createAction(C.UPDATE_USER_MANAGER_FAILURE);
