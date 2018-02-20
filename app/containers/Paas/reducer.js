@@ -153,11 +153,27 @@ export default handleActions({
 
     newState = newState.setIn(['report', 'data', 'assignedManager'], fromJS(assignedManagers));
 
+    // remove from no mananger
     const noManagers = newState
-      .getIn(['report', 'data', '3'])
+      .getIn(['report', 'data', `${C.REPORT.NO_MANAGER}`])
       .filter((e) => e.get(C.AUTH.ID) !== valid);
 
     newState = newState.setIn(['report', 'data', C.REPORT.NO_MANAGER], fromJS(noManagers));
+
+    // add to all
+    const all = newState
+      .getIn(['report', 'data', 'all'])
+      .filter((e) => e.get(C.AUTH.ID) !== valid)
+      .push(fromJS(user));
+    newState = newState.setIn(['report', 'data', 'all'], fromJS(all));
+
+    // add to pending
+    const pending = newState
+      .getIn(['report', 'data', `${C.REPORT.PENDING}`])
+      .filter((e) => e.get(C.AUTH.ID) !== valid)
+      .push(fromJS(user));
+    newState = newState.setIn(['report', 'data', `${C.REPORT.PENDING}`], fromJS(pending));
+
     // gimme that new state
     return newState;
   },

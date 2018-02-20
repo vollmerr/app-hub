@@ -2,7 +2,9 @@
 
 exports[`<PaasAdmin /> render should render correctly 1`] = `
 <PaasAdmin__Wrapper>
-  <PaasAdmin__Section>
+  <PaasAdmin__Section
+    flex={5}
+  >
     <List
       columns={
         Array [
@@ -51,7 +53,11 @@ exports[`<PaasAdmin /> render should render correctly 1`] = `
           "fullName",
         ]
       }
-      style={Object {}}
+      style={
+        Object {
+          "count": 2,
+        }
+      }
       title="Employees w/o Manager"
     />
     <List
@@ -114,13 +120,15 @@ exports[`<PaasAdmin /> render should render correctly 1`] = `
           "fullName",
         ]
       }
-      style={Object {}}
+      style={
+        Object {
+          "count": 2,
+        }
+      }
       title="Emp. w/assigned Manager"
     />
   </PaasAdmin__Section>
-  <PaasAdmin__Section
-    flex={50}
-  >
+  <PaasAdmin__Section>
     <ReactFinalForm(3.0.0)(2.1.0)
       initialValues={
         Object {
@@ -141,4 +149,57 @@ exports[`<PaasAdmin /> render should render correctly 1`] = `
     />
   </PaasAdmin__Section>
 </PaasAdmin__Wrapper>
+`;
+
+exports[`<PaasAdmin /> renderForm should return a FormSection 1`] = `
+<styled.form
+  count={1}
+  noValidate={true}
+  onSubmit={[Function]}
+  padding={10}
+>
+  <div>
+    Select Employee From Left
+  </div>
+  <WrappedField
+    ariaLabel=""
+    disabled={true}
+    label="Employee Name:"
+    name="employeeName"
+    placeholder="Select employee from list"
+    required={false}
+    validate={Array []}
+  />
+  <WrappedField
+    allowFreeform={0}
+    ariaLabel=""
+    autoComplete="on"
+    disabled={true}
+    label="Manager:"
+    name="manager_id"
+    options={
+      Array [
+        Object {
+          "key": "",
+          "text": "",
+        },
+        Object {
+          "key": "test",
+          "text": "abc def",
+        },
+        Object {
+          "key": "123",
+          "text": "ghi jkl",
+        },
+      ]
+    }
+    placeholder="Select manager from list"
+    required={false}
+    validate={Array []}
+  />
+  <FormButtons
+    disabled={true}
+    reset={[Function]}
+  />
+</styled.form>
 `;

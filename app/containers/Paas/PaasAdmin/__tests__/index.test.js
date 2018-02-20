@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import { shallow } from 'enzyme';
 
@@ -28,8 +29,8 @@ import { PaasAdmin, mapDispatchToProps } from '../index';
 
 const data = {
   all: [
-    { [C.AUTH.ID]: 'test', [C.AUTH.STATUS]: C.STATUS.ACTIVE, [C.AUTH.FULL_NAME]: 'abc def' },
-    { [C.AUTH.ID]: '123', [C.AUTH.STATUS]: C.STATUS.ACTIVE, [C.AUTH.FULL_NAME]: 'ghi jkl' },
+    { [C.AUTH.ID]: 'test', [C.AUTH.SID]: 'testS', [C.AUTH.MANAGER_SID]: '123S', [C.AUTH.STATUS]: C.STATUS.ACTIVE, [C.AUTH.FULL_NAME]: 'abc def' },
+    { [C.AUTH.ID]: '123', [C.AUTH.SID]: '123S', [C.AUTH.MANAGER_SID]: 'testS', [C.AUTH.STATUS]: C.STATUS.ACTIVE, [C.AUTH.FULL_NAME]: 'ghi jkl' },
   ],
   [C.REPORT.APPROVED]: [
     { [C.AUTH.ID]: 'a1', [C.AUTH.STATUS]: C.STATUS.ACTIVE },
@@ -64,6 +65,12 @@ const form = {
   change: jest.fn(),
 };
 
+const expUserManagerUpdateProps = {
+  employee: data.all[1],
+  [C.MANAGE.EMPLOYEE_ID]: '123',
+  manager: data.all[0],
+  [C.MANAGE.MANAGER_ID]: 'test',
+};
 
 describe('<PaasAdmin />', () => {
   let wrapper;
@@ -91,6 +98,54 @@ describe('<PaasAdmin />', () => {
     });
   });
 
+  describe('handleSelectNoManager', () => {
+    it('should set selectedEmployee item in state', () => {
+      const item = data.all[1];
+      instance.handleSelectNoManager(item);
+      expect(wrapper.state('selectedEmployee')).toEqual(item);
+    });
+    it('should set selectedInitalAssignedMananger is cleared', () => {
+      const item = data.all[1];
+      const s = {
+        [C.AUTH.FULL_NAME]: '',
+      };
+      instance.handleSelectNoManager(item);
+      expect(wrapper.state('selectedInitalAssignedMananger')).toEqual(s);
+    });
+  });
+
+  describe('handleSelectAssignedManager', () => {
+    it('should set selectedEmployee item in state', () => {
+      const item = data.all[1];
+      instance.handleSelectAssignedManager(item);
+      expect(wrapper.state('selectedEmployee')).toEqual(item);
+    });
+    it('should set selectedInitalAssignedMananger is cleared', () => {
+      const item = data.all[1];
+      const s = data.all[0];
+      instance.handleSelectAssignedManager(item);
+      expect(wrapper.state('selectedInitalAssignedMananger')).toEqual(s);
+    });
+  });
+
+
+  describe('handleSubmit', () => {
+    it('should this.setState({ selectedInitalAssignedMananger });', async () => {
+      const values = { [C.MANAGE.MANAGER_ID]: 'test', [C.MANAGE.EMPLOYEE_ID]: '123' };
+      await instance.handleSubmit(values);
+      expect(props.onUpdateUserManagerRequest).toHaveBeenCalledWith(expUserManagerUpdateProps);
+    });
+  });
+
+  describe('renderForm', () => {
+    it('should return a FormSection', async () => {
+      const params = { handleSubmit: jest.fn(), reset: jest.fn(), submitting: true, pristine: false };
+      const FN = () => instance.renderForm(params);
+      const section = shallow(<FN />);
+      expect(section).toMatchSnapshot();
+    });
+  });
+
   describe('render', () => {
     it('should render correctly', () => {
       expect(wrapper).toMatchSnapshot();
@@ -101,64 +156,6 @@ describe('<PaasAdmin />', () => {
       expect(wrapper.find(Loading).length).toEqual(1);
     });
   });
-
-
-  // describe('handleAuthorizeAll', () => {
-  //   it('should dispatch `change` for all authorizations in a batch', () => {
-  //     const sid = '123';
-  //     instance.handleAuthorizeAll(sid)();
-  //     expect(change).toHaveBeenCalledWith(`${authorizations.allIds[0]}[${apps[3]}]`, 1);
-  //     expect(change).toHaveBeenCalledWith(`${authorizations.allIds[1]}[${apps[0]}]`, 1);
-  //   });
-  // });
-
-
-  // describe('handleDenyAll', () => {
-  //   // it('should dispatch `change` for all authorizations', () => {
-  //   //   const change = jest.fn();
-  //   //   instance.handleAuthorizeAll(change)();
-  //   //   expect(change).toHaveBeenCalledWith(`${authorizations.allIds[0]}[${apps[3]}]`, 1);
-  //   //   expect(change).toHaveBeenCalledWith(`${authorizations.allIds[1]}[${apps[0]}]`, 1);
-  //   // });
-  // });
-
-  // describe('changeAllApps', () => {
-
-  // });
-
-
-  describe('handleSubmit', () => {
-    it('should this.setState({ selectedInitalAssignedMananger });', async () => {
-      const values = { [C.MANAGE.MANAGER_ID]: 'test', [C.MANAGE.EMPLOYEE_ID]: '123' };
-      await instance.handleSubmit(values);
-      expect(props.onUpdateUserManagerRequest).toHaveBeenCalledWith(
-        { employee: {
-          _id: '123',
-          fullName: 'ghi jkl',
-          status: 'active' },
-          employee_id: '123',
-          manager: {
-            _id: 'test',
-            fullName: 'abc def',
-            status: 'active' },
-          manager_id: 'test',
-        }
-      );
-    });
-  });
-
-  describe('renderForm', () => {
-    it('should return a FormSection', async () => {
-      const params = { handleSubmit: jest.fn(), reset: jest.fn(), submitting: true, pristine: false };
-      shallow(await instance.renderForm(params));
-    });
-  });
-
-
-  // describe('renderColumn', () => {
-  //   // TODO !
-  // });
-
 
   describe('mapDispatchToProps', () => {
     const actions = {

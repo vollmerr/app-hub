@@ -26,6 +26,10 @@ import FieldSelect from '../../../components/Form/FieldSelect';
 import theme from '../../../utils/theme';
 
 
+const style = {
+  count: 2,
+};
+
 export const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -59,8 +63,8 @@ export class PaasAdmin extends React.PureComponent {
     super(props);
     this.state = {
       loading: true,
-      selectedEmployee: { fullName: 'Select Employee From list on left' }, // this will be reportData Item
-      selectedInitalAssignedMananger: { fullName: 'Select Employee From list on left' }, // this will be reportData Item
+      selectedEmployee: { [C.AUTH.FULL_NAME]: 'Select Employee From list on left' }, // this will be reportData Item
+      selectedInitalAssignedMananger: { [C.AUTH.FULL_NAME]: 'Select Employee From list on left' }, // this will be reportData Item
     };
     this.selectionNoManager = new Selection({
       onSelectionChanged: () => handleSelectItem(this, this.selectionNoManager, this.handleSelectNoManager),
@@ -79,11 +83,49 @@ export class PaasAdmin extends React.PureComponent {
     this.setState({ loading: false }); // eslint-disable-line
   }
 
+  getManagerOptions = () => {
+    const { reportData } = this.props;
+    // Exclude the employee from the list of managers for selection
+    const managerFilter = (e) => {
+      const x = this.state.selectedEmployee[C.AUTH.ID];
+      return e[C.AUTH.ID] !== x;
+    };
+    // sort the manager list alphabetically
+    const managerSort = (a, b) => {
+      let res = 0;
+      const x = a.fullName.toLowerCase();
+      const y = b.fullName.toLowerCase();
+      if (x > y) {
+        res = 1;
+      } else {
+        res = -1;
+      }
+      return res;
+    };
+
+    const ret = reportData.all.sort(managerSort).filter(managerFilter).map((entry) => (
+      {
+        key: entry[C.AUTH.ID],
+        text: entry[C.AUTH.FULL_NAME],
+      }));
+    const blank = {
+      key: '',
+      text: '',
+    };
+    ret.unshift(blank);
+
+    return ret;
+  }
+
   /**
    * Handles selecting an item from a list
    */
   handleSelectNoManager = (item) => {
+    const selectedInitalAssignedMananger = {
+      [C.AUTH.FULL_NAME]: '',
+    };
     this.setState({ selectedEmployee: item });
+    this.setState({ selectedInitalAssignedMananger });
   }
 
 
@@ -117,12 +159,10 @@ export class PaasAdmin extends React.PureComponent {
     this.setState({ selectedInitalAssignedMananger });
   }
 
-
-  /**
+    /**
   * Renders the form
   */
   renderForm = ({ handleSubmit, reset, submitting, pristine }) => {
-    const { reportData } = this.props;
     const employeeProps = {
       label: 'Employee Name:',
       name: 'employeeName',
@@ -130,35 +170,16 @@ export class PaasAdmin extends React.PureComponent {
       placeholder: 'Select employee from list',
     };
 
-    // sort the manager list alphabetically
-    const managerSort = (a, b) => {
-      let res = 0;
-      const x = a.fullName.toLowerCase();
-      const y = b.fullName.toLowerCase();
-      if (x > y) {
-        res = 1;
-      } else {
-        res = -1;
-      }
-      return res;
-    };
-
-    // Exclude the employee from the list of managers for selection
-    const managerFilter = (e) => {
-      const x = this.state.selectedEmployee[C.AUTH.ID];
-      return e[C.AUTH.ID] !== x;
-    };
+    const disableManagerDropdown =
+      this.state.selectedEmployee[C.AUTH.ID] === undefined;
 
     const managerProps = {
       label: 'Manager:',
       name: 'manager_id',
       allowFreeform: 0,
       autoComplete: 'on',
-      options: reportData.all.sort(managerSort).filter(managerFilter).map((entry) => (
-        {
-          key: entry[C.AUTH.ID],
-          text: entry[C.AUTH.FULL_NAME],
-        })),
+      disabled: disableManagerDropdown,
+      options: this.getManagerOptions(),
       placeholder: 'Select manager from list',
     };
 
@@ -195,6 +216,7 @@ export class PaasAdmin extends React.PureComponent {
       columns: adminNoManagerColumns,
       items: reportData[C.REPORT.NO_MANAGER],
       title: 'Employees w/o Manager',
+      style,
       sortBy: [C.AUTH.FULL_NAME],
       selection: this.selectionNoManager,
     };
@@ -202,11 +224,11 @@ export class PaasAdmin extends React.PureComponent {
     const listAssignedManProps = {
       columns: adminAssignedManagerColumns,
       items: reportData[C.STATUS.ASSIGNED_MANAGER],
+      style,
       title: 'Emp. w/assigned Manager',
       sortBy: [C.AUTH.FULL_NAME],
       selection: this.selectionAssignedManager,
     };
-
     const formProps = {
       initialValues: {
         employeeName: this.state.selectedEmployee[C.AUTH.FULL_NAME],
@@ -222,11 +244,11 @@ export class PaasAdmin extends React.PureComponent {
 
     return (
       <Wrapper>
-        <Section>
+        <Section flex={5}>
           <List {...listNoManProps} />
           <List {...listAssignedManProps} />
         </Section>
-        <Section flex={50}>
+        <Section>
           <Form {...formProps} />
         </Section>
       </Wrapper>
