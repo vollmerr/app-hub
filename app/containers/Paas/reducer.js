@@ -41,7 +41,8 @@ export default handleActions({
     payload.forEach((auth) => {
       const id = auth[C.AUTH.ID];
       manager.allIds.push(id);
-      if (auth[C.AUTH.STATUS] === C.STATUS.ACTIVE) {
+      if (auth[C.AUTH.STATUS] === C.STATUS.ACTIVE ||
+        auth[C.AUTH.STATUS] === C.STATUS.ASSIGNED_MANAGER) {
         manager.currentIds.push(id);
       } else {
         manager.previousIds.push(id);
@@ -78,16 +79,16 @@ export default handleActions({
     const { payload } = action;
     const data = {
       all: [],
+      [C.STATUS.ASSIGNED_MANAGER]: [],
       [C.REPORT.APPROVED]: [],
       [C.REPORT.DENIED]: [],
       [C.REPORT.PENDING]: [],
       [C.REPORT.NO_MANAGER]: [],
-      [C.REPORT.ASSIGNED_MANAGER]: [],
     };
     // map out ids based off if approved, denied, pending,or no manager
     payload.data.forEach((auth) => {
       if (auth[C.AUTH.STATUS] === C.STATUS.ASSIGNED_MANAGER) {
-        data[C.REPORT.ASSIGNED_MANAGER].push(auth);
+        data[C.STATUS.ASSIGNED_MANAGER].push(auth);
       }
 
       if (auth[C.AUTH.STATUS] === C.STATUS.NO_MANAGER) {
@@ -131,5 +132,33 @@ export default handleActions({
     }
     // reset filters on empty
     return state.setIn(['report', 'filters'], fromJS({}));
+  },
+
+  [C.UPDATE_USER_MANAGER_SUCCESS]: (state, action) => {
+    let newState = state;
+    // for each user
+    const user = {
+      ...action.payload.employee,
+      [C.AUTH.MANAGER_NAME]: action.payload.manager[C.AUTH.FULL_NAME],
+      [C.AUTH.MANAGER_SID]: action.payload.manager[C.AUTH.SID],
+      [C.AUTH.STATUS]: C.STATUS.ASSIGNED_MANAGER,
+    };
+
+    const valid = action.payload.employee[C.AUTH.ID];
+   // insert new assigned manager
+    const assignedManagers = newState
+      .getIn(['report', 'data', 'assignedManager'])
+      .filter((e) => e.get(C.AUTH.ID) !== valid)
+      .push(fromJS(user));
+
+    newState = newState.setIn(['report', 'data', 'assignedManager'], fromJS(assignedManagers));
+
+    const noManagers = newState
+      .getIn(['report', 'data', '3'])
+      .filter((e) => e.get(C.AUTH.ID) !== valid);
+
+    newState = newState.setIn(['report', 'data', C.REPORT.NO_MANAGER], fromJS(noManagers));
+    // gimme that new state
+    return newState;
   },
 }, fromJS(initialState));

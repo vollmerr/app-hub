@@ -50,6 +50,16 @@ exports[`<Paas /> should render correctly 1`] = `
         Object {
           "component": [Function],
           "exact": true,
+          "key": "paasAdmin",
+          "name": "Admin",
+          "path": "/paas/admin",
+          "roles": Array [
+            "PAAS Security",
+          ],
+        },
+        Object {
+          "component": [Function],
+          "exact": true,
           "key": "paasHelp",
           "name": "Help",
           "path": "/paas/help",

@@ -30,6 +30,10 @@ function paasRoutes(server, router) {
 
     res.sendStatus(204);
   });
+
+  server.post('/paas/manager', (req, res) => {
+    res.sendStatus(204);
+  });
 }
 
 

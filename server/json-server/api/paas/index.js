@@ -19,9 +19,15 @@ function generateAuthorization(manager) {
   const roles = ['AppHub User'];
   const date = new Date(faker.date.past(10));
   let status = faker.random.arrayElement([C.STATUS.ACTIVE, C.STATUS.INACTIVE]);
-  // make every 1/30 have no manager
-  if (!faker.random.number({ min: 0, max: 30 })) {
-    status = C.STATUS.NO_MANAGER;
+  if (manager) {
+    // make every 1/30 have no manager
+    if (!faker.random.number({ min: 0, max: 30 })) {
+      status = C.STATUS.NO_MANAGER;
+    }
+    // make every 1/10 have assignedManager
+    if (!faker.random.number({ min: 0, max: 10 })) {
+      status = C.STATUS.ASSIGNED_MANAGER;
+    }
   }
   // set manager details
   let managerSid = '';
@@ -33,7 +39,9 @@ function generateAuthorization(manager) {
       managerSid = manager[C.AUTH.SID];
       managerName = manager[C.AUTH.FULL_NAME];
     } else {
-      // make fake manager details
+      // make fake manager detailsfs
+      // managerSid = faker.random.uuid();
+      // managerName = `${faker.name.firstName()} ${faker.name.lastName()}`;
       managerSid = faker.random.number({ min: 0, max: C.NUM_MANAGERS });
       managerName = `Manager (${managerSid})`;
     }

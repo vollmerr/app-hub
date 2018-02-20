@@ -58,6 +58,24 @@ export function* updateUsers(action) {
   }
 }
 
+export function* updateUserManager(action) {
+  try {
+    const url = `${base}/manager`;
+    const options = {
+      method: 'POST',
+      body: [{
+        [C.MANAGE.EMPLOYEE_ID]: action.payload[C.MANAGE.EMPLOYEE_ID],
+        [C.MANAGE.MANAGER_ID]: action.payload[C.MANAGE.MANAGER_ID],
+      }],
+    };
+
+    yield call(api.requestWithToken, url, options);
+    yield put(actions.updateUserManagerSuccess(action.payload));
+  } catch (error) {
+    yield put(actions.updateUserManagerFailure(error));
+  }
+}
+
 
 export default function* paasSaga() {
   yield [
@@ -66,5 +84,7 @@ export default function* paasSaga() {
     takeLatest(C.UPDATE_USERS_REQUEST, updateUsers),
     // report
     takeLatest(C.GET_REPORT_DATA_REQUEST, getReportData),
+    // manager
+    takeLatest(C.UPDATE_USER_MANAGER_REQUEST, updateUserManager),
   ];
 }

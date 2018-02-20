@@ -13,6 +13,11 @@ export const GET_REPORT_DATA_FAILURE = 'app/Paas/GET_REPORT_DATA_FAILURE';
 export const SET_REPORT_KEY = 'app/Paas/SET_REPORT_KEY';
 export const SET_REPORT_FILTER = 'app/Paas/SET_REPORT_FILTER';
 
+export const UPDATE_USER_MANAGER_REQUEST = 'app/Paas/UPDATE_USER_MANAGER_REQUEST';
+export const UPDATE_USER_MANAGER_SUCCESS = 'app/Paas/UPDATE_USER_MANAGER_SUCCESS';
+export const UPDATE_USER_MANAGER_FAILURE = 'app/Paas/UPDATE_USER_MANAGER_FAILURE';
+
+
 // ROLES
 export const ROLES = {
   MANAGER: 'PAAS Manager',
@@ -65,5 +70,9 @@ export const REPORT = {
   DENIED: 1,
   PENDING: 2,
   NO_MANAGER: 3,
-  ASSIGNED_MANAGER: 4,
+};
+
+export const MANAGE = {
+  EMPLOYEE_ID: 'employee_id',
+  MANAGER_ID: 'manager_id',
 };
