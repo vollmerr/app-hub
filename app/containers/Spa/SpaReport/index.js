@@ -276,7 +276,6 @@ export class SpaReport extends React.PureComponent {
 
     const disableProps = {
       item,
-      type: item[C.ACK.STATUS] === C.STATUS.PENDING ? 'cancel' : 'disable',
       hidden: !modals.disable,
       onClose: this.handleHideModal(modal.disable),
       onSubmit: this.handleSubmitDisable,

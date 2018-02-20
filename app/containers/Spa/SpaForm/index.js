@@ -68,84 +68,6 @@ const style = {
 };
 
 
-
-
-// import NewAckForm from './NewAckForm';
-
-
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-// import { compose } from 'redux';
-// import { connect } from 'react-redux';
-// import { withRouter } from 'react-router';
-// import { createStructuredSelector } from 'reselect';
-// import { SelectionMode } from 'office-ui-fabric-react/lib/DetailsList';
-// import json2csv from 'json2csv';
-
-// import toJS from '../../../hocs/toJS';
-// import Loading from '../../../components/Loading';
-// import { downloadFile, formatList } from '../../../utils/data';
-// import { formattedDate } from '../../../utils/date';
-// import { shouldFetch } from '../../../utils/api';
-// import List from '../../../components/List';
-// import theme from '../../../utils/theme';
-
-// import LoadCommandBar from '../../App/LoadCommandBar';
-// import * as hubSelectors from '../../AppHub/selectors';
-
-// import { reportColumns, adminCsv, recipient } from '../data';
-// import * as selectors from '../selectors';
-// import * as actions from '../actions';
-// import * as C from '../constants';
-
-// import PieChart from './PieChart';
-// import Details from './Details';
-// import DisableModal from './DisableModal';
-// import EmailModal from './EmailModal';
-
-
-// export const Wrapper = styled.div`
-//   display: flex;
-//   flex-wrap: wrap;
-//   width: 100%;
-//   padding: ${theme.hub.padding / 2}px;
-//   min-height: calc(
-//     100vh - \
-//     ${theme.hub.headerHeight}px - \
-//     ${theme.app.commandBarHeight}px
-//   );
-// `;
-
-
-// export const Section = styled.div`
-//   flex: 1;
-//   display: flex;
-//   flex-direction: column;
-//   width: 100%;
-//   min-height: 250px;
-
-//   @media (min-width: ${theme.breakpoints.sm}px) {
-//     min-width: ${theme.breakpoints.sm - 40}px;
-//   }
-// `;
-
-
-// export const RecipientList = styled(List) `
-//   margin: ${theme.hub.padding / 2}px;
-// `;
-
-
-// const titles = {
-//   [C.REPORT.PENDING]: 'Pending Recipients',
-//   [C.REPORT.PREVIOUS]: 'Acknowledged Recipients',
-// };
-
-// const modal = {
-//   email: 'email',
-//   disable: 'disable',
-// };
-
-
 export class SpaForm extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -167,41 +89,13 @@ export class SpaForm extends React.PureComponent {
         onGetGroupsRequest(),
       ]);
     }
+    this.initializeForm();
     this.setState({ loading: false }); // eslint-disable-line
   }
 
-  // TODO: make initalize form function absed off this...
-  // handleShowNew = async () => {
-  //   const { groups } = this.props;
-  //   // map to { key, text } options as FieldSelect/FieldChecks expects
-  //   const creatorOptions = groups.creatorIds.map((id) => ({
-  //     key: id,
-  //     text: groups.byId[id][C.GROUP.NAME],
-  //   }));
-  //   const targetOptions = groups.targetIds.map((id) => ({
-  //     key: id,
-  //     text: groups.byId[id][C.GROUP.NAME],
-  //   }));
-  //   // set target group options to ones pulled in from API (mapped above)
-  //   const fields = { ...this.state.fields };
-  //   // set options
-  //   fields[C.ACK.CREATOR_GROUP].options = creatorOptions;
-  //   fields[C.ACK.TARGET_GROUPS].options = targetOptions;
-  //   // if single creator group, select it and hide input
-  //   const initialValues = { ...this.state.initalValues };
-  //   if (creatorOptions.length === 1) {
-  //     initialValues[C.ACK.CREATOR_GROUP] = creatorOptions[0].key;
-  //     fields[C.ACK.CREATOR_GROUP].hidden = true;
-  //   }
-  //   // set date for tommorrow
-  //   const tommorrow = new Date();
-  //   tommorrow.setDate(tommorrow.getDate() + 1);
-  //   fields[C.ACK.START_DATE].minDate = tommorrow;
-  //   fields[C.ACK.END_DATE].minDate = tommorrow;
-  //   // update fields then show the form
-  //   await this.setState({ fields, initialValues });
-  //   this.setState({ hideNewAck: false });
-  // }
+  componentWillReceiveProps() {
+    this.initializeForm();
+  }
 
   // /**
   //  * Handles submitting the new acknowledgment form to api as ready to be active
@@ -211,19 +105,8 @@ export class SpaForm extends React.PureComponent {
   //   onNewAckRequest(values);
   // }
 
-  // /**
-  //  * Handles submitting the new acknowledgment form to api as draft state
-  //  * Does not handle errors, is assumed valid form
-  //  */
-  // handleSubmitSave = (values) => (event) => {
-  //   event.preventDefault();
-  //   console.log('SAVING : ', values);
-  //   const { onSaveAckRequest } = this.props;
-  //   onSaveAckRequest(values);
-  // }
-
-  // items to display in command bar on new acknowledgment form
-  getNewCommands = () => ({
+  // items to display in command bar
+  getCommands = () => ({
     items: [
       {
         key: 'back',
@@ -234,6 +117,60 @@ export class SpaForm extends React.PureComponent {
       },
     ],
   })
+
+  // items to display in command bar for 'draft' status
+  getDraftCommands = () => {
+    const commands = this.getCommands();
+    commands.items.push({
+      key: 'back2',
+      name: 'Back',
+      icon: 'navBack',
+      ariaLabel: 'Back to Admin Page',
+      onClick: this.handleBack,
+    });
+    return commands;
+  }
+
+  initializeForm = () => {
+    const { groups } = this.props;
+    // map to { key, text } options as FieldSelect/FieldChecks expects
+    const creatorOptions = groups.creatorIds.map((id) => ({
+      key: id,
+      text: groups.byId[id][C.GROUP.NAME],
+    }));
+    const targetOptions = groups.targetIds.map((id) => ({
+      key: id,
+      text: groups.byId[id][C.GROUP.NAME],
+    }));
+    // set target group options to ones pulled in from API (mapped above)
+    const fields = { ...this.state.fields };
+    // set options
+    fields[C.ACK.CREATOR_GROUP].options = creatorOptions;
+    fields[C.ACK.TARGET_GROUPS].options = targetOptions;
+    // if single creator group, select it and hide input
+    const initialValues = { ...this.props.acknowledgment };
+    if (creatorOptions.length === 1) {
+      initialValues[C.ACK.CREATOR_GROUP] = creatorOptions[0].key;
+      fields[C.ACK.CREATOR_GROUP].hidden = true;
+    }
+    // set date for tommorrow
+    const tommorrow = new Date();
+    tommorrow.setDate(tommorrow.getDate() + 1);
+    fields[C.ACK.START_DATE].minDate = tommorrow;
+    fields[C.ACK.END_DATE].minDate = tommorrow;
+    // update fields then show the form
+    this.setState({ fields, initialValues });
+  }
+
+  /**
+   * Handles submitting the new acknowledgment form to api as draft state
+   * Does not handle errors, is assumed valid form
+   */
+  handleSubmitSave = (values) => (event) => {
+    event.preventDefault();
+    const { onSaveAckRequest } = this.props;
+    onSaveAckRequest(values);
+  }
 
   // handles navigating 'back' to the admin page
   handleBack = () => {
@@ -250,7 +187,7 @@ export class SpaForm extends React.PureComponent {
       submitting,
       handleSubmit,
     } = props; // provided by react-final-form
-
+    console.log('valeus: ', values)
     const formProps = {
       onSubmit: handleSubmit,
       ...style,
@@ -286,7 +223,7 @@ export class SpaForm extends React.PureComponent {
 
   render() {
     const { app, setCommandBar } = this.props;
-    const { loading } = this.state;
+    const { loading, initialValues } = this.state;
     const isLoading = app.loading || loading;
     // LOADING
     if (isLoading || app.error) {
@@ -299,15 +236,15 @@ export class SpaForm extends React.PureComponent {
     }
 
     const formProps = {
-      onSubmit, // TODO: dynamic submit based off status (same as handleSubmitSave for other fucns?)
+      onSubmit: () => { },
       validate,
-      initialValues, // TODO: get inital values if id provided in route
+      initialValues,
       render: this.renderForm,
     };
 
     const commandBarProps = {
       setCommandBar,
-      commandBar: this.getCommands(),
+      commandBar: initialValues[C.ACK.STATUS] === C.STATUS.DRAFT ? this.getDraftCommands() : this.getCommands(),
       disabled: isLoading || app.error,
     };
 
@@ -321,29 +258,27 @@ export class SpaForm extends React.PureComponent {
 }
 
 
-const { object, func, array } = PropTypes;
+const { object, func } = PropTypes;
 
 SpaForm.propTypes = {
   setCommandBar: func.isRequired,
+  acknowledgment: object,
   app: object.isRequired,
   admin: object.isRequired, // eslint-disable-line
-  adminActiveItems: array.isRequired,
-  adminPreviousItems: array.isRequired,
   groups: object.isRequired,
-  enums: object.isRequired,
   onGetAdminDataRequest: func.isRequired, // eslint-disable-line
   onGetGroupsRequest: func.isRequired, // eslint-disable-line
-  onNewAckRequest: func.isRequired,
+  // onNewAckRequest: func.isRequired,
   onSaveAckRequest: func.isRequired,
   history: object.isRequired,
+  match: object.isRequired,  // eslint-disable-line
 };
 
 
 const mapStateToProps = createStructuredSelector({
+  acknowledgment: (state, ownProps) => selectors.getAckById(ownProps.match.params.id)(state, ownProps),
   app: hubSelectors.getApp,
   admin: selectors.getAdmin,
-  adminActiveItems: selectors.geAdminItems('acksActive'),
-  adminPreviousItems: selectors.geAdminItems('acksPrevious'),
   groups: selectors.getGroups,
   enums: selectors.getEnums,
 });

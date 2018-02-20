@@ -9,7 +9,7 @@ export default (enums) => {
   const draft = enums[C.ACK.STATUS][C.STATUS.DRAFT];
   const pending = enums[C.ACK.STATUS][C.STATUS.PENDING];
   const active = enums[C.ACK.STATUS][C.STATUS.ACTIVE];
-  const canceled = enums[C.ACK.STATUS][C.STATUS.CANCELED];
+  // const canceled = enums[C.ACK.STATUS][C.STATUS.CANCELED];
   const deactived = enums[C.ACK.STATUS][C.STATUS.DEACTIVATED];
   const expired = enums[C.ACK.STATUS][C.STATUS.EXPIRED];
 

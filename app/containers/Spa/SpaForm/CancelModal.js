@@ -13,9 +13,9 @@ export const Warning = styled.p`
 
 
 /**
- * Modal for confirming that a acknowledgment should be disabled
+ * Modal for canceling an acknowledgment.
  */
-class DisableModal extends React.PureComponent {
+class CancelModal extends React.PureComponent {
   render() {
     const {
       item,
@@ -43,7 +43,7 @@ class DisableModal extends React.PureComponent {
       text: 'Cancel',
     };
 
-    const warningText = `WARNING: There is no going back! Are you sure you want to disable ${item[ACK.TITLE]}?`;
+    const warningText = `WARNING: There is no going back! Are you sure you want to cancel ${item[ACK.TITLE]}?`;
 
     return (
       <Dialog {...dialogProps}>
@@ -60,7 +60,7 @@ class DisableModal extends React.PureComponent {
 
 const { bool, func, string, shape } = PropTypes;
 
-DisableModal.propTypes = {
+CancelModal.propTypes = {
   item: shape({
     name: string,
     details: string,
@@ -71,4 +71,4 @@ DisableModal.propTypes = {
 };
 
 
-export default DisableModal;
+export default CancelModal;
