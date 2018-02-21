@@ -10,6 +10,18 @@ jwts.push({
   key: generateJwt('S-1-5-21-695811389-1873965473-9522986-6116', 'Van', 'Vo', ['AppHub User', ...Object.values(C.ROLES)]),
   text: `VAN VO - ${Object.values(C.ROLES).join(', ')}`,
 });
+jwts.push({
+  key: generateJwt('S-1-5-21-695811389-1873965473-9522986-6116', 'Van', 'Vo', ['AppHub User', C.ROLES.SECURITY]),
+  text: `VAN VO - AppHub User, ${C.ROLES.SECURITY}`,
+});
+jwts.push({
+  key: generateJwt('S-1-5-21-695811389-1873965473-9522986-6116', 'Van', 'Vo', ['AppHub User', C.ROLES.HR]),
+  text: `VAN VO - AppHub User, ${C.ROLES.HR}`,
+});
+jwts.push({
+  key: generateJwt('S-1-5-21-695811389-1873965473-9522986-6116', 'Van', 'Vo', ['AppHub User', C.ROLES.MANAGER]),
+  text: `VAN VO - AppHub User, ${C.ROLES.MANAGER}`,
+});
 
 
 function generateAuthorization(manager) {

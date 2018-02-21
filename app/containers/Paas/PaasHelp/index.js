@@ -7,8 +7,13 @@ import sections from './sections';
 
 export class PaasHelp extends React.PureComponent {
   render() {
+    const helpProps = {
+      sections,
+      title: 'PAAS Help',
+    };
+
     return (
-      <Help title={'Paas Help'} sections={sections} />
+      <Help {...helpProps} />
     );
   }
 }

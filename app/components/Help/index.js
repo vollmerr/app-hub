@@ -11,23 +11,18 @@ import * as selectors from '../../containers/AppHub/selectors';
 
 import LayoutSection from '../Layout/Section';
 
+import HelpSection from './HelpSection';
+
 
 export const Wrapper = styled(LayoutSection) `
   padding: ${theme.hub.padding}px;
+  min-height: calc(100vh - ${theme.hub.headerHeight}px - ${2 * theme.hub.padding}px);
 `;
 
 
 export const Title = styled.h1`
   margin: 0;
 `;
-
-
-const Section = ({ title, desc }) => (
-  <div>
-    <h2>{title}</h2>
-    <div>{desc}</div>
-  </div>
-);
 
 
 class Help extends React.PureComponent {
@@ -48,7 +43,7 @@ class Help extends React.PureComponent {
             }
 
             return (
-              <Section key={section.title} {...section} />
+              <HelpSection key={section.title} {...section} />
             );
           })
         }
@@ -58,13 +53,7 @@ class Help extends React.PureComponent {
 }
 
 
-const { string, array, node } = PropTypes;
-
-
-Section.propTypes = {
-  title: string.isRequired,
-  desc: node.isRequired,
-};
+const { string, array } = PropTypes;
 
 Help.propTypes = {
   roles: array,

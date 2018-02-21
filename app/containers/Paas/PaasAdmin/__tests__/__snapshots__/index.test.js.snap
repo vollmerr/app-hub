@@ -3,9 +3,9 @@
 exports[`<PaasAdmin /> render should render correctly 1`] = `
 <PaasAdmin__Wrapper>
   <PaasAdmin__Section
-    flex={5}
+    flex={2}
   >
-    <List
+    <PaasAdmin__StyledList
       columns={
         Array [
           Object {
@@ -22,12 +22,6 @@ exports[`<PaasAdmin /> render should render correctly 1`] = `
           },
         ]
       }
-      empty={
-        Object {
-          "message": "No items",
-        }
-      }
-      enums={Object {}}
       items={Array []}
       selection={
         Selection {
@@ -47,7 +41,6 @@ exports[`<PaasAdmin /> render should render correctly 1`] = `
           "mode": 2,
         }
       }
-      selectionMode={0}
       sortBy={
         Array [
           "fullName",
@@ -56,11 +49,12 @@ exports[`<PaasAdmin /> render should render correctly 1`] = `
       style={
         Object {
           "count": 2,
+          "padding": 10,
         }
       }
-      title="Employees w/o Manager"
+      title="No Manager"
     />
-    <List
+    <PaasAdmin__StyledList
       columns={
         Array [
           Object {
@@ -89,13 +83,6 @@ exports[`<PaasAdmin /> render should render correctly 1`] = `
           },
         ]
       }
-      empty={
-        Object {
-          "message": "No items",
-        }
-      }
-      enums={Object {}}
-      items={Array []}
       selection={
         Selection {
           "_anchoredIndex": 0,
@@ -114,7 +101,6 @@ exports[`<PaasAdmin /> render should render correctly 1`] = `
           "mode": 2,
         }
       }
-      selectionMode={0}
       sortBy={
         Array [
           "fullName",
@@ -123,16 +109,17 @@ exports[`<PaasAdmin /> render should render correctly 1`] = `
       style={
         Object {
           "count": 2,
+          "padding": 10,
         }
       }
-      title="Emp. w/assigned Manager"
+      title="Assigned Manager"
     />
   </PaasAdmin__Section>
   <PaasAdmin__Section>
     <ReactFinalForm(3.0.0)(2.1.0)
       initialValues={
         Object {
-          "employeeName": "Select Employee From list on left",
+          "employeeName": "Select an Employee",
           "employee_id": undefined,
           "manager_id": undefined,
         }
@@ -152,21 +139,18 @@ exports[`<PaasAdmin /> render should render correctly 1`] = `
 `;
 
 exports[`<PaasAdmin /> renderForm should return a FormSection 1`] = `
-<styled.form
-  count={1}
-  noValidate={true}
+<PaasAdmin__StyledForm
   onSubmit={[Function]}
-  padding={10}
 >
-  <div>
-    Select Employee From Left
-  </div>
+  <h3>
+    Update Manager
+  </h3>
   <WrappedField
     ariaLabel=""
     disabled={true}
-    label="Employee Name:"
+    label="Employee Name"
     name="employeeName"
-    placeholder="Select employee from list"
+    placeholder=""
     required={false}
     validate={Array []}
   />
@@ -175,7 +159,7 @@ exports[`<PaasAdmin /> renderForm should return a FormSection 1`] = `
     ariaLabel=""
     autoComplete="on"
     disabled={true}
-    label="Manager:"
+    label="Manager"
     name="manager_id"
     options={
       Array [
@@ -193,13 +177,13 @@ exports[`<PaasAdmin /> renderForm should return a FormSection 1`] = `
         },
       ]
     }
-    placeholder="Select manager from list"
-    required={false}
+    placeholder=""
+    required={true}
     validate={Array []}
   />
   <FormButtons
     disabled={true}
     reset={[Function]}
   />
-</styled.form>
+</PaasAdmin__StyledForm>
 `;

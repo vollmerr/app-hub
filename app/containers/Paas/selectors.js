@@ -45,10 +45,10 @@ export const getReportData = createSelector(
     const filters = report.get('filters');
     const data = report.get('data');
     // only filter if one is found (expensive operation...)
-    if (filters.some((filter) => filter !== 'ALL')) {
+    if (data && filters.some((filter) => filter !== 'ALL')) {
       return data.map((items) => (
         items.filter((item) => (
-          filters.some((v, k) => (
+          filters.every((v, k) => (
             item.get(k) === v
           ))
         ))

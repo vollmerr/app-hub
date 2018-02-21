@@ -1,10 +1,10 @@
-/* eslint-disable */
 import React from 'react';
 import { shallow } from 'enzyme';
 
 import { testProps, testMapDispatchToProps } from '../../../../utils/testUtils';
 import * as api from '../../../../utils/api';
 import Loading from '../../../../components/Loading';
+
 import * as C from '../../constants';
 import {
   getReportDataRequest,
@@ -13,19 +13,6 @@ import {
 
 import { PaasAdmin, mapDispatchToProps } from '../index';
 
-// const props = {
-//   app: {
-//     loading: false,
-//     error: null,
-//   },
-//   manager: {
-//     lastFetched: '01/02/2012',
-//   },
-//   managerItems,
-//   managerById,
-//   onGetReportDataRequest: jest.fn(),
-//   onUpdateUsersRequest: jest.fn(),
-// };
 
 const data = {
   all: [
@@ -60,6 +47,7 @@ const props = {
   onGetReportDataRequest: jest.fn(),
   onUpdateUserManagerRequest: jest.fn(),
 };
+
 const form = {
   batch: jest.fn(),
   change: jest.fn(),
@@ -71,6 +59,7 @@ const expUserManagerUpdateProps = {
   manager: data.all[0],
   [C.MANAGE.MANAGER_ID]: 'test',
 };
+
 
 describe('<PaasAdmin />', () => {
   let wrapper;
@@ -98,33 +87,28 @@ describe('<PaasAdmin />', () => {
     });
   });
 
-  describe('handleSelectNoManager', () => {
-    it('should set selectedEmployee item in state', () => {
-      const item = data.all[1];
-      instance.handleSelectNoManager(item);
-      expect(wrapper.state('selectedEmployee')).toEqual(item);
+
+  describe('handleSelectItem', () => {
+    it('should set the employee in state', () => {
+      const employee = data.all[1];
+      instance.handleSelectItem(employee);
+      expect(wrapper.state('employee')).toEqual(employee);
     });
-    it('should set selectedInitalAssignedMananger is cleared', () => {
-      const item = data.all[1];
-      const s = {
+
+    it('should find and set the employee`s manager in state', () => {
+      const employee = data.all[1];
+      const manager = data.all[0];
+      instance.handleSelectItem(employee);
+      expect(wrapper.state('manager')).toEqual(manager);
+    });
+
+    it('should clear the manager if none found', () => {
+      const employee = {};
+      const manager = {
         [C.AUTH.FULL_NAME]: '',
       };
-      instance.handleSelectNoManager(item);
-      expect(wrapper.state('selectedInitalAssignedMananger')).toEqual(s);
-    });
-  });
-
-  describe('handleSelectAssignedManager', () => {
-    it('should set selectedEmployee item in state', () => {
-      const item = data.all[1];
-      instance.handleSelectAssignedManager(item);
-      expect(wrapper.state('selectedEmployee')).toEqual(item);
-    });
-    it('should set selectedInitalAssignedMananger is cleared', () => {
-      const item = data.all[1];
-      const s = data.all[0];
-      instance.handleSelectAssignedManager(item);
-      expect(wrapper.state('selectedInitalAssignedMananger')).toEqual(s);
+      instance.handleSelectItem(employee);
+      expect(wrapper.state('manager')).toEqual(manager);
     });
   });
 
@@ -137,6 +121,7 @@ describe('<PaasAdmin />', () => {
     });
   });
 
+
   describe('renderForm', () => {
     it('should return a FormSection', async () => {
       const params = { handleSubmit: jest.fn(), reset: jest.fn(), submitting: true, pristine: false };
@@ -145,6 +130,7 @@ describe('<PaasAdmin />', () => {
       expect(section).toMatchSnapshot();
     });
   });
+
 
   describe('render', () => {
     it('should render correctly', () => {
@@ -156,6 +142,7 @@ describe('<PaasAdmin />', () => {
       expect(wrapper.find(Loading).length).toEqual(1);
     });
   });
+
 
   describe('mapDispatchToProps', () => {
     const actions = {
