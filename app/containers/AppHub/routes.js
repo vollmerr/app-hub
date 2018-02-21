@@ -1,7 +1,7 @@
 import Spa from '../Spa/Loadable';
 
-import Paas from '../Paas/Loadable';
-import * as PAAS_C from '../Paas/constants';
+import Pas from '../Pas/Loadable';
+import * as PAS_C from '../Pas/constants';
 
 import Home from './Home';
 import { meta } from './meta';
@@ -20,14 +20,14 @@ const routes = [
   },
   // __APPS__
   {
-    key: 'paas',
-    name: 'PAAS',
-    path: '/paas',
+    key: 'pas',
+    name: 'PAS',
+    path: '/pas',
     exact: false,
-    component: Paas,
-    icon: 'Paas',
-    meta: meta.paas,
-    roles: PAAS_C.ROLES_VALUES,
+    component: Pas,
+    icon: 'Pas',
+    meta: meta.pas,
+    roles: PAS_C.ROLES_VALUES,
   },
   {
     key: 'spa',

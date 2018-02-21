@@ -55,8 +55,8 @@ module.exports = require('./webpack.base.babel')({
         ED: 'http://testapphubapi.technology.ca.gov/directory/employees',
         JWT: 'https://testsec.api.technology.ca.gov/createToken',
         SPA: 'http://localhost:3001/spa',
-        // PAAS: 'http://134.187.212.124:5353/paas',
-        PAAS: 'http://localhost:3001/paas',
+        // PAS: 'http://134.187.212.124:5353/pas',
+        PAS: 'http://localhost:3001/pas',
       }),
     }),
 

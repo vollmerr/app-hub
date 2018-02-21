@@ -27,10 +27,10 @@ Object {
     "keywords": "Employee, Directory, Lookup",
     "title": "ED",
   },
-  "paas": Object {
+  "pas": Object {
     "desc": "Personal Authorization Access System",
     "keywords": "tracking, access, authorization",
-    "title": "PAAS",
+    "title": "PAS",
   },
   "spa": Object {
     "desc": "Security Policy Acknowledgement",

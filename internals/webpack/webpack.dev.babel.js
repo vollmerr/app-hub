@@ -23,7 +23,7 @@ const globals = {
       ED: 'http://testapphubapi.technology.ca.gov/directory/employees',
       JWT: 'https://testsec.api.technology.ca.gov/createToken',
       SPA: 'https://testapphubapi.technology.ca.gov/spa',
-      PAAS: 'http://134.187.212.124:5353/paas',
+      PAS: 'http://134.187.212.124:5353/paas',
     }),
     DEV: JSON.stringify({
       JWT: devJwts,
@@ -35,7 +35,7 @@ const globals = {
       ED: 'http://testapphubapi.technology.ca.gov/directory/employees',
       JWT: 'https://testsec.api.technology.ca.gov/createToken',
       SPA: 'http://localhost:3001/spa',
-      PAAS: 'http://localhost:3001/paas',
+      PAS: 'http://localhost:3001/pas',
     }),
     MOCK: JSON.stringify({
       JWT: devJwts,

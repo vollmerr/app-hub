@@ -13,7 +13,7 @@ const redirects = require('./.routes.json');
 const secret = require('./.secret');
 
 const spaRoutes = require('./api/spa/routes');
-const paasRoutes = require('./api/paas/routes');
+const pasRoutes = require('./api/pas/routes');
 
 const host = 'localhost';
 const port = 3001;
@@ -53,7 +53,7 @@ if (auth) {
 }
 
 spaRoutes(server, router);
-paasRoutes(server, router);
+pasRoutes(server, router);
 server.use(router);
 
 server.listen(port, () => {

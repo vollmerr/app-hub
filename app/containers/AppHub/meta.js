@@ -6,8 +6,8 @@ export const meta = {
     keywords: 'App, Hub',
   },
   // __APPS__
-  paas: {
-    title: 'PAAS',
+  pas: {
+    title: 'PAS',
     desc: 'Personal Authorization Access System',
     keywords: 'tracking, access, authorization',
   },

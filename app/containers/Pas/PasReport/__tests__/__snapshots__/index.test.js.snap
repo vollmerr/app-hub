@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PasReport__AuthorizationList /> should render correctly 1`] = `
+.c0 {
+  margin: 5px;
+}
+
+<List
+  className="c0"
+  empty={
+    Object {
+      "message": "No items",
+    }
+  }
+  enums={Object {}}
+  items={Array []}
+  selectionMode={0}
+  style={Object {}}
+/>
+`;
+
+exports[`<PasReport__Section /> should render correctly 1`] = `
+.c0 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  min-height: 300px;
+}
+
+@media (min-width: 576px) {
+  .c0 {
+    min-width: 536px;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<PasReport__Wrapper /> should render correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 5px;
+  min-height: calc(100vh -     50px);
+}
+
+<div
+  className="c0"
+/>
+`;

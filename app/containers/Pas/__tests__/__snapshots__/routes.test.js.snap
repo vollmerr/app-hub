@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`routes should be in the correct format 1`] = `
+Array [
+  Object {
+    "component": [Function],
+    "exact": true,
+    "key": "pasHome",
+    "name": "Current Staff",
+    "path": "/pas/current",
+    "roles": Array [
+      "PAAS Manager",
+    ],
+    "rolesRedirect": Object {
+      "PAAS HR": "pasReport",
+      "PAAS Security": "pasReport",
+    },
+  },
+  Object {
+    "component": [Function],
+    "exact": true,
+    "key": "pasPrevious",
+    "name": "Previous Staff",
+    "path": "/pas/previous",
+    "roles": Array [
+      "PAAS Manager",
+    ],
+  },
+  Object {
+    "component": [Function],
+    "exact": true,
+    "key": "pasReport",
+    "name": "Reports",
+    "path": "/pas/report",
+    "roles": Array [
+      "PAAS Manager",
+      "PAAS HR",
+      "PAAS Security",
+    ],
+  },
+  Object {
+    "component": [Function],
+    "exact": true,
+    "key": "pasAdmin",
+    "name": "Admin",
+    "path": "/pas/admin",
+    "roles": Array [
+      "PAAS Security",
+    ],
+  },
+  Object {
+    "component": [Function],
+    "exact": true,
+    "key": "pasHelp",
+    "name": "Help",
+    "path": "/pas/help",
+    "roles": Array [
+      "PAAS Manager",
+      "PAAS HR",
+      "PAAS Security",
+    ],
+  },
+]
+`;

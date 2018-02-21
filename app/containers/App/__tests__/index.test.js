@@ -54,7 +54,7 @@ const props = {
       { key: 'routeAuth', path: '/routeAuth', roles: ['valid'] },
       { key: 'routeUnauth', path: '/routeUnauth', roles: ['invalid'] },
       { key: 'routePublic', path: '/routePublic' },
-      { key: 'routeRedirect', path: '/routeRedirect', roles: ['invalid'], redirect: { valid: 'routePublic' } },
+      { key: 'routeRedirect', path: '/routeRedirect', roles: ['invalid'], rolesRedirect: { valid: 'routePublic' } },
     ],
   },
   user: {
@@ -127,39 +127,39 @@ describe('App', () => {
 
 
   describe('authorizeRoute', () => {
-    it('should not redirect if going to a valid route with no permissions needed', () => {
+    it('should not redirect if going to a valid route with no permissions needed', async () => {
       const history = { ...props.history, location: { pathname: '/routePublic' } };
       wrapper.setProps({ history });
-      instance.authorizeRoute(props.app);
+      await instance.authorizeRoute(props.app);
       expect(props.history.push).not.toHaveBeenCalled();
     });
 
-    it('should not redirect if going to a valid route user has permissions for', () => {
+    it('should not redirect if going to a valid route user has permissions for', async () => {
       const history = { ...props.history, location: { pathname: '/routeAuth' } };
       wrapper.setProps({ history });
-      instance.authorizeRoute(props.app);
+      await instance.authorizeRoute(props.app);
       expect(props.history.push).not.toHaveBeenCalled();
     });
 
-    it('should redirect to the routes redirect if it exists when going to a route user doesnt have permissions for', () => {
+    it('should redirect to the routes redirect if it exists when going to a route user doesnt have permissions for', async () => {
       const history = { ...props.history, location: { pathname: '/routeRedirect' } };
       wrapper.setProps({ history });
-      instance.authorizeRoute(props.app);
+      await instance.authorizeRoute(props.app);
       expect(props.history.push).toHaveBeenCalledWith('/routePublic');
     });
 
-    it('should redirect to the app home if going to a route user doesnt have permissions for', () => {
+    it('should redirect to the app home if going to a route user doesnt have permissions for', async () => {
       const history = { ...props.history, location: { pathname: '/routeUnauth' } };
       wrapper.setProps({ history });
-      instance.authorizeRoute(props.app);
+      await instance.authorizeRoute(props.app);
       expect(props.history.push).toHaveBeenCalledWith(props.app.home.path);
     });
 
-    it('should redirect to the AppHub home if going to a route user doesnt have permissions for and no app home route', () => {
+    it('should redirect to the AppHub home if going to a route user doesnt have permissions for and no app home route', async () => {
       const history = { ...props.history, location: { pathname: '/routeUnauth' } };
       const app = { ...props.app, home: {} };
       wrapper.setProps({ history });
-      instance.authorizeRoute(app);
+      await instance.authorizeRoute(app);
       expect(props.history.push).toHaveBeenCalledWith('/');
     });
   });

@@ -122,12 +122,12 @@ exports[`App render should render correctly if not changing the app 1`] = `
               Object {
                 "key": "routeRedirect",
                 "path": "/routeRedirect",
-                "redirect": Object {
-                  "valid": "routePublic",
-                },
                 "roles": Array [
                   "invalid",
                 ],
+                "rolesRedirect": Object {
+                  "valid": "routePublic",
+                },
               },
             ]
           }

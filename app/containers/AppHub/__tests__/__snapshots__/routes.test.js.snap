@@ -18,15 +18,15 @@ Array [
   Object {
     "component": [Function],
     "exact": false,
-    "icon": "Paas",
-    "key": "paas",
+    "icon": "Pas",
+    "key": "pas",
     "meta": Object {
       "desc": "Personal Authorization Access System",
       "keywords": "tracking, access, authorization",
-      "title": "PAAS",
+      "title": "PAS",
     },
-    "name": "PAAS",
-    "path": "/paas",
+    "name": "PAS",
+    "path": "/pas",
     "roles": Array [
       "PAAS Manager",
       "PAAS Security",
@@ -87,15 +87,15 @@ Array [
   Object {
     "component": [Function],
     "exact": false,
-    "icon": "Paas",
-    "key": "paas",
+    "icon": "Pas",
+    "key": "pas",
     "meta": Object {
       "desc": "Personal Authorization Access System",
       "keywords": "tracking, access, authorization",
-      "title": "PAAS",
+      "title": "PAS",
     },
-    "name": "PAAS",
-    "path": "/paas",
+    "name": "PAS",
+    "path": "/pas",
     "roles": Array [
       "PAAS Manager",
       "PAAS Security",
