@@ -112,7 +112,7 @@ export default handleActions({
         }
 
         // also push back into assigned manager if appropriate
-        if (u[C.STATUS] === `${C.STATUS.ASSIGNED_MANAGER}`) {
+        if (u[C.AUTH.STATUS] === `${C.STATUS.ASSIGNED_MANAGER}`) {
           assignedManager = assignedManager.push(fromJS(u));
         }
 
