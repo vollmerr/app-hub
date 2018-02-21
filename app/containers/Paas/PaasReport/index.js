@@ -230,6 +230,7 @@ export class PaasReport extends React.PureComponent {
       },
       selectionMode: SelectionMode.none,
       compact: true,
+      sortBy: [C.AUTH.FULL_NAME],
     };
 
     return (

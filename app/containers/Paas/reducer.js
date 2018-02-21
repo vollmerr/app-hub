@@ -179,6 +179,7 @@ export default handleActions({
     return state.setIn(['report', 'filters'], fromJS({}));
   },
 
+
   [C.UPDATE_USER_MANAGER_SUCCESS]: (state, action) => {
     let newState = state;
     // for each user

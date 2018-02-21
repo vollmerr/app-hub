@@ -87,7 +87,9 @@ export class PaasCurrent extends React.PureComponent {
   /**
    * Handles updating the form to authroize all apps for user by id
    *
-   * @param {string} id   - id of user to deny all
+   * @param {string} id   - id of user to authorize all
+   *
+   * @return {func}       - func wrapped in closure to call
    */
   handleAuthorizeAll = (id) => () => {
     const { batch } = this.form;
@@ -100,6 +102,8 @@ export class PaasCurrent extends React.PureComponent {
    * Handles updating the form to deny all apps for user by id
    *
    * @param {string} id   - id of user to deny all
+   *
+   * @return {func}       - func wrapped in closure to call
    */
   handleDenyAll = (id) => () => {
     const { batch } = this.form;
@@ -110,11 +114,14 @@ export class PaasCurrent extends React.PureComponent {
 
   /**
    * Changes all apps for a user
+   *
+   * @param {string} id     - id of user to udpate
+   * @param {string} value  - value to change to
    */
-  changeAllApps = (id, type) => {
+  changeAllApps = (id, value) => {
     const { change } = this.form;
     Object.values(C.APPS).forEach((app) => {
-      change(`${id}[${app}]`, type);
+      change(`${id}[${app}]`, value);
     });
   }
 
@@ -190,8 +197,18 @@ export class PaasCurrent extends React.PureComponent {
 
   /**
    * Renders the form
+   * All params are passed in from react-final-form
+   *
+   * @param {bool} pristine       - if the form has been changed at all
+   * @param {bool} submitting     - if the form is submitting
+   * @param {func} reset          - resets to the forms inital initialValues
+   * @param {func} handleSubmit   - calls onSubmit passed to Form
+   * @param {func} change         - changes a fields value
+   * @param {func} batch          - utility for changing mutliple fields at the same time
+   *
+   * @return {JSX}                - form contents
    */
-  renderForm = ({ handleSubmit, reset, submitting, pristine, change, batch }) => {
+  renderForm = ({ pristine, submitting, handleSubmit, reset, change, batch }) => {
     const { managerItems } = this.props;
     const { columns } = this.state;
 
@@ -228,7 +245,7 @@ export class PaasCurrent extends React.PureComponent {
   render() {
     const { app, managerById } = this.props;
     const { loading } = this.state;
-
+    // LOADING
     if (app.loading || app.error || loading) {
       const loadingProps = {
         loading: app.loading || loading,
@@ -237,7 +254,7 @@ export class PaasCurrent extends React.PureComponent {
       };
       return <Loading {...loadingProps} />;
     }
-
+    // else render form
     const formProps = {
       validate,
       initialValues: managerById,

@@ -83,7 +83,7 @@ export class App extends React.PureComponent {
     this.setState({ commandBar });
   }
 
-  authorizeRoute = (app) => {
+  authorizeRoute = async (app) => {
     const { user, history } = this.props;
     // get index of current route
     const currentRoute = app.routes.find((route) => (
@@ -93,9 +93,10 @@ export class App extends React.PureComponent {
     if (currentRoute && currentRoute.roles) {
       // not authorized for route
       if (unauthorizedRoute(currentRoute, user.roles)) {
+        await this.setState({ changingApp: true });
         let homeRoute = app.home;
         // // check for redirects for specific roles
-        const redirects = currentRoute.redirect;
+        const redirects = currentRoute.rolesRedirect;
         if (redirects) {
           // for all users roles
           user.roles.forEach((role) => {
@@ -113,6 +114,7 @@ export class App extends React.PureComponent {
           homeRoute.path;
         // push to home of app
         history.push(redirectRoute);
+        await this.setState({ changingApp: false });
       }
     }
   }

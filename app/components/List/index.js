@@ -86,13 +86,7 @@ class List extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { sortBy } = this.props;
-    if (sortBy) {
-      sortBy.forEach((x) => {
-        const column = this.state.columns.find((col) => col.key === x);
-        this.handleColumnClick(null, column);
-      });
-    }
+    this.initialSort();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -104,9 +98,21 @@ class List extends React.PureComponent {
         columns: this.bindColumnClick(nextProps.columns),
         sortOrder: nextProps.columns.map((col) => col.key),
         searchValue: '',
+      }, this.initialSort);
+    }
+  }
+
+
+  initialSort = () => {
+    const { sortBy } = this.props;
+    if (sortBy) {
+      sortBy.forEach((x) => {
+        const column = this.state.columns.find((col) => col.key === x);
+        this.handleColumnClick(null, column);
       });
     }
   }
+
 
   /**
    * Binds the method for clicking on a column header to each column
