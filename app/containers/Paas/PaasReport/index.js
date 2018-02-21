@@ -193,6 +193,7 @@ export class PaasReport extends React.PureComponent {
       data: report.data.all,
       filteredData: reportData[key],
       onChange: this.handleChangeFilter,
+      isAdmin: report.isAdmin,
     };
 
     const pieChartProps = {

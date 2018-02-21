@@ -5,10 +5,16 @@ import { Dropdown } from 'office-ui-fabric-react/lib/Dropdown';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
 import sortBy from 'lodash/sortBy';
 import json2csv from 'json2csv';
+import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
 
+import toJS from '../../../hocs/toJS';
 import theme from '../../../utils/theme';
 import { formattedDate } from '../../../utils/date';
 import { formatList, downloadFile } from '../../../utils/data';
+import * as selectors from '../../../containers/AppHub/selectors';
 
 import { reportCsv } from '../data';
 import * as C from '../constants';
@@ -30,18 +36,19 @@ export const Wrapper = styled.div`
 `;
 
 
-export const ExportButton = styled(DefaultButton)`
+export const ExportButton = styled(DefaultButton) `
   margin-top: 15px;
 `;
 
 
-class Filters extends React.PureComponent {
+export class Filters extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       options: {
         [C.AUTH.AUTH_YEAR]: [{ key: 'ALL', text: 'All' }],
       },
+      checkedShow: false,
     };
   }
 
@@ -87,6 +94,17 @@ class Filters extends React.PureComponent {
     this.setState({ options });
   }
 
+
+  directReportToggle = (showDirects) => {
+    const { onChange, sid } = this.props;
+    this.setState({ checkedShow: showDirects });
+    let tempSid = sid;
+    if (!showDirects) {
+      tempSid = 'ALL';
+    }
+    onChange(C.AUTH.MANAGER_SID)({ key: tempSid });
+  }
+
   /**
    * Handles downloading the report as a csv
    */
@@ -99,10 +117,27 @@ class Filters extends React.PureComponent {
     downloadFile(csv, name, type);
   }
 
-  render() {
-    const { onChange } = this.props;
-    const { options } = this.state;
 
+  render() {
+    const { onChange, roles, isAdmin } = this.props;
+    const { options } = this.state;
+    const toggleProps = {
+      name: 'reportMode',
+      onText: 'Yes',
+      offText: 'No',
+      isNullable: true,
+      warning: true,
+      label: 'Direct Reports Only',
+      meta: {
+        error: null,
+        touched: false,
+      },
+      onChanged: this.directReportToggle,
+      checked: this.state.checkedShow,
+      input: {
+        value: true,
+      },
+    };
     return (
       <Wrapper>
         <Dropdown
@@ -111,6 +146,11 @@ class Filters extends React.PureComponent {
           options={options[C.AUTH.AUTH_YEAR]}
           onChanged={onChange(C.AUTH.AUTH_YEAR)}
         />
+        {
+          (roles.includes(C.ROLES.MANAGER)
+          && isAdmin)
+            && <Toggle {...toggleProps} />
+        }
         <ExportButton
           iconProps={{ iconName: 'download' }}
           text={'Download CSV'}
@@ -122,13 +162,32 @@ class Filters extends React.PureComponent {
 }
 
 
-const { array, func } = PropTypes;
+const { array, func, bool, string } = PropTypes;
 
 Filters.propTypes = {
   data: array,
   filteredData: array,
   onChange: func.isRequired,
+  roles: array,
+  isAdmin: bool,
+  sid: string,
 };
 
+Filters.defaultProps = {
+  roles: [],
+  isAdmin: false,
+  sid: '',
+};
 
-export default Filters;
+const mapStateToProps = createStructuredSelector({
+  roles: selectors.getUserRoles,
+  sid: selectors.getUserSid,
+});
+
+const withConnect = connect(mapStateToProps);
+
+
+export default compose(
+  withConnect,
+  toJS,
+)(Filters);

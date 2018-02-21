@@ -42,10 +42,11 @@ export const getReport = createSelector(selectReport, (report) => report);
 export const getReportData = createSelector(
   selectReport,
   (report) => {
-    const filters = report.get('filters');
+    let filters = report.get('filters');
+    filters = filters.filter((e) => e !== 'ALL');
     const data = report.get('data');
     // only filter if one is found (expensive operation...)
-    if (data && filters.some((filter) => filter !== 'ALL')) {
+    if (data && filters.size) {
       return data.map((items) => (
         items.filter((item) => (
           filters.every((v, k) => (

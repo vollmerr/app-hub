@@ -72,16 +72,14 @@ export default handleActions({
       let all = newState.getIn(['report', 'data', 'all']);
       if (all !== undefined) {
         // refresh in 'all'
-        const u = all.filter((e) => e.get(C.AUTH.ID) === user[C.AUTH.ID])
+        let u = all.filter((e) => e.get(C.AUTH.ID) === user[C.AUTH.ID])
           .first()
           .toObject();
         // set the values into the extracted object
-        u[C.APPS.APP_1] = Number(user[C.APPS.APP_1]);
-        u[C.APPS.APP_2] = Number(user[C.APPS.APP_2]);
-        u[C.APPS.APP_3] = Number(user[C.APPS.APP_3]);
-        u[C.APPS.APP_4] = Number(user[C.APPS.APP_4]);
-        u[C.AUTH.LAST_MODIFIED] = udpatedUser[C.AUTH.LAST_MODIFIED];
-        u[C.AUTH.LAST_APPROVED] = udpatedUser[C.AUTH.LAST_APPROVED];
+        u = {
+          ...u,
+          ...udpatedUser,
+        };
 
         // push it back into all..
         all = newState
@@ -100,6 +98,9 @@ export default handleActions({
         let pending = newState
           .getIn(['report', 'data', `${C.REPORT.PENDING}`])
           .filter((e) => e.get(C.AUTH.ID) !== user[C.AUTH.ID]);
+        let assignedManager = newState
+          .getIn(['report', 'data', `${C.STATUS.ASSIGNED_MANAGER}`])
+          .filter((e) => e.get(C.AUTH.ID) !== user[C.AUTH.ID]);
 
         // no reinstert where appropriate
         if (C.APP_LIST.every((app) => user[app] == C.APPROVAL.APPROVE)) { // eslint-disable-line
@@ -110,9 +111,15 @@ export default handleActions({
           pending = pending.push(fromJS(u));
         }
 
+        // also push back into assigned manager if appropriate
+        if (u[C.STATUS] === `${C.STATUS.ASSIGNED_MANAGER}`) {
+          assignedManager = assignedManager.push(fromJS(u));
+        }
+
         newState = newState.setIn(['report', 'data', `${C.REPORT.APPROVED}`], fromJS(approved));
         newState = newState.setIn(['report', 'data', `${C.REPORT.DENIED}`], fromJS(denied));
         newState = newState.setIn(['report', 'data', `${C.REPORT.PENDING}`], fromJS(pending));
+        newState = newState.setIn(['report', 'data', `${C.STATUS.ASSIGNED_MANAGER}`], fromJS(assignedManager));
       }
     });
     // gimme that new state
