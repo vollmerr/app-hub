@@ -48,6 +48,7 @@ exports[`Filters render should render correctly 1`] = `
   <WithResponsiveMode
     defaultSelectedKey="ALL"
     label="Authorization Year"
+    onChanged={[Function]}
     options={
       Array [
         Object {

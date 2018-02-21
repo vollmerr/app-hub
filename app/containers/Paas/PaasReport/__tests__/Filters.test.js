@@ -1,25 +1,29 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { DefaultButton } from 'office-ui-fabric-react/lib/Button';
+import { Toggle } from 'office-ui-fabric-react/lib/Toggle';
 
 import { testStyledComponent } from '../../../../utils/testUtils';
-
 import * as C from '../../constants';
 
-import Filters, { Wrapper, ExportButton } from '../Filters';
+import { Filters, Wrapper, ExportButton } from '../Filters';
 
 
 testStyledComponent(Wrapper);
 testStyledComponent(ExportButton, DefaultButton);
 
-
+const onChange = jest.fn();
 const props = {
   data: [
     { title: 'second', [C.AUTH.AUTH_YEAR]: 2003 },
     { title: 'first', [C.AUTH.AUTH_YEAR]: 2007 },
     { title: 'last', [C.AUTH.AUTH_YEAR]: 2001 },
   ],
-  onChange: jest.fn(),
+  onChange: () => onChange,
+  roles: [],
+  filteredData: [],
+  isAdmin: true,
+  sid: 'SID',
 };
 
 
@@ -65,9 +69,29 @@ describe('Filters', () => {
   });
 
 
-  xdescribe('handleDownload', () => {
+  describe('handleDownload', () => {
     it('should be tested...', () => {
       // TODO: tests
+    });
+  });
+
+  describe('directReportToggle', () => {
+    it('onChange is called with user sid on showDirects', () => {
+      const showDirects = true;
+      instance.directReportToggle(showDirects);
+      expect(onChange).toHaveBeenCalledWith({ key: props.sid });
+    });
+
+    it('onChange is called with `All` if not showDirects', () => {
+      const showDirects = false;
+      instance.directReportToggle(showDirects);
+      expect(onChange).toHaveBeenCalledWith({ key: 'ALL' });
+    });
+
+    it('should update local state', () => {
+      const showDirects = false;
+      instance.directReportToggle(showDirects);
+      expect(wrapper.state('checkedShow')).toEqual(showDirects);
     });
   });
 
@@ -75,6 +99,16 @@ describe('Filters', () => {
   describe('render', () => {
     it('should render correctly', () => {
       expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should display Toggle if manager and admin.', () => {
+      wrapper.setProps({ roles: [C.ROLES.MANAGER] });
+      expect(wrapper.find(Toggle).length).toEqual(1);
+    });
+
+    it('should not display Toggle if manager only.', () => {
+      wrapper.setProps({ roles: [C.ROLES.MANAGER], isAdmin: false });
+      expect(wrapper.find(Toggle).length).toEqual(0);
     });
   });
 });
