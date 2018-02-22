@@ -54,9 +54,10 @@ module.exports = require('./webpack.base.babel')({
         BARS: 'https://testbarsapi.technology.ca.gov/api/BadgeRequests',
         ED: 'http://testapphubapi.technology.ca.gov/directory/employees',
         JWT: 'https://testsec.api.technology.ca.gov/createToken',
-        SPA: 'http://localhost:3001/spa',
-        // PAS: 'http://134.187.212.124:5353/pas',
-        PAS: 'http://localhost:3001/pas',
+        SPA: 'http://testapphubapi.technology.ca.gov/spa',
+        // SPA: 'http://localhost:3001/spa',
+        PAS: 'http://134.187.212.124:5353/pas',
+        // PAS: 'http://localhost:3001/pas',
       }),
     }),
 
