@@ -211,7 +211,7 @@ export default handleActions({
       .getIn(['report', 'data', `${C.REPORT.NO_MANAGER}`])
       .filter((e) => e.get(C.AUTH.ID) !== valid);
 
-    newState = newState.setIn(['report', 'data', C.REPORT.NO_MANAGER], fromJS(noManagers));
+    newState = newState.setIn(['report', 'data', `${C.REPORT.NO_MANAGER}`], fromJS(noManagers));
 
     // add to all
     const all = newState

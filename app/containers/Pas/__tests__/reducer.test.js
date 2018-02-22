@@ -7,29 +7,32 @@ import * as C from '../constants';
 
 const authorizations = {
   byId: {
-    A: { managerSID: 'CZS', lastUpdated: '1', authYear: 2018, managerFullName: 'Al1 Smith', created: '2011-01-01', lastApproved: '2012-02-02', sid: 'AS', app1: 1, app2: 1, app3: 1, app4: 1, status: 'active', fullName: 'joe1 franks', _id: 'A', email: 'a@b.com', posNumber: 'd13' },
-    B: { managerSID: 'AYS', lastUpdated: '1', authYear: 2018, managerFullName: 'Al2 Smith', created: '2011-01-01', lastApproved: '2012-02-02', sid: 'BS', app1: 1, app2: 1, app3: 0, app4: 1, status: 'active', fullName: 'joe2 franks', _id: 'B', email: 'a@b.com', posNumber: 'd13' },
-    C: { managerSID: '', lastUpdated: '1', authYear: 2018, managerFullName: '', created: '2011-01-01', lastApproved: '2012-02-02', sid: 'CS', app1: 1, app2: 1, app3: 1, app4: 1, status: 'noManager', fullName: 'joe3 franks', _id: 'C', email: 'a@b.com', posNumber: 'd13' },
-    D: { managerSID: 'AXS', lastUpdated: '1', authYear: 2018, managerFullName: 'Al4 Smith', created: '2011-01-01', lastApproved: '2012-02-02', sid: 'DS', app1: 1, app2: 1, app3: 1, app4: 1, status: 'assignedManager', fullName: 'joe4 franks', _id: 'D', email: 'a@b.com', posNumber: 'd13' },
+    A: { [C.AUTH.MANAGER_SID]: 'CZS', [C.AUTH.LAST_MODIFIED]: '1', [C.AUTH.AUTH_YEAR]: 2018, [C.AUTH.MANAGER_NAME]: 'Al1 Smith', created: '2011-01-01', lastApproved: '2012-02-02', sid: 'AS', app1: 1, app2: 1, app3: 1, app4: 1, status: C.STATUS.ACTIVE, fullName: 'joe1 franks', [C.AUTH.ID]: 'A', [C.AUTH.EMAIL]: 'a@b.com', [C.AUTH.POS_NUMBER]: 'd13' },
+    B: { [C.AUTH.MANAGER_SID]: 'AYS', [C.AUTH.LAST_MODIFIED]: '1', [C.AUTH.AUTH_YEAR]: 2018, [C.AUTH.MANAGER_NAME]: 'Al2 Smith', created: '2011-01-01', lastApproved: '2012-02-02', sid: 'BS', app1: 1, app2: 1, app3: 0, app4: 1, status: C.STATUS.ACTIVE, fullName: 'joe2 franks', [C.AUTH.ID]: 'B', [C.AUTH.EMAIL]: 'a@b.com', [C.AUTH.POS_NUMBER]: 'd13' },
+    C: { [C.AUTH.MANAGER_SID]: '', [C.AUTH.LAST_MODIFIED]: '1', [C.AUTH.AUTH_YEAR]: 2018, [C.AUTH.MANAGER_NAME]: '', created: '2011-01-01', lastApproved: '2012-02-02', sid: 'CS', app1: 1, app2: 1, app3: 1, app4: 1, status: C.STATUS.NO_MANAGER, fullName: 'joe3 franks', [C.AUTH.ID]: 'C', [C.AUTH.EMAIL]: 'c@b.com', [C.AUTH.POS_NUMBER]: 'd13' },
+    D: { [C.AUTH.MANAGER_SID]: 'AXS', [C.AUTH.LAST_MODIFIED]: '1', [C.AUTH.AUTH_YEAR]: 2018, [C.AUTH.MANAGER_NAME]: 'Al4 Smith', created: '2011-01-01', lastApproved: '2012-02-02', sid: 'DS', app1: 1, app2: 1, app3: 1, app4: 1, status: C.STATUS.ASSIGNED_MANAGER, fullName: 'joe4 franks', [C.AUTH.ID]: 'D', [C.AUTH.EMAIL]: 'd@b.com', [C.AUTH.POS_NUMBER]: 'd13' },
+    E: { [C.AUTH.MANAGER_SID]: 'AXS', [C.AUTH.LAST_MODIFIED]: '1', [C.AUTH.AUTH_YEAR]: 2018, [C.AUTH.MANAGER_NAME]: 'Al5 Smith', created: '2011-01-01', lastApproved: '2012-02-02', sid: 'ES', app1: 1, app2: 1, app3: 1, app4: 1, status: C.STATUS.ASSIGNED_MANAGER, fullName: 'joe5 franks', [C.AUTH.ID]: 'E', [C.AUTH.EMAIL]: 'e@b.com', [C.AUTH.POS_NUMBER]: 'd13' },
+    F: { [C.AUTH.MANAGER_SID]: 'AXS', [C.AUTH.LAST_MODIFIED]: '1', [C.AUTH.AUTH_YEAR]: 2018, [C.AUTH.MANAGER_NAME]: 'Al6 Smith', created: '2011-01-01', lastApproved: '2012-02-02', sid: 'FS', app1: 1, app2: 1, app3: 1, app4: 1, status: C.STATUS.INACTIVE, fullName: 'joe6 franks', [C.AUTH.ID]: 'F', [C.AUTH.EMAIL]: 'f@b.com', [C.AUTH.POS_NUMBER]: 'd13' },
+    G: { [C.AUTH.MANAGER_SID]: 'AXS', [C.AUTH.LAST_MODIFIED]: '1', [C.AUTH.AUTH_YEAR]: 2018, [C.AUTH.MANAGER_NAME]: 'Al7 Smith', created: '2011-01-01', lastApproved: '2012-02-02', sid: 'GS', app1: null, app2: null, app3: null, app4: null, status: C.STATUS.INACTIVE, fullName: 'joe7 franks', [C.AUTH.ID]: 'G', [C.AUTH.EMAIL]: 'g@b.com', [C.AUTH.POS_NUMBER]: 'd13' },
   },
-  allIds: ['A', 'B', 'C', 'D'],
+  allIds: [],
 };
+
+authorizations.allIDs = Object.values(authorizations.byId).map((item) => item[C.AUTH.ID]);
 
 const manager = {
 };
 
 const data = {
-  all: [
-    authorizations.byId.A,
-    authorizations.byId.B,
-    authorizations.byId.C,
-    authorizations.byId.D,
-  ],
-  [C.REPORT.APPROVED]: [authorizations.byId.A],
-  [C.REPORT.DENIED]: [authorizations.byId.B],
-  [C.REPORT.PENDING]: [],
-  [C.REPORT.NO_MANAGER]: [authorizations.byId.C],
-  [C.STATUS.ASSIGNED_MANAGER]: [authorizations.byId.D],
+  all: Object.values(authorizations.byId),
+  [C.REPORT.APPROVED]: Object.values(authorizations.byId).filter((item) => C.APP_LIST.every((app) => item[app] === 1))
+                       .filter((item) => item[C.AUTH.STATUS] !== C.STATUS.NO_MANAGER),
+  [C.REPORT.DENIED]: Object.values(authorizations.byId).filter((item) => C.APP_LIST.some((app) => item[app] === 0))
+                        .filter((item) => item[C.AUTH.STATUS] !== C.STATUS.NO_MANAGER),
+  [C.REPORT.PENDING]: Object.values(authorizations.byId).filter((item) => C.APP_LIST.every((app) => item[app] === null))
+                        .filter((item) => item[C.AUTH.STATUS] !== C.STATUS.NO_MANAGER),
+  [C.REPORT.NO_MANAGER]: Object.values(authorizations.byId).filter((item) => item[C.AUTH.STATUS] === C.STATUS.NO_MANAGER),
+  [C.STATUS.ASSIGNED_MANAGER]: Object.values(authorizations.byId).filter((item) => item[C.AUTH.STATUS] === C.STATUS.ASSIGNED_MANAGER),
 };
 
 const report = {
@@ -60,72 +63,108 @@ describe('pasReducer', () => {
     expect(pasReducer(undefined, {})).toEqual(fromJS(initialState));
   });
 
-
-  // TODO!>..
-  describe('UPDATE_USER_MANAGER_SUCCESS', () => {
+  describe('GET_MANAGER_DATA_SUCCESS', () => {
     let actual;
     let expected;
-    let b;
-    beforeEach(() => {
-      payload = { manager: authorizations.byId.A, employee: authorizations.byId.B };
-      action = { type: C.UPDATE_USER_MANAGER_SUCCESS, payload };
-      b = Object.assign({},authorizations.byId.B);
-      b[C.AUTH.STATUS] = C.STATUS.ASSIGNED_MANAGER;
-      b[C.AUTH.MANAGER_NAME] = authorizations.byId.A[C.AUTH.FULL_NAME];
-      b[C.AUTH.MANAGER_SID] = authorizations.byId.A[C.AUTH.SID];
+     beforeEach(() => {
+      payload =  Object.values(authorizations.byId); //  Object.values(authorizations.byId);
+      action = { type: C.GET_MANAGER_DATA_SUCCESS, payload };
+    });
+    it('set currentids', () => {
       actual = pasReducer(fromJS(state), action);
-     });
-
-    it('should remove from nomanagerlist', () => {
-      expected = [ authorizations.byId.D, b ];
-      expect(actual.getIn(['report', 'data', 'assignedManager']).toJS()).toEqual(expected);
+      expect(actual.getIn(['manager', 'currentIds']).size).toEqual(4);
     });
-
-    it('should add to data.all with updated values', () => {
-      expected = [ authorizations.byId.A, authorizations.byId.C, authorizations.byId.D, b ];
-      expect(actual.getIn(['report', 'data', 'all']).toJS()).toEqual(expected);
+    it('set previousIds', () => {
+      actual = pasReducer(fromJS(state), action);
+      expect(actual.getIn(['manager', 'previousIds']).size).toEqual(3);  //takes the pending and the nomanager
     });
-
-    it('should add to data.pending with updated values', () => {
-      expected = [ b ];
-      expect(actual.getIn(['report', 'data', `${C.REPORT.PENDING}`]).toJS()).toEqual(expected);
+    it('set allIds', () => {
+      actual = pasReducer(fromJS(state), action);
+      expect(actual.getIn(['manager', 'allIds']).size).toEqual(7);  //takes the pending and the nomanager
     });
   });
-
 
   describe('UPDATE_USERS_SUCCESS', () => {
     let actual;
     let expected;
     let b;
     beforeEach(() => {
-      b = Object.assign({},authorizations.byId.B);
-      b[C.APPS.APP_3] = 1;
-      b[C.AUTH.MANAGER_NAME] = authorizations.byId.A[C.AUTH.FULL_NAME];
-      b[C.AUTH.MANAGER_SID] = authorizations.byId.A[C.AUTH.SID];
-      payload = [b];
+      payload = Object.values(authorizations.byId);
       action = { type: C.UPDATE_USERS_SUCCESS, payload };
     });
 
     it('should add to data.approved with updated values', () => {
       actual = pasReducer(fromJS(state), action);
-      expected = [authorizations.byId.A, b ];
-     expect(actual.getIn(['report', 'data', `${C.REPORT.APPROVED}`]).size).toEqual(2);
+      expect(actual.getIn(['report', 'data', `${C.REPORT.APPROVED}`]).size).toEqual(5);
     });
-    it('should remove from data.denied', () => {
+    it('should add to data.denied', () => {
       actual = pasReducer(fromJS(state), action);
-      expected = [ ];
-      expect(actual.getIn(['report', 'data', `${C.REPORT.DENIED}`]).toJS()).toEqual(expected);
+      expect(actual.getIn(['report', 'data', `${C.REPORT.DENIED}`]).size).toEqual(1);
     });
 
     it('should put back in assignedManager', () => {
-      let d = Object.assign({},authorizations.byId.D);
-      payload = [d];
-      action = { type: C.UPDATE_USERS_SUCCESS, payload };
       actual = pasReducer(fromJS(state), action);
-      expected = [ d ];
-      expect(actual.getIn(['report', 'data', `${C.STATUS.ASSIGNED_MANAGER}`]).size).toEqual(1);
+      expect(actual.getIn(['report', 'data', `${C.STATUS.ASSIGNED_MANAGER}`]).size).toEqual(2);
       expect(actual.getIn(['report', 'data', `${C.STATUS.ASSIGNED_MANAGER}`]).toJS()[0][C.AUTH.ID]).toEqual('D');
+      expect(actual.getIn(['report', 'data', `${C.STATUS.ASSIGNED_MANAGER}`]).toJS()[1][C.AUTH.ID]).toEqual('E');
     });
 
   });
+
+
+  describe('GET_REPORT_DATA_SUCCESS', () => {
+    let actual;
+    let expected;
+     beforeEach(() => {
+      payload = { data:Object.values(authorizations.byId) };
+      action = { type: C.GET_REPORT_DATA_SUCCESS, payload };
+      actual = pasReducer(fromJS(state), action);
+    });
+    it('set ASSIGNED_MANAGER', () => {
+      expect(actual.getIn(['report', 'data', `${C.STATUS.ASSIGNED_MANAGER}`]).size).toEqual(2);
+    });
+    it('set NO_MANAGER', () => {
+      expect(actual.getIn(['report', 'data', `${C.REPORT.NO_MANAGER}`]).size).toEqual(1);
+    });
+    it('set APPROVED', () => {
+      expect(actual.getIn(['report', 'data', `${C.REPORT.APPROVED}`]).size).toEqual(4);
+    });
+    it('set any denied', () => {
+      expect(actual.getIn(['report', 'data', `${C.REPORT.DENIED}`]).size).toEqual(1);
+    });
+    it('set PENDING', () => {
+      expect(actual.getIn(['report', 'data', `${C.REPORT.PENDING}`]).size).toEqual(1);
+    });
+  });
+
+  describe('UPDATE_USER_MANAGER_SUCCESS', () => {
+    let actual;
+    let expected;
+    let b;
+    beforeEach(() => {
+      expect(state.report.data[C.REPORT.NO_MANAGER].length).toEqual(1);
+      expect(state.report.data[C.REPORT.PENDING].length).toEqual(1);
+      payload = { manager: authorizations.byId.A, employee: authorizations.byId.C };
+      action = { type: C.UPDATE_USER_MANAGER_SUCCESS, payload };
+      actual = pasReducer(fromJS(state), action);
+     });
+
+    it('should remove from nomanagerlist', () => {
+      expected = report.data[C.REPORT.NO_MANAGER].filter((item) => item[C.AUTH.ID] !== authorizations.byId.C[C.AUTH.ID]);
+      expect(actual.getIn(['report', 'data', `${C.REPORT.NO_MANAGER}`]).toJS()).toEqual(expected);
+    });
+
+    it('should add to data.all with updated values', () => {
+      expect(actual.getIn(['report', 'data', 'all']).size).toEqual(7);
+    });
+
+    it('should add to data.pending with updated values', () => {
+      // id C should be removed from no manager and placed in pending..
+      expect(actual.getIn(['report', 'data', `${C.REPORT.PENDING}`]).size).toEqual(2);
+      expect(actual.getIn(['report', 'data', `${C.REPORT.NO_MANAGER}`]).size).toEqual(0);
+     });
+  });
+
+
+
 });
