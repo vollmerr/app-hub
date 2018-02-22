@@ -23,7 +23,7 @@ const initializeIcons = () => {
       settingsMenu: '\uE035',
       appHubMenu: '\uE303',
       // __APPS__
-      Pas: 'TODO',
+      Pas: '\uF8F3',
       Spa: '\uE0A2',
       ED: '\uE417',
       Loading: '\uF8FD',
