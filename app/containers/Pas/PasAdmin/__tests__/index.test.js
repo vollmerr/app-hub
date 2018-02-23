@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Selection } from 'office-ui-fabric-react/lib/DetailsList';
 
 import { testProps, testMapDispatchToProps } from '../../../../utils/testUtils';
 import * as api from '../../../../utils/api';
@@ -11,7 +12,9 @@ import {
   updateUserManagerRequest,
 } from '../../actions';
 
-import { PasAdmin, mapDispatchToProps } from '../index';
+import { PasAdmin, mapDispatchToProps, Section } from '../index';
+
+const List = require.requireActual('../../../../components/List');
 
 
 const data = {
@@ -31,6 +34,7 @@ const data = {
 
 const props = {
   app: testProps.app,
+  flex: 1,
   report: {
     key: C.REPORT.DENIED,
     lastFetched: '01/02/1969',
@@ -61,6 +65,44 @@ const expUserManagerUpdateProps = {
 };
 
 
+// describe('<PasAdmin />', () => {
+//   let wrapper;
+//   let instance;
+//   it('should show flex if not set', async () => {
+//     props.flex = undefined;
+//     wrapper = shallow(<PasAdmin {...props} />);
+//     instance = wrapper.instance();
+//     instance.form = form;
+//     jest.resetAllMocks();
+//     api.shouldFetch = jest.fn(() => true);
+//     await instance.componentDidMount();
+//     await instance.render();
+//     expect(wrapper).toMatchSnapshot();
+//   });
+//   it('should show flex if set', () => {
+//     props.flex = 2;
+//     wrapper = shallow(<PasAdmin {...props} />);
+//     instance = wrapper.instance();
+//     instance.form = form;
+//     expect(wrapper).toMatchSnapshot();
+//   });
+// });
+describe('<Section />', () => {
+  let wrapper;
+  beforeEach(() => {
+    wrapper = shallow(<Section />);
+  });
+
+  it('should render correctly with default flex 1', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('should render correctly with flex 10', () => {
+    wrapper.setProps({ flex: 10 });
+    expect(wrapper).toMatchSnapshot();
+  });
+});
+
 describe('<PasAdmin />', () => {
   let wrapper;
   let instance;
@@ -68,6 +110,30 @@ describe('<PasAdmin />', () => {
     wrapper = shallow(<PasAdmin {...props} />);
     instance = wrapper.instance();
     instance.form = form;
+  });
+
+  describe('this.selectionNoManager', () => {
+    it('should be an instance of `Selection`', () => {
+      expect(instance.selectionNoManager).toBeInstanceOf(Selection);
+    });
+
+    it('should call `handleSelectItem` when an item changes', () => {
+      List.handleSelectItem = jest.fn();
+      instance.selectionNoManager._onSelectionChanged(); // eslint-disable-line
+      expect(List.handleSelectItem).toHaveBeenCalled();
+    });
+  });
+
+  describe('this.selectionAssignedManager', () => {
+    it('should be an instance of `Selection`', () => {
+      expect(instance.selectionAssignedManager).toBeInstanceOf(Selection);
+    });
+
+    it('should call `handleSelectItem` when an item changes', () => {
+      List.handleSelectItem = jest.fn();
+      instance.selectionAssignedManager._onSelectionChanged(); // eslint-disable-line
+      expect(List.handleSelectItem).toHaveBeenCalled();
+    });
   });
 
 
@@ -134,6 +200,15 @@ describe('<PasAdmin />', () => {
 
   describe('render', () => {
     it('should render correctly', () => {
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should render correctly with flex set', () => {
+      wrapper.setProps({ flex: 5 });
+      expect(wrapper).toMatchSnapshot();
+    });
+    it('should render correctly with flex not set', () => {
+      wrapper.setProps({ flex: undefined });
       expect(wrapper).toMatchSnapshot();
     });
 

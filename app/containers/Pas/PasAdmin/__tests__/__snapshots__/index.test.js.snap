@@ -138,6 +138,282 @@ exports[`<PasAdmin /> render should render correctly 1`] = `
 </PasAdmin__Wrapper>
 `;
 
+exports[`<PasAdmin /> render should render correctly with flex not set 1`] = `
+<PasAdmin__Wrapper>
+  <PasAdmin__Section
+    flex={2}
+  >
+    <PasAdmin__StyledList
+      columns={
+        Array [
+          Object {
+            "ariaLabel": "Full Name of the Employee",
+            "data": Object {},
+            "fieldName": "fullName",
+            "isResizable": true,
+            "isSortedDescending": true,
+            "key": "fullName",
+            "maxWidth": 150,
+            "minWidth": 100,
+            "name": "Full Name",
+            "notSortable": false,
+          },
+        ]
+      }
+      items={Array []}
+      selection={
+        Selection {
+          "_anchoredIndex": 0,
+          "_canSelectItem": [Function],
+          "_changeEventSuppressionCount": 0,
+          "_exemptedCount": 0,
+          "_exemptedIndices": Object {},
+          "_getKey": [Function],
+          "_isModal": false,
+          "_items": Array [],
+          "_keyToIndexMap": Object {},
+          "_onSelectionChanged": [Function],
+          "_selectedItems": null,
+          "_unselectableCount": 0,
+          "_unselectableIndices": Object {},
+          "mode": 2,
+        }
+      }
+      sortBy={
+        Array [
+          "fullName",
+        ]
+      }
+      style={
+        Object {
+          "count": 2,
+          "padding": 10,
+        }
+      }
+      title="No Manager"
+    />
+    <PasAdmin__StyledList
+      columns={
+        Array [
+          Object {
+            "ariaLabel": "Full Name of the Employee",
+            "data": Object {},
+            "fieldName": "fullName",
+            "isResizable": true,
+            "isSortedDescending": true,
+            "key": "fullName",
+            "maxWidth": 150,
+            "minWidth": 100,
+            "name": "Full Name",
+            "notSortable": false,
+          },
+          Object {
+            "ariaLabel": "Full Name of the Employee's Manager",
+            "data": Object {},
+            "fieldName": "managerFullName",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "managerFullName",
+            "maxWidth": 200,
+            "minWidth": 100,
+            "name": "Manager Name",
+            "notSortable": false,
+          },
+        ]
+      }
+      selection={
+        Selection {
+          "_anchoredIndex": 0,
+          "_canSelectItem": [Function],
+          "_changeEventSuppressionCount": 0,
+          "_exemptedCount": 0,
+          "_exemptedIndices": Object {},
+          "_getKey": [Function],
+          "_isModal": false,
+          "_items": Array [],
+          "_keyToIndexMap": Object {},
+          "_onSelectionChanged": [Function],
+          "_selectedItems": null,
+          "_unselectableCount": 0,
+          "_unselectableIndices": Object {},
+          "mode": 2,
+        }
+      }
+      sortBy={
+        Array [
+          "fullName",
+        ]
+      }
+      style={
+        Object {
+          "count": 2,
+          "padding": 10,
+        }
+      }
+      title="Assigned Manager"
+    />
+  </PasAdmin__Section>
+  <PasAdmin__Section>
+    <ReactFinalForm(3.0.0)(2.1.0)
+      initialValues={
+        Object {
+          "employeeName": "Select an Employee",
+          "employee_id": undefined,
+          "manager_id": undefined,
+        }
+      }
+      onSubmit={[Function]}
+      render={[Function]}
+      subscription={
+        Object {
+          "pristine": true,
+          "submitting": true,
+        }
+      }
+      validate={[Function]}
+    />
+  </PasAdmin__Section>
+</PasAdmin__Wrapper>
+`;
+
+exports[`<PasAdmin /> render should render correctly with flex set 1`] = `
+<PasAdmin__Wrapper>
+  <PasAdmin__Section
+    flex={2}
+  >
+    <PasAdmin__StyledList
+      columns={
+        Array [
+          Object {
+            "ariaLabel": "Full Name of the Employee",
+            "data": Object {},
+            "fieldName": "fullName",
+            "isResizable": true,
+            "isSortedDescending": true,
+            "key": "fullName",
+            "maxWidth": 150,
+            "minWidth": 100,
+            "name": "Full Name",
+            "notSortable": false,
+          },
+        ]
+      }
+      items={Array []}
+      selection={
+        Selection {
+          "_anchoredIndex": 0,
+          "_canSelectItem": [Function],
+          "_changeEventSuppressionCount": 0,
+          "_exemptedCount": 0,
+          "_exemptedIndices": Object {},
+          "_getKey": [Function],
+          "_isModal": false,
+          "_items": Array [],
+          "_keyToIndexMap": Object {},
+          "_onSelectionChanged": [Function],
+          "_selectedItems": null,
+          "_unselectableCount": 0,
+          "_unselectableIndices": Object {},
+          "mode": 2,
+        }
+      }
+      sortBy={
+        Array [
+          "fullName",
+        ]
+      }
+      style={
+        Object {
+          "count": 2,
+          "padding": 10,
+        }
+      }
+      title="No Manager"
+    />
+    <PasAdmin__StyledList
+      columns={
+        Array [
+          Object {
+            "ariaLabel": "Full Name of the Employee",
+            "data": Object {},
+            "fieldName": "fullName",
+            "isResizable": true,
+            "isSortedDescending": true,
+            "key": "fullName",
+            "maxWidth": 150,
+            "minWidth": 100,
+            "name": "Full Name",
+            "notSortable": false,
+          },
+          Object {
+            "ariaLabel": "Full Name of the Employee's Manager",
+            "data": Object {},
+            "fieldName": "managerFullName",
+            "isResizable": true,
+            "isSortedDescending": undefined,
+            "key": "managerFullName",
+            "maxWidth": 200,
+            "minWidth": 100,
+            "name": "Manager Name",
+            "notSortable": false,
+          },
+        ]
+      }
+      selection={
+        Selection {
+          "_anchoredIndex": 0,
+          "_canSelectItem": [Function],
+          "_changeEventSuppressionCount": 0,
+          "_exemptedCount": 0,
+          "_exemptedIndices": Object {},
+          "_getKey": [Function],
+          "_isModal": false,
+          "_items": Array [],
+          "_keyToIndexMap": Object {},
+          "_onSelectionChanged": [Function],
+          "_selectedItems": null,
+          "_unselectableCount": 0,
+          "_unselectableIndices": Object {},
+          "mode": 2,
+        }
+      }
+      sortBy={
+        Array [
+          "fullName",
+        ]
+      }
+      style={
+        Object {
+          "count": 2,
+          "padding": 10,
+        }
+      }
+      title="Assigned Manager"
+    />
+  </PasAdmin__Section>
+  <PasAdmin__Section>
+    <ReactFinalForm(3.0.0)(2.1.0)
+      initialValues={
+        Object {
+          "employeeName": "Select an Employee",
+          "employee_id": undefined,
+          "manager_id": undefined,
+        }
+      }
+      onSubmit={[Function]}
+      render={[Function]}
+      subscription={
+        Object {
+          "pristine": true,
+          "submitting": true,
+        }
+      }
+      validate={[Function]}
+    />
+  </PasAdmin__Section>
+</PasAdmin__Wrapper>
+`;
+
 exports[`<PasAdmin /> renderForm should return a FormSection 1`] = `
 <PasAdmin__StyledForm
   onSubmit={[Function]}
@@ -186,4 +462,58 @@ exports[`<PasAdmin /> renderForm should return a FormSection 1`] = `
     reset={[Function]}
   />
 </PasAdmin__StyledForm>
+`;
+
+exports[`<Section /> should render correctly with default flex 1 1`] = `
+.c0 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  min-height: 300px;
+}
+
+@media (min-width: 430px) {
+  .c0 {
+    min-width: 390px;
+  }
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`<Section /> should render correctly with flex 10 1`] = `
+.c0 {
+  -webkit-flex: 10;
+  -ms-flex: 10;
+  flex: 10;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  min-height: 300px;
+}
+
+@media (min-width: 430px) {
+  .c0 {
+    min-width: 390px;
+  }
+}
+
+<div
+  className="c0"
+/>
 `;
