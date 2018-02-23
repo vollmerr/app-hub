@@ -13,6 +13,7 @@ import * as actions from '../actions';
 
 const data = { authorizations: ['1', '2'] };
 const error = { message: 'test error' };
+const dataUsermanager = { employee_id: 'B', manager_id: 'a' };
 
 let action;
 
@@ -115,6 +116,29 @@ describe('updateUsers', () => {
     const errGen = sagas.updateUsers(action);
     errGen.next();
     expect(errGen.throw(error).value).toEqual(put(actions.updateUsersFailure(error)));
+    expect(errGen.next()).toEqual({ done: true, value: undefined });
+  });
+});
+
+describe('updateUserManager', () => {
+  it('should call the api with data and update the store with its results', () => {
+    action = { payload: dataUsermanager };
+    const options = {
+      method: 'POST',
+      body: [action.payload],
+    };
+
+    const url = `${sagas.base}/manager`;
+    testSaga(sagas.updateUserManager, action).next()
+      .call(requestWithToken, url, options).next(dataUsermanager)
+      .put(actions.updateUserManagerSuccess(dataUsermanager)).next()
+      .finish().isDone();
+  });
+
+  it('should handle errors', () => {
+    const errGen = sagas.updateUserManager(action);
+    errGen.next();
+    expect(errGen.throw(error).value).toEqual(put(actions.updateUserManagerFailure(error)));
     expect(errGen.next()).toEqual({ done: true, value: undefined });
   });
 });

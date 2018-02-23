@@ -43,6 +43,22 @@ const state = fromJS({ pas });
 
 
 describe('pas selectors', () => {
+  describe('selectById', () => {
+    it('should get the proper id', () => {
+      const selector = selectors.selectById;
+      const expected = state.byId;
+      expect(selector(state)).toEqual(fromJS(expected));
+    });
+  });
+
+  describe('getManagerBy', () => {
+    it('should return a Map of authorizations for the manager based off the type passed', () => {
+      const selector = selectors.getManager;
+      const expected = pas.manager;
+      expect(selector(state)).toEqual(fromJS(expected));
+    });
+  });
+
   describe('getManagerById', () => {
     it('should return a Map of authorizations for the manager based off the type passed', () => {
       const selector = selectors.getManagerById('current');
