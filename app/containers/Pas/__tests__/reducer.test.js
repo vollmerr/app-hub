@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { fromJS } from 'immutable';
 
 import pasReducer, { initialState } from '../reducer';
@@ -52,11 +51,9 @@ const state = {
 // console.log('state.report=',state.report);
 
 describe('pasReducer', () => {
-  let expected;
   let action;
   let payload;
   beforeEach(() => {
-    expected = fromJS(initialState);
   });
 
   it('should return the initial state', () => {
@@ -65,9 +62,8 @@ describe('pasReducer', () => {
 
   describe('GET_MANAGER_DATA_SUCCESS', () => {
     let actual;
-    let expected;
-     beforeEach(() => {
-      payload =  Object.values(authorizations.byId); //  Object.values(authorizations.byId);
+    beforeEach(() => {
+      payload = Object.values(authorizations.byId); //  Object.values(authorizations.byId);
       action = { type: C.GET_MANAGER_DATA_SUCCESS, payload };
     });
     it('set currentids', () => {
@@ -76,18 +72,16 @@ describe('pasReducer', () => {
     });
     it('set previousIds', () => {
       actual = pasReducer(fromJS(state), action);
-      expect(actual.getIn(['manager', 'previousIds']).size).toEqual(3);  //takes the pending and the nomanager
+      expect(actual.getIn(['manager', 'previousIds']).size).toEqual(3);  // takes the pending and the nomanager
     });
     it('set allIds', () => {
       actual = pasReducer(fromJS(state), action);
-      expect(actual.getIn(['manager', 'allIds']).size).toEqual(7);  //takes the pending and the nomanager
+      expect(actual.getIn(['manager', 'allIds']).size).toEqual(7);  // takes the pending and the nomanager
     });
   });
 
   describe('UPDATE_USERS_SUCCESS', () => {
     let actual;
-    let expected;
-    let b;
     beforeEach(() => {
       payload = Object.values(authorizations.byId);
       action = { type: C.UPDATE_USERS_SUCCESS, payload };
@@ -109,14 +103,19 @@ describe('pasReducer', () => {
       expect(actual.getIn(['report', 'data', `${C.STATUS.ASSIGNED_MANAGER}`]).toJS()[1][C.AUTH.ID]).toEqual('E');
     });
 
+    it('should not crash if report.data.all is undefined', () => {
+      state.report.data.all = undefined;
+      actual = pasReducer(fromJS(state), action);
+      expect(actual.getIn(['report', 'data']).toJS().all).toEqual(undefined);
+      state.report.data.all = Object.values(authorizations.byId);
+    });
   });
 
 
   describe('GET_REPORT_DATA_SUCCESS', () => {
     let actual;
-    let expected;
-     beforeEach(() => {
-      payload = { data:Object.values(authorizations.byId) };
+    beforeEach(() => {
+      payload = { data: Object.values(authorizations.byId) };
       action = { type: C.GET_REPORT_DATA_SUCCESS, payload };
       actual = pasReducer(fromJS(state), action);
     });
@@ -137,17 +136,47 @@ describe('pasReducer', () => {
     });
   });
 
+  describe('SET_REPORT_KEY', () => {
+    it('should set the report key in the store', () => {
+      payload = 100;
+      action = { type: C.SET_REPORT_KEY, payload };
+      const actual = pasReducer(fromJS(state), action);
+      expect(actual.getIn(['report', 'key'])).toEqual(100);
+    });
+  });
+
+  describe('SET_REPORT_FILTER', () => {
+    it('should set the values into report filters', () => {
+      payload = { [C.AUTH.AUTH_YEAR]: '2018' };
+      action = { type: C.SET_REPORT_FILTER, payload };
+      let actual = pasReducer(fromJS(state), action);
+      expect(actual.getIn(['report', 'filters']).size).toEqual(1);
+
+      // now add a second one
+      payload = { [C.AUTH.MANAGER_SID]: 'aaaa' };
+      action = { type: C.SET_REPORT_FILTER, payload };
+      actual = pasReducer(fromJS(actual), action);
+      expect(actual.getIn(['report', 'filters']).size).toEqual(2);
+    });
+    it('should set the filters to empty if no filter passed in', () => {
+      payload = undefined;
+      action = { type: C.SET_REPORT_FILTER, payload };
+      const actual = pasReducer(fromJS(state), action);
+      expect(actual.getIn(['report', 'filters']).size).toEqual(0);
+    });
+  });
+
+
   describe('UPDATE_USER_MANAGER_SUCCESS', () => {
     let actual;
     let expected;
-    let b;
     beforeEach(() => {
       expect(state.report.data[C.REPORT.NO_MANAGER].length).toEqual(1);
       expect(state.report.data[C.REPORT.PENDING].length).toEqual(1);
       payload = { manager: authorizations.byId.A, employee: authorizations.byId.C };
       action = { type: C.UPDATE_USER_MANAGER_SUCCESS, payload };
       actual = pasReducer(fromJS(state), action);
-     });
+    });
 
     it('should remove from nomanagerlist', () => {
       expected = report.data[C.REPORT.NO_MANAGER].filter((item) => item[C.AUTH.ID] !== authorizations.byId.C[C.AUTH.ID]);
@@ -162,9 +191,6 @@ describe('pasReducer', () => {
       // id C should be removed from no manager and placed in pending..
       expect(actual.getIn(['report', 'data', `${C.REPORT.PENDING}`]).size).toEqual(2);
       expect(actual.getIn(['report', 'data', `${C.REPORT.NO_MANAGER}`]).size).toEqual(0);
-     });
+    });
   });
-
-
-
 });
